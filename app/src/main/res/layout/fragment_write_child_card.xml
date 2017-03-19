@@ -1,0 +1,259 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font"
+    android:padding="16dp"
+    android:id="@+id/rootView"
+    tools:context=".fragment.ConnectionFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="@string/fio_child"
+                android:ems="10"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/child_name" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="@string/date_of_birth"
+                android:id="@+id/choose_date_button"
+                style="@style/ButtonStyle"
+                android:background="@color/main"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/child_name"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="@string/fio_parent"
+                android:ems="10"
+                android:layout_below="@+id/choose_date_button"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/parent_name" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="@string/email"
+                android:ems="10"
+                android:layout_below="@+id/parent_name"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/email" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:hint="@string/phone"
+                android:ems="10"
+                android:layout_below="@+id/email"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/phone" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/city"
+                android:ems="10"
+                android:layout_below="@+id/phone"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/city" />
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/diagnose"
+                android:ems="10"
+                android:layout_below="@+id/city"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/diagnose" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Attention"
+                android:ems="10"
+                android:layout_below="@+id/diagnose"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/attention" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Mediation"
+                android:ems="10"
+                android:layout_below="@+id/attention"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/mediation" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Alfa 1"
+                android:ems="10"
+                android:layout_below="@+id/mediation"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/alfa1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Alfa 2"
+                android:ems="10"
+                android:layout_below="@+id/alfa1"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/alfa2" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Alfa 3"
+                android:ems="10"
+                android:layout_below="@+id/alfa2"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/alfa3" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Beta 1"
+                android:ems="10"
+                android:layout_below="@+id/alfa3"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/beta1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Beta 2"
+                android:ems="10"
+                android:layout_below="@+id/beta1"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/beta2" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Beta 3"
+                android:ems="10"
+                android:layout_below="@+id/beta2"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/beta3" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Gamma 1"
+                android:ems="10"
+                android:layout_below="@+id/beta3"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/gamma1" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Gamma 2"
+                android:ems="10"
+                android:layout_below="@+id/gamma1"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/gamma2" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Delta"
+                android:ems="10"
+                android:layout_below="@+id/gamma2"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/delta" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Theta"
+                android:ems="10"
+                android:layout_below="@+id/delta"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_marginBottom="8dp"
+                android:id="@+id/theta" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="@string/write_card"
+                android:id="@+id/write_card"
+                style="@style/ButtonStyle"
+                android:background="@color/main"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_below="@+id/theta"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <include layout="@layout/status_bci_connection"></include>
+
+</FrameLayout>

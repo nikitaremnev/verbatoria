@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="170dp">
+
+    <TextView
+        android:text="Кинестетика"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:id="@+id/title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:weightSum="5"
+        android:layout_marginTop="24dp"
+        android:layout_below="@+id/title"
+        android:id="@+id/buttonsLayout">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textSize="16sp"
+            android:minWidth="50dp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_code_form"
+            android:layout_weight="1"
+            android:id="@+id/button10"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:minWidth="50dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_code_form"
+            android:layout_weight="1"
+            android:id="@+id/button20"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40"
+            android:minWidth="50dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_code_form"
+            android:layout_weight="1"
+            android:id="@+id/button40"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="60"
+            android:minWidth="50dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_code_form"
+            android:layout_weight="1"
+            android:id="@+id/button60"
+            android:layout_marginRight="8dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="90"
+            android:minWidth="50dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:background="@drawable/btn_code_form"
+            android:layout_weight="1"
+            android:id="@+id/button90"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

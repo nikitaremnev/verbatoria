@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="main">#46B36C</color>
+    <color name="main_dark">#1D5331</color>
+    <color name="status_bar">#72CF65</color>
+    <color name="font">#FFFFC5</color>
+    <color name="blue">#2222aa</color>
+
+    <color name="yellow">#f9d616</color>
+
+    <color name="red">#BF0036</color>
+    <color name="next">#D24B1B</color>
+    <color name="back">#E59700</color>
+    <!-- statuses colors -->
+
+    <color name="lowest_color">#E59700</color>
+    <color name="low_color">#DB710D</color>
+    <color name="middle_color">#D24B1B</color>
+    <color name="high_color">#C82528</color>
+    <color name="highest_color">#BF0036</color>
+
+</resources>

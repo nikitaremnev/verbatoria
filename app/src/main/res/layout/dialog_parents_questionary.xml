@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:padding="8dp"
+    android:layout_height="match_parent">
+
+    <com.remnev.verbatoriamini.views.ViewPagerContainer
+        android:id="@+id/view_pager_container"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="140dp" />
+
+    </com.remnev.verbatoriamini.views.ViewPagerContainer>
+
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:layout_below="@+id/view_pager_container"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_height="50dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ButtonStyle"
+                android:id="@+id/back_button"
+                android:layout_alignParentLeft="true"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:text="@string/back"
+                android:textColor="@color/main"/>
+
+            <LinearLayout
+                android:id="@+id/navigationCircles"
+                android:layout_width="wrap_content"
+                android:layout_height="9dp"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:background="@android:color/transparent" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/ButtonStyle"
+                android:id="@+id/next_button"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="@string/next"
+                android:textColor="@color/main"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

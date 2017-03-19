@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">Нейроскрин-ВЦ</string>
+    <string name="title_activity_navigation_drawer">Нейроскрин-ВЦ</string>
+    <string name="navigation_drawer_open">Нейроскрин-ВЦ</string>
+    <string name="navigation_drawer_close">Нейроскрин-ВЦ</string>
+</resources>

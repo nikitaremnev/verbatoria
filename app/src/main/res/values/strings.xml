@@ -1,0 +1,239 @@
+<resources>
+
+    <string name="app_name">Нейроскрин</string>
+    <string name="title_activity_navigation_drawer">Нейроскрин</string>
+    <string name="navigation_drawer_open">Нейроскрин</string>
+    <string name="navigation_drawer_close">Нейроскрин</string>
+    <string name="nav_drawer_item_authority">Авторизация</string>
+    <string name="nav_drawer_item_main">Подключение</string>
+    <string name="nav_drawer_item_settings">Настройки</string>
+    <string name="nav_drawer_item_scanning">Изучение новых слов</string>
+
+    <string name="email_to_send">monitor@verbatoria.ru</string>
+
+    <string name="ok">OK</string>
+
+    <string name="settings">Настройки</string>
+    <string name="language">Язык</string>
+
+    <string name="drawer_line">Нет ложных надежд - есть ложное разочарование</string>
+
+    <string name="nav_drawer_statistics">Attention Статистика</string>
+    <string name="nav_drawer_raw">Внимание +</string>
+
+    <string name="bci_stop">Остановить запись</string>
+    <string name="export_to_excel">Заказ нейрометрик</string>
+
+    <string name="noData">Нет данных</string>
+
+    <string name="bluetoothDisabled">Bluetooth выключен!</string>
+    <string name="youHaveNotBluetooth">В устройстве отсутствует Bluetooth!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="connection_lost">Соединение потеряно</string>
+    <string name="no_device">Устройство не обнаружено</string>
+    <string name="connected">Успешно подключено</string>
+    <string name="connecting">Идет соединение...</string>
+
+    <string name="bci_started">Запись в базу данных начата</string>
+    <string name="bci_notify">Обратите внимание, запись потоков BCI в базу данных приостановлена!</string>
+    <string name="bci_stopped">Запись в базу данных приостановлена</string>
+    <string name="bci_resumed">Запись в базу данных возоблена</string>
+    <string name="bci_resume">Возобновить запись потоков BCI</string>
+
+    <string name="date_of_birth">Дата рождения</string>
+
+    <string name="no_name">Укажите имя ребёнка</string>
+    <string name="choose_date_hint">Для выбора года рождения ребенка, нажмите на год в левом верхнем углу диалогового окна</string>
+
+    <string name="no_age">Не введен возраст ребёнка</string>
+    <string name="no_diagnose">Не введен диагноз исследования</string>
+    <string name="no_verbatolog_name">Не введено имя вербатолога</string>
+    <string name="no_random_label">Не введен номер нейрометрики</string>
+    <string name="no_date_chosen">Не выбрана дата рождения</string>
+    <string name="cannot_create_directory">Невозможно создать директорию Export</string>
+    <string name="cannot_create_file">Невозможно создать файл</string>
+
+    <string name="generate_xls_file">Генерация файла отчета</string>
+    <string name="generate_xls_file_success">Файл успешно сгенерирован</string>
+    <string name="generate_xls_file_fail">Произошла ошибка</string>
+
+    <string name="fio">ФИО ребенка</string>
+    <string name="fio_verbatolog">ФИО Вербатолога</string>
+    <string name="random_label">Номер нейрометрики</string>
+
+    <string name="RECORD_START_STRING">Запись</string>
+    <string name="RECORD_END_STRING">Конец</string>
+    <string name="WORD_START_STRING">Старт</string>
+    <string name="WORD_END_STRING">Время вышло</string>
+    <string name="WORD_FAIL_STRING">Ошибка</string>
+    <string name="WORD_SUCCESS_STRING">Успех</string>
+    <string name="WORD_SKIP_STRING">Пропуск</string>
+    <string name="CONNECT_STRING">Коннект</string>
+    <string name="DISCONNECT_STRING">Дисконнект</string>
+    <string name="LEARN_MODE_STRING">УЧИТЬСЯ</string>
+    <string name="MODULES_MODE_STRING">МОДУЛИ</string>
+    <string name="TEACHER_MODE_STRING">УЧИТЕЛЬ</string>
+    <string name="ANOTHER_MODE_STRING">ДРУГОЙ</string>
+
+    <string name="input_event_label">Код нагрузки</string>
+    <string name="write_event">Начать нагрузку</string>
+    <string name="success_write_event">Событие успешно записано в базу данных</string>
+    <string name="clean_database_question">Очистить базу при экспорте?</string>
+    <string name="continue_writing">Продолжить запись</string>
+    <string name="clean_database">Очистить</string>
+    <string name="where_to_send_file">Куда отправить файл...</string>
+
+    <string name="generating_xls_message">Данные сформированы и будут отправлены для расшифровки в ВЦ Вербатория. Убедитесь, что файл отправлен из почтового приложения. Записи сеанса будут автоматически сброшены</string>
+
+    <string name="LABEL">МЕТКА</string>
+
+    <string name="standart_written">Успешно записано стандартное событие</string>
+
+    <string name="nav_drawer_item_address">Адрес ВЦ Вербатория</string>
+    <string name="nav_drawer_item_write_child">Карточки ребенка</string>
+    <string name="nav_drawer_item_write_specialist">Сертификаты</string>
+    <string name="nav_drawer_item_codes">Коды нагрузок</string>
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+
+    <string name="address_saved">Адрес ВЦ Вербатория</string>
+
+    <string name="fio_child">ФИО Ребенка</string>
+    <string name="fio_specialist">ФИО Специалиста</string>
+    <string name="fio_parent">ФИО Взрослого</string>
+
+
+    <string name="email">Контактная почта</string>
+    <string name="phone">Контактный номер телефона</string>
+    <string name="city">Город</string>
+    <string name="diagnose">Диагноз</string>
+    <string name="write_card">Записать сертификат</string>
+    <string name="write_code">Записать код нагрузки</string>
+    <string name="error_write_child">Пожалуйста, заполните все поля</string>
+    <string name="error_write_code">Пожалуйста, заполните код нагрузки</string>
+
+    <string name="write_card_error">Произошла ошибка, возможно, карточка недоступна для записи</string>
+    <string name="write_card_success">Карточка ребенка успешно записана!</string>
+    <string name="write_card_specialist_success">Сертификат успешно записан!</string>
+    <string name="write_card_code_success">Код нагрузки успешно записан!</string>
+    <string name="incorrect_code">Некорректный код нагрузки!</string>
+
+    <string name="scanning">СКАНИРОВАНИЕ</string>
+    <string name="scanning_autority">Для начала сеанса авторизуйтесь, поднеся к телефону ваш сертификат, и дождитесь сообщения на экране</string>
+
+    <string name="tag_empty">Метка пустая или не опознана!</string>
+    <string name="tag_not_code">Метка не содержит код нагрузки!</string>
+    <string name="tag_not_correct">Код нагрузки с метки не соответствует текущему коду нагрузки!</string>
+
+    <string name="tag_not_specialist">Запись нейрометрии возможна только при наличии действительного сертификата</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <string name="authority_success">Вы успешно авторизованы как, %s. Срок действия вашего сертификата до </string>
+    <string name="authority_some_success">Вы авторизованы как, %s. Срок действия вашего сертификата до </string>
+
+    <string name="cvc_not_equal">Нарушена целостность ключа специалиста. Для получения расшифровки необходимо будет обратиться в ВЦ Вербатория! Продолжить работу в любом случае? </string>
+
+    <string name="authority_expiry">Срок действия вашего сертификата истёк. Возможность получения расшифровки нейрометрик необходимо уточнить в ВЦ Вербатория</string>
+
+    <string name="app_unstable">Приложение будет работать нестабильно. Пожалуйста, дайте необходимые разрешения в настройках приложения</string>
+
+
+    <string-array name="profiles">
+        <item>Оператор Вербатория</item>
+        <item>Логопед</item>
+        <item>Дефектолог</item>
+        <item>Невролог</item>
+        <item>Психолог</item>
+        <item>Коррекционный педагог</item>
+        <item>Родитель</item>
+        <item>Нейропсихолог</item>
+        <item>Воспитатель д/с</item>
+        <item>Тьютор</item>
+        <item>Арт-терапевт</item>
+        <item>Муз-терапевт</item>
+        <item>Другой преподаватель</item>
+    </string-array>
+
+    <string name="expiry">Срок действия</string>
+    <string name="confirm">Подтвердить</string>
+
+    <string name="certificate_expired">Срок действия сертификата истек</string>
+
+    <string name="master_cleaned">Убедитесь, что файл отправлен из почтового приложения. Записи сеанса будут автоматически сброшены</string>
+
+    <string name="send_immediately">Данные для нейрометрики успешно сохранены в БД и будут отправлены на расшифровку</string>
+
+    <string name="not_done_some_activities">Не записаны упражнения: %s. Продолжить экспорт?</string>
+
+    <string name="connection_instruction">1. Включите питание на нейроинтерфейсе, убедитесь что он работает. \n2. Нажмите на иконку соединения и дождитесь сообщения о начале записи в БД. \n3. Если запись не начата в течение 5-10 секунд, перезагрузите все устройства и попробуйте еще раз.</string>
+
+    <string name="finish_load">Завершить нагрузку</string>
+
+    <string name="no_nfc_support">Ваш телефон не поддерживает NFC!</string>
+    <string name="start_nfc">Включите, пожалуйста, NFC!</string>
+
+    <string name="choose_how_old">Выберите возраст</string>
+
+    <string-array name="years_array">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+    </string-array>
+
+    <string name="age">Возраст:</string>
+
+    <string name="load_number">Код нагрузки: </string>
+
+    <string name="email_dialog_title">Укажите почтовый адрес для отправки отчетов</string>
+
+    <string name="stop_writing">Остановить запись</string>
+
+
+
+    <string name="CONNECT_BOTTOM_NAVIGATION_BAR">Подключение</string>
+    <string name="ATTENTION_BOTTOM_NAVIGATION_BAR">Внимание +</string>
+    <string name="ORDER_NEURO_BOTTOM_NAVIGATION_BAR">Нейрометрики</string>
+    <string name="CERTIFICATES_BOTTOM_NAVIGATION_BAR">Сертификаты</string>
+    <string name="CODES_BOTTOM_NAVIGATION_BAR">Коды нагрузок</string>
+
+    <string name="dialog_parents_answers_title">Результаты опроса родителей</string>
+
+    <string name="fill_all_questions">Пожалуйста, укажите все ответы родителей</string>
+    <string name="cant_play">Файлы для воспроизведения не найдены!</string>
+
+    <string name="back">Назад</string>
+    <string name="next">Далее</string>
+    <string name="ready">Готово</string>
+    <string-array name="parents_questions">
+        <item>Речь</item>
+        <item>Математика</item>
+        <item>Музыка</item>
+        <item>Творчество</item>
+        <item>Кинестетика</item>
+        <item>Внутреннее Я</item>
+        <item>Коммуникабельность</item>
+    </string-array>
+
+    <string name="connection_done">Подключено</string>
+    <string name="connection_in_progress">Идет соединение...</string>
+    <string name="connection_no">Не подключено</string>
+
+    <string name="please_connect_neuro">Пожалуйста, подключите нейроинтерфейс</string>
+
+    <string name="codes_error">Коды нагрузки %s записаны в недостаточном объеме</string>
+    <string name="codes_1_error">Код нагрузки %s записан в недостаточном объеме</string>
+</resources>

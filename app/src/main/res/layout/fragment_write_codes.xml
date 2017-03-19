@@ -1,0 +1,63 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font"
+    android:padding="16dp"
+    android:id="@+id/rootView"
+    tools:context=".fragment.ConnectionFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:id="@+id/up_layout"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:completionThreshold="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:inputType="numberDecimal"
+                    android:hint="@string/input_event_label"
+                    android:ems="10"
+                    android:maxLength="2"
+                    android:imeOptions="flagNoExtractUi"
+                    android:id="@+id/code_edittext"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/write_code"
+                android:id="@+id/write_card"
+                style="@style/ButtonStyle"
+                android:background="@color/main"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/up_layout" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <include layout="@layout/status_bci_connection"></include>
+
+</FrameLayout>
