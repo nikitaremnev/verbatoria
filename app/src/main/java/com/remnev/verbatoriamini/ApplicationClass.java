@@ -106,6 +106,10 @@ public class ApplicationClass extends Application {
         return doneActivitiesArray.contains(string);
     }
 
+    public static boolean removeActivityFromDoneArray(String string) {
+        return doneActivitiesArray.remove(string);
+    }
+
     public void setOnBCIConnectionCallback(OnBCIConnectionCallback callback) {
         onBCIConnectionCallback = callback;
     }

@@ -33,7 +33,9 @@ import com.neurosky.thinkgear.TGDevice;
 import com.remnev.verbatoriamini.ApplicationClass;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoriamini.activities.MainActivity;
 import com.remnev.verbatoriamini.activities.SplashActivity;
+import com.remnev.verbatoriamini.callbacks.IClearButtons;
 import com.remnev.verbatoriamini.callbacks.OnBCIConnectionCallback;
 import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
@@ -47,7 +49,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class RealTimeAttentionFragment extends Fragment implements
-        OnChartValueSelectedListener, OnBCIConnectionCallback, OnNewIntentCallback {
+        OnChartValueSelectedListener, OnBCIConnectionCallback, OnNewIntentCallback, IClearButtons {
 
     private LineChart mChart;
     private ApplicationClass applicationClass;
@@ -73,6 +75,8 @@ public class RealTimeAttentionFragment extends Fragment implements
     private FloatingActionButton pauseButton;
 
     private Timer timer;
+
+    private boolean canExport = true;
 
     public RealTimeAttentionFragment() {
         // Required empty public constructor
@@ -111,6 +115,12 @@ public class RealTimeAttentionFragment extends Fragment implements
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("test", "onResume RealTimeAttentionFragment");
+    }
+
     private void setUpCodeButtons() {
         button99 = (Button) rootView.findViewById(R.id.button99);
         button11 = (Button) rootView.findViewById(R.id.button11);
@@ -120,6 +130,36 @@ public class RealTimeAttentionFragment extends Fragment implements
         button51 = (Button) rootView.findViewById(R.id.button51);
         button61 = (Button) rootView.findViewById(R.id.button61);
         button71 = (Button) rootView.findViewById(R.id.button71);
+    }
+
+    @Override
+    public void clearRemovedButtons() {
+        Log.e("test", "clearRemovedButtons");
+        if (!ApplicationClass.containsDoneActivity("99")) {
+            Log.e("test", "!ApplicationClass.containsDoneActivity(\"99\")");
+            button99.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
+        if (!ApplicationClass.containsDoneActivity("11")) {
+            button11.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
+        if (!ApplicationClass.containsDoneActivity("21")) {
+            button21.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
+        if (!ApplicationClass.containsDoneActivity("31")) {
+            button31.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
+        if (!ApplicationClass.containsDoneActivity("41")) {
+            button41.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
+        if (!ApplicationClass.containsDoneActivity("51")) {
+            button51.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
+        if (!ApplicationClass.containsDoneActivity("61")) {
+            button61.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
+        if (!ApplicationClass.containsDoneActivity("71")) {
+            button71.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+        }
     }
 
     private void setAllButtonsUnselected(View needToSelect) {
@@ -430,7 +470,10 @@ public class RealTimeAttentionFragment extends Fragment implements
             Helper.snackBar(loadTextView, getString(R.string.success_write_event));
             selectedButtonText = code;
             setAllButtonsUnselected(foundButtonByCode(code));
-
+            canExport = false;
+            if (getActivity() instanceof MainActivity) {
+                ((MainActivity) getActivity()).canExport = false;
+            }
         } else {
             if (selectedButtonText.equals(code)) {
                 String textToWrite = code;
@@ -440,6 +483,10 @@ public class RealTimeAttentionFragment extends Fragment implements
                 selectedButtonText = "";
                 setAllButtonsUnselected(null);
                 ApplicationClass.addActivityToDoneArray(textToWrite);
+                canExport = true;
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).canExport = true;
+                }
             } else {
                 String textToWrite = selectedButtonText;
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
@@ -450,6 +497,10 @@ public class RealTimeAttentionFragment extends Fragment implements
                 Helper.snackBar(loadTextView, getString(R.string.success_write_event));
                 selectedButtonText = code;
                 setAllButtonsUnselected(foundButtonByCode(code));
+                canExport = false;
+                if (getActivity() instanceof MainActivity) {
+                    ((MainActivity) getActivity()).canExport = false;
+                }
             }
         }
     }

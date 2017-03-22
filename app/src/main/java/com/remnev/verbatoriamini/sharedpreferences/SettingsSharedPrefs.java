@@ -19,6 +19,7 @@ public class SettingsSharedPrefs {
     private static String BCI_ID = "bci_id";
     private static String LAST_WRITTEN_WORD = "written_word";
 
+    private static String UPDATE_FLAG_1 = "UPDATE_FLAG_1";
 
     private static SharedPreferences mSettings;
 
@@ -100,6 +101,16 @@ public class SettingsSharedPrefs {
     public static void setFirstTime(Context context) {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putBoolean(FIRST_TIME, true);
+        editor.commit();
+    }
+
+    public static boolean getUpdateFlag1(Context context) {
+        return getInstance(context).getBoolean(UPDATE_FLAG_1, false);
+    }
+
+    public static void setUpdateFlag1(Context context) {
+        SharedPreferences.Editor editor = getEditor(context);
+        editor.putBoolean(UPDATE_FLAG_1, true);
         editor.commit();
     }
 }

@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import com.crashlytics.android.Crashlytics;
 import com.remnev.verbatoriamini.BuildConfig;
 import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoriamini.databases.StatisticsDatabase;
+import com.remnev.verbatoriamini.sharedpreferences.SettingsSharedPrefs;
 
 import java.io.File;
 
@@ -33,6 +35,11 @@ public class SplashActivity extends AppCompatActivity {
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
+
+        if (!SettingsSharedPrefs.getUpdateFlag1(this)) {
+            StatisticsDatabase.removeAll(this);
+            SettingsSharedPrefs.setUpdateFlag1(this);
+        }
 
         final long currentTime = System.currentTimeMillis();
         Thread thread = new Thread(new Runnable() {

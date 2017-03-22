@@ -85,6 +85,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Random;
 
+@Deprecated
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnNewIntentCallback {
 
@@ -599,7 +600,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
     private void changeStateOfWriting() {
-        Log.e("stateOfWriting", "state: " + ApplicationClass.getStateOfWriting());
         if (!ApplicationClass.getStateOfWriting()) {
             ApplicationClass.changeStateOfWriting();
             Helper.snackBar(toolbar, getString(R.string.bci_resumed));

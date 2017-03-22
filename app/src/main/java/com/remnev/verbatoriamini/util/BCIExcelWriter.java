@@ -12,8 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 public class BCIExcelWriter {
 
     public static void writeToRow(Row row, ExcelBCI excelBCI) {
-        Cell c = null;
-        c = row.createCell(ExcelColumnID.EXCEL_ATTENTION_CODE);
+        Cell c = row.createCell(ExcelColumnID.EXCEL_ATTENTION_CODE);
         c.setCellValue(excelBCI.getAttention());
         c = row.createCell(ExcelColumnID.EXCEL_MEDIATION_CODE);
         c.setCellValue(excelBCI.getMediation());
@@ -33,12 +32,6 @@ public class BCIExcelWriter {
         c.setCellValue(excelBCI.getLowGamma());
         c = row.createCell(ExcelColumnID.EXCEL_MID_GAMMA_CODE);
         c.setCellValue(excelBCI.getMidGamma());
-//        c = row.createCell(ExcelColumnID.EXCEL_CHILD_ID_CODE);
-//        if (excelBCI.getChildID() != null) {
-//            c.setCellValue(excelBCI.getChildID());
-//        } else {
-//            c.setCellValue("");
-//        }
     }
 
 }

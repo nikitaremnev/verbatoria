@@ -61,6 +61,13 @@ public class ConnectionFragment extends Fragment implements OnBCIConnectionCallb
         bciButton = (ImageView) rootView.findViewById(R.id.bci);
         setOnClickListeners();
         allowToConnect = true;
+
+        if (ApplicationClass.connected) {
+            connectionTextView.setText(getString(R.string.connection_done));
+        } else {
+            connectionTextView.setText(getString(R.string.connection_no));
+        }
+
         return rootView;
     }
 
@@ -225,6 +232,7 @@ public class ConnectionFragment extends Fragment implements OnBCIConnectionCallb
                 isAlive = false;
                 bciButton.setImageResource(R.drawable.connected_bci);
                 animateStatusChanged(msg.arg1);
+                connectionTextView.setText(getString(R.string.connection_done));
                 break;
             case ApplicationClass.BLUETOOTH_NOT_STARTED:
                 Log.e("was", "in BLUETOOTH_NOT_STARTED");
@@ -234,6 +242,7 @@ public class ConnectionFragment extends Fragment implements OnBCIConnectionCallb
                 connectionTextView.setText(getString(R.string.connection_no));
                 break;
             default:
+                connectionTextView.setText(getString(R.string.connection_done));
                 Log.e("was", "in default");
                 break;
         }

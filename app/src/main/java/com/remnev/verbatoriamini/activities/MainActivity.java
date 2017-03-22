@@ -42,6 +42,7 @@ import com.remnev.verbatoriamini.ApplicationClass;
 import com.remnev.verbatoriamini.BuildConfig;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoriamini.callbacks.IClearButtons;
 import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
 import com.remnev.verbatoriamini.databases.BCIDatabase;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
@@ -55,6 +56,7 @@ import com.remnev.verbatoriamini.model.Certificate;
 import com.remnev.verbatoriamini.model.ExcelBCI;
 import com.remnev.verbatoriamini.model.ExcelColumnID;
 import com.remnev.verbatoriamini.model.ExcelEvent;
+import com.remnev.verbatoriamini.model.MutablePair;
 import com.remnev.verbatoriamini.model.RezhimID;
 import com.remnev.verbatoriamini.sharedpreferences.ParentsAnswersSharedPrefs;
 import com.remnev.verbatoriamini.sharedpreferences.SettingsSharedPrefs;
@@ -95,6 +97,10 @@ public class MainActivity extends AppCompatActivity
     public FloatingActionButton playFloatingActionButton;
     public FloatingActionButton pauseFloatingActionButton;
 
+    private IClearButtons clearButtons;
+
+    public boolean canExport = true;
+
     private ParentsQuestionaryDialogFragment parentsQuestionaryDialogFragment;
 
     NfcAdapter mAdapter;
@@ -130,6 +136,7 @@ public class MainActivity extends AppCompatActivity
             Tag detectedTag = this.getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
             promptForContent(detectedTag);
         }
+
     }
 
     @Override
@@ -225,6 +232,10 @@ public class MainActivity extends AppCompatActivity
         pauseFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!canExport) {
+                    Helper.snackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
+                    return;
+                }
                 ApplicationClass.changeStateOfWriting();
                 Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_stopped));
                 StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
@@ -252,7 +263,12 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if (!canExport) {
+                    Helper.snackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
+                    return false;
+                }
                 boolean flag = true;
+                clearButtons = null;
                 switch (menuItem.getItemId()) {
                     case R.id.bottom_navigation_item_connect:
                         pendingFragment = new ConnectionFragment();
@@ -261,18 +277,17 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.bottom_navigation_item_attention:
                         if (!ApplicationClass.connected) {
-                            Snackbar snackbar = Snackbar.make(bottomNavigationView, getString(R.string.please_connect_neuro), Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
                         pendingFragment = new RealTimeAttentionFragment();
+                        clearButtons = (IClearButtons) pendingFragment;
                         titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
                         callback = (OnNewIntentCallback) pendingFragment;
                         break;
                     case R.id.bottom_navigation_item_mail:
                         if (!ApplicationClass.connected) {
-                            Snackbar snackbar = Snackbar.make(bottomNavigationView, getString(R.string.please_connect_neuro), Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
                         preCheckExportToExcel(false);
@@ -332,14 +347,14 @@ public class MainActivity extends AppCompatActivity
     private void preCheckExportToExcel(final boolean stopBCI) {
         String undoneActivities = ApplicationClass.getAllUndoneActivities();
         if (TextUtils.isEmpty(undoneActivities)) {
-            exportToExcel(stopBCI);
+            exportToExcel();
         } else {
             final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
             dialog.setMessage(String.format(getString(R.string.not_done_some_activities), undoneActivities));
             dialog.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    exportToExcel(stopBCI);
+                    exportToExcel();
                 }
             });
             dialog.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -347,13 +362,11 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
 
-                    Log.e("test", "test before");
                     ApplicationClass.changeStateOfWriting();
                     Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
                     StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
                     playFloatingActionButton.hide();
                     pauseFloatingActionButton.show();
-                    Log.e("test", "test start");
 
                     bottomNavigationView.getMenu().getItem(2).setChecked(false);
                     if (pendingFragment instanceof ConnectionFragment) {
@@ -376,91 +389,142 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void exportToExcel(final boolean stopBCI) {
-
-        final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(mContext).create();
-        View layoutView = getLayoutInflater().inflate(R.layout.dialog_export_user, null);
-        final TextView okTextView = (TextView) layoutView.findViewById(R.id.ok_button);
-        final EditText randomLabel = (EditText) layoutView.findViewById(R.id.random_label);
-        randomLabel.addTextChangedListener(new TextWatcher() {
+    private void exportToExcel() {
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setMessage(getString(R.string.check_correctness));
+        progressDialog.show();
+        new Thread(new Runnable() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            public void run() {
+                final String result = checkNumberOfLines(getExcelEvents(mContext));
+                progressDialog.dismiss();
+                if (result != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            String text;
+                            if (result.contains(",")) {
+                                text = String.format(getString(R.string.codes_error), result);
+                            } else {
+                                text = String.format(getString(R.string.codes_1_error), result);
+                            }
 
-            }
+                            final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+                            dialog.setMessage(text);
+                            dialog.setNegativeButton(getString(R.string.codes_error_restart), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    dialogInterface.dismiss();
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                                    ApplicationClass.changeStateOfWriting();
+                                    Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
+                                    StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
+                                    playFloatingActionButton.hide();
+                                    pauseFloatingActionButton.show();
 
-            }
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            if (clearButtons != null) {
+                                                Log.e("test", "clearButtons != null");
+                                                clearButtons.clearRemovedButtons();
+                                            }
+                                        }
+                                    });
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String result = editable.toString().replaceAll(" ", "");
-                if (!editable.toString().equals(result)) {
-                    randomLabel.setText(result);
-                    randomLabel.setSelection(result.length());
+
+                                    bottomNavigationView.getMenu().getItem(2).setChecked(false);
+                                    if (pendingFragment instanceof ConnectionFragment) {
+                                        bottomNavigationView.getMenu().getItem(0).setChecked(true);
+                                        titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
+                                    } else if (pendingFragment instanceof RealTimeAttentionFragment) {
+                                        ((RealTimeAttentionFragment) pendingFragment).clearRemovedButtons();
+                                        bottomNavigationView.getMenu().getItem(1).setChecked(true);
+                                        titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
+                                    } else if (pendingFragment instanceof WriteCertificateFragment) {
+                                        bottomNavigationView.getMenu().getItem(4).setChecked(true);
+                                        titleTextView.setText(getString(R.string.CERTIFICATES_BOTTOM_NAVIGATION_BAR));
+                                    } else if (pendingFragment instanceof WriteCodesFragment) {
+                                        bottomNavigationView.getMenu().getItem(3).setChecked(true);
+                                        titleTextView.setText(getString(R.string.CODES_BOTTOM_NAVIGATION_BAR));
+                                    }
+                                }
+                            });
+                            dialog.setCancelable(false);
+                            dialog.show();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(mContext).create();
+                            View layoutView = getLayoutInflater().inflate(R.layout.dialog_export_user, null);
+                            final TextView okTextView = (TextView) layoutView.findViewById(R.id.ok_button);
+                            final EditText randomLabel = (EditText) layoutView.findViewById(R.id.random_label);
+                            randomLabel.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable editable) {
+                                    String result = editable.toString().replaceAll(" ", "");
+                                    if (!editable.toString().equals(result)) {
+                                        randomLabel.setText(result);
+                                        randomLabel.setSelection(result.length());
+                                    }
+                                }
+                            });
+
+                            final Spinner ageSpinner = (Spinner) layoutView.findViewById(R.id.choose_years);
+                            okTextView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    //проверки
+                                    if (TextUtils.isEmpty(randomLabel.getText().toString())) {
+                                        Helper.snackBar(findViewById(R.id.container), getString(R.string.no_random_label));
+                                        return;
+                                    }
+                                    final File directory = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "Export" + File.separator);
+                                    if (!directory.exists()) {
+                                        if (!directory.mkdirs()) {
+                                            Helper.snackBar(findViewById(R.id.container), getString(R.string.cannot_create_directory));
+                                        }
+                                    }
+                                    alertDialog.dismiss();
+
+                                    if (directory.exists()) {
+                                        parentsQuestionaryDialogFragment = new ParentsQuestionaryDialogFragment(ageSpinner.getSelectedItem().toString(), randomLabel.getText().toString(), directory.getAbsolutePath(), MainActivity.this);
+                                        parentsQuestionaryDialogFragment.show(getSupportFragmentManager(), ParentsQuestionaryDialogFragment.TAG);
+                                    }
+                                }
+                            });
+
+                            alertDialog.setView(layoutView);
+                            alertDialog.setCancelable(false);
+                            alertDialog.show();
+                        }
+                    });
                 }
             }
-        });
-
-        final Spinner ageSpinner = (Spinner) layoutView.findViewById(R.id.choose_years);
-        final Calendar calendar = Calendar.getInstance();
-
-        okTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //проверки
-                if (TextUtils.isEmpty(randomLabel.getText().toString())) {
-                    Helper.snackBar(findViewById(R.id.container), getString(R.string.no_random_label));
-                    return;
-                }
-                final File directory = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "Export" + File.separator);
-                if (!directory.exists()) {
-                    if (!directory.mkdirs()) {
-                        Helper.snackBar(findViewById(R.id.container), getString(R.string.cannot_create_directory));
-                    }
-                }
-                alertDialog.dismiss();
-
-                if (directory.exists()) {
-                    parentsQuestionaryDialogFragment = new ParentsQuestionaryDialogFragment(ageSpinner.getSelectedItem().toString(), randomLabel.getText().toString(), directory.getAbsolutePath(), MainActivity.this);
-                    parentsQuestionaryDialogFragment.show(getSupportFragmentManager(), ParentsQuestionaryDialogFragment.TAG);
-                }
-            }
-        });
-
-        alertDialog.setView(layoutView);
-        alertDialog.setCancelable(false);
-        alertDialog.show();
+        }).start();
     }
-
-    private void stopBCIDialog() {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-        dialog.setMessage(getString(R.string.send_immediately));
-        dialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                exportToExcel(true);
-            }
-        });
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
 
     private static String saveExcelFile(Context context, File file, String reportID, String rebenokID, String verbatologID) {
         // check if available and not read only
         if (!Helper.isExternalStorageAvailable() || Helper.isExternalStorageReadOnly()) {
-            Log.e("hello", "Storage not available or read only");
             return "false";
         }
 
-        boolean success = false;
-
         //New Workbook
         Workbook wb = new HSSFWorkbook();
-
-
 
         ExcelEvent.reportID = reportID;
         ExcelEvent.childID = rebenokID;
@@ -470,13 +534,172 @@ public class MainActivity extends AppCompatActivity
         ExcelEvent.bciID = SettingsSharedPrefs.getBciID(context);
         ExcelEvent.expired = SpecialistSharedPrefs.getCertificateExpired(context);
 
-        ArrayList<Pair<Long, String>> bciItems = new ArrayList<>();
+        ExcelEvent currentExcelEvent = new ExcelEvent();
+        SimpleDateFormat timeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String currentWord = "";
+        String currentModule = "";
+        String learnWord = "";
+        int rowIndex = 1;
+
+        //New Sheet
+        Sheet sheet1 = wb.createSheet("EXPORT");
+        ExcelEvent.createHeaderAndSetWidth(wb, sheet1);
+
+        ArrayList<ExcelEvent> excelEvents = getExcelEvents(context);
+        ArrayList<ExcelBCI> excelBCIs = getExcelBCIs(context, getBCIItems(context));
+
+        for (int i = 0; i < excelBCIs.size(); i ++) {
+            long timestampBCI = excelBCIs.get(i).getTimestamp();
+            if (timestampBCI == 0) {
+                continue;
+            }
+            Row row = sheet1.createRow(rowIndex);
+            Cell c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
+            c.setCellValue(rowIndex);
+            c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
+            c.setCellValue(timeFormat.format(timestampBCI * 1000));
+            rowIndex ++;
+            BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
+            ExcelEventWriter.writeStaticEvents(context, row);
+            int j = 0;
+            boolean rawAlreadyWritten = false;
+            while (j < excelEvents.size()) {
+                if (excelEvents.get(j).timestamp == timestampBCI) {
+                    if (TextUtils.isEmpty(learnWord) && (excelEvents.get(j).getRezhimID() == RezhimID.LEARN_MODE)) {
+                        learnWord = excelEvents.get(j).getWord();
+                    } else if (excelEvents.get(j).getRezhimID() == RezhimID.LEARN_MODE) {
+                        learnWord = "";
+                    }
+                    if (excelEvents.get(j).getActionID() == ActionID.WORD_START_ID || (excelEvents.get(j).getModule().equals(ExcelEventWriter.CUSTOM_ACTION_ID) && !currentWord.equals(excelEvents.get(j).getWord()))) {
+                        currentWord = excelEvents.get(j).getWord();
+                        currentModule = excelEvents.get(j).getModule();
+                        currentExcelEvent.setRezhimID(excelEvents.get(j).getRezhimID());
+                        currentExcelEvent.setGameSubMode(excelEvents.get(j).getGameSubMode());
+                        currentExcelEvent.setLogopedModeID(excelEvents.get(j).getLogopedModeID());
+                        learnWord = "";
+                    } else if (excelEvents.get(j).getActionID() == ActionID.WORD_END_ID
+                            || excelEvents.get(j).getActionID() == ActionID.WORD_SKIP_ID
+                            || excelEvents.get(j).getActionID() == ActionID.WORD_BACK_ID
+                            || excelEvents.get(j).getActionID() == ActionID.WORD_SUCCESS_ID || (excelEvents.get(j).getModule().equals(ExcelEventWriter.CUSTOM_ACTION_ID) && currentWord.equals(excelEvents.get(j).getWord()))) {
+                        currentModule = "";
+                        currentWord = "";
+                        currentExcelEvent.setRezhimID(-1);
+                        currentExcelEvent.setGameSubMode(-1);
+                        currentExcelEvent.setLogopedModeID(-1);
+                    }
+                    if (rawAlreadyWritten) {
+                        row = sheet1.createRow(rowIndex);
+                        c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
+                        c.setCellValue(rowIndex);
+                        c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
+                        c.setCellValue(timeFormat.format(timestampBCI * 1000));
+                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
+                        ExcelEventWriter.writeStaticEvents(context, row);
+                        rowIndex ++;
+                    }
+                    ExcelEventWriter.writeToRow(row, excelEvents.get(j));
+                    rawAlreadyWritten = true;
+                    j ++;
+                    continue;
+                }
+                if (!rawAlreadyWritten && !TextUtils.isEmpty(learnWord)) {
+                    ExcelEvent excelEvent = new ExcelEvent();
+                    excelEvent.setRezhimID(RezhimID.LEARN_MODE);
+                    excelEvent.setWord(learnWord);
+                    if (rawAlreadyWritten) {
+                        row = sheet1.createRow(rowIndex);
+                        c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
+                        c.setCellValue(rowIndex);
+                        c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
+                        c.setCellValue(timeFormat.format(timestampBCI * 1000));
+                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
+                        ExcelEventWriter.writeStaticEvents(context, row);
+                        rowIndex ++;
+                    }
+                    ExcelEventWriter.writeToRow(row, excelEvent);
+                    rawAlreadyWritten = true;
+                }
+                if (!rawAlreadyWritten && (!TextUtils.isEmpty(currentWord) || !TextUtils.isEmpty(currentModule))) {
+                    ExcelEvent excelEvent = new ExcelEvent();
+                    excelEvent.setWord(currentWord);
+                    excelEvent.setModule(currentModule);
+                    excelEvent.setLogopedModeID(currentExcelEvent.getLogopedModeID());
+                    excelEvent.setRezhimID(currentExcelEvent.getRezhimID());
+                    excelEvent.setGameSubMode(currentExcelEvent.getGameSubMode());
+                    if (rawAlreadyWritten) {
+                        row = sheet1.createRow(rowIndex);
+                        c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
+                        c.setCellValue(rowIndex);
+                        c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
+                        c.setCellValue(timeFormat.format(timestampBCI * 1000));
+                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
+                        ExcelEventWriter.writeStaticEvents(context, row);
+                        rowIndex ++;
+                    }
+                    ExcelEventWriter.writeToRow(row, excelEvent);
+                    rawAlreadyWritten = true;
+                }
+                if (excelEvents.get(j).timestamp > timestampBCI) {
+                    int index = 0;
+                    while (excelEvents.get(index).timestamp <= timestampBCI) {
+                        excelEvents.remove(index);
+                    }
+                    break;
+                }
+                j ++;
+            }
+        }
+
+        // Create a path where we will place our List of objects on external storage
+        FileOutputStream os = null;
+        try {
+            os = new FileOutputStream(file);
+            wb.write(os);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != os)
+                    os.close();
+            } catch (Exception ex) {
+            }
+        }
+        return "true";
+    }
+
+    private static ArrayList<ExcelEvent> getExcelEvents(Context context) {
+        StatisticsDatabase statisticsDatabase = StatisticsDatabase.getInstance(context);
+        SQLiteDatabase sqdb = statisticsDatabase.getMyWritableDatabase();
 
         ArrayList<ExcelEvent> excelEvents = new ArrayList<>();
+        try {
+            Cursor cursor = sqdb.query(StatisticsDatabase.EVENTS_TABLE_NAME, null, null, null, null, null, null);
+            cursor.moveToFirst();
+            do {
+                ExcelEvent excelEvent = new ExcelEvent();
+                excelEvent.setTimestamp((Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(StatisticsDatabase.TIMESTAMP)))));
+                excelEvent.setLogopedModeID((cursor.getInt(cursor.getColumnIndex(StatisticsDatabase.GAME_SUBMODE))));
+                excelEvent.setActionID((cursor.getInt(cursor.getColumnIndex(StatisticsDatabase.ACTION))));
+                excelEvent.setRezhimID((cursor.getInt(cursor.getColumnIndex(StatisticsDatabase.EVENT_MODE))));
+                excelEvent.setWord((cursor.getString(cursor.getColumnIndex(StatisticsDatabase.WORD))));
+                excelEvent.setModule(cursor.getString(cursor.getColumnIndex(StatisticsDatabase.MODULE)));
+                excelEvent.setMistake(cursor.getString(cursor.getColumnIndex(StatisticsDatabase.MISTAKE)));
+                excelEvents.add(excelEvent);
+            } while (cursor.moveToNext());
+            cursor.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
+        Collections.sort(excelEvents, new ExcelEventsComparator());
+        return excelEvents;
+    }
+
+    private static ArrayList<Pair<Long, String>> getBCIItems(Context context) {
         BCIDatabase sqh = BCIDatabase.getInstance(context);
         SQLiteDatabase sqdb = sqh.getMyWritableDatabase(context);
-//        if (true) {
+
+        ArrayList<Pair<Long, String>> bciItems = new ArrayList<>();
 
         try {
             Cursor cursor = sqdb.query(BCIDatabase.BCI_ATTENTION_TABLE_NAME, null, null, null, null, null, null);
@@ -490,11 +713,8 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-//        }
 
         try {
-//        if (true) {
-
             Cursor cursor = sqdb.query(BCIDatabase.BCI_EEG_TABLE_NAME, null, null, null, null, null, null);
             cursor.moveToFirst();
             do {
@@ -517,7 +737,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         try {
-//        if (true) {
             Cursor cursor = sqdb.query(BCIDatabase.BCI_MEDIATION_TABLE_NAME, null, null, null, null, null, null);
             cursor.moveToFirst();
             do {
@@ -526,37 +745,16 @@ public class MainActivity extends AppCompatActivity
                                 cursor.getString(cursor.getColumnIndex(BCIDatabase.CHILD_ID))));
             } while (cursor.moveToNext());
             cursor.close();
-            //  }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        StatisticsDatabase statisticsDatabase = StatisticsDatabase.getInstance(context);
-        sqdb = statisticsDatabase.getMyWritableDatabase();
-
-        try {
-            Cursor cursor = sqdb.query(StatisticsDatabase.EVENTS_TABLE_NAME, null, null, null, null, null, null);
-            cursor.moveToFirst();
-            do {
-                ExcelEvent excelEvent = new ExcelEvent();
-                excelEvent.setTimestamp((Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(StatisticsDatabase.TIMESTAMP)))));
-                excelEvent.setLogopedModeID((cursor.getInt(cursor.getColumnIndex(StatisticsDatabase.GAME_SUBMODE))));
-                excelEvent.setActionID((cursor.getInt(cursor.getColumnIndex(StatisticsDatabase.ACTION))));
-                excelEvent.setRezhimID((cursor.getInt(cursor.getColumnIndex(StatisticsDatabase.EVENT_MODE))));
-                excelEvent.setWord((cursor.getString(cursor.getColumnIndex(StatisticsDatabase.WORD))));
-                excelEvent.setModule(cursor.getString(cursor.getColumnIndex(StatisticsDatabase.MODULE)));
-                excelEvent.setMistake(cursor.getString(cursor.getColumnIndex(StatisticsDatabase.MISTAKE)));
-                excelEvents.add(excelEvent);
-            } while (cursor.moveToNext());
-            cursor.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        Collections.sort(excelEvents, new ExcelEventsComparator());
         Collections.sort(bciItems, new ExcelExportComparator());
+        return bciItems;
+    }
 
+    private static ArrayList<ExcelBCI> getExcelBCIs(Context context, ArrayList<Pair<Long, String>> bciItems) {
         ArrayList<ExcelBCI> excelBCIs = new ArrayList<>();
-
         int k = 0;
         while (k < bciItems.size() - 2) {
             ExcelBCI excelBCI = new ExcelBCI();
@@ -782,205 +980,42 @@ public class MainActivity extends AppCompatActivity
             excelBCIs.add(excelBCI);
 
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String currentWord = "";
-        String currentModule = "";
-        ExcelEvent currentExcelEvent = new ExcelEvent();
-        String learnWord = "";
-        int rowIndex = 1;
+        return excelBCIs;
+    }
 
-        //New Sheet
-        Sheet sheet1 = null;
-        sheet1 = wb.createSheet("EXPORT");
-
-
-        ExcelEvent.createHeaderAndSetWidth(wb, sheet1);
-
-        long[] array = new long[8];
+    private static String checkNumberOfLines(ArrayList<ExcelEvent> excelEvents) {
+        MutablePair[] checkingArray = new MutablePair[]{new MutablePair("99", 0), new MutablePair("11", 0),
+                new MutablePair("21", 0), new MutablePair("31", 0), new MutablePair("41", 0),
+                new MutablePair("51", 0), new MutablePair("61", 0), new MutablePair("71", 0)};
         //count 15
-        for (int j = 0; j < excelEvents.size() - 1; j ++) {
-            ExcelEvent firstEvent = excelEvents.get(j);
-            ExcelEvent secondEvent = excelEvents.get(j + 1);
-            if (firstEvent.getWord().equals("99") && ApplicationClass.containsDoneActivity("99")) {
-                array[0] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
-                continue;
-            }
-            if (firstEvent.getWord().equals("11") && ApplicationClass.containsDoneActivity("11")) {
-                array[1] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
-                continue;
-            }
-            if (firstEvent.getWord().equals("21") && ApplicationClass.containsDoneActivity("21")) {
-                array[2] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
-                continue;
-            }
-            if (firstEvent.getWord().equals("31") && ApplicationClass.containsDoneActivity("31")) {
-                array[3] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
-                continue;
-            }
-            if (firstEvent.getWord().equals("41") && ApplicationClass.containsDoneActivity("41")) {
-                array[4] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
-                continue;
-            }
-            if (firstEvent.getWord().equals("51") && ApplicationClass.containsDoneActivity("51")) {
-                array[5] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
-                continue;
-            }
-            if (firstEvent.getWord().equals("61") && ApplicationClass.containsDoneActivity("61")) {
-                array[6] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
-                continue;
-            }
-            if (firstEvent.getWord().equals("71") && ApplicationClass.containsDoneActivity("71")) {
-                array[7] = secondEvent.getTimestamp() - firstEvent.getTimestamp();
+        for (int i = 0; i < excelEvents.size() - 1; i ++) {
+            ExcelEvent firstEvent = excelEvents.get(i);
+            ExcelEvent secondEvent = excelEvents.get(i + 1);
+            for (int j = 0; j < checkingArray.length; j ++) {
+                MutablePair pair = checkingArray[j];
+                if (firstEvent.getWord().equals(pair.getFirst()) && secondEvent.getWord().equals(pair.getFirst())
+                        && ApplicationClass.containsDoneActivity(pair.getFirst())) {
+                    pair.addSecond(secondEvent.getTimestamp() - firstEvent.getTimestamp());
+                    break;
+                }
             }
         }
+        Log.e("test", Arrays.toString(checkingArray));
+
         StringBuilder stringBuilder = new StringBuilder();
-        if (array[0] < 15 && ApplicationClass.containsDoneActivity("99")) {
-            stringBuilder.append("99, ");
-        }
-        if (array[1] < 15 && ApplicationClass.containsDoneActivity("11")) {
-            stringBuilder.append("11, ");
-        }
-        if (array[2] < 15 && ApplicationClass.containsDoneActivity("21")) {
-            stringBuilder.append("21, ");
-        }
-        if (array[3] < 15 && ApplicationClass.containsDoneActivity("31")) {
-            stringBuilder.append("31, ");
-        }
-        if (array[4] < 15 && ApplicationClass.containsDoneActivity("41")) {
-            stringBuilder.append("41, ");
-        }
-        if (array[5] < 15 && ApplicationClass.containsDoneActivity("51")) {
-            stringBuilder.append("51, ");
-        }
-        if (array[6] < 15 && ApplicationClass.containsDoneActivity("61")) {
-            stringBuilder.append("61, ");
-        }
-        if (array[7] < 15 && ApplicationClass.containsDoneActivity("71")) {
-            stringBuilder.append("71, ");
+
+        for (int j = 0; j < checkingArray.length; j ++) {
+            MutablePair pair = checkingArray[j];
+            if (pair.getSecond() < 15 && ApplicationClass.containsDoneActivity(pair.getFirst())) {
+                stringBuilder.append(pair.getFirst()).append(", ");
+                ApplicationClass.removeActivityFromDoneArray(pair.getFirst());
+            }
         }
         if (stringBuilder.length() > 0) {
             stringBuilder.setLength(stringBuilder.length() - 2);
             return stringBuilder.toString();
         }
-
-        for (int i = 0; i < excelBCIs.size(); i ++) {
-            long timestampBCI = excelBCIs.get(i).getTimestamp();
-            if (timestampBCI == 0) {
-                continue;
-            }
-            Row row = sheet1.createRow(rowIndex);
-            Cell c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
-            c.setCellValue(rowIndex);
-            c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
-            c.setCellValue(sdf.format(timestampBCI * 1000));
-            rowIndex ++;
-            BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-            ExcelEventWriter.writeStaticEvents(context, row);
-            int j = 0;
-            boolean rawAlreadyWritten = false;
-            while (j < excelEvents.size()) {
-                if (excelEvents.get(j).timestamp == timestampBCI) {
-                    if (TextUtils.isEmpty(learnWord) && (excelEvents.get(j).getRezhimID() == RezhimID.LEARN_MODE)) {
-                        learnWord = excelEvents.get(j).getWord();
-                    } else if (excelEvents.get(j).getRezhimID() == RezhimID.LEARN_MODE) {
-                        learnWord = "";
-                    }
-                    if (excelEvents.get(j).getActionID() == ActionID.WORD_START_ID || (excelEvents.get(j).getModule().equals(ExcelEventWriter.CUSTOM_ACTION_ID) && !currentWord.equals(excelEvents.get(j).getWord()))) {
-                        currentWord = excelEvents.get(j).getWord();
-                        currentModule = excelEvents.get(j).getModule();
-                        currentExcelEvent.setRezhimID(excelEvents.get(j).getRezhimID());
-                        currentExcelEvent.setGameSubMode(excelEvents.get(j).getGameSubMode());
-                        currentExcelEvent.setLogopedModeID(excelEvents.get(j).getLogopedModeID());
-                        learnWord = "";
-                    } else if (excelEvents.get(j).getActionID() == ActionID.WORD_END_ID
-                            || excelEvents.get(j).getActionID() == ActionID.WORD_SKIP_ID
-                            || excelEvents.get(j).getActionID() == ActionID.WORD_BACK_ID
-                            || excelEvents.get(j).getActionID() == ActionID.WORD_SUCCESS_ID || (excelEvents.get(j).getModule().equals(ExcelEventWriter.CUSTOM_ACTION_ID) && currentWord.equals(excelEvents.get(j).getWord()))) {
-                        currentModule = "";
-                        currentWord = "";
-                        currentExcelEvent.setRezhimID(-1);
-                        currentExcelEvent.setGameSubMode(-1);
-                        currentExcelEvent.setLogopedModeID(-1);
-                    }
-                    if (rawAlreadyWritten) {
-                        row = sheet1.createRow(rowIndex);
-                        c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
-                        c.setCellValue(rowIndex);
-                        c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
-                        c.setCellValue(sdf.format(timestampBCI * 1000));
-                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-                        ExcelEventWriter.writeStaticEvents(context, row);
-                        rowIndex ++;
-                    }
-                    ExcelEventWriter.writeToRow(row, excelEvents.get(j));
-                    rawAlreadyWritten = true;
-                    j ++;
-                    continue;
-                }
-                if (!rawAlreadyWritten && !TextUtils.isEmpty(learnWord)) {
-                    ExcelEvent excelEvent = new ExcelEvent();
-                    excelEvent.setRezhimID(RezhimID.LEARN_MODE);
-                    excelEvent.setWord(learnWord);
-                    if (rawAlreadyWritten) {
-                        row = sheet1.createRow(rowIndex);
-                        c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
-                        c.setCellValue(rowIndex);
-                        c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
-                        c.setCellValue(sdf.format(timestampBCI * 1000));
-                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-                        ExcelEventWriter.writeStaticEvents(context, row);
-                        rowIndex ++;
-                    }
-                    ExcelEventWriter.writeToRow(row, excelEvent);
-                    rawAlreadyWritten = true;
-                }
-                if (!rawAlreadyWritten && (!TextUtils.isEmpty(currentWord) || !TextUtils.isEmpty(currentModule))) {
-                    ExcelEvent excelEvent = new ExcelEvent();
-                    excelEvent.setWord(currentWord);
-                    excelEvent.setModule(currentModule);
-                    excelEvent.setLogopedModeID(currentExcelEvent.getLogopedModeID());
-                    excelEvent.setRezhimID(currentExcelEvent.getRezhimID());
-                    excelEvent.setGameSubMode(currentExcelEvent.getGameSubMode());
-                    if (rawAlreadyWritten) {
-                        row = sheet1.createRow(rowIndex);
-                        c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
-                        c.setCellValue(rowIndex);
-                        c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
-                        c.setCellValue(sdf.format(timestampBCI * 1000));
-                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-                        ExcelEventWriter.writeStaticEvents(context, row);
-                        rowIndex ++;
-                    }
-                    ExcelEventWriter.writeToRow(row, excelEvent);
-                    rawAlreadyWritten = true;
-                }
-                if (excelEvents.get(j).timestamp > timestampBCI) {
-                    int index = 0;
-                    while (excelEvents.get(index).timestamp <= timestampBCI) {
-                        excelEvents.remove(index);
-                    }
-                    break;
-                }
-                j ++;
-            }
-        }
-
-        // Create a path where we will place our List of objects on external storage
-        FileOutputStream os = null;
-        try {
-            os = new FileOutputStream(file);
-            wb.write(os);
-            success = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != os)
-                    os.close();
-            } catch (Exception ex) {
-            }
-        }
-        return "true";
+        return null;
     }
 
     public void share(String fileAndLocation, String letterSubject) {
@@ -1129,19 +1164,11 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     final String specialist = SpecialistSharedPrefs.getCurrentSpecialist(MainActivity.this).getSpecialistName();
-                    String save = saveExcelFile(mContext, excelFile, reportID, rebenokID, specialist);
+                    final String save = saveExcelFile(mContext, excelFile, reportID, rebenokID, specialist);
                     if (save.equals("true")) {
                         Helper.snackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_success));
                     } else if (save.equals("false")) {
                         Helper.snackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_fail));
-                    } else {
-                        if (save.contains(",")) {
-                            Helper.snackBar(findViewById(R.id.container), String.format(getString(R.string.codes_error), save));
-                        } else {
-                            Helper.snackBar(findViewById(R.id.container), String.format(getString(R.string.codes_1_error), save));
-                        }
-
-                        progressDialog.dismiss();
                         return;
                     }
 

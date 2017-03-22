@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="app_name">Нейроскрин</string>
-    <string name="title_activity_navigation_drawer">Нейроскрин</string>
-    <string name="navigation_drawer_open">Нейроскрин</string>
-    <string name="navigation_drawer_close">Нейроскрин</string>
+    <string name="app_name">Нейроскрин v8.2</string>
+    <string name="title_activity_navigation_drawer">Нейроскрин v8.2</string>
+    <string name="navigation_drawer_open">Нейроскрин v8.2</string>
+    <string name="navigation_drawer_close">Нейроскрин v8.2</string>
     <string name="nav_drawer_item_authority">Авторизация</string>
     <string name="nav_drawer_item_main">Подключение</string>
     <string name="nav_drawer_item_settings">Настройки</string>
@@ -57,6 +57,7 @@
     <string name="generate_xls_file">Генерация файла отчета</string>
     <string name="generate_xls_file_success">Файл успешно сгенерирован</string>
     <string name="generate_xls_file_fail">Произошла ошибка</string>
+    <string name="check_correctness">Проверка корректности записи активностей</string>
 
     <string name="fio">ФИО ребенка</string>
     <string name="fio_verbatolog">ФИО Вербатолога</string>
@@ -224,8 +225,8 @@
         <item>Музыка</item>
         <item>Творчество</item>
         <item>Кинестетика</item>
-        <item>Внутреннее Я</item>
         <item>Коммуникабельность</item>
+        <item>Внутреннее Я</item>
     </string-array>
 
     <string name="connection_done">Подключено</string>
@@ -236,4 +237,7 @@
 
     <string name="codes_error">Коды нагрузки %s записаны в недостаточном объеме</string>
     <string name="codes_1_error">Код нагрузки %s записан в недостаточном объеме</string>
+    <string name="codes_error_restart">Возобновить запись</string>
+
+    <string name="please_stop_action">Пожалуйста, закончите запись активности</string>
 </resources>
