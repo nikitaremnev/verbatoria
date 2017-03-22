@@ -157,6 +157,13 @@
         android:layout_below="@+id/buttonsLayout"
         android:layout_centerHorizontal="true">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/music_file_name"
+            android:textSize="18sp"
+            android:layout_margin="16dp"/>
+
         <android.support.design.widget.FloatingActionButton
             android:src="@mipmap/ic_play_white_24dp"
             app:fabSize="normal"

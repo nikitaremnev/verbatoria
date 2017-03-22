@@ -74,6 +74,8 @@ public class RealTimeAttentionFragment extends Fragment implements
     private FloatingActionButton backButton;
     private FloatingActionButton pauseButton;
 
+    private TextView musicFileName;
+
     private Timer timer;
 
     private boolean canExport = true;
@@ -92,6 +94,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         pauseButton = (FloatingActionButton) rootView.findViewById(R.id.pause_floating_button);
         nextButton = (FloatingActionButton) rootView.findViewById(R.id.next_floating_button);
         backButton = (FloatingActionButton) rootView.findViewById(R.id.back_floating_button);
+        musicFileName = (TextView) rootView.findViewById(R.id.music_file_name);
         playerButtons.setVisibility(View.GONE);
 
         setUpPlayer();
@@ -564,6 +567,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                musicFileName.setText(Integer.toString(currentMusicIndex) + ".mp3");
                 if (mediaPlayer != null) {
                     mediaPlayer.start();
                     playButton.setVisibility(View.GONE);
@@ -616,6 +620,7 @@ public class RealTimeAttentionFragment extends Fragment implements
                 if (currentMusicIndex < 1) {
                     currentMusicIndex = 1;
                 }
+
                 if (mediaPlayer != null) {
                     mediaPlayer.stop();
                     mediaPlayer = null;
