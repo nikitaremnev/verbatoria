@@ -17,24 +17,20 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
-import com.bluelinelabs.logansquare.LoganSquare;
-import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.crashlytics.android.Crashlytics;
-import com.remnev.verbatoriamini.BuildConfig;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
+import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.model.Certificate;
 import com.remnev.verbatoriamini.sharedpreferences.SettingsSharedPrefs;
 import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import io.fabric.sdk.android.Fabric;
 
-public class AuthorityActivity extends AppCompatActivity implements OnNewIntentCallback {
+public class AuthorityActivity extends AppCompatActivity implements INFCCallback {
 
     public static final long WEEK_MILLIS = 1000 * 60 * 60 * 24 * 7;
 
@@ -46,7 +42,7 @@ public class AuthorityActivity extends AppCompatActivity implements OnNewIntentC
     public void onNewIntent(Intent intent) {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            promptForContent(tagFromIntent);
+            onNFCTagReaded(tagFromIntent);
         }
     }
 
@@ -61,7 +57,7 @@ public class AuthorityActivity extends AppCompatActivity implements OnNewIntentC
 
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(this.getIntent().getAction())) {
             Tag detectedTag = this.getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            promptForContent(detectedTag);
+            onNFCTagReaded(detectedTag);
         }
     }
 
@@ -162,7 +158,7 @@ public class AuthorityActivity extends AppCompatActivity implements OnNewIntentC
     public static boolean read = true;
 
     @Override
-    public void promptForContent(Tag msg) {
+    public void onNFCTagReaded(Tag msg) {
         if (msg != null && read) {
             read = false;
             String readedText = Helper.readTag(msg, AuthorityActivity.this);

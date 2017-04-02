@@ -24,12 +24,6 @@
             android:value="67e8efcbe2e007c55247aa119f19c530687ccdab" />
 
         <activity
-            android:name=".activities.NavigationDrawerActivity"
-            android:configChanges="locale"
-            android:label="@string/title_activity_navigation_drawer"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".activities.AuthorityActivity"
             android:configChanges="locale"
             android:screenOrientation="sensorLandscape"

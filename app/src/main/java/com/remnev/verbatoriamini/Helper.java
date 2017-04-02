@@ -28,33 +28,6 @@ public class Helper {
         Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
     }
 
-    public static void animateStatusChange(Drawable firstDrawable, Drawable secondDrawable, Context mContext, ImageView connectionStatus, int value) {
-        if (secondDrawable != null) {
-            firstDrawable = secondDrawable;
-        }
-        if (value < 20) {
-            secondDrawable = mContext.getResources().getDrawable(R.drawable.status_lowest);
-        } else if (value < 40) {
-            secondDrawable = mContext.getResources().getDrawable(R.drawable.status_low);
-        } else if (value < 60) {
-            secondDrawable = mContext.getResources().getDrawable(R.drawable.status_middle);
-        } else if (value < 80) {
-            secondDrawable = mContext.getResources().getDrawable(R.drawable.status_high);
-        } else if (value < 100) {
-            secondDrawable = mContext.getResources().getDrawable(R.drawable.status_highest);
-        }
-        if (firstDrawable == null) {
-            firstDrawable = mContext.getResources().getDrawable(R.drawable.status_middle);
-        }
-        TransitionDrawable transitionDrawable = new TransitionDrawable(new Drawable[] {
-                firstDrawable,
-                secondDrawable,
-        });
-        connectionStatus.setImageDrawable(transitionDrawable);
-        transitionDrawable.startTransition(700);
-
-    }
-
     public static boolean isExternalStorageReadOnly() {
         String extStorageState = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {

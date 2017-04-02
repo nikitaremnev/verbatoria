@@ -1,4 +1,4 @@
-package com.remnev.verbatoriamini.util;
+package com.remnev.verbatoriamini.util.comparators;
 
 import android.support.v4.util.Pair;
 

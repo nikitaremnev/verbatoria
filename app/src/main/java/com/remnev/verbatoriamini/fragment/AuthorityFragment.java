@@ -1,17 +1,9 @@
 package com.remnev.verbatoriamini.fragment;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
-import android.nfc.FormatException;
-import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -19,35 +11,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.activities.NavigationDrawerActivity;
-import com.remnev.verbatoriamini.callbacks.OnBCIConnectionCallback;
-import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
-import com.remnev.verbatoriamini.databases.CertificatesDatabase;
+import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.model.Certificate;
 import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
 
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AuthorityFragment extends Fragment implements OnNewIntentCallback {
+public class AuthorityFragment extends Fragment implements INFCCallback {
 
     public static boolean read = true;
     private ImageView imageView;
@@ -81,7 +61,7 @@ public class AuthorityFragment extends Fragment implements OnNewIntentCallback {
     }
 
     @Override
-    public void promptForContent(Tag msg) {
+    public void onNFCTagReaded(Tag msg) {
         Log.e("hello", "i'm in authority fragment");
         if (msg != null && read) {
             read = false;

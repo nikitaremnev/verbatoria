@@ -4,21 +4,16 @@ package com.remnev.verbatoriamini.fragment;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.nfc.Tag;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -29,27 +24,24 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.neurosky.thinkgear.TGDevice;
+import com.neurosky.connection.DataType.MindDataType;
 import com.remnev.verbatoriamini.ApplicationClass;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.activities.MainActivity;
-import com.remnev.verbatoriamini.activities.SplashActivity;
 import com.remnev.verbatoriamini.callbacks.IClearButtons;
-import com.remnev.verbatoriamini.callbacks.OnBCIConnectionCallback;
-import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
+import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
+import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
 import com.remnev.verbatoriamini.model.Code;
-import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
-import com.remnev.verbatoriamini.util.ExcelEventWriter;
+import com.remnev.verbatoriamini.util.NeuroExcelWriter;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class RealTimeAttentionFragment extends Fragment implements
-        OnChartValueSelectedListener, OnBCIConnectionCallback, OnNewIntentCallback, IClearButtons {
+        OnChartValueSelectedListener, INeuroInterfaceCallback, INFCCallback, IClearButtons {
 
     private LineChart mChart;
     private ApplicationClass applicationClass;
@@ -113,7 +105,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         setAllButtonsUnselected(null);
 
         timer = new Timer();
-        timer.schedule(new FontChangeTimerTask(), 2000, 2000);
+        timer.schedule(new FontChangeTimerTask(), 0, 2000);
 
         return rootView;
     }
@@ -323,57 +315,21 @@ public class RealTimeAttentionFragment extends Fragment implements
     }
 
     @Override
-    public void onMessageReceived(Message msg) {
-        switch( msg.what ) {
-            case TGDevice.MSG_STATE_CHANGE:
-                switch (msg.arg1) {
-                    case TGDevice.STATE_IDLE:
-                        Log.e("bci", "STATE_IDLE");
-                        break;
-                    case TGDevice.STATE_ERR_BT_OFF:
-                        Log.e("bci", "STATE_ERR_BT_OFF");
-                        break;
-                    case TGDevice.STATE_CONNECTING:
-                        break;
-                    case TGDevice.STATE_ERR_NO_DEVICE:
-                        Log.e("bci", "STATE_ERR_NO_DEVICE");
-                        break;
-                    case TGDevice.STATE_NOT_FOUND:
-                        Log.e("bci", "STATE_NOT_FOUND");
-                        break;
-                    case TGDevice.STATE_CONNECTED:
-                        Log.e("bci", "STATE_CONNECTED");
-                        break;
-                    case TGDevice.STATE_DISCONNECTED:
-                        Log.e("bci", "STATE_DISCONNECTED");
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case TGDevice.MSG_POOR_SIGNAL:
-                break;
-            case TGDevice.MSG_ATTENTION:
-                int rawValue = msg.arg1;
-                addEntry(rawValue);
-                Log.e("ATTENTION", "value: " + rawValue);
-                break;
-            case TGDevice.MSG_RAW_DATA:
-                break;
-            case TGDevice.MSG_EEG_POWER:
-                break;
-            default:
+    public void onNeuroInterfaceStateChanged(int connectionStates) {
+
+    }
+
+    @Override
+    public void onNeuroDataReceived(int code, int attention) {
+        switch (code) {
+            case MindDataType.CODE_ATTENTION:
+                addEntry(attention);
                 break;
         }
     }
 
     @Override
-    public void animateStatusChanged(int value) {
-
-    }
-
-    @Override
-    public void promptForContent(Tag msg) {
+    public void onNFCTagReaded(Tag msg) {
         if (msg != null) {
             try {
                 String readedText = Helper.readTag(msg, getActivity());
@@ -396,45 +352,10 @@ public class RealTimeAttentionFragment extends Fragment implements
         }
     }
 
-    private void submitCode(Code code) {
-        if (loadTextView.getText().toString().isEmpty()) {
-            loadTextView.setText("" + code.getCode());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                loadTextView.setBackground(getResources().getDrawable(R.drawable.background_in_process));
-            }
-            String textToWrite = loadTextView.getText().toString();
-            if (TextUtils.isEmpty(textToWrite)) {
-                textToWrite =  getString(R.string.LABEL);
-                loadTextView.setText(textToWrite);
-                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-                Helper.snackBar(loadTextView, getString(R.string.standart_written));
-            } else {
-                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-                Helper.snackBar(loadTextView, getString(R.string.success_write_event));
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                loadTextView.setBackground(null);
-            }
-
-            String textToWrite = loadTextView.getText().toString();
-            StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-            if (textToWrite.equals(getString(R.string.LABEL))) {
-                Helper.snackBar(loadTextView, getString(R.string.standart_written));
-            } else {
-                Helper.snackBar(loadTextView, getString(R.string.success_write_event));
-            }
-            loadTextView.setText("");
-        }
-    }
-
     private View foundButtonByCode(String code) {
         if (code.equals("99")) {
             return button99;
         }
-//        if (code.equals("00") || code.equals("0")) {
-//            return button00;
-//        }
         if (code.equals("11")) {
             return button11;
         }
@@ -456,9 +377,6 @@ public class RealTimeAttentionFragment extends Fragment implements
         if (code.equals("71")) {
             return button71;
         }
-//        if (code.equals("81")) {
-//            return button81;
-//        }
         return null;
     }
 
@@ -469,7 +387,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         if (selectedButtonText.isEmpty()) {
             String textToWrite = code;
             ApplicationClass.addActivityToDoneArray(textToWrite);
-            StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
+            StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
             Helper.snackBar(loadTextView, getString(R.string.success_write_event));
             selectedButtonText = code;
             setAllButtonsUnselected(foundButtonByCode(code));
@@ -480,7 +398,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         } else {
             if (selectedButtonText.equals(code)) {
                 String textToWrite = code;
-                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
+                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
                 Helper.snackBar(loadTextView, getString(R.string.success_write_event));
                 loadTextView.setText("");
                 selectedButtonText = "";
@@ -492,49 +410,17 @@ public class RealTimeAttentionFragment extends Fragment implements
                 }
             } else {
                 String textToWrite = selectedButtonText;
-                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
+                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
 
                 textToWrite = code;
                 ApplicationClass.addActivityToDoneArray(textToWrite);
-                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, ExcelEventWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
+                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
                 Helper.snackBar(loadTextView, getString(R.string.success_write_event));
                 selectedButtonText = code;
                 setAllButtonsUnselected(foundButtonByCode(code));
                 canExport = false;
                 if (getActivity() instanceof MainActivity) {
                     ((MainActivity) getActivity()).canExport = false;
-                }
-            }
-        }
-    }
-
-    private class FontChangeTimerTask extends TimerTask {
-
-        @Override
-        public void run() {
-            if (getActivity() != null) {
-                getActivity().runOnUiThread(new ChangeFont());
-            }
-        }
-
-        private class ChangeFont implements Runnable {
-
-            @Override
-            public void run() {
-                if (!ApplicationClass.connected) {
-                    final int sdk = android.os.Build.VERSION.SDK_INT;
-                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        rootView.setBackgroundDrawable(getResources().getDrawable(R.drawable.frg_attention_red_border));
-                    } else {
-                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
-                    }
-                } else {
-                    final int sdk = android.os.Build.VERSION.SDK_INT;
-                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        rootView.setBackgroundDrawable(getResources().getDrawable(R.drawable.frg_attention_usual));
-                    } else {
-                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
-                    }
                 }
             }
         }
@@ -670,4 +556,36 @@ public class RealTimeAttentionFragment extends Fragment implements
             mediaPlayer = null;
         }
     }
+
+    private class FontChangeTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new ChangeFont());
+            }
+        }
+
+        private class ChangeFont implements Runnable {
+
+            @Override
+            public void run() {
+                final int sdk = android.os.Build.VERSION.SDK_INT;
+                if (!ApplicationClass.connected) {
+                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                    } else {
+                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                    }
+                } else {
+                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                    } else {
+                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                    }
+                }
+            }
+        }
+    }
+
 }

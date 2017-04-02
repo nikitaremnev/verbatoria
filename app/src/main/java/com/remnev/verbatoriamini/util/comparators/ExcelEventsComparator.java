@@ -1,4 +1,4 @@
-package com.remnev.verbatoriamini.util;
+package com.remnev.verbatoriamini.util.comparators;
 
 import com.remnev.verbatoriamini.model.ExcelEvent;
 

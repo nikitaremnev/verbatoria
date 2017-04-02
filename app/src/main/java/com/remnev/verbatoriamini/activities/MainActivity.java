@@ -33,17 +33,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.ApplicationClass;
-import com.remnev.verbatoriamini.BuildConfig;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.IClearButtons;
-import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
+import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.databases.BCIDatabase;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
 import com.remnev.verbatoriamini.fragment.ConnectionFragment;
@@ -61,10 +58,9 @@ import com.remnev.verbatoriamini.model.RezhimID;
 import com.remnev.verbatoriamini.sharedpreferences.ParentsAnswersSharedPrefs;
 import com.remnev.verbatoriamini.sharedpreferences.SettingsSharedPrefs;
 import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
-import com.remnev.verbatoriamini.util.BCIExcelWriter;
-import com.remnev.verbatoriamini.util.ExcelEventWriter;
-import com.remnev.verbatoriamini.util.ExcelEventsComparator;
-import com.remnev.verbatoriamini.util.ExcelExportComparator;
+import com.remnev.verbatoriamini.util.NeuroExcelWriter;
+import com.remnev.verbatoriamini.util.comparators.ExcelEventsComparator;
+import com.remnev.verbatoriamini.util.comparators.ExcelExportComparator;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -80,11 +76,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity
-        implements OnNewIntentCallback, ParentsQuestionaryDialogFragment.IAllAnswered {
+        implements INFCCallback, ParentsQuestionaryDialogFragment.IAllAnswered {
 
     private static final int REQUEST_PERMISSION_CODE = 2444;
 
@@ -107,16 +102,16 @@ public class MainActivity extends AppCompatActivity
     PendingIntent mPendingIntent;
     IntentFilter[] mNdefExchangeFilters;
 
-    public static OnNewIntentCallback callback;
+    public static INFCCallback callback;
 
     @Override
     public void onNewIntent(Intent intent) {
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) && callback != null) {
             Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            promptForContent(tagFromIntent);
+            onNFCTagReaded(tagFromIntent);
         } else if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
             Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            promptForContent(tagFromIntent);
+            onNFCTagReaded(tagFromIntent);
         }
     }
 
@@ -130,11 +125,11 @@ public class MainActivity extends AppCompatActivity
 
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(this.getIntent().getAction())) {
             Tag detectedTag = this.getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            promptForContent(detectedTag);
-            callback.promptForContent(detectedTag);
+            onNFCTagReaded(detectedTag);
+            callback.onNFCTagReaded(detectedTag);
         } else if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(this.getIntent().getAction())) {
             Tag detectedTag = this.getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            promptForContent(detectedTag);
+            onNFCTagReaded(detectedTag);
         }
 
     }
@@ -283,7 +278,7 @@ public class MainActivity extends AppCompatActivity
                         pendingFragment = new RealTimeAttentionFragment();
                         clearButtons = (IClearButtons) pendingFragment;
                         titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
-                        callback = (OnNewIntentCallback) pendingFragment;
+                        callback = (INFCCallback) pendingFragment;
                         break;
                     case R.id.bottom_navigation_item_mail:
                         if (!ApplicationClass.connected) {
@@ -295,12 +290,12 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.bottom_navigation_item_certificates:
                         pendingFragment = new WriteCertificateFragment();
-                        callback = (OnNewIntentCallback) pendingFragment;
+                        callback = (INFCCallback) pendingFragment;
                         titleTextView.setText(getString(R.string.CERTIFICATES_BOTTOM_NAVIGATION_BAR));
                         break;
                     case R.id.bottom_navigation_item_codes:
                         pendingFragment = new WriteCodesFragment();
-                        callback = (OnNewIntentCallback) pendingFragment;
+                        callback = (INFCCallback) pendingFragment;
                         titleTextView.setText(getString(R.string.CODES_BOTTOM_NAVIGATION_BAR));
                         break;
                 }
@@ -559,8 +554,8 @@ public class MainActivity extends AppCompatActivity
             c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
             c.setCellValue(timeFormat.format(timestampBCI * 1000));
             rowIndex ++;
-            BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-            ExcelEventWriter.writeStaticEvents(context, row);
+            NeuroExcelWriter.writeToRow(row, excelBCIs.get(i));
+            NeuroExcelWriter.writeStaticEvents(context, row);
             int j = 0;
             boolean rawAlreadyWritten = false;
             while (j < excelEvents.size()) {
@@ -570,7 +565,7 @@ public class MainActivity extends AppCompatActivity
                     } else if (excelEvents.get(j).getRezhimID() == RezhimID.LEARN_MODE) {
                         learnWord = "";
                     }
-                    if (excelEvents.get(j).getActionID() == ActionID.WORD_START_ID || (excelEvents.get(j).getModule().equals(ExcelEventWriter.CUSTOM_ACTION_ID) && !currentWord.equals(excelEvents.get(j).getWord()))) {
+                    if (excelEvents.get(j).getActionID() == ActionID.WORD_START_ID || (excelEvents.get(j).getModule().equals(NeuroExcelWriter.CUSTOM_ACTION_ID) && !currentWord.equals(excelEvents.get(j).getWord()))) {
                         currentWord = excelEvents.get(j).getWord();
                         currentModule = excelEvents.get(j).getModule();
                         currentExcelEvent.setRezhimID(excelEvents.get(j).getRezhimID());
@@ -580,7 +575,7 @@ public class MainActivity extends AppCompatActivity
                     } else if (excelEvents.get(j).getActionID() == ActionID.WORD_END_ID
                             || excelEvents.get(j).getActionID() == ActionID.WORD_SKIP_ID
                             || excelEvents.get(j).getActionID() == ActionID.WORD_BACK_ID
-                            || excelEvents.get(j).getActionID() == ActionID.WORD_SUCCESS_ID || (excelEvents.get(j).getModule().equals(ExcelEventWriter.CUSTOM_ACTION_ID) && currentWord.equals(excelEvents.get(j).getWord()))) {
+                            || excelEvents.get(j).getActionID() == ActionID.WORD_SUCCESS_ID || (excelEvents.get(j).getModule().equals(NeuroExcelWriter.CUSTOM_ACTION_ID) && currentWord.equals(excelEvents.get(j).getWord()))) {
                         currentModule = "";
                         currentWord = "";
                         currentExcelEvent.setRezhimID(-1);
@@ -593,11 +588,11 @@ public class MainActivity extends AppCompatActivity
                         c.setCellValue(rowIndex);
                         c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
                         c.setCellValue(timeFormat.format(timestampBCI * 1000));
-                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-                        ExcelEventWriter.writeStaticEvents(context, row);
+                        NeuroExcelWriter.writeToRow(row, excelBCIs.get(i));
+                        NeuroExcelWriter.writeStaticEvents(context, row);
                         rowIndex ++;
                     }
-                    ExcelEventWriter.writeToRow(row, excelEvents.get(j));
+                    NeuroExcelWriter.writeToRow(row, excelEvents.get(j));
                     rawAlreadyWritten = true;
                     j ++;
                     continue;
@@ -612,11 +607,11 @@ public class MainActivity extends AppCompatActivity
                         c.setCellValue(rowIndex);
                         c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
                         c.setCellValue(timeFormat.format(timestampBCI * 1000));
-                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-                        ExcelEventWriter.writeStaticEvents(context, row);
+                        NeuroExcelWriter.writeToRow(row, excelBCIs.get(i));
+                        NeuroExcelWriter.writeStaticEvents(context, row);
                         rowIndex ++;
                     }
-                    ExcelEventWriter.writeToRow(row, excelEvent);
+                    NeuroExcelWriter.writeToRow(row, excelEvent);
                     rawAlreadyWritten = true;
                 }
                 if (!rawAlreadyWritten && (!TextUtils.isEmpty(currentWord) || !TextUtils.isEmpty(currentModule))) {
@@ -632,11 +627,11 @@ public class MainActivity extends AppCompatActivity
                         c.setCellValue(rowIndex);
                         c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
                         c.setCellValue(timeFormat.format(timestampBCI * 1000));
-                        BCIExcelWriter.writeToRow(row, excelBCIs.get(i));
-                        ExcelEventWriter.writeStaticEvents(context, row);
+                        NeuroExcelWriter.writeToRow(row, excelBCIs.get(i));
+                        NeuroExcelWriter.writeStaticEvents(context, row);
                         rowIndex ++;
                     }
-                    ExcelEventWriter.writeToRow(row, excelEvent);
+                    NeuroExcelWriter.writeToRow(row, excelEvent);
                     rawAlreadyWritten = true;
                 }
                 if (excelEvents.get(j).timestamp > timestampBCI) {
@@ -1031,10 +1026,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void promptForContent(Tag msg) {
+    public void onNFCTagReaded(Tag msg) {
         if (pendingFragment instanceof WriteCertificateFragment) {
             if (callback != null) {
-                callback.promptForContent(msg);
+                callback.onNFCTagReaded(msg);
             }
             return;
         }
@@ -1042,7 +1037,7 @@ public class MainActivity extends AppCompatActivity
             String readedText = Helper.readTag(msg, MainActivity.this);
             if (TextUtils.isEmpty(readedText)) {
                 if (callback != null) {
-                    callback.promptForContent(msg);
+                    callback.onNFCTagReaded(msg);
                 }
             } else {
                 try {
@@ -1072,13 +1067,13 @@ public class MainActivity extends AppCompatActivity
                         }
                     } else {
                         if (callback != null) {
-                            callback.promptForContent(msg);
+                            callback.onNFCTagReaded(msg);
                         }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     if (callback != null) {
-                        callback.promptForContent(msg);
+                        callback.onNFCTagReaded(msg);
                     }
                 }
             }

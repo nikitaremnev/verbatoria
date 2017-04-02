@@ -34,6 +34,7 @@ android {
         targetSdkVersion target_sdk_version
         versionCode version_code
         versionName version_name
+        project.ext.set("archivesBaseName", "verbatoria-" + defaultConfig.versionName);
     }
 
     productFlavors {
@@ -116,4 +117,5 @@ dependencies {
     compile "com.android.support:design:${supportLibVersion}"
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.0'
     compile "com.android.support:support-v4:${supportLibVersion}"
+    compile files('libs/NskAlgoSdk.jar')
 }

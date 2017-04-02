@@ -1,15 +1,13 @@
 package com.remnev.verbatoriamini.util;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.model.ActionID;
+import com.remnev.verbatoriamini.model.ExcelBCI;
 import com.remnev.verbatoriamini.model.ExcelColumnID;
 import com.remnev.verbatoriamini.model.ExcelEvent;
 import com.remnev.verbatoriamini.model.RezhimID;
 import com.remnev.verbatoriamini.sharedpreferences.ParentsAnswersSharedPrefs;
-import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -17,12 +15,35 @@ import org.apache.poi.ss.usermodel.Row;
 /**
  * Created by nikitaremnev on 27.03.16.
  */
-public class ExcelEventWriter {
+public class NeuroExcelWriter {
 
     public static final String CUSTOM_ACTION_ID = "custom";
 
+    public static void writeToRow(Row row, ExcelBCI excelBCI) {
+        Cell c = row.createCell(ExcelColumnID.EXCEL_ATTENTION_CODE);
+        c.setCellValue(excelBCI.getAttention());
+        c = row.createCell(ExcelColumnID.EXCEL_MEDIATION_CODE);
+        c.setCellValue(excelBCI.getMediation());
+        c = row.createCell(ExcelColumnID.EXCEL_DELTA_CODE);
+        c.setCellValue(excelBCI.getDelta());
+        c = row.createCell(ExcelColumnID.EXCEL_THETA_CODE);
+        c.setCellValue(excelBCI.getTheta());
+        c = row.createCell(ExcelColumnID.EXCEL_LOW_ALPHA_CODE);
+        c.setCellValue(excelBCI.getLowAlpha());
+        c = row.createCell(ExcelColumnID.EXCEL_HIGH_ALPHA_CODE);
+        c.setCellValue(excelBCI.getHighAlpha());
+        c = row.createCell(ExcelColumnID.EXCEL_LOW_BETA_CODE);
+        c.setCellValue(excelBCI.getLowBeta());
+        c = row.createCell(ExcelColumnID.EXCEL_HIGH_BETA_CODE);
+        c.setCellValue(excelBCI.getHighBeta());
+        c = row.createCell(ExcelColumnID.EXCEL_LOW_GAMMA_CODE);
+        c.setCellValue(excelBCI.getLowGamma());
+        c = row.createCell(ExcelColumnID.EXCEL_MID_GAMMA_CODE);
+        c.setCellValue(excelBCI.getMidGamma());
+    }
+
     public static void writeToRow(Row row, ExcelEvent excelEvent) {
-        Cell c = null;
+        Cell c;
         if (excelEvent.getRezhimID() != -1) {
             c = row.createCell(ExcelColumnID.EXCEL_EVENT_ID_CODE);
             switch (excelEvent.getRezhimID()) {
@@ -121,6 +142,4 @@ public class ExcelEventWriter {
             c.setCellValue(ParentsAnswersSharedPrefs.getValue(mContext, Integer.toString(row.getRowNum() - 1)));
         }
     }
-
-
 }

@@ -14,9 +14,6 @@ import java.io.File;
 
 public class StatisticsDatabase extends SQLiteOpenHelper implements BaseColumns {
 
-
-    public static final String GAME_WIN_WORD = "WIN";
-
     private static StatisticsDatabase mInstance;
     private static SQLiteDatabase myWritableDb;
     private static final String DATABASE_NAME = "statistics.db";

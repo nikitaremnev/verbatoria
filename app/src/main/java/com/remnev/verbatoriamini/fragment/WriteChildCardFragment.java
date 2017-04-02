@@ -8,11 +8,9 @@ import android.graphics.drawable.TransitionDrawable;
 import android.nfc.FormatException;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.neurosky.thinkgear.TGDevice;
-import com.remnev.verbatoriamini.ApplicationClass;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.callbacks.OnBCIConnectionCallback;
-import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
+import com.remnev.verbatoriamini.callbacks.INFCCallback;
+import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
 import com.remnev.verbatoriamini.databases.ChildsDatabase;
 import com.remnev.verbatoriamini.model.Child;
 
@@ -38,7 +34,7 @@ import java.util.Calendar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WriteChildCardFragment extends Fragment implements OnBCIConnectionCallback, OnNewIntentCallback {
+public class WriteChildCardFragment extends Fragment implements INeuroInterfaceCallback, INFCCallback {
 
     public ImageView statusImageView;
     public Button birthdayButton;
@@ -211,36 +207,13 @@ public class WriteChildCardFragment extends Fragment implements OnBCIConnectionC
     Drawable secondDrawable;
 
     @Override
-    public void onMessageReceived(Message message) {
+    public void onNeuroInterfaceStateChanged(int code) {
 
     }
 
     @Override
-    public void animateStatusChanged(int value) {
-        if (secondDrawable != null) {
-            firstDrawable = secondDrawable;
-        }
-        if (value < 20) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_lowest);
-        } else if (value < 40) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_low);
-        } else if (value < 60) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_middle);
-        } else if (value < 80) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_high);
-        } else if (value < 100) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_highest);
-        }
-        if (firstDrawable == null) {
-            firstDrawable = getResources().getDrawable(R.drawable.status_middle);
-        }
-        TransitionDrawable transitionDrawable = new TransitionDrawable(new Drawable[] {
-                firstDrawable,
-                secondDrawable,
-        });
-        statusImageView.setImageDrawable(transitionDrawable);
-        transitionDrawable.startTransition(700);
-        //Helper.animateStatusChange(firstDrawable, secondDrawable, BCIConnectionActivity.this, statusImageView, value);
+    public void onNeuroDataReceived(int code, int attention) {
+
     }
 
     public void clearFields() {
@@ -267,7 +240,7 @@ public class WriteChildCardFragment extends Fragment implements OnBCIConnectionC
 
 
     @Override
-    public void promptForContent(Tag msg) {
+    public void onNFCTagReaded(Tag msg) {
         if (write && msg != null) {
             Child child = getChild();
             if (child == null) {

@@ -1,13 +1,9 @@
 package com.remnev.verbatoriamini.fragment;
 
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
@@ -36,8 +32,8 @@ import com.remnev.verbatoriamini.model.ExcelBCI;
 import com.remnev.verbatoriamini.model.ExcelEvent;
 import com.remnev.verbatoriamini.model.RezhimID;
 import com.remnev.verbatoriamini.model.SumNumber;
-import com.remnev.verbatoriamini.util.ExcelEventsComparator;
-import com.remnev.verbatoriamini.util.ExcelExportComparator;
+import com.remnev.verbatoriamini.util.comparators.ExcelEventsComparator;
+import com.remnev.verbatoriamini.util.comparators.ExcelExportComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -3,7 +3,6 @@ package com.remnev.verbatoriamini.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.nfc.FormatException;
@@ -12,10 +11,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,16 +21,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.bluelinelabs.logansquare.LoganSquare;
 import com.remnev.verbatoriamini.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.activities.NavigationDrawerActivity;
-import com.remnev.verbatoriamini.callbacks.OnBCIConnectionCallback;
-import com.remnev.verbatoriamini.callbacks.OnNewIntentCallback;
+import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
+import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.databases.CertificatesDatabase;
 import com.remnev.verbatoriamini.model.Certificate;
 import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
@@ -44,12 +37,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WriteCertificateFragment extends Fragment implements OnBCIConnectionCallback, OnNewIntentCallback {
+public class WriteCertificateFragment extends Fragment implements INeuroInterfaceCallback, INFCCallback {
 
     public ImageView statusImageView;
     public Spinner profileSpinner;
@@ -173,36 +165,13 @@ public class WriteCertificateFragment extends Fragment implements OnBCIConnectio
     Drawable secondDrawable;
 
     @Override
-    public void onMessageReceived(Message message) {
+    public void onNeuroInterfaceStateChanged(int code) {
 
     }
 
     @Override
-    public void animateStatusChanged(int value) {
-        if (secondDrawable != null) {
-            firstDrawable = secondDrawable;
-        }
-        if (value < 20) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_lowest);
-        } else if (value < 40) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_low);
-        } else if (value < 60) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_middle);
-        } else if (value < 80) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_high);
-        } else if (value < 100) {
-            secondDrawable = getResources().getDrawable(R.drawable.status_highest);
-        }
-        if (firstDrawable == null) {
-            firstDrawable = getResources().getDrawable(R.drawable.status_middle);
-        }
-        TransitionDrawable transitionDrawable = new TransitionDrawable(new Drawable[] {
-                firstDrawable,
-                secondDrawable,
-        });
-        statusImageView.setImageDrawable(transitionDrawable);
-        transitionDrawable.startTransition(700);
-        //Helper.animateStatusChange(firstDrawable, secondDrawable, BCIConnectionActivity.this, statusImageView, value);
+    public void onNeuroDataReceived(int code, int attention) {
+
     }
 
     public void clearFields() {
@@ -216,7 +185,7 @@ public class WriteCertificateFragment extends Fragment implements OnBCIConnectio
 
 
     @Override
-    public void promptForContent(Tag msg) {
+    public void onNFCTagReaded(Tag msg) {
         if (write && msg != null) {
             Certificate certificate = getSpecialist();
             if (certificate == null) {

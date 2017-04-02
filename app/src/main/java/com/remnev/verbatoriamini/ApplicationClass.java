@@ -5,27 +5,26 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
 
-import com.neurosky.thinkgear.TGDevice;
-import com.neurosky.thinkgear.TGEegPower;
-import com.remnev.verbatoriamini.callbacks.OnBCIConnectionCallback;
+import com.neurosky.connection.ConnectionStates;
+import com.neurosky.connection.DataType.MindDataType;
+import com.neurosky.connection.EEGPower;
+import com.neurosky.connection.TgStreamHandler;
+import com.neurosky.connection.TgStreamReader;
+import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
 import com.remnev.verbatoriamini.databases.BCIDatabase;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
 import com.remnev.verbatoriamini.model.ActionID;
 import com.remnev.verbatoriamini.model.RezhimID;
 import com.remnev.verbatoriamini.sharedpreferences.SettingsSharedPrefs;
-
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -35,9 +34,9 @@ public class ApplicationClass extends Application {
 
     public static final int BLUETOOTH_NOT_STARTED = -13432;
 
-    private TGDevice tgDevice = null;
+    private TgStreamReader tgStreamReader;
     private BluetoothAdapter btAdapter = null;
-    private static OnBCIConnectionCallback onBCIConnectionCallback;
+    private static INeuroInterfaceCallback sINeurointerfaceCallback;
     private static View rootView;
     private static Context mContext = null;
 
@@ -110,8 +109,8 @@ public class ApplicationClass extends Application {
         return doneActivitiesArray.remove(string);
     }
 
-    public void setOnBCIConnectionCallback(OnBCIConnectionCallback callback) {
-        onBCIConnectionCallback = callback;
+    public void setOnBCIConnectionCallback(INeuroInterfaceCallback callback) {
+        sINeurointerfaceCallback = callback;
     }
 
     public void setMContext(Context context) {
@@ -133,175 +132,30 @@ public class ApplicationClass extends Application {
 
     public void startBCIConnection() {
         if (btAdapter != null && btAdapter.isEnabled()) {
-            tgDevice = new TGDevice( btAdapter, handler );
-            tgDevice.connect(true);
+            tgStreamReader = new TgStreamReader(btAdapter, mStreamHandler);
+            if (tgStreamReader.isBTConnected()) {
+                // Prepare for connecting
+                tgStreamReader.stop();
+                tgStreamReader.close();
+            }
+            tgStreamReader.connect();
         } else {
             onBluetoothNotStarted();
-
         }
     }
 
     public void startBCI() {
-        if (tgDevice != null) {
-            tgDevice.start();
+        if (tgStreamReader != null) {
+            tgStreamReader.start();
         }
     }
 
     public void dropBCIConnection() {
-        if (tgDevice != null) {
-            tgDevice.close();
+        if (tgStreamReader != null) {
+            tgStreamReader.stop();
+            tgStreamReader.close();
         }
     }
-
-    private static Handler handler = new Handler() {
-        @Override
-        public void handleMessage(final Message msg) {
-            if (onBCIConnectionCallback != null) {
-                try {
-                    switch( msg.what ) {
-                        case TGDevice.MSG_STATE_CHANGE:
-                            switch (msg.arg1) {
-                                case TGDevice.STATE_IDLE:
-                                    break;
-                                case TGDevice.STATE_ERR_BT_OFF:
-
-                                    break;
-                                case TGDevice.STATE_CONNECTING:
-                                    connected = false;
-                                    onBCIConnectionCallback.onMessageReceived(msg);
-                                    if (mContext != null) {
-                                        connectionSnackbar = Snackbar.make(rootView, mContext.getString(R.string.connecting), Snackbar.LENGTH_INDEFINITE);
-                                        connectionSnackbar.show();
-//                                        /message(mContext.getString(R.string.connecting));
-                                    }
-                                    break;
-                                case TGDevice.STATE_ERR_NO_DEVICE:
-                                    connected = false;
-                                    onBCIConnectionCallback.onMessageReceived(msg);
-                                    if (mContext != null) {
-                                        if (connectionSnackbar != null) {
-                                            connectionSnackbar.dismiss();
-                                        }
-                                        message(mContext.getString(R.string.no_device));
-                                        try {
-                                            BCIDatabase.getInstance(mContext).close();
-                                            BCIDatabase.getMyWritableDatabase(mContext).close();
-                                        } catch (Exception ex) {
-                                            ex.printStackTrace();
-                                        }
-                                    }
-                                    break;
-                                case TGDevice.STATE_NOT_FOUND:
-                                    connected = false;
-                                    onBCIConnectionCallback.onMessageReceived(msg);
-                                    if (mContext != null) {
-                                        if (connectionSnackbar != null) {
-                                            connectionSnackbar.dismiss();
-                                        }
-                                        message(mContext.getString(R.string.no_device));
-                                        try {
-                                            BCIDatabase.getInstance(mContext).close();
-                                            BCIDatabase.getMyWritableDatabase(mContext).close();
-                                        } catch (Exception ex) {
-                                            ex.printStackTrace();
-                                        }
-                                    }
-                                    break;
-                                case TGDevice.STATE_CONNECTED:
-                                    connected = true;
-                                    onBCIConnectionCallback.onMessageReceived(msg);
-                                    if (mContext != null) {
-                                        if (connectionSnackbar != null) {
-                                            connectionSnackbar.dismiss();
-                                        }
-                                        //message(mContext.getString(R.string.connected));
-                                        if (msg != null) {
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                                SettingsSharedPrefs.setBciID(mContext, "" + msg.sendingUid);
-                                            } else {
-                                                SettingsSharedPrefs.setBciID(mContext, "Неизвестно");
-                                            }
-                                        }
-                                        writeBCIToDatabase = true;
-                                        message(mContext.getString(R.string.bci_started));
-                                        StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.CONNECT_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                                        StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                                    }
-                                    break;
-                                case TGDevice.STATE_DISCONNECTED:
-                                    connected = false;
-                                    onBCIConnectionCallback.onMessageReceived(msg);
-                                    if (mContext != null) {
-                                        message(mContext.getString(R.string.connection_lost));
-                                        try {
-                                            BCIDatabase.getInstance(mContext).close();
-                                            BCIDatabase.getMyWritableDatabase(mContext).close();
-                                        } catch (Exception ex) {
-                                            ex.printStackTrace();
-                                        }
-                                        StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.DISCONNECT_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                                    }
-                                    break;
-                                default:
-                                    break;
-                            }
-                            break;
-                        case TGDevice.MSG_POOR_SIGNAL:
-
-                            break;
-                        case TGDevice.MSG_ATTENTION:
-                            final int attention = msg.arg1;
-                            final long timestamp = System.currentTimeMillis();
-                            if (writeBCIToDatabase) {
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BCIDatabase.addBCIAttentionToDatabase(mContext, timestamp, attention);
-                                    }
-                                }).start();
-                            }
-                            msg.arg1 = processValue(msg.arg1);
-                            if (msg.arg1 != -1) {
-                                onBCIConnectionCallback.onMessageReceived(msg);
-                            }
-                            break;
-                        case TGDevice.MSG_RAW_DATA:
-                            break;
-                        case TGDevice.MSG_EEG_POWER:
-                            if (writeBCIToDatabase) {
-                                final TGEegPower ep = (TGEegPower) msg.obj;
-                                final long timestampEEg = System.currentTimeMillis();
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BCIDatabase.addBCITGEEGPowerToDatabase(mContext, ep.delta, ep.theta, ep.lowAlpha, ep.highAlpha, ep.lowBeta, ep.highBeta, ep.lowGamma, ep.midGamma, timestampEEg);
-                                    }
-                                }).start();
-                            }
-                            break;
-
-                        case TGDevice.MSG_MEDITATION:
-                            final int mediation = msg.arg1;
-                            final long timestampMed = System.currentTimeMillis();
-                            if (writeBCIToDatabase) {
-                                new Thread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        BCIDatabase.addBCIMediationToDatabase(mContext, timestampMed, mediation);
-                                    }
-                                }).start();
-                            }
-                        default:
-                            break;
-                    }
-
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-    };
 
     public void onBluetoothConnected() {
         startBCIConnection();
@@ -312,9 +166,9 @@ public class ApplicationClass extends Application {
         Message message = new Message();
         message.what = BLUETOOTH_NOT_STARTED;
         message.arg1 = BLUETOOTH_NOT_STARTED;
-        if (onBCIConnectionCallback != null) {
-            Log.e("event", "event send to callback");
-            onBCIConnectionCallback.onMessageReceived(message);
+        if (sINeurointerfaceCallback != null) {
+            Log.e("event", "event send to mStreamHandler");
+            sINeurointerfaceCallback.onNeuroInterfaceStateChanged(33);
         }
         Snackbar snackbar = Snackbar.make(rootView, getString(R.string.bluetoothDisabled), Snackbar.LENGTH_SHORT);
         snackbar.setAction(getString(R.string.settings), new View.OnClickListener() {
@@ -373,7 +227,139 @@ public class ApplicationClass extends Application {
         return writeBCIToDatabase;
     }
 
-/*
+    private TgStreamHandler mStreamHandler = new TgStreamHandler() {
 
- */
+        @Override
+        public void onStatesChanged(int connectionStates) {
+            switch (connectionStates) {
+                case ConnectionStates.STATE_CONNECTING:
+                    Log.e("test", "STATE_CONNECTING");
+                    // Do something when connecting
+                    connected = false;
+                    sINeurointerfaceCallback.onNeuroInterfaceStateChanged(connectionStates);
+                    if (mContext != null) {
+                        connectionSnackbar = Snackbar.make(rootView, mContext.getString(R.string.connecting), Snackbar.LENGTH_INDEFINITE);
+                        connectionSnackbar.show();
+                    }
+                    break;
+                case ConnectionStates.STATE_CONNECTED:
+                    Log.e("test", "STATE_CONNECTED");
+                    // Do something when connected
+                    connected = true;
+                    sINeurointerfaceCallback.onNeuroInterfaceStateChanged(connectionStates);
+                    if (mContext != null) {
+                        if (connectionSnackbar != null) {
+                            connectionSnackbar.dismiss();
+                        }
+                        //message(mContext.getString(R.string.connected));
+                        SettingsSharedPrefs.setBciID(mContext, "Неизвестно");
+                        writeBCIToDatabase = true;
+                        message(mContext.getString(R.string.bci_started));
+                        StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.CONNECT_ID, RezhimID.ANOTHER_MODE, -1, -1);
+                        StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
+                    }
+
+                    break;
+                case ConnectionStates.STATE_WORKING:
+                    Log.e("test", "STATE_WORKING");
+                    // Do something when working
+                    break;
+                case ConnectionStates.STATE_COMPLETE:
+                    Log.e("test", "STATE_COMPLETE");
+                    break;
+                case ConnectionStates.STATE_GET_DATA_TIME_OUT:
+                    Log.e("test", "STATE_GET_DATA_TIME_OUT");
+                    break;
+                case ConnectionStates.STATE_INIT:
+                    Log.e("test", "STATE_INIT");
+                    break;
+                case ConnectionStates.STATE_RECORDING_END:
+                    Log.e("test", "STATE_RECORDING_END");
+                    break;
+                case ConnectionStates.STATE_RECORDING_START:
+                    Log.e("test", "STATE_RECORDING_START");
+                    break;
+                case ConnectionStates.STATE_STOPPED:
+                    Log.e("test", "STATE_STOPPED");
+                    break;
+                case ConnectionStates.STATE_DISCONNECTED:
+                case ConnectionStates.STATE_ERROR:
+                case ConnectionStates.STATE_FAILED:
+                    connected = false;
+                    sINeurointerfaceCallback.onNeuroInterfaceStateChanged(connectionStates);
+                    if (mContext != null) {
+                        if (connectionSnackbar != null) {
+                            connectionSnackbar.dismiss();
+                        }
+                        message(mContext.getString(R.string.no_device));
+                        try {
+                            BCIDatabase.getInstance(mContext).close();
+                            BCIDatabase.getMyWritableDatabase(mContext).close();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    break;
+            }
+        }
+
+        @Override
+        public void onRecordFail(int flag) {
+            // You can handle the record error message here
+
+        }
+
+        @Override
+        public void onChecksumFail(byte[] payload, int length, int checksum) {
+            // You can handle the bad packets here.
+        }
+
+        @Override
+        public void onDataReceived(int datatype, final int data, Object obj) {
+            switch (datatype) {
+                case MindDataType.CODE_ATTENTION:
+                    final long timestamp = System.currentTimeMillis();
+                    if (writeBCIToDatabase) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                BCIDatabase.addBCIAttentionToDatabase(mContext, timestamp, data);
+                            }
+                        }).start();
+                    }
+                    int attentionValue = processValue(data);
+                    if (attentionValue != -1) {
+                        sINeurointerfaceCallback.onNeuroDataReceived(datatype, attentionValue);
+                    }
+                    break;
+                case MindDataType.CODE_MEDITATION:
+                    final long timestampMed = System.currentTimeMillis();
+                    if (writeBCIToDatabase) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                BCIDatabase.addBCIMediationToDatabase(mContext, timestampMed, data);
+                            }
+                        }).start();
+                    }
+                    break;
+                case MindDataType.CODE_EEGPOWER:
+                    if (writeBCIToDatabase) {
+                        final EEGPower ep = (EEGPower) obj;
+                        final long timestampEEg = System.currentTimeMillis();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                BCIDatabase.addBCITGEEGPowerToDatabase(mContext, ep.delta, ep.theta, ep.lowAlpha, ep.highAlpha, ep.lowBeta, ep.highBeta, ep.lowGamma, ep.middleGamma, timestampEEg);
+                            }
+                        }).start();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    };
+
 }
