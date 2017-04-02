@@ -41,22 +41,19 @@ public class SplashActivity extends AppCompatActivity {
             SettingsSharedPrefs.setUpdateFlag1(this);
         }
 
-        final long currentTime = System.currentTimeMillis();
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (System.currentTimeMillis() - currentTime < 1000) {}
-//                if (!BuildConfig.FLAVOR.contains("master")) {
-                    Intent intent = new Intent(SplashActivity.this, AuthorityActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    SplashActivity.this.finish();
-                    startActivity(intent);
-//                } else {
-//                    Intent intent = new Intent(SplashActivity.this, NavigationDrawerActivity.class);
-//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    SplashActivity.this.finish();
-//                    startActivity(intent);
-//                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(SplashActivity.this, CheckCertificateActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                SplashActivity.this.finish();
+                startActivity(intent);
             }
         });
         thread.start();

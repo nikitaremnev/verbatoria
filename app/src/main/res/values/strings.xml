@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="app_name">Нейроскрин v8.2</string>
-    <string name="title_activity_navigation_drawer">Нейроскрин v8.2</string>
-    <string name="navigation_drawer_open">Нейроскрин v8.2</string>
-    <string name="navigation_drawer_close">Нейроскрин v8.2</string>
+    <string name="app_name">Нейроскрин v8.3</string>
+    <string name="title_activity_navigation_drawer">Нейроскрин v8.3</string>
+    <string name="navigation_drawer_open">Нейроскрин v8.3</string>
+    <string name="navigation_drawer_close">Нейроскрин v8.3</string>
     <string name="nav_drawer_item_authority">Авторизация</string>
     <string name="nav_drawer_item_main">Подключение</string>
     <string name="nav_drawer_item_settings">Настройки</string>
@@ -131,8 +131,8 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
 
-    <string name="authority_success">Вы успешно авторизованы как, %s. Срок действия вашего сертификата до </string>
-    <string name="authority_some_success">Вы авторизованы как, %s. Срок действия вашего сертификата до </string>
+    <string name="authority_success">Вы успешно авторизованы как: %s. Срок действия вашего сертификата до </string>
+    <string name="authority_some_success">Вы авторизованы как: %s. Срок действия вашего сертификата до </string>
 
     <string name="cvc_not_equal">Нарушена целостность ключа специалиста. Для получения расшифровки необходимо будет обратиться в ВЦ Вербатория! Продолжить работу в любом случае? </string>
 
@@ -216,6 +216,7 @@
     <string name="fill_all_questions">Пожалуйста, укажите все ответы родителей</string>
     <string name="cant_play">Файлы для воспроизведения не найдены!</string>
 
+    <string name="unknown">Неизвестно</string>
     <string name="back">Назад</string>
     <string name="next">Далее</string>
     <string name="ready">Готово</string>

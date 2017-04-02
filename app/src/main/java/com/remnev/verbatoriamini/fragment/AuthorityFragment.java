@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.remnev.verbatoriamini.Helper;
+import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.model.Certificate;

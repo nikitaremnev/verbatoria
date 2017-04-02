@@ -16,13 +16,13 @@ import java.io.File;
 /**
  * Created by nikitaremnev on 14.03.16.
  */
-public class BCIDatabase extends SQLiteOpenHelper implements BaseColumns {
+public class NeuroDataDatabase extends SQLiteOpenHelper implements BaseColumns {
 
-
-    private static BCIDatabase mInstance;
+    private static NeuroDataDatabase mInstance;
     private static SQLiteDatabase myWritableDb;
-    private static final String DATABASE_NAME = "bci.db";
 
+
+    private static final String DATABASE_NAME = "bci.db";
     private static final int DATABASE_VERSION = 1;
 
     public static final String CHILD_ID = "childId";
@@ -51,17 +51,16 @@ public class BCIDatabase extends SQLiteOpenHelper implements BaseColumns {
     private static final String BCI_RAW_TABLE_NAME  = "bci_raw";
     private static final String RAW = "raw";
 
-
     private static final String BCI_SQL_CREATE_ENTRIES = "CREATE TABLE "
             + BCI_ATTENTION_TABLE_NAME + " ("
-            + BCIDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            + NeuroDataDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TIMESTAMP + " INTEGER, " +
             ATTENTION + " INTEGER, " +
             CHILD_ID + " TEXT);";
 
     private static final String BCI_OTHER_SQL_CREATE_ENTRIES = "CREATE TABLE "
             + BCI_EEG_TABLE_NAME + " ("
-            + BCIDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            + NeuroDataDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TIMESTAMP + " INTEGER, " +
             DELTA + " INTEGER, " +
             THETA + " INTEGER, " +
@@ -75,19 +74,26 @@ public class BCIDatabase extends SQLiteOpenHelper implements BaseColumns {
 
     private static final String BCI_MEDIATION_SQL_CREATE_ENTRIES = "CREATE TABLE "
             + BCI_MEDIATION_TABLE_NAME + " ("
-            + BCIDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            + NeuroDataDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TIMESTAMP + " INTEGER, " +
             MEDIATION + " INTEGER, " +
             CHILD_ID + " TEXT);";
 
     private static final String BCI_RAW_SQL_CREATE_ENTRIES = "CREATE TABLE "
             + BCI_RAW_TABLE_NAME + " ("
-            + BCIDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            + NeuroDataDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             TIMESTAMP + " INTEGER, " +
             RAW + " INTEGER, " +
             CHILD_ID + " TEXT);";
 
-    private BCIDatabase(Context context) {
+    public static NeuroDataDatabase getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new NeuroDataDatabase(context);
+        }
+        return mInstance;
+    }
+
+    private NeuroDataDatabase(Context context) {
         super(context, Environment.getExternalStorageDirectory()
                 + File.separator + SplashActivity.FILES_DIR + File.separator +
                 DATABASE_NAME, null, DATABASE_VERSION);
@@ -124,21 +130,14 @@ public class BCIDatabase extends SQLiteOpenHelper implements BaseColumns {
         return myWritableDb;
     }
 
-    public static BCIDatabase getInstance(Context context) {
-        if (mInstance == null) {
-            mInstance = new BCIDatabase(context);
-        }
-        return mInstance;
-    }
-
     public static void addBCIAttentionToDatabase(Context context, long timestamp, int attention) {
         SQLiteDatabase sqdb = getMyWritableDatabase(context);
         try {
             ContentValues cv = new ContentValues();
-            cv.put(BCIDatabase.TIMESTAMP, timestamp);
-            cv.put(BCIDatabase.ATTENTION, attention);
-            cv.put(BCIDatabase.CHILD_ID, ExcelEvent.childID);
-            sqdb.insert(BCIDatabase.BCI_ATTENTION_TABLE_NAME, null, cv);
+            cv.put(NeuroDataDatabase.TIMESTAMP, timestamp);
+            cv.put(NeuroDataDatabase.ATTENTION, attention);
+            cv.put(NeuroDataDatabase.CHILD_ID, ExcelEvent.childID);
+            sqdb.insert(NeuroDataDatabase.BCI_ATTENTION_TABLE_NAME, null, cv);
         } catch (SQLiteException exception) {
             exception.printStackTrace();
         }
@@ -156,17 +155,17 @@ public class BCIDatabase extends SQLiteOpenHelper implements BaseColumns {
         SQLiteDatabase sqdb = getMyWritableDatabase(context);
         try {
             ContentValues cv = new ContentValues();
-            cv.put(BCIDatabase.TIMESTAMP, timestamp);
-            cv.put(BCIDatabase.DELTA, delta);
-            cv.put(BCIDatabase.THETA, theta);
-            cv.put(BCIDatabase.LOW_ALPHA, lowAlpha);
-            cv.put(BCIDatabase.HIGH_ALPHA, highAlpha);
-            cv.put(BCIDatabase.LOW_BETA, lowBeta);
-            cv.put(BCIDatabase.HIGH_BETA, highBeta);
-            cv.put(BCIDatabase.LOW_GAMMA, lowGamma);
-            cv.put(BCIDatabase.MID_GAMMA, midGamma);
-            cv.put(BCIDatabase.CHILD_ID, ExcelEvent.childID);
-            sqdb.insert(BCIDatabase.BCI_EEG_TABLE_NAME, null, cv);
+            cv.put(NeuroDataDatabase.TIMESTAMP, timestamp);
+            cv.put(NeuroDataDatabase.DELTA, delta);
+            cv.put(NeuroDataDatabase.THETA, theta);
+            cv.put(NeuroDataDatabase.LOW_ALPHA, lowAlpha);
+            cv.put(NeuroDataDatabase.HIGH_ALPHA, highAlpha);
+            cv.put(NeuroDataDatabase.LOW_BETA, lowBeta);
+            cv.put(NeuroDataDatabase.HIGH_BETA, highBeta);
+            cv.put(NeuroDataDatabase.LOW_GAMMA, lowGamma);
+            cv.put(NeuroDataDatabase.MID_GAMMA, midGamma);
+            cv.put(NeuroDataDatabase.CHILD_ID, ExcelEvent.childID);
+            sqdb.insert(NeuroDataDatabase.BCI_EEG_TABLE_NAME, null, cv);
         } catch (SQLiteException exception) {
             exception.printStackTrace();
         }
@@ -176,32 +175,17 @@ public class BCIDatabase extends SQLiteOpenHelper implements BaseColumns {
         SQLiteDatabase sqdb = getMyWritableDatabase(context);
         try {
             ContentValues cv = new ContentValues();
-            cv.put(BCIDatabase.TIMESTAMP, timestamp);
-            cv.put(BCIDatabase.MEDIATION, mediation);
-            cv.put(BCIDatabase.CHILD_ID, ExcelEvent.childID);
-            sqdb.insert(BCIDatabase.BCI_MEDIATION_TABLE_NAME, null, cv);
-        } catch (SQLiteException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    public static void addBCIRawToDatabase(Context context, long timestamp, int raw) {
-        SQLiteDatabase sqdb = getMyWritableDatabase(context);
-        try {
-            ContentValues cv = new ContentValues();
-            cv.put(BCIDatabase.TIMESTAMP, timestamp);
-            cv.put(BCIDatabase.RAW, raw);
-            cv.put(BCIDatabase.CHILD_ID, ExcelEvent.childID);
-            sqdb.insert(BCIDatabase.BCI_RAW_TABLE_NAME, null, cv);
+            cv.put(NeuroDataDatabase.TIMESTAMP, timestamp);
+            cv.put(NeuroDataDatabase.MEDIATION, mediation);
+            cv.put(NeuroDataDatabase.CHILD_ID, ExcelEvent.childID);
+            sqdb.insert(NeuroDataDatabase.BCI_MEDIATION_TABLE_NAME, null, cv);
         } catch (SQLiteException exception) {
             exception.printStackTrace();
         }
     }
 
     public static void removeAll(Context mContext) {
-        // db.delete(String tableName, String whereClause, String[] whereArgs);
-        // If whereClause is null, it will delete all rows.
-        BCIDatabase sqh = BCIDatabase.getInstance(mContext);
+        NeuroDataDatabase sqh = NeuroDataDatabase.getInstance(mContext);
         SQLiteDatabase sqdb = sqh.getMyWritableDatabase(mContext);
         try {
             sqdb.delete(BCI_MEDIATION_TABLE_NAME, null, null);

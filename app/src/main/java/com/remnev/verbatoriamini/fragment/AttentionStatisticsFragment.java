@@ -23,9 +23,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.remnev.verbatoriamini.Helper;
+import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.databases.BCIDatabase;
+import com.remnev.verbatoriamini.databases.NeuroDataDatabase;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
 import com.remnev.verbatoriamini.model.ActionID;
 import com.remnev.verbatoriamini.model.ExcelBCI;
@@ -114,14 +114,14 @@ public class AttentionStatisticsFragment extends Fragment implements OnChartValu
 
                 ArrayList<ExcelEvent> excelEvents = new ArrayList<>();
 
-                BCIDatabase sqh = BCIDatabase.getInstance(mContext);
+                NeuroDataDatabase sqh = NeuroDataDatabase.getInstance(mContext);
                 SQLiteDatabase sqdb = sqh.getMyWritableDatabase(mContext);
                 try {
-                    Cursor cursor = sqdb.query(BCIDatabase.BCI_ATTENTION_TABLE_NAME, null, null, null, null, null, null);
+                    Cursor cursor = sqdb.query(NeuroDataDatabase.BCI_ATTENTION_TABLE_NAME, null, null, null, null, null, null);
                     cursor.moveToFirst();
                     do {
-                        bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(BCIDatabase.TIMESTAMP))),
-                                "A" + Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.ATTENTION)))));
+                        bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeuroDataDatabase.TIMESTAMP))),
+                                "A" + Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.ATTENTION)))));
                     } while (cursor.moveToNext());
                     cursor.close();
                 } catch (Exception ex) {
@@ -129,19 +129,19 @@ public class AttentionStatisticsFragment extends Fragment implements OnChartValu
                 }
 
                 try {
-                    Cursor cursor = sqdb.query(BCIDatabase.BCI_EEG_TABLE_NAME, null, null, null, null, null, null);
+                    Cursor cursor = sqdb.query(NeuroDataDatabase.BCI_EEG_TABLE_NAME, null, null, null, null, null, null);
                     cursor.moveToFirst();
                     do {
-                        bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(BCIDatabase.TIMESTAMP))),
+                        bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeuroDataDatabase.TIMESTAMP))),
                                 "E" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.DELTA))) + ";" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.THETA))) + ";" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.LOW_ALPHA))) + ";" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.HIGH_ALPHA))) + ";" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.LOW_BETA))) + ";" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.HIGH_BETA))) + ";" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.LOW_GAMMA))) + ";" +
-                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.MID_GAMMA)))
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.DELTA))) + ";" +
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.THETA))) + ";" +
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.LOW_ALPHA))) + ";" +
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.HIGH_ALPHA))) + ";" +
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.LOW_BETA))) + ";" +
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.HIGH_BETA))) + ";" +
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.LOW_GAMMA))) + ";" +
+                                        Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.MID_GAMMA)))
                         ));
                     } while (cursor.moveToNext());
                     cursor.close();
@@ -150,11 +150,11 @@ public class AttentionStatisticsFragment extends Fragment implements OnChartValu
                 }
 
                 try {
-                    Cursor cursor = sqdb.query(BCIDatabase.BCI_MEDIATION_TABLE_NAME, null, null, null, null, null, null);
+                    Cursor cursor = sqdb.query(NeuroDataDatabase.BCI_MEDIATION_TABLE_NAME, null, null, null, null, null, null);
                     cursor.moveToFirst();
                     do {
-                        bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(BCIDatabase.TIMESTAMP))),
-                                "M" + Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.MEDIATION)))));
+                        bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeuroDataDatabase.TIMESTAMP))),
+                                "M" + Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.MEDIATION)))));
                     } while (cursor.moveToNext());
                     cursor.close();
                 } catch (Exception ex) {

@@ -25,8 +25,8 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.neurosky.connection.DataType.MindDataType;
-import com.remnev.verbatoriamini.ApplicationClass;
-import com.remnev.verbatoriamini.Helper;
+import com.remnev.verbatoriamini.NeuroApplicationClass;
+import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.activities.MainActivity;
 import com.remnev.verbatoriamini.callbacks.IClearButtons;
@@ -44,7 +44,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         OnChartValueSelectedListener, INeuroInterfaceCallback, INFCCallback, IClearButtons {
 
     private LineChart mChart;
-    private ApplicationClass applicationClass;
+    private NeuroApplicationClass mNeuroApplicationClass;
     private TextView loadTextView;
 
     private String selectedButtonText;
@@ -72,6 +72,14 @@ public class RealTimeAttentionFragment extends Fragment implements
 
     private boolean canExport = true;
 
+    private static int[] sMusicRaw = new int[] {
+            R.raw.zvuk1,
+            R.raw.zvuk2,
+            R.raw.zvuk3,
+            R.raw.zvuk4,
+            R.raw.zvuk5
+    };
+
     public RealTimeAttentionFragment() {
         // Required empty public constructor
     }
@@ -95,9 +103,9 @@ public class RealTimeAttentionFragment extends Fragment implements
         selectedButtonText = "";
         loadTextView = (TextView) rootView.findViewById(R.id.load_text);
 
-        applicationClass = (ApplicationClass) getActivity().getApplicationContext();
-        applicationClass.setOnBCIConnectionCallback(this);
-        applicationClass.setMContext(getActivity());
+        mNeuroApplicationClass = (NeuroApplicationClass) getActivity().getApplicationContext();
+        mNeuroApplicationClass.setOnBCIConnectionCallback(this);
+        mNeuroApplicationClass.setMContext(getActivity());
 
         setUpChart();
         setUpCodeButtons();
@@ -130,70 +138,70 @@ public class RealTimeAttentionFragment extends Fragment implements
     @Override
     public void clearRemovedButtons() {
         Log.e("test", "clearRemovedButtons");
-        if (!ApplicationClass.containsDoneActivity("99")) {
+        if (!NeuroApplicationClass.containsDoneActivity("99")) {
             Log.e("test", "!ApplicationClass.containsDoneActivity(\"99\")");
             button99.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (!ApplicationClass.containsDoneActivity("11")) {
+        if (!NeuroApplicationClass.containsDoneActivity("11")) {
             button11.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (!ApplicationClass.containsDoneActivity("21")) {
+        if (!NeuroApplicationClass.containsDoneActivity("21")) {
             button21.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (!ApplicationClass.containsDoneActivity("31")) {
+        if (!NeuroApplicationClass.containsDoneActivity("31")) {
             button31.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (!ApplicationClass.containsDoneActivity("41")) {
+        if (!NeuroApplicationClass.containsDoneActivity("41")) {
             button41.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (!ApplicationClass.containsDoneActivity("51")) {
+        if (!NeuroApplicationClass.containsDoneActivity("51")) {
             button51.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (!ApplicationClass.containsDoneActivity("61")) {
+        if (!NeuroApplicationClass.containsDoneActivity("61")) {
             button61.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (!ApplicationClass.containsDoneActivity("71")) {
+        if (!NeuroApplicationClass.containsDoneActivity("71")) {
             button71.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
     }
 
     private void setAllButtonsUnselected(View needToSelect) {
-        if (ApplicationClass.containsDoneActivity("99")) {
+        if (NeuroApplicationClass.containsDoneActivity("99")) {
             button99.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button99.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (ApplicationClass.containsDoneActivity("11")) {
+        if (NeuroApplicationClass.containsDoneActivity("11")) {
             button11.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button11.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (ApplicationClass.containsDoneActivity("21")) {
+        if (NeuroApplicationClass.containsDoneActivity("21")) {
             button21.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button21.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (ApplicationClass.containsDoneActivity("31")) {
+        if (NeuroApplicationClass.containsDoneActivity("31")) {
             button31.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button31.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (ApplicationClass.containsDoneActivity("41")) {
+        if (NeuroApplicationClass.containsDoneActivity("41")) {
             button41.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button41.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (ApplicationClass.containsDoneActivity("51")) {
+        if (NeuroApplicationClass.containsDoneActivity("51")) {
             button51.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button51.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (ApplicationClass.containsDoneActivity("61")) {
+        if (NeuroApplicationClass.containsDoneActivity("61")) {
             button61.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button61.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
-        if (ApplicationClass.containsDoneActivity("71")) {
+        if (NeuroApplicationClass.containsDoneActivity("71")) {
             button71.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
         } else {
             button71.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
@@ -386,7 +394,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         }
         if (selectedButtonText.isEmpty()) {
             String textToWrite = code;
-            ApplicationClass.addActivityToDoneArray(textToWrite);
+            NeuroApplicationClass.addActivityToDoneArray(textToWrite);
             StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
             Helper.snackBar(loadTextView, getString(R.string.success_write_event));
             selectedButtonText = code;
@@ -403,7 +411,7 @@ public class RealTimeAttentionFragment extends Fragment implements
                 loadTextView.setText("");
                 selectedButtonText = "";
                 setAllButtonsUnselected(null);
-                ApplicationClass.addActivityToDoneArray(textToWrite);
+                NeuroApplicationClass.addActivityToDoneArray(textToWrite);
                 canExport = true;
                 if (getActivity() instanceof MainActivity) {
                     ((MainActivity) getActivity()).canExport = true;
@@ -413,7 +421,7 @@ public class RealTimeAttentionFragment extends Fragment implements
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
 
                 textToWrite = code;
-                ApplicationClass.addActivityToDoneArray(textToWrite);
+                NeuroApplicationClass.addActivityToDoneArray(textToWrite);
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
                 Helper.snackBar(loadTextView, getString(R.string.success_write_event));
                 selectedButtonText = code;
@@ -527,19 +535,7 @@ public class RealTimeAttentionFragment extends Fragment implements
     }
 
     private AssetFileDescriptor getAssetFileDescriptor(int index) {
-        switch (index) {
-            case 1:
-                return getActivity().getResources().openRawResourceFd(R.raw.zvuk1);
-            case 2:
-                return getActivity().getResources().openRawResourceFd(R.raw.zvuk2);
-            case 3:
-                return getActivity().getResources().openRawResourceFd(R.raw.zvuk3);
-            case 4:
-                return getActivity().getResources().openRawResourceFd(R.raw.zvuk4);
-            default:
-                return getActivity().getResources().openRawResourceFd(R.raw.zvuk5);
-        }
-
+        return getActivity().getResources().openRawResourceFd(sMusicRaw[index]);
     }
 
     @Override
@@ -571,7 +567,7 @@ public class RealTimeAttentionFragment extends Fragment implements
             @Override
             public void run() {
                 final int sdk = android.os.Build.VERSION.SDK_INT;
-                if (!ApplicationClass.connected) {
+                if (!NeuroApplicationClass.sConnected) {
                     if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                         rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
                     } else {

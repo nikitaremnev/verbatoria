@@ -1,5 +1,6 @@
 package com.remnev.verbatoriamini.databases;
 
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +10,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.provider.BaseColumns;
 
+import com.remnev.verbatoriamini.NeuroApplicationClass;
 import com.remnev.verbatoriamini.activities.SplashActivity;
+import com.remnev.verbatoriamini.adapters.CertificatesAdapter;
 import com.remnev.verbatoriamini.model.Certificate;
 import com.remnev.verbatoriamini.model.Child;
 
@@ -40,7 +43,7 @@ public class CertificatesDatabase extends SQLiteOpenHelper implements BaseColumn
     public static final String CITY = "city";
     public static final String EXPIRY = "expiry";
 
-    private static final String CHILDS_SQL_CREATE_ENTRIES = "CREATE TABLE "
+    private static final String CERTIFICATES_SQL_CREATE_ENTRIES = "CREATE TABLE "
             + CERTIFICATES_TABLE_NAME + " ("
             + CertificatesDatabase._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             SPECIALIST_NAME + " TEXT, " +
@@ -60,7 +63,7 @@ public class CertificatesDatabase extends SQLiteOpenHelper implements BaseColumn
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(CHILDS_SQL_CREATE_ENTRIES);
+        sqLiteDatabase.execSQL(CERTIFICATES_SQL_CREATE_ENTRIES);
     }
 
     @Override
@@ -111,28 +114,96 @@ public class CertificatesDatabase extends SQLiteOpenHelper implements BaseColumn
         }
     }
 
-    public static List<Certificate> readAllCertificates(Context mContext) {
-        SQLiteDatabase sqdb = getMyWritableDatabase(mContext);
-        List<Certificate> certificatesList = new ArrayList<>();
-        Cursor cursor = sqdb.query(CertificatesDatabase.CERTIFICATES_TABLE_NAME, null, null, null, null, null, null);
-        cursor.moveToFirst();
-        do {
-            try {
-                Certificate certificate = new Certificate();
-                certificate.setCity(cursor.getString(cursor.getColumnIndex(CITY)));
-                certificate.setCreationDate(cursor.getString(cursor.getColumnIndex(CREATION_DATE)));
-                certificate.setEmail(cursor.getString(cursor.getColumnIndex(EMAIL)));
-                certificate.setPhone(cursor.getString(cursor.getColumnIndex(PHONE)));
-                certificate.setSpecialistName(cursor.getString(cursor.getColumnIndex(SPECIALIST_NAME)));
-                certificate.setSpecialistID(cursor.getString(cursor.getColumnIndex(SPECIALIST_ID)));
-                certificate.setExpiry(cursor.getString(cursor.getColumnIndex(EXPIRY)));
-                certificate.setSpecialistProfile(cursor.getInt(cursor.getColumnIndex(SPECIALIST_PROFILE)));
-                certificatesList.add(certificate);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        } while (cursor.moveToNext());
-        return certificatesList;
+    public static List<Certificate> readAllCertificates() {
+        List<Certificate> certificateList = new ArrayList<>();
+
+        Certificate certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setEmail("sergey@verbatoria.ru");
+//        certificate.setSpecialistName("Сергей Раудсепп");
+//        certificate.setPhone("89168078498");
+//        certificate.setExpiry("16/02/2030");
+//        certificateList.add(certificate);
+////
+        certificate = new Certificate();
+        certificate.setCity("Москва");
+        certificate.setSpecialistName("Павел Айнутдинов");
+        certificate.setEmail("ru1.amelia@verbatoria.ru");
+        certificate.setExpiry("16/02/2019");
+        certificateList.add(certificate);
+
+        certificate = new Certificate();
+        certificate.setCity("Москва");
+        certificate.setSpecialistName("Елена Бурданова");
+        certificate.setEmail("ru1.amelia@verbatoria.ru");
+        certificate.setExpiry("16/02/2019");
+        certificateList.add(certificate);
+
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Светлана Миронова");
+//        certificate.setExpiry("21/02/2018");
+//        certificateList.add(certificate);
+//
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Айрат Хакимов");
+//        certificate.setEmail("ayrat@verbatoria.ru");
+//        certificate.setExpiry("22/02/2018");
+//        certificateList.add(certificate);
+//
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Мария Богданович");
+//        certificate.setEmail("maria@verbatoria.ru");
+//        certificate.setExpiry("22/02/2018");
+//        certificateList.add(certificate);
+//
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Анна Богданович");
+//        certificate.setEmail("anna@verbatoria.ru");
+//        certificate.setExpiry("30/03/2018");
+//        certificateList.add(certificate);
+//
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Амирханова Альмира");
+//        certificate.setEmail("almira@verbatoria.ru");
+//        certificate.setExpiry("30/03/2018");
+//        certificateList.add(certificate);
+//
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Степанов Алексей");
+//        certificate.setEmail("alexey@verbatoria.ru");
+//        certificate.setExpiry("30/03/2018");
+//        certificateList.add(certificate);
+
+        return certificateList;
+
+
+//        SQLiteDatabase sqdb = getMyWritableDatabase(mContext);
+//        List<Certificate> certificatesList = new ArrayList<>();
+//        Cursor cursor = sqdb.query(CertificatesDatabase.CERTIFICATES_TABLE_NAME, null, null, null, null, null, null);
+//        cursor.moveToFirst();
+//        do {
+//            try {
+//                Certificate certificate = new Certificate();
+//                certificate.setCity(cursor.getString(cursor.getColumnIndex(CITY)));
+//                certificate.setCreationDate(cursor.getString(cursor.getColumnIndex(CREATION_DATE)));
+//                certificate.setEmail(cursor.getString(cursor.getColumnIndex(EMAIL)));
+//                certificate.setPhone(cursor.getString(cursor.getColumnIndex(PHONE)));
+//                certificate.setSpecialistName(cursor.getString(cursor.getColumnIndex(SPECIALIST_NAME)));
+//                certificate.setSpecialistID(cursor.getString(cursor.getColumnIndex(SPECIALIST_ID)));
+//                certificate.setExpiry(cursor.getString(cursor.getColumnIndex(EXPIRY)));
+//                certificate.setSpecialistProfile(cursor.getInt(cursor.getColumnIndex(SPECIALIST_PROFILE)));
+//                certificatesList.add(certificate);
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//        } while (cursor.moveToNext());
+//        return certificatesList;
     }
 
 }

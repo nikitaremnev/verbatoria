@@ -86,6 +86,14 @@ public class StatisticsDatabase extends SQLiteOpenHelper implements BaseColumns 
             WORD + " TEXT, " +
             MODULE + " INTEGER);";
 
+
+    public static StatisticsDatabase getInstance(Context context) {
+        if (mInstance == null) {
+            mInstance = new StatisticsDatabase(context);
+        }
+        return mInstance;
+    }
+
     /*
     RecStart, RecEnd, WordStart, WordEnd, WordFail, WordSuccess, WordSkip, Connect, Disconnect
      */
@@ -151,14 +159,6 @@ public class StatisticsDatabase extends SQLiteOpenHelper implements BaseColumns 
         }
         return myWritableDb;
     }
-
-    public static StatisticsDatabase getInstance(Context context) {
-        if (mInstance == null) {
-            mInstance = new StatisticsDatabase(context);
-        }
-        return mInstance;
-    }
-
 
     public static void addEventToDatabase(Context context, String word, String module,
                                           int actionID, int eventID, int mode, int submode) {

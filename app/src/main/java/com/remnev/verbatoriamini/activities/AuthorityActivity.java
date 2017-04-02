@@ -18,7 +18,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.crashlytics.android.Crashlytics;
-import com.remnev.verbatoriamini.Helper;
+import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.model.Certificate;
@@ -116,7 +116,6 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
     private void preCheckAndStart() {
         final long currentTime = System.currentTimeMillis();
         final long lastCheckTime = SpecialistSharedPrefs.getLastCertificateCheckDate(AuthorityActivity.this);
-        Log.e("certificate", "lastCheckTime: " + lastCheckTime);
         if (currentTime - lastCheckTime < WEEK_MILLIS) {
             Certificate certificate = SpecialistSharedPrefs.getCurrentSpecialist(this);
             if (checkDate(certificate)) {
@@ -128,17 +127,7 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
             if (!SettingsSharedPrefs.getIsFirstTime(this)) {
                 dialogGetAddress(certificate);
             } else {
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (System.currentTimeMillis() - currentTime < 1000) {}
-                        Intent intent = new Intent(AuthorityActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        AuthorityActivity.this.finish();
-                        startActivity(intent);
-                    }
-                });
-                thread.start();
+                startMainActivity();
             }
         }
     }
@@ -165,7 +154,6 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
             if (TextUtils.isEmpty(readedText)) {
                 showNotCertificate();
                 read = true;
-                return;
             } else {
                 try {
                     Certificate certificate = new Certificate();
@@ -190,11 +178,6 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
                             startApplication(certificate);
                             return;
                         }
-//                        } else {
-//                            showCvcNotEqual(certificate);
-//                            read = true;
-//                            return;
-//                        }
                     } else {
                         showNotCertificate();
                         read = true;
@@ -214,13 +197,8 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
     private boolean checkDate(Certificate certificate) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = simpleDateFormat.format(System.currentTimeMillis());
-        Log.e("currentDate", "currentDate: " + currentDate);
         try {
-            if (simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate))) {
-                return true;
-            } else {
-                return false;
-            }
+            return simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate));
         } catch (ParseException e) {
             return false;
         }
@@ -265,18 +243,7 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
                 SpecialistSharedPrefs.setLastCertificateCheckDate(AuthorityActivity.this, System.currentTimeMillis());
                 Snackbar snackbar = Snackbar.make(findViewById(R.id.imageView), (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()), Snackbar.LENGTH_LONG);
                 snackbar.show();
-                final long currentTime = System.currentTimeMillis();
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        while (System.currentTimeMillis() - currentTime < 1000) {}
-                        Intent intent = new Intent(AuthorityActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        AuthorityActivity.this.finish();
-                        startActivity(intent);
-                    }
-                });
-                thread.start();
+                startMainActivity();
             }
         });
         alertDialog.setCancelable(false);
@@ -291,12 +258,18 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
         SpecialistSharedPrefs.setLastCertificateCheckDate(AuthorityActivity.this, System.currentTimeMillis());
         Snackbar snackbar = Snackbar.make(findViewById(R.id.imageView), (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()), Snackbar.LENGTH_LONG);
         snackbar.show();
-        final long currentTime = System.currentTimeMillis();
+        startMainActivity();
+    }
+
+    private void startMainActivity() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (System.currentTimeMillis() - currentTime < 1000) {}
-                Intent intent = new Intent(AuthorityActivity.this, MainActivity.class);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }                Intent intent = new Intent(AuthorityActivity.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 AuthorityActivity.this.finish();
                 startActivity(intent);
@@ -304,23 +277,5 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
         });
         thread.start();
     }
-
-    private void startApplicationWithError(Certificate certificate) {
-        Snackbar snackbar = Snackbar.make(findViewById(R.id.imageView), (String.format(getString(R.string.authority_some_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()), Snackbar.LENGTH_LONG);
-        snackbar.show();
-        final long currentTime = System.currentTimeMillis();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (System.currentTimeMillis() - currentTime < 1000) {}
-                Intent intent = new Intent(AuthorityActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                AuthorityActivity.this.finish();
-                startActivity(intent);
-            }
-        });
-        thread.start();
-    }
-
 
 }

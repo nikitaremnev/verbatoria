@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.nfc.FormatException;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -20,7 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.bluelinelabs.logansquare.LoganSquare;
-import com.remnev.verbatoriamini.Helper;
+import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;

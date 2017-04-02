@@ -36,12 +36,12 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import com.remnev.verbatoriamini.ApplicationClass;
-import com.remnev.verbatoriamini.Helper;
+import com.remnev.verbatoriamini.NeuroApplicationClass;
+import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.IClearButtons;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
-import com.remnev.verbatoriamini.databases.BCIDatabase;
+import com.remnev.verbatoriamini.databases.NeuroDataDatabase;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
 import com.remnev.verbatoriamini.fragment.ConnectionFragment;
 import com.remnev.verbatoriamini.fragment.ParentsQuestionaryDialogFragment;
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity
         playFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApplicationClass.changeStateOfWriting();
+                NeuroApplicationClass.changeStateOfWriting();
                 Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
                 StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
                 playFloatingActionButton.hide();
@@ -231,9 +231,9 @@ public class MainActivity extends AppCompatActivity
                     Helper.snackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
                     return;
                 }
-                ApplicationClass.changeStateOfWriting();
+                NeuroApplicationClass.changeStateOfWriting();
                 Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_stopped));
-                StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
+                StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_END_ID, RezhimID.ANOTHER_MODE, -1, -1);
                 playFloatingActionButton.show();
                 pauseFloatingActionButton.hide();
                 preCheckExportToExcel(false);
@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity
                         callback = null;
                         break;
                     case R.id.bottom_navigation_item_attention:
-                        if (!ApplicationClass.connected) {
+                        if (!NeuroApplicationClass.sConnected) {
                             Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity
                         callback = (INFCCallback) pendingFragment;
                         break;
                     case R.id.bottom_navigation_item_mail:
-                        if (!ApplicationClass.connected) {
+                        if (!NeuroApplicationClass.sConnected) {
                             Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
@@ -307,9 +307,9 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    private void moveFile(String inputPath, String outputPath, boolean delete) {
-        InputStream in = null;
-        OutputStream out = null;
+    private void moveFile(String inputPath, String outputPath) {
+        InputStream in;
+        OutputStream out;
         try {
             File dir = new File(outputPath);
             if (!dir.exists()) {
@@ -326,10 +326,9 @@ public class MainActivity extends AppCompatActivity
             in.close();
             out.flush();
             out.close();
-            if (delete) {
-                BCIDatabase.removeAll(mContext);
-                StatisticsDatabase.removeAll(mContext);
-            }
+
+            NeuroDataDatabase.removeAll(mContext);
+            StatisticsDatabase.removeAll(mContext);
         }
         catch (FileNotFoundException fnfe1) {
             Log.e("tag", fnfe1.getMessage());
@@ -340,7 +339,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void preCheckExportToExcel(final boolean stopBCI) {
-        String undoneActivities = ApplicationClass.getAllUndoneActivities();
+        String undoneActivities = NeuroApplicationClass.getAllUndoneActivities();
         if (TextUtils.isEmpty(undoneActivities)) {
             exportToExcel();
         } else {
@@ -357,7 +356,7 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
 
-                    ApplicationClass.changeStateOfWriting();
+                    NeuroApplicationClass.changeStateOfWriting();
                     Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
                     StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
                     playFloatingActionButton.hide();
@@ -411,7 +410,7 @@ public class MainActivity extends AppCompatActivity
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
 
-                                    ApplicationClass.changeStateOfWriting();
+                                    NeuroApplicationClass.changeStateOfWriting();
                                     Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
                                     StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
                                     playFloatingActionButton.hide();
@@ -691,18 +690,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     private static ArrayList<Pair<Long, String>> getBCIItems(Context context) {
-        BCIDatabase sqh = BCIDatabase.getInstance(context);
+        NeuroDataDatabase sqh = NeuroDataDatabase.getInstance(context);
         SQLiteDatabase sqdb = sqh.getMyWritableDatabase(context);
 
         ArrayList<Pair<Long, String>> bciItems = new ArrayList<>();
 
         try {
-            Cursor cursor = sqdb.query(BCIDatabase.BCI_ATTENTION_TABLE_NAME, null, null, null, null, null, null);
+            Cursor cursor = sqdb.query(NeuroDataDatabase.BCI_ATTENTION_TABLE_NAME, null, null, null, null, null, null);
             cursor.moveToFirst();
             do {
-                bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(BCIDatabase.TIMESTAMP))),
-                        "A" + Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.ATTENTION))) + ";" +
-                                cursor.getString(cursor.getColumnIndex(BCIDatabase.CHILD_ID))));
+                bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeuroDataDatabase.TIMESTAMP))),
+                        "A" + Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.ATTENTION))) + ";" +
+                                cursor.getString(cursor.getColumnIndex(NeuroDataDatabase.CHILD_ID))));
             } while (cursor.moveToNext());
             cursor.close();
         } catch (Exception ex) {
@@ -710,20 +709,20 @@ public class MainActivity extends AppCompatActivity
         }
 
         try {
-            Cursor cursor = sqdb.query(BCIDatabase.BCI_EEG_TABLE_NAME, null, null, null, null, null, null);
+            Cursor cursor = sqdb.query(NeuroDataDatabase.BCI_EEG_TABLE_NAME, null, null, null, null, null, null);
             cursor.moveToFirst();
             do {
-                bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(BCIDatabase.TIMESTAMP))),
+                bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeuroDataDatabase.TIMESTAMP))),
                         "E" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.DELTA))) + ";" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.THETA))) + ";" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.LOW_ALPHA))) + ";" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.HIGH_ALPHA))) + ";" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.LOW_BETA))) + ";" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.HIGH_BETA))) + ";" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.LOW_GAMMA))) + ";" +
-                                Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.MID_GAMMA))) + ";" +
-                                cursor.getString(cursor.getColumnIndex(BCIDatabase.CHILD_ID))
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.DELTA))) + ";" +
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.THETA))) + ";" +
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.LOW_ALPHA))) + ";" +
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.HIGH_ALPHA))) + ";" +
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.LOW_BETA))) + ";" +
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.HIGH_BETA))) + ";" +
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.LOW_GAMMA))) + ";" +
+                                Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.MID_GAMMA))) + ";" +
+                                cursor.getString(cursor.getColumnIndex(NeuroDataDatabase.CHILD_ID))
                 ));
             } while (cursor.moveToNext());
             cursor.close();
@@ -732,12 +731,12 @@ public class MainActivity extends AppCompatActivity
         }
 
         try {
-            Cursor cursor = sqdb.query(BCIDatabase.BCI_MEDIATION_TABLE_NAME, null, null, null, null, null, null);
+            Cursor cursor = sqdb.query(NeuroDataDatabase.BCI_MEDIATION_TABLE_NAME, null, null, null, null, null, null);
             cursor.moveToFirst();
             do {
-                bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(BCIDatabase.TIMESTAMP))),
-                        "M" + Integer.toString(cursor.getInt(cursor.getColumnIndex(BCIDatabase.MEDIATION))) + ";" +
-                                cursor.getString(cursor.getColumnIndex(BCIDatabase.CHILD_ID))));
+                bciItems.add(new Pair<Long, String>(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeuroDataDatabase.TIMESTAMP))),
+                        "M" + Integer.toString(cursor.getInt(cursor.getColumnIndex(NeuroDataDatabase.MEDIATION))) + ";" +
+                                cursor.getString(cursor.getColumnIndex(NeuroDataDatabase.CHILD_ID))));
             } while (cursor.moveToNext());
             cursor.close();
         } catch (Exception ex) {
@@ -989,7 +988,7 @@ public class MainActivity extends AppCompatActivity
             for (int j = 0; j < checkingArray.length; j ++) {
                 MutablePair pair = checkingArray[j];
                 if (firstEvent.getWord().equals(pair.getFirst()) && secondEvent.getWord().equals(pair.getFirst())
-                        && ApplicationClass.containsDoneActivity(pair.getFirst())) {
+                        && NeuroApplicationClass.containsDoneActivity(pair.getFirst())) {
                     pair.addSecond(secondEvent.getTimestamp() - firstEvent.getTimestamp());
                     break;
                 }
@@ -1001,9 +1000,9 @@ public class MainActivity extends AppCompatActivity
 
         for (int j = 0; j < checkingArray.length; j ++) {
             MutablePair pair = checkingArray[j];
-            if (pair.getSecond() < 15 && ApplicationClass.containsDoneActivity(pair.getFirst())) {
+            if (pair.getSecond() < 15 && NeuroApplicationClass.containsDoneActivity(pair.getFirst())) {
                 stringBuilder.append(pair.getFirst()).append(", ");
-                ApplicationClass.removeActivityFromDoneArray(pair.getFirst());
+                NeuroApplicationClass.removeActivityFromDoneArray(pair.getFirst());
             }
         }
         if (stringBuilder.length() > 0) {
@@ -1014,7 +1013,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void share(String fileAndLocation, String letterSubject) {
-        ApplicationClass.clearDoneActivities();
+        NeuroApplicationClass.clearDoneActivities();
 
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.setType("text/plain");
@@ -1183,8 +1182,8 @@ public class MainActivity extends AppCompatActivity
                         public void run() {
                             Helper.snackBar(findViewById(R.id.container), getString(R.string.generating_xls_message));
                             StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_END_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                            moveFile(fromFileStatistics.getAbsolutePath(), toFileStatistics.getAbsolutePath(), true);
-                            moveFile(fromFileBCI.getAbsolutePath(), toFileBCI.getAbsolutePath(), true);
+                            moveFile(fromFileStatistics.getAbsolutePath(), toFileStatistics.getAbsolutePath());
+                            moveFile(fromFileBCI.getAbsolutePath(), toFileBCI.getAbsolutePath());
                             bottomNavigationView.getMenu().getItem(2).setChecked(false);
                             if (pendingFragment instanceof ConnectionFragment) {
                                 bottomNavigationView.getMenu().getItem(0).setChecked(true);

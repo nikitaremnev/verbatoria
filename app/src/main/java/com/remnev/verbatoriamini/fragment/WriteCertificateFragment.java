@@ -4,11 +4,9 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.nfc.FormatException;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -24,7 +22,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.remnev.verbatoriamini.Helper;
+import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
@@ -239,7 +237,7 @@ public class WriteCertificateFragment extends Fragment implements INeuroInterfac
     }
 
     private void setUpAutoCompleteListeners() {
-        certificatesList = CertificatesDatabase.readAllCertificates(getActivity());
+        certificatesList = CertificatesDatabase.readAllCertificates();
         final List<String> names = new ArrayList<>();
         final List<String> phones = new ArrayList<>();
         final List<String> cities = new ArrayList<>();

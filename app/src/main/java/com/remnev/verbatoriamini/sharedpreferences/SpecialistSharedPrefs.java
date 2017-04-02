@@ -41,77 +41,17 @@ public class SpecialistSharedPrefs {
     }
 
     public static Certificate getCurrentSpecialist(Context context) {
-        if (BuildConfig.FLAVOR.contains("no_nfc")) {
-            Certificate certificate = new Certificate();
-
-//            certificate.setCity("Москва");
-//            certificate.setEmail("sergey@verbatoria.ru");
-//            certificate.setSpecialistName("Сергей Раудсепп");
-//            certificate.setPhone("89168078498");
-//            certificate.setExpiry("16/02/2030");
-
-//            certificate.setCity("Москва");
-//            certificate.setSpecialistName("Павел Айнутдинов");
-//            certificate.setEmail("ru1.amelia@verbatoria.ru");
-//            certificate.setExpiry("16/02/2019");
-
-//            certificate.setCity("Москва");
-//            certificate.setSpecialistName("Елена Бурданова");
-//            certificate.setEmail("ru1.amelia@verbatoria.ru");
-//            certificate.setExpiry("16/02/2019");
-//////
-//            certificate.setCity("Москва");
-//            certificate.setSpecialistName("Светлана Миронова");
-//            certificate.setExpiry("21/02/2018");
-////
-//            certificate.setCity("Москва");
-//            certificate.setSpecialistName("Айрат Хакимов");
-//            certificate.setEmail("ayrat@verbatoria.ru");
-//            certificate.setExpiry("22/02/2018");
-
-//            certificate.setCity("Москва");
-//            certificate.setSpecialistName("Мария Богданович");
-//            certificate.setEmail("maria@verbatoria.ru");
-//            certificate.setExpiry("22/02/2018");
-
-
-//            certificate.setCity("Москва");
-//            certificate.setSpecialistName("Анна Богданович");
-//            certificate.setEmail("anna@verbatoria.ru");
-//            certificate.setExpiry("30/03/2018");
-//
-//
-//            certificate.setCity("Москва");
-//            certificate.setSpecialistName("Амирханова Альмира");
-//            certificate.setEmail("almira@verbatoria.ru");
-//            certificate.setExpiry("30/03/2018");
-
-            certificate.setCity("Москва");
-            certificate.setSpecialistName("Степанов Алексей");
-            certificate.setEmail("alexey@verbatoria.ru");
-            certificate.setExpiry("30/03/2018");
-//            Богданович Анна Григорьевна
-//            Амирханова Альмира Амангельдиновна
-//            Степанов Алексей Викторович
-//
-//            С 1/04/2017 по 30/03/2018
-
-            return certificate;
-        } else {
-            try {
-                return LoganSquare.parse(decodeString(getInstance(context).getString(CURRENT_SPECIALIST, "")), Certificate.class);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return new Certificate();
+        try {
+            return LoganSquare.parse(decodeString(getInstance(context).getString(CURRENT_SPECIALIST, "")), Certificate.class);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return new Certificate();
     }
 
     public static void setCurrentSpecialist(Context context, Certificate certificate) {
         SharedPreferences.Editor editor = getEditor(context);
         try {
-            Log.e("specialist", "specialist: " + LoganSquare.serialize(certificate));
-
             editor.putString(CURRENT_SPECIALIST, encodeString(LoganSquare.serialize(certificate)));
         } catch (IOException e) {
             e.printStackTrace();

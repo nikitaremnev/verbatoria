@@ -16,15 +16,15 @@ public class ActionID {
     public static final int DISCONNECT_ID = 9;
     public static final int WORD_BACK_ID = 10;
 
-    public static final String RECORD_START_STRING = "Запись";
-    public static final String RECORD_END_STRING = "Конец";
+    public static final String RECORD_START_STRING = "Запись начата";
+    public static final String RECORD_END_STRING = "Конец записи";
     public static final String WORD_START_STRING = "Старт";
     public static final String WORD_END_STRING = "Время вышло";
     public static final String WORD_FAIL_STRING = "Ошибка";
     public static final String WORD_SUCCESS_STRING = "Успех";
     public static final String WORD_SKIP_STRING = "Пропуск";
-    public static final String CONNECT_STRING = "Коннект";
-    public static final String DISCONNECT_STRING = "Дисконнект";
+    public static final String CONNECT_STRING = "Устройство подключено";
+    public static final String DISCONNECT_STRING = "Устройство отключено";
     public static final String BACK_STRING = "Кнопка назад";
 
 }

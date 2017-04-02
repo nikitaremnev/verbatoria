@@ -1,4 +1,4 @@
-package com.remnev.verbatoriamini;
+package com.remnev.verbatoriamini.util;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
