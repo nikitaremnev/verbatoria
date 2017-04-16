@@ -136,7 +136,7 @@ public class NeuroApplicationClass extends Application {
         if (rootView == null) {
             return;
         } else {
-            Helper.snackBar(rootView, message);
+            Helper.showSnackBar(rootView, message);
         }
     }
 

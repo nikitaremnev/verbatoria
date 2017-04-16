@@ -24,8 +24,8 @@ import java.util.Arrays;
  */
 public class Helper {
 
-    public static void snackBar(View view, String text) {
-        Snackbar.make(view, text, Snackbar.LENGTH_SHORT).show();
+    public static void showSnackBar(View view, String text) {
+        Snackbar.make(view, text, Snackbar.LENGTH_LONG).show();
     }
 
     public static boolean isExternalStorageReadOnly() {

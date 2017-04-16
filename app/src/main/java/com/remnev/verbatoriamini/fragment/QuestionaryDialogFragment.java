@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by nikitaremnev on 11.03.17.
  */
 
-public class ParentsQuestionaryDialogFragment extends DialogFragment implements ParentsQuestionsAdapter.IVariantButtonClick {
+public class QuestionaryDialogFragment extends DialogFragment implements ParentsQuestionsAdapter.IVariantButtonClick {
 
     public static final String TAG = "ParentsQuestionaryDialogFragment";
 
@@ -41,9 +41,9 @@ public class ParentsQuestionaryDialogFragment extends DialogFragment implements 
 
     private IAllAnswered activityCallback;
 
-    public ParentsQuestionaryDialogFragment() {}
+    public QuestionaryDialogFragment() {}
 
-    public ParentsQuestionaryDialogFragment(String age, String reportID, String directoryAbsPath, IAllAnswered allAnswered) {
+    public QuestionaryDialogFragment(String age, String reportID, String directoryAbsPath, IAllAnswered allAnswered) {
         this.age = age;
         this.reportID = reportID;
         this.directoryAbsPath = directoryAbsPath;

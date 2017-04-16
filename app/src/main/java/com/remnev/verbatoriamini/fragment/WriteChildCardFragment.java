@@ -245,7 +245,7 @@ public class WriteChildCardFragment extends Fragment implements INeuroInterfaceC
             if (child == null) {
                 if (dialog != null) {
                     dialog.dismiss();
-                    Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                    Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                     return;
                 }
             }
@@ -254,14 +254,14 @@ public class WriteChildCardFragment extends Fragment implements INeuroInterfaceC
                 ChildsDatabase.addChild(getActivity(), child);
                 if (dialog != null) {
                     dialog.dismiss();
-                    Helper.snackBar(writeButton, getString(R.string.write_card_success));
+                    Helper.showSnackBar(writeButton, getString(R.string.write_card_success));
                 }
                 clearFields();
             } catch (IOException e) {
-                Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                 e.printStackTrace();
             } catch (FormatException e) {
-                Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                 e.printStackTrace();
             }
 

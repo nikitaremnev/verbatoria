@@ -190,7 +190,7 @@ public class WriteCertificateFragment extends Fragment implements INeuroInterfac
                 if (dialog != null) {
                     write = false;
                     dialog.dismiss();
-                    Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                    Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                     return;
                 }
             }
@@ -202,14 +202,14 @@ public class WriteCertificateFragment extends Fragment implements INeuroInterfac
                 if (dialog != null) {
                     write = false;
                     dialog.dismiss();
-                    Helper.snackBar(writeButton, getString(R.string.write_card_specialist_success));
+                    Helper.showSnackBar(writeButton, getString(R.string.write_card_specialist_success));
                 }
                 clearFields();
             } catch (IOException e) {
-                Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                 e.printStackTrace();
             } catch (FormatException e) {
-                Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                 e.printStackTrace();
             }
             write = false;
@@ -226,12 +226,12 @@ public class WriteCertificateFragment extends Fragment implements INeuroInterfac
                     expiryButton.setText(certificate.getExpiry());
                     profileSpinner.setSelection(certificate.getSpecialistProfile());
                 } else {
-                    Helper.snackBar(writeButton, getString(R.string.tag_not_specialist));
+                    Helper.showSnackBar(writeButton, getString(R.string.tag_not_specialist));
                     return;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Helper.snackBar(writeButton, getString(R.string.tag_empty));
+                Helper.showSnackBar(writeButton, getString(R.string.tag_empty));
             }
         }
     }

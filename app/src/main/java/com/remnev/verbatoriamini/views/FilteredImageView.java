@@ -8,7 +8,6 @@ import android.widget.ImageView;
 
 import com.remnev.verbatoriamini.R;
 
-
 public class FilteredImageView extends ImageView {
 
     public FilteredImageView(Context context) {

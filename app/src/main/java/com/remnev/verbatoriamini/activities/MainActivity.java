@@ -16,7 +16,6 @@ import android.nfc.Tag;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -36,15 +35,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.NeuroApplicationClass;
+import com.remnev.verbatoriamini.callbacks.IExportPossibleCallback;
 import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.callbacks.IClearButtons;
+import com.remnev.verbatoriamini.callbacks.IClearButtonsCallback;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.databases.NeuroDataDatabase;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
 import com.remnev.verbatoriamini.fragment.ConnectionFragment;
-import com.remnev.verbatoriamini.fragment.ParentsQuestionaryDialogFragment;
-import com.remnev.verbatoriamini.fragment.RealTimeAttentionFragment;
+import com.remnev.verbatoriamini.fragment.QuestionaryDialogFragment;
+import com.remnev.verbatoriamini.fragment.AttentionFragment;
 import com.remnev.verbatoriamini.fragment.WriteCertificateFragment;
 import com.remnev.verbatoriamini.fragment.WriteCodesFragment;
 import com.remnev.verbatoriamini.model.ActionID;
@@ -60,10 +60,7 @@ import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
 import com.remnev.verbatoriamini.util.NeuroExcelWriter;
 import com.remnev.verbatoriamini.util.comparators.ExcelEventsComparator;
 import com.remnev.verbatoriamini.util.comparators.ExcelExportComparator;
-
-import org.apache.poi.hssf.record.crypto.Biff8EncryptionKey;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -72,7 +69,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
@@ -82,7 +78,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity
-        implements INFCCallback, ParentsQuestionaryDialogFragment.IAllAnswered, RealTimeAttentionFragment.ExportPossibleCallback {
+        implements INFCCallback, QuestionaryDialogFragment.IAllAnswered, IExportPossibleCallback {
 
     private static final int REQUEST_PERMISSION_CODE = 2444;
 
@@ -93,11 +89,11 @@ public class MainActivity extends AppCompatActivity
     private TextView specialistTextView;
     public BottomNavigationView bottomNavigationView;
 
-    private IClearButtons clearButtons;
+    private IClearButtonsCallback clearButtons;
 
     public boolean isExportPossible = true;
 
-    private ParentsQuestionaryDialogFragment parentsQuestionaryDialogFragment;
+    private QuestionaryDialogFragment mQuestionaryDialogFragment;
 
     NfcAdapter mAdapter;
     PendingIntent mPendingIntent;
@@ -228,7 +224,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 if (!isExportPossible) {
-                    Helper.snackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
+                    Helper.showSnackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
                     return false;
                 }
                 boolean flag = true;
@@ -241,17 +237,17 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.bottom_navigation_item_attention:
                         if (!NeuroApplicationClass.isConnected()) {
-                            Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
+                            Helper.showSnackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
-                        pendingFragment = new RealTimeAttentionFragment();
-                        clearButtons = (IClearButtons) pendingFragment;
+                        pendingFragment = new AttentionFragment();
+                        clearButtons = (IClearButtonsCallback) pendingFragment;
                         titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
                         callback = (INFCCallback) pendingFragment;
                         break;
                     case R.id.bottom_navigation_item_mail:
                         if (!NeuroApplicationClass.isConnected()) {
-                            Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
+                            Helper.showSnackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
                         preCheckExportToExcel(false);
@@ -329,7 +325,7 @@ public class MainActivity extends AppCompatActivity
                     if (pendingFragment instanceof ConnectionFragment) {
                         bottomNavigationView.getMenu().getItem(0).setChecked(true);
                         titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-                    } else if (pendingFragment instanceof RealTimeAttentionFragment) {
+                    } else if (pendingFragment instanceof AttentionFragment) {
                         bottomNavigationView.getMenu().getItem(1).setChecked(true);
                         titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
                     } else if (pendingFragment instanceof WriteCertificateFragment) {
@@ -372,24 +368,20 @@ public class MainActivity extends AppCompatActivity
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
-
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             if (clearButtons != null) {
-                                                Log.e("test", "clearButtons != null");
                                                 clearButtons.clearRemovedButtons();
                                             }
                                         }
                                     });
-
-
                                     bottomNavigationView.getMenu().getItem(2).setChecked(false);
                                     if (pendingFragment instanceof ConnectionFragment) {
                                         bottomNavigationView.getMenu().getItem(0).setChecked(true);
                                         titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-                                    } else if (pendingFragment instanceof RealTimeAttentionFragment) {
-                                        ((RealTimeAttentionFragment) pendingFragment).clearRemovedButtons();
+                                    } else if (pendingFragment instanceof AttentionFragment) {
+                                        ((AttentionFragment) pendingFragment).clearRemovedButtons();
                                         bottomNavigationView.getMenu().getItem(1).setChecked(true);
                                         titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
                                     } else if (pendingFragment instanceof WriteCertificateFragment) {
@@ -440,20 +432,20 @@ public class MainActivity extends AppCompatActivity
                                 public void onClick(View view) {
                                     //проверки
                                     if (TextUtils.isEmpty(randomLabel.getText().toString())) {
-                                        Helper.snackBar(findViewById(R.id.container), getString(R.string.no_random_label));
+                                        Helper.showSnackBar(findViewById(R.id.container), getString(R.string.no_random_label));
                                         return;
                                     }
                                     final File directory = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "Export" + File.separator);
                                     if (!directory.exists()) {
                                         if (!directory.mkdirs()) {
-                                            Helper.snackBar(findViewById(R.id.container), getString(R.string.cannot_create_directory));
+                                            Helper.showSnackBar(findViewById(R.id.container), getString(R.string.cannot_create_directory));
                                         }
                                     }
                                     alertDialog.dismiss();
 
                                     if (directory.exists()) {
-                                        parentsQuestionaryDialogFragment = new ParentsQuestionaryDialogFragment(ageSpinner.getSelectedItem().toString(), randomLabel.getText().toString(), directory.getAbsolutePath(), MainActivity.this);
-                                        parentsQuestionaryDialogFragment.show(getSupportFragmentManager(), ParentsQuestionaryDialogFragment.TAG);
+                                        mQuestionaryDialogFragment = new QuestionaryDialogFragment(ageSpinner.getSelectedItem().toString(), randomLabel.getText().toString(), directory.getAbsolutePath(), MainActivity.this);
+                                        mQuestionaryDialogFragment.show(getSupportFragmentManager(), QuestionaryDialogFragment.TAG);
                                     }
                                 }
                             });
@@ -498,7 +490,7 @@ public class MainActivity extends AppCompatActivity
         ExcelEvent.createHeaderAndSetWidth(wb, sheet1);
 
         ArrayList<ExcelEvent> excelEvents = getExcelEvents(context);
-        ArrayList<ExcelBCI> excelBCIs = getExcelBCIs(context, getBCIItems(context));
+        ArrayList<ExcelBCI> excelBCIs = getExcelBCIs(getBCIItems(context));
 
         for (int i = 0; i < excelBCIs.size(); i ++) {
             long timestampBCI = excelBCIs.get(i).getTimestamp();
@@ -618,18 +610,6 @@ public class MainActivity extends AppCompatActivity
             } catch (Exception ex) {
             }
         }
-
-
-        try {
-            Biff8EncryptionKey.setCurrentUserPassword("pass");
-            NPOIFSFileSystem fs = new NPOIFSFileSystem(file, true);
-            HSSFWorkbook hwb = new HSSFWorkbook(fs.getRoot(), true);
-            Biff8EncryptionKey.setCurrentUserPassword(null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
         return "true";
     }
 
@@ -719,7 +699,7 @@ public class MainActivity extends AppCompatActivity
         return bciItems;
     }
 
-    private static ArrayList<ExcelBCI> getExcelBCIs(Context context, ArrayList<Pair<Long, String>> bciItems) {
+    private static ArrayList<ExcelBCI> getExcelBCIs(ArrayList<Pair<Long, String>> bciItems) {
         ArrayList<ExcelBCI> excelBCIs = new ArrayList<>();
         int k = 0;
         while (k < bciItems.size() - 2) {
@@ -1023,8 +1003,7 @@ public class MainActivity extends AppCompatActivity
                             SpecialistSharedPrefs.setCurrentSpecialist(MainActivity.this, certificate);
                             specialistTextView.setText(SpecialistSharedPrefs.getCurrentSpecialist(mContext).getSpecialistName());
                             SpecialistSharedPrefs.setLastCertificateCheckDate(MainActivity.this, System.currentTimeMillis());
-                            Snackbar snackbar = Snackbar.make(bottomNavigationView, (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()), Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            Helper.showSnackBar(bottomNavigationView, (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()));
                         } else {//cvc is correct //if (specialist.getCvc().equals(SpecialistSharedPrefs.getCurrentSpecialist(AuthorityActivity.this).getCvc())) {
                             if (checkDate(certificate)) {
                                 showExpiryDialog();
@@ -1033,8 +1012,7 @@ public class MainActivity extends AppCompatActivity
                             SpecialistSharedPrefs.setCurrentSpecialist(MainActivity.this, certificate);
                             specialistTextView.setText(SpecialistSharedPrefs.getCurrentSpecialist(mContext).getSpecialistName());
                             SpecialistSharedPrefs.setLastCertificateCheckDate(MainActivity.this, System.currentTimeMillis());
-                            Snackbar snackbar = Snackbar.make(bottomNavigationView, (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()), Snackbar.LENGTH_LONG);
-                            snackbar.show();
+                            Helper.showSnackBar(bottomNavigationView, (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()));
                         }
                     } else {
                         if (callback != null) {
@@ -1056,7 +1034,6 @@ public class MainActivity extends AppCompatActivity
     private boolean checkDate(Certificate certificate) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = simpleDateFormat.format(System.currentTimeMillis());
-        Log.e("currentDate", "currentDate: " + currentDate);
         try {
             if (simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate))) {
                 return true;
@@ -1099,10 +1076,8 @@ public class MainActivity extends AppCompatActivity
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 } else {
-                    Snackbar snackbar = Snackbar.make(bottomNavigationView, getString(R.string.app_unstable), Snackbar.LENGTH_LONG);
-                    snackbar.show();
+                    Helper.showSnackBar(bottomNavigationView, getString(R.string.app_unstable));
                 }
-                return;
             }
         }
     }
@@ -1110,8 +1085,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void allAnswered(final String age, final String reportID, final long timeInMillis, final String directoryAbsPath) {
         if (ParentsAnswersSharedPrefs.isAllQuestionsAnswered(mContext)) {
-            parentsQuestionaryDialogFragment.dismiss();
-            parentsQuestionaryDialogFragment = null;
+            mQuestionaryDialogFragment.dismiss();
+            mQuestionaryDialogFragment = null;
 
             final ProgressDialog progressDialog = new ProgressDialog(mContext);
             progressDialog.setMessage(getString(R.string.generate_xls_file));
@@ -1132,9 +1107,9 @@ public class MainActivity extends AppCompatActivity
                     final String specialist = SpecialistSharedPrefs.getCurrentSpecialist(MainActivity.this).getSpecialistName();
                     final String save = saveExcelFile(mContext, excelFile, reportID, rebenokID, specialist);
                     if (save.equals("true")) {
-                        Helper.snackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_success));
+                        Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_success));
                     } else if (save.equals("false")) {
-                        Helper.snackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_fail));
+                        Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_fail));
                         return;
                     }
 
@@ -1152,7 +1127,7 @@ public class MainActivity extends AppCompatActivity
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Helper.snackBar(findViewById(R.id.container), getString(R.string.generating_xls_message));
+                            Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generating_xls_message));
                             StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_END_ID, RezhimID.ANOTHER_MODE, -1, -1);
                             moveFile(fromFileStatistics.getAbsolutePath(), toFileStatistics.getAbsolutePath());
                             moveFile(fromFileBCI.getAbsolutePath(), toFileBCI.getAbsolutePath());
@@ -1160,7 +1135,7 @@ public class MainActivity extends AppCompatActivity
                             if (pendingFragment instanceof ConnectionFragment) {
                                 bottomNavigationView.getMenu().getItem(0).setChecked(true);
                                 titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-                            } else if (pendingFragment instanceof RealTimeAttentionFragment) {
+                            } else if (pendingFragment instanceof AttentionFragment) {
                                 bottomNavigationView.getMenu().getItem(1).setChecked(true);
                                 titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
                             } else if (pendingFragment instanceof WriteCertificateFragment) {
@@ -1176,8 +1151,7 @@ public class MainActivity extends AppCompatActivity
                 }
             }).start();
         } else {
-            Snackbar snackbar = Snackbar.make(bottomNavigationView, getString(R.string.fill_all_questions), Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Helper.showSnackBar(bottomNavigationView, getString(R.string.fill_all_questions));
         }
     }
 

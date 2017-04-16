@@ -94,11 +94,9 @@ public class AuthorityActivity extends AppCompatActivity implements INFCCallback
         mAdapter = NfcAdapter.getDefaultAdapter(this);
 
         if (mAdapter == null) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.imageView), getString(R.string.no_nfc_support) , Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Helper.showSnackBar(findViewById(R.id.imageView), getString(R.string.no_nfc_support));
         } else if (!mAdapter.isEnabled()) {
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.imageView), getString(R.string.start_nfc) , Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Helper.showSnackBar(findViewById(R.id.imageView), getString(R.string.start_nfc));
             startActivity(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
         }
 

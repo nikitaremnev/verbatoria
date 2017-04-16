@@ -82,7 +82,7 @@ public class WriteCodesFragment extends Fragment implements INeuroInterfaceCallb
                     try {
                         Integer.parseInt(codeEditText.getText().toString());
                     } catch (Exception ex) {
-                        Helper.snackBar(writeButton, getString(R.string.incorrect_code));
+                        Helper.showSnackBar(writeButton, getString(R.string.incorrect_code));
                         ex.printStackTrace();
                         return;
                     }
@@ -132,16 +132,16 @@ public class WriteCodesFragment extends Fragment implements INeuroInterfaceCallb
                 if (dialog != null) {
                     write = false;
                     dialog.dismiss();
-                    Helper.snackBar(writeButton, getString(R.string.write_card_code_success));
+                    Helper.showSnackBar(writeButton, getString(R.string.write_card_code_success));
                 }
             } catch (FormatException e) {
-                Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                 e.printStackTrace();
             } catch (NumberFormatException e) {
-                Helper.snackBar(writeButton, getString(R.string.incorrect_code));
+                Helper.showSnackBar(writeButton, getString(R.string.incorrect_code));
                 e.printStackTrace();
             } catch (IOException e) {
-                Helper.snackBar(writeButton, getString(R.string.write_card_error));
+                Helper.showSnackBar(writeButton, getString(R.string.write_card_error));
                 e.printStackTrace();
             }
             if (dialog != null) {
@@ -159,11 +159,11 @@ public class WriteCodesFragment extends Fragment implements INeuroInterfaceCallb
                         codeEditText.setSelection(Integer.toString(code.getCode()).length());
                     }
                 } catch (Exception ex) {
-                    Helper.snackBar(writeButton, getString(R.string.tag_not_code));
+                    Helper.showSnackBar(writeButton, getString(R.string.tag_not_code));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Helper.snackBar(writeButton, getString(R.string.tag_empty));
+                Helper.showSnackBar(writeButton, getString(R.string.tag_empty));
             }
         }
     }

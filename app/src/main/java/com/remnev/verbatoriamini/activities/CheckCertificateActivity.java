@@ -78,23 +78,18 @@ public class CheckCertificateActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(certificatesAdapter);
         }
-
-
         hideSystemUI();
     }
 
 
     private void preCheckAndStart() {
-        final long currentTime = System.currentTimeMillis();
-        final long lastCheckTime = SpecialistSharedPrefs.getLastCertificateCheckDate(CheckCertificateActivity.this);
+        long currentTime = System.currentTimeMillis();
+        long lastCheckTime = SpecialistSharedPrefs.getLastCertificateCheckDate(CheckCertificateActivity.this);
         if (currentTime - lastCheckTime < WEEK_MILLIS) {
             Certificate certificate = SpecialistSharedPrefs.getCurrentSpecialist(this);
             if (checkDate(certificate)) {
                 showExpiryDialog();
-                return;
-            }
-
-            if (!SettingsSharedPrefs.getIsFirstTime(this)) {
+            } else if (!SettingsSharedPrefs.getIsFirstTime(this)) {
                 dialogGetAddress(certificate);
             } else {
                 startApplication(certificate);
@@ -104,8 +99,8 @@ public class CheckCertificateActivity extends AppCompatActivity {
 
     private void hideSystemUI() {
         if(Build.VERSION.SDK_INT < 19) {
-            View v = this.getWindow().getDecorView();
-            v.setSystemUiVisibility(View.GONE);
+            View decorView = this.getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.GONE);
         } else {
             //for lower api versions.
             View decorView = getWindow().getDecorView();
@@ -149,8 +144,7 @@ public class CheckCertificateActivity extends AppCompatActivity {
                 SettingsSharedPrefs.setFirstTime(CheckCertificateActivity.this);
                 SettingsSharedPrefs.setEmailToSend(CheckCertificateActivity.this, addressEditText.getText().toString());
                 SpecialistSharedPrefs.setLastCertificateCheckDate(CheckCertificateActivity.this, System.currentTimeMillis());
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.imageView), (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()), Snackbar.LENGTH_LONG);
-                snackbar.show();
+                Helper.showSnackBar(findViewById(R.id.imageView), (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()));
                 startMainActivity();
             }
         });
@@ -164,8 +158,7 @@ public class CheckCertificateActivity extends AppCompatActivity {
             return;
         }
         SpecialistSharedPrefs.setLastCertificateCheckDate(CheckCertificateActivity.this, System.currentTimeMillis());
-        Snackbar snackbar = Snackbar.make(findViewById(R.id.imageView), (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()), Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Helper.showSnackBar(findViewById(R.id.imageView), (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()));
         startMainActivity();
     }
 

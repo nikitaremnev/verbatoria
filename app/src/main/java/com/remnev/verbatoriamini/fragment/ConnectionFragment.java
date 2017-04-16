@@ -95,16 +95,16 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
                                 try {
                                     if (getActivity().getSupportFragmentManager().getFragments().get(0) instanceof ConnectionFragment) {
                                         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        RealTimeAttentionFragment realTimeAttentionFragment = new RealTimeAttentionFragment();
+                                        AttentionFragment attentionFragment = new AttentionFragment();
                                         if (getActivity() instanceof MainActivity) {
                                             MainActivity mainActivity = (MainActivity) getActivity();
-                                            mainActivity.callback = realTimeAttentionFragment;
-                                            mainActivity.pendingFragment = realTimeAttentionFragment;
+                                            mainActivity.callback = attentionFragment;
+                                            mainActivity.pendingFragment = attentionFragment;
                                             mainActivity.bottomNavigationView.getMenu().getItem(1).setChecked(true);
                                             mainActivity.titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
                                         }
                                         fragmentManager.beginTransaction()
-                                                .replace(R.id.container, realTimeAttentionFragment)
+                                                .replace(R.id.container, attentionFragment)
                                                 .commit();
                                     }
                                 } catch (Exception ex) {

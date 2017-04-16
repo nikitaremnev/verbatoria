@@ -1,13 +1,11 @@
 package com.remnev.verbatoriamini.fragment;
 
-
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +24,10 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.neurosky.connection.DataType.MindDataType;
 import com.remnev.verbatoriamini.NeuroApplicationClass;
+import com.remnev.verbatoriamini.callbacks.IExportPossibleCallback;
 import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.callbacks.IClearButtons;
+import com.remnev.verbatoriamini.callbacks.IClearButtonsCallback;
 import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
 import com.remnev.verbatoriamini.databases.StatisticsDatabase;
@@ -39,8 +38,8 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class RealTimeAttentionFragment extends Fragment implements
-        OnChartValueSelectedListener, INeuroInterfaceCallback, INFCCallback, IClearButtons {
+public class AttentionFragment extends Fragment implements
+        OnChartValueSelectedListener, INeuroInterfaceCallback, INFCCallback, IClearButtonsCallback {
 
 
     private View mRootView;
@@ -60,17 +59,17 @@ public class RealTimeAttentionFragment extends Fragment implements
 
     private PlayerManager mThirdLoadPlayerManager;
     private Timer mConnectionCheckTimer;
-    private ExportPossibleCallback mExportPossibleCallback;
+    private IExportPossibleCallback mExportPossibleCallback;
 
-    public RealTimeAttentionFragment() {
+    public AttentionFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof ExportPossibleCallback) {
-            mExportPossibleCallback = (ExportPossibleCallback) context;
+        if (context instanceof IExportPossibleCallback) {
+            mExportPossibleCallback = (IExportPossibleCallback) context;
         }
     }
 
@@ -312,18 +311,18 @@ public class RealTimeAttentionFragment extends Fragment implements
                 try {
                     Code code = LoganSquare.parse(readedText, Code.class);
                     if (!mLoadTextView.getText().toString().isEmpty() && readedText != null && !Integer.toString(code.getCode()).equals(mLoadTextView.getText().toString())) {
-                        Helper.snackBar(mLoadTextView, getString(R.string.tag_not_correct));
+                        Helper.showSnackBar(mLoadTextView, getString(R.string.tag_not_correct));
                         submitCode(Integer.toString(code.getCode()));
                     }
                     if (code != null) {
                         submitCode(Integer.toString(code.getCode()));
                     }
                 } catch (Exception ex) {
-                    Helper.snackBar(mLoadTextView, getString(R.string.tag_not_code));
+                    Helper.showSnackBar(mLoadTextView, getString(R.string.tag_not_code));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Helper.snackBar(mLoadTextView, getString(R.string.tag_empty));
+                Helper.showSnackBar(mLoadTextView, getString(R.string.tag_empty));
             }
         }
     }
@@ -363,14 +362,14 @@ public class RealTimeAttentionFragment extends Fragment implements
         if (selectedButtonText.isEmpty()) {
             NeuroApplicationClass.addActivityToDoneArray(code);
             StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-            Helper.snackBar(mLoadTextView, getString(R.string.success_write_event));
+            Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
             selectedButtonText = code;
             setAllButtonsUnselected(foundButtonByCode(code));
             changeExportValue(false);
         } else {
             if (selectedButtonText.equals(code)) {
                 StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-                Helper.snackBar(mLoadTextView, getString(R.string.success_write_event));
+                Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
                 mLoadTextView.setText("");
                 selectedButtonText = "";
                 setAllButtonsUnselected(null);
@@ -382,7 +381,7 @@ public class RealTimeAttentionFragment extends Fragment implements
                 textToWrite = code;
                 NeuroApplicationClass.addActivityToDoneArray(textToWrite);
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-                Helper.snackBar(mLoadTextView, getString(R.string.success_write_event));
+                Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
                 selectedButtonText = code;
                 setAllButtonsUnselected(foundButtonByCode(code));
                 changeExportValue(false);
@@ -435,14 +434,10 @@ public class RealTimeAttentionFragment extends Fragment implements
     public void changeExportValue(boolean changedValue) {
         if (mExportPossibleCallback != null) {
             mExportPossibleCallback.exportPossibleValueChanged(changedValue);
-        } else if (getActivity() != null && getActivity() instanceof ExportPossibleCallback) {
-            mExportPossibleCallback = (ExportPossibleCallback) getActivity();
+        } else if (getActivity() != null && getActivity() instanceof IExportPossibleCallback) {
+            mExportPossibleCallback = (IExportPossibleCallback) getActivity();
             changeExportValue(changedValue);
         }
-    }
-
-    public interface ExportPossibleCallback {
-        void exportPossibleValueChanged(boolean isPossible);
     }
 
     private class FullTimerTask extends TimerTask {
@@ -571,6 +566,7 @@ public class RealTimeAttentionFragment extends Fragment implements
             });
         }
 
+        //visibility changes
         private void setUpPlayMode() {
             mPlayButton.setVisibility(View.VISIBLE);
             mPauseButton.setVisibility(View.GONE);
@@ -581,6 +577,7 @@ public class RealTimeAttentionFragment extends Fragment implements
             mPauseButton.setVisibility(View.VISIBLE);
         }
 
+        //full visibility changes
         private void showPlayer() {
             mPlayerButtons.setVisibility(View.VISIBLE);
             mCurrentMusicIndex = 1;
@@ -592,6 +589,7 @@ public class RealTimeAttentionFragment extends Fragment implements
             pausePlayer();
         }
 
+        //file name
         private void setPlayingFileName() {
             mMusicFileName.setText(Integer.toString(mCurrentMusicIndex));
         }
@@ -632,10 +630,8 @@ public class RealTimeAttentionFragment extends Fragment implements
         }
 
         private void showErrorSnackbar() {
-            Snackbar snackbar = Snackbar.make(mPlayerButtons, getString(R.string.cant_play), Snackbar.LENGTH_LONG);
-            snackbar.show();
+            Helper.showSnackBar(mPlayerButtons, getString(R.string.cant_play));
         }
     }
-
 
 }
