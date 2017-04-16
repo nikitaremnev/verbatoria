@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.crashlytics.android.Crashlytics;
 import com.remnev.verbatoriamini.R;
@@ -58,13 +59,16 @@ public class CheckCertificateActivity extends AppCompatActivity {
         if (mCertificateList.size() == 1) {
             SpecialistSharedPrefs.setCurrentSpecialist(CheckCertificateActivity.this, mCertificateList.get(0));
             findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+            findViewById(R.id.textView2).setVisibility(View.GONE);
             preCheckAndStart();
         } else {
             final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+            final TextView textView = (TextView) findViewById(R.id.textView2);
             CertificatesAdapter certificatesAdapter = new CertificatesAdapter(this, mCertificateList, new CertificatesAdapter.ICertificateClick() {
                 @Override
                 public void onCertificateClick(int position) {
                     recyclerView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
                     findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
 
                     SpecialistSharedPrefs.setCurrentSpecialist(CheckCertificateActivity.this, mCertificateList.get(position));

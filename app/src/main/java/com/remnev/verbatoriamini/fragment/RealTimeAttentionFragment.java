@@ -535,7 +535,11 @@ public class RealTimeAttentionFragment extends Fragment implements
     }
 
     private AssetFileDescriptor getAssetFileDescriptor(int index) {
-        return getActivity().getResources().openRawResourceFd(sMusicRaw[index]);
+//        if (sMusicRaw.length <= index) {
+//            currentMusicIndex = 0;
+//            return getActivity().getResources().openRawResourceFd(sMusicRaw[currentMusicIndex]);
+//        }
+        return getActivity().getResources().openRawResourceFd(sMusicRaw[index - 1]);
     }
 
     @Override

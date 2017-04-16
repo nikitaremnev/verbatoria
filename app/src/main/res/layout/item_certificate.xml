@@ -3,14 +3,20 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp">
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
 
-    <TextView
+    <Button
         android:id="@+id/itemName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="30sp"
+        style="@style/ButtonStyle"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_code_form"
         tools:text="Вася Пупкин"/>
 
 </RelativeLayout>

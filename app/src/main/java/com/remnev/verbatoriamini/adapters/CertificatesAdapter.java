@@ -25,13 +25,13 @@ public class CertificatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public class CertificateViewHolder extends RecyclerView.ViewHolder {
 
-        TextView certificateName;
+        Button certificateName;
         View rootView;
 
         public CertificateViewHolder(View view) {
             super(view);
             rootView = view;
-            certificateName = (TextView) itemView.findViewById(R.id.itemName);
+            certificateName = (Button) itemView.findViewById(R.id.itemName);
         }
     }
 
@@ -52,6 +52,14 @@ public class CertificatesAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         Certificate certificate = mCertificateList.get(position);
         ((CertificateViewHolder) holder).rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCertificateClick != null) {
+                    mCertificateClick.onCertificateClick(position);
+                }
+            }
+        });
+        ((CertificateViewHolder) holder).certificateName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mCertificateClick != null) {

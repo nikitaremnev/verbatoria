@@ -241,4 +241,6 @@
     <string name="codes_error_restart">Возобновить запись</string>
 
     <string name="please_stop_action">Пожалуйста, закончите запись активности</string>
+
+    <string name="please_choose_user">Пожалуйста, выберите пользователя для работы в системе</string>
 </resources>

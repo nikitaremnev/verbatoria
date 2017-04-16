@@ -61,7 +61,10 @@ import com.remnev.verbatoriamini.sharedpreferences.SpecialistSharedPrefs;
 import com.remnev.verbatoriamini.util.NeuroExcelWriter;
 import com.remnev.verbatoriamini.util.comparators.ExcelEventsComparator;
 import com.remnev.verbatoriamini.util.comparators.ExcelExportComparator;
+
+import org.apache.poi.hssf.record.crypto.Biff8EncryptionKey;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -70,6 +73,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
@@ -537,6 +541,7 @@ public class MainActivity extends AppCompatActivity
 
         //New Sheet
         Sheet sheet1 = wb.createSheet("EXPORT");
+
         ExcelEvent.createHeaderAndSetWidth(wb, sheet1);
 
         ArrayList<ExcelEvent> excelEvents = getExcelEvents(context);
@@ -644,6 +649,7 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+
         // Create a path where we will place our List of objects on external storage
         FileOutputStream os = null;
         try {
@@ -653,11 +659,24 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         } finally {
             try {
+                wb.close();
                 if (null != os)
                     os.close();
             } catch (Exception ex) {
             }
         }
+
+
+        try {
+            Biff8EncryptionKey.setCurrentUserPassword("pass");
+            NPOIFSFileSystem fs = new NPOIFSFileSystem(file, true);
+            HSSFWorkbook hwb = new HSSFWorkbook(fs.getRoot(), true);
+            Biff8EncryptionKey.setCurrentUserPassword(null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         return "true";
     }
 

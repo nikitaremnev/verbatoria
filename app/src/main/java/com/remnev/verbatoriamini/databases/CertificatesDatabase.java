@@ -125,31 +125,31 @@ public class CertificatesDatabase extends SQLiteOpenHelper implements BaseColumn
 //        certificate.setExpiry("16/02/2030");
 //        certificateList.add(certificate);
 ////
-        certificate = new Certificate();
-        certificate.setCity("Москва");
-        certificate.setSpecialistName("Павел Айнутдинов");
-        certificate.setEmail("ru1.amelia@verbatoria.ru");
-        certificate.setExpiry("16/02/2019");
-        certificateList.add(certificate);
-
-        certificate = new Certificate();
-        certificate.setCity("Москва");
-        certificate.setSpecialistName("Елена Бурданова");
-        certificate.setEmail("ru1.amelia@verbatoria.ru");
-        certificate.setExpiry("16/02/2019");
-        certificateList.add(certificate);
-
 //        certificate = new Certificate();
 //        certificate.setCity("Москва");
-//        certificate.setSpecialistName("Светлана Миронова");
-//        certificate.setExpiry("21/02/2018");
+//        certificate.setSpecialistName("Павел Айнутдинов");
+//        certificate.setEmail("ru1.amelia@verbatoria.ru");
+//        certificate.setExpiry("16/02/2019");
 //        certificateList.add(certificate);
+//
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Елена Бурданова");
+//        certificate.setEmail("ru1.amelia@verbatoria.ru");
+//        certificate.setExpiry("16/02/2019");
+//        certificateList.add(certificate);
+
+        certificate = new Certificate();
+        certificate.setCity("Москва");
+        certificate.setSpecialistName("Светлана Миронова");
+        certificate.setExpiry("21/02/2018");
+        certificateList.add(certificate);
 //
 //        certificate = new Certificate();
 //        certificate.setCity("Москва");
 //        certificate.setSpecialistName("Айрат Хакимов");
 //        certificate.setEmail("ayrat@verbatoria.ru");
-//        certificate.setExpiry("22/02/2018");
+//        certificate.setExpiry("6/04/2019");
 //        certificateList.add(certificate);
 //
 //        certificate = new Certificate();
@@ -158,7 +158,7 @@ public class CertificatesDatabase extends SQLiteOpenHelper implements BaseColumn
 //        certificate.setEmail("maria@verbatoria.ru");
 //        certificate.setExpiry("22/02/2018");
 //        certificateList.add(certificate);
-//
+
 //        certificate = new Certificate();
 //        certificate.setCity("Москва");
 //        certificate.setSpecialistName("Анна Богданович");
@@ -179,6 +179,21 @@ public class CertificatesDatabase extends SQLiteOpenHelper implements BaseColumn
 //        certificate.setEmail("alexey@verbatoria.ru");
 //        certificate.setExpiry("30/03/2018");
 //        certificateList.add(certificate);
+
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Трофимов Никита");
+//        certificate.setEmail("nikita@verbatoria.ru");
+//        certificate.setExpiry("6/04/2018");
+//        certificateList.add(certificate);
+//
+//        certificate = new Certificate();
+//        certificate.setCity("Москва");
+//        certificate.setSpecialistName("Трофимова Ольга");
+//        certificate.setEmail("olga@verbatoria.ru");
+//        certificate.setExpiry("6/04/2018");
+//        certificateList.add(certificate);
+
 
         return certificateList;
 
