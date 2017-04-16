@@ -5,8 +5,10 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +38,8 @@ import com.remnev.verbatoriamini.model.Code;
 import com.remnev.verbatoriamini.util.NeuroExcelWriter;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -46,6 +50,7 @@ public class AttentionFragment extends Fragment implements
     private View mRootView;
     private LineChart mChartView;
     private TextView mLoadTextView;
+    private TextView mTimerTextView;
 
     private String selectedButtonText;
 
@@ -60,6 +65,12 @@ public class AttentionFragment extends Fragment implements
 
     private PlayerManager mThirdLoadPlayerManager;
     private Timer mConnectionCheckTimer;
+    private Timer mFullAndSubTasksTimer;
+
+    private int mCurrentNumberOfSecondsFull;
+    private int mCurrentNumberOfSecondsSub;
+    private boolean mIsSubtasksActive;
+
     private IExportPossibleCallback mExportPossibleCallback;
     private IFragmentsMovingCallback mFragmentsMovingCallback;
 
@@ -86,6 +97,7 @@ public class AttentionFragment extends Fragment implements
 
         mThirdLoadPlayerManager = new PlayerManager(mRootView);
 
+        mTimerTextView = (TextView) mRootView.findViewById(R.id.timerTextView);
         mChartView = (LineChart) mRootView.findViewById(R.id.line_chart);
         selectedButtonText = "";
         mLoadTextView = (TextView) mRootView.findViewById(R.id.load_text);
@@ -102,6 +114,8 @@ public class AttentionFragment extends Fragment implements
         mConnectionCheckTimer = new Timer();
         mConnectionCheckTimer.schedule(new CheckConnectionTimerTask(), 0, 2000);
 
+        mFullAndSubTasksTimer = new Timer();
+        mFullAndSubTasksTimer.schedule(new FullAndSubtasksTimerTask(), 1000, 1000);
         return mRootView;
     }
 
@@ -111,6 +125,9 @@ public class AttentionFragment extends Fragment implements
 
         mConnectionCheckTimer.cancel();
         mConnectionCheckTimer = null;
+
+        mFullAndSubTasksTimer.cancel();
+        mFullAndSubTasksTimer = null;
 
         mThirdLoadPlayerManager.onDestroy();
         mThirdLoadPlayerManager = null;
@@ -384,6 +401,7 @@ public class AttentionFragment extends Fragment implements
             selectedButtonText = code;
             setAllButtonsUnselected(foundButtonByCode(code));
             changeExportValue(false);
+            mIsSubtasksActive = true;
         } else {
             if (selectedButtonText.equals(code)) {
                 StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
@@ -393,6 +411,8 @@ public class AttentionFragment extends Fragment implements
                 setAllButtonsUnselected(null);
                 NeuroApplicationClass.addActivityToDoneArray(code);
                 changeExportValue(true);
+                mIsSubtasksActive = false;
+                mCurrentNumberOfSecondsSub = 0;
             } else {
                 String textToWrite = selectedButtonText;
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
@@ -403,6 +423,7 @@ public class AttentionFragment extends Fragment implements
                 selectedButtonText = code;
                 setAllButtonsUnselected(foundButtonByCode(code));
                 changeExportValue(false);
+                mIsSubtasksActive = true;
             }
         }
     }
@@ -461,12 +482,36 @@ public class AttentionFragment extends Fragment implements
         }
     }
 
-    private class FullTimerTask extends TimerTask {
+    private class FullAndSubtasksTimerTask extends TimerTask {
 
         @Override
         public void run() {
+            if (mIsSubtasksActive) {
+                mCurrentNumberOfSecondsSub ++;
+            }
+            mCurrentNumberOfSecondsFull ++;
+            Log.e("timeFull", "mCurrentNumberOfSecondsFull: " + mCurrentNumberOfSecondsFull);
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Date fullDate = new Date(mCurrentNumberOfSecondsFull * 1000);
+                        Date subDate = new Date(mCurrentNumberOfSecondsSub * 1000);
+                        SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
+                        if (mCurrentNumberOfSecondsSub == 0 || !mIsSubtasksActive) {
+                            mTimerTextView.setText(String.format(getString(R.string.timer_string_only_full),
+                                    timeFormat.format(fullDate)));
+                        } else {
+                            mTimerTextView.setText(String.format(getString(R.string.timer_string),
+                                    timeFormat.format(fullDate),
+                                    timeFormat.format(subDate)));
+                        }
+                    }
+                });
+            }
 
         }
+
     }
 
     private class PlayerManager {

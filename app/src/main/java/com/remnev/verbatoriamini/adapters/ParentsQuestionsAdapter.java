@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,7 @@ public class ParentsQuestionsAdapter extends PagerAdapter {
     private static final int TOTAL_COUNT = 7;
 
     private View mCurrentView;
+    private CheckBox mHasAnswerCheckbox;
     private final Context mContext;
     private IVariantButtonClick variantButtonClickCallback;
 
@@ -37,12 +40,13 @@ public class ParentsQuestionsAdapter extends PagerAdapter {
     public Object instantiateItem(final ViewGroup container, final int position) {
         View view = LayoutInflater.from(container.getContext()).inflate(R.layout.item_question_parent, null);
         TextView title = (TextView) view.findViewById(R.id.title);
+
         final Button button10 = (Button) view.findViewById(R.id.button10);
         final Button button20 = (Button) view.findViewById(R.id.button20);
         final Button button40 = (Button) view.findViewById(R.id.button40);
         final Button button60 = (Button) view.findViewById(R.id.button60);
         final Button button90 = (Button) view.findViewById(R.id.button90);
-
+        final CheckBox hasAnswerCheckbox = (CheckBox) view.findViewById(R.id.hasAnswerCheckbox);
         title.setText(mTitlesOfQuestions[position]);
 
         container.addView(view);
@@ -90,6 +94,18 @@ public class ParentsQuestionsAdapter extends PagerAdapter {
                 button90.setBackground(drawable);
                 break;
         }
+
+
+        hasAnswerCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked) {
+                    ParentsAnswersSharedPrefs.setValue(mContext, Integer.toString(position), 0);
+                    variantButtonClickCallback.anyVariantClick();
+                }
+
+            }
+        });
 
         return view;
     }

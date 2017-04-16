@@ -243,4 +243,10 @@
     <string name="please_stop_action">Пожалуйста, закончите запись активности</string>
 
     <string name="please_choose_user">Пожалуйста, выберите пользователя для работы в системе</string>
+
+    <string name="have_answer">Есть ответ</string>
+
+    <string name="timer_string" formatted="false">Общее время: %s\nВремя нагрузки: %s</string>
+    <string name="timer_string_only_full" formatted="false">Общее время: %s</string>
+
 </resources>

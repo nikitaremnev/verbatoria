@@ -1,6 +1,7 @@
 package com.remnev.verbatoriamini.fragment;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.remnev.verbatoriamini.NeuroApplicationClass;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.IFragmentsMovingCallback;
 import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
+
+import org.w3c.dom.Text;
 
 public class ConnectionFragment extends Fragment implements INeuroInterfaceCallback {
 
@@ -161,6 +164,10 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
         mStatusImageView = (ImageView) rootView.findViewById(R.id.attention_status);
         mConnectionTextView = (TextView) rootView.findViewById(R.id.connection_title);
         mNeuroInterfaceStatusButton = (ImageView) rootView.findViewById(R.id.bci);
+
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Lato-Regular.ttf");
+        ((TextView) rootView.findViewById(R.id.textView)).setTypeface(font);
+        mConnectionTextView.setTypeface(font);
     }
 
     private void setOnClickListeners() {

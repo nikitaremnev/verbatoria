@@ -19,10 +19,8 @@
             android:text="@string/connection_instruction"
             android:id="@+id/textView"
             android:layout_below="@+id/bci"
-            android:fontFamily="sans-serif-light"
             android:layout_margin="16dp"
             android:gravity="left"
-            android:textStyle="bold"
             android:layout_centerHorizontal="true" />
 
         <TextView

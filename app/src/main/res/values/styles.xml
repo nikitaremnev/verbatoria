@@ -6,14 +6,16 @@
         <item name="colorPrimary">@color/main</item>
         <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="android:navigationBarColor">@color/status_bar</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="ButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
-
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="MenuItemTheme" parent="AppTheme">
         <item name="android:textSize">20sp</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="MainAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -24,17 +26,19 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
-
+        <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="DialogStyle" parent="Base.Theme.AppCompat.Dialog">
+    <style name="DialogStyle" parent="ThemeOverlay.AppCompat.Dialog">
         <item name="android:windowMinWidthMajor">80%</item>
         <item name="android:windowMinWidthMinor">80%</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

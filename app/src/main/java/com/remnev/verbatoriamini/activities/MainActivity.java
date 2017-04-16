@@ -611,10 +611,10 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         } finally {
             try {
-                wb.close();
                 if (null != os)
                     os.close();
             } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
         return "true";
@@ -1169,29 +1169,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void moveToAttentionFragment() {
         bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_item_attention);
-//        this.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                pendingFragment = new ConnectionFragment();
-//                callback = null;
-//                beginFragmentManagerTransactionImmediately(pendingFragment);
-//                selectBottomNavigationItemAndSetTitle();
-//            }
-//        });
     }
 
     @Override
     public void moveToConnectionFragment() {
         bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_item_connect);
-//        this.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                pendingFragment = new AttentionFragment();
-//                callback = (INFCCallback) pendingFragment;
-//                beginFragmentManagerTransactionImmediately(pendingFragment);
-//                selectBottomNavigationItemAndSetTitle();
-//            }
-//        });
     }
 
 }

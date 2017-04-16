@@ -106,88 +106,80 @@ public class ExcelEvent {
     public static void createHeaderAndSetWidth(Workbook wb, Sheet sheet) {
         // Generate column headings
         //Cell style for header row
-        CellStyle cs = wb.createCellStyle();
-        cs.setFillForegroundColor(HSSFColor.LIGHT_BLUE.index);
-        cs.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+
         Cell c = null;
         Row row = sheet.createRow(0);
 
         // Create column titles
         c = row.createCell(ExcelColumnID.EXCEL_REPORT_ID_CODE);
         c.setCellValue("Report ID");
-        c.setCellStyle(cs);
         c = row.createCell(ExcelColumnID.EXCEL_CHILD_ID_CODE);
         c.setCellValue("Child ID");
-        c.setCellStyle(cs);
         c = row.createCell(ExcelColumnID.EXCEL_VERBATOLOG_ID_CODE);
         c.setCellValue("Verbatolog ID");
-        c.setCellStyle(cs);
         c = row.createCell(ExcelColumnID.EXCEL_DEVICE_ID_CODE);
         c.setCellValue("Device ID");
-        c.setCellStyle(cs);
         c = row.createCell(ExcelColumnID.EXCEL_BCI_ID_CODE);
         c.setCellValue("BCI ID");
-        c.setCellStyle(cs);
         c = row.createCell(ExcelColumnID.EXCEL_EVENT_ID_CODE);
         c.setCellValue("Event ID");
-        c.setCellStyle(cs);
         c = row.createCell(ExcelColumnID.EXCEL_LOGOPED_MODE_ID_CODE);
         c.setCellValue("Logoped Mode ID");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_ACTION_CODE);
         c.setCellValue("Action ID");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_WORD_CODE);
         c.setCellValue("Word");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_BLOCK_CODE);
         c.setCellValue("Block");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_MISTAKE_CODE);
         c.setCellValue("Mistake");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_RESERVE_2_CODE);
         c.setCellValue("Reserve Blank");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_RESERVE_3_CODE);
         c.setCellValue("Reserve Blank");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_ID_CODE);
         c.setCellValue("ID");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_TIMESTAMP_CODE);
         c.setCellValue("Timestamp");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_ATTENTION_CODE);
         c.setCellValue("Attention");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_MEDIATION_CODE);
         c.setCellValue("Mediation");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_DELTA_CODE);
         c.setCellValue("Delta");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_THETA_CODE);
         c.setCellValue("Theta");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_LOW_ALPHA_CODE);
         c.setCellValue("Low Alpha");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_HIGH_ALPHA_CODE);
         c.setCellValue("High Alpha");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_LOW_BETA_CODE);
         c.setCellValue("Low Beta");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_HIGH_BETA_CODE);
         c.setCellValue("High Beta");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_LOW_GAMMA_CODE);
         c.setCellValue("Low Gamma");
-        c.setCellStyle(cs);
+
         c = row.createCell(ExcelColumnID.EXCEL_MID_GAMMA_CODE);
         c.setCellValue("Mid Gamma");
-        c.setCellStyle(cs);
+
         sheet.setColumnWidth(0, (5 * 500));
         sheet.setColumnWidth(1, (5 * 500));
         sheet.setColumnWidth(2, (5 * 500));

@@ -21,6 +21,7 @@ import com.remnev.verbatoriamini.databases.StatisticsDatabase;
 import com.remnev.verbatoriamini.model.ActionID;
 import com.remnev.verbatoriamini.model.RezhimID;
 import com.remnev.verbatoriamini.sharedpreferences.SettingsSharedPrefs;
+import com.remnev.verbatoriamini.util.FontsOverride;
 import com.remnev.verbatoriamini.util.Helper;
 
 import java.util.ArrayList;
@@ -55,6 +56,10 @@ public class NeuroApplicationClass extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        FontsOverride.setDefaultFont(this, "DEFAULT", "Lato-Regular.ttf");
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "Lato-Regular.ttf");
+        FontsOverride.setDefaultFont(this, "SERIF", "Lato-Regular.ttf");
+        FontsOverride.setDefaultFont(this, "SANS_SERIF", "Lato-Regular.ttf");
     }
 
     public void setOnBCIConnectionCallback(INeuroInterfaceCallback callback) {
