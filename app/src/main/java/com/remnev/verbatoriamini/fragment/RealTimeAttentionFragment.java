@@ -1,6 +1,7 @@
 package com.remnev.verbatoriamini.fragment;
 
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.nfc.Tag;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +28,6 @@ import com.neurosky.connection.DataType.MindDataType;
 import com.remnev.verbatoriamini.NeuroApplicationClass;
 import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.activities.MainActivity;
 import com.remnev.verbatoriamini.callbacks.IClearButtons;
 import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
 import com.remnev.verbatoriamini.callbacks.INFCCallback;
@@ -43,13 +42,13 @@ import java.util.TimerTask;
 public class RealTimeAttentionFragment extends Fragment implements
         OnChartValueSelectedListener, INeuroInterfaceCallback, INFCCallback, IClearButtons {
 
-    private LineChart mChart;
-    private NeuroApplicationClass mNeuroApplicationClass;
-    private TextView loadTextView;
+
+    private View mRootView;
+    private LineChart mChartView;
+    private TextView mLoadTextView;
 
     private String selectedButtonText;
 
-    private View rootView;
     private Button button99;
     private Button button11;
     private Button button21;
@@ -59,87 +58,63 @@ public class RealTimeAttentionFragment extends Fragment implements
     private Button button61;
     private Button button71;
 
-    private View playerButtons;
-
-    private FloatingActionButton playButton;
-    private FloatingActionButton nextButton;
-    private FloatingActionButton backButton;
-    private FloatingActionButton pauseButton;
-
-    private TextView musicFileName;
-
-    private Timer timer;
-
-    private boolean canExport = true;
-
-    private static int[] sMusicRaw = new int[] {
-            R.raw.zvuk1,
-            R.raw.zvuk2,
-            R.raw.zvuk3,
-            R.raw.zvuk4,
-            R.raw.zvuk5
-    };
+    private PlayerManager mThirdLoadPlayerManager;
+    private Timer mConnectionCheckTimer;
+    private ExportPossibleCallback mExportPossibleCallback;
 
     public RealTimeAttentionFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof ExportPossibleCallback) {
+            mExportPossibleCallback = (ExportPossibleCallback) context;
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_realtime_attention, null, false);
+        mRootView = inflater.inflate(R.layout.fragment_realtime_attention, null, false);
 
-        playerButtons = rootView.findViewById(R.id.player_buttons);
-        playButton = (FloatingActionButton) rootView.findViewById(R.id.play_floating_button);
-        pauseButton = (FloatingActionButton) rootView.findViewById(R.id.pause_floating_button);
-        nextButton = (FloatingActionButton) rootView.findViewById(R.id.next_floating_button);
-        backButton = (FloatingActionButton) rootView.findViewById(R.id.back_floating_button);
-        musicFileName = (TextView) rootView.findViewById(R.id.music_file_name);
-        playerButtons.setVisibility(View.GONE);
 
-        setUpPlayer();
+        mThirdLoadPlayerManager = new PlayerManager(mRootView);
 
-        mChart = (LineChart) rootView.findViewById(R.id.line_chart);
+        mChartView = (LineChart) mRootView.findViewById(R.id.line_chart);
         selectedButtonText = "";
-        loadTextView = (TextView) rootView.findViewById(R.id.load_text);
+        mLoadTextView = (TextView) mRootView.findViewById(R.id.load_text);
 
-        mNeuroApplicationClass = (NeuroApplicationClass) getActivity().getApplicationContext();
+        NeuroApplicationClass mNeuroApplicationClass = (NeuroApplicationClass) getActivity().getApplicationContext();
         mNeuroApplicationClass.setOnBCIConnectionCallback(this);
-        mNeuroApplicationClass.setMContext(getActivity());
+        mNeuroApplicationClass.setContext(getActivity());
 
         setUpChart();
         setUpCodeButtons();
         setUpOnClickListeners();
         setAllButtonsUnselected(null);
 
-        timer = new Timer();
-        timer.schedule(new FontChangeTimerTask(), 0, 2000);
+        mConnectionCheckTimer = new Timer();
+        mConnectionCheckTimer.schedule(new CheckConnectionTimerTask(), 0, 2000);
 
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.e("test", "onResume RealTimeAttentionFragment");
+        return mRootView;
     }
 
     private void setUpCodeButtons() {
-        button99 = (Button) rootView.findViewById(R.id.button99);
-        button11 = (Button) rootView.findViewById(R.id.button11);
-        button21 = (Button) rootView.findViewById(R.id.button21);
-        button31 = (Button) rootView.findViewById(R.id.button31);
-        button41 = (Button) rootView.findViewById(R.id.button41);
-        button51 = (Button) rootView.findViewById(R.id.button51);
-        button61 = (Button) rootView.findViewById(R.id.button61);
-        button71 = (Button) rootView.findViewById(R.id.button71);
+        button99 = (Button) mRootView.findViewById(R.id.button99);
+        button11 = (Button) mRootView.findViewById(R.id.button11);
+        button21 = (Button) mRootView.findViewById(R.id.button21);
+        button31 = (Button) mRootView.findViewById(R.id.button31);
+        button41 = (Button) mRootView.findViewById(R.id.button41);
+        button51 = (Button) mRootView.findViewById(R.id.button51);
+        button61 = (Button) mRootView.findViewById(R.id.button61);
+        button71 = (Button) mRootView.findViewById(R.id.button71);
     }
 
     @Override
     public void clearRemovedButtons() {
-        Log.e("test", "clearRemovedButtons");
         if (!NeuroApplicationClass.containsDoneActivity("99")) {
-            Log.e("test", "!ApplicationClass.containsDoneActivity(\"99\")");
             button99.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
         }
         if (!NeuroApplicationClass.containsDoneActivity("11")) {
@@ -216,16 +191,9 @@ public class RealTimeAttentionFragment extends Fragment implements
             public void onClick(View view) {
                 String thisButtonText = ((Button) view).getText().toString();
                 if (thisButtonText.equals("31")) {
-                    playerButtons.setVisibility(View.VISIBLE);
-                    currentMusicIndex = 1;
-                    playButton.setVisibility(View.VISIBLE);
-                    pauseButton.setVisibility(View.GONE);
+                    mThirdLoadPlayerManager.showPlayer();
                 } else {
-                    playerButtons.setVisibility(View.GONE);
-                    if (mediaPlayer != null) {
-                        mediaPlayer.stop();
-                        mediaPlayer = null;
-                    }
+                    mThirdLoadPlayerManager.hidePlayer();
                 }
                 submitCode(thisButtonText);
             }
@@ -241,15 +209,15 @@ public class RealTimeAttentionFragment extends Fragment implements
     }
 
     private void setUpChart() {
-        mChart.setOnChartValueSelectedListener(this);
-        mChart.setDescription("");
-        mChart.setNoDataText(getString(R.string.noData));
-        mChart.setDrawGridBackground(false);
-        mChart.setDrawMarkerViews(false);
-        mChart.getLegend().setEnabled(false);
-        mChart.setBackgroundColor(getResources().getColor(R.color.font));
+        mChartView.setOnChartValueSelectedListener(this);
+        mChartView.setDescription("");
+        mChartView.setNoDataText(getString(R.string.noData));
+        mChartView.setDrawGridBackground(false);
+        mChartView.setDrawMarkerViews(false);
+        mChartView.getLegend().setEnabled(false);
+        mChartView.setBackgroundColor(getResources().getColor(R.color.font));
 
-        XAxis xl = mChart.getXAxis();
+        XAxis xl = mChartView.getXAxis();
         xl.setTextColor(getResources().getColor(R.color.main));
         xl.setDrawGridLines(false);
         xl.setAvoidFirstLastClipping(false);
@@ -258,7 +226,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         xl.setDrawAxisLine(false);
         xl.setDrawLabels(false);
 
-        YAxis leftAxis = mChart.getAxisLeft();
+        YAxis leftAxis = mChartView.getAxisLeft();
         leftAxis.setTextColor(getResources().getColor(R.color.black));
         leftAxis.setAxisMaxValue(100f);
         leftAxis.setAxisMinValue(0f);
@@ -266,7 +234,7 @@ public class RealTimeAttentionFragment extends Fragment implements
         leftAxis.setDrawAxisLine(false);
         leftAxis.setDrawLabels(true);
 
-        YAxis rightAxis = mChart.getAxisRight();
+        YAxis rightAxis = mChartView.getAxisRight();
         rightAxis.setEnabled(false);
 
         for (int i = 0; i < 20; i ++ ) {
@@ -275,11 +243,11 @@ public class RealTimeAttentionFragment extends Fragment implements
     }
 
     private void addEntry(int value) {
-        LineData data = mChart.getData();
+        LineData data = mChartView.getData();
         if (data == null) {
             data = new LineData();
             data.setDrawValues(false);
-            mChart.setData(data);
+            mChartView.setData(data);
         }
         if (data != null) {
             ILineDataSet set = data.getDataSetByIndex(0);
@@ -290,10 +258,10 @@ public class RealTimeAttentionFragment extends Fragment implements
             data.addXValue(Integer.toString(set.getEntryCount()));
             data.addEntry(new Entry(value, set.getEntryCount()), 0);
 
-            mChart.notifyDataSetChanged();
-            mChart.setScaleXEnabled(false);
-            mChart.setVisibleXRangeMaximum(20);
-            mChart.moveViewToX(data.getXValCount() - 21);
+            mChartView.notifyDataSetChanged();
+            mChartView.setScaleXEnabled(false);
+            mChartView.setVisibleXRangeMaximum(20);
+            mChartView.moveViewToX(data.getXValCount() - 21);
         }
     }
 
@@ -343,19 +311,19 @@ public class RealTimeAttentionFragment extends Fragment implements
                 String readedText = Helper.readTag(msg, getActivity());
                 try {
                     Code code = LoganSquare.parse(readedText, Code.class);
-                    if (!loadTextView.getText().toString().isEmpty() && readedText != null && !Integer.toString(code.getCode()).equals(loadTextView.getText().toString())) {
-                        Helper.snackBar(loadTextView, getString(R.string.tag_not_correct));
+                    if (!mLoadTextView.getText().toString().isEmpty() && readedText != null && !Integer.toString(code.getCode()).equals(mLoadTextView.getText().toString())) {
+                        Helper.snackBar(mLoadTextView, getString(R.string.tag_not_correct));
                         submitCode(Integer.toString(code.getCode()));
                     }
                     if (code != null) {
                         submitCode(Integer.toString(code.getCode()));
                     }
                 } catch (Exception ex) {
-                    Helper.snackBar(loadTextView, getString(R.string.tag_not_code));
+                    Helper.snackBar(mLoadTextView, getString(R.string.tag_not_code));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Helper.snackBar(loadTextView, getString(R.string.tag_empty));
+                Helper.snackBar(mLoadTextView, getString(R.string.tag_empty));
             }
         }
     }
@@ -393,171 +361,47 @@ public class RealTimeAttentionFragment extends Fragment implements
             code = "00";
         }
         if (selectedButtonText.isEmpty()) {
-            String textToWrite = code;
-            NeuroApplicationClass.addActivityToDoneArray(textToWrite);
-            StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-            Helper.snackBar(loadTextView, getString(R.string.success_write_event));
+            NeuroApplicationClass.addActivityToDoneArray(code);
+            StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
+            Helper.snackBar(mLoadTextView, getString(R.string.success_write_event));
             selectedButtonText = code;
             setAllButtonsUnselected(foundButtonByCode(code));
-            canExport = false;
-            if (getActivity() instanceof MainActivity) {
-                ((MainActivity) getActivity()).canExport = false;
-            }
+            changeExportValue(false);
         } else {
             if (selectedButtonText.equals(code)) {
-                String textToWrite = code;
-                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-                Helper.snackBar(loadTextView, getString(R.string.success_write_event));
-                loadTextView.setText("");
+                StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
+                Helper.snackBar(mLoadTextView, getString(R.string.success_write_event));
+                mLoadTextView.setText("");
                 selectedButtonText = "";
                 setAllButtonsUnselected(null);
-                NeuroApplicationClass.addActivityToDoneArray(textToWrite);
-                canExport = true;
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).canExport = true;
-                }
+                NeuroApplicationClass.addActivityToDoneArray(code);
+                changeExportValue(true);
             } else {
                 String textToWrite = selectedButtonText;
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-
                 textToWrite = code;
                 NeuroApplicationClass.addActivityToDoneArray(textToWrite);
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-                Helper.snackBar(loadTextView, getString(R.string.success_write_event));
+                Helper.snackBar(mLoadTextView, getString(R.string.success_write_event));
                 selectedButtonText = code;
                 setAllButtonsUnselected(foundButtonByCode(code));
-                canExport = false;
-                if (getActivity() instanceof MainActivity) {
-                    ((MainActivity) getActivity()).canExport = false;
-                }
+                changeExportValue(false);
             }
         }
-    }
-
-    private int currentMusicIndex = 1;
-    private MediaPlayer mediaPlayer;
-
-    private void setUpMediaPlayer() {
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
-                mediaPlayer.start();
-                playButton.setVisibility(View.GONE);
-                pauseButton.setVisibility(View.VISIBLE);
-            }
-        });
-        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                playButton.setVisibility(View.VISIBLE);
-                pauseButton.setVisibility(View.GONE);
-                RealTimeAttentionFragment.this.mediaPlayer = null;
-            }
-        });
-    }
-
-    private void setUpPlayer() {
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                musicFileName.setText(Integer.toString(currentMusicIndex) + ".mp3");
-                if (mediaPlayer != null) {
-                    mediaPlayer.start();
-                    playButton.setVisibility(View.GONE);
-                    pauseButton.setVisibility(View.VISIBLE);
-                    return;
-                }
-                if (5 >= currentMusicIndex) {
-                    try {
-                        setUpMediaPlayer();
-                        AssetFileDescriptor afd = getAssetFileDescriptor(currentMusicIndex);
-                        if (afd == null) {
-                            Snackbar snackbar = Snackbar.make(rootView, getString(R.string.cant_play), Snackbar.LENGTH_LONG);
-                            snackbar.show();
-                            return;
-                        }
-                        mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-                        afd.close();
-                        mediaPlayer.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        Snackbar snackbar = Snackbar.make(rootView, getString(R.string.cant_play), Snackbar.LENGTH_LONG);
-                        snackbar.show();
-                    }
-                } else {
-                    Snackbar snackbar = Snackbar.make(rootView, getString(R.string.cant_play), Snackbar.LENGTH_LONG);
-                    snackbar.show();
-                }
-            }
-        });
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentMusicIndex ++;
-                if (5 < currentMusicIndex) {
-                    currentMusicIndex = 1;
-                }
-                if (mediaPlayer != null) {
-                    mediaPlayer.stop();
-                    mediaPlayer = null;
-                    playButton.setVisibility(View.VISIBLE);
-                    pauseButton.setVisibility(View.GONE);
-                }
-                playButton.performClick();
-            }
-        });
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                currentMusicIndex --;
-                if (currentMusicIndex < 1) {
-                    currentMusicIndex = 1;
-                }
-
-                if (mediaPlayer != null) {
-                    mediaPlayer.stop();
-                    mediaPlayer = null;
-                    playButton.setVisibility(View.VISIBLE);
-                    pauseButton.setVisibility(View.GONE);
-                }
-                playButton.performClick();
-            }
-        });
-        pauseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mediaPlayer.pause();
-                playButton.setVisibility(View.VISIBLE);
-                pauseButton.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    private AssetFileDescriptor getAssetFileDescriptor(int index) {
-//        if (sMusicRaw.length <= index) {
-//            currentMusicIndex = 0;
-//            return getActivity().getResources().openRawResourceFd(sMusicRaw[currentMusicIndex]);
-//        }
-        return getActivity().getResources().openRawResourceFd(sMusicRaw[index - 1]);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        timer.cancel();
-        try {
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-            }
-            mediaPlayer = null;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            mediaPlayer = null;
-        }
+
+        mConnectionCheckTimer.cancel();
+        mConnectionCheckTimer = null;
+
+        mThirdLoadPlayerManager.onDestroy();
+        mThirdLoadPlayerManager = null;
     }
 
-    private class FontChangeTimerTask extends TimerTask {
+    private class CheckConnectionTimerTask extends TimerTask {
 
         @Override
         public void run() {
@@ -571,21 +415,227 @@ public class RealTimeAttentionFragment extends Fragment implements
             @Override
             public void run() {
                 final int sdk = android.os.Build.VERSION.SDK_INT;
-                if (!NeuroApplicationClass.sConnected) {
+                if (!NeuroApplicationClass.isConnected()) {
                     if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
                     } else {
-                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
                     }
                 } else {
                     if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
                     } else {
-                        rootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
                     }
                 }
             }
         }
     }
+
+    public void changeExportValue(boolean changedValue) {
+        if (mExportPossibleCallback != null) {
+            mExportPossibleCallback.exportPossibleValueChanged(changedValue);
+        } else if (getActivity() != null && getActivity() instanceof ExportPossibleCallback) {
+            mExportPossibleCallback = (ExportPossibleCallback) getActivity();
+            changeExportValue(changedValue);
+        }
+    }
+
+    public interface ExportPossibleCallback {
+        void exportPossibleValueChanged(boolean isPossible);
+    }
+
+    private class FullTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+
+        }
+    }
+
+    private class PlayerManager {
+
+        private FloatingActionButton mPlayButton;
+        private FloatingActionButton mNextButton;
+        private FloatingActionButton mBackButton;
+        private FloatingActionButton mPauseButton;
+        private TextView mMusicFileName;
+        private View mPlayerButtons;
+
+        private int mCurrentMusicIndex = 1;
+
+        private MediaPlayer mMediaPlayer;
+
+        private int[] sMusicRaw = new int[] {
+                R.raw.zvuk1,
+                R.raw.zvuk2,
+                R.raw.zvuk3,
+                R.raw.zvuk4,
+                R.raw.zvuk5
+        };
+
+        PlayerManager(View rootView) {
+            mPlayButton = (FloatingActionButton) rootView.findViewById(R.id.play_floating_button);
+            mPauseButton = (FloatingActionButton) rootView.findViewById(R.id.pause_floating_button);
+            mNextButton = (FloatingActionButton) rootView.findViewById(R.id.next_floating_button);
+            mBackButton = (FloatingActionButton) rootView.findViewById(R.id.back_floating_button);
+            mMusicFileName = (TextView) rootView.findViewById(R.id.music_file_name);
+            mPlayerButtons = rootView.findViewById(R.id.player_buttons);
+            setUpPlayer();
+        }
+
+        private AssetFileDescriptor getAssetFileDescriptor(int index) {
+            return getActivity().getResources().openRawResourceFd(sMusicRaw[index - 1]);
+        }
+
+        private void onDestroy() {
+            try {
+                if (mMediaPlayer != null) {
+                    mMediaPlayer.stop();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            mMediaPlayer = null;
+            mNextButton = null;
+            mPlayButton = null;
+            mPauseButton = null;
+            mBackButton = null;
+            sMusicRaw = null;
+            mPlayerButtons = null;
+        }
+
+        private void setUpPlayer() {
+            mPlayButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setPlayingFileName();
+                    if (mMediaPlayer != null) {
+                        mMediaPlayer.start();
+                        setUpPauseMode();
+                    } else if (5 >= mCurrentMusicIndex) {
+                        setUpMediaPlayer();
+                        AssetFileDescriptor afd = getAssetFileDescriptor(mCurrentMusicIndex);
+                        if (afd == null) {
+                            showErrorSnackbar();
+                        } else {
+                            preparePlayer(afd);
+                        }
+                    } else {
+                        showErrorSnackbar();
+                    }
+                }
+            });
+            mNextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moveToNextPlayingFile();
+                    pausePlayer();
+                    setUpPlayMode();
+                    setPlayingFileName();
+                }
+            });
+            mBackButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    moveToPreviousPlayingFile();
+                    pausePlayer();
+                    setUpPlayMode();
+                    setPlayingFileName();
+                }
+            });
+            mPauseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mMediaPlayer.pause();
+                    setUpPlayMode();
+                }
+            });
+        }
+
+        private void setUpMediaPlayer() {
+            mMediaPlayer = new MediaPlayer();
+            mMediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                    setUpPauseMode();
+                }
+            });
+            mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    setUpPlayMode();
+                    mMediaPlayer = null;
+                }
+            });
+        }
+
+        private void setUpPlayMode() {
+            mPlayButton.setVisibility(View.VISIBLE);
+            mPauseButton.setVisibility(View.GONE);
+        }
+
+        private void setUpPauseMode() {
+            mPlayButton.setVisibility(View.GONE);
+            mPauseButton.setVisibility(View.VISIBLE);
+        }
+
+        private void showPlayer() {
+            mPlayerButtons.setVisibility(View.VISIBLE);
+            mCurrentMusicIndex = 1;
+            setUpPlayMode();
+        }
+
+        private void hidePlayer() {
+            mPlayerButtons.setVisibility(View.GONE);
+            pausePlayer();
+        }
+
+        private void setPlayingFileName() {
+            mMusicFileName.setText(Integer.toString(mCurrentMusicIndex));
+        }
+
+        //media player job
+        private void preparePlayer(AssetFileDescriptor afd) {
+            try {
+                mMediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                afd.close();
+                mMediaPlayer.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+                showErrorSnackbar();
+            }
+
+        }
+
+        private void pausePlayer() {
+            if (mMediaPlayer != null) {
+                mMediaPlayer.stop();
+                mMediaPlayer = null;
+            }
+        }
+
+        //move music
+        private void moveToNextPlayingFile() {
+            mCurrentMusicIndex++;
+            if (5 < mCurrentMusicIndex) {
+                mCurrentMusicIndex = 1;
+            }
+        }
+
+        private void moveToPreviousPlayingFile() {
+            mCurrentMusicIndex--;
+            if (mCurrentMusicIndex < 1) {
+                mCurrentMusicIndex = 1;
+            }
+        }
+
+        private void showErrorSnackbar() {
+            Snackbar snackbar = Snackbar.make(mPlayerButtons, getString(R.string.cant_play), Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+    }
+
 
 }

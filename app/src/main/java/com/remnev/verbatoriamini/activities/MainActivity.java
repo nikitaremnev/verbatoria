@@ -16,7 +16,6 @@ import android.nfc.Tag;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -83,7 +82,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity
-        implements INFCCallback, ParentsQuestionaryDialogFragment.IAllAnswered {
+        implements INFCCallback, ParentsQuestionaryDialogFragment.IAllAnswered, RealTimeAttentionFragment.ExportPossibleCallback {
 
     private static final int REQUEST_PERMISSION_CODE = 2444;
 
@@ -93,12 +92,10 @@ public class MainActivity extends AppCompatActivity
     public TextView titleTextView;
     private TextView specialistTextView;
     public BottomNavigationView bottomNavigationView;
-    public FloatingActionButton playFloatingActionButton;
-    public FloatingActionButton pauseFloatingActionButton;
 
     private IClearButtons clearButtons;
 
-    public boolean canExport = true;
+    public boolean isExportPossible = true;
 
     private ParentsQuestionaryDialogFragment parentsQuestionaryDialogFragment;
 
@@ -183,7 +180,7 @@ public class MainActivity extends AppCompatActivity
 
         IntentFilter ndefDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
         ndefDetected.addCategory(Intent.CATEGORY_DEFAULT);
-        mNdefExchangeFilters = new IntentFilter[] { ndefDetected };
+        mNdefExchangeFilters = new IntentFilter[]{ndefDetected};
 
         pendingFragment = new ConnectionFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -215,54 +212,22 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void setUpView() {
-        titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-        specialistTextView.setText(SpecialistSharedPrefs.getCurrentSpecialist(mContext).getSpecialistName());
-        playFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NeuroApplicationClass.changeStateOfWriting();
-                Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
-                StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                playFloatingActionButton.hide();
-                pauseFloatingActionButton.show();
-            }
-        });
-        pauseFloatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!canExport) {
-                    Helper.snackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
-                    return;
-                }
-                NeuroApplicationClass.changeStateOfWriting();
-                Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_stopped));
-                StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_END_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                playFloatingActionButton.show();
-                pauseFloatingActionButton.hide();
-                preCheckExportToExcel(false);
-            }
-        });
-    }
-
     private void initViews() {
         titleTextView = (TextView) findViewById(R.id.title);
         specialistTextView = (TextView) findViewById(R.id.specialist);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        playFloatingActionButton = (FloatingActionButton) findViewById(R.id.play_floating_button);
-        pauseFloatingActionButton = (FloatingActionButton) findViewById(R.id.pause_floating_button);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    private void setUpView() {
+        titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
+        specialistTextView.setText(SpecialistSharedPrefs.getCurrentSpecialist(mContext).getSpecialistName());
     }
 
     private void setUpBottomNavigationView() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if (!canExport) {
+                if (!isExportPossible) {
                     Helper.snackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
                     return false;
                 }
@@ -275,7 +240,7 @@ public class MainActivity extends AppCompatActivity
                         callback = null;
                         break;
                     case R.id.bottom_navigation_item_attention:
-                        if (!NeuroApplicationClass.sConnected) {
+                        if (!NeuroApplicationClass.isConnected()) {
                             Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
@@ -285,7 +250,7 @@ public class MainActivity extends AppCompatActivity
                         callback = (INFCCallback) pendingFragment;
                         break;
                     case R.id.bottom_navigation_item_mail:
-                        if (!NeuroApplicationClass.sConnected) {
+                        if (!NeuroApplicationClass.isConnected()) {
                             Helper.snackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
@@ -360,12 +325,6 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
 
-                    NeuroApplicationClass.changeStateOfWriting();
-                    Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
-                    StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                    playFloatingActionButton.hide();
-                    pauseFloatingActionButton.show();
-
                     bottomNavigationView.getMenu().getItem(2).setChecked(false);
                     if (pendingFragment instanceof ConnectionFragment) {
                         bottomNavigationView.getMenu().getItem(0).setChecked(true);
@@ -413,12 +372,6 @@ public class MainActivity extends AppCompatActivity
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     dialogInterface.dismiss();
-
-                                    NeuroApplicationClass.changeStateOfWriting();
-                                    Helper.snackBar(findViewById(R.id.container), getString(R.string.bci_resumed));
-                                    StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_START_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                                    playFloatingActionButton.hide();
-                                    pauseFloatingActionButton.show();
 
                                     runOnUiThread(new Runnable() {
                                         @Override
@@ -1228,4 +1181,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+    @Override
+    public void exportPossibleValueChanged(boolean isPossible) {
+        isExportPossible = isPossible;
+    }
 }

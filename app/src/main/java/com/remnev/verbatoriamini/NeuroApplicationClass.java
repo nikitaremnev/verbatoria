@@ -45,7 +45,7 @@ public class NeuroApplicationClass extends Application {
 
     private static Snackbar connectionSnackbar;
 
-    public static boolean sConnected;
+    private static boolean sConnected;
 
     private static TgStreamHandler sStreamHandler;
 
@@ -63,7 +63,11 @@ public class NeuroApplicationClass extends Application {
         sINeurointerfaceCallback = callback;
     }
 
-    public void setMContext(Context context) {
+    public static boolean isConnected() {
+        return sConnected;
+    }
+
+    public void setContext(Context context) {
         mContext = context;
     }
 

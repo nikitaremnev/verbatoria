@@ -67,7 +67,6 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        hidePlayerButtons();
                         mConnectionTextView.setText(getString(R.string.connection_in_progress));
                     }
                 });
@@ -103,13 +102,6 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
                                             mainActivity.pendingFragment = realTimeAttentionFragment;
                                             mainActivity.bottomNavigationView.getMenu().getItem(1).setChecked(true);
                                             mainActivity.titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
-                                            if (NeuroApplicationClass.getStateOfWriting()) {
-                                                mainActivity.pauseFloatingActionButton.show();
-                                                mainActivity.playFloatingActionButton.hide();
-                                            } else {
-                                                mainActivity.playFloatingActionButton.show();
-                                                mainActivity.pauseFloatingActionButton.hide();
-                                            }
                                         }
                                         fragmentManager.beginTransaction()
                                                 .replace(R.id.container, realTimeAttentionFragment)
@@ -145,7 +137,6 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        hidePlayerButtons();
                         startNewThreadChangeLogo();
                         mNeuroInterfaceStatusButton.setImageResource(R.drawable.error_bci);
                         mConnectionTextView.setText(getString(R.string.connection_no));
@@ -180,16 +171,8 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
     private void setUpApplicationClass(View rootView) {
         mNeuroApplicationClass = (NeuroApplicationClass) getActivity().getApplicationContext();
         mNeuroApplicationClass.setOnBCIConnectionCallback(this);
-        mNeuroApplicationClass.setMContext(getActivity());
+        mNeuroApplicationClass.setContext(getActivity());
         mNeuroApplicationClass.setRootView(rootView);
-    }
-
-    private void hidePlayerButtons() {
-        if (getActivity() != null && getActivity() instanceof MainActivity) {
-            MainActivity mainActivity = (MainActivity) getActivity();
-            mainActivity.playFloatingActionButton.hide();
-            mainActivity.pauseFloatingActionButton.hide();
-        }
     }
 
     private void runOnUiThread(Runnable runnable) {
@@ -209,7 +192,7 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
     }
 
     private void checkStateAndUpdate() {
-        if (NeuroApplicationClass.sConnected) {
+        if (NeuroApplicationClass.isConnected()) {
             stateConnected();
         } else {
             stateDisconnected();

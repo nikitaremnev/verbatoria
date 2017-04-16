@@ -151,6 +151,7 @@
     <LinearLayout
         android:orientation="horizontal"
         android:gravity="center"
+        android:visibility="gone"
         android:id="@+id/player_buttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -161,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/music_file_name"
-            android:textSize="18sp"
+            android:textSize="25sp"
             android:layout_margin="16dp"/>
 
         <android.support.design.widget.FloatingActionButton
@@ -171,8 +172,8 @@
             android:visibility="visible"
             app:backgroundTint="@color/main"
             android:layout_margin="8dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="@dimen/music_player_floating_button_width"
+            android:layout_height="@dimen/music_player_floating_button_height" />
 
         <android.support.design.widget.FloatingActionButton
             android:src="@mipmap/ic_pause_white_24dp"
@@ -181,8 +182,8 @@
             android:visibility="gone"
             app:backgroundTint="@color/yellow"
             android:layout_margin="8dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="@dimen/music_player_floating_button_width"
+            android:layout_height="@dimen/music_player_floating_button_height" />
 
         <android.support.design.widget.FloatingActionButton
             android:src="@mipmap/ic_stop_white_24dp"
@@ -191,8 +192,8 @@
             android:visibility="gone"
             app:backgroundTint="@color/red"
             android:layout_margin="8dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="@dimen/music_player_floating_button_width"
+            android:layout_height="@dimen/music_player_floating_button_height" />
 
         <android.support.design.widget.FloatingActionButton
             android:src="@mipmap/ic_skip_backward_white_24dp"
@@ -201,8 +202,8 @@
             android:visibility="visible"
             app:backgroundTint="@color/back"
             android:layout_margin="8dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="@dimen/music_player_floating_button_width"
+            android:layout_height="@dimen/music_player_floating_button_height" />
 
         <android.support.design.widget.FloatingActionButton
             android:src="@mipmap/ic_skip_forward_white_24dp"
@@ -211,8 +212,8 @@
             android:visibility="visible"
             app:backgroundTint="@color/next"
             android:layout_margin="8dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
+            android:layout_width="@dimen/music_player_floating_button_width"
+            android:layout_height="@dimen/music_player_floating_button_height" />
 
 
     </LinearLayout>
