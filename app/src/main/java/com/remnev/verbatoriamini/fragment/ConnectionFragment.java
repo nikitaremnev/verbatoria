@@ -1,5 +1,6 @@
 package com.remnev.verbatoriamini.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +13,7 @@ import com.neurosky.connection.ConnectionStates;
 import com.remnev.verbatoriamini.NeuroApplicationClass;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.activities.MainActivity;
+import com.remnev.verbatoriamini.callbacks.IFragmentsMovingCallback;
 import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
 
 public class ConnectionFragment extends Fragment implements INeuroInterfaceCallback {
@@ -28,6 +30,8 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
 
     private NeuroApplicationClass mNeuroApplicationClass;
 
+    private IFragmentsMovingCallback mFragmentsMovingCallback;
+
     private static int[] sConnectingDrawables = new int[] {
             R.drawable.connecting_bci1,
             R.drawable.connecting_bci2,
@@ -36,6 +40,14 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
 
     public ConnectionFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof IFragmentsMovingCallback) {
+            mFragmentsMovingCallback = (IFragmentsMovingCallback) context;
+        }
     }
 
     @Override
@@ -56,6 +68,12 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         checkStateAndUpdate();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mFragmentsMovingCallback = null;
     }
 
     @Override
@@ -92,23 +110,13 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                try {
-                                    if (getActivity().getSupportFragmentManager().getFragments().get(0) instanceof ConnectionFragment) {
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        AttentionFragment attentionFragment = new AttentionFragment();
-                                        if (getActivity() instanceof MainActivity) {
-                                            MainActivity mainActivity = (MainActivity) getActivity();
-                                            mainActivity.callback = attentionFragment;
-                                            mainActivity.pendingFragment = attentionFragment;
-                                            mainActivity.bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                                            mainActivity.titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
-                                        }
-                                        fragmentManager.beginTransaction()
-                                                .replace(R.id.container, attentionFragment)
-                                                .commit();
+                                if (mFragmentsMovingCallback != null) {
+                                    mFragmentsMovingCallback.moveToAttentionFragment();
+                                } else {
+                                    if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
+                                        mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
+                                        mFragmentsMovingCallback.moveToAttentionFragment();
                                     }
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
                                 }
                             }
                         });
@@ -250,7 +258,6 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
             mChangePictureThread.start();
         }
     }
-
 
 }
 

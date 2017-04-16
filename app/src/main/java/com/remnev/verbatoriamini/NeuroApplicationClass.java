@@ -34,11 +34,9 @@ public class NeuroApplicationClass extends Application {
 
     public static final int BLUETOOTH_NOT_STARTED = -13432;
 
-    private BluetoothAdapter btAdapter = null;
+    private BluetoothAdapter mBluetoothAdapter;
 
     private static TgStreamReader tgStreamReader;
-
-    private static INeuroInterfaceCallback sINeurointerfaceCallback;
 
     private static View rootView;
     private static Context mContext;
@@ -46,8 +44,8 @@ public class NeuroApplicationClass extends Application {
     private static Snackbar connectionSnackbar;
 
     private static boolean sConnected;
-
     private static TgStreamHandler sStreamHandler;
+    private static INeuroInterfaceCallback sINeurointerfaceCallback;
 
     static {
         sStreamHandler = new NeuroStreamProcessor();
@@ -76,8 +74,8 @@ public class NeuroApplicationClass extends Application {
     }
 
     public void connectToBluetooth() {
-        btAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (btAdapter != null && btAdapter.isEnabled()) {
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()) {
             onBluetoothConnected();
         } else {
             onBluetoothNotStarted();
@@ -85,8 +83,8 @@ public class NeuroApplicationClass extends Application {
     }
 
     public void startBCIConnection() {
-        if (btAdapter != null && btAdapter.isEnabled()) {
-            tgStreamReader = new TgStreamReader(btAdapter, sStreamHandler);
+        if (mBluetoothAdapter != null && mBluetoothAdapter.isEnabled()) {
+            tgStreamReader = new TgStreamReader(mBluetoothAdapter, sStreamHandler);
             dropBCIConnection();
             tgStreamReader.connect();
         } else {
@@ -112,30 +110,29 @@ public class NeuroApplicationClass extends Application {
     }
 
     public void onBluetoothNotStarted() {
-        if (rootView == null) return;
-        Message message = new Message();
-        message.what = BLUETOOTH_NOT_STARTED;
-        message.arg1 = BLUETOOTH_NOT_STARTED;
-        if (sINeurointerfaceCallback != null) {
-            sINeurointerfaceCallback.onNeuroInterfaceStateChanged(33);
-        }
-        Snackbar snackbar = Snackbar.make(rootView, getString(R.string.bluetoothDisabled), Snackbar.LENGTH_SHORT);
-        snackbar.setAction(getString(R.string.settings), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+        if (rootView != null) {
+            Message message = new Message();
+            message.what = BLUETOOTH_NOT_STARTED;
+            message.arg1 = BLUETOOTH_NOT_STARTED;
+            if (sINeurointerfaceCallback != null) {
+                sINeurointerfaceCallback.onNeuroInterfaceStateChanged(33);
             }
-        });
-        snackbar.setActionTextColor(getResources().getColor(R.color.white));
-        snackbar.show();
+            Snackbar snackbar = Snackbar.make(rootView, getString(R.string.bluetoothDisabled), Snackbar.LENGTH_SHORT);
+            snackbar.setAction(getString(R.string.settings), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            });
+            snackbar.setActionTextColor(getResources().getColor(R.color.white));
+            snackbar.show();
+        }
     }
 
     private static void message(String message) {
-        if (rootView == null) {
-            return;
-        } else {
+        if (rootView != null) {
             Helper.showSnackBar(rootView, message);
         }
     }

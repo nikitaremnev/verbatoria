@@ -35,7 +35,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.NeuroApplicationClass;
+import com.remnev.verbatoriamini.callbacks.IAllAnsweredCallback;
 import com.remnev.verbatoriamini.callbacks.IExportPossibleCallback;
+import com.remnev.verbatoriamini.callbacks.IFragmentsMovingCallback;
 import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.IClearButtonsCallback;
@@ -78,7 +80,10 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity
-        implements INFCCallback, QuestionaryDialogFragment.IAllAnswered, IExportPossibleCallback {
+        implements INFCCallback,
+        IAllAnsweredCallback,
+        IExportPossibleCallback,
+        IFragmentsMovingCallback {
 
     private static final int REQUEST_PERMISSION_CODE = 2444;
 
@@ -205,6 +210,22 @@ public class MainActivity extends AppCompatActivity
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION_CODE);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_PERMISSION_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    Helper.showSnackBar(bottomNavigationView, getString(R.string.app_unstable));
+                }
+            }
         }
     }
 
@@ -376,21 +397,7 @@ public class MainActivity extends AppCompatActivity
                                             }
                                         }
                                     });
-                                    bottomNavigationView.getMenu().getItem(2).setChecked(false);
-                                    if (pendingFragment instanceof ConnectionFragment) {
-                                        bottomNavigationView.getMenu().getItem(0).setChecked(true);
-                                        titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-                                    } else if (pendingFragment instanceof AttentionFragment) {
-                                        ((AttentionFragment) pendingFragment).clearRemovedButtons();
-                                        bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                                        titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
-                                    } else if (pendingFragment instanceof WriteCertificateFragment) {
-                                        bottomNavigationView.getMenu().getItem(4).setChecked(true);
-                                        titleTextView.setText(getString(R.string.CERTIFICATES_BOTTOM_NAVIGATION_BAR));
-                                    } else if (pendingFragment instanceof WriteCodesFragment) {
-                                        bottomNavigationView.getMenu().getItem(3).setChecked(true);
-                                        titleTextView.setText(getString(R.string.CODES_BOTTOM_NAVIGATION_BAR));
-                                    }
+                                    selectBottomNavigationItemAndSetTitle();
                                 }
                             });
                             dialog.setCancelable(false);
@@ -976,6 +983,60 @@ public class MainActivity extends AppCompatActivity
         mContext.startActivity(emailIntent);
     }
 
+    private boolean checkDate(Certificate certificate) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = simpleDateFormat.format(System.currentTimeMillis());
+        try {
+            if (simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate))) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    private void showExpiryDialog() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setMessage(getString(R.string.authority_expiry));
+        dialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        dialog.show();
+    }
+
+    private void selectBottomNavigationItemAndSetTitle() {
+        if (pendingFragment != null) {
+            if (pendingFragment instanceof ConnectionFragment) {
+                bottomNavigationView.getMenu().getItem(0).setChecked(true);
+                titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
+            } else if (pendingFragment instanceof AttentionFragment) {
+                ((AttentionFragment) pendingFragment).clearRemovedButtons();
+                bottomNavigationView.getMenu().getItem(1).setChecked(true);
+                titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
+            } else if (pendingFragment instanceof WriteCertificateFragment) {
+                bottomNavigationView.getMenu().getItem(4).setChecked(true);
+                titleTextView.setText(getString(R.string.CERTIFICATES_BOTTOM_NAVIGATION_BAR));
+            } else if (pendingFragment instanceof WriteCodesFragment) {
+                bottomNavigationView.getMenu().getItem(3).setChecked(true);
+                titleTextView.setText(getString(R.string.CODES_BOTTOM_NAVIGATION_BAR));
+            }
+        }
+    }
+
+    public void beginFragmentManagerTransaction(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commit();
+        }
+    }
+
     @Override
     public void onNFCTagReaded(Tag msg) {
         if (pendingFragment instanceof WriteCertificateFragment) {
@@ -1031,57 +1092,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private boolean checkDate(Certificate certificate) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDate = simpleDateFormat.format(System.currentTimeMillis());
-        try {
-            if (simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate))) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (ParseException e) {
-            return false;
-        }
-    }
-
-    private void showExpiryDialog() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage(getString(R.string.authority_expiry));
-        dialog.setPositiveButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
-        dialog.show();
-    }
-
-    public void beginFragmentManagerTransaction(Fragment fragment) {
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .commit();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSION_CODE: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-                    Helper.showSnackBar(bottomNavigationView, getString(R.string.app_unstable));
-                }
-            }
-        }
-    }
-
     @Override
     public void allAnswered(final String age, final String reportID, final long timeInMillis, final String directoryAbsPath) {
         if (ParentsAnswersSharedPrefs.isAllQuestionsAnswered(mContext)) {
@@ -1131,20 +1141,7 @@ public class MainActivity extends AppCompatActivity
                             StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_END_ID, RezhimID.ANOTHER_MODE, -1, -1);
                             moveFile(fromFileStatistics.getAbsolutePath(), toFileStatistics.getAbsolutePath());
                             moveFile(fromFileBCI.getAbsolutePath(), toFileBCI.getAbsolutePath());
-                            bottomNavigationView.getMenu().getItem(2).setChecked(false);
-                            if (pendingFragment instanceof ConnectionFragment) {
-                                bottomNavigationView.getMenu().getItem(0).setChecked(true);
-                                titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-                            } else if (pendingFragment instanceof AttentionFragment) {
-                                bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                                titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
-                            } else if (pendingFragment instanceof WriteCertificateFragment) {
-                                bottomNavigationView.getMenu().getItem(4).setChecked(true);
-                                titleTextView.setText(getString(R.string.CERTIFICATES_BOTTOM_NAVIGATION_BAR));
-                            } else if (pendingFragment instanceof WriteCodesFragment) {
-                                bottomNavigationView.getMenu().getItem(3).setChecked(true);
-                                titleTextView.setText(getString(R.string.CODES_BOTTOM_NAVIGATION_BAR));
-                            }
+                            selectBottomNavigationItemAndSetTitle();
                             share("file://" + directoryAbsPath + File.separator + fileName, reportID);
                         }
                     });
@@ -1155,9 +1152,26 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
     @Override
     public void exportPossibleValueChanged(boolean isPossible) {
         isExportPossible = isPossible;
     }
+
+    @Override
+    public void moveToAttentionFragment() {
+        Log.e("test", "moveToAttentionFragment");
+        pendingFragment = new ConnectionFragment();
+        selectBottomNavigationItemAndSetTitle();
+        callback = null;
+        beginFragmentManagerTransaction(pendingFragment);
+    }
+
+    @Override
+    public void moveToConnectionFragment() {
+        pendingFragment = new AttentionFragment();
+        selectBottomNavigationItemAndSetTitle();
+        callback = (INFCCallback) pendingFragment;
+        beginFragmentManagerTransaction(pendingFragment);
+    }
+
 }

@@ -25,6 +25,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.neurosky.connection.DataType.MindDataType;
 import com.remnev.verbatoriamini.NeuroApplicationClass;
 import com.remnev.verbatoriamini.callbacks.IExportPossibleCallback;
+import com.remnev.verbatoriamini.callbacks.IFragmentsMovingCallback;
 import com.remnev.verbatoriamini.util.Helper;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.callbacks.IClearButtonsCallback;
@@ -60,6 +61,7 @@ public class AttentionFragment extends Fragment implements
     private PlayerManager mThirdLoadPlayerManager;
     private Timer mConnectionCheckTimer;
     private IExportPossibleCallback mExportPossibleCallback;
+    private IFragmentsMovingCallback mFragmentsMovingCallback;
 
     public AttentionFragment() {
         // Required empty public constructor
@@ -70,6 +72,9 @@ public class AttentionFragment extends Fragment implements
         super.onAttach(context);
         if (context instanceof IExportPossibleCallback) {
             mExportPossibleCallback = (IExportPossibleCallback) context;
+        }
+        if (context instanceof IFragmentsMovingCallback) {
+            mFragmentsMovingCallback = (IFragmentsMovingCallback) context;
         }
     }
 
@@ -98,6 +103,19 @@ public class AttentionFragment extends Fragment implements
         mConnectionCheckTimer.schedule(new CheckConnectionTimerTask(), 0, 2000);
 
         return mRootView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mConnectionCheckTimer.cancel();
+        mConnectionCheckTimer = null;
+
+        mThirdLoadPlayerManager.onDestroy();
+        mThirdLoadPlayerManager = null;
+
+        mFragmentsMovingCallback = null;
     }
 
     private void setUpCodeButtons() {
@@ -389,17 +407,6 @@ public class AttentionFragment extends Fragment implements
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        mConnectionCheckTimer.cancel();
-        mConnectionCheckTimer = null;
-
-        mThirdLoadPlayerManager.onDestroy();
-        mThirdLoadPlayerManager = null;
-    }
-
     private class CheckConnectionTimerTask extends TimerTask {
 
         @Override
@@ -419,6 +426,15 @@ public class AttentionFragment extends Fragment implements
                         mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
                     } else {
                         mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                    }
+
+                    if (mFragmentsMovingCallback != null) {
+                        mFragmentsMovingCallback.moveToAttentionFragment();
+                    } else {
+                        if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
+                            mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
+                            mFragmentsMovingCallback.moveToAttentionFragment();
+                        }
                     }
                 } else {
                     if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {

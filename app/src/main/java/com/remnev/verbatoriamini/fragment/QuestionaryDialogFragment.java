@@ -1,21 +1,19 @@
 package com.remnev.verbatoriamini.fragment;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.adapters.ParentsQuestionsAdapter;
+import com.remnev.verbatoriamini.callbacks.IAllAnsweredCallback;
 import com.remnev.verbatoriamini.sharedpreferences.ParentsAnswersSharedPrefs;
 import com.remnev.verbatoriamini.views.ViewPagerContainer;
 
@@ -39,11 +37,11 @@ public class QuestionaryDialogFragment extends DialogFragment implements Parents
     private String reportID;
     private String directoryAbsPath;
 
-    private IAllAnswered activityCallback;
+    private IAllAnsweredCallback activityCallback;
 
     public QuestionaryDialogFragment() {}
 
-    public QuestionaryDialogFragment(String age, String reportID, String directoryAbsPath, IAllAnswered allAnswered) {
+    public QuestionaryDialogFragment(String age, String reportID, String directoryAbsPath, IAllAnsweredCallback allAnswered) {
         this.age = age;
         this.reportID = reportID;
         this.directoryAbsPath = directoryAbsPath;
@@ -166,7 +164,4 @@ public class QuestionaryDialogFragment extends DialogFragment implements Parents
         nextButton.performClick();
     }
 
-    public interface IAllAnswered {
-        void allAnswered(final String age, final String reportID, final long timeInMillis, final String directoryAbsPath);
-    }
 }
