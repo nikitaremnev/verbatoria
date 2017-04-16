@@ -428,14 +428,19 @@ public class AttentionFragment extends Fragment implements
                         mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
                     }
 
-                    if (mFragmentsMovingCallback != null) {
-                        mFragmentsMovingCallback.moveToAttentionFragment();
-                    } else {
-                        if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
-                            mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
-                            mFragmentsMovingCallback.moveToAttentionFragment();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mFragmentsMovingCallback != null) {
+                                mFragmentsMovingCallback.moveToConnectionFragment();
+                            } else {
+                                if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
+                                    mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
+                                    mFragmentsMovingCallback.moveToConnectionFragment();
+                                }
+                            }
                         }
-                    }
+                    });
                 } else {
                     if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
                         mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));

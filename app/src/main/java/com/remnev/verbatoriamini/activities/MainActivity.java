@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity
                             Helper.showSnackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
                             return false;
                         }
-                        preCheckExportToExcel(false);
+                        preCheckExportToExcel();
                         flag = false;
                         break;
                     case R.id.bottom_navigation_item_certificates:
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void preCheckExportToExcel(final boolean stopBCI) {
+    private void preCheckExportToExcel() {
         String undoneActivities = NeuroApplicationClass.getAllUndoneActivities();
         if (TextUtils.isEmpty(undoneActivities)) {
             exportToExcel();
@@ -1037,6 +1037,15 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public void beginFragmentManagerTransactionImmediately(Fragment fragment) {
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .commitNowAllowingStateLoss();
+        }
+    }
+
     @Override
     public void onNFCTagReaded(Tag msg) {
         if (pendingFragment instanceof WriteCertificateFragment) {
@@ -1159,19 +1168,30 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void moveToAttentionFragment() {
-        Log.e("test", "moveToAttentionFragment");
-        pendingFragment = new ConnectionFragment();
-        selectBottomNavigationItemAndSetTitle();
-        callback = null;
-        beginFragmentManagerTransaction(pendingFragment);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_item_attention);
+//        this.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                pendingFragment = new ConnectionFragment();
+//                callback = null;
+//                beginFragmentManagerTransactionImmediately(pendingFragment);
+//                selectBottomNavigationItemAndSetTitle();
+//            }
+//        });
     }
 
     @Override
     public void moveToConnectionFragment() {
-        pendingFragment = new AttentionFragment();
-        selectBottomNavigationItemAndSetTitle();
-        callback = (INFCCallback) pendingFragment;
-        beginFragmentManagerTransaction(pendingFragment);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_item_connect);
+//        this.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                pendingFragment = new AttentionFragment();
+//                callback = (INFCCallback) pendingFragment;
+//                beginFragmentManagerTransactionImmediately(pendingFragment);
+//                selectBottomNavigationItemAndSetTitle();
+//            }
+//        });
     }
 
 }

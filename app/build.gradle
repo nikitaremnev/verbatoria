@@ -101,7 +101,7 @@ android {
 
 apply plugin: 'com.neenbedankt.android-apt'
 
-def supportLibVersion = '25.1.0'
+def supportLibVersion = '25.3.0'
 def playServicesLibVersion = '9.8.0'
 
 dependencies {
