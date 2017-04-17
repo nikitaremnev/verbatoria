@@ -2,6 +2,7 @@ package com.remnev.verbatoriamini.sharedpreferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.remnev.verbatoriamini.R;
 
@@ -65,12 +66,14 @@ public class SettingsSharedPrefs {
     }
 
     public static String getBciID(Context context) {
+        Log.e("test", "get BCI_ID: " + getInstance(context).getString(BCI_ID, ""));
         return getInstance(context).getString(BCI_ID, "");
     }
 
     public static void setBciID(Context context, String language) {
         SharedPreferences.Editor editor = getEditor(context);
         editor.putString(BCI_ID, language);
+        Log.e("test", "set BCI_ID: " + language);
         editor.commit();
     }
 

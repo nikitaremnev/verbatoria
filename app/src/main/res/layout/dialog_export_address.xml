@@ -15,4 +15,14 @@
         android:layout_marginBottom="4dp"
         android:id="@+id/email_address" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/neurometrist_sign"
+        android:ems="10"
+        android:imeOptions="flagNoExtractUi"
+        android:layout_marginBottom="4dp"
+        android:id="@+id/bci_id" />
+
 </LinearLayout>

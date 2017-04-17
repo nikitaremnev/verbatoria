@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -150,6 +151,10 @@ public class NeuroApplicationClass extends Application {
         return DoneActivitiesProcessor.getAllUndoneActivities();
     }
 
+    public static boolean addActivityToDoneArray(String string, long time) {
+        return DoneActivitiesProcessor.addActivityToDoneArray(string, time);
+    }
+
     public static boolean addActivityToDoneArray(String string) {
         return DoneActivitiesProcessor.addActivityToDoneArray(string);
     }
@@ -162,12 +167,18 @@ public class NeuroApplicationClass extends Application {
         return DoneActivitiesProcessor.removeActivityFromDoneArray(string);
     }
 
+    public static long getDoneActivitiesTime() {
+        return DoneActivitiesProcessor.getSumOfTime();
+    }
+
     private static class DoneActivitiesProcessor {
 
         private static Set<String> sDoneActivitiesArray;
+        private static ArrayList<Pair<String, Long>> sDoneActivitiesTimeArray;
 
         static {
             sDoneActivitiesArray = new HashSet<>();
+            sDoneActivitiesTimeArray = new ArrayList<>();
         }
 
         private DoneActivitiesProcessor() {
@@ -218,12 +229,29 @@ public class NeuroApplicationClass extends Application {
             return sDoneActivitiesArray.add(string);
         }
 
+        private static boolean addActivityToDoneArray(String string, long time) {
+            return sDoneActivitiesTimeArray.add(new Pair<String, Long>(string, time));
+        }
+
         private static boolean containsDoneActivity(String string) {
             return sDoneActivitiesArray.contains(string);
         }
 
         private static boolean removeActivityFromDoneArray(String string) {
+            for (int i = 0; i < sDoneActivitiesTimeArray.size(); i ++) {
+                if (sDoneActivitiesTimeArray.get(i).first.equals(string)) {
+                    sDoneActivitiesTimeArray.remove(i);
+                }
+            }
             return sDoneActivitiesArray.remove(string);
+        }
+
+        private static long getSumOfTime() {
+            long time = 0;
+            for (int i = 0; i < sDoneActivitiesTimeArray.size(); i ++) {
+                time += sDoneActivitiesTimeArray.get(i).second;
+            }
+            return time;
         }
     }
 
@@ -284,7 +312,6 @@ public class NeuroApplicationClass extends Application {
                             if (connectionSnackbar != null) {
                                 connectionSnackbar.dismiss();
                             }
-                            SettingsSharedPrefs.setBciID(mContext, mContext.getString(R.string.unknown));
                             message(mContext.getString(R.string.bci_started));
                         }
                         sINeurointerfaceCallback.onNeuroInterfaceStateChanged(ConnectionStates.STATE_CONNECTED);

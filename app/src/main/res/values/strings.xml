@@ -9,7 +9,8 @@
     <string name="nav_drawer_item_settings">Настройки</string>
     <string name="nav_drawer_item_scanning">Изучение новых слов</string>
 
-    <string name="email_to_send">monitor@verbatoria.ru</string>
+    <string name="email_to_send">ru1.verbatoria@verbatoria.ru</string>
+
 
     <string name="ok">OK</string>
 
@@ -92,6 +93,7 @@
     <string name="standart_written">Успешно записано стандартное событие</string>
 
     <string name="nav_drawer_item_address">Адрес ВЦ Вербатория</string>
+    <string name="neurometrist_sign">Признак нейрометриста</string>
     <string name="nav_drawer_item_write_child">Карточки ребенка</string>
     <string name="nav_drawer_item_write_specialist">Сертификаты</string>
     <string name="nav_drawer_item_codes">Коды нагрузок</string>

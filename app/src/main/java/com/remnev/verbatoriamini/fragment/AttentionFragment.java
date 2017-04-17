@@ -67,8 +67,8 @@ public class AttentionFragment extends Fragment implements
     private Timer mConnectionCheckTimer;
     private Timer mFullAndSubTasksTimer;
 
-    private int mCurrentNumberOfSecondsFull;
-    private int mCurrentNumberOfSecondsSub;
+    private long mCurrentNumberOfSecondsFull;
+    private long mCurrentNumberOfSecondsSub;
     private boolean mIsSubtasksActive;
 
     private IExportPossibleCallback mExportPossibleCallback;
@@ -390,6 +390,9 @@ public class AttentionFragment extends Fragment implements
         return null;
     }
 
+    private long startActivityTime = 0;
+    private long totalActivityTime = NeuroApplicationClass.getDoneActivitiesTime();
+
     private void submitCode(String code) {
         if (code.equals("0")) {
             code = "00";
@@ -402,6 +405,7 @@ public class AttentionFragment extends Fragment implements
             setAllButtonsUnselected(foundButtonByCode(code));
             changeExportValue(false);
             mIsSubtasksActive = true;
+            startActivityTime = System.currentTimeMillis();
         } else {
             if (selectedButtonText.equals(code)) {
                 StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
@@ -410,6 +414,8 @@ public class AttentionFragment extends Fragment implements
                 selectedButtonText = "";
                 setAllButtonsUnselected(null);
                 NeuroApplicationClass.addActivityToDoneArray(code);
+                NeuroApplicationClass.addActivityToDoneArray(code, System.currentTimeMillis() - startActivityTime);
+                totalActivityTime = NeuroApplicationClass.getDoneActivitiesTime();
                 changeExportValue(true);
                 mIsSubtasksActive = false;
                 mCurrentNumberOfSecondsSub = 0;
@@ -418,6 +424,8 @@ public class AttentionFragment extends Fragment implements
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
                 textToWrite = code;
                 NeuroApplicationClass.addActivityToDoneArray(textToWrite);
+                NeuroApplicationClass.addActivityToDoneArray(code, System.currentTimeMillis() - startActivityTime);
+                totalActivityTime = NeuroApplicationClass.getDoneActivitiesTime();
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
                 Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
                 selectedButtonText = code;
@@ -441,33 +449,37 @@ public class AttentionFragment extends Fragment implements
 
             @Override
             public void run() {
-                final int sdk = android.os.Build.VERSION.SDK_INT;
-                if (!NeuroApplicationClass.isConnected()) {
-                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
-                    } else {
-                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
-                    }
+                try {
+                    final int sdk = android.os.Build.VERSION.SDK_INT;
+                    if (!NeuroApplicationClass.isConnected()) {
+                        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                        } else {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                        }
 
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mFragmentsMovingCallback != null) {
-                                mFragmentsMovingCallback.moveToConnectionFragment();
-                            } else {
-                                if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
-                                    mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (mFragmentsMovingCallback != null) {
                                     mFragmentsMovingCallback.moveToConnectionFragment();
+                                } else {
+                                    if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
+                                        mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
+                                        mFragmentsMovingCallback.moveToConnectionFragment();
+                                    }
                                 }
                             }
-                        }
-                    });
-                } else {
-                    if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        });
                     } else {
-                        mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        } else {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        }
                     }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
             }
         }
@@ -488,9 +500,9 @@ public class AttentionFragment extends Fragment implements
         public void run() {
             if (mIsSubtasksActive) {
                 mCurrentNumberOfSecondsSub ++;
+                mCurrentNumberOfSecondsFull = mCurrentNumberOfSecondsSub + totalActivityTime / 1000;
             }
-            mCurrentNumberOfSecondsFull ++;
-            Log.e("timeFull", "mCurrentNumberOfSecondsFull: " + mCurrentNumberOfSecondsFull);
+
             if (getActivity() != null) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -498,13 +510,15 @@ public class AttentionFragment extends Fragment implements
                         Date fullDate = new Date(mCurrentNumberOfSecondsFull * 1000);
                         Date subDate = new Date(mCurrentNumberOfSecondsSub * 1000);
                         SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
-                        if (mCurrentNumberOfSecondsSub == 0 || !mIsSubtasksActive) {
+                        if ((mCurrentNumberOfSecondsSub == 0 || !mIsSubtasksActive) && mCurrentNumberOfSecondsFull != 0) {
                             mTimerTextView.setText(String.format(getString(R.string.timer_string_only_full),
                                     timeFormat.format(fullDate)));
-                        } else {
+                        } else if (mCurrentNumberOfSecondsFull != 0) {
                             mTimerTextView.setText(String.format(getString(R.string.timer_string),
                                     timeFormat.format(fullDate),
                                     timeFormat.format(subDate)));
+                        } else {
+                            mTimerTextView.setText("");
                         }
                     }
                 });
