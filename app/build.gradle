@@ -18,8 +18,8 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-def version_name = "8.4"
-def version_code = 11
+def version_name = "8.4.1"
+def version_code = 12
 def target_sdk_version = 25
 def min_sdk_version = 16
 def build_tools_version = "25.0.2"
