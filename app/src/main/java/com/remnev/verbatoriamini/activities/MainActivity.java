@@ -78,6 +78,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
         implements INFCCallback,
@@ -86,6 +88,8 @@ public class MainActivity extends AppCompatActivity
         IFragmentsMovingCallback {
 
     private static final int REQUEST_PERMISSION_CODE = 2444;
+
+    private View mRootView;
 
     public Fragment pendingFragment;
     private Context mContext;
@@ -100,10 +104,12 @@ public class MainActivity extends AppCompatActivity
 
     private QuestionaryDialogFragment mQuestionaryDialogFragment;
 
+    private Timer mConnectionCheckTimer;
+
+    //nfc
     NfcAdapter mAdapter;
     PendingIntent mPendingIntent;
     IntentFilter[] mNdefExchangeFilters;
-
     public static INFCCallback callback;
 
     @Override
@@ -133,7 +139,6 @@ public class MainActivity extends AppCompatActivity
             Tag detectedTag = this.getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
             onNFCTagReaded(detectedTag);
         }
-
     }
 
     @Override
@@ -211,6 +216,17 @@ public class MainActivity extends AppCompatActivity
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION_CODE);
         }
+
+        mConnectionCheckTimer = new Timer();
+        mConnectionCheckTimer.schedule(new CheckConnectionTimerTask(), 0, 1000);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        mConnectionCheckTimer.cancel();
+        mConnectionCheckTimer = null;
     }
 
     @Override
@@ -230,6 +246,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initViews() {
+        mRootView = findViewById(R.id.container);
         titleTextView = (TextView) findViewById(R.id.title);
         specialistTextView = (TextView) findViewById(R.id.specialist);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
@@ -1176,4 +1193,36 @@ public class MainActivity extends AppCompatActivity
         bottomNavigationView.setSelectedItemId(R.id.bottom_navigation_item_connect);
     }
 
+    private class CheckConnectionTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+            runOnUiThread(new ChangeFont());
+        }
+
+        private class ChangeFont implements Runnable {
+
+            @Override
+            public void run() {
+                try {
+                    final int sdk = android.os.Build.VERSION.SDK_INT;
+                    if (!NeuroApplicationClass.isConnected()) {
+                        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                        } else {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
+                        }
+                    } else {
+                        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        } else {
+                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
 }

@@ -5,10 +5,8 @@ import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,10 +65,6 @@ public class AttentionFragment extends Fragment implements
     private Timer mConnectionCheckTimer;
     private Timer mFullAndSubTasksTimer;
 
-    private long mCurrentNumberOfSecondsFull;
-    private long mCurrentNumberOfSecondsSub;
-    private boolean mIsSubtasksActive;
-
     private IExportPossibleCallback mExportPossibleCallback;
     private IFragmentsMovingCallback mFragmentsMovingCallback;
 
@@ -92,7 +86,7 @@ public class AttentionFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_realtime_attention, null, false);
+        mRootView = inflater.inflate(R.layout.fragment_attention, null, false);
 
 
         mThirdLoadPlayerManager = new PlayerManager(mRootView);
@@ -112,7 +106,7 @@ public class AttentionFragment extends Fragment implements
         setAllButtonsUnselected(null);
 
         mConnectionCheckTimer = new Timer();
-        mConnectionCheckTimer.schedule(new CheckConnectionTimerTask(), 0, 2000);
+        mConnectionCheckTimer.schedule(new CheckConnectionTimerTask(), 5000, 5000);
 
         mFullAndSubTasksTimer = new Timer();
         mFullAndSubTasksTimer.schedule(new FullAndSubtasksTimerTask(), 1000, 1000);
@@ -271,7 +265,7 @@ public class AttentionFragment extends Fragment implements
         YAxis rightAxis = mChartView.getAxisRight();
         rightAxis.setEnabled(false);
 
-        for (int i = 0; i < 20; i ++ ) {
+        for (int i = 0; i < 20; i++) {
             addEntry(1);
         }
     }
@@ -390,9 +384,6 @@ public class AttentionFragment extends Fragment implements
         return null;
     }
 
-    private long startActivityTime = 0;
-    private long totalActivityTime = NeuroApplicationClass.getDoneActivitiesTime();
-
     private void submitCode(String code) {
         if (code.equals("0")) {
             code = "00";
@@ -404,8 +395,10 @@ public class AttentionFragment extends Fragment implements
             selectedButtonText = code;
             setAllButtonsUnselected(foundButtonByCode(code));
             changeExportValue(false);
+
+            mStartActivityTime = System.currentTimeMillis();
+            mFullLoadingNumberOfSeconds = NeuroApplicationClass.getDoneActivityTimeByCode(code);
             mIsSubtasksActive = true;
-            startActivityTime = System.currentTimeMillis();
         } else {
             if (selectedButtonText.equals(code)) {
                 StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
@@ -413,74 +406,35 @@ public class AttentionFragment extends Fragment implements
                 mLoadTextView.setText("");
                 selectedButtonText = "";
                 setAllButtonsUnselected(null);
+
+
                 NeuroApplicationClass.addActivityToDoneArray(code);
-                NeuroApplicationClass.addActivityToDoneArray(code, System.currentTimeMillis() - startActivityTime);
-                totalActivityTime = NeuroApplicationClass.getDoneActivitiesTime();
+                NeuroApplicationClass.addActivityToDoneArray(code, (System.currentTimeMillis() - mStartActivityTime) / 1000);
+
                 changeExportValue(true);
+
+                mStartActivityTime = 0;
+                mFullLoadingNumberOfSeconds = 0;
+                mCurrentLoadingNumberOfSeconds = 0;
                 mIsSubtasksActive = false;
-                mCurrentNumberOfSecondsSub = 0;
             } else {
                 String textToWrite = selectedButtonText;
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
                 textToWrite = code;
+
                 NeuroApplicationClass.addActivityToDoneArray(textToWrite);
-                NeuroApplicationClass.addActivityToDoneArray(code, System.currentTimeMillis() - startActivityTime);
-                totalActivityTime = NeuroApplicationClass.getDoneActivitiesTime();
+                NeuroApplicationClass.addActivityToDoneArray(selectedButtonText, (System.currentTimeMillis() - mStartActivityTime) / 1000);
+
                 StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
                 Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
                 selectedButtonText = code;
                 setAllButtonsUnselected(foundButtonByCode(code));
                 changeExportValue(false);
+
+                mStartActivityTime = System.currentTimeMillis();
+                mFullLoadingNumberOfSeconds = NeuroApplicationClass.getDoneActivityTimeByCode(code);
+                mCurrentLoadingNumberOfSeconds = 0;
                 mIsSubtasksActive = true;
-            }
-        }
-    }
-
-    private class CheckConnectionTimerTask extends TimerTask {
-
-        @Override
-        public void run() {
-            if (getActivity() != null) {
-                getActivity().runOnUiThread(new ChangeFont());
-            }
-        }
-
-        private class ChangeFont implements Runnable {
-
-            @Override
-            public void run() {
-                try {
-                    final int sdk = android.os.Build.VERSION.SDK_INT;
-                    if (!NeuroApplicationClass.isConnected()) {
-                        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
-                        } else {
-                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_red_border));
-                        }
-
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (mFragmentsMovingCallback != null) {
-                                    mFragmentsMovingCallback.moveToConnectionFragment();
-                                } else {
-                                    if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
-                                        mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
-                                        mFragmentsMovingCallback.moveToConnectionFragment();
-                                    }
-                                }
-                            }
-                        });
-                    } else {
-                        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
-                        } else {
-                            mRootView.setBackground(getResources().getDrawable(R.drawable.frg_attention_usual));
-                        }
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
             }
         }
     }
@@ -494,31 +448,45 @@ public class AttentionFragment extends Fragment implements
         }
     }
 
+    private long mTotalNumberOfSeconds;
+    private long mAllLoadingsNumberOfSeconds = NeuroApplicationClass.getDoneActivitiesTime();
+    private long mFullLoadingNumberOfSeconds;
+    private long mCurrentLoadingNumberOfSeconds;
+
+    private long mStartActivityTime = 0;
+
+    private boolean mIsSubtasksActive;
+
     private class FullAndSubtasksTimerTask extends TimerTask {
 
         @Override
         public void run() {
+            mTotalNumberOfSeconds++;
             if (mIsSubtasksActive) {
-                mCurrentNumberOfSecondsSub ++;
-                mCurrentNumberOfSecondsFull = mCurrentNumberOfSecondsSub + totalActivityTime / 1000;
+                mCurrentLoadingNumberOfSeconds++;
+                mAllLoadingsNumberOfSeconds++;
+                mFullLoadingNumberOfSeconds++;
             }
 
             if (getActivity() != null) {
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Date fullDate = new Date(mCurrentNumberOfSecondsFull * 1000);
-                        Date subDate = new Date(mCurrentNumberOfSecondsSub * 1000);
+                        Date totalDate = new Date(mTotalNumberOfSeconds * 1000);
+                        Date allLoadingsDate = new Date(mAllLoadingsNumberOfSeconds * 1000);
+                        Date allByLoadingDate = new Date(mFullLoadingNumberOfSeconds * 1000);
+                        Date currentLoadingDate = new Date(mCurrentLoadingNumberOfSeconds * 1000);
                         SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
-                        if ((mCurrentNumberOfSecondsSub == 0 || !mIsSubtasksActive) && mCurrentNumberOfSecondsFull != 0) {
-                            mTimerTextView.setText(String.format(getString(R.string.timer_string_only_full),
-                                    timeFormat.format(fullDate)));
-                        } else if (mCurrentNumberOfSecondsFull != 0) {
-                            mTimerTextView.setText(String.format(getString(R.string.timer_string),
-                                    timeFormat.format(fullDate),
-                                    timeFormat.format(subDate)));
+
+                        if (mIsSubtasksActive) {
+                            mTimerTextView.setText(String.format(getString(R.string.timer_string_full), timeFormat.format(totalDate), timeFormat.format(allLoadingsDate), timeFormat.format(allByLoadingDate), timeFormat.format(currentLoadingDate)));
                         } else {
-                            mTimerTextView.setText("");
+                            if (mAllLoadingsNumberOfSeconds != 0) {
+                                mTimerTextView.setText(String.format(getString(R.string.timer_string_only_full_and_loadings), timeFormat.format(totalDate), timeFormat.format(allLoadingsDate)));
+                            } else {
+                                mTimerTextView.setText(String.format(getString(R.string.timer_string_only_full), timeFormat.format(totalDate)));
+                            }
                         }
                     }
                 });
@@ -541,12 +509,14 @@ public class AttentionFragment extends Fragment implements
 
         private MediaPlayer mMediaPlayer;
 
-        private int[] sMusicRaw = new int[] {
+        private int[] sMusicRaw = new int[]{
                 R.raw.zvuk1,
                 R.raw.zvuk2,
                 R.raw.zvuk3,
                 R.raw.zvuk4,
-                R.raw.zvuk5
+                R.raw.zvuk5,
+                R.raw.zvuk6,
+                R.raw.zvuk7
         };
 
         PlayerManager(View rootView) {
@@ -588,7 +558,7 @@ public class AttentionFragment extends Fragment implements
                     if (mMediaPlayer != null) {
                         mMediaPlayer.start();
                         setUpPauseMode();
-                    } else if (5 >= mCurrentMusicIndex) {
+                    } else if (sMusicRaw.length >= mCurrentMusicIndex) {
                         setUpMediaPlayer();
                         AssetFileDescriptor afd = getAssetFileDescriptor(mCurrentMusicIndex);
                         if (afd == null) {
@@ -697,7 +667,7 @@ public class AttentionFragment extends Fragment implements
         //move music
         private void moveToNextPlayingFile() {
             mCurrentMusicIndex++;
-            if (5 < mCurrentMusicIndex) {
+            if (sMusicRaw.length < mCurrentMusicIndex) {
                 mCurrentMusicIndex = 1;
             }
         }
@@ -714,4 +684,34 @@ public class AttentionFragment extends Fragment implements
         }
     }
 
+    private class CheckConnectionTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+            if (getActivity() != null) {
+                getActivity().runOnUiThread(new ChangeFont());
+            }
+        }
+
+        private class ChangeFont implements Runnable {
+            @Override
+            public void run() {
+                try {
+                    if (!NeuroApplicationClass.isConnected()) {
+                        if (mFragmentsMovingCallback != null) {
+                            mFragmentsMovingCallback.moveToConnectionFragment();
+                        } else {
+                            if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
+                                mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
+                                mFragmentsMovingCallback.moveToConnectionFragment();
+                            }
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+
+                }
+            }
+        }
+    }
 }

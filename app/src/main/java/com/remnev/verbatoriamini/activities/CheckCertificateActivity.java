@@ -134,6 +134,7 @@ public class CheckCertificateActivity extends AppCompatActivity {
     private void dialogGetAddress(final Certificate certificate) {
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         View layoutView = getLayoutInflater().inflate(R.layout.dialog_export_address, null);
+        final EditText neurometristSignEditText = (EditText) layoutView.findViewById(R.id.bci_id);
         final EditText addressEditText = (EditText) layoutView.findViewById(R.id.email_address);
         addressEditText.setText(SettingsSharedPrefs.getEmailToSend(this));
         alertDialog.setTitle(getString(R.string.email_dialog_title));
@@ -143,6 +144,7 @@ public class CheckCertificateActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 SettingsSharedPrefs.setFirstTime(CheckCertificateActivity.this);
                 SettingsSharedPrefs.setEmailToSend(CheckCertificateActivity.this, addressEditText.getText().toString());
+                SettingsSharedPrefs.setBciID(CheckCertificateActivity.this, neurometristSignEditText.getText().toString());
                 SpecialistSharedPrefs.setLastCertificateCheckDate(CheckCertificateActivity.this, System.currentTimeMillis());
                 Helper.showSnackBar(findViewById(R.id.imageView), (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()));
                 startMainActivity();

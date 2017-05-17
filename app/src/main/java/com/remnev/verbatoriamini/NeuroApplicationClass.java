@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.neurosky.connection.ConnectionStates;
@@ -145,6 +146,7 @@ public class NeuroApplicationClass extends Application {
 
     public static void clearDoneActivities() {
         DoneActivitiesProcessor.clearDoneActivities();
+        DoneActivitiesProcessor.clearTimeDoneActivities();
     }
 
     public static String getAllUndoneActivities() {
@@ -171,6 +173,10 @@ public class NeuroApplicationClass extends Application {
         return DoneActivitiesProcessor.getSumOfTime();
     }
 
+    public static long getDoneActivityTimeByCode(String code) {
+        return DoneActivitiesProcessor.getSumOfTimeByCode(code);
+    }
+
     private static class DoneActivitiesProcessor {
 
         private static Set<String> sDoneActivitiesArray;
@@ -191,6 +197,10 @@ public class NeuroApplicationClass extends Application {
 
         private static void clearDoneActivities() {
             sDoneActivitiesArray.clear();
+        }
+
+        private static void clearTimeDoneActivities() {
+            sDoneActivitiesTimeArray.clear();
         }
 
         private static String getAllUndoneActivities() {
@@ -238,9 +248,12 @@ public class NeuroApplicationClass extends Application {
         }
 
         private static boolean removeActivityFromDoneArray(String string) {
-            for (int i = 0; i < sDoneActivitiesTimeArray.size(); i ++) {
+            int i = 0;
+            while (i < sDoneActivitiesTimeArray.size()) {
                 if (sDoneActivitiesTimeArray.get(i).first.equals(string)) {
                     sDoneActivitiesTimeArray.remove(i);
+                } else {
+                    i ++;
                 }
             }
             return sDoneActivitiesArray.remove(string);
@@ -250,6 +263,16 @@ public class NeuroApplicationClass extends Application {
             long time = 0;
             for (int i = 0; i < sDoneActivitiesTimeArray.size(); i ++) {
                 time += sDoneActivitiesTimeArray.get(i).second;
+            }
+            return time;
+        }
+
+        private static long getSumOfTimeByCode(String code) {
+            long time = 0;
+            for (int i = 0; i < sDoneActivitiesTimeArray.size(); i ++) {
+                if (sDoneActivitiesTimeArray.get(i).first.equals(code)) {
+                    time += sDoneActivitiesTimeArray.get(i).second;
+                }
             }
             return time;
         }

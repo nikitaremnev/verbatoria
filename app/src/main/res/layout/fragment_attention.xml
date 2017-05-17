@@ -1,11 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:background="@drawable/frg_attention_red_border"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="4dp"
+    android:paddingTop="4dp"
     android:layout_height="match_parent">
 
     <RelativeLayout
