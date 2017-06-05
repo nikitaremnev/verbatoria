@@ -22,4 +22,9 @@
     <color name="high_color">#C82528</color>
     <color name="highest_color">#BF0036</color>
 
+    <!-- Refactoring colors -->
+    <color name="background">#FFFFC5</color>
+    <color name="button_text">#FFFFFF</color>
+    <color name="loading_background">#FFFFC5</color>
+
 </resources>

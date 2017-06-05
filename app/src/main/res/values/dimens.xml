@@ -5,4 +5,7 @@
 
     <dimen name="music_player_floating_button_height">70dp</dimen>
     <dimen name="music_player_floating_button_width">70dp</dimen>
+
+
+
 </resources>

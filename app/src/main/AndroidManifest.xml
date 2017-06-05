@@ -54,6 +54,16 @@
             android:theme="@style/MainAppTheme">
 
         </activity>
+
+
+
+        <!-- New version -->
+
+        <activity android:name="com.verbatoria.presentation.login.view.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MainAppTheme">
+        </activity>
+
     </application>
 
 </manifest>
