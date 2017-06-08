@@ -1,13 +1,20 @@
 package com.verbatoria.data.repositories.login;
 
-import com.verbatoria.presentation.login.view.ILoginView;
+import com.verbatoria.data.network.response.LoginResponseModel;
+import rx.Observable;
 
 /**
- * Created by nikitaremnev on 30.05.17.
+ *
+ * Реализация репозитория для логина
+ *
+ * @author nikitaremnev
  */
+
 
 public class LoginRepository implements ILoginRepository {
 
-    private ILoginView mLoginView;
-
+    @Override
+    public Observable<LoginResponseModel> getLoginInfo() {
+        return null;
+    }
 }

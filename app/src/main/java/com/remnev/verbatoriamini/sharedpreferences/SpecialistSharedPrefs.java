@@ -10,12 +10,6 @@ import com.remnev.verbatoriamini.BuildConfig;
 import com.remnev.verbatoriamini.model.Certificate;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by nikitaremnev on 21.03.15.

@@ -1,6 +1,7 @@
 package com.verbatoria.presentation.login.view;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
@@ -33,16 +34,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         Views
      */
     @BindView(R.id.login_text_view)
-    private EditText mLoginEditText;
+    public EditText mLoginEditText;
 
     @BindView(R.id.password_text_view)
-    private EditText mPasswordEditText;
+    public EditText mPasswordEditText;
 
     @BindView(R.id.login_button)
-    private Button mLoginButton;
+    public Button mLoginButton;
 
     @BindView(R.id.progress_layout)
-    private View mLoadingView;
+    public View mLoadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

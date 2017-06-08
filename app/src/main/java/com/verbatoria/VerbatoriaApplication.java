@@ -1,11 +1,12 @@
 package com.verbatoria;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 import com.verbatoria.di.application.ApplicationComponent;
-import com.verbatoria.di.application.ApplicationModule;
+import com.verbatoria.di.application.DaggerApplicationComponent;
 
 /**
  * Application-класс. Инициализирует даггер-компонент для построения всех зависимостей.
@@ -13,7 +14,7 @@ import com.verbatoria.di.application.ApplicationModule;
  * @author nikitaremnev
  */
 
-public class VerbatoriaApplication extends Application {
+public class VerbatoriaApplication extends MultiDexApplication {
 
     @NonNull
     private ApplicationComponent mApplicationComponent;
@@ -26,13 +27,8 @@ public class VerbatoriaApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mApplicationComponent = prepareAppComponent().build();
-    }
-
-    @NonNull
-    private DaggerAppComponent.Builder prepareAppComponent() {
-        return DaggerAppComponent.builder()
-                .appModule(new ApplicationModule(this));
+        mApplicationComponent = DaggerApplicationComponent.create();
+        MultiDex.install(this);
     }
 
     @NonNull
