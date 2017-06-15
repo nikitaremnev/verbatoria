@@ -13,11 +13,12 @@ public interface ILoginView {
     void showProgress();
     void hideProgress();
 
-    //отображение результатов запроса
-    void showSuccess();
-    void showError();
+    //получение данных введенных полей
+    String getPhone();
+    String getPassword();
 
-    //менеджмент кнопки "Войти"
-    void setLoginButtonAvailability(boolean enabled);
+    //отображение результатов запроса
+    void loginSuccess();
+    void showError(String message);
 
 }

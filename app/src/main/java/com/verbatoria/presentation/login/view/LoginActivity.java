@@ -10,14 +10,13 @@ import android.widget.EditText;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.di.login.LoginModule;
-import com.verbatoria.presentation.login.models.LoginFilledDataModel;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Экран логина
@@ -48,10 +47,19 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //initialize views
         setContentView(R.layout.activity_login);
-        VerbatoriaApplication.get(this).applicationComponent().addModule(new LoginModule()).inject(this);
-
+        ButterKnife.bind(this);
         setUpViews();
+        //bind views
+        VerbatoriaApplication.get(this).applicationComponent().addModule(new LoginModule()).inject(this);
+        mLoginPresenter.bindView(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLoginPresenter.unbindView();
     }
 
     //отображение прогресса
@@ -65,30 +73,33 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         mLoadingView.setVisibility(View.GONE);
     }
 
+    @Override
+    public String getPhone() {
+        return mLoginEditText.getText().toString();
+    }
+
+    @Override
+    public String getPassword() {
+        return mPasswordEditText.getText().toString();
+    }
+
     //отображение результатов запроса
     @Override
-    public void showSuccess() {
-
+    public void loginSuccess() {
+        //TODO: start some activity
     }
 
     @Override
-    public void showError() {
-
-    }
-
-    //менеджмент кнопки "Войти"
-    @Override
-    public void setLoginButtonAvailability(boolean enabled) {
-        mLoginButton.setEnabled(enabled);
+    public void showError(String message) {
+        //TODO: replace hint
+        Snackbar snackbar = Snackbar.make(mLoadingView, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     private void setUpViews() {
         mLoginEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-        mLoginButton.setOnClickListener(v -> mLoginPresenter.login(getLoginRequestModel()));
+        mLoginButton.setOnClickListener(v -> mLoginPresenter.login());
     }
 
-    private LoginFilledDataModel getLoginRequestModel() {
-        return new LoginFilledDataModel();
-    }
 
 }
