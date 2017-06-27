@@ -6,6 +6,7 @@ import com.verbatoria.utils.PreferencesStorage;
 import java.util.concurrent.Callable;
 
 import rx.Observable;
+import rx.Single;
 
 /**
  * Реализация репозитория для получения токена
@@ -16,14 +17,20 @@ public class TokenRepository implements ITokenRepository {
 
     @Override
     public Observable<TokenModel> getToken() {
-        return Observable.fromCallable(new Callable<TokenModel>() {
-            @Override
-            public TokenModel call() throws Exception {
-                TokenModel tokenModel = new TokenModel();
-                tokenModel.setAccessToken(PreferencesStorage.getInstance().getAccessToken());
-                tokenModel.setExpiresToken(PreferencesStorage.getInstance().getExpiresToken());
-                return tokenModel;
-            }
+        return Observable.fromCallable(() -> {
+            TokenModel tokenModel = new TokenModel();
+            tokenModel.setAccessToken(PreferencesStorage.getInstance().getAccessToken());
+            tokenModel.setExpiresToken(PreferencesStorage.getInstance().getExpiresToken());
+            return tokenModel;
+        });
+    }
+
+    @Override
+    public Single<TokenModel> updateToken(TokenModel tokenModel) {
+        return Single.fromCallable(() -> {
+            PreferencesStorage.getInstance().setAccessToken(tokenModel.getAccessToken());
+            PreferencesStorage.getInstance().setExpiresToken(tokenModel.getExpiresToken());
+            return tokenModel;
         });
     }
 
