@@ -5,7 +5,6 @@ package com.verbatoria.business.login;
  *
  * @author nikitaremnev
  */
-
 public class LoginInteractorException extends RuntimeException {
 
     public LoginInteractorException() {

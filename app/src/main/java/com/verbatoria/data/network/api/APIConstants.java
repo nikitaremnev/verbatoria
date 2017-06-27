@@ -6,7 +6,6 @@ package com.verbatoria.data.network.api;
  *
  * @author nikitaremnev
  */
-
 class APIConstants {
 
     public static final String API_BASE_URL = "http://82.202.198.139/";

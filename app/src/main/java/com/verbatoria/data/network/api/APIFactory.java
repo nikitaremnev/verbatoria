@@ -15,7 +15,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  *
  * @author nikitaremnev
  */
-
 public class APIFactory {
 
     private static final int CONNECT_TIMEOUT = 30;
@@ -33,7 +32,6 @@ public class APIFactory {
                 .addInterceptor(interceptor)
                 .build();
     }
-
 
     @NonNull
     public static APIService getAPIService() {

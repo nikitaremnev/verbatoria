@@ -11,7 +11,6 @@ import dagger.Component;
  *
  * @author nikitaremnev
  */
-
 @Singleton
 @Component(modules = {ApplicationModule.class, UtilsModule.class})
 public interface ApplicationComponent {

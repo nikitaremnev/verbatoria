@@ -4,9 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.data.network.response.LoginResponseModel;
+import com.verbatoria.di.application.UtilsModule;
 import com.verbatoria.presentation.login.view.ILoginView;
-
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -16,13 +15,10 @@ import rx.subscriptions.CompositeSubscription;
  *
  * @author nikitaremnev
  */
-
 public class LoginPresenter implements ILoginPresenter {
 
     private ILoginInteractor mLoginInteractor;
-
     private ILoginView mLoginView;
-
     private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     public LoginPresenter(ILoginInteractor loginInteractor) {

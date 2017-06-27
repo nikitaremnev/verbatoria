@@ -9,7 +9,6 @@ import com.verbatoria.presentation.login.view.ILoginView;
  *
  * @author nikitaremnev
  */
-
 public interface ILoginPresenter {
 
     void bindView(@NonNull ILoginView loginView);

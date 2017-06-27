@@ -23,4 +23,9 @@ public class RxSchedulersTest extends RxSchedulersAbs {
         return Schedulers.immediate();
     }
 
+    @Override
+    public Scheduler getNewThreadScheduler() {
+        return Schedulers.immediate();
+    }
+
 }

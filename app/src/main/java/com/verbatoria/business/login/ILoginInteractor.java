@@ -11,7 +11,6 @@ import rx.Single;
  *
  * @author nikitaremnev
  */
-
 public interface ILoginInteractor {
 
     Observable<LoginResponseModel> login(String phone, String password);

@@ -13,19 +13,9 @@ import rx.Observable;
  *
  * @author nikitaremnev
  */
-
 public interface APIService {
 
     @POST(APIConstants.LOGIN_URL)
     Observable<LoginResponseModel> loginRequest(@Body LoginRequestModel loginData);
-
-//
-//    @POST("get_product_info")
-//    Call<NetworkResponse<ProductInfo>> getProductInfo(@Query("category_id") int id,
-//                                                      @Header("Cookie") String cookie);
-//
-//    @GET("api/get_professions")
-//    Call<NetworkResponse<ProfessionsResponse>> getProfessions(@Header("Cookie") String cookie);
-
 
 }

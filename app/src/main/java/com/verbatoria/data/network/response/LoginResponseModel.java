@@ -11,7 +11,6 @@ import com.google.common.base.Objects;
  *
  * @author nikitaremnev
  */
-
 public class LoginResponseModel {
 
     private String mAccessToken;

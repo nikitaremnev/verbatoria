@@ -13,7 +13,6 @@ import dagger.Provides;
 /**
  * Created by nikitaremnev on 30.05.17.
  */
-
 @Module
 public class LoginModule {
 

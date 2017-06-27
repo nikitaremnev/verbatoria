@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+apply plugin: 'me.tatarka.retrolambda'
 
 buildscript {
     repositories {
@@ -19,7 +20,22 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-def version_name = "8.4.1"
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.6.1'
+    }
+}
+
+// Required because retrolambda is on maven central
+repositories {
+    mavenCentral()
+}
+
+def version_name = "9.0"
 def version_code = 12
 def target_sdk_version = 25
 def min_sdk_version = 16
@@ -37,9 +53,6 @@ android {
         versionName version_name
         project.ext.set("archivesBaseName", "verbatoria-" + defaultConfig.versionName)
         multiDexEnabled true
-        jackOptions {
-            enabled true
-        }
     }
 
     buildTypes {
@@ -62,6 +75,7 @@ android {
         exclude 'META-INF/license.txt'
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/rxjava.properties'
     }
 
     lintOptions {
@@ -97,8 +111,8 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.0'
 
     //RxAndroid
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+    compile "io.reactivex.rxjava2:rxjava:2.0.1"
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //dagger2
     compile 'com.google.dagger:dagger:2.7'
@@ -115,8 +129,7 @@ dependencies {
     //Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-jackson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
-
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 
     //Ok Http
     compile 'com.squareup.okhttp3:okhttp:3.3.1'

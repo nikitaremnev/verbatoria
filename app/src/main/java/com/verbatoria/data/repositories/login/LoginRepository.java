@@ -12,11 +12,11 @@ import rx.Observable;
  * @author nikitaremnev
  */
 
-
 public class LoginRepository implements ILoginRepository {
 
     @Override
     public Observable<LoginResponseModel> getLogin(LoginRequestModel loginRequestModel) {
         return APIFactory.getAPIService().loginRequest(loginRequestModel);
     }
+
 }

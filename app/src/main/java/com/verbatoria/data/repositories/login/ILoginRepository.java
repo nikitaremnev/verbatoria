@@ -11,7 +11,6 @@ import rx.Observable;
  *
  * @author nikitaremnev
  */
-
 public interface ILoginRepository {
 
     Observable<LoginResponseModel> getLogin(LoginRequestModel loginRequestModel);

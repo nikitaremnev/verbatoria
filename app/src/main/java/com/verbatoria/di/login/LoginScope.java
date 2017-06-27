@@ -7,7 +7,6 @@ import javax.inject.Scope;
 /**
  * Created by nikitaremnev on 30.05.17.
  */
-
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
 public @interface LoginScope {

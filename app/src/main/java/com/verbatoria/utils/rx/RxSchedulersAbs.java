@@ -14,6 +14,8 @@ public abstract class RxSchedulersAbs {
     abstract public Scheduler getMainThreadScheduler();
     abstract public Scheduler getIOScheduler();
     abstract public Scheduler getComputationScheduler();
+    abstract public Scheduler getNewThreadScheduler();
+
 
     public <T> Observable.Transformer<T, T> getIOToMainTransformer()  {
         return objectObservable -> objectObservable

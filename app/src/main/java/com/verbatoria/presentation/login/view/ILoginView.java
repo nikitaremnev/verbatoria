@@ -6,12 +6,14 @@ package com.verbatoria.presentation.login.view;
  *
  * @author nikitaremnev
  */
-
 public interface ILoginView {
 
     //отображение прогресса
     void showProgress();
     void hideProgress();
+
+    void setPhone(String phone);
+    void setPassword(String password);
 
     //получение данных введенных полей
     String getPhone();

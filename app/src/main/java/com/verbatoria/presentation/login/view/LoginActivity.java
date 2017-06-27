@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-
 public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Inject
@@ -54,6 +53,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         //bind views
         VerbatoriaApplication.get(this).applicationComponent().addModule(new LoginModule()).inject(this);
         mLoginPresenter.bindView(this);
+
+        //test
+        setPhone("+79032003231");
+        setPassword("solaris");
     }
 
     @Override
@@ -71,6 +74,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @Override
     public void hideProgress() {
         mLoadingView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setPhone(String phone) {
+        mLoginEditText.setText(phone);
+    }
+
+    @Override
+    public void setPassword(String password) {
+        mPasswordEditText.setText(password);
     }
 
     @Override
@@ -100,6 +113,5 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         mLoginEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         mLoginButton.setOnClickListener(v -> mLoginPresenter.login());
     }
-
 
 }

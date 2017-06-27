@@ -9,7 +9,6 @@ import dagger.Subcomponent;
  *
  * @author nikitaremnev
  */
-
 @Subcomponent(modules = {LoginModule.class})
 @LoginScope
 public interface LoginComponent {

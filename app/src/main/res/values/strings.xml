@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="app_name">Нейроскрин v8.4.1</string>
-    <string name="title_activity_navigation_drawer">Нейроскрин v8.4.1</string>
-    <string name="navigation_drawer_open">Нейроскрин v8.4.1</string>
-    <string name="navigation_drawer_close">Нейроскрин v8.4.1</string>
+    <string name="app_name">Нейроскрин v9.0</string>
+    <string name="title_activity_navigation_drawer">Нейроскрин v9.0</string>
+    <string name="navigation_drawer_open">Нейроскрин v9.0</string>
+    <string name="navigation_drawer_close">Нейроскрин v9.0</string>
     <string name="nav_drawer_item_authority">Авторизация</string>
     <string name="nav_drawer_item_main">Подключение</string>
     <string name="nav_drawer_item_settings">Настройки</string>

@@ -1,8 +1,8 @@
 package com.verbatoria.utils.rx;
 
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * @author nikitaremnev
@@ -22,6 +22,11 @@ public class RxSchedulers extends RxSchedulersAbs {
     @Override
     public Scheduler getComputationScheduler() {
         return Schedulers.computation();
+    }
+
+    @Override
+    public Scheduler getNewThreadScheduler() {
+        return Schedulers.newThread();
     }
 
 }
