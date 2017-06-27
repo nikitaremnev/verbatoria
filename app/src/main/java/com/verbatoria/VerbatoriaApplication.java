@@ -32,7 +32,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
     }
 
     @NonNull
-    public ApplicationComponent applicationComponent() {
+    public ApplicationComponent getApplicationComponent() {
         return mApplicationComponent;
     }
 

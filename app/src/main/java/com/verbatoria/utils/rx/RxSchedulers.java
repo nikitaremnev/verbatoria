@@ -7,7 +7,7 @@ import rx.android.schedulers.AndroidSchedulers;
 /**
  * @author nikitaremnev
  */
-public class RxSchedulers extends RxSchedulersAbs {
+public class RxSchedulers implements IRxSchedulers {
 
     @Override
     public Scheduler getMainThreadScheduler() {

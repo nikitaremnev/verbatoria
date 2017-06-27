@@ -26,7 +26,12 @@ public class LoginInteractor implements ILoginInteractor {
 
     private LoginRequestModel getLoginRequestModel(String phone, String password) {
         return new LoginRequestModel()
-                .setPhone(phone)
+                .setPhone(processPhone(phone))
                 .setPassword(password);
     }
+
+    private String processPhone(String phone) {
+        return phone.replaceAll("[^0-9.]", "");
+    }
+
 }

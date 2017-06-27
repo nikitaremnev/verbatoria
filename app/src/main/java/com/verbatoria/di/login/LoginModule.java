@@ -1,5 +1,7 @@
 package com.verbatoria.di.login;
 
+import android.content.Context;
+
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;
 import com.verbatoria.data.repositories.login.ILoginRepository;
@@ -11,7 +13,9 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * Created by nikitaremnev on 30.05.17.
+ * Модуль даггера для логина
+ *
+ * @author nikitaremnev
  */
 @Module
 public class LoginModule {
@@ -27,12 +31,6 @@ public class LoginModule {
     ILoginInteractor provideLoginInteractor(ILoginRepository loginRepository) {
         return new LoginInteractor(loginRepository);
     }
-
-//    @Provides
-//    @LoginScope
-//    ProfilePresenterCache provideLoginPresenterCache() {
-//        return new ProfilePresenterCache();
-//    }
 
     @Provides
     @LoginScope

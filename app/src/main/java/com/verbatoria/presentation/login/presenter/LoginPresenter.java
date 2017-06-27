@@ -2,12 +2,13 @@ package com.verbatoria.presentation.login.presenter;
 
 import android.support.annotation.NonNull;
 
+import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.data.network.response.LoginResponseModel;
-import com.verbatoria.di.application.UtilsModule;
 import com.verbatoria.presentation.login.view.ILoginView;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import com.verbatoria.utils.Logger;
+import com.verbatoria.utils.rx.IRxSchedulers;
+import com.verbatoria.utils.rx.RxSchedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -17,12 +18,17 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class LoginPresenter implements ILoginPresenter {
 
+    private static final String TAG = "LoginPresenter";
+
     private ILoginInteractor mLoginInteractor;
     private ILoginView mLoginView;
     private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
+    IRxSchedulers mRxSchedulers;
+
     public LoginPresenter(ILoginInteractor loginInteractor) {
         this.mLoginInteractor = loginInteractor;
+        mRxSchedulers = new RxSchedulers();
     }
 
     @Override
@@ -40,17 +46,20 @@ public class LoginPresenter implements ILoginPresenter {
     public void login() {
         mLoginView.showProgress();
         mLoginInteractor.login(mLoginView.getPhone(), mLoginView.getPassword())
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(mRxSchedulers.getNewThreadScheduler())
+                .observeOn(mRxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleSuccessLogin, this::handleErrorLogin);
     }
 
     private void handleSuccessLogin(@NonNull LoginResponseModel loginResponseModel) {
-
+        Logger.e(TAG, loginResponseModel.toString());
+        mLoginView.hideProgress();
     }
 
     private void handleErrorLogin(Throwable throwable) {
-
+        Logger.exc(TAG, throwable);
+        mLoginView.hideProgress();
+        mLoginView.showError(throwable.getMessage());
     }
 
 }

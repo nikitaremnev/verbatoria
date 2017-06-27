@@ -1,10 +1,8 @@
 package com.verbatoria.di.application;
 
+import com.verbatoria.utils.rx.IRxSchedulers;
 import com.verbatoria.utils.rx.RxSchedulers;
-import com.verbatoria.utils.rx.RxSchedulersAbs;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 
@@ -19,7 +17,7 @@ public class UtilsModule {
 
     @Provides
     @Singleton
-    RxSchedulersAbs provideRxSchedulersAbs() {
+    IRxSchedulers provideRxSchedulersAbs() {
         return new RxSchedulers();
     }
 

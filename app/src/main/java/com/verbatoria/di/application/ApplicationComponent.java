@@ -1,13 +1,17 @@
 package com.verbatoria.di.application;
 
+import android.content.Context;
+
 import com.verbatoria.di.login.LoginComponent;
 import com.verbatoria.di.login.LoginModule;
+import com.verbatoria.presentation.login.presenter.LoginPresenter;
+import com.verbatoria.utils.rx.IRxSchedulers;
 
 import javax.inject.Singleton;
 import dagger.Component;
 
 /**
- * Компонент даггера для модуля контекста
+ * Компонент Даггера для модуля контекста
  *
  * @author nikitaremnev
  */

@@ -51,11 +51,11 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         ButterKnife.bind(this);
         setUpViews();
         //bind views
-        VerbatoriaApplication.get(this).applicationComponent().addModule(new LoginModule()).inject(this);
+        VerbatoriaApplication.get(this).getApplicationComponent().addModule(new LoginModule()).inject(this);
         mLoginPresenter.bindView(this);
 
         //test
-        setPhone("+79032003231");
+        setPhone("79032003231");
         setPassword("solaris");
     }
 
@@ -69,11 +69,13 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @Override
     public void showProgress() {
         mLoadingView.setVisibility(View.VISIBLE);
+        mLoginButton.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
         mLoadingView.setVisibility(View.GONE);
+        mLoginButton.setVisibility(View.VISIBLE);
     }
 
     @Override
