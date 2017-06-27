@@ -1,10 +1,7 @@
 package com.verbatoria.business.login;
 
-import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
-
 import rx.Observable;
-import rx.Single;
 
 /**
  * Интерфейс интерактора для логина

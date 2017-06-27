@@ -22,13 +22,13 @@ public class LoginPresenter implements ILoginPresenter {
 
     private ILoginInteractor mLoginInteractor;
     private ILoginView mLoginView;
-    private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
 
     IRxSchedulers mRxSchedulers;
 
     public LoginPresenter(ILoginInteractor loginInteractor) {
         this.mLoginInteractor = loginInteractor;
         mRxSchedulers = new RxSchedulers();
+
     }
 
     @Override
@@ -38,7 +38,6 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void unbindView() {
-        mCompositeSubscription.clear();
         mLoginView = null;
     }
 

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.verbatoria.di.login.LoginComponent;
 import com.verbatoria.di.login.LoginModule;
+import com.verbatoria.di.token.TokenComponent;
+import com.verbatoria.di.token.TokenModule;
 import com.verbatoria.presentation.login.presenter.LoginPresenter;
 import com.verbatoria.utils.rx.IRxSchedulers;
 
@@ -20,5 +22,7 @@ import dagger.Component;
 public interface ApplicationComponent {
 
     LoginComponent addModule(LoginModule loginModule);
+
+    TokenComponent addModule(TokenModule tokenModule);
 
 }
