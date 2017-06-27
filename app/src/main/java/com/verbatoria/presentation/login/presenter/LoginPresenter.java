@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.login.ILoginInteractor;
+import com.verbatoria.business.token.interactor.ITokenInteractor;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.presentation.login.view.ILoginView;
 import com.verbatoria.utils.Logger;
@@ -21,14 +22,15 @@ public class LoginPresenter implements ILoginPresenter {
     private static final String TAG = "LoginPresenter";
 
     private ILoginInteractor mLoginInteractor;
+    private ITokenInteractor mTokenInteractor;
     private ILoginView mLoginView;
 
     IRxSchedulers mRxSchedulers;
 
-    public LoginPresenter(ILoginInteractor loginInteractor) {
+    public LoginPresenter(ILoginInteractor loginInteractor, ITokenInteractor tokenInteractor) {
         this.mLoginInteractor = loginInteractor;
+        this.mTokenInteractor = tokenInteractor;
         mRxSchedulers = new RxSchedulers();
-
     }
 
     @Override

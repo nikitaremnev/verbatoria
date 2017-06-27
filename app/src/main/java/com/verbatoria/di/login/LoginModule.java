@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;
+import com.verbatoria.business.token.interactor.ITokenInteractor;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
@@ -34,8 +35,8 @@ public class LoginModule {
 
     @Provides
     @LoginScope
-    ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor) {
-        return new LoginPresenter(loginInteractor);
+    ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor, ITokenInteractor tokenInteractor) {
+        return new LoginPresenter(loginInteractor, tokenInteractor);
     }
 
 }
