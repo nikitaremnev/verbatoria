@@ -8,6 +8,7 @@ package com.verbatoria.business.token.interactor;
 public class TokenInteractorException extends RuntimeException {
 
     public TokenInteractorException() {
+
     }
 
     public TokenInteractorException(String detailMessage) {

@@ -11,7 +11,6 @@ import rx.Observable;
  *
  * @author nikitaremnev
  */
-
 public class LoginRepository implements ILoginRepository {
 
     @Override

@@ -1,10 +1,9 @@
 package com.verbatoria.business.token.interactor;
 
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.dashboard.presenter.DashboardPresenter;
-import com.verbatoria.utils.Logger;
 
 import rx.Observable;
 import rx.Single;
@@ -31,11 +30,8 @@ public class TokenInteractor implements ITokenInteractor {
 
     @Override
     public Single<TokenModel> updateToken(LoginResponseModel loginResponseModel) {
-        TokenModel tokenModel = new TokenModel();
-        tokenModel.setAccessToken(loginResponseModel.getAccessToken());
-        tokenModel.setExpiresToken(loginResponseModel.getExpiresToken());
-        Logger.e(TAG, tokenModel.toString());
-        return mTokenRepository.updateToken(tokenModel);
+        TokenProcessor tokenProcessor = new TokenProcessor();
+        return mTokenRepository.updateToken(tokenProcessor.obtainToken(loginResponseModel));
     }
 
 }

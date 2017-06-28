@@ -51,10 +51,7 @@ public class LoginPresenter implements ILoginPresenter {
 
     private void handleSuccessLogin(@NonNull LoginResponseModel loginResponseModel) {
         Logger.e(TAG, loginResponseModel.toString());
-        mTokenInteractor.updateToken(loginResponseModel)
-                .subscribeOn(mRxSchedulers.getMainThreadScheduler())
-                .observeOn(mRxSchedulers.getMainThreadScheduler())
-                .subscribe();
+        saveToken(loginResponseModel);
         mLoginView.hideProgress();
         mLoginView.loginSuccess();
     }
@@ -63,6 +60,13 @@ public class LoginPresenter implements ILoginPresenter {
         Logger.exc(TAG, throwable);
         mLoginView.hideProgress();
         mLoginView.showError(throwable.getMessage());
+    }
+
+    private void saveToken(@NonNull LoginResponseModel loginResponseModel) {
+        mTokenInteractor.updateToken(loginResponseModel)
+                .subscribeOn(mRxSchedulers.getMainThreadScheduler())
+                .observeOn(mRxSchedulers.getMainThreadScheduler())
+                .subscribe();
     }
 
 }

@@ -38,8 +38,13 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         mDashboardPresenter.bindView(this);
-
         mDashboardPresenter.readToken();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDashboardPresenter.unbindView();
     }
 
     @Override

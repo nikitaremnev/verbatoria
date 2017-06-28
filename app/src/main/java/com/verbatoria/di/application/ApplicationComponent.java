@@ -1,5 +1,6 @@
 package com.verbatoria.di.application;
 
+import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.di.dashboard.DashboardComponent;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.di.login.LoginComponent;
@@ -23,5 +24,7 @@ public interface ApplicationComponent {
     DashboardComponent addModule(DashboardModule dashboardModule);
 
     void inject(PreferencesStorage preferencesStorage);
+
+    void inject(TokenProcessor tokenProcessor);
 
 }
