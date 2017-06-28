@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.login.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
+import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 
 import javax.inject.Inject;
@@ -51,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         ButterKnife.bind(this);
         setUpViews();
         //bind views
-        VerbatoriaApplication.get(this).getApplicationComponent().addModule(new LoginModule()).inject(this);
+        VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
         mLoginPresenter.bindView(this);
 
         //test
@@ -101,7 +103,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     //отображение результатов запроса
     @Override
     public void loginSuccess() {
-        //TODO: start some activity
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
     }
 
     @Override

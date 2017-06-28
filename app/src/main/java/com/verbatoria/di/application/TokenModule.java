@@ -1,4 +1,4 @@
-package com.verbatoria.di.token;
+package com.verbatoria.di.application;
 
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;
@@ -21,13 +21,11 @@ import dagger.Provides;
 public class TokenModule {
 
     @Provides
-    @TokenScope
     ITokenRepository provideTokenRepository() {
         return new TokenRepository();
     }
 
     @Provides
-    @LoginScope
     ITokenInteractor provideTokenInteractor(ITokenRepository tokenRepository) {
         return new TokenInteractor(tokenRepository);
     }

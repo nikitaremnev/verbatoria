@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.di.login.LoginModule;
+
+import javax.inject.Inject;
 
 /**
  * Реализация SharedPreferences
@@ -22,7 +25,8 @@ public class PreferencesStorage {
 
     private static PreferencesStorage sInstance = null;
 
-    private Context mContext;
+    @Inject
+    public Context mContext;
 
     public void registerListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
         mTokenPreferences.registerOnSharedPreferenceChangeListener(listener);
@@ -36,15 +40,15 @@ public class PreferencesStorage {
         if (sInstance == null)
             synchronized (PreferencesStorage.class) {
                 if (sInstance == null) {
-//                    sInstance = new PreferencesStorage(VerbatoriaApplication.getApplicationComponent().context());
+                    sInstance = new PreferencesStorage();
                 }
             }
         return sInstance;
     }
 
-    private PreferencesStorage(Context context) {
-        mContext = context;
-        if (context != null) {
+    private PreferencesStorage() {
+        VerbatoriaApplication.getApplicationComponent().inject(this);
+        if (mContext != null) {
             mTokenPreferences = mContext.getSharedPreferences(TOKEN_PREFS, Context.MODE_PRIVATE);
         }
     }

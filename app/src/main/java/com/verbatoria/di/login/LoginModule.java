@@ -1,7 +1,5 @@
 package com.verbatoria.di.login;
 
-import android.content.Context;
-
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;
 import com.verbatoria.business.token.interactor.ITokenInteractor;

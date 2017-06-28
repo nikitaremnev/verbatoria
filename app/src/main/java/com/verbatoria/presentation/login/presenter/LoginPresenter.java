@@ -1,8 +1,6 @@
 package com.verbatoria.presentation.login.presenter;
 
 import android.support.annotation.NonNull;
-
-import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.token.interactor.ITokenInteractor;
 import com.verbatoria.data.network.response.LoginResponseModel;
@@ -10,7 +8,6 @@ import com.verbatoria.presentation.login.view.ILoginView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.rx.IRxSchedulers;
 import com.verbatoria.utils.rx.RxSchedulers;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Реализация презентера для логина
@@ -19,7 +16,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class LoginPresenter implements ILoginPresenter {
 
-    private static final String TAG = "LoginPresenter";
+    private static final String TAG = LoginPresenter.class.getSimpleName();
 
     private ILoginInteractor mLoginInteractor;
     private ITokenInteractor mTokenInteractor;
@@ -54,7 +51,12 @@ public class LoginPresenter implements ILoginPresenter {
 
     private void handleSuccessLogin(@NonNull LoginResponseModel loginResponseModel) {
         Logger.e(TAG, loginResponseModel.toString());
+        mTokenInteractor.updateToken(loginResponseModel)
+                .subscribeOn(mRxSchedulers.getMainThreadScheduler())
+                .observeOn(mRxSchedulers.getMainThreadScheduler())
+                .subscribe();
         mLoginView.hideProgress();
+        mLoginView.loginSuccess();
     }
 
     private void handleErrorLogin(Throwable throwable) {

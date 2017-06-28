@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.verbatoria.di.application.ApplicationComponent;
+import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
 
 /**
@@ -17,7 +18,7 @@ import com.verbatoria.di.application.DaggerApplicationComponent;
 public class VerbatoriaApplication extends MultiDexApplication {
 
     @NonNull
-    private ApplicationComponent mApplicationComponent;
+    private static ApplicationComponent mApplicationComponent;
 
     @NonNull
     public static VerbatoriaApplication get(@NonNull Context context) {
@@ -27,12 +28,14 @@ public class VerbatoriaApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        mApplicationComponent = DaggerApplicationComponent.create();
+        mApplicationComponent = DaggerApplicationComponent.builder()
+            .applicationModule(new ApplicationModule(getApplicationContext()))
+            .build();
         MultiDex.install(this);
     }
 
     @NonNull
-    public ApplicationComponent getApplicationComponent() {
+    public static ApplicationComponent getApplicationComponent() {
         return mApplicationComponent;
     }
 
