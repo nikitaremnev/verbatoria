@@ -14,6 +14,6 @@ import rx.Observable;
  */
 public interface IDashboardRepository {
 
-    Observable<VerbatologInfoResponseModel> getVerbatologInfo();
+    Observable<VerbatologInfoResponseModel> getVerbatologInfo(String accessToken);
 
 }

@@ -22,6 +22,6 @@ public interface APIService {
     Observable<LoginResponseModel> loginRequest(@Body LoginRequestModel loginData);
 
     @GET(APIConstants.VERBATOLOG_INFO_URL)
-    Observable<VerbatologInfoResponseModel> verbatologInfoRequest(@Header("access_token"));
+    Observable<VerbatologInfoResponseModel> verbatologInfoRequest(@Header("access_token") String accessToken);
 
 }
