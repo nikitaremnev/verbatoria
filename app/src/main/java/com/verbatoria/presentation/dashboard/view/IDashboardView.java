@@ -18,5 +18,5 @@ public interface IDashboardView {
     void hideProgress();
 
     void showVerbatologInfo(String verbatologToString);
-
+    void showVerbatologEvents(String verbatologEventsToString);
 }

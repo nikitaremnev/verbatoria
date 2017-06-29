@@ -2,10 +2,7 @@ package com.verbatoria.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.di.login.LoginModule;
-
 import javax.inject.Inject;
 
 /**

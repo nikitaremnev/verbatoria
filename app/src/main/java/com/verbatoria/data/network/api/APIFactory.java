@@ -1,11 +1,8 @@
 package com.verbatoria.data.network.api;
 
 import android.support.annotation.NonNull;
-
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -18,6 +15,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class APIFactory {
 
     private static final int CONNECT_TIMEOUT = 30;
+    private static final int READ_TIMEOUT = 60;
     private static final int WRITE_TIMEOUT = 60;
 
     private static final OkHttpClient OK_HTTP_CLIENT;
@@ -25,8 +23,8 @@ public class APIFactory {
     static {
         OK_HTTP_CLIENT = new OkHttpClient().newBuilder()
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .build();
     }
 

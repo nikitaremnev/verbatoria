@@ -1,8 +1,8 @@
 package com.verbatoria.business.dashboard;
 
-import com.verbatoria.data.network.response.LoginResponseModel;
+import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
-
+import java.util.List;
 import rx.Observable;
 
 /**
@@ -14,4 +14,5 @@ public interface IDashboardInteractor {
 
     Observable<VerbatologInfoResponseModel> getVerbatologInfo();
 
+    Observable<List<VerbatologEventResponseModel>> getVerbatologEvents();
 }

@@ -6,5 +6,5 @@ package com.verbatoria.business.dashboard.models;
  * @author nikitaremnev
  */
 public class VerbatologModel {
-    
+
 }

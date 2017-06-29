@@ -1,11 +1,11 @@
 package com.verbatoria.business.dashboard;
 
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.utils.Logger;
-
+import java.util.List;
 import rx.Observable;
 
 /**
@@ -27,10 +27,17 @@ public class DashboardInteractor implements IDashboardInteractor {
 
     @Override
     public Observable<VerbatologInfoResponseModel> getVerbatologInfo() {
+        return mDashboardRepository.getVerbatologInfo(getAccessToken());
+    }
+
+    @Override
+    public Observable<List<VerbatologEventResponseModel>> getVerbatologEvents() {
+        return mDashboardRepository.getVerbatologEvents(getAccessToken());
+    }
+
+    private String getAccessToken() {
         TokenModel tokenModel = mTokenRepository.getToken();
-        String accessToken = tokenModel.getAccessToken();
-        Logger.e(TAG, "accessToken: " + accessToken);
-        return mDashboardRepository.getVerbatologInfo(accessToken);
+        return tokenModel.getAccessToken();
     }
 
 }

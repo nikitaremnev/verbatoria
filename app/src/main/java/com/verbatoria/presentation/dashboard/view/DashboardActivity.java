@@ -38,6 +38,7 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         mDashboardPresenter.bindView(this);
         mDashboardPresenter.updateVerbatologInfo();
+        mDashboardPresenter.updateVerbatologEvents();
     }
 
     @Override
@@ -59,6 +60,11 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
     @Override
     public void showVerbatologInfo(String verbatologToString) {
         mTokenTextView.setText(verbatologToString);
+    }
+
+    @Override
+    public void showVerbatologEvents(String verbatologEventsToString) {
+        mExpiresTextView.setText(verbatologEventsToString);
     }
 
 }
