@@ -5,7 +5,7 @@ import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.presentation.login.view.ILoginView;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.rx.IRxSchedulers;
+import com.verbatoria.utils.RxSchedulers;
 
 /**
  * Реализация презентера для логина
@@ -19,11 +19,8 @@ public class LoginPresenter implements ILoginPresenter {
     private ILoginInteractor mLoginInteractor;
     private ILoginView mLoginView;
 
-    IRxSchedulers mRxSchedulers;
-
-    public LoginPresenter(ILoginInteractor loginInteractor, IRxSchedulers rxSchedulers) {
+    public LoginPresenter(ILoginInteractor loginInteractor) {
         this.mLoginInteractor = loginInteractor;
-        mRxSchedulers = rxSchedulers;
     }
 
     @Override
@@ -40,8 +37,8 @@ public class LoginPresenter implements ILoginPresenter {
     public void login() {
         mLoginView.showProgress();
         mLoginInteractor.login(mLoginView.getPhone(), mLoginView.getPassword())
-                .subscribeOn(mRxSchedulers.getNewThreadScheduler())
-                .observeOn(mRxSchedulers.getMainThreadScheduler())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleSuccessLogin, this::handleErrorLogin);
     }
 

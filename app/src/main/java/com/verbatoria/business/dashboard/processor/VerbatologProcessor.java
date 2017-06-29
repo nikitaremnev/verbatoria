@@ -1,8 +1,17 @@
 package com.verbatoria.business.dashboard.processor;
 
+import com.verbatoria.business.dashboard.DashboardInteractorException;
+import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.data.network.response.VerbatologChildResponseModel;
 import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
+import com.verbatoria.utils.DateUtils;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,8 +33,36 @@ public class VerbatologProcessor {
 
     public static VerbatologModel convertEventsResponseToVerbatologModel(VerbatologModel verbatologModel,
                                                                    List<VerbatologEventResponseModel> verbatologEventResponseModelList) {
-
+        List<EventModel> verbatologEventsList = new ArrayList<>();
+        for (int i = 0; i < verbatologEventResponseModelList.size(); i ++) {
+            verbatologEventsList.add(convertVerbatologEventResponseToEventModel(verbatologEventResponseModelList.get(i)));
+        }
+        verbatologModel.setEvents(verbatologEventsList);
         return verbatologModel;
     }
 
+    private static EventModel convertVerbatologEventResponseToEventModel(VerbatologEventResponseModel verbatologEventResponseModel) {
+        EventModel eventModel = new EventModel();
+        eventModel.setId(verbatologEventResponseModel.getId());
+        try {
+            eventModel.setStartAt(DateUtils.parseDate(verbatologEventResponseModel.getStartAt()));
+            eventModel.setEndAt(DateUtils.parseDate(verbatologEventResponseModel.getEndAt()));
+        } catch (ParseException e) {
+            throw new DashboardInteractorException(e.getMessage());
+        }
+        eventModel.setChild(convertVerbatologChildResponseToEventModel(verbatologEventResponseModel.getChild()));
+        return eventModel;
+    }
+
+    private static ChildModel convertVerbatologChildResponseToEventModel(VerbatologChildResponseModel verbatologChildResponseModel) throws DashboardInteractorException {
+        ChildModel childModel = new ChildModel();
+        childModel.setId(verbatologChildResponseModel.getId());
+        childModel.setName(verbatologChildResponseModel.getName());
+        try {
+            childModel.setBirthday(DateUtils.parseDate(verbatologChildResponseModel.getBirthday()));
+        } catch (ParseException e) {
+            throw new DashboardInteractorException(e.getMessage());
+        }
+        return childModel;
+    }
 }

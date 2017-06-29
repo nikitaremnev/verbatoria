@@ -119,11 +119,7 @@ public class AuthorityFragment extends Fragment implements INFCCallback {
         String currentDate = simpleDateFormat.format(System.currentTimeMillis());
         Log.e("currentDate", "currentDate: " + currentDate);
         try {
-            if (simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate))) {
-                return true;
-            } else {
-                return false;
-            }
+            return simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate));
         } catch (ParseException e) {
             return false;
         }

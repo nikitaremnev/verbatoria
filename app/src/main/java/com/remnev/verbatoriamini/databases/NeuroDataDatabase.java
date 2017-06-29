@@ -186,7 +186,7 @@ public class NeuroDataDatabase extends SQLiteOpenHelper implements BaseColumns {
 
     public static void removeAll(Context mContext) {
         NeuroDataDatabase sqh = NeuroDataDatabase.getInstance(mContext);
-        SQLiteDatabase sqdb = sqh.getMyWritableDatabase(mContext);
+        SQLiteDatabase sqdb = getMyWritableDatabase(mContext);
         try {
             sqdb.delete(BCI_MEDIATION_TABLE_NAME, null, null);
             sqdb.delete(BCI_EEG_TABLE_NAME, null, null);

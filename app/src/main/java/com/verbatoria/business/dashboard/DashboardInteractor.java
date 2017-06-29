@@ -3,11 +3,8 @@ package com.verbatoria.business.dashboard;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.dashboard.processor.VerbatologProcessor;
 import com.verbatoria.business.token.models.TokenModel;
-import com.verbatoria.data.network.response.VerbatologEventResponseModel;
-import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import java.util.List;
 import rx.Observable;
 
 /**

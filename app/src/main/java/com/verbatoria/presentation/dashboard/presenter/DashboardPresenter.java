@@ -4,13 +4,9 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.data.network.response.VerbatologEventResponseModel;
-import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.presentation.dashboard.view.IDashboardView;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.rx.IRxSchedulers;
-
-import java.util.List;
+import com.verbatoria.utils.RxSchedulers;
 
 /**
  * Реализация презентера для dashboard
@@ -23,13 +19,10 @@ public class DashboardPresenter implements IDashboardPresenter {
 
     private IDashboardInteractor mDashboardInteractor;
     private IDashboardView mDashboardView;
-    private IRxSchedulers mRxSchedulers;
     private VerbatologModel mVerbatologModel;
 
-    public DashboardPresenter(IDashboardInteractor dashboardInteractor,
-                              IRxSchedulers rxSchedulers) {
+    public DashboardPresenter(IDashboardInteractor dashboardInteractor) {
         mDashboardInteractor = dashboardInteractor;
-        mRxSchedulers = rxSchedulers;
     }
 
     @Override
@@ -47,16 +40,16 @@ public class DashboardPresenter implements IDashboardPresenter {
     @Override
     public void updateVerbatologInfo() {
         mDashboardInteractor.getVerbatologInfo(mVerbatologModel)
-                .subscribeOn(mRxSchedulers.getNewThreadScheduler())
-                .observeOn(mRxSchedulers.getMainThreadScheduler())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleVerbatologInfoReceived, this::handleVerbatologInfoLoadingFailed);
     }
 
     @Override
     public void updateVerbatologEvents() {
         mDashboardInteractor.getVerbatologEvents(mVerbatologModel)
-                .subscribeOn(mRxSchedulers.getNewThreadScheduler())
-                .observeOn(mRxSchedulers.getMainThreadScheduler())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 

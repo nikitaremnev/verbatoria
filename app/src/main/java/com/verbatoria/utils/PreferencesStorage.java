@@ -14,9 +14,9 @@ public class PreferencesStorage {
 
     private static final String TAG = PreferencesStorage.class.getSimpleName();
 
-    public static final String TOKEN_PREFS = "token";
-    public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
-    public static final String EXPIRES_TOKEN = "EXPIRES_TOKEN";
+    private static final String TOKEN_PREFS = "token";
+    private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
+    private static final String EXPIRES_TOKEN = "EXPIRES_TOKEN";
 
     private SharedPreferences mTokenPreferences;
 
@@ -24,14 +24,6 @@ public class PreferencesStorage {
 
     @Inject
     public Context mContext;
-
-    public void registerListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
-        mTokenPreferences.registerOnSharedPreferenceChangeListener(listener);
-    }
-
-    public void unregisterListener(SharedPreferences.OnSharedPreferenceChangeListener listener) {
-        mTokenPreferences.unregisterOnSharedPreferenceChangeListener(listener);
-    }
 
     public static PreferencesStorage getInstance() {
         if (sInstance == null)

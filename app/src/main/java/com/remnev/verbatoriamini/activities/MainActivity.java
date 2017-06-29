@@ -667,7 +667,7 @@ public class MainActivity extends AppCompatActivity
 
     private static ArrayList<Pair<Long, String>> getBCIItems(Context context) {
         NeuroDataDatabase sqh = NeuroDataDatabase.getInstance(context);
-        SQLiteDatabase sqdb = sqh.getMyWritableDatabase(context);
+        SQLiteDatabase sqdb = NeuroDataDatabase.getMyWritableDatabase(context);
 
         ArrayList<Pair<Long, String>> bciItems = new ArrayList<>();
 
@@ -1004,11 +1004,7 @@ public class MainActivity extends AppCompatActivity
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currentDate = simpleDateFormat.format(System.currentTimeMillis());
         try {
-            if (simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate))) {
-                return true;
-            } else {
-                return false;
-            }
+            return simpleDateFormat.parse(certificate.getExpiry()).before(simpleDateFormat.parse(currentDate));
         } catch (ParseException e) {
             return false;
         }

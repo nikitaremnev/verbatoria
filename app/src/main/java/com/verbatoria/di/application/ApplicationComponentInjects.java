@@ -1,13 +1,13 @@
-package com.verbatoria.di.utils;
+package com.verbatoria.di.application;
 
 import com.verbatoria.business.token.processor.TokenProcessor;
 
 /**
- * Интерфейс для inject-методов для utils
+ * Интерфейс для inject-методов для context
  *
  * @author nikitaremnev
  */
-public interface UtilsComponent {
+public interface ApplicationComponentInjects {
 
     void inject(TokenProcessor tokenProcessor);
 

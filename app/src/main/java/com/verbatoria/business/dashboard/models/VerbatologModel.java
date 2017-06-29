@@ -1,10 +1,8 @@
 package com.verbatoria.business.dashboard.models;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
+import java.util.List;
 
 /**
  * Реализация модели для Вербатолога
@@ -23,12 +21,12 @@ public class VerbatologModel {
 
     private String mEmail;
 
+    private List<EventModel> mEvents;
+
     public VerbatologModel() {
 
     }
 
-    @JsonGetter("first_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getFirstName() {
         return mFirstName;
     }
@@ -37,8 +35,6 @@ public class VerbatologModel {
         mFirstName = firstName;
     }
 
-    @JsonGetter("last_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getLastName() {
         return mLastName;
     }
@@ -47,8 +43,6 @@ public class VerbatologModel {
         mLastName = lastName;
     }
 
-    @JsonGetter("middle_name")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getMiddleName() {
         return mMiddleName;
     }
@@ -57,8 +51,6 @@ public class VerbatologModel {
         mMiddleName = middleName;
     }
 
-    @JsonGetter("phone")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getPhone() {
         return mPhone;
     }
@@ -67,14 +59,20 @@ public class VerbatologModel {
         mPhone = phone;
     }
 
-    @JsonGetter("email")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getEmail() {
         return mEmail;
     }
 
     public void setEmail(String email) {
         mEmail = email;
+    }
+
+    public List<EventModel> getEvents() {
+        return mEvents;
+    }
+
+    public void setEvents(List<EventModel> events) {
+        mEvents = events;
     }
 
     @Override
@@ -90,12 +88,13 @@ public class VerbatologModel {
                 Objects.equal(mLastName, that.mLastName) &&
                 Objects.equal(mMiddleName, that.mMiddleName) &&
                 Objects.equal(mPhone, that.mPhone) &&
-                Objects.equal(mEmail, that.mEmail);
+                Objects.equal(mEmail, that.mEmail) &&
+                Objects.equal(mEvents, that.mEvents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail);
+        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mEvents);
     }
 
     @Override
@@ -106,6 +105,7 @@ public class VerbatologModel {
                 .add("mMiddleName", mMiddleName)
                 .add("mPhone", mPhone)
                 .add("mEmail", mEmail)
+                .add("mEvents", mEvents)
                 .toString();
     }
 }

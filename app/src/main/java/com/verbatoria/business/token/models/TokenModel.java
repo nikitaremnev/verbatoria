@@ -5,6 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.verbatoria.data.network.response.LoginResponseModel;
+import com.verbatoria.utils.DateUtils;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Модель токена - возращается после регистрации
@@ -15,14 +19,12 @@ public class TokenModel {
 
     private String mAccessToken;
 
-    private String mExpiresToken;
+    private Date mExpireDate;
 
     public TokenModel() {
 
     }
 
-    @JsonGetter("access_token")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getAccessToken() {
         return mAccessToken;
     }
@@ -31,14 +33,20 @@ public class TokenModel {
         mAccessToken = accessToken;
     }
 
-    @JsonGetter("expires_at")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getExpiresToken() {
-        return mExpiresToken;
+    public Date getExpireDate() {
+        return mExpireDate;
     }
 
-    public void setExpiresToken(String expiresToken) {
-        mExpiresToken = expiresToken;
+    public String getExpireDateString() throws ParseException {
+        try {
+            return DateUtils.toString(mExpireDate);
+        } catch (ParseException e) {
+            throw e;
+        }
+    }
+
+    public void setExpireDate(Date expireDate) {
+        mExpireDate = expireDate;
     }
 
     @Override
@@ -51,19 +59,19 @@ public class TokenModel {
         }
         TokenModel that = (TokenModel) o;
         return Objects.equal(mAccessToken, that.mAccessToken) &&
-                Objects.equal(mExpiresToken, that.mExpiresToken);
+                Objects.equal(mExpireDate, that.mExpireDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mAccessToken, mExpiresToken);
+        return Objects.hashCode(mAccessToken, mExpireDate);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("mAccessToken", mAccessToken)
-                .add("mExpiresToken", mExpiresToken)
+                .add("mExpireDate", mExpireDate)
                 .toString();
     }
 

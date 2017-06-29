@@ -77,7 +77,7 @@ public class NeuroApplicationClass extends Application {
     }
 
     public void setRootView(View rootView) {
-        this.rootView = rootView;
+        NeuroApplicationClass.rootView = rootView;
     }
 
     public void connectToBluetooth() {

@@ -6,9 +6,7 @@ import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
-
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -16,7 +14,6 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
-
 import static com.verbatoria.data.network.api.APIConstants.SESSION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.TOKEN_HEADER_KEY;
 

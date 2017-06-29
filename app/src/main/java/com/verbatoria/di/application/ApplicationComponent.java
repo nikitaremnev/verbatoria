@@ -4,9 +4,8 @@ import com.verbatoria.di.dashboard.DashboardComponent;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.di.login.LoginComponent;
 import com.verbatoria.di.login.LoginModule;
-import com.verbatoria.di.token.TokenComponent;
-import com.verbatoria.di.utils.UtilsComponent;
-import com.verbatoria.di.utils.UtilsModule;
+import com.verbatoria.di.token.TokenComponentInjects;
+import com.verbatoria.di.token.TokenModule;
 
 import javax.inject.Singleton;
 import dagger.Component;
@@ -17,8 +16,8 @@ import dagger.Component;
  * @author nikitaremnev
  */
 @Singleton
-@Component(modules = {ApplicationModule.class, UtilsModule.class})
-public interface ApplicationComponent extends TokenComponent, UtilsComponent {
+@Component(modules = {ApplicationModule.class, TokenModule.class})
+public interface ApplicationComponent extends ApplicationComponentInjects, TokenComponentInjects {
 
     LoginComponent addModule(LoginModule loginModule);
 

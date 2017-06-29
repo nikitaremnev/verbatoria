@@ -8,7 +8,7 @@ import com.verbatoria.utils.PreferencesStorage;
  *
  * @author nikitaremnev
  */
-public interface TokenComponent {
+public interface TokenComponentInjects {
 
     void inject(PreferencesStorage preferencesStorage);
 
