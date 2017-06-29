@@ -2,12 +2,10 @@ package com.verbatoria.presentation.login.presenter;
 
 import android.support.annotation.NonNull;
 import com.verbatoria.business.login.ILoginInteractor;
-import com.verbatoria.business.token.interactor.ITokenInteractor;
-import com.verbatoria.data.network.response.LoginResponseModel;
+import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.presentation.login.view.ILoginView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.rx.IRxSchedulers;
-import com.verbatoria.utils.rx.RxSchedulers;
 
 /**
  * Реализация презентера для логина
@@ -19,14 +17,12 @@ public class LoginPresenter implements ILoginPresenter {
     private static final String TAG = LoginPresenter.class.getSimpleName();
 
     private ILoginInteractor mLoginInteractor;
-    private ITokenInteractor mTokenInteractor;
     private ILoginView mLoginView;
 
     IRxSchedulers mRxSchedulers;
 
-    public LoginPresenter(ILoginInteractor loginInteractor, ITokenInteractor tokenInteractor, IRxSchedulers rxSchedulers) {
+    public LoginPresenter(ILoginInteractor loginInteractor, IRxSchedulers rxSchedulers) {
         this.mLoginInteractor = loginInteractor;
-        this.mTokenInteractor = tokenInteractor;
         mRxSchedulers = rxSchedulers;
     }
 
@@ -49,9 +45,8 @@ public class LoginPresenter implements ILoginPresenter {
                 .subscribe(this::handleSuccessLogin, this::handleErrorLogin);
     }
 
-    private void handleSuccessLogin(@NonNull LoginResponseModel loginResponseModel) {
-        Logger.e(TAG, loginResponseModel.toString());
-        saveToken(loginResponseModel);
+    private void handleSuccessLogin(TokenModel tokenModel) {
+        Logger.e(TAG, tokenModel.toString());
         mLoginView.hideProgress();
         mLoginView.loginSuccess();
     }
@@ -60,13 +55,6 @@ public class LoginPresenter implements ILoginPresenter {
         Logger.exc(TAG, throwable);
         mLoginView.hideProgress();
         mLoginView.showError(throwable.getMessage());
-    }
-
-    private void saveToken(@NonNull LoginResponseModel loginResponseModel) {
-        mTokenInteractor.updateToken(loginResponseModel)
-                .subscribeOn(mRxSchedulers.getMainThreadScheduler())
-                .observeOn(mRxSchedulers.getMainThreadScheduler())
-                .subscribe();
     }
 
 }

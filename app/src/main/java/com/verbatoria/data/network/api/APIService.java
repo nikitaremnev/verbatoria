@@ -9,6 +9,7 @@ import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -41,7 +42,7 @@ public interface APIService {
                                                               @Body StartSessionRequestModel eventId);
 
     @POST(APIConstants.ADD_RESULTS_TO_SESSION_URL)
-    Observable<VerbatologInfoResponseModel> addResultsToSessionRequest(@Path(value = SESSION_ID_PATH_KEY) String sessionId,
-                                                                  @Header(TOKEN_HEADER_KEY) String accessToken);
+    Observable<ResponseBody> addResultsToSessionRequest(@Path(value = SESSION_ID_PATH_KEY) String sessionId,
+                                                        @Header(TOKEN_HEADER_KEY) String accessToken);
 
 }

@@ -1,5 +1,7 @@
 package com.verbatoria.business.dashboard;
 
+import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.business.dashboard.processor.VerbatologProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
@@ -26,13 +28,13 @@ public class DashboardInteractor implements IDashboardInteractor {
     }
 
     @Override
-    public Observable<VerbatologInfoResponseModel> getVerbatologInfo() {
-        return mDashboardRepository.getVerbatologInfo(getAccessToken());
+    public Observable<VerbatologModel> getVerbatologInfo(VerbatologModel verbatolog) {
+        return mDashboardRepository.getVerbatologInfo(getAccessToken()).map(item -> VerbatologProcessor.convertInfoResponseToVerbatologModel(verbatolog, item));
     }
 
     @Override
-    public Observable<List<VerbatologEventResponseModel>> getVerbatologEvents() {
-        return mDashboardRepository.getVerbatologEvents(getAccessToken());
+    public Observable<VerbatologModel> getVerbatologEvents(VerbatologModel verbatolog) {
+        return mDashboardRepository.getVerbatologEvents(getAccessToken()).map(item -> VerbatologProcessor.convertEventsResponseToVerbatologModel(verbatolog, item));
     }
 
     private String getAccessToken() {

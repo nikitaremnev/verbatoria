@@ -5,6 +5,7 @@ import com.verbatoria.business.login.LoginInteractor;
 import com.verbatoria.business.token.interactor.ITokenInteractor;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
+import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 import com.verbatoria.presentation.login.presenter.LoginPresenter;
 import com.verbatoria.utils.rx.IRxSchedulers;
@@ -28,16 +29,15 @@ public class LoginModule {
 
     @Provides
     @LoginScope
-    ILoginInteractor provideLoginInteractor(ILoginRepository loginRepository) {
-        return new LoginInteractor(loginRepository);
+    ILoginInteractor provideLoginInteractor(ILoginRepository loginRepository, ITokenRepository tokenRepository) {
+        return new LoginInteractor(loginRepository, tokenRepository);
     }
 
     @Provides
     @LoginScope
     ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor,
-                                          ITokenInteractor tokenInteractor,
                                           IRxSchedulers rxSchedulers) {
-        return new LoginPresenter(loginInteractor, tokenInteractor, rxSchedulers);
+        return new LoginPresenter(loginInteractor, rxSchedulers);
     }
 
 }

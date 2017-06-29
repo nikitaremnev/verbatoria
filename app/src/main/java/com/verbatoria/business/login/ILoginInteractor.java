@@ -1,6 +1,6 @@
 package com.verbatoria.business.login;
 
-import com.verbatoria.data.network.response.LoginResponseModel;
+import com.verbatoria.business.token.models.TokenModel;
 import rx.Observable;
 
 /**
@@ -10,6 +10,6 @@ import rx.Observable;
  */
 public interface ILoginInteractor {
 
-    Observable<LoginResponseModel> login(String phone, String password);
+    Observable<TokenModel> login(String phone, String password);
 
 }

@@ -3,6 +3,7 @@ package com.verbatoria.presentation.dashboard.presenter;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
+import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.presentation.dashboard.view.IDashboardView;
@@ -23,6 +24,7 @@ public class DashboardPresenter implements IDashboardPresenter {
     private IDashboardInteractor mDashboardInteractor;
     private IDashboardView mDashboardView;
     private IRxSchedulers mRxSchedulers;
+    private VerbatologModel mVerbatologModel;
 
     public DashboardPresenter(IDashboardInteractor dashboardInteractor,
                               IRxSchedulers rxSchedulers) {
@@ -33,16 +35,18 @@ public class DashboardPresenter implements IDashboardPresenter {
     @Override
     public void bindView(@NonNull IDashboardView dashboardView) {
         mDashboardView = dashboardView;
+        mVerbatologModel = new VerbatologModel();
     }
 
     @Override
     public void unbindView() {
         mDashboardView = null;
+        mVerbatologModel = null;
     }
 
     @Override
     public void updateVerbatologInfo() {
-        mDashboardInteractor.getVerbatologInfo()
+        mDashboardInteractor.getVerbatologInfo(mVerbatologModel)
                 .subscribeOn(mRxSchedulers.getNewThreadScheduler())
                 .observeOn(mRxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleVerbatologInfoReceived, this::handleVerbatologInfoLoadingFailed);
@@ -50,24 +54,24 @@ public class DashboardPresenter implements IDashboardPresenter {
 
     @Override
     public void updateVerbatologEvents() {
-        mDashboardInteractor.getVerbatologEvents()
+        mDashboardInteractor.getVerbatologEvents(mVerbatologModel)
                 .subscribeOn(mRxSchedulers.getNewThreadScheduler())
                 .observeOn(mRxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 
-    private void handleVerbatologInfoReceived(@NonNull VerbatologInfoResponseModel verbatologInfoResponseModel) {
-        Logger.e(TAG, verbatologInfoResponseModel.toString());
-        mDashboardView.showVerbatologInfo(verbatologInfoResponseModel.toString());
+    private void handleVerbatologInfoReceived(@NonNull VerbatologModel verbatologModel) {
+        Logger.e(TAG, verbatologModel.toString());
+        mDashboardView.showVerbatologInfo(verbatologModel.toString());
     }
 
     private void handleVerbatologInfoLoadingFailed(Throwable throwable) {
         Logger.exc(TAG, throwable);
     }
 
-    private void handleVerbatologEventsReceived(@NonNull List<VerbatologEventResponseModel> verbatologEventResponseModelList) {
-        Logger.e(TAG, verbatologEventResponseModelList.toString());
-        mDashboardView.showVerbatologEvents(verbatologEventResponseModelList.toString());
+    private void handleVerbatologEventsReceived(@NonNull VerbatologModel verbatologModel) {
+        Logger.e(TAG, verbatologModel.toString());
+        mDashboardView.showVerbatologEvents(verbatologModel.toString());
     }
 
     private void handleVerbatologEventsLoadingFailed(Throwable throwable) {
