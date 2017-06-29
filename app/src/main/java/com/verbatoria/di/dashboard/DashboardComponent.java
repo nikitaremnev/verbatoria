@@ -1,6 +1,6 @@
 package com.verbatoria.di.dashboard;
 
-import com.verbatoria.di.application.TokenModule;
+import com.verbatoria.di.token.TokenModule;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 
 import dagger.Subcomponent;

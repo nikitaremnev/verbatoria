@@ -17,6 +17,6 @@ public interface IDashboardView {
     void showProgress();
     void hideProgress();
 
-    void showToken(TokenModel tokenModel);
+    void showVerbatologInfo(String verbatologToString);
 
 }

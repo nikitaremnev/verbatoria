@@ -23,13 +23,10 @@ public class APIFactory {
     private static final OkHttpClient OK_HTTP_CLIENT;
 
     static {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OK_HTTP_CLIENT = new OkHttpClient().newBuilder()
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-//                .addInterceptor(interceptor)
                 .build();
     }
 

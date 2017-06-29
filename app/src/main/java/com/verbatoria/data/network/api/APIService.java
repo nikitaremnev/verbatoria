@@ -3,7 +3,6 @@ package com.verbatoria.data.network.api;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
-
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;

@@ -1,4 +1,4 @@
-package com.verbatoria.di.application;
+package com.verbatoria.di.token;
 
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;

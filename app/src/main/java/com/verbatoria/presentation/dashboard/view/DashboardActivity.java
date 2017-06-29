@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
 import javax.inject.Inject;
@@ -38,7 +37,7 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         mDashboardPresenter.bindView(this);
-        mDashboardPresenter.readToken();
+        mDashboardPresenter.updateVerbatologInfo();
     }
 
     @Override
@@ -58,8 +57,8 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
     }
 
     @Override
-    public void showToken(TokenModel tokenModel) {
-        mTokenTextView.setText(tokenModel.getAccessToken());
-        mExpiresTextView.setText(tokenModel.getExpiresToken());
+    public void showVerbatologInfo(String verbatologToString) {
+        mTokenTextView.setText(verbatologToString);
     }
+
 }

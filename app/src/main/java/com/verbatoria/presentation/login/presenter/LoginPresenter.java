@@ -24,10 +24,10 @@ public class LoginPresenter implements ILoginPresenter {
 
     IRxSchedulers mRxSchedulers;
 
-    public LoginPresenter(ILoginInteractor loginInteractor, ITokenInteractor tokenInteractor) {
+    public LoginPresenter(ILoginInteractor loginInteractor, ITokenInteractor tokenInteractor, IRxSchedulers rxSchedulers) {
         this.mLoginInteractor = loginInteractor;
         this.mTokenInteractor = tokenInteractor;
-        mRxSchedulers = new RxSchedulers();
+        mRxSchedulers = rxSchedulers;
     }
 
     @Override

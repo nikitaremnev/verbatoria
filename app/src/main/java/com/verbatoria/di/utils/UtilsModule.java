@@ -1,4 +1,4 @@
-package com.verbatoria.di.application;
+package com.verbatoria.di.utils;
 
 import com.verbatoria.utils.rx.IRxSchedulers;
 import com.verbatoria.utils.rx.RxSchedulers;

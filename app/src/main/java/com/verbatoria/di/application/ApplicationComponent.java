@@ -1,13 +1,12 @@
 package com.verbatoria.di.application;
 
-import com.verbatoria.business.token.processor.TokenProcessor;
-import com.verbatoria.data.repositories.dashboard.DashboardRepository;
-import com.verbatoria.data.repositories.token.TokenRepository;
 import com.verbatoria.di.dashboard.DashboardComponent;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.di.login.LoginComponent;
 import com.verbatoria.di.login.LoginModule;
-import com.verbatoria.utils.PreferencesStorage;
+import com.verbatoria.di.token.TokenComponent;
+import com.verbatoria.di.utils.UtilsComponent;
+import com.verbatoria.di.utils.UtilsModule;
 
 import javax.inject.Singleton;
 import dagger.Component;
@@ -19,16 +18,10 @@ import dagger.Component;
  */
 @Singleton
 @Component(modules = {ApplicationModule.class, UtilsModule.class})
-public interface ApplicationComponent {
+public interface ApplicationComponent extends TokenComponent, UtilsComponent {
 
     LoginComponent addModule(LoginModule loginModule);
 
     DashboardComponent addModule(DashboardModule dashboardModule);
-
-    void inject(PreferencesStorage preferencesStorage);
-
-    void inject(TokenProcessor tokenProcessor);
-
-    void inject(DashboardRepository dashboardRepository);
 
 }

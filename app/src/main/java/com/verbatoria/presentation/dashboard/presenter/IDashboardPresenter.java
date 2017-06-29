@@ -14,5 +14,5 @@ public interface IDashboardPresenter {
     void bindView(@NonNull IDashboardView dashboardView);
     void unbindView();
 
-    void readToken();
+    void updateVerbatologInfo();
 }

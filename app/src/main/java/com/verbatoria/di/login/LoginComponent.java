@@ -1,6 +1,6 @@
 package com.verbatoria.di.login;
 
-import com.verbatoria.di.application.TokenModule;
+import com.verbatoria.di.token.TokenModule;
 import com.verbatoria.presentation.login.view.LoginActivity;
 import dagger.Subcomponent;
 

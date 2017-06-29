@@ -13,8 +13,8 @@ import rx.Single;
  */
 public interface ITokenRepository {
 
-    Observable<TokenModel> getToken();
+    TokenModel getToken();
 
-    Single<TokenModel> updateToken(TokenModel tokenModel);
+    TokenModel updateToken(TokenModel tokenModel);
 
 }

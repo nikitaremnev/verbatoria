@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     public void loginSuccess() {
         Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

@@ -1,12 +1,12 @@
 package com.verbatoria.presentation.dashboard.presenter;
 
 import android.support.annotation.NonNull;
-import com.verbatoria.business.token.interactor.ITokenInteractor;
-import com.verbatoria.business.token.models.TokenModel;
+
+import com.verbatoria.business.dashboard.IDashboardInteractor;
+import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.presentation.dashboard.view.IDashboardView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.rx.IRxSchedulers;
-import com.verbatoria.utils.rx.RxSchedulers;
 
 /**
  * Реализация презентера для dashboard
@@ -17,14 +17,14 @@ public class DashboardPresenter implements IDashboardPresenter {
 
     private static final String TAG = DashboardPresenter.class.getSimpleName();
 
-    private ITokenInteractor mTokenInteractor;
+    private IDashboardInteractor mDashboardInteractor;
     private IDashboardView mDashboardView;
+    private IRxSchedulers mRxSchedulers;
 
-    IRxSchedulers mRxSchedulers;
-
-    public DashboardPresenter(ITokenInteractor tokenInteractor) {
-        this.mTokenInteractor = tokenInteractor;
-        mRxSchedulers = new RxSchedulers();
+    public DashboardPresenter(IDashboardInteractor dashboardInteractor,
+                              IRxSchedulers rxSchedulers) {
+        mDashboardInteractor = dashboardInteractor;
+        mRxSchedulers = rxSchedulers;
     }
 
     @Override
@@ -38,22 +38,20 @@ public class DashboardPresenter implements IDashboardPresenter {
     }
 
     @Override
-    public void readToken() {
-        mDashboardView.showProgress();
-        mTokenInteractor.getToken()
-                .subscribeOn(mRxSchedulers.getMainThreadScheduler())
+    public void updateVerbatologInfo() {
+        mDashboardInteractor.getVerbatologInfo()
+                .subscribeOn(mRxSchedulers.getNewThreadScheduler())
                 .observeOn(mRxSchedulers.getMainThreadScheduler())
-                .subscribe(this::handleTokenReceived, this::handleTokenError);
+                .subscribe(this::handleVerbatologInfoReceived, this::handleVerbatologInfoLoadingFailed);
     }
 
-    private void handleTokenReceived(@NonNull TokenModel tokenModel) {
-        Logger.e(TAG, "handleTokenReceived");
-        mDashboardView.hideProgress();
-        mDashboardView.showToken(tokenModel);
+    private void handleVerbatologInfoReceived(@NonNull VerbatologInfoResponseModel verbatologInfoResponseModel) {
+        Logger.e(TAG, verbatologInfoResponseModel.toString());
+        mDashboardView.showVerbatologInfo(verbatologInfoResponseModel.toString());
     }
 
-    private void handleTokenError(Throwable throwable) {
-        Logger.e(TAG, "handleTokenError");
-        mDashboardView.hideProgress();
+    private void handleVerbatologInfoLoadingFailed(Throwable throwable) {
+        Logger.exc(TAG, throwable);
     }
+
 }

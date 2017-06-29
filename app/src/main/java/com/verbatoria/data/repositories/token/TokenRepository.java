@@ -1,11 +1,8 @@
 package com.verbatoria.data.repositories.token;
 
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.utils.PreferencesStorage;
-
-import java.util.concurrent.Callable;
-
-import rx.Observable;
 import rx.Single;
 
 /**
@@ -16,22 +13,18 @@ import rx.Single;
 public class TokenRepository implements ITokenRepository {
 
     @Override
-    public Observable<TokenModel> getToken() {
-        return Observable.fromCallable(() -> {
-            TokenModel tokenModel = new TokenModel();
-            tokenModel.setAccessToken(PreferencesStorage.getInstance().getAccessToken());
-            tokenModel.setExpiresToken(PreferencesStorage.getInstance().getExpiresToken());
-            return tokenModel;
-        });
+    public TokenModel getToken() {
+        TokenModel tokenModel = new TokenModel();
+        tokenModel.setAccessToken(PreferencesStorage.getInstance().getAccessToken());
+        tokenModel.setExpiresToken(PreferencesStorage.getInstance().getExpiresToken());
+        return tokenModel;
     }
 
     @Override
-    public Single<TokenModel> updateToken(TokenModel tokenModel) {
-        return Single.fromCallable(() -> {
-            PreferencesStorage.getInstance().setAccessToken(tokenModel.getAccessToken());
-            PreferencesStorage.getInstance().setExpiresToken(tokenModel.getExpiresToken());
-            return tokenModel;
-        });
+    public TokenModel updateToken(TokenModel tokenModel) {
+        PreferencesStorage.getInstance().setAccessToken(tokenModel.getAccessToken());
+        PreferencesStorage.getInstance().setExpiresToken(tokenModel.getExpiresToken());
+        return tokenModel;
     }
 
 }

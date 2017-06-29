@@ -7,6 +7,7 @@ import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 import com.verbatoria.presentation.login.presenter.LoginPresenter;
+import com.verbatoria.utils.rx.IRxSchedulers;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,8 +34,10 @@ public class LoginModule {
 
     @Provides
     @LoginScope
-    ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor, ITokenInteractor tokenInteractor) {
-        return new LoginPresenter(loginInteractor, tokenInteractor);
+    ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor,
+                                          ITokenInteractor tokenInteractor,
+                                          IRxSchedulers rxSchedulers) {
+        return new LoginPresenter(loginInteractor, tokenInteractor, rxSchedulers);
     }
 
 }

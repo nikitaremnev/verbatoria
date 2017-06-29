@@ -4,7 +4,6 @@ import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-
 import rx.Observable;
 import rx.Single;
 
@@ -25,13 +24,15 @@ public class TokenInteractor implements ITokenInteractor {
 
     @Override
     public Observable<TokenModel> getToken() {
-        return mTokenRepository.getToken();
+        return Observable.fromCallable(() -> mTokenRepository.getToken());
     }
 
     @Override
     public Single<TokenModel> updateToken(LoginResponseModel loginResponseModel) {
-        TokenProcessor tokenProcessor = new TokenProcessor();
-        return mTokenRepository.updateToken(tokenProcessor.obtainToken(loginResponseModel));
+        return Single.fromCallable(() -> {
+            TokenProcessor tokenProcessor = new TokenProcessor();
+            return mTokenRepository.updateToken(tokenProcessor.obtainToken(loginResponseModel));
+        });
     }
 
 }
