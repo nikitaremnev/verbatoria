@@ -1,7 +1,12 @@
 package com.verbatoria.business.dashboard.models;
 
+import android.content.Context;
+import android.text.TextUtils;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.remnev.verbatoriamini.R;
+
 import java.util.List;
 
 /**
@@ -49,6 +54,20 @@ public class VerbatologModel {
 
     public void setMiddleName(String middleName) {
         mMiddleName = middleName;
+    }
+
+    public String getFullName() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (!TextUtils.isEmpty(mLastName)) {
+            stringBuilder.append(mLastName);
+        }
+        if (!TextUtils.isEmpty(mFirstName)) {
+            stringBuilder.append(TextUtils.isEmpty(mLastName) ? mFirstName : " " + mFirstName);
+        }
+        if (!TextUtils.isEmpty(mMiddleName)) {
+            stringBuilder.append(TextUtils.isEmpty(mFirstName) ? mMiddleName : " " + mMiddleName);
+        }
+        return stringBuilder.toString();
     }
 
     public String getPhone() {

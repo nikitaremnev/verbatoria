@@ -1,15 +1,16 @@
 package com.verbatoria.presentation.dashboard.view;
 
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
-
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
+import com.verbatoria.presentation.dashboard.presenter.DashboardPresenter;
 import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
+import com.verbatoria.utils.Logger;
+
 import javax.inject.Inject;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -19,19 +20,19 @@ import butterknife.ButterKnife;
  */
 public class DashboardActivity extends AppCompatActivity implements IDashboardView {
 
+    private static final String TAG = DashboardActivity.class.getSimpleName();
+
     @Inject
     IDashboardPresenter mDashboardPresenter;
 
-    @BindView(R.id.token)
-    public TextView mTokenTextView;
-
-    @BindView(R.id.expires)
-    public TextView mExpiresTextView;
+    private IVerbatologInfoView mVerbatologInfoView;
+    private IVerbatologEventsView mVerbatologEventsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+        setUpFragments();
         ButterKnife.bind(this);
 
         //bind views
@@ -58,13 +59,36 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
     }
 
     @Override
-    public void showVerbatologInfo(String verbatologToString) {
-        mTokenTextView.setText(verbatologToString);
+    public void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail) {
+        Logger.e(TAG, verbatologFullName);
+        mVerbatologInfoView.showVerbatologName(verbatologFullName);
+        mVerbatologInfoView.showVerbatologPhone(verbatologPhone);
+        mVerbatologInfoView.showVerbatologEmail(verbatologEmail);
     }
 
     @Override
     public void showVerbatologEvents(String verbatologEventsToString) {
-        mExpiresTextView.setText(verbatologEventsToString);
+
     }
 
+    private void setUpFragments() {
+        setUpVerbatologInfoFragment();
+        setUpVerbatologEventsFragment();
+    }
+
+    private void setUpVerbatologInfoFragment() {
+        VerbatologInfoFragment verbatologInfoFragment = VerbatologInfoFragment.newInstance();
+        mVerbatologInfoView = verbatologInfoFragment;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.verbatolog_info_frame_layout, verbatologInfoFragment);
+        transaction.commit();
+    }
+
+    private void setUpVerbatologEventsFragment() {
+        VerbatologEventsFragment verbatologEventsFragment = VerbatologEventsFragment.newInstance();
+        mVerbatologEventsView = verbatologEventsFragment;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.verbatolog_events_frame_layout, verbatologEventsFragment);
+        transaction.commit();
+    }
 }

@@ -55,7 +55,7 @@ public class DashboardPresenter implements IDashboardPresenter {
 
     private void handleVerbatologInfoReceived(@NonNull VerbatologModel verbatologModel) {
         Logger.e(TAG, verbatologModel.toString());
-        mDashboardView.showVerbatologInfo(verbatologModel.toString());
+        mDashboardView.showVerbatologInfo(verbatologModel.getFullName(), verbatologModel.getPhone(), verbatologModel.getEmail());
     }
 
     private void handleVerbatologInfoLoadingFailed(Throwable throwable) {

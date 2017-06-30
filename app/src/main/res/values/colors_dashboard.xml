@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="verbatolog_status_green">#2F8D4F</color>
+    <color name="verbatolog_status_yellow">#FFEE00</color>
+    <color name="verbatolog_status_red">#BF0036</color>
+
+    <color name="verbatolog_info_background">#FFFFFF</color>
+
+    <color name="dashboard_background">#FFFFC5</color>
+
+</resources>
