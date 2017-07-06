@@ -1,18 +1,17 @@
 package com.verbatoria.presentation.dashboard.view;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+
 import com.remnev.verbatoriamini.R;
-import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
-import com.verbatoria.utils.Logger;
+import com.verbatoria.presentation.dashboard.view.main.DashboardMainFragment;
 
-import java.util.List;
-
-import javax.inject.Inject;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,78 +19,46 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-public class DashboardActivity extends AppCompatActivity implements IDashboardView {
+public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = DashboardActivity.class.getSimpleName();
 
-    @Inject
-    IDashboardPresenter mDashboardPresenter;
-
-    private IVerbatologInfoView mVerbatologInfoView;
-    private IVerbatologEventsView mVerbatologEventsView;
+    @BindView(R.id.bottom_navigation_view)
+    public BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        setUpFragments();
         ButterKnife.bind(this);
 
-        //bind views
-        VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
-        mDashboardPresenter.bindView(this);
-        mDashboardPresenter.updateVerbatologInfo();
-        mDashboardPresenter.updateVerbatologEvents();
+        setUpBottomNavigation();
+        setUpFragment(DashboardMainFragment.newInstance());
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mDashboardPresenter.unbindView();
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void hideProgress() {
-
-    }
-
-    @Override
-    public void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail) {
-        Logger.e(TAG, verbatologFullName);
-        mVerbatologInfoView.showVerbatologName(verbatologFullName);
-        mVerbatologInfoView.showVerbatologPhone(verbatologPhone);
-        mVerbatologInfoView.showVerbatologEmail(verbatologEmail);
-    }
-
-    @Override
-    public void showVerbatologEvents(List<EventModel> verbatologEvents) {
-        Logger.e(TAG, verbatologEvents.toString());
-        mVerbatologEventsView.showVerbatologEvents(verbatologEvents);
-    }
-
-    private void setUpFragments() {
-        setUpVerbatologInfoFragment();
-        setUpVerbatologEventsFragment();
-    }
-
-    private void setUpVerbatologInfoFragment() {
-        VerbatologInfoFragment verbatologInfoFragment = VerbatologInfoFragment.newInstance();
-        mVerbatologInfoView = verbatologInfoFragment;
+    private void setUpFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.verbatolog_info_frame_layout, verbatologInfoFragment);
+        transaction.replace(R.id.fragments_container, fragment);
         transaction.commit();
     }
 
-    private void setUpVerbatologEventsFragment() {
-        VerbatologEventsFragment verbatologEventsFragment = VerbatologEventsFragment.newInstance();
-        mVerbatologEventsView = verbatologEventsFragment;
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.verbatolog_events_frame_layout, verbatologEventsFragment);
-        transaction.commit();
+    private void setUpBottomNavigation() {
+        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_main:
+                        setUpFragment(DashboardMainFragment.newInstance());
+                        return true;
+                    case R.id.navigation_calendar:
+                        //                    mTextMessage.setText(R.string.title_dashboard);
+                        return true;
+                    case R.id.navigation_settings:
+                        //                    mTextMessage.setText(R.string.title_notifications);
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 }

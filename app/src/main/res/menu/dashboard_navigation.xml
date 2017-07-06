@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_main"
+        android:icon="@drawable/ic_dashboard_main"
+        android:title="@string/dashboard_bottom_item_main" />
+
+    <item
+        android:id="@+id/navigation_calendar"
+        android:icon="@drawable/ic_dashboard_calendar"
+        android:title="@string/dashboard_bottom_item_calendar" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_dashboard_settings"
+        android:title="@string/dashboard_bottom_item_settings" />
+
+</menu>

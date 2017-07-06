@@ -5,31 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/dashboard_padding"
     android:background="@color/dashboard_background"
-    tools:context="com.verbatoria.presentation.dashboard.view.DashboardActivity">
+    tools:context="com.verbatoria.presentation.dashboard.view.DashboardActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/verbatolog_info_frame_layout"
-        android:layout_marginBottom="@dimen/verbatolog_between_info_and_events_margin">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation_view"
+        android:id="@+id/fragments_container">
     </FrameLayout>
 
-    <TextView
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/verbatolog_info_frame_layout"
-        android:id="@+id/events_text_view"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginBottom="@dimen/verbatolog_between_info_and_events_margin"
-        android:text="@string/dashboard_events_title"/>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/verbatolog_events_frame_layout"
-        android:layout_below="@+id/events_text_view">
-    </FrameLayout>
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/main"
+        app:itemIconTint="@color/bottom_navigation_bar_selector"
+        app:itemTextColor="@color/bottom_navigation_bar_selector"
+        app:menu="@menu/dashboard_navigation" />
 
 </RelativeLayout>

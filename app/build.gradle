@@ -53,6 +53,7 @@ android {
         versionName version_name
         project.ext.set("archivesBaseName", "verbatoria-" + defaultConfig.versionName)
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary true
     }
 
     buildTypes {

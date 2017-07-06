@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view;
+package com.verbatoria.presentation.dashboard.view.main.info;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

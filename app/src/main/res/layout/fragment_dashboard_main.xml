@@ -1,0 +1,35 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dashboard_padding"
+        android:id="@+id/verbatolog_info_frame_layout">
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verbatolog_info_frame_layout"
+        android:id="@+id/events_text_view"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="@dimen/dashboard_horizontal_padding"
+        android:paddingRight="@dimen/dashboard_horizontal_padding"
+        android:layout_marginBottom="@dimen/verbatolog_between_info_and_events_margin"
+        android:text="@string/dashboard_events_title"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dashboard_horizontal_padding"
+        android:paddingRight="@dimen/dashboard_horizontal_padding"
+        android:id="@+id/verbatolog_events_frame_layout"
+        android:layout_below="@+id/events_text_view">
+    </FrameLayout>
+
+
+</RelativeLayout>

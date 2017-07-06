@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="verbatolog_info_card_elevation">5dp</dimen>
+    <dimen name="dashboard_horizontal_padding">16dp</dimen>
     <dimen name="dashboard_padding">16dp</dimen>
     <dimen name="verbatolog_status_diameter">20dp</dimen>
     <dimen name="verbatolog_status_margin">16dp</dimen>

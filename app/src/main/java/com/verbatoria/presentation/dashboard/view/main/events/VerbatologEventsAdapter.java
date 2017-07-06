@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view;
+package com.verbatoria.presentation.dashboard.view.main.events;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.utils.DateUtils;
 
 import java.util.List;
 

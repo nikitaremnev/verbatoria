@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view;
+package com.verbatoria.presentation.dashboard.view.main.events;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -49,14 +49,6 @@ public class VerbatologEventsFragment extends Fragment implements IVerbatologEve
 
     @Override
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
-        verbatologEvents.add(verbatologEvents.get(0));
-        verbatologEvents.add(verbatologEvents.get(0));
-        verbatologEvents.add(verbatologEvents.get(0));
-        verbatologEvents.add(verbatologEvents.get(0));
-        verbatologEvents.add(verbatologEvents.get(0));
-        verbatologEvents.add(verbatologEvents.get(0));
-        verbatologEvents.add(verbatologEvents.get(0));
-        verbatologEvents.add(verbatologEvents.get(0));
         mEventsRecyclerView.setAdapter(new VerbatologEventsAdapter(verbatologEvents));
     }
 }

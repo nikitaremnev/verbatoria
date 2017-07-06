@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view;
+package com.verbatoria.presentation.dashboard.view.main.events;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
