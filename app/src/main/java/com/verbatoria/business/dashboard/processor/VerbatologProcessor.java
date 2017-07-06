@@ -9,7 +9,6 @@ import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.DateUtils;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;

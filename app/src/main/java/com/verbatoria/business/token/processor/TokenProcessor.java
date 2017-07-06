@@ -5,15 +5,12 @@ import android.text.TextUtils;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.DashboardInteractor;
-import com.verbatoria.business.dashboard.DashboardInteractorException;
 import com.verbatoria.business.token.interactor.TokenInteractorException;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.Logger;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 
 import javax.inject.Inject;

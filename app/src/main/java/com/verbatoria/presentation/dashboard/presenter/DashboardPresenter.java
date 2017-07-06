@@ -1,6 +1,7 @@
 package com.verbatoria.presentation.dashboard.presenter;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
@@ -47,6 +48,7 @@ public class DashboardPresenter implements IDashboardPresenter {
 
     @Override
     public void updateVerbatologEvents() {
+        Log.e(TAG, "get verbatolog events updateVerbatologEvents");
         mDashboardInteractor.getVerbatologEvents(mVerbatologModel)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler())
@@ -64,10 +66,11 @@ public class DashboardPresenter implements IDashboardPresenter {
 
     private void handleVerbatologEventsReceived(@NonNull VerbatologModel verbatologModel) {
         Logger.e(TAG, verbatologModel.toString());
-        mDashboardView.showVerbatologEvents(verbatologModel.toString());
+        mDashboardView.showVerbatologEvents(verbatologModel.getEvents());
     }
 
     private void handleVerbatologEventsLoadingFailed(Throwable throwable) {
+        throwable.printStackTrace();
         Logger.exc(TAG, throwable);
     }
 }

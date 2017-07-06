@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.DashboardPresenter;
 import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
 import com.verbatoria.utils.Logger;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import butterknife.ButterKnife;
@@ -67,8 +69,9 @@ public class DashboardActivity extends AppCompatActivity implements IDashboardVi
     }
 
     @Override
-    public void showVerbatologEvents(String verbatologEventsToString) {
-
+    public void showVerbatologEvents(List<EventModel> verbatologEvents) {
+        Logger.e(TAG, verbatologEvents.toString());
+        mVerbatologEventsView.showVerbatologEvents(verbatologEvents);
     }
 
     private void setUpFragments() {

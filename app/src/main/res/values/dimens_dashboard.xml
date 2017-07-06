@@ -7,4 +7,16 @@
     <dimen name="verbatolog_fields_left_margin">52dp</dimen>
     <dimen name="verbatolog_fields_right_margin">16dp</dimen>
     <dimen name="verbatolog_fields_top_margin">4dp</dimen>
+
+    <dimen name="verbatolog_event_minimum_height">40dp</dimen>
+    <dimen name="verbatolog_event_corner_radius">4dp</dimen>
+    <dimen name="verbatolog_event_padding">8dp</dimen>
+    <dimen name="verbatolog_event_name_horizontal_padding">16dp</dimen>
+    <dimen name="verbatolog_event_name_vertical_padding">8dp</dimen>
+    <dimen name="verbatolog_event_between_vertical_padding">4dp</dimen>
+    <dimen name="verbatolog_event_between_horizontal_padding">8dp</dimen>
+    <dimen name="verbatolog_event_top_vertical_padding">12dp</dimen>
+    <dimen name="verbatolog_event_bottom_vertical_padding">6dp</dimen>
+
+    <dimen name="verbatolog_between_info_and_events_margin">16dp</dimen>
 </resources>

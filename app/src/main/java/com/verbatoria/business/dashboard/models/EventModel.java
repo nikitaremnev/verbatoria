@@ -1,7 +1,10 @@
 package com.verbatoria.business.dashboard.models;
 
+import android.content.Context;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.remnev.verbatoriamini.R;
 import com.verbatoria.utils.DateUtils;
 
 import java.text.ParseException;
@@ -72,6 +75,15 @@ public class EventModel {
 
     public void setChild(ChildModel child) {
         mChild = child;
+    }
+
+    public String getFullAge(Context context) {
+        return String.format(context.getString(R.string.dashboard_age),
+                Integer.toString(DateUtils.getYearsFromDate(getChild().getBirthday())));
+    }
+
+    public String getEventTime() {
+        return DateUtils.periodToString(getStartAt(), getEndAt());
     }
 
     @Override
