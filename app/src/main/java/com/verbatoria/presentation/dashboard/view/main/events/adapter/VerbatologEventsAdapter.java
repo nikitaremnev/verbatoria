@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.main.events;
+package com.verbatoria.presentation.dashboard.view.main.events.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -26,7 +26,7 @@ public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEven
     @Inject
     public Context mContext;
 
-    VerbatologEventsAdapter(@NonNull List<EventModel> eventsList) {
+    public VerbatologEventsAdapter(@NonNull List<EventModel> eventsList) {
         VerbatoriaApplication.getApplicationComponent().inject(this);
         mEventsList = eventsList;
     }

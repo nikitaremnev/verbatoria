@@ -1,7 +1,7 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <FrameLayout
@@ -20,7 +20,7 @@
         android:paddingLeft="@dimen/dashboard_horizontal_padding"
         android:paddingRight="@dimen/dashboard_horizontal_padding"
         android:layout_marginBottom="@dimen/verbatolog_between_info_and_events_margin"
-        android:text="@string/dashboard_events_title"/>
+        tools:text="@string/dashboard_events_title"/>
 
     <FrameLayout
         android:layout_width="match_parent"

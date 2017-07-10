@@ -3,8 +3,11 @@
 
     <string name="dashboard_age" formatted="false">Полных лет: %s</string>
     <string name="dashboard_events_title">Ближайшие записи:</string>
+    <string name="dashboard_no_events_title">На ближайшее время нет записей</string>
 
     <string name="dashboard_bottom_item_main">Главная</string>
     <string name="dashboard_bottom_item_calendar">Календарь</string>
     <string name="dashboard_bottom_item_settings">Настройки</string>
+
+    <string name="dashboard_add_event">Добавить запись</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.verbatoria.data.network.api;
 
+import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
@@ -42,4 +43,7 @@ public interface APIService {
     Observable<ResponseBody> addResultsToSessionRequest(@Path(value = SESSION_ID_PATH_KEY) String sessionId,
                                                         @Header(TOKEN_HEADER_KEY) String accessToken);
 
+    @POST(APIConstants.VERBATOLOG_EVENTS_URL)
+    Observable<ResponseBody> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                             @Body AddEventRequestModel event);
 }

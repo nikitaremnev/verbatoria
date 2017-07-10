@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.presentation.dashboard.view.IDashboardView;
+import com.verbatoria.presentation.dashboard.view.main.IDashboardMainView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.RxSchedulers;
 
@@ -14,20 +14,20 @@ import com.verbatoria.utils.RxSchedulers;
  *
  * @author nikitaremnev
  */
-public class DashboardPresenter implements IDashboardPresenter {
+public class DashboardMainPresenter implements IDashboardMainPresenter {
 
-    private static final String TAG = DashboardPresenter.class.getSimpleName();
+    private static final String TAG = DashboardMainPresenter.class.getSimpleName();
 
     private IDashboardInteractor mDashboardInteractor;
-    private IDashboardView mDashboardView;
+    private IDashboardMainView mDashboardView;
     private VerbatologModel mVerbatologModel;
 
-    public DashboardPresenter(IDashboardInteractor dashboardInteractor) {
+    public DashboardMainPresenter(IDashboardInteractor dashboardInteractor) {
         mDashboardInteractor = dashboardInteractor;
     }
 
     @Override
-    public void bindView(@NonNull IDashboardView dashboardView) {
+    public void bindView(@NonNull IDashboardMainView dashboardView) {
         mDashboardView = dashboardView;
         mVerbatologModel = new VerbatologModel();
     }

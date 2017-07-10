@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/activity_dashboard"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dashboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/dashboard_background"
-    tools:context="com.verbatoria.presentation.dashboard.view.DashboardActivity"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    tools:context="com.verbatoria.presentation.dashboard.view.DashboardActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

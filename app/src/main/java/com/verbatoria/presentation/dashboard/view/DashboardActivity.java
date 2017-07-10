@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.remnev.verbatoriamini.R;
+import com.verbatoria.presentation.dashboard.view.calendar.CalendarFragment;
 import com.verbatoria.presentation.dashboard.view.main.DashboardMainFragment;
+import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,10 +53,10 @@ public class DashboardActivity extends AppCompatActivity {
                         setUpFragment(DashboardMainFragment.newInstance());
                         return true;
                     case R.id.navigation_calendar:
-                        //                    mTextMessage.setText(R.string.title_dashboard);
+                        setUpFragment(CalendarFragment.newInstance());
                         return true;
                     case R.id.navigation_settings:
-                        //                    mTextMessage.setText(R.string.title_notifications);
+                        setUpFragment(SettingsFragment.newInstance());
                         return true;
                 }
                 return false;

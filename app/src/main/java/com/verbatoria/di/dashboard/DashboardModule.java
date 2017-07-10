@@ -5,8 +5,8 @@ import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.data.repositories.dashboard.DashboardRepository;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.dashboard.presenter.DashboardPresenter;
-import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
+import com.verbatoria.presentation.dashboard.presenter.DashboardMainPresenter;
+import com.verbatoria.presentation.dashboard.presenter.IDashboardMainPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -34,8 +34,8 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
-    IDashboardPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor) {
-        return new DashboardPresenter(dashboardInteractor);
+    IDashboardMainPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor) {
+        return new DashboardMainPresenter(dashboardInteractor);
     }
 
 

@@ -7,13 +7,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
-import com.verbatoria.presentation.dashboard.view.IDashboardView;
+import com.verbatoria.presentation.dashboard.presenter.IDashboardMainPresenter;
 import com.verbatoria.presentation.dashboard.view.main.events.IVerbatologEventsView;
 import com.verbatoria.presentation.dashboard.view.main.events.VerbatologEventsFragment;
 import com.verbatoria.presentation.dashboard.view.main.info.IVerbatologInfoView;
@@ -23,18 +23,24 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Фрагмент для "Главная"
  *
  * @author nikitaremnev
  */
-public class DashboardMainFragment extends Fragment implements IDashboardView {
+public class DashboardMainFragment extends Fragment implements IDashboardMainView {
 
     @Inject
-    IDashboardPresenter mDashboardPresenter;
+    IDashboardMainPresenter mDashboardPresenter;
 
     private IVerbatologInfoView mVerbatologInfoView;
     private IVerbatologEventsView mVerbatologEventsView;
+
+    @BindView(R.id.events_text_view)
+    public TextView mEventsTextView;
 
     public DashboardMainFragment() {
         // Required empty public constructor
@@ -53,9 +59,9 @@ public class DashboardMainFragment extends Fragment implements IDashboardView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
-        return inflater.inflate(R.layout.fragment_dashboard_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_dashboard_main, container, false);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     @Override
@@ -98,6 +104,14 @@ public class DashboardMainFragment extends Fragment implements IDashboardView {
         transaction.commit();
     }
 
+    private void setUpEventsLabel(int eventsSize) {
+        if (eventsSize == 0) {
+            mEventsTextView.setText(getString(R.string.dashboard_no_events_title));
+        } else {
+            mEventsTextView.setText(getString(R.string.dashboard_events_title));
+        }
+    }
+
     @Override
     public void showProgress() {
 
@@ -118,6 +132,7 @@ public class DashboardMainFragment extends Fragment implements IDashboardView {
     @Override
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
         mVerbatologEventsView.showVerbatologEvents(verbatologEvents);
+        setUpEventsLabel(verbatologEvents.size());
     }
 
 }

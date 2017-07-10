@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view;
+package com.verbatoria.presentation.dashboard.view.main;
 
 import android.support.annotation.NonNull;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author nikitaremnev
  */
-public interface IDashboardView {
+public interface IDashboardMainView {
 
     //отображение прогресса
     void showProgress();
