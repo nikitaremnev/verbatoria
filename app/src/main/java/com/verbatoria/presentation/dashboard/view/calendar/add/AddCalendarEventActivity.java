@@ -76,7 +76,10 @@ public class AddCalendarEventActivity extends AppCompatActivity implements IAddC
 
     @Override
     public void addEvent() {
-
+        mAddCalendarEventPresenter.addEvent(mChildIdEditText.getText().toString(),
+                mLocationIdEditText.getText().toString(),
+                mStartDateEditText.getText().toString(),
+                mEndDateEditText.getText().toString());
     }
 
 
