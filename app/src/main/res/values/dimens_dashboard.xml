@@ -22,4 +22,6 @@
     <dimen name="verbatolog_between_info_and_events_margin">16dp</dimen>
 
     <dimen name="calendar_add_event_margin">16dp</dimen>
+    <dimen name="calendar_add_event_padding">16dp</dimen>
+
 </resources>

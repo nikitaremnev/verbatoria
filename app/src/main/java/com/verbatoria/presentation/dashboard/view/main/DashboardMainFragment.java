@@ -13,7 +13,7 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.IDashboardMainPresenter;
+import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
 import com.verbatoria.presentation.dashboard.view.main.events.IVerbatologEventsView;
 import com.verbatoria.presentation.dashboard.view.main.events.VerbatologEventsFragment;
 import com.verbatoria.presentation.dashboard.view.main.info.IVerbatologInfoView;

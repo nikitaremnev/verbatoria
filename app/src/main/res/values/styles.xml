@@ -9,8 +9,9 @@
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+    <style name="ButtonStyle" parent="Widget.AppCompat.Button.Colored">
         <item name="android:typeface">monospace</item>
+        <item name="android:elevation">@dimen/button_elevation</item>
     </style>
 
     <style name="MenuItemTheme" parent="AppTheme">

@@ -7,7 +7,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/edit_text_height"
         android:id="@+id/logo_image_view"
         android:scaleType="centerInside"
         android:src="@mipmap/logo_splash"
@@ -20,7 +20,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_login_text_view_height"
+        android:layout_height="@dimen/edit_text_height"
         android:id="@+id/login_text_view"
         android:layout_below="@+id/logo_image_view"
         android:layout_alignParentLeft="true"
@@ -33,7 +33,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_login_text_view_height"
+        android:layout_height="@dimen/edit_text_height"
         android:id="@+id/password_text_view"
         android:inputType="textPassword"
         android:hint="@string/login_password_hint"
@@ -45,17 +45,16 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="@dimen/activity_login_text_view_height"
+        android:layout_height="@dimen/button_height"
         android:id="@+id/login_button"
         android:text="@string/login_submit"
         android:layout_below="@+id/password_text_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColor="@color/button_text"
-        android:background="@drawable/btn_code_form"
         android:layout_marginTop="@dimen/activity_login_button_vertical_margin"
         android:layout_marginRight="@dimen/activity_login_button_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_login_button_horizontal_margin"/>
+        android:layout_marginLeft="@dimen/activity_login_button_horizontal_margin"
+        style="@style/ButtonStyle"/>
 
     <include layout="@layout/view_loading"
         android:visibility="gone"/>

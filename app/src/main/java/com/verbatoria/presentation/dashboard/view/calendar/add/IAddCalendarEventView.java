@@ -6,4 +6,11 @@ package com.verbatoria.presentation.dashboard.view.calendar.add;
  * @author nikitaremnev
  */
 public interface IAddCalendarEventView {
+
+    //отображение прогресса
+    void showProgress();
+    void hideProgress();
+
+    void addEvent();
+
 }

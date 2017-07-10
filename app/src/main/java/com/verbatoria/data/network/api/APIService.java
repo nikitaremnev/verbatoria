@@ -46,4 +46,5 @@ public interface APIService {
     @POST(APIConstants.VERBATOLOG_EVENTS_URL)
     Observable<ResponseBody> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
                                              @Body AddEventRequestModel event);
+
 }

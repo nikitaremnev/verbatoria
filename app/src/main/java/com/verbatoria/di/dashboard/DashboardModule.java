@@ -5,8 +5,10 @@ import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.data.repositories.dashboard.DashboardRepository;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.dashboard.presenter.DashboardMainPresenter;
-import com.verbatoria.presentation.dashboard.presenter.IDashboardMainPresenter;
+import com.verbatoria.presentation.dashboard.presenter.add.AddCalendarEventPresenter;
+import com.verbatoria.presentation.dashboard.presenter.add.IAddCalendarEventPresenter;
+import com.verbatoria.presentation.dashboard.presenter.main.DashboardMainPresenter;
+import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -38,5 +40,10 @@ public class DashboardModule {
         return new DashboardMainPresenter(dashboardInteractor);
     }
 
+    @Provides
+    @DashboardScope
+    IAddCalendarEventPresenter provideAddCalendarEventPresenter(IDashboardInteractor dashboardInteractor) {
+        return new AddCalendarEventPresenter(dashboardInteractor);
+    }
 
 }

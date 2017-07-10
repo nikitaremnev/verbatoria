@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.presenter;
+package com.verbatoria.presentation.dashboard.presenter.main;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
