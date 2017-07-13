@@ -24,4 +24,6 @@
     <dimen name="calendar_add_event_margin">16dp</dimen>
     <dimen name="calendar_add_event_padding">16dp</dimen>
 
+    <dimen name="settings_item_height">60dp</dimen>
+
 </resources>

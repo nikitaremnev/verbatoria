@@ -1,9 +1,9 @@
-package com.verbatoria.presentation.dashboard.presenter.add;
+package com.verbatoria.presentation.dashboard.presenter.calendar.add;
+
+import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
-import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.presentation.dashboard.view.calendar.add.IAddCalendarEventView;
-import com.verbatoria.presentation.dashboard.view.main.IDashboardMainView;
 
 /**
  * Реализация презентера для экрана добавления события
@@ -17,6 +17,16 @@ public class AddCalendarEventPresenter implements IAddCalendarEventPresenter {
 
     public AddCalendarEventPresenter(IDashboardInteractor dashboardInteractor) {
         mDashboardInteractor = dashboardInteractor;
+    }
+
+    @Override
+    public void bindView(@NonNull IAddCalendarEventView addCalendarEventView) {
+        mAddCalendarEventView = addCalendarEventView;
+    }
+
+    @Override
+    public void unbindView() {
+        mAddCalendarEventView = null;
     }
 
     @Override

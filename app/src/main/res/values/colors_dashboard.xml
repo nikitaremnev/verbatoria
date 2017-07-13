@@ -8,4 +8,6 @@
 
     <color name="dashboard_background">#FFFFC5</color>
 
+    <color name="settings_item_background">#EEEEEE</color>
+
 </resources>

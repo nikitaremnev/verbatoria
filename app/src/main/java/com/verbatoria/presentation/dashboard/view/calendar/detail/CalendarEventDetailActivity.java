@@ -1,29 +1,32 @@
-package com.verbatoria.presentation.dashboard.view.calendar.add;
+package com.verbatoria.presentation.dashboard.view.calendar.detail;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.calendar.add.IAddCalendarEventPresenter;
+import com.verbatoria.presentation.dashboard.presenter.calendar.detail.ICalendarEventDetailPresenter;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Экран добавления события в календарь
+ * Экран события
  *
  * @author nikitaremnev
  */
-public class AddCalendarEventActivity extends AppCompatActivity implements IAddCalendarEventView {
+public class CalendarEventDetailActivity extends AppCompatActivity implements ICalendarEventDetailView {
 
-    private static final String TAG = AddCalendarEventActivity.class.getSimpleName();
+    private static final String TAG = CalendarEventDetailActivity.class.getSimpleName();
 
     @Inject
-    IAddCalendarEventPresenter mAddCalendarEventPresenter;
+    ICalendarEventDetailPresenter mCalendarEventDetailPresenter;
 
     @BindView(R.id.child_id_edit_text)
     public EditText mChildIdEditText;
@@ -43,7 +46,7 @@ public class AddCalendarEventActivity extends AppCompatActivity implements IAddC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_calendar_event);
+        setContentView(R.layout.activity_calendar_event_detail);
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         ButterKnife.bind(this);
         setUpNavigation();
@@ -62,24 +65,6 @@ public class AddCalendarEventActivity extends AppCompatActivity implements IAddC
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.dashboard_add_event));
-    }
-
-    @Override
-    public void showProgress() {
-        mLoadingView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        mLoadingView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void addEvent() {
-        mAddCalendarEventPresenter.addEvent(mChildIdEditText.getText().toString(),
-                mLocationIdEditText.getText().toString(),
-                mStartDateEditText.getText().toString(),
-                mEndDateEditText.getText().toString());
     }
 
 
