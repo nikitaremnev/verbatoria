@@ -15,4 +15,6 @@ public interface ISettingsPresenter {
     void bindView(@NonNull ISettingsView settingsView);
     void unbindView();
 
+    void quit();
+
 }

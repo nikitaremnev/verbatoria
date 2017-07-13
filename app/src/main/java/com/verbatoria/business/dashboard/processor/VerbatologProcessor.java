@@ -40,6 +40,14 @@ public class VerbatologProcessor {
         return verbatologModel;
     }
 
+    public static List<EventModel> convertEventsResponseToVerbatologEventsModelList(List<VerbatologEventResponseModel> verbatologEventResponseModelList) {
+        List<EventModel> verbatologEventsList = new ArrayList<>();
+        for (int i = 0; i < verbatologEventResponseModelList.size(); i ++) {
+            verbatologEventsList.add(convertVerbatologEventResponseToEventModel(verbatologEventResponseModelList.get(i)));
+        }
+        return verbatologEventsList;
+    }
+
     private static EventModel convertVerbatologEventResponseToEventModel(VerbatologEventResponseModel verbatologEventResponseModel) {
         EventModel eventModel = new EventModel();
         eventModel.setId(verbatologEventResponseModel.getId());

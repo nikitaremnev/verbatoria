@@ -3,9 +3,15 @@ package com.verbatoria.presentation.dashboard.presenter.calendar;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
+import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.presentation.dashboard.view.calendar.ICalendarView;
 import com.verbatoria.presentation.dashboard.view.settings.ISettingsView;
+import com.verbatoria.utils.Logger;
+import com.verbatoria.utils.RxSchedulers;
+
+import java.util.List;
 
 /**
  * Реализация презентера для календаря
@@ -33,5 +39,21 @@ public class CalendarPresenter implements ICalendarPresenter {
         mCalendarView = null;
     }
 
+    @Override
+    public void updateVerbatologEvents() {
+        mDashboardInteractor.getVerbatologEvents()
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
+                .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
+    }
 
+    private void handleVerbatologEventsReceived(@NonNull List<EventModel> eventModelList) {
+        Logger.e(TAG, eventModelList.toString());
+        mCalendarView.showVerbatologEvents(eventModelList);
+    }
+
+    private void handleVerbatologEventsLoadingFailed(Throwable throwable) {
+        throwable.printStackTrace();
+        Logger.exc(TAG, throwable);
+    }
 }

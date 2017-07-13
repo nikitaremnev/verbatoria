@@ -105,11 +105,11 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/add_event_button"
+        android:id="@+id/start_session_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
-        android:text="@string/dashboard_add_event"
+        android:text="@string/dashboard_start_session"
         style="@style/ButtonStyle" />
 
     <include layout="@layout/view_loading"

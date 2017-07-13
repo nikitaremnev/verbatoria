@@ -1,5 +1,8 @@
 package com.verbatoria.business.dashboard.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.verbatoria.utils.DateUtils;
@@ -12,7 +15,7 @@ import java.util.Date;
  *
  * @author nikitaremnev
  */
-public class ChildModel {
+public class ChildModel implements Parcelable {
 
     private String mId;
 
@@ -84,4 +87,34 @@ public class ChildModel {
                 .toString();
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mId);
+        dest.writeString(this.mName);
+        dest.writeLong(this.mBirthday != null ? this.mBirthday.getTime() : -1);
+    }
+
+    protected ChildModel(Parcel in) {
+        this.mId = in.readString();
+        this.mName = in.readString();
+        long tmpMBirthday = in.readLong();
+        this.mBirthday = tmpMBirthday == -1 ? null : new Date(tmpMBirthday);
+    }
+
+    public static final Parcelable.Creator<ChildModel> CREATOR = new Parcelable.Creator<ChildModel>() {
+        @Override
+        public ChildModel createFromParcel(Parcel source) {
+            return new ChildModel(source);
+        }
+
+        @Override
+        public ChildModel[] newArray(int size) {
+            return new ChildModel[size];
+        }
+    };
 }

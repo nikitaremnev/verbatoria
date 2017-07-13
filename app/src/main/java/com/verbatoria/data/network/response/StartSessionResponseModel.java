@@ -3,12 +3,13 @@ package com.verbatoria.data.network.response;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 /**
  *
- * Модель ответа от сервера на запрос старта сессии нейрометрии
+ * Модель ответа от сервера на запрос старта сессии
  *
  * @author nikitaremnev
  */
@@ -37,6 +38,7 @@ public class StartSessionResponseModel {
         return mId;
     }
 
+    @JsonSetter("id")
     public void setId(String id) {
         mId = id;
     }
@@ -47,6 +49,7 @@ public class StartSessionResponseModel {
         return mChildId;
     }
 
+    @JsonSetter("child_id")
     public void setChildId(String childId) {
         mChildId = childId;
     }
@@ -57,6 +60,7 @@ public class StartSessionResponseModel {
         return mVerbatologId;
     }
 
+    @JsonSetter("verbatolog_id")
     public void setVerbatologId(String verbatologId) {
         mVerbatologId = verbatologId;
     }
@@ -67,6 +71,7 @@ public class StartSessionResponseModel {
         return mLocationId;
     }
 
+    @JsonSetter("location_id")
     public void setLocationId(String locationId) {
         mLocationId = locationId;
     }
@@ -77,6 +82,7 @@ public class StartSessionResponseModel {
         return mCreatedAt;
     }
 
+    @JsonSetter("created_at")
     public void setCreatedAt(String createdAt) {
         mCreatedAt = createdAt;
     }
@@ -87,6 +93,7 @@ public class StartSessionResponseModel {
         return mUpdatedAt;
     }
 
+    @JsonSetter("updated_at")
     public void setUpdatedAt(String updatedAt) {
         mUpdatedAt = updatedAt;
     }

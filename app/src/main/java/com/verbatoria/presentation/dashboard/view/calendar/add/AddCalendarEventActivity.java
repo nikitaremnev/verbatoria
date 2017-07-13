@@ -1,5 +1,7 @@
 package com.verbatoria.presentation.dashboard.view.calendar.add;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -7,8 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.calendar.add.IAddCalendarEventPresenter;
+import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
+import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +46,10 @@ public class AddCalendarEventActivity extends AppCompatActivity implements IAddC
     @BindView(R.id.progress_layout)
     public View mLoadingView;
 
+    public static Intent newInstance(Context mContext) {
+        return new Intent(mContext, AddCalendarEventActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +57,7 @@ public class AddCalendarEventActivity extends AppCompatActivity implements IAddC
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         ButterKnife.bind(this);
         setUpNavigation();
+        mAddCalendarEventPresenter.bindView(this);
     }
 
     @Override

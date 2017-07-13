@@ -14,4 +14,6 @@ public interface ICalendarPresenter {
     void bindView(@NonNull ICalendarView calendarView);
     void unbindView();
 
+    void updateVerbatologEvents();
+
 }

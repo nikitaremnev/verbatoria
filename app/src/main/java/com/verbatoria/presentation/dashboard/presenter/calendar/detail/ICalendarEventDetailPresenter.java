@@ -1,5 +1,7 @@
 package com.verbatoria.presentation.dashboard.presenter.calendar.detail;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.presentation.dashboard.view.calendar.detail.ICalendarEventDetailView;
@@ -13,5 +15,9 @@ public interface ICalendarEventDetailPresenter {
 
     void bindView(@NonNull ICalendarEventDetailView calendarEventDetailView);
     void unbindView();
+
+    void startSession();
+    void obtainEvent(Intent intent);
+
 
 }

@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.dashboard.presenter.settings;
 
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
@@ -31,5 +32,9 @@ public class SettingsPresenter implements ISettingsPresenter {
         mSettingsView = null;
     }
 
+    @Override
+    public void quit() {
+        System.exit(0);
+    }
 
 }

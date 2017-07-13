@@ -24,8 +24,6 @@ public interface DashboardComponent {
 
     void inject(AddCalendarEventActivity addCalendarEventActivity);
 
-    void inject(CalendarEventDetailActivity calendarEventDetailActivity);
-
     void inject(DashboardMainFragment dashboardMainFragment);
 
     void inject(SettingsFragment dashboardMainFragment);

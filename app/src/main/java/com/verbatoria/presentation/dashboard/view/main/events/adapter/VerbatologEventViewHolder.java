@@ -16,6 +16,8 @@ import butterknife.ButterKnife;
  */
 public class VerbatologEventViewHolder extends RecyclerView.ViewHolder {
 
+    private View mRootView;
+
     @BindView(R.id.child_name_text_view)
     public TextView mChildNameTextView;
 
@@ -25,21 +27,26 @@ public class VerbatologEventViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.time_period_text_view)
     public TextView mTimePeriodTextView;
 
-    public VerbatologEventViewHolder(View itemView) {
+    VerbatologEventViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        mRootView = itemView;
     }
 
-    public void setChildName(String childName) {
+    void setChildName(String childName) {
         mChildNameTextView.setText(childName);
     }
 
-    public void setAge(String age) {
+    void setAge(String age) {
         mAgeTextView.setText(age);
     }
 
-    public void setTimePeriod(String timePeriod) {
+    void setTimePeriod(String timePeriod) {
         mTimePeriodTextView.setText(timePeriod);
+    }
+
+    void setOnClickListener(View.OnClickListener onClickListener) {
+        mRootView.setOnClickListener(onClickListener);
     }
 
 }

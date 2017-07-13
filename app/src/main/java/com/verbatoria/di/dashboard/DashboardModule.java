@@ -54,12 +54,6 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
-    ICalendarEventDetailPresenter provideCalendarEventDetailPresenter(IDashboardInteractor dashboardInteractor) {
-        return new CalendarEventDetailPresenter(dashboardInteractor);
-    }
-
-    @Provides
-    @DashboardScope
     ISettingsPresenter provideSettingsPresenter(IDashboardInteractor dashboardInteractor) {
         return new SettingsPresenter(dashboardInteractor);
     }

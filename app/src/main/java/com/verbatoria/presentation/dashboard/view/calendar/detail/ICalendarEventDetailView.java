@@ -6,4 +6,12 @@ package com.verbatoria.presentation.dashboard.view.calendar.detail;
  * @author nikitaremnev
  */
 public interface ICalendarEventDetailView {
+
+    //отображение прогресса
+    void showProgress();
+    void hideProgress();
+
+    void startSession();
+    void showError(String message);
+
 }

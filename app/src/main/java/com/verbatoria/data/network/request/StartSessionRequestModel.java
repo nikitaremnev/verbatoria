@@ -27,8 +27,9 @@ public class StartSessionRequestModel {
         return mEventId;
     }
 
-    public void setEventId(String eventId) {
+    public StartSessionRequestModel setEventId(String eventId) {
         mEventId = eventId;
+        return this;
     }
 
     @Override

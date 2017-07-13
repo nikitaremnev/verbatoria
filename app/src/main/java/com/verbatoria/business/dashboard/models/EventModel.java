@@ -1,6 +1,8 @@
 package com.verbatoria.business.dashboard.models;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -15,7 +17,7 @@ import java.util.Date;
  *
  * @author nikitaremnev
  */
-public class EventModel {
+public class EventModel implements Parcelable {
 
     private String mId;
 
@@ -115,4 +117,38 @@ public class EventModel {
                 .add("mChild", mChild)
                 .toString();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mId);
+        dest.writeLong(this.mStartAt != null ? this.mStartAt.getTime() : -1);
+        dest.writeLong(this.mEndAt != null ? this.mEndAt.getTime() : -1);
+        dest.writeParcelable(this.mChild, flags);
+    }
+
+    protected EventModel(Parcel in) {
+        this.mId = in.readString();
+        long tmpMStartAt = in.readLong();
+        this.mStartAt = tmpMStartAt == -1 ? null : new Date(tmpMStartAt);
+        long tmpMEndAt = in.readLong();
+        this.mEndAt = tmpMEndAt == -1 ? null : new Date(tmpMEndAt);
+        this.mChild = in.readParcelable(ChildModel.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<EventModel> CREATOR = new Parcelable.Creator<EventModel>() {
+        @Override
+        public EventModel createFromParcel(Parcel source) {
+            return new EventModel(source);
+        }
+
+        @Override
+        public EventModel[] newArray(int size) {
+            return new EventModel[size];
+        }
+    };
 }

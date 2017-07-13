@@ -51,6 +51,6 @@ public class VerbatologEventsFragment extends Fragment implements IVerbatologEve
 
     @Override
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
-        mEventsRecyclerView.setAdapter(new VerbatologEventsAdapter(verbatologEvents));
+        mEventsRecyclerView.setAdapter(new VerbatologEventsAdapter(verbatologEvents, getActivity()));
     }
 }

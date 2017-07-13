@@ -11,5 +11,6 @@
 
     <dimen name="edit_text_height">60dp</dimen>
     <dimen name="image_view_right_margin">16dp</dimen>
+    <dimen name="image_view_left_margin">16dp</dimen>
 
 </resources>

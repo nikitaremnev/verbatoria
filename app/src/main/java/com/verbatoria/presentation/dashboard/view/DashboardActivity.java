@@ -45,22 +45,19 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void setUpBottomNavigation() {
-        mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_main:
-                        setUpFragment(DashboardMainFragment.newInstance());
-                        return true;
-                    case R.id.navigation_calendar:
-                        setUpFragment(CalendarFragment.newInstance());
-                        return true;
-                    case R.id.navigation_settings:
-                        setUpFragment(SettingsFragment.newInstance());
-                        return true;
-                }
-                return false;
+        mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.navigation_main:
+                    setUpFragment(DashboardMainFragment.newInstance());
+                    return true;
+                case R.id.navigation_calendar:
+                    setUpFragment(CalendarFragment.newInstance());
+                    return true;
+                case R.id.navigation_settings:
+                    setUpFragment(SettingsFragment.newInstance());
+                    return true;
             }
+            return false;
         });
     }
 }

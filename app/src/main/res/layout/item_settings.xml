@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/settings_item_height"
-    android:background="@color/settings_item_background"
-    android:paddingLeft="32dp"
-    android:paddingRight="32dp"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
+    android:background="@color/settings_item_background">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_item_divider_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/settings_divider_item_color">
+    </View>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@android:style/TextAppearance.Small"
         android:id="@+id/settings_item_text_view"
+        android:textColor="@color/settings_text_color"
+        android:paddingLeft="@dimen/settings_item_left_padding"
+        android:paddingRight="@dimen/settings_item_right_padding"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/settings_item_image_view"
+        tools:text="Привет привет это тестовая херотень" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/settings_item_image_view"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        tools:text="Привет привет это тестовая херотень" />
+        android:layout_marginRight="@dimen/image_view_right_margin"
+        android:layout_marginLeft="@dimen/image_view_right_margin"
+        tools:srcCompat="@drawable/ic_exit"/>
 
 
 </RelativeLayout>

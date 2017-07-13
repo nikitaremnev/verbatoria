@@ -6,4 +6,6 @@ package com.verbatoria.presentation.dashboard.view.settings;
  * @author nikitaremnev
  */
 public interface ISettingsView {
+
+
 }
