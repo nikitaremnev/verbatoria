@@ -80,6 +80,8 @@ public class CalendarFragment extends Fragment implements ICalendarView {
 
     private void setUpAddEventButton() {
         mAddEventButton.setOnClickListener(v -> startActivity(AddCalendarEventActivity.newInstance(getContext())));
+        //TODO: show add event button - now it's hidden, because functionality is not ready
+        mAddEventButton.hide();
     }
 
     private void setUpRecyclerView() {

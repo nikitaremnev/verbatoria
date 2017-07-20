@@ -11,7 +11,6 @@ import com.verbatoria.presentation.dashboard.view.calendar.add.IAddCalendarEvent
  */
 public interface IAddCalendarEventPresenter {
 
-
     void bindView(@NonNull IAddCalendarEventView addCalendarEventView);
     void unbindView();
 

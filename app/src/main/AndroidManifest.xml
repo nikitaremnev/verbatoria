@@ -69,6 +69,10 @@
             android:name="com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity"
             android:screenOrientation="portrait"/>
 
+        <activity
+            android:name="com.verbatoria.presentation.session.view.ConnectionActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

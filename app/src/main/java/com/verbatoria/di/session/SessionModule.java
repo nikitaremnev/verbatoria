@@ -1,21 +1,14 @@
 package com.verbatoria.di.session;
 
-import com.verbatoria.business.dashboard.IDashboardInteractor;
-import com.verbatoria.business.login.ILoginInteractor;
-import com.verbatoria.business.login.LoginInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.SessionInteractor;
-import com.verbatoria.data.repositories.login.ILoginRepository;
-import com.verbatoria.data.repositories.login.LoginRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.di.dashboard.DashboardScope;
-import com.verbatoria.di.login.LoginScope;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.ICalendarEventDetailPresenter;
-import com.verbatoria.presentation.login.presenter.ILoginPresenter;
-import com.verbatoria.presentation.login.presenter.LoginPresenter;
+import com.verbatoria.presentation.session.presenter.ConnectionPresenter;
+import com.verbatoria.presentation.session.presenter.IConnectionPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -44,6 +37,12 @@ public class SessionModule {
     @SessionScope
     ICalendarEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor) {
         return new CalendarEventDetailPresenter(sessionInteractor);
+    }
+
+    @Provides
+    @SessionScope
+    IConnectionPresenter provideConnectionPresenter(ISessionInteractor sessionInteractor) {
+        return new ConnectionPresenter(sessionInteractor);
     }
 
 }

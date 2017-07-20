@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="@dimen/connection_padding"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connection_instruction"
+        android:id="@+id/connection_instruction_text_view"
+        android:gravity="left"
+        android:layout_below="@+id/connection_status_image_view"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="@dimen/connection_instruction_horizontal_padding"
+        android:paddingRight="@dimen/connection_instruction_horizontal_padding"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connection_status_text_view"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/connection_status_text_color"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/connection_status_text_left_margin"
+        android:layout_toRightOf="@+id/connection_status_image_view"
+        android:layout_toEndOf="@+id/connection_status_image_view"
+        android:layout_above="@+id/connection_instruction_text_view"
+        tools:text="Не подключено" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connection_status_image_view"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/connection_instruction_text_view"
+        android:layout_alignStart="@+id/connection_instruction_text_view"
+        android:layout_marginLeft="@dimen/connection_status_image_left_margin"
+        tools:src="@drawable/connect_bci" />
+
+</RelativeLayout>

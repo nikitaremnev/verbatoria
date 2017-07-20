@@ -14,6 +14,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
+import com.verbatoria.presentation.session.view.ConnectionActivity;
 
 import javax.inject.Inject;
 
@@ -57,8 +58,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         mLoginPresenter.bindView(this);
 
         //test
-        setPhone("79032003231");
-        setPassword("solaris");
+        setPhone("+79266519001");
+        setPassword("4eqx8pmRZpfy");
     }
 
     @Override
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     //отображение результатов запроса
     @Override
     public void loginSuccess() {
-        Intent intent = new Intent(this, DashboardActivity.class);
+        Intent intent = new Intent(this, ConnectionActivity.class);
         startActivity(intent);
         finish();
     }

@@ -39,7 +39,7 @@ public class LoginInteractor implements ILoginInteractor {
     }
 
     private String processPhone(String phone) {
-        return phone.replaceAll("[^0-9.]", "");
+        return phone.replaceAll("[-,. ]", "");
     }
 
 }
