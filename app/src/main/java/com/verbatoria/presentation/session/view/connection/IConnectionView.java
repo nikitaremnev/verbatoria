@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.session.view;
+package com.verbatoria.presentation.session.view.connection;
 
 /**
  *

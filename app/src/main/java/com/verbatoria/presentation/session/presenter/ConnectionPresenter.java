@@ -3,7 +3,7 @@ package com.verbatoria.presentation.session.presenter;
 import android.support.annotation.NonNull;
 import com.neurosky.connection.ConnectionStates;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.presentation.session.view.IConnectionView;
+import com.verbatoria.presentation.session.view.connection.IConnectionView;
 
 /**
  * Реализация презентера для экрана соединения

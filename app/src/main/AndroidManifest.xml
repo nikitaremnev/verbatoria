@@ -70,7 +70,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.verbatoria.presentation.session.view.ConnectionActivity"
+            android:name="com.verbatoria.presentation.session.view.connection.ConnectionActivity"
             android:screenOrientation="portrait"/>
 
     </application>

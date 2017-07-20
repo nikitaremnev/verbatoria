@@ -12,9 +12,8 @@ import android.widget.EditText;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
-import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
-import com.verbatoria.presentation.session.view.ConnectionActivity;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
 import javax.inject.Inject;
 

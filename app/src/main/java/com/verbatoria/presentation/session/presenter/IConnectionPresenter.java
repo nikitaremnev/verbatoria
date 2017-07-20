@@ -1,7 +1,7 @@
 package com.verbatoria.presentation.session.presenter;
 
 import android.support.annotation.NonNull;
-import com.verbatoria.presentation.session.view.IConnectionView;
+import com.verbatoria.presentation.session.view.connection.IConnectionView;
 
 /**
  * Презентер для экрана соединения
