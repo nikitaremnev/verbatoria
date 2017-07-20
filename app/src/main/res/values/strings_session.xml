@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="session_connection">Соединение</string>
+    <string name="session_start_writing">Начать запись</string>
+    <string name="session_connect">Соединить</string>
+    <string name="session_connected">Подключено</string>
+    <string name="session_connection_in_progress">Идет соединение...</string>
+    <string name="session_not_connected">Не подключено</string>
+    <string name="session_connection_instruction">
+        1. Включите питание на нейроинтерфейсе, убедитесь что он работает.
+        \n\n2. Нажмите на иконку соединения и дождитесь статуса \"Подключено\".
+        \n\n3. Нажмите на кнопку \"Начать запись\" для начала работы.
+    </string>
+    <string name="session_bluetooth_disabled">Bluetooth отключен</string>
+    <string name="session_settings">Настройки</string>
 </resources>

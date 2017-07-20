@@ -14,4 +14,24 @@ public interface ISessionInteractor {
 
     Observable<StartSessionResponseModel> startSession(String eventId);
 
+    void startConnection();
+
+    void setConnectionCallback(IConnectionCallback connectionCallback);
+    void setDataReceivedCallback(IDataReceivedCallback dataReceivedCallback);
+    void dropCallbacks();
+
+    interface IConnectionCallback {
+        void onConnectionStateChanged(int connectionCode);
+        void onBluetoothDisabled();
+    }
+
+    interface IDataReceivedCallback {
+        void onDataReceivedCallback(int dataTypeCode, int value);
+    }
+
+    interface IApplicationSessionInteractorCallback {
+        void onConnectionStateChanged(int code);
+        void onDataReceivedCallback(int code, int value);
+        void onBluetoothDisabled();
+    }
 }

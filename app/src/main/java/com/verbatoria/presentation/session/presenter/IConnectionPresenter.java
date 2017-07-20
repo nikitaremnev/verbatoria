@@ -13,4 +13,6 @@ public interface IConnectionPresenter {
     void bindView(@NonNull IConnectionView connectionView);
     void unbindView();
 
+    void connect();
+
 }

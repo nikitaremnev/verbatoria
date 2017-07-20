@@ -2,7 +2,9 @@
 <resources>
     <dimen name="connection_padding">16dp</dimen>
     <dimen name="connection_status_image_padding">32dp</dimen>
-    <dimen name="connection_instruction_horizontal_padding">32dp</dimen>
+    <dimen name="connection_instruction_padding">32dp</dimen>
     <dimen name="connection_status_text_left_margin">16dp</dimen>
+    <dimen name="connection_status_text_top_margin">32dp</dimen>
     <dimen name="connection_status_image_left_margin">32dp</dimen>
+    <dimen name="connection_status_image_top_margin">32dp</dimen>
 </resources>

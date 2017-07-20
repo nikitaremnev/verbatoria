@@ -8,8 +8,9 @@ package com.verbatoria.presentation.session.view;
  */
 public interface IConnectionView {
 
-    //отображение прогресса
-    void showProgress();
-    void hideProgress();
-
+    void showConnectingState();
+    void showConnectedState();
+    void showDisconnectedState();
+    void showErrorConnectionState();
+    void showBluetoothDisabled();
 }
