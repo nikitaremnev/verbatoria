@@ -24,7 +24,7 @@
         android:weightSum="5"
         android:layout_marginTop="24dp"
         android:layout_below="@+id/title"
-        android:id="@+id/buttonsLayout">
+        android:id="@+id/buttons_layout">
 
         <Button
             android:layout_width="wrap_content"
@@ -97,9 +97,9 @@
         android:layout_marginBottom="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonsLayout"
-        android:layout_alignStart="@+id/buttonsLayout"
-        android:layout_below="@+id/buttonsLayout"
+        android:layout_alignLeft="@+id/buttons_layout"
+        android:layout_alignStart="@+id/buttons_layout"
+        android:layout_below="@+id/buttons_layout"
         android:text="@string/have_answer" />
 
 

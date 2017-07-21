@@ -7,8 +7,10 @@ import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.ICalendarEventDetailPresenter;
-import com.verbatoria.presentation.session.presenter.ConnectionPresenter;
-import com.verbatoria.presentation.session.presenter.IConnectionPresenter;
+import com.verbatoria.presentation.session.presenter.connection.ConnectionPresenter;
+import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
+import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
+import com.verbatoria.presentation.session.presenter.writing.WritingPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -45,4 +47,9 @@ public class SessionModule {
         return new ConnectionPresenter(sessionInteractor);
     }
 
+    @Provides
+    @SessionScope
+    IWritingPresenter provideWritingPresenter(ISessionInteractor sessionInteractor) {
+        return new WritingPresenter(sessionInteractor);
+    }
 }

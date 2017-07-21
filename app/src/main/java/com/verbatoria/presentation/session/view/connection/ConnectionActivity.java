@@ -2,6 +2,7 @@ package com.verbatoria.presentation.session.view.connection;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.presentation.session.presenter.IConnectionPresenter;
+import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -24,6 +25,9 @@ import butterknife.ButterKnife;
  * @author nikitaremnev
  */
 public class ConnectionActivity extends AppCompatActivity implements IConnectionView {
+
+    private static final int LOADING_CHANGE_STATE_PAUSE = 500;
+    private static final int DISCONNECTED_STATE_DELAY = 2000;
 
     @Inject
     IConnectionPresenter mConnectionPresenter;
@@ -40,10 +44,23 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     @BindView(R.id.connect_button)
     public Button mConnectButton;
 
+    /*
+        Handler and runnables for updating UI
+    */
+    private Handler mUiHandler;
+    private Runnable mConnectingRunnable;
+    private Runnable mDisconnectedRunnable;
+
+    /*
+        Loading drawables and counter state
+     */
+    private int mCurrentLoadingDrawable;
+    private boolean mLoading;
     private static int[] sConnectingDrawables = new int[]{
-            R.drawable.connecting_bci1,
-            R.drawable.connecting_bci2,
-            R.drawable.connecting_bci3
+            R.drawable.ic_neurointerface_connecting_first,
+            R.drawable.ic_neurointerface_connecting_second,
+            R.drawable.ic_neurointerface_connecting_third,
+            R.drawable.ic_neurointerface_connecting_fourth
     };
 
     @Override
@@ -54,10 +71,11 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
         ButterKnife.bind(this);
         setUpViews();
         setUpNavigation();
+        setUpHandler();
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mConnectionPresenter.bindView(this);
-        showDisconnectedState();
+        showErrorConnectionState();
     }
 
     @Override
@@ -75,29 +93,42 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     }
 
     @Override
+    public void startLoading() {
+        mLoading = true;
+        showConnectingState();
+    }
+
+    @Override
     public void showConnectingState() {
         mConnectionStatusTextView.setText(getString(R.string.session_connection_in_progress));
+        int currentDrawableIndex = mCurrentLoadingDrawable ++ % sConnectingDrawables.length;
+        mConnectionStatusImageView.setImageResource(sConnectingDrawables[currentDrawableIndex]);
+        mUiHandler.postDelayed(mConnectingRunnable, LOADING_CHANGE_STATE_PAUSE);
+        setButtonsDisabled();
     }
 
     @Override
     public void showConnectedState() {
-        mConnectionStatusImageView.setImageResource(R.drawable.connected_bci);
+        mLoading = false;
+        mConnectionStatusImageView.setImageResource(R.drawable.ic_neurointerface_connected);
         mConnectionStatusTextView.setText(getString(R.string.session_connected));
         setStartButtonEnabled(true);
     }
 
     @Override
     public void showDisconnectedState() {
-        mConnectionStatusImageView.setImageResource(R.drawable.connect_bci);
+        mLoading = false;
+        mConnectionStatusImageView.setImageResource(R.drawable.ic_neurointerface_disconnected);
         mConnectionStatusTextView.setText(getString(R.string.session_not_connected));
         setStartButtonEnabled(false);
     }
 
     @Override
     public void showErrorConnectionState() {
-        mConnectionStatusImageView.setImageResource(R.drawable.error_bci);
+        mLoading = false;
+        mConnectionStatusImageView.setImageResource(R.drawable.ic_neurointerface_error);
         mConnectionStatusTextView.setText(getString(R.string.session_not_connected));
-        setStartButtonEnabled(false);
+        mUiHandler.postDelayed(mDisconnectedRunnable, DISCONNECTED_STATE_DELAY);
     }
 
     @Override
@@ -113,10 +144,10 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     }
 
     private void setUpViews() {
+        mConnectButton.setOnClickListener(v -> mConnectionPresenter.connect());
         mStartButton.setOnClickListener(v -> {
             //TODO: start activity with attention fragment
         });
-        mConnectButton.setOnClickListener(v -> mConnectionPresenter.connect());
     }
 
     private void setUpNavigation() {
@@ -126,8 +157,23 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
         getSupportActionBar().setTitle(getString(R.string.session_connection));
     }
 
+    private void setUpHandler() {
+        mUiHandler = new Handler();
+        mConnectingRunnable = () -> {
+            if (mLoading) {
+                showConnectingState();
+            }
+        };
+        mDisconnectedRunnable = () -> showDisconnectedState();
+    }
+
     private void setStartButtonEnabled(boolean enabled) {
         mStartButton.setEnabled(enabled);
         mConnectButton.setEnabled(!enabled);
+    }
+
+    private void setButtonsDisabled() {
+        mStartButton.setEnabled(false);
+        mConnectButton.setEnabled(false);
     }
 }

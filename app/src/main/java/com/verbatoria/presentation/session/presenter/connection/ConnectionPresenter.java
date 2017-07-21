@@ -1,6 +1,8 @@
-package com.verbatoria.presentation.session.presenter;
+package com.verbatoria.presentation.session.presenter.connection;
 
 import android.support.annotation.NonNull;
+import android.support.v4.os.AsyncTaskCompat;
+
 import com.neurosky.connection.ConnectionStates;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.presentation.session.view.connection.IConnectionView;
@@ -42,7 +44,7 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
     public void onConnectionStateChanged(int connectionCode) {
         switch (connectionCode) {
             case ConnectionStates.STATE_CONNECTING:
-                mConnectionView.showConnectingState();
+                mConnectionView.startLoading();
                 break;
             case ConnectionStates.STATE_CONNECTED:
                 mConnectionView.showConnectedState();

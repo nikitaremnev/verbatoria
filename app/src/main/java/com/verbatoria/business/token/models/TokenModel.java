@@ -38,11 +38,7 @@ public class TokenModel {
     }
 
     public String getExpireDateString() throws ParseException {
-        try {
-            return DateUtils.toString(mExpireDate);
-        } catch (ParseException e) {
-            throw e;
-        }
+        return DateUtils.toString(mExpireDate);
     }
 
     public void setExpireDate(Date expireDate) {

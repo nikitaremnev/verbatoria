@@ -1028,7 +1028,7 @@ public class MainActivity extends AppCompatActivity
                 bottomNavigationView.getMenu().getItem(0).setChecked(true);
                 titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
             } else if (pendingFragment instanceof AttentionFragment) {
-                ((AttentionFragment) pendingFragment).clearRemovedButtons();
+//                ((AttentionFragment) pendingFragment).clearRemovedButtons();
                 bottomNavigationView.getMenu().getItem(1).setChecked(true);
                 titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
             } else if (pendingFragment instanceof WriteCertificateFragment) {

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
+    android:paddingLeft="@dimen/writing_horizontal_padding"
+    android:paddingRight="@dimen/writing_horizontal_padding"
+    android:paddingBottom="@dimen/writing_vertical_padding"
+    android:paddingTop="@dimen/writing_vertical_padding">
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/writing_activities_button_height"
+        android:layout_marginTop="@dimen/writing_activities_buttons_top_margin"
+        android:orientation="horizontal"
+        android:weightSum="8">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_99"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_99_button"
+            android:layout_marginRight="@dimen/writing_load_right_margin"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_11"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_11_button"
+            android:layout_marginRight="@dimen/writing_load_right_margin"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_21"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_21_button"
+            android:layout_marginRight="@dimen/writing_load_right_margin"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_31"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_31_button"
+            android:layout_marginRight="@dimen/writing_load_right_margin"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_41"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_41_button"
+            android:layout_marginRight="@dimen/writing_load_right_margin"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_51"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_51_button"
+            android:layout_marginRight="@dimen/writing_load_right_margin"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_61"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_61_button"
+            android:layout_marginRight="@dimen/writing_load_right_margin"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/session_writing_load_71"
+            android:textSize="@dimen/writing_load_text_size"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:id="@+id/code_71_button"/>
+
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/line_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/writing_graph_top_margin"
+        android:layout_below="@+id/buttons_layout" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/player_buttons"
+        android:layout_below="@+id/buttons_layout"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/music_file_name_text_view"
+            android:textSize="@dimen/writing_player_file_name_text_size"
+            android:layout_margin="@dimen/writing_player_file_name_margin"/>
+
+        <android.support.design.widget.FloatingActionButton
+            app:srcCompat="@drawable/ic_play"
+            app:fabSize="normal"
+            app:backgroundTint="@color/main"
+            android:id="@+id/play_floating_button"
+            android:visibility="visible"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size" />
+
+        <android.support.design.widget.FloatingActionButton
+            app:srcCompat="@drawable/ic_pause"
+            app:fabSize="normal"
+            app:backgroundTint="@color/yellow"
+            android:id="@+id/pause_floating_button"
+            android:visibility="gone"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size" />
+
+        <android.support.design.widget.FloatingActionButton
+            app:srcCompat="@drawable/ic_stop"
+            app:fabSize="normal"
+            app:backgroundTint="@color/red"
+            android:id="@+id/stop_floating_button"
+            android:visibility="gone"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size" />
+
+        <android.support.design.widget.FloatingActionButton
+            app:srcCompat="@drawable/ic_back"
+            app:fabSize="normal"
+            app:backgroundTint="@color/back"
+            android:id="@+id/back_floating_button"
+            android:visibility="visible"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size" />
+
+        <android.support.design.widget.FloatingActionButton
+            app:srcCompat="@drawable/ic_next"
+            app:fabSize="normal"
+            app:backgroundTint="@color/next"
+            android:id="@+id/next_floating_button"
+            android:visibility="visible"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/timer_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/writing_timer_text_size"
+        android:textColor="@color/black"
+        android:paddingBottom="@dimen/writing_timer_bottom_padding"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>

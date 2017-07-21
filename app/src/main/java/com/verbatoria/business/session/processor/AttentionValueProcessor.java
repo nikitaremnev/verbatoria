@@ -1,12 +1,14 @@
 package com.verbatoria.business.session.processor;
 
 import java.util.ArrayList;
+import javax.inject.Singleton;
 
 /**
  * Процессор для обработки значений
  *
  * @author nikitaremnev
  */
+@Singleton
 public class AttentionValueProcessor {
 
     private static ArrayList<Integer> sAttentionQueue;

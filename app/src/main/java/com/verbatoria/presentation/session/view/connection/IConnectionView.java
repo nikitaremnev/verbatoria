@@ -8,9 +8,11 @@ package com.verbatoria.presentation.session.view.connection;
  */
 public interface IConnectionView {
 
+    void startLoading();
     void showConnectingState();
     void showConnectedState();
     void showDisconnectedState();
     void showErrorConnectionState();
     void showBluetoothDisabled();
+
 }

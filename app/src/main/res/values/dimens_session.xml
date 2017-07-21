@@ -3,8 +3,26 @@
     <dimen name="connection_padding">16dp</dimen>
     <dimen name="connection_status_image_padding">32dp</dimen>
     <dimen name="connection_instruction_padding">32dp</dimen>
-    <dimen name="connection_status_text_left_margin">16dp</dimen>
+    <dimen name="connection_status_text_left_margin">32dp</dimen>
     <dimen name="connection_status_text_top_margin">32dp</dimen>
     <dimen name="connection_status_image_left_margin">32dp</dimen>
     <dimen name="connection_status_image_top_margin">32dp</dimen>
+
+    <dimen name="writing_activities_button_height">60dp</dimen>
+    <dimen name="writing_activities_buttons_top_margin">8dp</dimen>
+    <dimen name="writing_timer_bottom_padding">24dp</dimen>
+
+    <dimen name="writing_timer_text_size">18sp</dimen>
+    <dimen name="writing_load_text_size">20sp</dimen>
+    <dimen name="writing_load_right_margin">8dp</dimen>
+    <dimen name="writing_graph_top_margin">8dp</dimen>
+
+    <dimen name="writing_horizontal_padding">12dp</dimen>
+    <dimen name="writing_vertical_padding">4dp</dimen>
+
+    <dimen name="writing_player_button_size">60dp</dimen>
+
+    <dimen name="writing_player_file_name_text_size">25sp</dimen>
+    <dimen name="writing_player_file_name_margin">16dp</dimen>
+    <dimen name="writing_player_button_margin">8dp</dimen>
 </resources>

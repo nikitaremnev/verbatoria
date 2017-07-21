@@ -44,11 +44,7 @@ public class EventModel implements Parcelable {
     }
 
     public String getStartAtDateString() throws ParseException {
-        try {
-            return DateUtils.toString(mStartAt);
-        } catch (ParseException e) {
-            throw e;
-        }
+        return DateUtils.toString(mStartAt);
     }
 
     public void setStartAt(Date startAt) {
@@ -60,11 +56,7 @@ public class EventModel implements Parcelable {
     }
 
     public String getEndAtDateString() throws ParseException {
-        try {
-            return DateUtils.toString(mEndAt);
-        } catch (ParseException e) {
-            throw e;
-        }
+        return DateUtils.toString(mEndAt);
     }
 
     public void setEndAt(Date endAt) {

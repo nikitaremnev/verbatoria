@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Нейроскрин v9.0</string>
+
     <string name="title_activity_navigation_drawer">Нейроскрин v9.0</string>
     <string name="navigation_drawer_open">Нейроскрин v9.0</string>
     <string name="navigation_drawer_close">Нейроскрин v9.0</string>
@@ -10,7 +10,6 @@
     <string name="nav_drawer_item_scanning">Изучение новых слов</string>
 
     <string name="email_to_send">ru1.verbatoria@verbatoria.ru</string>
-
 
     <string name="ok">OK</string>
 
@@ -279,10 +278,6 @@
     <string name="please_choose_user">Пожалуйста, выберите пользователя для работы в системе</string>
 
     <string name="have_answer">Есть ответ</string>
-
-    <string name="timer_string_full" formatted="false">Общее время: %s\nОбщее время нагрузок: %s\nОбщее время текущей нагрузки: %s\nВремя нагрузки: %s</string>
-    <string name="timer_string_only_full_and_loadings" formatted="false">Общее время: %s\nОбщее время нагрузок: %s</string>
-    <string name="timer_string_only_full" formatted="false">Общее время: %s</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

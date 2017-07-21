@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.inject.Singleton;
+
 /**
  * Процессор для обработки активностей во время сессии
  *
  * @author nikitaremnev
  */
+@Singleton
 public class DoneActivitiesProcessor {
 
     private static Set<String> sDoneActivitiesArray;
@@ -26,19 +29,19 @@ public class DoneActivitiesProcessor {
         sDoneActivitiesArray = new HashSet<>();
     }
 
-    private static Set<String> getDoneActivitiesArray() {
+    public static Set<String> getDoneActivitiesArray() {
         return sDoneActivitiesArray;
     }
 
-    private static void clearDoneActivities() {
+    public static void clearDoneActivities() {
         sDoneActivitiesArray.clear();
     }
 
-    private static void clearTimeDoneActivities() {
+    public static void clearTimeDoneActivities() {
         sDoneActivitiesTimeArray.clear();
     }
 
-    private static String getAllUndoneActivities() {
+    public static String getAllUndoneActivities() {
         String result = "";
         if (!sDoneActivitiesArray.contains("11")) {
             result += "11, ";
@@ -70,19 +73,19 @@ public class DoneActivitiesProcessor {
         return result;
     }
 
-    private static boolean addActivityToDoneArray(String string) {
+    public static boolean addActivityToDoneArray(String string) {
         return sDoneActivitiesArray.add(string);
     }
 
-    private static boolean addActivityToDoneArray(String string, long time) {
+    public static boolean addActivityToDoneArray(String string, long time) {
         return sDoneActivitiesTimeArray.add(new Pair<String, Long>(string, time));
     }
 
-    private static boolean containsDoneActivity(String string) {
+    public static boolean containsDoneActivity(String string) {
         return sDoneActivitiesArray.contains(string);
     }
 
-    private static boolean removeActivityFromDoneArray(String string) {
+    public static boolean removeActivityFromDoneArray(String string) {
         int i = 0;
         while (i < sDoneActivitiesTimeArray.size()) {
             if (sDoneActivitiesTimeArray.get(i).first.equals(string)) {
@@ -94,7 +97,7 @@ public class DoneActivitiesProcessor {
         return sDoneActivitiesArray.remove(string);
     }
 
-    private static long getSumOfTime() {
+    public static long getSumOfTime() {
         long time = 0;
         for (int i = 0; i < sDoneActivitiesTimeArray.size(); i ++) {
             time += sDoneActivitiesTimeArray.get(i).second;
@@ -102,7 +105,7 @@ public class DoneActivitiesProcessor {
         return time;
     }
 
-    private static long getSumOfTimeByCode(String code) {
+    public static long getSumOfTimeByCode(String code) {
         long time = 0;
         for (int i = 0; i < sDoneActivitiesTimeArray.size(); i ++) {
             if (sDoneActivitiesTimeArray.get(i).first.equals(code)) {

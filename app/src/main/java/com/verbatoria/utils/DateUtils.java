@@ -16,7 +16,7 @@ import java.util.Locale;
  */
 public class DateUtils {
 
-    private static final long MILLIS_PER_SECOND = 1000;
+    public static final long MILLIS_PER_SECOND = 1000;
     private static final long MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
     private static final long MILLIS_PER_HOUR = MILLIS_PER_MINUTE * 60;
     private static final long MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
@@ -25,6 +25,7 @@ public class DateUtils {
     private static final SimpleDateFormat SERVER_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
     private static final SimpleDateFormat SERVER_DATE_WITHOUT_YEAR_FORMAT = new SimpleDateFormat("dd.MM", Locale.ROOT);
     private static final SimpleDateFormat SERVER_TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.ROOT);
+    private static final SimpleDateFormat TIMER_TIME_FORMAT = new SimpleDateFormat("mm:ss", Locale.ROOT);
 
     public static boolean isCurrentYear(long millis) {
         Calendar currentCalendar = Calendar.getInstance();
@@ -60,8 +61,12 @@ public class DateUtils {
         return SERVER_DATE_FORMAT.parse(dateString);
     }
 
-    public static String toString(Date date) throws ParseException {
+    public static String toString(Date date) {
         return SERVER_DATE_FORMAT.format(date);
+    }
+
+    public static String timeToString(Date date) {
+        return TIMER_TIME_FORMAT.format(date);
     }
 
     public static String periodToString(Date startDate, Date endDate) {

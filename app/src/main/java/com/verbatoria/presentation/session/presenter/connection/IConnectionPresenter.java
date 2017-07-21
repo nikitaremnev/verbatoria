@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.session.presenter;
+package com.verbatoria.presentation.session.presenter.connection;
 
 import android.support.annotation.NonNull;
 import com.verbatoria.presentation.session.view.connection.IConnectionView;

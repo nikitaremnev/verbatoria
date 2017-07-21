@@ -48,11 +48,7 @@ public class ChildModel implements Parcelable {
     }
 
     public String getBirthdayDateString() throws ParseException {
-        try {
-            return DateUtils.toString(mBirthday);
-        } catch (ParseException e) {
-            throw e;
-        }
+        return DateUtils.toString(mBirthday);
     }
 
     public void setBirthday(Date birthday) {

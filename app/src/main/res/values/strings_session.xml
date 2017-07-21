@@ -13,4 +13,21 @@
     </string>
     <string name="session_bluetooth_disabled">Bluetooth отключен</string>
     <string name="session_settings">Настройки</string>
+
+    <string name="session_writing_load_99">99</string>
+    <string name="session_writing_load_11">11</string>
+    <string name="session_writing_load_21">21</string>
+    <string name="session_writing_load_31">31</string>
+    <string name="session_writing_load_41">41</string>
+    <string name="session_writing_load_51">51</string>
+    <string name="session_writing_load_61">61</string>
+    <string name="session_writing_load_71">71</string>
+
+    <string name="session_writing_no_load">Нет нагрузки</string>
+
+    <string name="session_timer_string_full" formatted="false">Общее время: %s\nОбщее время нагрузок: %s\nОбщее время текущей нагрузки: %s\nВремя нагрузки: %s</string>
+    <string name="session_timer_string_only_full_and_loadings" formatted="false">Общее время: %s\nОбщее время нагрузок: %s</string>
+    <string name="session_timer_string_only_full" formatted="false">Общее время: %s</string>
+
+    <string name="session_player_error">Файлы для воспроизведения не найдены!</string>
 </resources>

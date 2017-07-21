@@ -14,6 +14,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
+import com.verbatoria.presentation.session.view.writing.WritingActivity;
 
 import javax.inject.Inject;
 
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     //отображение результатов запроса
     @Override
     public void loginSuccess() {
-        Intent intent = new Intent(this, ConnectionActivity.class);
+        Intent intent = new Intent(this, WritingActivity.class);
         startActivity(intent);
         finish();
     }
