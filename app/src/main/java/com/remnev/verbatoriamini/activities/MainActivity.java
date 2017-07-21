@@ -82,7 +82,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
-        implements INFCCallback,
         IAllAnsweredCallback,
         IExportPossibleCallback,
         IFragmentsMovingCallback {
@@ -118,30 +117,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         mContext = this;
 
-        initViews();
-        setUpBottomNavigationView();
-
-        pendingFragment = new ConnectionFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, pendingFragment)
-                .commit();
-
-        setUpView();
 
         File cacheDir = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR);
         if (!cacheDir.exists()) {
             cacheDir.mkdirs();
         }
 
-        bottomNavigationView.getMenu().removeItem(R.id.bottom_navigation_item_certificates);
-        bottomNavigationView.getMenu().removeItem(R.id.bottom_navigation_item_codes);
 
         setUpToolbarButton();
 
@@ -182,67 +165,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         }
-    }
-
-    private void initViews() {
-        mRootView = findViewById(R.id.container);
-        titleTextView = (TextView) findViewById(R.id.title);
-        specialistTextView = (TextView) findViewById(R.id.specialist);
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-    }
-
-    private void setUpView() {
-        titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-        specialistTextView.setText(SpecialistSharedPrefs.getCurrentSpecialist(mContext).getSpecialistName());
-    }
-
-    private void setUpBottomNavigationView() {
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                if (!isExportPossible) {
-                    Helper.showSnackBar(findViewById(R.id.container), getString(R.string.please_stop_action));
-                    return false;
-                }
-                boolean flag = true;
-                clearButtons = null;
-                switch (menuItem.getItemId()) {
-                    case R.id.bottom_navigation_item_connect:
-                        pendingFragment = new ConnectionFragment();
-                        titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-                        break;
-                    case R.id.bottom_navigation_item_attention:
-                        if (!NeuroApplicationClass.isConnected()) {
-                            Helper.showSnackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
-                            return false;
-                        }
-                        pendingFragment = new AttentionFragment();
-                        clearButtons = (IClearButtonsCallback) pendingFragment;
-                        titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
-                        break;
-                    case R.id.bottom_navigation_item_mail:
-                        if (!NeuroApplicationClass.isConnected()) {
-                            Helper.showSnackBar(findViewById(R.id.container), getString(R.string.please_connect_neuro));
-                            return false;
-                        }
-                        preCheckExportToExcel();
-                        flag = false;
-                        break;
-                    case R.id.bottom_navigation_item_certificates:
-                        pendingFragment = new WriteCertificateFragment();
-                        titleTextView.setText(getString(R.string.CERTIFICATES_BOTTOM_NAVIGATION_BAR));
-                        break;
-                    case R.id.bottom_navigation_item_codes:
-                        pendingFragment = new WriteCodesFragment();
-                        titleTextView.setText(getString(R.string.CODES_BOTTOM_NAVIGATION_BAR));
-                        break;
-                }
-                if (flag) {
-                    beginFragmentManagerTransaction(pendingFragment);
-                }
-                return true;
-            }
-        });
     }
 
     private void moveFile(String inputPath, String outputPath) {
