@@ -106,59 +106,6 @@ public class MainActivity extends AppCompatActivity
 
     private Timer mConnectionCheckTimer;
 
-    //nfc
-    NfcAdapter mAdapter;
-    PendingIntent mPendingIntent;
-    IntentFilter[] mNdefExchangeFilters;
-    public static INFCCallback callback;
-
-    @Override
-    public void onNewIntent(Intent intent) {
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) && callback != null) {
-            Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            onNFCTagReaded(tagFromIntent);
-        } else if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
-            Tag tagFromIntent = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            onNFCTagReaded(tagFromIntent);
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        mNdefExchangeFilters = new IntentFilter[] { tagDetected };
-        enableNFC();
-
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(this.getIntent().getAction())) {
-            Tag detectedTag = this.getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            onNFCTagReaded(detectedTag);
-            callback.onNFCTagReaded(detectedTag);
-        } else if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(this.getIntent().getAction())) {
-            Tag detectedTag = this.getIntent().getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            onNFCTagReaded(detectedTag);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        disableNFC();
-    }
-
-    private void disableNFC() {
-        if (mAdapter != null) {
-            mAdapter.disableForegroundDispatch(this);
-        }
-    }
-
-    private void enableNFC() {
-        if (mAdapter != null) {
-            mAdapter.enableForegroundDispatch(this, mPendingIntent, mNdefExchangeFilters, null);
-        }
-    }
-
     private void setUpToolbarButton() {
         findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,14 +126,6 @@ public class MainActivity extends AppCompatActivity
 
         initViews();
         setUpBottomNavigationView();
-
-        mAdapter = NfcAdapter.getDefaultAdapter(this);
-        mPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
-                getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
-        IntentFilter ndefDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-        ndefDetected.addCategory(Intent.CATEGORY_DEFAULT);
-        mNdefExchangeFilters = new IntentFilter[]{ndefDetected};
 
         pendingFragment = new ConnectionFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -271,7 +210,6 @@ public class MainActivity extends AppCompatActivity
                     case R.id.bottom_navigation_item_connect:
                         pendingFragment = new ConnectionFragment();
                         titleTextView.setText(getString(R.string.CONNECT_BOTTOM_NAVIGATION_BAR));
-                        callback = null;
                         break;
                     case R.id.bottom_navigation_item_attention:
                         if (!NeuroApplicationClass.isConnected()) {
@@ -281,7 +219,6 @@ public class MainActivity extends AppCompatActivity
                         pendingFragment = new AttentionFragment();
                         clearButtons = (IClearButtonsCallback) pendingFragment;
                         titleTextView.setText(getString(R.string.ATTENTION_BOTTOM_NAVIGATION_BAR));
-                        callback = (INFCCallback) pendingFragment;
                         break;
                     case R.id.bottom_navigation_item_mail:
                         if (!NeuroApplicationClass.isConnected()) {
@@ -293,12 +230,10 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case R.id.bottom_navigation_item_certificates:
                         pendingFragment = new WriteCertificateFragment();
-                        callback = (INFCCallback) pendingFragment;
                         titleTextView.setText(getString(R.string.CERTIFICATES_BOTTOM_NAVIGATION_BAR));
                         break;
                     case R.id.bottom_navigation_item_codes:
                         pendingFragment = new WriteCodesFragment();
-                        callback = (INFCCallback) pendingFragment;
                         titleTextView.setText(getString(R.string.CODES_BOTTOM_NAVIGATION_BAR));
                         break;
                 }
@@ -1060,61 +995,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onNFCTagReaded(Tag msg) {
-        if (pendingFragment instanceof WriteCertificateFragment) {
-            if (callback != null) {
-                callback.onNFCTagReaded(msg);
-            }
-            return;
-        }
-        if (msg != null) {
-            String readedText = Helper.readTag(msg, MainActivity.this);
-            if (TextUtils.isEmpty(readedText)) {
-                if (callback != null) {
-                    callback.onNFCTagReaded(msg);
-                }
-            } else {
-                try {
-                    Certificate certificate = new Certificate();
-                    if (certificate.parseCertificate(readedText)) {
-                        Certificate currentCertificate = SpecialistSharedPrefs.getCurrentSpecialist(MainActivity.this);
-                        if (currentCertificate == null) {
-                            if (checkDate(certificate)) {
-                                showExpiryDialog();
-                                return;
-                            }
-                            SpecialistSharedPrefs.setCurrentSpecialist(MainActivity.this, certificate);
-                            specialistTextView.setText(SpecialistSharedPrefs.getCurrentSpecialist(mContext).getSpecialistName());
-                            SpecialistSharedPrefs.setLastCertificateCheckDate(MainActivity.this, System.currentTimeMillis());
-                            Helper.showSnackBar(bottomNavigationView, (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()));
-                        } else {//cvc is correct //if (specialist.getCvc().equals(SpecialistSharedPrefs.getCurrentSpecialist(AuthorityActivity.this).getCvc())) {
-                            if (checkDate(certificate)) {
-                                showExpiryDialog();
-                                return;
-                            }
-                            SpecialistSharedPrefs.setCurrentSpecialist(MainActivity.this, certificate);
-                            specialistTextView.setText(SpecialistSharedPrefs.getCurrentSpecialist(mContext).getSpecialistName());
-                            SpecialistSharedPrefs.setLastCertificateCheckDate(MainActivity.this, System.currentTimeMillis());
-                            Helper.showSnackBar(bottomNavigationView, (String.format(getString(R.string.authority_success), certificate.getSpecialistName()) + " " + certificate.getExpiry()));
-                        }
-                    } else {
-                        if (callback != null) {
-                            callback.onNFCTagReaded(msg);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    if (callback != null) {
-                        callback.onNFCTagReaded(msg);
-                    }
-                }
-            }
-
-        }
-
-    }
-
-    @Override
     public void allAnswered(final String age, final String reportID, final long timeInMillis, final String directoryAbsPath) {
         if (ParentsAnswersSharedPrefs.isAllQuestionsAnswered(mContext)) {
             mQuestionaryDialogFragment.dismiss();
@@ -1124,50 +1004,44 @@ public class MainActivity extends AppCompatActivity
             progressDialog.setMessage(getString(R.string.generate_xls_file));
             progressDialog.setCancelable(false);
             progressDialog.show();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-                    String rebenokID = "Возраст: " + age;
-                    final String fileName = "Возраст: " + age
-                            + "_" + sdf.format(timeInMillis) + "_" + reportID + ".xls";
-                    File excelFile = new File(directoryAbsPath + File.separator + fileName);
-                    if (excelFile.exists()) {
-                        excelFile.delete();
-                    }
-
-                    final String specialist = SpecialistSharedPrefs.getCurrentSpecialist(MainActivity.this).getSpecialistName();
-                    final String save = saveExcelFile(mContext, excelFile, reportID, rebenokID, specialist);
-                    if (save.equals("true")) {
-                        Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_success));
-                    } else if (save.equals("false")) {
-                        Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_fail));
-                        return;
-                    }
-
-                    final File fromFileStatistics = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "statistics.db");
-                    final File toFileStatistics = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "Export" + File.separator + "statistics_" + "test" + "_" + sdf.format(timeInMillis) + ".db");
-                    final File fromFileBCI = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "bci.db");
-                    final File toFileBCI = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "Export" + File.separator + "bci_" + "test" + "_" + sdf.format(timeInMillis) + ".db");
-                    if (toFileStatistics.exists()) {
-                        toFileStatistics.delete();
-                    }
-                    if (toFileBCI.exists()) {
-                        toFileBCI.delete();
-                    }
-                    progressDialog.dismiss();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generating_xls_message));
-                            StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_END_ID, RezhimID.ANOTHER_MODE, -1, -1);
-                            moveFile(fromFileStatistics.getAbsolutePath(), toFileStatistics.getAbsolutePath());
-                            moveFile(fromFileBCI.getAbsolutePath(), toFileBCI.getAbsolutePath());
-                            selectBottomNavigationItemAndSetTitle();
-                            share("file://" + directoryAbsPath + File.separator + fileName, reportID);
-                        }
-                    });
+            new Thread(() -> {
+                SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+                String rebenokID = "Возраст: " + age;
+                final String fileName = "Возраст: " + age
+                        + "_" + sdf.format(timeInMillis) + "_" + reportID + ".xls";
+                File excelFile = new File(directoryAbsPath + File.separator + fileName);
+                if (excelFile.exists()) {
+                    excelFile.delete();
                 }
+
+                final String specialist = SpecialistSharedPrefs.getCurrentSpecialist(MainActivity.this).getSpecialistName();
+                final String save = saveExcelFile(mContext, excelFile, reportID, rebenokID, specialist);
+                if (save.equals("true")) {
+                    Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_success));
+                } else if (save.equals("false")) {
+                    Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generate_xls_file_fail));
+                    return;
+                }
+
+                final File fromFileStatistics = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "statistics.db");
+                final File toFileStatistics = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "Export" + File.separator + "statistics_" + "test" + "_" + sdf.format(timeInMillis) + ".db");
+                final File fromFileBCI = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "bci.db");
+                final File toFileBCI = new File(Environment.getExternalStorageDirectory(), SplashActivity.FILES_DIR + File.separator + "Export" + File.separator + "bci_" + "test" + "_" + sdf.format(timeInMillis) + ".db");
+                if (toFileStatistics.exists()) {
+                    toFileStatistics.delete();
+                }
+                if (toFileBCI.exists()) {
+                    toFileBCI.delete();
+                }
+                progressDialog.dismiss();
+                runOnUiThread(() -> {
+                    Helper.showSnackBar(findViewById(R.id.container), getString(R.string.generating_xls_message));
+                    StatisticsDatabase.addEventToDatabase(mContext, "", "", ActionID.RECORD_END_ID, RezhimID.ANOTHER_MODE, -1, -1);
+                    moveFile(fromFileStatistics.getAbsolutePath(), toFileStatistics.getAbsolutePath());
+                    moveFile(fromFileBCI.getAbsolutePath(), toFileBCI.getAbsolutePath());
+                    selectBottomNavigationItemAndSetTitle();
+                    share("file://" + directoryAbsPath + File.separator + fileName, reportID);
+                });
             }).start();
         } else {
             Helper.showSnackBar(bottomNavigationView, getString(R.string.fill_all_questions));
