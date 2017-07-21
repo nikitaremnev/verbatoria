@@ -171,7 +171,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     }
 
     @Override
-    public void showError(String error) {
+    public void showSnackBar(String error) {
         Snackbar snackbar = Snackbar.make(mPlayerContainer, error, Snackbar.LENGTH_LONG);
         snackbar.show();
     }

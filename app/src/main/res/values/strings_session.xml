@@ -30,4 +30,6 @@
     <string name="session_timer_string_only_full" formatted="false">Общее время: %s</string>
 
     <string name="session_player_error">Файлы для воспроизведения не найдены!</string>
+
+    <string name="session_success_write_event">Событие успешно записано в базу данных</string>
 </resources>

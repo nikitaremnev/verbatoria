@@ -17,7 +17,7 @@ public interface IWritingView {
     void hidePlayer();
 
     void showPlayingFileName(String fileName);
-    void showError(String error);
+    void showSnackBar(String error);
 
     void setButtonState(ActivityButtonState state, String code);
 }

@@ -4,6 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.DataType.MindDataType;
+import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoriamini.databases.StatisticsDatabase;
+import com.remnev.verbatoriamini.util.NeuroExcelWriter;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.presentation.session.view.writing.ActivityButtonState;
 import com.verbatoria.presentation.session.view.writing.IWritingView;
@@ -31,7 +34,7 @@ public class WritingPresenter implements IWritingPresenter,
     private ISessionInteractor mSessionInteractor;
     private IWritingView mWritingView;
 
-    private String mSelectedButtonText;
+    private String mSelectedButtonText = NO_CODE;
 
     public WritingPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -110,7 +113,7 @@ public class WritingPresenter implements IWritingPresenter,
 
     @Override
     public void showPlayerError(String error) {
-        mWritingView.showError(error);
+        mWritingView.showSnackBar(error);
     }
 
     @Override
@@ -151,10 +154,9 @@ public class WritingPresenter implements IWritingPresenter,
 
     private void processCode(String code) {
         if (mSelectedButtonText != NO_CODE && mSelectedButtonText.equals(code)) {
-//            StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-//            Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
-//            mLoadTextView.setText("");
-//            selectedButtonText = "";
+            StatisticsDatabase.addEventToDatabase(mContext, code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
+            mWritingView.showSnackBar(mContext.getString(R.string.session_success_write_event));
+            mSelectedButtonText = NO_CODE;
             updateButtonsState(NO_CODE);
 
 //            mSessionInteractor.addActivityToDoneArray(code);
@@ -179,6 +181,7 @@ public class WritingPresenter implements IWritingPresenter,
 //            StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
 //            Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
 //            selectedButtonText = code;
+            mSelectedButtonText = code;
             updateButtonsState(code);
 //            changeExportValue(false);
 
