@@ -11,7 +11,6 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
-import com.verbatoria.presentation.session.view.export.ViewPagerContainer;
 import com.verbatoria.presentation.session.view.submit.adapter.QuestionsAdapter;
 import java.util.ArrayList;
 import javax.inject.Inject;
@@ -31,10 +30,10 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
     @BindView(R.id.loading_view)
     public View mLoadingView;
 
-    @BindView(R.id.back_button)
+    @BindView(R.id.next_button)
     public Button mNextButton;
 
-    @BindView(R.id.next_button)
+    @BindView(R.id.back_button)
     public Button mBackButton;
 
     @BindView(R.id.navigation_layout)

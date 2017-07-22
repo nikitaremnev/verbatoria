@@ -9,12 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.adapters.ParentsQuestionsAdapter;
 import com.remnev.verbatoriamini.sharedpreferences.ParentsAnswersSharedPrefs;
-import com.verbatoria.presentation.session.view.export.ViewPagerContainer;
+import com.verbatoria.presentation.session.view.submit.ViewPagerContainer;
 
 import java.util.ArrayList;
 

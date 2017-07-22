@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.session.view.export;
+package com.verbatoria.presentation.session.view.submit;
 
 import android.content.Context;
 import android.graphics.Point;

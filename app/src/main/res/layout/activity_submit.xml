@@ -13,7 +13,7 @@
         android:layout_above="@+id/navigation_container_layout"
         android:id="@+id/questionary_layout">
 
-        <com.verbatoria.presentation.session.view.export.ViewPagerContainer
+        <com.verbatoria.presentation.session.view.submit.ViewPagerContainer
             android:id="@+id/questions_pager_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-        </com.verbatoria.presentation.session.view.export.ViewPagerContainer>
+        </com.verbatoria.presentation.session.view.submit.ViewPagerContainer>
 
     </LinearLayout>
 
@@ -44,12 +44,12 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:text="@string/session_submit_back"
-            style="@style/ButtonStyle" />
+            style="@style/ButtonBorderlessStyle" />
 
         <LinearLayout
             android:id="@+id/navigation_layout"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/submit_questionary_navigation_height"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_centerInParent="true"/>
 
@@ -60,7 +60,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:text="@string/session_submit_next"
-            style="@style/ButtonStyle" />
+            style="@style/ButtonBorderlessStyle" />
 
     </RelativeLayout>
 
