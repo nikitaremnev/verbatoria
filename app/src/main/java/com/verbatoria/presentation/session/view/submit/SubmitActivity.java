@@ -87,15 +87,17 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         ArrayList<View> navigationItems = new ArrayList<>();
 
         //first navigation item
-        View navigationItem = getLayoutInflater().inflate(R.layout.item_navigation, null, false);
-        navigationItem.setBackgroundResource(R.drawable.background_navigation_item_selected);
-        navigationItems.add(navigationItem);
-        mNavigationLayout.addView(navigationItem);
+        View firstItem = getLayoutInflater().inflate(R.layout.item_navigation, null, false);
+        View firstCircle = firstItem.findViewById(R.id.circle_image_view);
+        firstCircle.setBackgroundResource(R.drawable.background_navigation_item_selected);
+        navigationItems.add(firstCircle);
+        mNavigationLayout.addView(firstItem);
 
         //other items
         for (int i = 1; i < QuestionsAdapter.QUESTIONARY_SIZE; i ++) {
-            navigationItem = getLayoutInflater().inflate(R.layout.item_navigation, null, false);
-            navigationItems.add(navigationItem);
+            View navigationItem = getLayoutInflater().inflate(R.layout.item_navigation, null, false);
+            View circle = firstItem.findViewById(R.id.circle_image_view);
+            navigationItems.add(circle);
             mNavigationLayout.addView(navigationItem);
         }
         mNavigationLayout.invalidate();
