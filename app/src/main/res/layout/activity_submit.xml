@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/submit_padding"
+    android:background="@color/background">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/navigation_container_layout"
+        android:id="@+id/questionary_layout">
+
+        <com.verbatoria.presentation.session.view.export.ViewPagerContainer
+            android:id="@+id/questions_pager_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/questions_view_pager"
+                android:overScrollMode="never"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.verbatoria.presentation.session.view.export.ViewPagerContainer>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/navigation_container_layout"
+        android:paddingTop="@dimen/submit_questionary_buttons_vertical_padding"
+        android:paddingBottom="@dimen/submit_questionary_buttons_vertical_padding"
+        android:layout_above="@+id/submit_button">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:id="@+id/back_button"
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/session_submit_back"
+            style="@style/ButtonStyle" />
+
+        <LinearLayout
+            android:id="@+id/navigation_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/submit_questionary_navigation_height"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:id="@+id/next_button"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/session_submit_next"
+            style="@style/ButtonStyle" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_alignParentBottom="true"
+        android:text="@string/session_submit"
+        style="@style/ButtonStyle" />
+
+    <include layout="@layout/view_loading"
+        android:id="@+id/loading_view"
+        android:visibility="gone"/>
+
+</RelativeLayout>

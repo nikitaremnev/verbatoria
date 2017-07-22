@@ -16,7 +16,7 @@
         style="@style/ButtonStyle"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:background="@drawable/btn_code_form"
+        android:background="@drawable/background_button_unselected"
         tools:text="Вася Пупкин"/>
 
 </RelativeLayout>

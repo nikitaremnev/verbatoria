@@ -4,4 +4,6 @@
     <string name="login_phone_hint">Номер телефона</string>
     <string name="login_password_hint">Пароль</string>
 
+    <string name="splash_application_will_be_unstable">Приложение будет работать нестабильно. Пожалуйста, дайте необходимые разрешения в настройках приложения</string>
+
 </resources>

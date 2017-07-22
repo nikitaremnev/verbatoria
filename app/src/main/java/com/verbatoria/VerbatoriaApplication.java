@@ -7,14 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.neurosky.connection.DataType.MindDataType;
+import com.neurosky.connection.EEGPower;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 
-import com.remnev.verbatoriamini.util.FontsOverride;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.di.application.ApplicationComponent;
 import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
+import com.verbatoria.utils.FontsOverride;
 
 /**
  * Application-класс. Инициализирует даггер-компонент для построения всех зависимостей.
@@ -107,8 +109,19 @@ public class VerbatoriaApplication extends MultiDexApplication {
         }
 
         @Override
-        public void onDataReceived(int datatype, final int data, Object obj) {
-            sSessionInteractorCallback.onDataReceivedCallback(datatype, data);
+        public void onDataReceived(int dataCode, final int data, Object object) {
+            switch (dataCode) {
+                case MindDataType.CODE_ATTENTION:
+                case MindDataType.CODE_MEDITATION:
+                    sSessionInteractorCallback.onDataReceivedCallback(dataCode, data);
+                    break;
+                case MindDataType.CODE_EEGPOWER:
+                    EEGPower eegPower = (EEGPower) object;
+                    sSessionInteractorCallback.onEEGDataReceivedCallback(eegPower);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

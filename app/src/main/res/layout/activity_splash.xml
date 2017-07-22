@@ -1,15 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFC5"
-    tools:context="com.remnev.verbatoriamini.activities.SplashActivity">
+    android:background="@color/background">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/imageView"
         android:scaleType="centerInside"
-        android:layout_margin="48dp"
+        android:layout_margin="@dimen/activity_splash_margin"
         android:src="@mipmap/logo_splash"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />

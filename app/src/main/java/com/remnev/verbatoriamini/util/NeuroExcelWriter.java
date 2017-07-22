@@ -13,7 +13,9 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
 /**
- * Created by nikitaremnev on 27.03.16.
+ *
+ *
+ * @author nikitaremnev
  */
 public class NeuroExcelWriter {
 

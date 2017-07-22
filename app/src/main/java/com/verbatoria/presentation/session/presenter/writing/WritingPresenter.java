@@ -4,9 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.DataType.MindDataType;
-import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.databases.StatisticsDatabase;
-import com.remnev.verbatoriamini.util.NeuroExcelWriter;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.presentation.session.view.writing.ActivityButtonState;
 import com.verbatoria.presentation.session.view.writing.IWritingView;
@@ -33,8 +30,6 @@ public class WritingPresenter implements IWritingPresenter,
 
     private ISessionInteractor mSessionInteractor;
     private IWritingView mWritingView;
-
-    private String mSelectedButtonText = NO_CODE;
 
     public WritingPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -77,6 +72,16 @@ public class WritingPresenter implements IWritingPresenter,
     }
 
     @Override
+    public void showPlayer() {
+        mSessionInteractor.showPlayer();
+    }
+
+    @Override
+    public void hidePlayer() {
+        mSessionInteractor.hidePlayer();
+    }
+    
+    @Override
     public void setUpPlayMode() {
         mWritingView.setUpPlayMode();
     }
@@ -92,23 +97,13 @@ public class WritingPresenter implements IWritingPresenter,
     }
 
     @Override
-    public void showPlayer() {
-        mWritingView.showPlayer();
-    }
-
-    @Override
-    public void hidePlayer() {
-        mWritingView.hidePlayer();
-    }
-
-    @Override
     public void submitCode(String code) {
         if (code.equals(MUSIC_BUTTON_CODE)) {
             mWritingView.showPlayer();
         } else {
             mWritingView.hidePlayer();
         }
-        processCode(code);
+        mSessionInteractor.processCode(code);
     }
 
     @Override
@@ -129,12 +124,8 @@ public class WritingPresenter implements IWritingPresenter,
     }
 
     @Override
-    public void onDataReceivedCallback(int dataTypeCode, int value) {
-        switch (dataTypeCode) {
-            case MindDataType.CODE_ATTENTION:
-                mWritingView.addGraphEntry(value);
-                break;
-        }
+    public void onAttentionValueReceived(int attentionValue) {
+        mWritingView.addGraphEntry(attentionValue);
     }
 
     @Override
@@ -152,94 +143,8 @@ public class WritingPresenter implements IWritingPresenter,
         return mSessionInteractor.getDoneActivitiesTime();
     }
 
-    private void processCode(String code) {
-        if (mSelectedButtonText != NO_CODE && mSelectedButtonText.equals(code)) {
-            StatisticsDatabase.addEventToDatabase(mContext, code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-            mWritingView.showSnackBar(mContext.getString(R.string.session_success_write_event));
-            mSelectedButtonText = NO_CODE;
-            updateButtonsState(NO_CODE);
-
-//            mSessionInteractor.addActivityToDoneArray(code);
-//            mSessionInteractor.addActivityToDoneArray(code, (System.currentTimeMillis() - mStartActivityTime) / 1000);
-//                changeExportValue(true);
-//                mStartActivityTime = 0;
-//                mFullLoadingNumberOfSeconds = 0;
-//                mCurrentLoadingNumberOfSeconds = 0;
-//                mIsSubtasksActive = false;
-        } else {
-
-
-
-
-//            String textToWrite = selectedButtonText;
-//            StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-//            textToWrite = code;
-//
-//            mSessionInteractor.addActivityToDoneArray(textToWrite);
-//            mSessionInteractor.addActivityToDoneArray(selectedButtonText, (System.currentTimeMillis() - mStartActivityTime) / 1000);
-//
-//            StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-//            Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
-//            selectedButtonText = code;
-            mSelectedButtonText = code;
-            updateButtonsState(code);
-//            changeExportValue(false);
-
-//                mStartActivityTime = System.currentTimeMillis();
-//                mFullLoadingNumberOfSeconds = NeuroApplicationClass.getDoneActivityTimeByCode(code);
-//                mCurrentLoadingNumberOfSeconds = 0;
-//                mIsSubtasksActive = true;
-        }
-
-//        if (code == NO_CODE) {
-//            mSessionInteractor.addActivityToDoneArray(code);
-//            StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-//            Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
-//            selectedButtonText = code;
-//            setAllButtonsUnselected(foundButtonByCode(code));
-//            changeExportValue(false);
-//
-//            mStartActivityTime = System.currentTimeMillis();
-//            mFullLoadingNumberOfSeconds = NeuroApplicationClass.getDoneActivityTimeByCode(code);
-//            mIsSubtasksActive = true;
-//        } else {
-//            if (selectedButtonText.equals(code)) {
-//                StatisticsDatabase.addEventToDatabase(getActivity(), code, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-//                Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
-//                mLoadTextView.setText("");
-//                selectedButtonText = "";
-//                setAllButtonsUnselected(null);
-//
-//                NeuroApplicationClass.addActivityToDoneArray(code);
-//                NeuroApplicationClass.addActivityToDoneArray(code, (System.currentTimeMillis() - mStartActivityTime) / 1000);
-////                changeExportValue(true);
-////                mStartActivityTime = 0;
-////                mFullLoadingNumberOfSeconds = 0;
-////                mCurrentLoadingNumberOfSeconds = 0;
-////                mIsSubtasksActive = false;
-//            } else {
-//                String textToWrite = selectedButtonText;
-//                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-//                textToWrite = code;
-//
-//                NeuroApplicationClass.addActivityToDoneArray(textToWrite);
-////                NeuroApplicationClass.addActivityToDoneArray(selectedButtonText, (System.currentTimeMillis() - mStartActivityTime) / 1000);
-//
-//                StatisticsDatabase.addEventToDatabase(getActivity(), textToWrite, NeuroExcelWriter.CUSTOM_ACTION_ID, -1, -1, -1, -1, "");
-//                Helper.showSnackBar(mLoadTextView, getString(R.string.success_write_event));
-//                selectedButtonText = code;
-//                setAllButtonsUnselected(foundButtonByCode(code));
-//                changeExportValue(false);
-//
-////                mStartActivityTime = System.currentTimeMillis();
-////                mFullLoadingNumberOfSeconds = NeuroApplicationClass.getDoneActivityTimeByCode(code);
-////                mCurrentLoadingNumberOfSeconds = 0;
-////                mIsSubtasksActive = true;
-//            }
-//        }
-    }
-
-    private void updateButtonsState(String selectedButtonCode) {
+    @Override
+    public void updateButtonsState(String selectedButtonCode) {
         mWritingView.setButtonState(mSessionInteractor.containsDoneActivity(CODE_99) ? ActivityButtonState.STATE_DONE : ActivityButtonState.STATE_NEW, CODE_99);
         mWritingView.setButtonState(mSessionInteractor.containsDoneActivity(CODE_11) ? ActivityButtonState.STATE_DONE : ActivityButtonState.STATE_NEW, CODE_11);
         mWritingView.setButtonState(mSessionInteractor.containsDoneActivity(CODE_21) ? ActivityButtonState.STATE_DONE : ActivityButtonState.STATE_NEW, CODE_21);
@@ -252,4 +157,5 @@ public class WritingPresenter implements IWritingPresenter,
             mWritingView.setButtonState(ActivityButtonState.STATE_SELECTED, selectedButtonCode);
         }
     }
+
 }

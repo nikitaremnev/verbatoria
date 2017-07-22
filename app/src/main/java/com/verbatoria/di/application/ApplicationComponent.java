@@ -26,5 +26,4 @@ public interface ApplicationComponent extends ApplicationComponentInjects, Token
     DashboardComponent addModule(DashboardModule dashboardModule);
 
     SessionComponent addModule(SessionModule sessionModule);
-
 }

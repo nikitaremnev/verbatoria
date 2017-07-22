@@ -12,8 +12,10 @@ import android.widget.EditText;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
+import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
+import com.verbatoria.presentation.session.view.submit.SubmitActivity;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
 
 import javax.inject.Inject;
@@ -104,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     //отображение результатов запроса
     @Override
     public void loginSuccess() {
-        Intent intent = new Intent(this, WritingActivity.class);
+        Intent intent = new Intent(this, SubmitActivity.class);
         startActivity(intent);
         finish();
     }

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorAccent">@color/status_bar</item>
         <item name="colorPrimary">@color/main</item>
         <item name="colorPrimaryDark">@color/status_bar</item>
@@ -14,20 +14,15 @@
         <item name="android:elevation">@dimen/button_elevation</item>
     </style>
 
-    <style name="MenuItemTheme" parent="AppTheme">
+    <style name="MenuItemTheme" parent="MainTheme">
         <item name="android:textSize">20sp</item>
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="MainAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorAccent">@color/status_bar</item>
-        <item name="colorPrimary">@color/main</item>
-        <item name="colorPrimaryDark">@color/status_bar</item>
-        <item name="android:navigationBarColor">@color/status_bar</item>
+    <style name="FullScreenTheme" parent="MainTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:typeface">monospace</item>
     </style>
 
     <style name="DialogStyle" parent="ThemeOverlay.AppCompat.Dialog">
@@ -36,7 +31,7 @@
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="MainTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:typeface">monospace</item>

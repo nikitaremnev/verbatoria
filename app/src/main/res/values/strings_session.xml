@@ -32,4 +32,27 @@
     <string name="session_player_error">Файлы для воспроизведения не найдены!</string>
 
     <string name="session_success_write_event">Событие успешно записано в базу данных</string>
+
+    <string name="session_submit_back">Назад</string>
+    <string name="session_submit_next">Далее</string>
+
+    <string name="session_submit">Закончить</string>
+
+    <string name="session_has_answer">Есть ответ</string>
+
+    <string name="session_question_variant_10">10</string>
+    <string name="session_question_variant_20">20</string>
+    <string name="session_question_variant_40">40</string>
+    <string name="session_question_variant_60">60</string>
+    <string name="session_question_variant_90">90</string>
+
+    <string-array name="session_questions">
+        <item>Речь</item>
+        <item>Математика</item>
+        <item>Музыка</item>
+        <item>Творчество</item>
+        <item>Кинестетика</item>
+        <item>Коммуникабельность</item>
+        <item>Внутреннее Я</item>
+    </string-array>
 </resources>

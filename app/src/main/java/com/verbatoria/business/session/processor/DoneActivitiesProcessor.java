@@ -2,12 +2,13 @@ package com.verbatoria.business.session.processor;
 
 import android.support.v4.util.Pair;
 import android.text.TextUtils;
-
+import com.remnev.verbatoriamini.model.ExcelEvent;
+import com.remnev.verbatoriamini.model.MutablePair;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.inject.Singleton;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
 
 /**
  * Процессор для обработки активностей во время сессии
@@ -16,6 +17,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class DoneActivitiesProcessor {
+
+    private static final int MINIMUM_ACTIVITY_TIME = 15;
 
     private static Set<String> sDoneActivitiesArray;
     private static ArrayList<Pair<String, Long>> sDoneActivitiesTimeArray;
@@ -113,5 +116,37 @@ public class DoneActivitiesProcessor {
             }
         }
         return time;
+    }
+
+    private static String getUndoneActivitiesString(ArrayList<ExcelEvent> excelEvents) {
+        MutablePair[] checkingArray = new MutablePair[]{new MutablePair(CODE_99, 0),
+                new MutablePair(CODE_11, 0), new MutablePair(CODE_21, 0), new MutablePair(CODE_31, 0),
+                new MutablePair(CODE_41, 0), new MutablePair(CODE_51, 0), new MutablePair(CODE_61, 0),
+                new MutablePair(CODE_71, 0)};
+
+        for (int i = 0; i < excelEvents.size() - 1; i ++) {
+            ExcelEvent firstEvent = excelEvents.get(i);
+            ExcelEvent secondEvent = excelEvents.get(i + 1);
+            for (MutablePair pair : checkingArray) {
+                if (firstEvent.getWord().equals(pair.getFirst()) && secondEvent.getWord().equals(pair.getFirst())
+                        && containsDoneActivity(pair.getFirst())) {
+                    pair.addSecond(secondEvent.getTimestamp() - firstEvent.getTimestamp());
+                    break;
+                }
+            }
+        }
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (MutablePair pair : checkingArray) {
+            if (pair.getSecond() < MINIMUM_ACTIVITY_TIME && containsDoneActivity(pair.getFirst())) {
+                stringBuilder.append(pair.getFirst()).append(", ");
+                removeActivityFromDoneArray(pair.getFirst());
+            }
+        }
+        if (stringBuilder.length() > 0) {
+            stringBuilder.setLength(stringBuilder.length() - 2);
+            return stringBuilder.toString();
+        }
+        return null;
     }
 }

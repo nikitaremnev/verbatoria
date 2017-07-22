@@ -1,18 +1,26 @@
 package com.verbatoria.business.session;
 
+import com.neurosky.connection.DataType.MindDataType;
+import com.neurosky.connection.EEGPower;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.session.manager.AudioPlayerManager;
+import com.verbatoria.business.session.processor.AttentionValueProcessor;
 import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
-import com.verbatoria.business.session.timer.ActivitiesTimerTask;
+import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.DateUtils;
+import com.verbatoria.utils.Logger;
 
 import java.util.Timer;
 
 import rx.Observable;
+
+import static com.verbatoria.business.session.activities.ActivitiesCodes.NO_CODE;
 
 /**
  * Реализация интерактора для сессии
@@ -20,6 +28,8 @@ import rx.Observable;
  * @author nikitaremnev
  */
 public class SessionInteractor implements ISessionInteractor, ISessionInteractor.IApplicationSessionInteractorCallback {
+
+    private static final String TAG = SessionInteractor.class.getSimpleName();
 
     private ISessionRepository mSessionRepository;
     private ITokenRepository mTokenRepository;
@@ -29,8 +39,11 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     private IPlayerCallback mPlayerCallback;
 
     private Timer mActivitiesTimer;
+    private ActivitiesTimerTask mActivitiesTimerTask;
 
     private AudioPlayerManager mPlayerManager;
+
+    private String mCurrentCode = NO_CODE;
 
     public SessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
         mSessionRepository = sessionRepository;
@@ -114,11 +127,6 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public boolean removeActivityFromDoneArray(String activity) {
-        return DoneActivitiesProcessor.removeActivityFromDoneArray(activity);
-    }
-
-    @Override
     public long getDoneActivitiesTime() {
         return DoneActivitiesProcessor.getSumOfTime();
     }
@@ -126,6 +134,48 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     @Override
     public long getDoneActivityTimeByCode(String code) {
         return DoneActivitiesProcessor.getSumOfTimeByCode(code);
+    }
+
+    @Override
+    public void processCode(String code) {
+        if (mCurrentCode == NO_CODE) { //начинаем активность
+            //добавляем активности
+            mSessionRepository.addEvent(code);
+            addActivityToDoneArray(code);
+            mCurrentCode = code;
+            //TODO: possible export - false
+            //запускаем таймеры для активностей
+            mActivitiesTimerTask.setStartActivityTime(System.currentTimeMillis());
+            mActivitiesTimerTask.setFullActivitySeconds(getDoneActivityTimeByCode(mCurrentCode));
+            mActivitiesTimerTask.setActivityActive(true);
+        } else if (mCurrentCode.equals(code)) { //заканчиваем активность
+            mSessionRepository.addEvent(code);
+            addActivityToDoneArray(code);
+            addActivityToDoneArray(code, (System.currentTimeMillis() - mActivitiesTimerTask.getStartActivityTime()) / DateUtils.MILLIS_PER_SECOND);
+            mCurrentCode = NO_CODE;
+           //TODO: possible export - true
+            //drop timer
+            mActivitiesTimerTask.setStartActivityTime(0);
+            mActivitiesTimerTask.setFullActivitySeconds(0);
+            mActivitiesTimerTask.setCurrentActivitySeconds(0);
+            mActivitiesTimerTask.setActivityActive(false);
+        } else { //заканчиваем предыдущую активность и начинаем новую
+            //заканчиваем
+            mSessionRepository.addEvent(mCurrentCode);
+            addActivityToDoneArray(mCurrentCode, (System.currentTimeMillis() - mActivitiesTimerTask.getStartActivityTime()) / DateUtils.MILLIS_PER_SECOND);
+            //начинаем новую
+            mSessionRepository.addEvent(code);
+            addActivityToDoneArray(code);
+
+            mCurrentCode = code;
+            //TODO: possible export - false
+            //start timer
+            mActivitiesTimerTask.setStartActivityTime(System.currentTimeMillis());
+            mActivitiesTimerTask.setFullActivitySeconds(getDoneActivityTimeByCode(mCurrentCode));
+            mActivitiesTimerTask.setCurrentActivitySeconds(0);
+            mActivitiesTimerTask.setActivityActive(true);
+        }
+        mActivitiesCallback.updateButtonsState(mCurrentCode);
     }
 
     @Override
@@ -172,7 +222,29 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     @Override
     public void onDataReceivedCallback(int dataTypeCode, int value) {
         if (mDataReceivedCallback != null) {
-            mDataReceivedCallback.onDataReceivedCallback(dataTypeCode, value);
+            int formattedValue = value;
+            switch (dataTypeCode) {
+                case MindDataType.CODE_ATTENTION:
+                    formattedValue = AttentionValueProcessor.processValue(value);
+                    Logger.e(TAG, "attention: " + value);
+                    mSessionRepository.addAttentionValue(formattedValue);
+                    mDataReceivedCallback.onAttentionValueReceived(formattedValue);
+                    break;
+                case MindDataType.CODE_MEDITATION:
+                    Logger.e(TAG, "mediation: " + value);
+                    mSessionRepository.addMediationValue(formattedValue);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onEEGDataReceivedCallback(EEGPower eegPower) {
+        if (mDataReceivedCallback != null) {
+            mSessionRepository.addEEGValue(eegPower.delta, eegPower.theta, eegPower.lowAlpha, eegPower.highAlpha,
+                    eegPower.lowBeta, eegPower.highBeta, eegPower.lowGamma, eegPower.middleGamma);
         }
     }
 
@@ -198,7 +270,8 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     private void startActivitiesTimer() {
         mActivitiesTimer = new Timer();
-        mActivitiesTimer.schedule(new ActivitiesTimerTask(mActivitiesCallback), ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY, ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY);
+        mActivitiesTimerTask = new ActivitiesTimerTask(mActivitiesCallback);
+        mActivitiesTimer.schedule(mActivitiesTimerTask, ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY, ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY);
     }
 
     private void initPlayers() {

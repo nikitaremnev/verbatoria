@@ -19,7 +19,7 @@ public class AttentionValueProcessor {
         sAttentionQueue = new ArrayList<>();
     }
 
-    private static int processValue(int value) {
+    public static int processValue(int value) {
         if (sAttentionQueue == null) {
             sAttentionQueue = new ArrayList<>();
             sAttentionQueue.add(value);

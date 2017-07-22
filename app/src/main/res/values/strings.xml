@@ -253,15 +253,7 @@
     <string name="back">Назад</string>
     <string name="next">Далее</string>
     <string name="ready">Готово</string>
-    <string-array name="parents_questions">
-        <item>Речь</item>
-        <item>Математика</item>
-        <item>Музыка</item>
-        <item>Творчество</item>
-        <item>Кинестетика</item>
-        <item>Коммуникабельность</item>
-        <item>Внутреннее Я</item>
-    </string-array>
+
 
     <string name="connection_done">Подключено</string>
     <string name="connection_in_progress">Идет соединение...</string>

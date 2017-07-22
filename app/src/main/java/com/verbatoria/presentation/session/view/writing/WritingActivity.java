@@ -181,13 +181,13 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         View buttonByCode = foundButtonByCode(code);
         switch (state) {
             case STATE_NEW:
-                buttonByCode.setBackground(getResources().getDrawable(R.drawable.btn_code_form));
+                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_button_unselected));
                 break;
             case STATE_SELECTED:
-                buttonByCode.setBackground(getResources().getDrawable(R.drawable.btn_code_form_pressed));
+                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_button_selected));
                 break;
             case STATE_DONE:
-                buttonByCode.setBackground(getResources().getDrawable(R.drawable.btn_code_form_done));
+                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_button_done));
                 break;
         }
     }

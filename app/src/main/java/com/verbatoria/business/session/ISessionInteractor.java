@@ -1,5 +1,6 @@
 package com.verbatoria.business.session;
 
+import com.neurosky.connection.EEGPower;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 
 import rx.Observable;
@@ -33,9 +34,9 @@ public interface ISessionInteractor {
     boolean addActivityToDoneArray(String activity, long time);
     boolean addActivityToDoneArray(String activity);
     boolean containsDoneActivity(String activity);
-    boolean removeActivityFromDoneArray(String activity);
     long getDoneActivitiesTime();
     long getDoneActivityTimeByCode(String code);
+    void processCode(String code);
 
     /*
         Работа с музыкальным плеером
@@ -48,6 +49,7 @@ public interface ISessionInteractor {
     void showPlayer();
     void hidePlayer();
 
+
     /*
         Коллбеки
      */
@@ -57,29 +59,27 @@ public interface ISessionInteractor {
     }
 
     interface IDataReceivedCallback {
-        void onDataReceivedCallback(int dataTypeCode, int value);
+        void onAttentionValueReceived(int attentionValue);
     }
 
     interface IActivitiesCallback {
         void updateTimer(String timerString);
         long getDoneActivitiesTime();
+        void updateButtonsState(String selectedButtonCode);
     }
 
     interface IPlayerCallback {
         void setUpPlayMode();
         void setUpPauseMode();
         void showPlayingFileName(String fileName);
-        void showPlayer();
-        void hidePlayer();
         void showPlayerError(String error);
     }
 
     interface IApplicationSessionInteractorCallback {
         void onConnectionStateChanged(int code);
         void onDataReceivedCallback(int code, int value);
+        void onEEGDataReceivedCallback(EEGPower eegPower);
         void onBluetoothDisabled();
     }
-
-
 
 }

@@ -12,12 +12,9 @@ import android.widget.TextView;
 import com.neurosky.connection.ConnectionStates;
 import com.remnev.verbatoriamini.NeuroApplicationClass;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.callbacks.IFragmentsMovingCallback;
-import com.remnev.verbatoriamini.callbacks.INeuroInterfaceCallback;
-
 import org.w3c.dom.Text;
 
-public class ConnectionFragment extends Fragment implements INeuroInterfaceCallback {
+public class ConnectionFragment extends Fragment {//implements INeuroInterfaceCallback {
 
     public ImageView mStatusImageView;
     public ImageView mNeuroInterfaceStatusButton;
@@ -31,7 +28,6 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
 
     private NeuroApplicationClass mNeuroApplicationClass;
 
-    private IFragmentsMovingCallback mFragmentsMovingCallback;
 
     private static int[] sConnectingDrawables = new int[] {
             R.drawable.connecting_bci1,
@@ -41,14 +37,6 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
 
     public ConnectionFragment() {
         // Required empty public constructor
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof IFragmentsMovingCallback) {
-            mFragmentsMovingCallback = (IFragmentsMovingCallback) context;
-        }
     }
 
     @Override
@@ -71,13 +59,7 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
         checkStateAndUpdate();
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mFragmentsMovingCallback = null;
-    }
-
-    @Override
+//    @Override
     public void onNeuroInterfaceStateChanged(int connectionStates) {
         switch (connectionStates) {
             case ConnectionStates.STATE_CONNECTING:
@@ -108,19 +90,19 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (mFragmentsMovingCallback != null) {
-                                    mFragmentsMovingCallback.moveToAttentionFragment();
-                                } else {
-                                    if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
-                                        mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
-                                        mFragmentsMovingCallback.moveToAttentionFragment();
-                                    }
-                                }
-                            }
-                        });
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                if (mFragmentsMovingCallback != null) {
+//                                    mFragmentsMovingCallback.moveToAttentionFragment();
+//                                } else {
+//                                    if (getActivity() != null && getActivity() instanceof IFragmentsMovingCallback) {
+//                                        mFragmentsMovingCallback = (IFragmentsMovingCallback) getActivity();
+//                                        mFragmentsMovingCallback.moveToAttentionFragment();
+//                                    }
+//                                }
+//                            }
+//                        });
                     }
                 }).start();
                 break;
@@ -155,10 +137,6 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
         }
     }
 
-    @Override
-    public void onNeuroDataReceived(int code, int attention) {
-
-    }
 
     private void initViews(View rootView) {
         mStatusImageView = (ImageView) rootView.findViewById(R.id.attention_status);
@@ -183,7 +161,7 @@ public class ConnectionFragment extends Fragment implements INeuroInterfaceCallb
 
     private void setUpApplicationClass(View rootView) {
         mNeuroApplicationClass = (NeuroApplicationClass) getActivity().getApplicationContext();
-        mNeuroApplicationClass.setOnBCIConnectionCallback(this);
+//        mNeuroApplicationClass.setOnBCIConnectionCallback(this);
         mNeuroApplicationClass.setContext(getActivity());
         mNeuroApplicationClass.setRootView(rootView);
     }
