@@ -13,7 +13,7 @@ import android.widget.Button;
 import com.remnev.verbatoriamini.R;
 import com.remnev.verbatoriamini.adapters.ParentsQuestionsAdapter;
 import com.remnev.verbatoriamini.sharedpreferences.ParentsAnswersSharedPrefs;
-import com.verbatoria.presentation.session.view.submit.ViewPagerContainer;
+import com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer;
 
 import java.util.ArrayList;
 
@@ -26,7 +26,7 @@ public class QuestionaryDialogFragment extends DialogFragment implements Parents
     public static final String TAG = "ParentsQuestionaryDialogFragment";
 
     private final ArrayList<View> mCircles = new ArrayList<>();
-    private ViewPagerContainer mViewPagerContainer;
+    private QuestionsViewPagerContainer mQuestionsViewPagerContainer;
     private ViewPager mViewPager;
     private Button nextButton;
     private Button backButton;
@@ -62,8 +62,8 @@ public class QuestionaryDialogFragment extends DialogFragment implements Parents
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewPagerContainer = (ViewPagerContainer) view.findViewById(R.id.view_pager_container);
-        mViewPager = mViewPagerContainer.getViewPager();
+        mQuestionsViewPagerContainer = (QuestionsViewPagerContainer) view.findViewById(R.id.view_pager_container);
+        mViewPager = mQuestionsViewPagerContainer.getViewPager();
         nextButton = (Button) view.findViewById(R.id.next_button);
         backButton = (Button) view.findViewById(R.id.back_button);
     }

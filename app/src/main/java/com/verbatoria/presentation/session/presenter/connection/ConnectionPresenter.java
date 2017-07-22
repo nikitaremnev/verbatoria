@@ -6,6 +6,7 @@ import android.support.v4.os.AsyncTaskCompat;
 import com.neurosky.connection.ConnectionStates;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.presentation.session.view.connection.IConnectionView;
+import com.verbatoria.utils.Logger;
 
 /**
  * Реализация презентера для экрана соединения
@@ -42,6 +43,7 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
 
     @Override
     public void onConnectionStateChanged(int connectionCode) {
+        Logger.e(TAG, "connectionCode: " + connectionCode);
         switch (connectionCode) {
             case ConnectionStates.STATE_CONNECTING:
                 mConnectionView.startLoading();

@@ -13,7 +13,7 @@
         android:layout_above="@+id/navigation_container_layout"
         android:id="@+id/questionary_layout">
 
-        <com.verbatoria.presentation.session.view.submit.ViewPagerContainer
+        <com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer
             android:id="@+id/questions_pager_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-        </com.verbatoria.presentation.session.view.submit.ViewPagerContainer>
+        </com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer>
 
     </LinearLayout>
 

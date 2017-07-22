@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.session.view.submit;
+package com.verbatoria.presentation.session.view.submit.questions;
 
 import android.content.Context;
 import android.graphics.Point;
@@ -13,23 +13,26 @@ import com.remnev.verbatoriamini.R;
 
 import java.util.ArrayList;
 
-public class ViewPagerContainer extends FrameLayout implements ViewPager.OnPageChangeListener {
+public class QuestionsViewPagerContainer extends FrameLayout implements ViewPager.OnPageChangeListener {
 
     private ViewPager mPager;
-    private boolean mNeedsRedraw = false;
-    private ArrayList<View> circles;
+    private boolean mNeedsRedraw;
+    private ArrayList<View> mCircleViews;
 
-    public ViewPagerContainer(Context context) {
+    private final Point mCenter = new Point();
+    private final Point mInitialTouch = new Point();
+
+    public QuestionsViewPagerContainer(Context context) {
         super(context);
         init();
     }
 
-    public ViewPagerContainer(Context context, AttributeSet attrs) {
+    public QuestionsViewPagerContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ViewPagerContainer(Context context, AttributeSet attrs, int defStyle) {
+    public QuestionsViewPagerContainer(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -56,9 +59,6 @@ public class ViewPagerContainer extends FrameLayout implements ViewPager.OnPageC
         return mPager;
     }
 
-    private final Point mCenter = new Point();
-    private final Point mInitialTouch = new Point();
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         mCenter.x = w / 2;
@@ -84,17 +84,17 @@ public class ViewPagerContainer extends FrameLayout implements ViewPager.OnPageC
         if (mNeedsRedraw) invalidate();
     }
 
-    public void setCircles(ArrayList<View> circles) {
-        this.circles = circles;
+    public void setCircleViews(ArrayList<View> circleViews) {
+        this.mCircleViews = circleViews;
     }
 
     @Override
     public void onPageSelected(int position) {
-        for (int i = 0; i < circles.size(); i++) {
+        for (int i = 0; i < mCircleViews.size(); i++) {
             if (position == i) {
-                circles.get(i).setBackgroundResource(R.drawable.background_navigation_item_selected);
+                mCircleViews.get(i).setBackgroundResource(R.drawable.background_navigation_item_selected);
             } else {
-                circles.get(i).setBackgroundResource(R.drawable.background_navigation_item_unselected);
+                mCircleViews.get(i).setBackgroundResource(R.drawable.background_navigation_item_unselected);
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.session.view.submit.adapter;
+package com.verbatoria.presentation.session.view.submit.questions;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -7,10 +7,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
-import com.remnev.verbatoriamini.sharedpreferences.ParentsAnswersSharedPrefs;
-
 import javax.inject.Inject;
-
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,9 +57,15 @@ public class QuestionViewHolder {
 
     private View mRootView;
 
-    QuestionViewHolder(View rootView) {
+    private IAnswerClickCallback mAnswerClickCallback;
+
+    private QuestionsAdapter mQuestionsAdapter;
+
+    QuestionViewHolder(QuestionsAdapter questionsAdapter, IAnswerClickCallback answerClickCallback, View rootView) {
         ButterKnife.bind(this, rootView);
         mRootView = rootView;
+        mAnswerClickCallback = answerClickCallback;
+        mQuestionsAdapter = questionsAdapter;
     }
 
     public void bind(String questionTitle) {
@@ -102,8 +105,11 @@ public class QuestionViewHolder {
     private void buttonClick(View view) {
         int position = (int) mRootView.getTag();
         int value = Integer.parseInt(((Button) view).getText().toString());
-        ParentsAnswersSharedPrefs.setValue(mContext, Integer.toString(position), value);
+
+        mQuestionsAdapter.addAnswer(position, value);
         selectAnswer(value);
+
+        mAnswerClickCallback.onAnswerClicked();
     }
 
     private void clearAnswers() {

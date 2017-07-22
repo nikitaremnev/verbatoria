@@ -8,7 +8,7 @@
     <string name="session_not_connected">Не подключено</string>
     <string name="session_connection_instruction">
         1. Включите питание на нейроинтерфейсе, убедитесь что он работает.
-        \n\n2. Нажмите на иконку соединения и дождитесь статуса \"Подключено\".
+        \n\n2. Нажмите на кнопку \"Соединить\" и дождитесь статуса \"Подключено\".
         \n\n3. Нажмите на кнопку \"Начать запись\" для начала работы.
     </string>
     <string name="session_bluetooth_disabled">Bluetooth отключен</string>

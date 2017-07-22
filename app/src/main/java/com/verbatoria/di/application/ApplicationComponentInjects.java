@@ -4,8 +4,8 @@ import com.verbatoria.business.session.manager.AudioPlayerManager;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.presentation.dashboard.view.main.events.adapter.VerbatologEventsAdapter;
-import com.verbatoria.presentation.session.view.submit.adapter.QuestionViewHolder;
-import com.verbatoria.presentation.session.view.submit.adapter.QuestionsAdapter;
+import com.verbatoria.presentation.session.view.submit.questions.QuestionViewHolder;
+import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
 
 /**
  * Интерфейс для inject-методов для context

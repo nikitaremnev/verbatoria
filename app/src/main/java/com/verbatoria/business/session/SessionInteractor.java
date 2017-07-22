@@ -91,7 +91,9 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     public void dropCallbacks() {
         mConnectionCallback = null;
         mDataReceivedCallback = null;
-        mPlayerManager.dropPlayer();
+        if (mPlayerManager != null) {
+            mPlayerManager.dropPlayer();
+        }
         mPlayerManager = null;
         mPlayerCallback = null;
         dropActivitiesTimer();

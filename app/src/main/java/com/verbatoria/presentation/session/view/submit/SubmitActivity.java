@@ -11,7 +11,10 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
-import com.verbatoria.presentation.session.view.submit.adapter.QuestionsAdapter;
+import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
+import com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer;
+import com.verbatoria.utils.PreferencesStorage;
+
 import java.util.ArrayList;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -40,13 +43,15 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
     public LinearLayout mNavigationLayout;
 
     @BindView(R.id.questions_pager_container)
-    public ViewPagerContainer mQuestionsPagerContainer;
+    public QuestionsViewPagerContainer mQuestionsPagerContainer;
 
     @BindView(R.id.questions_view_pager)
     public ViewPager mViewPager;
 
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
+
+    private QuestionsAdapter mQuestionsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,7 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
                 -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true), 100));
         mBackButton.setOnClickListener(v -> mViewPager.postDelayed(()
                 -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true), 100));
+        mSubmitButton.setEnabled(PreferencesStorage.getInstance().isAllQuestionsAnswered());
     }
 
     private void setUpQuestionaryNavigation() {
@@ -96,17 +102,17 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         //other items
         for (int i = 1; i < QuestionsAdapter.QUESTIONARY_SIZE; i ++) {
             View navigationItem = getLayoutInflater().inflate(R.layout.item_navigation, null, false);
-            View circle = firstItem.findViewById(R.id.circle_image_view);
+            View circle = navigationItem.findViewById(R.id.circle_image_view);
             navigationItems.add(circle);
             mNavigationLayout.addView(navigationItem);
         }
         mNavigationLayout.invalidate();
-        mQuestionsPagerContainer.setCircles(navigationItems);
+        mQuestionsPagerContainer.setCircleViews(navigationItems);
     }
 
     private void setUpQuestionaryAdapter() {
-        final QuestionsAdapter adapter = new QuestionsAdapter();
-        mViewPager.setAdapter(adapter);
+        mQuestionsAdapter = new QuestionsAdapter(this);
+        mViewPager.setAdapter(mQuestionsAdapter);
         mViewPager.setOffscreenPageLimit(QuestionsAdapter.OFFSCREEN_PAGE_LIMIT);
         mViewPager.setClipChildren(false);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -118,9 +124,13 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
             @Override
             public void onPageSelected(int position) {
-                if (position > 0) {
-                    mBackButton.setVisibility(View.VISIBLE);
-                } else if (position == QuestionsAdapter.QUESTIONARY_SIZE - 1) {
+                mQuestionsPagerContainer.onPageSelected(position);
+                mBackButton.setVisibility(View.VISIBLE);
+                mNextButton.setVisibility(View.VISIBLE);
+                if (position == 0) {
+                    mBackButton.setVisibility(View.GONE);
+                }
+                if (position == QuestionsAdapter.QUESTIONARY_SIZE - 1) {
                     mNextButton.setVisibility(View.GONE);
                 }
             }
@@ -130,5 +140,11 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
             }
         });
+    }
+
+    @Override
+    public void onAnswerClicked() {
+        mNextButton.performClick();
+        mSubmitButton.setEnabled(mQuestionsAdapter.isAllQuestionsAnswered());
     }
 }

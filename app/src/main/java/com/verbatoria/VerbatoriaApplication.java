@@ -13,10 +13,12 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 
 import com.verbatoria.business.session.ISessionInteractor;
+import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.di.application.ApplicationComponent;
 import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
 import com.verbatoria.utils.FontsOverride;
+import com.verbatoria.utils.Logger;
 
 /**
  * Application-класс. Инициализирует даггер-компонент для построения всех зависимостей.
@@ -25,6 +27,8 @@ import com.verbatoria.utils.FontsOverride;
  */
 
 public class VerbatoriaApplication extends MultiDexApplication {
+
+    private static final String TAG = VerbatoriaApplication.class.getSimpleName();
 
     /*
         Вспомогательные переменные для подключения к устройству
@@ -95,21 +99,23 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
         @Override
         public void onStatesChanged(int connectionState) {
+            Logger.e(TAG, "onStatesChanged: connectionState");
             sSessionInteractorCallback.onConnectionStateChanged(connectionState);
         }
 
         @Override
         public void onChecksumFail(byte[] bytes, int i, int i1) {
-
+            Logger.e(TAG, "onChecksumFail");
         }
 
         @Override
         public void onRecordFail(int i) {
-
+            Logger.e(TAG, "onRecordFail");
         }
 
         @Override
         public void onDataReceived(int dataCode, final int data, Object object) {
+            Logger.e(TAG, "dataCode: " + dataCode + ", data: " + data);
             switch (dataCode) {
                 case MindDataType.CODE_ATTENTION:
                 case MindDataType.CODE_MEDITATION:

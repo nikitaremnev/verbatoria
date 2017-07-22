@@ -74,7 +74,7 @@ public class DashboardMainFragment extends Fragment implements IDashboardMainVie
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         mDashboardPresenter.bindView(this);
         mDashboardPresenter.updateVerbatologInfo();
-        mDashboardPresenter.updateVerbatologEvents();
+//        mDashboardPresenter.updateVerbatologEvents();
     }
 
     @Override

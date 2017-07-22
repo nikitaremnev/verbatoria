@@ -3,6 +3,7 @@
 
     <dimen name="activity_splash_margin">48dp</dimen>
 
+    <dimen name="activity_login_logo_height">40dp</dimen>
     <dimen name="activity_login_logo_horizontal_margin">48dp</dimen>
     <dimen name="activity_login_logo_vertical_margin">32dp</dimen>
     <dimen name="activity_login_text_view_height">48dp</dimen>
