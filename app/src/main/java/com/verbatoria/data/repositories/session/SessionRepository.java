@@ -85,4 +85,10 @@ public class SessionRepository implements ISessionRepository {
         NeurodataDatabase.addEEGToDatabase(mContext, System.currentTimeMillis(), delta, theta,
                 lowAlpha, highAlpha, lowBeta, highBeta, lowGamma, midGamma);
     }
+
+    @Override
+    public void cleanUp() {
+        ActivitiesDatabase.clear(mContext);
+        NeurodataDatabase.clear(mContext);
+    }
 }

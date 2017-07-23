@@ -75,6 +75,13 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
+    public void cleanUp() {
+        mSessionRepository.cleanUp();
+        DoneActivitiesProcessor.clearDoneActivities();
+        DoneActivitiesProcessor.clearTimeDoneActivities();
+    }
+
+    @Override
     public void startConnection() {
         VerbatoriaApplication.tryToConnect();
     }

@@ -20,6 +20,7 @@ public interface ISessionInteractor {
     Observable<StartSessionResponseModel> startSession(String eventId);
     Observable<List<MeasurementRequestModel>> getAllMeasurements(Map<String, String> answers);
     Observable<ResponseBody> submitResults(List<MeasurementRequestModel> measurements);
+    void cleanUp();
 
     void startConnection();
 
@@ -55,6 +56,8 @@ public interface ISessionInteractor {
 
     void showPlayer();
     void hidePlayer();
+
+
 
     /*
         Коллбеки

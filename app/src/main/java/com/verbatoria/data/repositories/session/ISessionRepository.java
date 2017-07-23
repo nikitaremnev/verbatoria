@@ -42,4 +42,6 @@ public interface ISessionRepository {
     void addEEGValue(int delta, int theta, int lowAlpha, int highAlpha,
                      int lowBeta, int highBeta, int lowGamma, int midGamma);
 
+    void cleanUp();
+
 }

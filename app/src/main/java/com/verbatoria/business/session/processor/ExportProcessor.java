@@ -39,9 +39,9 @@ public class ExportProcessor {
                 .map(baseMeasurements -> {
                     Collections.sort(baseMeasurements, new BaseMeasurementComparator());
                     Logger.e(TAG, "after collections sort: " + baseMeasurements.size());
-                    List<MeasurementRequestModel> measurements = reduceList(baseMeasurements);
-                    setAnswers(measurements, answers);
-                    return measurements;
+//                    List<MeasurementRequestModel> measurements = reduceList(baseMeasurements);
+//                    setAnswers(measurements, answers);
+                    return new ArrayList<MeasurementRequestModel>();
                 });
     }
 

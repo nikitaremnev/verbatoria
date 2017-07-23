@@ -98,8 +98,7 @@ public class WritingPresenter implements IWritingPresenter,
         if (TextUtils.isEmpty(allNotEnoughTimeActivities)) {
             mWritingView.finishSession();
         } else {
-            mWritingView.finishSession();
-//            mWritingView.showSomeActivitiesNotFinished(allNotEnoughTimeActivities);
+            mWritingView.showSomeActivitiesNotFinished(allNotEnoughTimeActivities);
         }
     }
 

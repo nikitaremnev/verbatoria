@@ -14,10 +14,12 @@ import com.verbatoria.utils.RxSchedulers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
 import okhttp3.ResponseBody;
+import rx.Observable;
 
 /**
  * Реализация презентера для экрана отправки результатов
@@ -65,18 +67,31 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     private void handleMeasurementsReceived(List<MeasurementRequestModel> measurementList) {
-        mSubmitView.hideProgress();
-        mSubmitView.finishSession();
+        cleanUp();
 //        mSessionInteractor.submitResults(measurementList)
 //                .subscribeOn(RxSchedulers.getNewThreadScheduler())
 //                .observeOn(RxSchedulers.getMainThreadScheduler())
 //                .subscribe(this::handleSessionFinished, this::handleError);
     }
 
+    private void cleanUp() {
+        Observable.fromCallable(() -> {
+            mSessionInteractor.cleanUp();
+            return null;
+        }).subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
+                .subscribe(this::cleanUpFinished, this::handleError);
+    }
+
     private void handleSessionFinished(ResponseBody responseBody) {
         mSubmitView.hideProgress();
         mSubmitView.finishSession();
         Logger.e(TAG, responseBody.toString());
+    }
+
+    private void cleanUpFinished(Object object) {
+        mSubmitView.hideProgress();
+        mSubmitView.finishSession();
     }
 
     private void handleError(Throwable throwable) {
