@@ -7,13 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
+import com.neurosky.connection.ConnectionStates;
 import com.neurosky.connection.DataType.MindDataType;
 import com.neurosky.connection.EEGPower;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.di.application.ApplicationComponent;
 import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
@@ -88,6 +88,12 @@ public class VerbatoriaApplication extends MultiDexApplication {
         sTgStreamReader.connect();
     }
 
+    private static void startWriting() {
+        if (sTgStreamReader != null) {
+            sTgStreamReader.start();
+        }
+    }
+
     private void overrideFonts() {
         FontsOverride.setDefaultFont(this, "DEFAULT", "Lato-Regular.ttf");
         FontsOverride.setDefaultFont(this, "MONOSPACE", "Lato-Regular.ttf");
@@ -100,6 +106,9 @@ public class VerbatoriaApplication extends MultiDexApplication {
         @Override
         public void onStatesChanged(int connectionState) {
             Logger.e(TAG, "onStatesChanged: connectionState");
+            if (connectionState == ConnectionStates.STATE_CONNECTED) {
+                startWriting();
+            }
             sSessionInteractorCallback.onConnectionStateChanged(connectionState);
         }
 
@@ -115,7 +124,6 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
         @Override
         public void onDataReceived(int dataCode, final int data, Object object) {
-            Logger.e(TAG, "dataCode: " + dataCode + ", data: " + data);
             switch (dataCode) {
                 case MindDataType.CODE_ATTENTION:
                 case MindDataType.CODE_MEDITATION:

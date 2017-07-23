@@ -59,4 +59,7 @@
         android:text="@string/session_start_writing"
         style="@style/ButtonStyle" />
 
+    <include layout="@layout/view_loading"
+        android:visibility="gone"/>
+
 </RelativeLayout>

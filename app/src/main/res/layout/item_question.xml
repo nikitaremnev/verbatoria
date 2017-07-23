@@ -81,7 +81,7 @@
 
     <CheckBox
         android:id="@+id/has_answer_checkbox"
-        android:checked="true"
+        android:checked="false"
         android:textSize="@dimen/submit_question_has_answer_text_size"
         android:textAlignment="center"
         android:padding="@dimen/submit_question_has_answer_padding"

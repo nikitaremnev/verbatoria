@@ -49,11 +49,10 @@ public class QuestionsAdapter extends PagerAdapter {
         questionViewHolder.bind(mQuestionsArray[position]);
         container.addView(rootView);
 
-        String value = mAnswersMap.get(position);
+        String value = mAnswersMap.get(Integer.toString(position));
         if (value != null) {
             questionViewHolder.selectAnswer(Integer.parseInt(value));
         }
-
 
         return rootView;
     }
@@ -80,8 +79,16 @@ public class QuestionsAdapter extends PagerAdapter {
                 mAnswersMap.containsKey("6");
     }
 
+    public Map<String, String> getAnswers() {
+        return mAnswersMap;
+    }
+
     void addAnswer(int position, int value) {
         mAnswersMap.put(Integer.toString(position), Integer.toString(value));
+    }
+
+    void removeAnswer(int position) {
+        mAnswersMap.remove(Integer.toString(position));
     }
 
 }

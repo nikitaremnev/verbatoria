@@ -2,11 +2,19 @@ package com.verbatoria.presentation.session.presenter.writing;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+
 import com.neurosky.connection.ConnectionStates;
-import com.neurosky.connection.DataType.MindDataType;
 import com.verbatoria.business.session.ISessionInteractor;
+import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.presentation.session.view.writing.ActivityButtonState;
 import com.verbatoria.presentation.session.view.writing.IWritingView;
+import com.verbatoria.utils.Logger;
+import com.verbatoria.utils.RxSchedulers;
+
+import java.util.List;
+
 import javax.inject.Inject;
 import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
 
@@ -80,7 +88,17 @@ public class WritingPresenter implements IWritingPresenter,
     public void hidePlayer() {
         mSessionInteractor.hidePlayer();
     }
-    
+
+    @Override
+    public void checkFinishAllowed() {
+        String allNotEnoughTimeActivities = mSessionInteractor.getAllNotEnoughTimeActivities();
+        if (TextUtils.isEmpty(allNotEnoughTimeActivities)) {
+            mWritingView.finishSession();
+        } else {
+            mWritingView.showSomeActivitiesNotFinished(allNotEnoughTimeActivities);
+        }
+    }
+
     @Override
     public void setUpPlayMode() {
         mWritingView.setUpPlayMode();
@@ -104,11 +122,14 @@ public class WritingPresenter implements IWritingPresenter,
             mWritingView.hidePlayer();
         }
         mSessionInteractor.processCode(code);
+        if (TextUtils.isEmpty(mSessionInteractor.getAllUndoneActivities())) {
+            mWritingView.showFinishButton();
+        }
     }
 
     @Override
     public void showPlayerError(String error) {
-        mWritingView.showSnackBar(error);
+        mWritingView.showError(error);
     }
 
     @Override

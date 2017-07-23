@@ -18,5 +18,6 @@
     <string name="dashboard_start_date_hint">Дата начала записи</string>
     <string name="dashboard_end_date_hint">Дата окончания записи</string>
 
+    <string name="settings_item_connection">Соединение</string>
     <string name="settings_item_quit">Выйти</string>
 </resources>

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import javax.inject.Inject;
@@ -71,10 +72,12 @@ public class QuestionViewHolder {
     public void bind(String questionTitle) {
         mQuestionTextView.setText(questionTitle);
         setUpButtons();
+        setUpHasAnswerOption();
     }
 
     public void selectAnswer(int value) {
         clearAnswers();
+        mHasAnswerCheckBox.setChecked(true);
         switch (value) {
             case ANSWER_10:
                 mAnswer10Button.setBackground(mSelectedButtonDrawable);
@@ -102,13 +105,20 @@ public class QuestionViewHolder {
         mAnswer90Button.setOnClickListener(view -> buttonClick(view));
     }
 
+    private void setUpHasAnswerOption() {
+        mHasAnswerCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (!isChecked) {
+                clearAnswers();
+                mQuestionsAdapter.removeAnswer(getQuestionPosition());
+                mAnswerClickCallback.onAnswerClicked();
+            }
+        });
+    }
+
     private void buttonClick(View view) {
-        int position = (int) mRootView.getTag();
         int value = Integer.parseInt(((Button) view).getText().toString());
-
-        mQuestionsAdapter.addAnswer(position, value);
+        mQuestionsAdapter.addAnswer(getQuestionPosition(), value);
         selectAnswer(value);
-
         mAnswerClickCallback.onAnswerClicked();
     }
 
@@ -118,6 +128,10 @@ public class QuestionViewHolder {
         mAnswer40Button.setBackground(mUnselectedButtonDrawable);
         mAnswer60Button.setBackground(mUnselectedButtonDrawable);
         mAnswer90Button.setBackground(mUnselectedButtonDrawable);
+    }
+
+    private int getQuestionPosition() {
+        return (int) mRootView.getTag();
     }
 
 }

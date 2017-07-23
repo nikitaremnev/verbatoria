@@ -17,6 +17,7 @@ import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
+import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;
 
@@ -106,16 +107,14 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     //отображение результатов запроса
     @Override
     public void loginSuccess() {
-        Intent intent = new Intent(this, ConnectionActivity.class);
+        Intent intent = new Intent(this, DashboardActivity.class);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void showError(String message) {
-        //TODO: replace hint
-        Snackbar snackbar = Snackbar.make(mLoadingView, message, Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Helper.showSnackBar(mLoadingView, message);
     }
 
     private void setUpViews() {

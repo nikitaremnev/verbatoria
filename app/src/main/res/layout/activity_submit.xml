@@ -73,7 +73,6 @@
         style="@style/ButtonStyle" />
 
     <include layout="@layout/view_loading"
-        android:id="@+id/loading_view"
         android:visibility="gone"/>
 
 </RelativeLayout>

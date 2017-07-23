@@ -50,6 +50,9 @@ public class CalendarFragment extends Fragment implements ICalendarView {
     @BindView(R.id.events_text_view)
     public TextView mEventsTextView;
 
+    @BindView(R.id.no_events_text_view)
+    public TextView mNoEventsTextView;
+
     public CalendarFragment() {
         // Required empty public constructor
     }
@@ -91,9 +94,11 @@ public class CalendarFragment extends Fragment implements ICalendarView {
 
     private void setUpEventsLabel(int eventsSize) {
         if (eventsSize == 0) {
-            mEventsTextView.setText(getString(R.string.dashboard_no_events_title));
+            mEventsTextView.setVisibility(View.GONE);
+            mNoEventsTextView.setVisibility(View.VISIBLE);
         } else {
-            mEventsTextView.setText(getString(R.string.dashboard_events_title));
+            mEventsTextView.setVisibility(View.VISIBLE);
+            mNoEventsTextView.setVisibility(View.GONE);
         }
     }
 

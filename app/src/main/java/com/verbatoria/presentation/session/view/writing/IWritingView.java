@@ -17,7 +17,16 @@ public interface IWritingView {
     void hidePlayer();
 
     void showPlayingFileName(String fileName);
-    void showSnackBar(String error);
+    void showError(String error);
 
     void setButtonState(ActivityButtonState state, String code);
+
+    void showFinishButton();
+    void hideFinishButton();
+
+    void showProgress();
+    void hideProgress();
+
+    void showSomeActivitiesNotFinished(String activities);
+    void finishSession();
 }

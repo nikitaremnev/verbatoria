@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
 import rx.Observable;
 
 /**
@@ -30,7 +32,7 @@ public class ExportProcessor {
         mSessionRepository = sessionRepository;
     }
 
-    public Observable<List<MeasurementRequestModel>> getAllMeasurements() {
+    public Observable<List<MeasurementRequestModel>> getAllMeasurements(Map<String, String> answers) {
         return Observable.merge(mSessionRepository.getAttentionMeasurements(), mSessionRepository.getEEGMeasurements(),
                 mSessionRepository.getEventMeasurements(), mSessionRepository.getMediationMeasurements())
                 .map(baseMeasurements -> {

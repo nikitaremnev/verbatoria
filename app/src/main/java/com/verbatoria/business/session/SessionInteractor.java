@@ -7,17 +7,23 @@ import com.verbatoria.business.session.manager.AudioPlayerManager;
 import com.verbatoria.business.session.processor.AttentionValueProcessor;
 import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
+import com.verbatoria.business.session.processor.ExportProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.business.token.processor.TokenProcessor;
+import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
+import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.Logger;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 import static com.verbatoria.business.session.activities.ActivitiesCodes.NO_CODE;
@@ -58,6 +64,16 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     @Override
     public Observable<StartSessionResponseModel> startSession(String eventId) {
         return mSessionRepository.startSession(getAccessToken(), getStartSessionRequestModel(eventId));
+    }
+
+    @Override
+    public Observable<List<MeasurementRequestModel>> getAllMeasurements(Map<String, String> answers) {
+        return new ExportProcessor(mSessionRepository).getAllMeasurements(answers);
+    }
+
+    @Override
+    public Observable<ResponseBody> submitResults(List<MeasurementRequestModel> measurements) {
+        return mSessionRepository.addResults("", getAccessToken(), measurements);
     }
 
     @Override
@@ -102,11 +118,6 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     /*
         Работа с процессором активностей
      */
-    @Override
-    public void clearDoneActivities() {
-        DoneActivitiesProcessor.clearDoneActivities();
-        DoneActivitiesProcessor.clearTimeDoneActivities();
-    }
 
     @Override
     public String getAllUndoneActivities() {
@@ -114,8 +125,13 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public boolean addActivityToDoneArray(String activity, long time) {
-        return DoneActivitiesProcessor.addActivityToDoneArray(activity, time);
+    public String getAllNotEnoughTimeActivities() {
+        return DoneActivitiesProcessor.getAllNotEnoughTimeActivities();
+    }
+
+    @Override
+    public void addActivityToDoneArray(String activity, long time) {
+        DoneActivitiesProcessor.addActivityToDoneArray(activity, time);
     }
 
     @Override
@@ -180,6 +196,14 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         mActivitiesCallback.updateButtonsState(mCurrentCode);
     }
 
+    /*
+        Player jobs
+     */
+
+    private void initPlayers() {
+        mPlayerManager = new AudioPlayerManager(mPlayerCallback);
+    }
+
     @Override
     public void playClick() {
         mPlayerManager.playClick();
@@ -213,7 +237,6 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
      /*
         Application callback methods
      */
-
     @Override
     public void onConnectionStateChanged(int connectionCode) {
         if (mConnectionCallback != null) {
@@ -274,10 +297,6 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         mActivitiesTimer = new Timer();
         mActivitiesTimerTask = new ActivitiesTimerTask(mActivitiesCallback);
         mActivitiesTimer.schedule(mActivitiesTimerTask, ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY, ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY);
-    }
-
-    private void initPlayers() {
-        mPlayerManager = new AudioPlayerManager(mPlayerCallback);
     }
 
     private void dropActivitiesTimer() {

@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.session.view.connection;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,15 +9,20 @@ import android.support.annotation.DrawableRes;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.di.session.SessionModule;
+import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
+import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
 import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
+import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
 
 import javax.inject.Inject;
@@ -32,6 +38,8 @@ import butterknife.ButterKnife;
 public class ConnectionActivity extends AppCompatActivity implements IConnectionView {
 
     private static final String TAG = ConnectionActivity.class.getSimpleName();
+
+    public static final String EXTRA_EVENT_MODEL = "com.verbatoria.presentation.session.view.connection.EXTRA_EVENT_MODEL";
 
     private static final int LOADING_CHANGE_STATE_PAUSE = 500;
     private static final int DISCONNECTED_STATE_DELAY = 2000;
@@ -51,6 +59,9 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     @BindView(R.id.connect_button)
     public Button mConnectButton;
 
+    @BindView(R.id.progress_layout)
+    public View mLoadingView;
+
     /*
         Handler and runnables for updating UI
     */
@@ -64,11 +75,17 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     private int mCurrentLoadingDrawable;
     private boolean mLoading;
     private static int[] sConnectingDrawables = new int[]{
-            R.drawable.ic_neurointerface_connecting_fourth,
-            R.drawable.ic_neurointerface_connecting_fourth,
-            R.drawable.ic_neurointerface_connecting_fourth,
+            R.drawable.ic_neurointerface_connecting_first,
+            R.drawable.ic_neurointerface_connecting_second,
+            R.drawable.ic_neurointerface_connecting_third,
             R.drawable.ic_neurointerface_connecting_fourth
     };
+
+    public static Intent newInstance(Context mContext, EventModel eventModel) {
+        Intent intent = new Intent(mContext, ConnectionActivity.class);
+        intent.putExtra(CalendarEventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +99,7 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mConnectionPresenter.bindView(this);
+        mConnectionPresenter.obtainEvent(getIntent());
         showDisconnectedState();
     }
 
@@ -97,6 +115,16 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     protected void onDestroy() {
         super.onDestroy();
         mConnectionPresenter.unbindView();
+    }
+
+    @Override
+    public void showProgress() {
+        mLoadingView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mLoadingView.setVisibility(View.GONE);
     }
 
     @Override
@@ -118,6 +146,8 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     public void showConnectedState() {
         Logger.e(TAG, "showConnectedState");
         mLoading = false;
+        mUiHandler.removeCallbacks(mConnectingRunnable);
+        mUiHandler.removeCallbacks(mDisconnectedRunnable);
         mUiHandler.post(() -> updateConnectionState(R.drawable.ic_neurointerface_connected,
                 getString(R.string.session_connected),
                 true));
@@ -127,6 +157,7 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     public void showDisconnectedState() {
         Logger.e(TAG, "showDisconnectedState");
         mLoading = false;
+        mUiHandler.removeCallbacks(mConnectingRunnable);
         mUiHandler.post(() -> updateConnectionState(R.drawable.ic_neurointerface_disconnected,
                 getString(R.string.session_not_connected),
                 false));
@@ -163,13 +194,22 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
         snackbar.show();
     }
 
+    @Override
+    public void startWriting() {
+        Intent intent = new Intent(this, WritingActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void showError(String error) {
+        Helper.showSnackBar(mLoadingView, error);
+    }
+
     private void setUpViews() {
         mConnectButton.setOnClickListener(v -> mConnectionPresenter.connect());
         mStartButton.setOnClickListener(v -> {
-            Intent intent = new Intent(this, WritingActivity.class);
-            startActivity(intent);
-            finish();
-            //TODO: start activity with attention fragment
+            mConnectionPresenter.startSession();
         });
     }
 

@@ -14,17 +14,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/events_text_view"
+            android:visibility="gone"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:paddingLeft="@dimen/dashboard_horizontal_padding"
             android:paddingRight="@dimen/dashboard_horizontal_padding"
             android:paddingTop="@dimen/dashboard_padding"
             android:layout_marginBottom="@dimen/verbatolog_between_info_and_events_margin"
-            tools:text="@string/dashboard_events_title"/>
+            android:text="@string/dashboard_events_title"/>
 
         <include layout="@layout/fragment_verbatolog_events"
             android:id="@+id/events_recycler_view"/>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/no_events_text_view"
+        android:visibility="visible"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="@dimen/dashboard_horizontal_padding"
+        android:paddingRight="@dimen/dashboard_horizontal_padding"
+        android:text="@string/dashboard_no_events_title"/>
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

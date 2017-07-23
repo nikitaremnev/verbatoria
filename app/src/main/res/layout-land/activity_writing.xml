@@ -185,4 +185,18 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="@dimen/writing_finish_button_size"
+        android:layout_height="@dimen/writing_finish_button_size"
+        android:layout_marginBottom="@dimen/writing_finish_button_margin"
+        android:visibility="gone"
+        android:id="@+id/finish_button"
+        app:srcCompat="@drawable/ic_finish"
+        android:layout_above="@+id/timer_text_view"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <include layout="@layout/view_loading"
+        android:visibility="gone"/>
+
 </RelativeLayout>

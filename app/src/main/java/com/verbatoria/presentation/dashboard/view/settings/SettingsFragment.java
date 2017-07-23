@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.dashboard.view.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -32,6 +34,9 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
     @Inject
     ISettingsPresenter mSettingsPresenter;
+
+    @BindView(R.id.item_settings_connection)
+    public View mConnectionView;
 
     @BindView(R.id.item_settings_quit)
     public View mQuitView;
@@ -57,11 +62,20 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         super.onViewCreated(view, savedInstanceState);
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         setUpQuitView();
+        setUpConnectionView();
         mSettingsPresenter.bindView(this);
     }
 
+    private void setUpConnectionView() {
+        setUpSettingsItemText(mConnectionView, R.string.settings_item_connection);
+        setUpSettingsImageView(mConnectionView, R.drawable.ic_connection);
+        mConnectionView.setOnClickListener(v -> {
+            startConnection();
+        });
+    }
+
     private void setUpQuitView() {
-        setUpSettingsItemText(mQuitView);
+        setUpSettingsItemText(mQuitView, R.string.settings_item_quit);
         setUpSettingsImageView(mQuitView, R.drawable.ic_exit);
         mQuitView.setOnClickListener(v -> {
             mSettingsPresenter.quit();
@@ -71,15 +85,20 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     /*
         Задание текста для итема настроек
      */
-    private void setUpSettingsItemText(View settingsView) {
-        ((TextView) settingsView.findViewById(R.id.settings_item_text_view)).setText(getString(R.string.settings_item_quit));
+    private void setUpSettingsItemText(View settingsView, @StringRes int textResource) {
+        ((TextView) settingsView.findViewById(R.id.settings_item_text_view)).setText(getString(textResource));
     }
 
     /*
         Задание картинки для итема настроек
      */
-    private void setUpSettingsImageView(View settingsView, @DrawableRes int imageView) {
-        ((ImageView) settingsView.findViewById(R.id.settings_item_image_view)).setImageResource(imageView);
+    private void setUpSettingsImageView(View settingsView, @DrawableRes int imageResource) {
+        ((ImageView) settingsView.findViewById(R.id.settings_item_image_view)).setImageResource(imageResource);
+    }
+
+    private void startConnection() {
+        Intent intent = new Intent(getActivity(), ConnectionActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.session.view.submit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -10,10 +11,11 @@ import android.widget.LinearLayout;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.session.SessionModule;
+import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer;
-import com.verbatoria.utils.PreferencesStorage;
+import com.verbatoria.utils.Helper;
 
 import java.util.ArrayList;
 import javax.inject.Inject;
@@ -29,9 +31,6 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
     @Inject
     ISubmitPresenter mSubmitPresenter;
-
-    @BindView(R.id.loading_view)
-    public View mLoadingView;
 
     @BindView(R.id.next_button)
     public Button mNextButton;
@@ -50,6 +49,9 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
+
+    @BindView(R.id.progress_layout)
+    public View mLoadingView;
 
     private QuestionsAdapter mQuestionsAdapter;
 
@@ -86,7 +88,8 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
                 -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true), 100));
         mBackButton.setOnClickListener(v -> mViewPager.postDelayed(()
                 -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true), 100));
-        mSubmitButton.setEnabled(PreferencesStorage.getInstance().isAllQuestionsAnswered());
+        mSubmitButton.setOnClickListener(v -> mSubmitPresenter.sendResults(mQuestionsAdapter.getAnswers()));
+        mSubmitButton.setEnabled(mQuestionsAdapter.isAllQuestionsAnswered());
     }
 
     private void setUpQuestionaryNavigation() {
@@ -147,4 +150,27 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         mNextButton.performClick();
         mSubmitButton.setEnabled(mQuestionsAdapter.isAllQuestionsAnswered());
     }
+
+    @Override
+    public void showProgress() {
+        mLoadingView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mLoadingView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Helper.showSnackBar(mLoadingView, message);
+    }
+
+    @Override
+    public void finishSession() {
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

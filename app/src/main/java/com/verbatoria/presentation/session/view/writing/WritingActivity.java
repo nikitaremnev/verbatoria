@@ -1,9 +1,12 @@
 package com.verbatoria.presentation.session.view.writing;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +22,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
+import com.verbatoria.presentation.session.view.submit.SubmitActivity;
+import com.verbatoria.utils.Logger;
 
 import javax.inject.Inject;
 
@@ -35,6 +41,8 @@ import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
  * @author nikitaremnev
  */
 public class WritingActivity extends AppCompatActivity implements IWritingView {
+
+    private static final String TAG = WritingActivity.class.getSimpleName();
 
     @Inject
     IWritingPresenter mWritingPresenter;
@@ -78,6 +86,12 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     @BindView(R.id.back_floating_button)
     public FloatingActionButton mBackButton;
 
+    @BindView(R.id.finish_button)
+    public FloatingActionButton mFinishButton;
+
+    @BindView(R.id.progress_layout)
+    public View mLoadingView;
+
     /*
         Handler and runnables for updating UI
     */
@@ -103,6 +117,11 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //NOT ALLOWED TO BACK
     }
 
     @Override
@@ -171,7 +190,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     }
 
     @Override
-    public void showSnackBar(String error) {
+    public void showError(String error) {
         Snackbar snackbar = Snackbar.make(mPlayerContainer, error, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
@@ -192,6 +211,47 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         }
     }
 
+    @Override
+    public void showFinishButton() {
+        mFinishButton.show();
+    }
+
+    @Override
+    public void hideFinishButton() {
+        mFinishButton.hide();
+    }
+
+    @Override
+    public void showProgress() {
+        mLoadingView.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mLoadingView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSomeActivitiesNotFinished(String activities) {
+        Logger.e(TAG, "activities: " + activities);
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        if (activities.length() == CODE_11.length()) {
+            dialog.setMessage(String.format(getString(R.string.session_activity_not_finished), activities));
+        } else {
+            dialog.setMessage(String.format(getString(R.string.session_some_activities_not_finished), activities));
+        }
+        dialog.setNegativeButton(getString(R.string.session_continue), (dialogInterface, i) -> dialogInterface.dismiss());
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    @Override
+    public void finishSession() {
+        Intent intent = new Intent(this, SubmitActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void setUpViews() {
         mPlayButton.setOnClickListener(v -> mWritingPresenter.playClick());
         mPauseButton.setOnClickListener(v -> {
@@ -206,6 +266,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
             setUpPlayMode();
             mWritingPresenter.backClick();
         });
+        mFinishButton.setOnClickListener(v -> mWritingPresenter.checkFinishAllowed());
         mCode99Button.setOnClickListener(new SubmitCodeOnClickListener());
         mCode11Button.setOnClickListener(new SubmitCodeOnClickListener());
         mCode21Button.setOnClickListener(new SubmitCodeOnClickListener());

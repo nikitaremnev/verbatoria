@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.data.network.api.APIFactory;
+import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.database.ActivitiesDatabase;
@@ -14,6 +15,8 @@ import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
 import java.util.List;
 import javax.inject.Inject;
+
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -54,6 +57,11 @@ public class SessionRepository implements ISessionRepository {
     @Override
     public Observable<List<EventMeasurement>> getEventMeasurements() {
         return Observable.fromCallable(() -> ActivitiesDatabase.getEvents(mContext));
+    }
+
+    @Override
+    public Observable<ResponseBody> addResults(String sessionId, String accessToken, List<MeasurementRequestModel> measurements) {
+        return APIFactory.getAPIService().addResultsToSessionRequest(sessionId, accessToken, measurements);
     }
 
     @Override

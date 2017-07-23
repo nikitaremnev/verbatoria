@@ -1,8 +1,14 @@
 package com.verbatoria.business.session;
 
 import com.neurosky.connection.EEGPower;
+import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
+import com.verbatoria.data.repositories.session.model.EventMeasurement;
 
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -13,6 +19,8 @@ import rx.Observable;
 public interface ISessionInteractor {
 
     Observable<StartSessionResponseModel> startSession(String eventId);
+    Observable<List<MeasurementRequestModel>> getAllMeasurements(Map<String, String> answers);
+    Observable<ResponseBody> submitResults(List<MeasurementRequestModel> measurements);
 
     void startConnection();
 
@@ -29,9 +37,9 @@ public interface ISessionInteractor {
     /*
         Activity методы
      */
-    void clearDoneActivities();
     String getAllUndoneActivities();
-    boolean addActivityToDoneArray(String activity, long time);
+    String getAllNotEnoughTimeActivities();
+    void addActivityToDoneArray(String activity, long time);
     boolean addActivityToDoneArray(String activity);
     boolean containsDoneActivity(String activity);
     long getDoneActivitiesTime();
@@ -48,7 +56,6 @@ public interface ISessionInteractor {
 
     void showPlayer();
     void hidePlayer();
-
 
     /*
         Коллбеки

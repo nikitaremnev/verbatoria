@@ -12,6 +12,7 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
@@ -72,7 +73,7 @@ public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEven
             Activity activity = mActivitySoftReference.get();
             EventModel eventModel = mEventModelSoftReference.get();
             if (activity != null && eventModel != null) {
-                activity.startActivity(CalendarEventDetailActivity.newInstance(activity, eventModel));
+                activity.startActivity(ConnectionActivity.newInstance(activity, eventModel));
             }
         }
     }

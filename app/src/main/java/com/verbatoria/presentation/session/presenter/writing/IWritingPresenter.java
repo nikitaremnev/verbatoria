@@ -21,5 +21,7 @@ public interface IWritingPresenter {
     void showPlayer();
     void hidePlayer();
 
+    void checkFinishAllowed();
+
     void submitCode(String code);
 }

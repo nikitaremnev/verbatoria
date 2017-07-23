@@ -1,12 +1,17 @@
 package com.verbatoria.presentation.session.presenter.connection;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.os.AsyncTaskCompat;
 
 import com.neurosky.connection.ConnectionStates;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
+import com.verbatoria.data.network.response.StartSessionResponseModel;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.connection.IConnectionView;
 import com.verbatoria.utils.Logger;
+import com.verbatoria.utils.RxSchedulers;
 
 /**
  * Реализация презентера для экрана соединения
@@ -19,6 +24,7 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
 
     private ISessionInteractor mSessionInteractor;
     private IConnectionView mConnectionView;
+    private EventModel mEventModel;
 
     public ConnectionPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -37,10 +43,27 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
     }
 
     @Override
+    public void obtainEvent(Intent intent) {
+        mEventModel = intent.getParcelableExtra(ConnectionActivity.EXTRA_EVENT_MODEL);
+    }
+
+    @Override
     public void connect() {
         mSessionInteractor.startConnection();
     }
 
+    @Override
+    public void startSession() {
+        if (mEventModel != null) {
+            mSessionInteractor.startSession(mEventModel.getId())
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler())
+                    .subscribe(this::handleSessionStarted, this::handleSessionStartError);
+            mConnectionView.showProgress();
+        } else {
+            handleSessionStarted(null);
+        }
+    }
     @Override
     public void onConnectionStateChanged(int connectionCode) {
         Logger.e(TAG, "connectionCode: " + connectionCode);
@@ -67,4 +90,18 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
         mConnectionView.showBluetoothDisabled();
     }
 
+    private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
+        if (sessionResponseModel != null) {
+            Logger.e(TAG, sessionResponseModel.toString());
+        }
+        mConnectionView.startWriting();
+        mConnectionView.hideProgress();
+    }
+
+    private void handleSessionStartError(Throwable throwable) {
+        throwable.printStackTrace();
+        Logger.exc(TAG, throwable);
+        mConnectionView.showError(throwable.getMessage());
+        mConnectionView.hideProgress();
+    }
 }
