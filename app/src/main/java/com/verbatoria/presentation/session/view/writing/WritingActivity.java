@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.session.view.writing;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,8 +22,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
+import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;
 import com.verbatoria.utils.Logger;
 
@@ -95,6 +99,12 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     */
     private Handler mUiHandler;
 
+    public static Intent newInstance(Context mContext, EventModel eventModel) {
+        Intent intent = new Intent(mContext, WritingActivity.class);
+        intent.putExtra(CalendarEventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +117,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mWritingPresenter.bindView(this);
+        mWritingPresenter.obtainEvent(getIntent());
     }
 
     @Override

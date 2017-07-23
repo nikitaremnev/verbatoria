@@ -1,11 +1,14 @@
 package com.verbatoria.presentation.session.presenter.writing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.neurosky.connection.ConnectionStates;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.writing.ActivityButtonState;
 import com.verbatoria.presentation.session.view.writing.IWritingView;
 
@@ -32,6 +35,7 @@ public class WritingPresenter implements IWritingPresenter,
 
     private ISessionInteractor mSessionInteractor;
     private IWritingView mWritingView;
+    private EventModel mEventModel;
 
     public WritingPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -51,6 +55,11 @@ public class WritingPresenter implements IWritingPresenter,
     public void unbindView() {
         mWritingView = null;
         mSessionInteractor.dropCallbacks();
+    }
+
+    @Override
+    public void obtainEvent(Intent intent) {
+        mEventModel = intent.getParcelableExtra(ConnectionActivity.EXTRA_EVENT_MODEL);
     }
 
     @Override

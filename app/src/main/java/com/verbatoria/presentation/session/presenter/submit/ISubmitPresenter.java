@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.session.presenter.submit;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import com.verbatoria.presentation.session.view.submit.ISubmitView;
 
@@ -16,5 +17,5 @@ public interface ISubmitPresenter {
     void unbindView();
 
     void sendResults(Map<String, String> answers);
-
+    void obtainEvent(Intent intent);
 }

@@ -1,10 +1,13 @@
 package com.verbatoria.presentation.session.presenter.submit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.submit.ISubmitView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.RxSchedulers;
@@ -30,6 +33,7 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     private ISessionInteractor mSessionInteractor;
     private ISubmitView mSubmitView;
+    private EventModel mEventModel;
 
     public SubmitPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -47,6 +51,11 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     @Override
+    public void obtainEvent(Intent intent) {
+        mEventModel = intent.getParcelableExtra(ConnectionActivity.EXTRA_EVENT_MODEL);
+    }
+
+    @Override
     public void sendResults(Map<String, String> answers) {
         mSubmitView.showProgress();
         mSessionInteractor.getAllMeasurements(answers)
@@ -56,9 +65,6 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     private void handleMeasurementsReceived(List<MeasurementRequestModel> measurementList) {
-        for (int i = 0; i < measurementList.size(); i ++) {
-            Logger.e(TAG, measurementList.get(i).toString());
-        }
         mSubmitView.hideProgress();
         mSubmitView.finishSession();
 //        mSessionInteractor.submitResults(measurementList)

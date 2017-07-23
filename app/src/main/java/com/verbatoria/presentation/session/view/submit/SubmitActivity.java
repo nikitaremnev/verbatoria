@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.session.view.submit;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -10,9 +11,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
+import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer;
 import com.verbatoria.utils.Helper;
@@ -55,6 +59,12 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
     private QuestionsAdapter mQuestionsAdapter;
 
+    public static Intent newInstance(Context mContext, EventModel eventModel) {
+        Intent intent = new Intent(mContext, SubmitActivity.class);
+        intent.putExtra(CalendarEventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +75,7 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mSubmitPresenter.bindView(this);
+        mSubmitPresenter.obtainEvent(getIntent());
     }
 
     @Override
@@ -154,11 +165,13 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
     @Override
     public void showProgress() {
         mLoadingView.setVisibility(View.VISIBLE);
+        mSubmitButton.setVisibility(View.GONE);
     }
 
     @Override
     public void hideProgress() {
         mLoadingView.setVisibility(View.GONE);
+        mSubmitButton.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -39,7 +39,9 @@ public class ExportProcessor {
                 .map(baseMeasurements -> {
                     Collections.sort(baseMeasurements, new BaseMeasurementComparator());
                     Logger.e(TAG, "after collections sort: " + baseMeasurements.size());
-                    return reduceList(baseMeasurements);
+                    List<MeasurementRequestModel> measurements = reduceList(baseMeasurements);
+                    setAnswers(measurements, answers);
+                    return measurements;
                 });
     }
 
@@ -57,6 +59,13 @@ public class ExportProcessor {
             measurements.add(measurementRequestModel);
         }
         return measurements;
+    }
+
+    private void setAnswers(List<MeasurementRequestModel> measurements, Map<String, String> answers) {
+        for (String key : answers.keySet()) {
+            int position = Integer.parseInt(key);
+            measurements.get(position).setReserveBlank2(answers.get(key));
+        }
     }
 
     private void setMeasurementRequestModelFields(MeasurementRequestModel measurementRequestModel, BaseMeasurement baseMeasurement) {

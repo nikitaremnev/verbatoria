@@ -19,8 +19,6 @@
             android:name="io.fabric.ApiKey"
             android:value="67e8efcbe2e007c55247aa119f19c530687ccdab" />
 
-        <!-- New version -->
-
         <activity
             android:name="com.verbatoria.presentation.splash.SplashActivity"
             android:screenOrientation="sensorLandscape"
