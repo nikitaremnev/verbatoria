@@ -1,6 +1,5 @@
 package com.verbatoria.presentation.dashboard.view.calendar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,12 +16,8 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.calendar.ICalendarPresenter;
-import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
-import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.dashboard.view.calendar.add.AddCalendarEventActivity;
-import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
 import com.verbatoria.presentation.dashboard.view.main.events.adapter.VerbatologEventsAdapter;
-import com.verbatoria.presentation.dashboard.view.settings.ISettingsView;
 
 import java.util.List;
 

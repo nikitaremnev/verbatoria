@@ -16,10 +16,8 @@ import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
-import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
 import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
 import com.verbatoria.utils.Helper;
@@ -208,9 +206,7 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
 
     private void setUpViews() {
         mConnectButton.setOnClickListener(v -> mConnectionPresenter.connect());
-        mStartButton.setOnClickListener(v -> {
-            mConnectionPresenter.startSession();
-        });
+        mStartButton.setOnClickListener(v -> mConnectionPresenter.startSession());
     }
 
     private void setUpNavigation() {
@@ -227,7 +223,7 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
                 showConnectingState();
             }
         };
-        mDisconnectedRunnable = () -> showDisconnectedState();
+        mDisconnectedRunnable = this::showDisconnectedState;
     }
 
     private void setStartButtonEnabled(boolean enabled) {

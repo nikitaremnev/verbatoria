@@ -26,7 +26,7 @@ public class ExportProcessor {
 
     private static final String TAG = ExportProcessor.class.getSimpleName();
 
-    ISessionRepository mSessionRepository;
+    private ISessionRepository mSessionRepository;
 
     public ExportProcessor(ISessionRepository sessionRepository) {
         mSessionRepository = sessionRepository;

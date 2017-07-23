@@ -10,8 +10,8 @@ import android.util.Log;
  */
 public final class Logger {
 
-    public static boolean LOG_PRINT_DEBUG = true;
-    public static boolean LOG_PRINT_ERROR = true;
+    private static boolean LOG_PRINT_DEBUG = true;
+    private static boolean LOG_PRINT_ERROR = true;
 
     private Logger() {
         throw new AssertionError();

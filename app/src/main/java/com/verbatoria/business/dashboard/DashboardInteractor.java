@@ -40,7 +40,7 @@ public class DashboardInteractor implements IDashboardInteractor {
 
     @Override
     public Observable<List<EventModel>> getVerbatologEvents() {
-        return mDashboardRepository.getVerbatologEvents(getAccessToken()).map(item -> VerbatologProcessor.convertEventsResponseToVerbatologEventsModelList(item));
+        return mDashboardRepository.getVerbatologEvents(getAccessToken()).map(VerbatologProcessor::convertEventsResponseToVerbatologEventsModelList);
     }
 
     private String getAccessToken() {

@@ -1,12 +1,10 @@
 package com.verbatoria.presentation.dashboard.view;
 
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.presentation.dashboard.view.calendar.CalendarFragment;

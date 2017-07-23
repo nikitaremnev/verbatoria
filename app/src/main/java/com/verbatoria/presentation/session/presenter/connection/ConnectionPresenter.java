@@ -2,7 +2,6 @@ package com.verbatoria.presentation.session.presenter.connection;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.os.AsyncTaskCompat;
 
 import com.neurosky.connection.ConnectionStates;
 import com.verbatoria.business.dashboard.models.EventModel;

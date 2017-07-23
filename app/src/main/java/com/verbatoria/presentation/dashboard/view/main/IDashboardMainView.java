@@ -1,10 +1,6 @@
 package com.verbatoria.presentation.dashboard.view.main;
 
-import android.support.annotation.NonNull;
-
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.business.token.models.TokenModel;
-import com.verbatoria.presentation.login.view.ILoginView;
 
 import java.util.List;
 

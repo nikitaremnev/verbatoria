@@ -20,7 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
-            app:srcCompat="@drawable/ic_human" />
+            app:srcCompat="@drawable/ic_human"
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/child_id_edit_text"
@@ -44,7 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
-            app:srcCompat="@drawable/ic_location" />
+            app:srcCompat="@drawable/ic_location"
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/location_id_edit_text"
@@ -68,7 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
-            app:srcCompat="@drawable/ic_start_date" />
+            app:srcCompat="@drawable/ic_start_date"
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/start_date_edit_text"
@@ -92,7 +95,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
-            app:srcCompat="@drawable/ic_end_date" />
+            app:srcCompat="@drawable/ic_end_date"
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/end_date_edit_text"

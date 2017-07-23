@@ -1,10 +1,7 @@
 package com.verbatoria.business.token.models;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.utils.DateUtils;
 
 import java.text.ParseException;

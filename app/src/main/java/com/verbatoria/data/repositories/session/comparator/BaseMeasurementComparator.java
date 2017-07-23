@@ -1,7 +1,6 @@
 package com.verbatoria.data.repositories.session.comparator;
 
 import com.verbatoria.data.repositories.session.model.BaseMeasurement;
-import com.verbatoria.data.repositories.session.model.EventMeasurement;
 
 import java.util.Comparator;
 

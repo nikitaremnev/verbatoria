@@ -1,15 +1,11 @@
 package com.verbatoria.presentation.dashboard.presenter.calendar.detail;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
-import com.verbatoria.presentation.dashboard.presenter.calendar.CalendarPresenter;
 import com.verbatoria.presentation.dashboard.view.calendar.detail.ICalendarEventDetailView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.RxSchedulers;

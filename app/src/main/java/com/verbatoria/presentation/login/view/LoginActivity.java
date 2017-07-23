@@ -2,7 +2,6 @@ package com.verbatoria.presentation.login.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
@@ -14,9 +13,6 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
-import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
-import com.verbatoria.presentation.session.view.submit.SubmitActivity;
-import com.verbatoria.presentation.session.view.writing.WritingActivity;
 import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;

@@ -34,7 +34,8 @@
         android:layout_alignParentStart="true"
         android:layout_marginRight="@dimen/image_view_right_margin"
         android:layout_marginLeft="@dimen/image_view_right_margin"
-        tools:srcCompat="@drawable/ic_exit"/>
+        tools:srcCompat="@drawable/ic_exit"
+        tools:ignore="ContentDescription" />
 
 
 </RelativeLayout>

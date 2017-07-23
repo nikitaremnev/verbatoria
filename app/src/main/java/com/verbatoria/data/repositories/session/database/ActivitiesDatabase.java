@@ -42,7 +42,7 @@ public class ActivitiesDatabase extends SQLiteOpenHelper implements BaseColumns 
 
     private static final String DROP_TABLE_IF_EXISTS = "DROP TABLE " + EVENTS_TABLE_NAME;
 
-    public static ActivitiesDatabase getInstance(Context context) {
+    private static ActivitiesDatabase getInstance(Context context) {
         if (sDatabaseInstance == null) {
             sDatabaseInstance = new ActivitiesDatabase(context);
         }
@@ -76,7 +76,7 @@ public class ActivitiesDatabase extends SQLiteOpenHelper implements BaseColumns 
         }
     }
 
-    public static SQLiteDatabase getMyWritableDatabase(Context сontext) {
+    private static SQLiteDatabase getMyWritableDatabase(Context сontext) {
         if ((sWritableDatabase == null) || (!sWritableDatabase.isOpen())) {
             sWritableDatabase = getInstance(сontext).getWritableDatabase();
         }

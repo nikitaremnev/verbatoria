@@ -9,8 +9,6 @@ import com.verbatoria.presentation.dashboard.presenter.calendar.CalendarPresente
 import com.verbatoria.presentation.dashboard.presenter.calendar.ICalendarPresenter;
 import com.verbatoria.presentation.dashboard.presenter.calendar.add.AddCalendarEventPresenter;
 import com.verbatoria.presentation.dashboard.presenter.calendar.add.IAddCalendarEventPresenter;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.ICalendarEventDetailPresenter;
 import com.verbatoria.presentation.dashboard.presenter.main.DashboardMainPresenter;
 import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;

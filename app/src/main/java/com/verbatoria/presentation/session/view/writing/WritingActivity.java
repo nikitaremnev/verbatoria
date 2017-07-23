@@ -1,6 +1,5 @@
 package com.verbatoria.presentation.session.view.writing;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +21,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;

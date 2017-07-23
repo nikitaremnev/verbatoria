@@ -5,7 +5,6 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import javax.inject.Inject;
@@ -98,11 +97,11 @@ public class QuestionViewHolder {
     }
 
     private void setUpButtons() {
-        mAnswer10Button.setOnClickListener(view -> buttonClick(view));
-        mAnswer20Button.setOnClickListener(view -> buttonClick(view));
-        mAnswer40Button.setOnClickListener(view -> buttonClick(view));
-        mAnswer60Button.setOnClickListener(view -> buttonClick(view));
-        mAnswer90Button.setOnClickListener(view -> buttonClick(view));
+        mAnswer10Button.setOnClickListener(this::buttonClick);
+        mAnswer20Button.setOnClickListener(this::buttonClick);
+        mAnswer40Button.setOnClickListener(this::buttonClick);
+        mAnswer60Button.setOnClickListener(this::buttonClick);
+        mAnswer90Button.setOnClickListener(this::buttonClick);
     }
 
     private void setUpHasAnswerOption() {

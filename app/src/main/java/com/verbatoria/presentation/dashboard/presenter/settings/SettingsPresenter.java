@@ -1,6 +1,5 @@
 package com.verbatoria.presentation.dashboard.presenter.settings;
 
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;

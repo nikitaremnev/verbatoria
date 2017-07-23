@@ -9,11 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.calendar.add.IAddCalendarEventPresenter;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
-import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
 
 import javax.inject.Inject;
 import butterknife.BindView;

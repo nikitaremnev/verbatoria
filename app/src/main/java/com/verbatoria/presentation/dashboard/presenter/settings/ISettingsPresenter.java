@@ -2,7 +2,6 @@ package com.verbatoria.presentation.dashboard.presenter.settings;
 
 import android.support.annotation.NonNull;
 
-import com.verbatoria.presentation.dashboard.view.main.IDashboardMainView;
 import com.verbatoria.presentation.dashboard.view.settings.ISettingsView;
 
 /**

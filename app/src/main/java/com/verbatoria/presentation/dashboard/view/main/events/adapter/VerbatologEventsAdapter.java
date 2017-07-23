@@ -2,7 +2,6 @@ package com.verbatoria.presentation.dashboard.view.main.events.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,11 +10,9 @@ import android.view.ViewGroup;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
 import java.lang.ref.SoftReference;
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import javax.inject.Inject;

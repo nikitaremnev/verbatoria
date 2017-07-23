@@ -32,24 +32,24 @@ public class NeurodataDatabase extends SQLiteOpenHelper implements BaseColumns {
     private static final int DATABASE_VERSION = 1;
 
     //Внимание
-    public static final String ATTENTION_TABLE_NAME = "bci_attention";
-    public static final String TIMESTAMP_COLUMN_NAME = "timestamp";
-    public static final String ATTENTION_COLUMN_NAME = "attention";
+    private static final String ATTENTION_TABLE_NAME = "bci_attention";
+    private static final String TIMESTAMP_COLUMN_NAME = "timestamp";
+    private static final String ATTENTION_COLUMN_NAME = "attention";
 
     //Альфа, бета, гамма, дельта, тета
-    public static final String EEG_TABLE_NAME = "bci_eeg";
-    public static final String DELTA_COLUMN_NAME = "delta";
-    public static final String THETA_COLUMN_NAME = "theta";
-    public static final String LOW_ALPHA_COLUMN_NAME = "lowAlpha";
-    public static final String HIGH_ALPHA_COLUMN_NAME = "highAlpha";
-    public static final String LOW_BETA_COLUMN_NAME = "lowBeta";
-    public static final String HIGH_BETA_COLUMN_NAME = "highBeta";
-    public static final String LOW_GAMMA_COLUMN_NAME = "lowGamma";
-    public static final String MID_GAMMA_COLUMN_NAME = "midGamma";
+    private static final String EEG_TABLE_NAME = "bci_eeg";
+    private static final String DELTA_COLUMN_NAME = "delta";
+    private static final String THETA_COLUMN_NAME = "theta";
+    private static final String LOW_ALPHA_COLUMN_NAME = "lowAlpha";
+    private static final String HIGH_ALPHA_COLUMN_NAME = "highAlpha";
+    private static final String LOW_BETA_COLUMN_NAME = "lowBeta";
+    private static final String HIGH_BETA_COLUMN_NAME = "highBeta";
+    private static final String LOW_GAMMA_COLUMN_NAME = "lowGamma";
+    private static final String MID_GAMMA_COLUMN_NAME = "midGamma";
 
     //Медиана
-    public static final String MEDIATION_TABLE_NAME = "bci_mediation";
-    public static final String MEDIATION_COLUMN_NAME = "mediation";
+    private static final String MEDIATION_TABLE_NAME = "bci_mediation";
+    private static final String MEDIATION_COLUMN_NAME = "mediation";
 
     private static final String ATTENTION_SQL_CREATE_ENTRIES = "CREATE TABLE "
             + ATTENTION_TABLE_NAME + " ("
@@ -76,7 +76,7 @@ public class NeurodataDatabase extends SQLiteOpenHelper implements BaseColumns {
             TIMESTAMP_COLUMN_NAME + " INTEGER, " +
             MEDIATION_COLUMN_NAME + " INTEGER);";
 
-    public static NeurodataDatabase getInstance(Context context) {
+    private static NeurodataDatabase getInstance(Context context) {
         if (sDatabaseInstance == null) {
             sDatabaseInstance = new NeurodataDatabase(context);
         }
@@ -112,7 +112,7 @@ public class NeurodataDatabase extends SQLiteOpenHelper implements BaseColumns {
         }
     }
 
-    public static SQLiteDatabase getMyWritableDatabase(Context сontext) {
+    private static SQLiteDatabase getMyWritableDatabase(Context сontext) {
         if ((sWritableDatabase == null) || (!sWritableDatabase.isOpen())) {
             sWritableDatabase = getInstance(сontext).getWritableDatabase();
         }

@@ -8,12 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.ICalendarEventDetailPresenter;
@@ -75,9 +73,7 @@ public class CalendarEventDetailActivity extends AppCompatActivity implements IC
     }
 
     private void setUpStartSessionButton() {
-        mStartSessionButton.setOnClickListener(v -> {
-            mCalendarEventDetailPresenter.startSession();
-        });
+        mStartSessionButton.setOnClickListener(v -> mCalendarEventDetailPresenter.startSession());
     }
 
     //отображение прогресса

@@ -95,10 +95,10 @@ public class VerbatoriaApplication extends MultiDexApplication {
     }
 
     private void overrideFonts() {
-        FontsOverride.setDefaultFont(this, "DEFAULT", "Lato-Regular.ttf");
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "Lato-Regular.ttf");
-        FontsOverride.setDefaultFont(this, "SERIF", "Lato-Regular.ttf");
-        FontsOverride.setDefaultFont(this, "SANS_SERIF", "Lato-Regular.ttf");
+        FontsOverride.setDefaultFont(this, "DEFAULT");
+        FontsOverride.setDefaultFont(this, "MONOSPACE");
+        FontsOverride.setDefaultFont(this, "SERIF");
+        FontsOverride.setDefaultFont(this, "SANS_SERIF");
     }
 
     private static class DefaultTgStreamHandler implements TgStreamHandler {

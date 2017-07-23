@@ -6,14 +6,8 @@ import android.text.TextUtils;
 
 import com.neurosky.connection.ConnectionStates;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.business.token.models.TokenModel;
-import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.presentation.session.view.writing.ActivityButtonState;
 import com.verbatoria.presentation.session.view.writing.IWritingView;
-import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.RxSchedulers;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import static com.verbatoria.business.session.activities.ActivitiesCodes.*;

@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void setUpHandler() {
-        Runnable loginActivityRunnable = () -> startLoginActivity();
+        Runnable loginActivityRunnable = this::startLoginActivity;
         new Handler().postDelayed(loginActivityRunnable, START_LOGIN_ACTIVITY_DELAY);
     }
 

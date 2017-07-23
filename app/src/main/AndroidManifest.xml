@@ -19,11 +19,6 @@
             android:name="io.fabric.ApiKey"
             android:value="67e8efcbe2e007c55247aa119f19c530687ccdab" />
 
-        <activity
-            android:name=".activities.MainActivity"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/FullScreenTheme" />
-
         <!-- New version -->
 
         <activity

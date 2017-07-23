@@ -4,10 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.presentation.dashboard.view.calendar.ICalendarView;
-import com.verbatoria.presentation.dashboard.view.settings.ISettingsView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.RxSchedulers;
 

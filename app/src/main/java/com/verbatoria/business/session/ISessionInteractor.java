@@ -3,7 +3,6 @@ package com.verbatoria.business.session;
 import com.neurosky.connection.EEGPower;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
-import com.verbatoria.data.repositories.session.model.EventMeasurement;
 
 import java.util.List;
 import java.util.Map;

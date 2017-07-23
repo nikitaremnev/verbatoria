@@ -2,7 +2,6 @@ package com.verbatoria.business.session.processor;
 
 import android.text.TextUtils;
 
-import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.utils.Logger;
 
 import java.util.HashMap;
