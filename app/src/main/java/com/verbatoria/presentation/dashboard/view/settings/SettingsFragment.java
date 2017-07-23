@@ -15,11 +15,9 @@ import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -69,17 +67,13 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     private void setUpConnectionView() {
         setUpSettingsItemText(mConnectionView, R.string.settings_item_connection);
         setUpSettingsImageView(mConnectionView, R.drawable.ic_connection);
-        mConnectionView.setOnClickListener(v -> {
-            startConnection();
-        });
+        mConnectionView.setOnClickListener(v -> startConnection());
     }
 
     private void setUpQuitView() {
         setUpSettingsItemText(mQuitView, R.string.settings_item_quit);
         setUpSettingsImageView(mQuitView, R.drawable.ic_exit);
-        mQuitView.setOnClickListener(v -> {
-            mSettingsPresenter.quit();
-        });
+        mQuitView.setOnClickListener(v -> mSettingsPresenter.quit());
     }
 
     /*

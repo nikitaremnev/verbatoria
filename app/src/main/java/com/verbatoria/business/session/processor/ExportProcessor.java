@@ -8,6 +8,7 @@ import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
+import com.verbatoria.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +38,7 @@ public class ExportProcessor {
                 mSessionRepository.getEventMeasurements(), mSessionRepository.getMediationMeasurements())
                 .map(baseMeasurements -> {
                     Collections.sort(baseMeasurements, new BaseMeasurementComparator());
+                    Logger.e(TAG, "after collections sort: " + baseMeasurements.size());
                     return reduceList(baseMeasurements);
                 });
     }
@@ -110,7 +112,7 @@ public class ExportProcessor {
 
         @Override
         public boolean hasNext() {
-            return mMeasurements.size() > mIndex;
+            return mMeasurements.size() > (mIndex + 1);
         }
 
         @Override
@@ -125,6 +127,7 @@ public class ExportProcessor {
         @Override
         public void remove() {
             if (mIndex < 0 || mIndex >= mMeasurements.size()) {
+                Logger.e(TAG, "remove() exception");
                 throw new IllegalStateException();
             }
             mMeasurements.remove(mIndex);
@@ -139,6 +142,7 @@ public class ExportProcessor {
 
         public BaseMeasurement get() {
             if (mIndex < 0 || mIndex >= mMeasurements.size()) {
+                Logger.e(TAG, "get() exception");
                 throw new IllegalStateException();
             }
             return mMeasurements.get(mIndex);

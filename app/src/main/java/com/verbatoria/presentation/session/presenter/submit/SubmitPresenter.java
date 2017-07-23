@@ -59,10 +59,12 @@ public class SubmitPresenter implements ISubmitPresenter {
         for (int i = 0; i < measurementList.size(); i ++) {
             Logger.e(TAG, measurementList.get(i).toString());
         }
-        mSessionInteractor.submitResults(measurementList)
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
-                .subscribe(this::handleSessionFinished, this::handleError);
+        mSubmitView.hideProgress();
+        mSubmitView.finishSession();
+//        mSessionInteractor.submitResults(measurementList)
+//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+//                .observeOn(RxSchedulers.getMainThreadScheduler())
+//                .subscribe(this::handleSessionFinished, this::handleError);
     }
 
     private void handleSessionFinished(ResponseBody responseBody) {
@@ -72,8 +74,11 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
         mSubmitView.hideProgress();
         mSubmitView.showMessage(throwable.getLocalizedMessage());
+//        mSubmitView.finishSession();
     }
 
 }

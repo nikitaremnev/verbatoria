@@ -68,13 +68,11 @@ public class DateUtils {
     }
 
     public static String periodToString(Date startDate, Date endDate) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(SERVER_DATE_WITHOUT_YEAR_FORMAT.format(startDate));
-        stringBuilder.append(" ");
-        stringBuilder.append(SERVER_TIME_FORMAT.format(startDate));
-        stringBuilder.append(" - ");
-        stringBuilder.append(SERVER_TIME_FORMAT.format(endDate));
-        return stringBuilder.toString();
+        return SERVER_DATE_WITHOUT_YEAR_FORMAT.format(startDate) +
+                " " +
+                SERVER_TIME_FORMAT.format(startDate) +
+                " - " +
+                SERVER_TIME_FORMAT.format(endDate);
     }
 
     public static int getYearsBetweenDates(Date startDate, Date endDate) {
