@@ -81,13 +81,13 @@ public class ExportProcessor {
             }
             outStreamWriter.append("]");
 
+            outStream.flush();
+            outStreamWriter.flush();
             outStream.close();
             outStreamWriter.close();
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new SessionInteractorException("File exception");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
