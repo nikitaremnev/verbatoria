@@ -65,7 +65,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public Observable<List<MeasurementRequestModel>> getAllMeasurements(Map<String, String> answers) {
+    public Observable<Void> getAllMeasurements(Map<String, String> answers) {
         return new ExportProcessor(mSessionRepository).getAllMeasurements(answers);
     }
 

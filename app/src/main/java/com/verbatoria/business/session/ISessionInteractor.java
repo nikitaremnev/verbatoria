@@ -18,7 +18,7 @@ import rx.Observable;
 public interface ISessionInteractor {
 
     Observable<StartSessionResponseModel> startSession(String eventId);
-    Observable<List<MeasurementRequestModel>> getAllMeasurements(Map<String, String> answers);
+    Observable<Void> getAllMeasurements(Map<String, String> answers);
     Observable<ResponseBody> submitResults(List<MeasurementRequestModel> measurements);
     void cleanUp();
 

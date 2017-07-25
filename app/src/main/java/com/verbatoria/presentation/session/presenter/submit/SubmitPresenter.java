@@ -66,7 +66,8 @@ public class SubmitPresenter implements ISubmitPresenter {
                 .subscribe(this::handleMeasurementsReceived, this::handleError);
     }
 
-    private void handleMeasurementsReceived(List<MeasurementRequestModel> measurementList) {
+    private void handleMeasurementsReceived(Void object) {
+
         cleanUp();
 //        mSessionInteractor.submitResults(measurementList)
 //                .subscribeOn(RxSchedulers.getNewThreadScheduler())

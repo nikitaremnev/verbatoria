@@ -1,5 +1,6 @@
 package com.verbatoria.business.session.processor;
 
+import com.verbatoria.business.session.SessionInteractorException;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.comparator.BaseMeasurementComparator;
@@ -8,8 +9,15 @@ import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
+import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Logger;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * Процессор для генерации отчета
@@ -33,32 +42,53 @@ public class ExportProcessor {
         mSessionRepository = sessionRepository;
     }
 
-    public Observable<List<MeasurementRequestModel>> getAllMeasurements(Map<String, String> answers) {
+    public Observable<Void> getAllMeasurements(Map<String, String> answers) {
         return Observable.merge(mSessionRepository.getAttentionMeasurements(), mSessionRepository.getEEGMeasurements(),
                 mSessionRepository.getEventMeasurements(), mSessionRepository.getMediationMeasurements())
-                .map(baseMeasurements -> {
-                    Collections.sort(baseMeasurements, new BaseMeasurementComparator());
-                    Logger.e(TAG, "after collections sort: " + baseMeasurements.size());
-//                    List<MeasurementRequestModel> measurements = reduceList(baseMeasurements);
-//                    setAnswers(measurements, answers);
-                    return new ArrayList<MeasurementRequestModel>();
+                .map(new Func1<List<? extends BaseMeasurement>, Void>() {
+                    @Override
+                    public Void call(List<? extends BaseMeasurement> baseMeasurements) {
+                        Collections.sort(baseMeasurements, new BaseMeasurementComparator());
+                        writeToJsonFile(baseMeasurements, answers);
+                        return null;
+                    }
                 });
     }
 
-    private List<MeasurementRequestModel> reduceList(List<? extends BaseMeasurement> baseMeasurements) {
-        List<MeasurementRequestModel> measurements = new ArrayList<>();
-        BaseMeasurementIterator iterator = new BaseMeasurementIterator(baseMeasurements);
-        while (iterator.hasNext()) {
-            MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
-            BaseMeasurement currentMeasurement = iterator.next();
-            setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
-            while (iterator.hasNext() && currentMeasurement.getTimestamp() == iterator.next().getTimestamp()) {
-                setMeasurementRequestModelFields(measurementRequestModel, iterator.get());
+    private void writeToJsonFile(List<? extends BaseMeasurement> baseMeasurements, Map<String, String> answers) {
+        FileOutputStream outStream = null;
+        OutputStreamWriter outStreamWriter = null;
+        try {
+            File reportFile = new File(FileUtils.getApplicationDirectory(), "report" + FileUtils.JSON_FILE_EXTENSION);
+            if (!reportFile.exists()) {
+                reportFile.createNewFile();
             }
-            iterator.back();
-            measurements.add(measurementRequestModel);
+            outStream = new FileOutputStream(reportFile);
+            outStreamWriter = new OutputStreamWriter(outStream);
+
+            outStreamWriter.append("[");
+
+            BaseMeasurementIterator iterator = new BaseMeasurementIterator(baseMeasurements);
+            while (iterator.hasNext()) {
+                MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
+                BaseMeasurement currentMeasurement = iterator.next();
+                setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
+                while (iterator.hasNext() && currentMeasurement.getTimestamp() == iterator.next().getTimestamp()) {
+                    setMeasurementRequestModelFields(measurementRequestModel, iterator.get());
+                }
+                iterator.back();
+                outStreamWriter.append(measurementRequestModel.toString());
+            }
+            outStreamWriter.append("]");
+
+            outStream.close();
+            outStreamWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            throw new SessionInteractorException("File exception");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return measurements;
     }
 
     private void setAnswers(List<MeasurementRequestModel> measurements, Map<String, String> answers) {
