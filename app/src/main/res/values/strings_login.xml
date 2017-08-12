@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="login_submit">Войти</string>
-    <string name="login_phone_hint">Номер телефона</string>
+    <string name="login_phone_hint">Номер телефона (10 цифр)</string>
+    <string name="login_phone_mask">([000]) [000] [00] [00]</string>
+
     <string name="login_password_hint">Пароль</string>
 
     <string name="splash_application_will_be_unstable">Приложение будет работать нестабильно. Пожалуйста, дайте необходимые разрешения в настройках приложения</string>

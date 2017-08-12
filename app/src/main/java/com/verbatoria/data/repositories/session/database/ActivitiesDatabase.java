@@ -8,10 +8,15 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.provider.BaseColumns;
+
+import com.verbatoria.business.session.processor.ExportProcessor;
 import com.verbatoria.data.repositories.session.comparator.EventsComparator;
+import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Helper;
+import com.verbatoria.utils.Logger;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +27,8 @@ import java.util.Collections;
  * @author nikitaremnev
  */
 public class ActivitiesDatabase extends SQLiteOpenHelper implements BaseColumns {
+
+    private static final String TAG = ActivitiesDatabase.class.getSimpleName();
 
     private static ActivitiesDatabase sDatabaseInstance;
     private static SQLiteDatabase sWritableDatabase;
@@ -96,6 +103,7 @@ public class ActivitiesDatabase extends SQLiteOpenHelper implements BaseColumns 
     }
 
     public static ArrayList<EventMeasurement> getEvents(Context context) {
+        Logger.e(TAG, "getEvents");
         SQLiteDatabase sqdb = getMyWritableDatabase(context);
         ArrayList<EventMeasurement> eventMeasurements = new ArrayList<>();
         try {
@@ -112,6 +120,29 @@ public class ActivitiesDatabase extends SQLiteOpenHelper implements BaseColumns 
             ex.printStackTrace();
         }
         Collections.sort(eventMeasurements, new EventsComparator());
+        Logger.e(TAG, "eventMeasurements.size() " + eventMeasurements.size());
+        return eventMeasurements;
+    }
+
+    public static ArrayList<BaseMeasurement> getBaseEvents(Context context) {
+        Logger.e(TAG, "getEvents");
+        SQLiteDatabase sqdb = getMyWritableDatabase(context);
+        ArrayList<BaseMeasurement> eventMeasurements = new ArrayList<>();
+        try {
+            Cursor cursor = sqdb.query(ActivitiesDatabase.EVENTS_TABLE_NAME, null, null, null, null, null, null);
+            cursor.moveToFirst();
+            do {
+                EventMeasurement eventMeasurement = new EventMeasurement()
+                        .setTimestamp(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(ActivitiesDatabase.TIMESTAMP_COLUMN_NAME))))
+                        .setActivityCode(cursor.getLong(cursor.getColumnIndex(ActivitiesDatabase.ACTIVITY_CODE_COLUMN_NAME)));
+                eventMeasurements.add(eventMeasurement);
+            } while (cursor.moveToNext());
+            cursor.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        Collections.sort(eventMeasurements, new EventsComparator());
+        Logger.e(TAG, "eventMeasurements.size() " + eventMeasurements.size());
         return eventMeasurements;
     }
 

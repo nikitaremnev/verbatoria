@@ -2,18 +2,25 @@ package com.verbatoria.presentation.login.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import com.redmadrobot.inputmask.MaskedTextChangedListener;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 import com.verbatoria.utils.Helper;
+
+import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
@@ -33,6 +40,10 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     /*
         Views
      */
+
+    @BindView(R.id.country_code_spinner)
+    public Spinner mCounryCodeSpinner;
+
     @BindView(R.id.login_text_view)
     public EditText mLoginEditText;
 
@@ -48,16 +59,18 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
+
         //initialize views
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         setUpViews();
         //bind views
-        VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
         mLoginPresenter.bindView(this);
 
         //test
-        setPhone("+79266519001");
+        setPhone("9266519001");
         setPassword("4eqx8pmRZpfy");
     }
 
@@ -92,7 +105,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     public String getPhone() {
-        return mLoginEditText.getText().toString();
+        return mCounryCodeSpinner.getSelectedItem().toString() + mLoginEditText.getText().toString();
     }
 
     @Override
@@ -114,8 +127,32 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     }
 
     private void setUpViews() {
-        mLoginEditText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        setUpPhoneFormatter();
+        setUpCountryCodesSpinner();
         mLoginButton.setOnClickListener(v -> mLoginPresenter.login());
+    }
+
+    private void setUpCountryCodesSpinner() {
+        String[] countryCodes = mLoginPresenter.getCountryCodesArray();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.country_code_spinner_item, countryCodes);
+        adapter.setDropDownViewResource(R.layout.country_code_spinner_selectable_item);
+        mCounryCodeSpinner.setAdapter(adapter);
+
+        if (countryCodes.length <= 1) {
+            mCounryCodeSpinner.setEnabled(false);
+        }
+    }
+
+    private void setUpPhoneFormatter() {
+        final MaskedTextChangedListener listener = new MaskedTextChangedListener(
+                getString(R.string.login_phone_mask),
+                true,
+                mLoginEditText,
+                null,
+                (b, s) -> {}
+        );
+        mLoginEditText.addTextChangedListener(listener);
+        mLoginEditText.setOnFocusChangeListener(listener);
     }
 
 }

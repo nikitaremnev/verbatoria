@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -70,12 +71,13 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public Observable<ResponseBody> submitResults(List<MeasurementRequestModel> measurements) {
-        return mSessionRepository.addResults("", getAccessToken(), measurements);
+    public Observable<ResponseBody> submitResults(RequestBody requestBody) {
+        return mSessionRepository.addResults("", getAccessToken(), requestBody);
     }
 
     @Override
     public void cleanUp() {
+        Logger.e(TAG, "cleanUp");
         mSessionRepository.cleanUp();
         DoneActivitiesProcessor.clearDoneActivities();
         DoneActivitiesProcessor.clearTimeDoneActivities();

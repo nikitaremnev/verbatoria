@@ -32,6 +32,12 @@ public class LoginInteractor implements ILoginInteractor {
         });
     }
 
+    @Override
+    public String[] getCountryCodes() {
+        return new String[] {"+7"};
+    }
+
+
     private LoginRequestModel getLoginRequestModel(String phone, String password) {
         return new LoginRequestModel()
                 .setPhone(processPhone(phone))
@@ -39,7 +45,7 @@ public class LoginInteractor implements ILoginInteractor {
     }
 
     private String processPhone(String phone) {
-        return phone.replaceAll("[-,. ]", "");
+        return phone.replaceAll("[-,. )(]", "");
     }
 
 }

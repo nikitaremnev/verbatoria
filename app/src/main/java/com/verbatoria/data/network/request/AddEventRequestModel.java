@@ -1,6 +1,5 @@
 package com.verbatoria.data.network.request;
 
-import com.bluelinelabs.logansquare.annotation.JsonObject;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
@@ -12,7 +11,6 @@ import com.google.common.base.Objects;
  *
  * @author nikitaremnev
  */
-@JsonObject
 public class AddEventRequestModel {
 
     private String mChildId;

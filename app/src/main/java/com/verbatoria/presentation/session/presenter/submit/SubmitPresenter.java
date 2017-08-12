@@ -9,15 +9,20 @@ import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.submit.ISubmitView;
+import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Logger;
+import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -67,27 +72,22 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     private void handleMeasurementsReceived(Void object) {
+        File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
+        RequestBody fileBody = RequestBody.create(MediaType.parse("text/plain"), file);
 
-        cleanUp();
-//        mSessionInteractor.submitResults(measurementList)
-//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-//                .observeOn(RxSchedulers.getMainThreadScheduler())
-//                .subscribe(this::handleSessionFinished, this::handleError);
-    }
-
-    private void cleanUp() {
-        Observable.fromCallable(() -> {
-            mSessionInteractor.cleanUp();
-            return null;
-        }).subscribeOn(RxSchedulers.getNewThreadScheduler())
+        mSessionInteractor.submitResults(fileBody)
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler())
-                .subscribe(this::cleanUpFinished, this::handleError);
+                .subscribe(this::handleResultsSubmitted, this::handleError);
     }
 
-    private void handleSessionFinished(ResponseBody responseBody) {
-        mSubmitView.hideProgress();
-        mSubmitView.finishSession();
-        Logger.e(TAG, responseBody.toString());
+    private void handleResultsSubmitted(ResponseBody responseBody) {
+        Observable.fromCallable(() -> {
+                mSessionInteractor.cleanUp();
+                return null;
+            }).subscribeOn(RxSchedulers.getNewThreadScheduler())
+            .observeOn(RxSchedulers.getMainThreadScheduler())
+            .subscribe(this::cleanUpFinished, this::handleError);
     }
 
     private void cleanUpFinished(Object object) {
@@ -100,7 +100,6 @@ public class SubmitPresenter implements ISubmitPresenter {
         Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
         mSubmitView.hideProgress();
         mSubmitView.showMessage(throwable.getLocalizedMessage());
-//        mSubmitView.finishSession();
     }
 
 }

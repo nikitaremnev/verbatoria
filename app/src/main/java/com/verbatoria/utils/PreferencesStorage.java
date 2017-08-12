@@ -24,6 +24,9 @@ public class PreferencesStorage {
     private static final String QUESTIONS_PREFERENCES = "questions";
     private static final String ANSWERS_KEY = "ANSWERS_KEY";
 
+    private static final String SESSION_PREFERENCES = "questions";
+    private static final String LAST_REPORT_NAME_KEY = "LAST_REPORT_NAME_KEY";
+
     private SharedPreferences mTokenPreferences;
     private SharedPreferences mQuestionsPreferences;
 
@@ -91,4 +94,13 @@ public class PreferencesStorage {
         mQuestionsPreferences.edit().clear().apply();
     }
 
+    public void setLastReportName(String fileName) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putString(LAST_REPORT_NAME_KEY, fileName);
+        editor.apply();
+    }
+
+    public String getLastReportName() {
+        return mTokenPreferences.getString(LAST_REPORT_NAME_KEY, null);
+    }
 }

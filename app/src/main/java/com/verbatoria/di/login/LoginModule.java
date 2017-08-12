@@ -2,9 +2,14 @@ package com.verbatoria.di.login;
 
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;
+import com.verbatoria.business.session.ISessionInteractor;
+import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
+import com.verbatoria.data.repositories.session.ISessionRepository;
+import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.di.session.SessionScope;
 import com.verbatoria.presentation.login.presenter.ILoginPresenter;
 import com.verbatoria.presentation.login.presenter.LoginPresenter;
 

@@ -1,15 +1,16 @@
 package com.verbatoria.data.repositories.session;
 
-import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.model.AttentionMeasurement;
+import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
 
 import java.util.List;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -31,7 +32,9 @@ public interface ISessionRepository {
 
     Observable<List<EventMeasurement>> getEventMeasurements();
 
-    Observable<ResponseBody> addResults(String sessionId, String accessToken, List<MeasurementRequestModel> measurements);
+    Observable<List<BaseMeasurement>> getAllMeasurements();
+
+    Observable<ResponseBody> addResults(String sessionId, String accessToken, RequestBody requestBody);
 
     void addEvent(String code);
 

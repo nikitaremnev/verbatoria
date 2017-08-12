@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@android:id/text1"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/activity_login_country_code_selectable_height"
+    android:ellipsize="marquee"
+    android:textSize="@dimen/activity_login_text_size"
+    android:gravity="center"
+    android:background="@color/background"
+    android:textColor="@color/black"
+    tools:text="+7" />

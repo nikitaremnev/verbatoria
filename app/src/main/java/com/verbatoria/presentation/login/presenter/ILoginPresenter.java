@@ -15,4 +15,6 @@ public interface ILoginPresenter {
     void unbindView();
 
     void login();
+
+    String[] getCountryCodesArray();
 }

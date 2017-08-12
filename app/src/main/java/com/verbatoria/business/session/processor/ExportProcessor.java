@@ -1,5 +1,6 @@
 package com.verbatoria.business.session.processor;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.verbatoria.business.session.SessionInteractorException;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
@@ -9,21 +10,20 @@ import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
+import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Logger;
+import com.verbatoria.utils.PreferencesStorage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -43,8 +43,7 @@ public class ExportProcessor {
     }
 
     public Observable<Void> getAllMeasurements(Map<String, String> answers) {
-        return Observable.merge(mSessionRepository.getAttentionMeasurements(), mSessionRepository.getEEGMeasurements(),
-                mSessionRepository.getEventMeasurements(), mSessionRepository.getMediationMeasurements())
+        return mSessionRepository.getAllMeasurements()
                 .map(new Func1<List<? extends BaseMeasurement>, Void>() {
                     @Override
                     public Void call(List<? extends BaseMeasurement> baseMeasurements) {
@@ -56,13 +55,13 @@ public class ExportProcessor {
     }
 
     private void writeToJsonFile(List<? extends BaseMeasurement> baseMeasurements, Map<String, String> answers) {
-        FileOutputStream outStream = null;
-        OutputStreamWriter outStreamWriter = null;
+        FileOutputStream outStream;
+        OutputStreamWriter outStreamWriter;
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
         try {
-            File reportFile = new File(FileUtils.getApplicationDirectory(), "report" + FileUtils.JSON_FILE_EXTENSION);
-            if (!reportFile.exists()) {
-                reportFile.createNewFile();
-            }
+            File reportFile = createReportFile();
             outStream = new FileOutputStream(reportFile);
             outStreamWriter = new OutputStreamWriter(outStream);
 
@@ -72,13 +71,20 @@ public class ExportProcessor {
             while (iterator.hasNext()) {
                 MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
                 BaseMeasurement currentMeasurement = iterator.next();
+                if (answers.get(Integer.toString(iterator.getIndex())) != null) {
+                    measurementRequestModel.setReserveBlank2(answers.get(Integer.toString(iterator.getIndex())));
+                }
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
                 while (iterator.hasNext() && currentMeasurement.getTimestamp() == iterator.next().getTimestamp()) {
                     setMeasurementRequestModelFields(measurementRequestModel, iterator.get());
                 }
                 iterator.back();
-                outStreamWriter.append(measurementRequestModel.toString());
+                outStreamWriter.append(objectMapper.writeValueAsString(measurementRequestModel));
+                if (iterator.hasNext()) {
+                    outStreamWriter.append(", ");
+                }
             }
+
             outStreamWriter.append("]");
 
             outStream.flush();
@@ -88,13 +94,6 @@ public class ExportProcessor {
         } catch (Exception e) {
             e.printStackTrace();
             throw new SessionInteractorException("File exception");
-        }
-    }
-
-    private void setAnswers(List<MeasurementRequestModel> measurements, Map<String, String> answers) {
-        for (String key : answers.keySet()) {
-            int position = Integer.parseInt(key);
-            measurements.get(position).setReserveBlank2(answers.get(key));
         }
     }
 
@@ -140,6 +139,18 @@ public class ExportProcessor {
         measurementRequestModel.setActionId(eventMeasurement.getActivityCode());
     }
 
+    private File createReportFile() throws IOException {
+        String reportFileName = "report_" + DateUtils.fileNameFromDate(new Date()) + FileUtils.JSON_FILE_EXTENSION;
+        PreferencesStorage.getInstance().setLastReportName(reportFileName);
+
+        File reportFile = new File(FileUtils.getApplicationDirectory(), reportFileName);
+        if (!reportFile.exists()) {
+            reportFile.createNewFile();
+        }
+
+        return reportFile;
+    }
+
     private class BaseMeasurementIterator implements Iterator<BaseMeasurement> {
 
         private int mIndex = -1;
@@ -176,7 +187,9 @@ public class ExportProcessor {
             if (mIndex < 0) {
                 throw new IllegalStateException();
             }
-            mIndex --;
+            if (mMeasurements.size() == mIndex - 1) {
+                mIndex--;
+            }
         }
 
         public BaseMeasurement get() {
@@ -185,6 +198,10 @@ public class ExportProcessor {
                 throw new IllegalStateException();
             }
             return mMeasurements.get(mIndex);
+        }
+
+        public int getIndex() {
+            return mIndex;
         }
     }
 

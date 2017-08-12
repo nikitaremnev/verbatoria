@@ -7,6 +7,7 @@ import com.verbatoria.data.network.response.StartSessionResponseModel;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -19,7 +20,7 @@ public interface ISessionInteractor {
 
     Observable<StartSessionResponseModel> startSession(String eventId);
     Observable<Void> getAllMeasurements(Map<String, String> answers);
-    Observable<ResponseBody> submitResults(List<MeasurementRequestModel> measurements);
+    Observable<ResponseBody> submitResults(RequestBody requestBody);
     void cleanUp();
 
     void startConnection();

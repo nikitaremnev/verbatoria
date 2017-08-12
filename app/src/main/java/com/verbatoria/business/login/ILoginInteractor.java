@@ -12,4 +12,6 @@ public interface ILoginInteractor {
 
     Observable<TokenModel> login(String phone, String password);
 
+    String[] getCountryCodes();
+
 }

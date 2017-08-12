@@ -4,18 +4,22 @@ import android.content.Context;
 
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.data.network.api.APIFactory;
-import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.database.ActivitiesDatabase;
 import com.verbatoria.data.repositories.session.database.NeurodataDatabase;
 import com.verbatoria.data.repositories.session.model.AttentionMeasurement;
+import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
+
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
 
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -60,8 +64,20 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
-    public Observable<ResponseBody> addResults(String sessionId, String accessToken, List<MeasurementRequestModel> measurements) {
-        return APIFactory.getAPIService().addResultsToSessionRequest(sessionId, accessToken, measurements);
+    public Observable<List<BaseMeasurement>> getAllMeasurements() {
+        return Observable.fromCallable(() -> {
+            List<BaseMeasurement> measurements = new ArrayList<>();
+            measurements.addAll(NeurodataDatabase.getAttentionValues(mContext));
+            measurements.addAll(NeurodataDatabase.getMediationValues(mContext));
+            measurements.addAll(NeurodataDatabase.getEEGValues(mContext));
+            measurements.addAll(ActivitiesDatabase.getEvents(mContext));
+            return measurements;
+        });
+    }
+
+    @Override
+    public Observable<ResponseBody> addResults(String sessionId, String accessToken, RequestBody requestBody) {
+        return APIFactory.getAPIService().addResultsToSessionRequest(sessionId, accessToken, requestBody);
     }
 
     @Override

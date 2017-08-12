@@ -19,6 +19,7 @@ public class DateUtils {
     private static final long MILLIS_PER_HOUR = MILLIS_PER_MINUTE * 60;
     private static final long MILLIS_PER_DAY = MILLIS_PER_HOUR * 24;
 
+    private static final SimpleDateFormat SERVER_FILENAME_FORMAT = new SimpleDateFormat("dd.MM_HH:mm", Locale.ROOT);
     private static final SimpleDateFormat SERVER_DATETIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.ROOT);
     private static final SimpleDateFormat SERVER_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT);
     private static final SimpleDateFormat SERVER_DATE_WITHOUT_YEAR_FORMAT = new SimpleDateFormat("dd.MM", Locale.ROOT);
@@ -61,6 +62,10 @@ public class DateUtils {
 
     public static String toString(Date date) {
         return SERVER_DATE_FORMAT.format(date);
+    }
+
+    public static String fileNameFromDate(Date date) {
+        return SERVER_FILENAME_FORMAT.format(date);
     }
 
     public static String timeToString(Date date) {

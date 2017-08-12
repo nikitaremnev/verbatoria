@@ -1,6 +1,8 @@
 package com.verbatoria.data.network.request;
 
-import com.bluelinelabs.logansquare.annotation.JsonObject;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
@@ -10,265 +12,306 @@ import com.google.common.base.Objects;
  *
  * @author nikitaremnev
  */
-@JsonObject
 public class MeasurementRequestModel {
 
-
-//    integer report_id Ссылка на Report
-//    string device_id
-//    string bci_id
-//    string event_id
-//    string logoped_mode_id
-//    integer action_id
-//    string word
-//    string block
-//    string mistake
-//    string reserve_blank1
-//    string reserve_blank2
-//    integer attention
-//    integer meditation
-//    integer delta
-//    integer theta
-//
-//    integer low_alpha
-//    integer high_alpha
-//    integer low_beta
-//    integer high_beta
-//    integer low_gamma
-//    integer mid_gamma
-//    datetime created_at время создания записи
-//    datetime updated_at
-
     private long mReportId;
+
     private long mActionId;
+
     private String mDeviceId;
+
     private String mBCIId;
+
     private String mEventId;
+
     private String mLogopedModeId;
+
     private String mWord;
+
     private String mBlock;
+
     private String mMistake;
+
     private String mReserveBlank1;
+
     private String mReserveBlank2;
+
     private long mAttentionValue;
+
     private long mMediationValue;
+
     private long mDeltaValue;
+
     private long mThetaValue;
+
     private long mLowAlphaValue;
+
     private long mHighAlphaValue;
+
     private long mLowBetaValue;
+
     private long mHighBetaValue;
+
     private long mLowGammaValue;
+
     private long mMidGammaValue;
+
     private String mCreatedAtDate;
+
     private String mUpdatedAtDate;
 
     public MeasurementRequestModel() {
 
     }
 
+    @JsonGetter("report_id")
     public long getReportId() {
         return mReportId;
     }
 
+    @JsonSetter("report_id")
     public MeasurementRequestModel setReportId(long reportId) {
         mReportId = reportId;
         return this;
     }
 
+    @JsonGetter("action_id")
     public long getActionId() {
         return mActionId;
     }
 
+    @JsonSetter("action_id")
     public MeasurementRequestModel setActionId(long actionId) {
         mActionId = actionId;
         return this;
     }
 
+    @JsonGetter("device_id")
     public String getDeviceId() {
         return mDeviceId;
     }
 
+    @JsonSetter("device_id")
     public MeasurementRequestModel setDeviceId(String deviceId) {
         mDeviceId = deviceId;
         return this;
     }
 
+    @JsonGetter("bci_id")
     public String getBCIId() {
         return mBCIId;
     }
 
+    @JsonSetter("bci_id")
     public MeasurementRequestModel setBCIId(String BCIId) {
         mBCIId = BCIId;
         return this;
     }
 
+    @JsonGetter("event_id")
     public String getEventId() {
         return mEventId;
     }
 
+    @JsonSetter("event_id")
     public MeasurementRequestModel setEventId(String eventId) {
         mEventId = eventId;
         return this;
     }
 
+    @JsonGetter("logoped_mode_id")
     public String getLogopedModeId() {
         return mLogopedModeId;
     }
 
+    @JsonSetter("logoped_mode_id")
     public MeasurementRequestModel setLogopedModeId(String logopedModeId) {
         mLogopedModeId = logopedModeId;
         return this;
     }
 
+    @JsonGetter("word")
     public String getWord() {
         return mWord;
     }
 
+    @JsonSetter("word")
     public MeasurementRequestModel setWord(String word) {
         mWord = word;
         return this;
     }
 
+    @JsonGetter("block")
     public String getBlock() {
         return mBlock;
     }
 
+    @JsonSetter("block")
     public MeasurementRequestModel setBlock(String block) {
         mBlock = block;
         return this;
     }
 
+    @JsonGetter("mistake")
     public String getMistake() {
         return mMistake;
     }
 
+    @JsonSetter("mistake")
     public MeasurementRequestModel setMistake(String mistake) {
         mMistake = mistake;
         return this;
     }
 
+    @JsonGetter("reserve_blank1")
     public String getReserveBlank1() {
         return mReserveBlank1;
     }
 
+    @JsonSetter("reserve_blank1")
     public MeasurementRequestModel setReserveBlank1(String reserveBlank1) {
         mReserveBlank1 = reserveBlank1;
         return this;
     }
 
+    @JsonGetter("reserve_blank2")
     public String getReserveBlank2() {
         return mReserveBlank2;
     }
 
+    @JsonSetter("reserve_blank2")
     public MeasurementRequestModel setReserveBlank2(String reserveBlank2) {
         mReserveBlank2 = reserveBlank2;
         return this;
     }
 
+    @JsonGetter("attention")
     public long getAttentionValue() {
         return mAttentionValue;
     }
 
+    @JsonSetter("attention")
     public MeasurementRequestModel setAttentionValue(long attentionValue) {
         mAttentionValue = attentionValue;
         return this;
     }
 
+    @JsonGetter("mediation")
     public long getMediationValue() {
         return mMediationValue;
     }
 
+    @JsonSetter("mediation")
     public MeasurementRequestModel setMediationValue(long mediationValue) {
         mMediationValue = mediationValue;
         return this;
     }
 
+    @JsonGetter("delta")
     public long getDeltaValue() {
         return mDeltaValue;
     }
 
+    @JsonSetter("delta")
     public MeasurementRequestModel setDeltaValue(long deltaValue) {
         mDeltaValue = deltaValue;
         return this;
     }
 
+    @JsonGetter("theta")
     public long getThetaValue() {
         return mThetaValue;
     }
 
+    @JsonSetter("theta")
     public MeasurementRequestModel setThetaValue(long thetaValue) {
         mThetaValue = thetaValue;
         return this;
     }
 
+    @JsonGetter("low_alpha")
     public long getLowAlphaValue() {
         return mLowAlphaValue;
     }
 
+    @JsonSetter("low_alpha")
     public MeasurementRequestModel setLowAlphaValue(long lowAlphaValue) {
         mLowAlphaValue = lowAlphaValue;
         return this;
     }
 
+    @JsonGetter("high_alpha")
     public long getHighAlphaValue() {
         return mHighAlphaValue;
     }
 
+    @JsonSetter("high_alpha")
     public MeasurementRequestModel setHighAlphaValue(long highAlphaValue) {
         mHighAlphaValue = highAlphaValue;
         return this;
     }
 
+    @JsonGetter("low_beta")
     public long getLowBetaValue() {
         return mLowBetaValue;
     }
 
+    @JsonSetter("low_beta")
     public MeasurementRequestModel setLowBetaValue(long lowBetaValue) {
         mLowBetaValue = lowBetaValue;
         return this;
     }
 
+    @JsonGetter("high_beta")
     public long getHighBetaValue() {
         return mHighBetaValue;
     }
 
+    @JsonSetter("high_beta")
     public MeasurementRequestModel setHighBetaValue(long highBetaValue) {
         mHighBetaValue = highBetaValue;
         return this;
     }
 
+    @JsonGetter("low_gamma")
     public long getLowGammaValue() {
         return mLowGammaValue;
     }
 
+    @JsonSetter("low_gamma")
     public MeasurementRequestModel setLowGammaValue(long lowGammaValue) {
         mLowGammaValue = lowGammaValue;
         return this;
     }
 
+    @JsonGetter("mid_gamma")
     public long getMidGammaValue() {
         return mMidGammaValue;
     }
 
+    @JsonSetter("mid_gamma")
     public MeasurementRequestModel setMidGammaValue(long midGammaValue) {
         mMidGammaValue = midGammaValue;
         return this;
     }
 
+    @JsonGetter("created_at")
     public String getCreatedAtDate() {
         return mCreatedAtDate;
     }
 
+    @JsonSetter("created_at")
     public MeasurementRequestModel setCreatedAtDate(String createdAtDate) {
         mCreatedAtDate = createdAtDate;
         return this;
     }
 
+    @JsonGetter("updated_at")
     public String getUpdatedAtDate() {
         return mUpdatedAtDate;
     }
 
+    @JsonSetter("updated_at")
     public MeasurementRequestModel setUpdatedAtDate(String updatedAtDate) {
         mUpdatedAtDate = updatedAtDate;
         return this;

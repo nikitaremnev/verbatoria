@@ -34,6 +34,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         setUpBottomNavigation();
         setUpFragment(DashboardMainFragment.newInstance());
+
     }
 
     private void setUpFragment(Fragment fragment) {
