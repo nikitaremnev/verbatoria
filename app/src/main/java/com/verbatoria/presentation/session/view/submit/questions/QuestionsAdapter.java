@@ -72,10 +72,11 @@ public class QuestionsAdapter extends PagerAdapter {
     }
 
     public boolean isAllQuestionsAnswered() {
-        return mAnswersMap.containsKey("0") && mAnswersMap.containsKey("1") &&
-                mAnswersMap.containsKey("2") && mAnswersMap.containsKey("3") &&
-                mAnswersMap.containsKey("4") && mAnswersMap.containsKey("5") &&
-                mAnswersMap.containsKey("6");
+//        return mAnswersMap.containsKey("0") && mAnswersMap.containsKey("1") &&
+//                mAnswersMap.containsKey("2") && mAnswersMap.containsKey("3") &&
+//                mAnswersMap.containsKey("4") && mAnswersMap.containsKey("5") &&
+//                mAnswersMap.containsKey("6");
+        return true;
     }
 
     public Map<String, String> getAnswers() {

@@ -76,7 +76,7 @@ public class QuestionViewHolder {
 
     public void selectAnswer(int value) {
         clearAnswers();
-        mHasAnswerCheckBox.setChecked(true);
+        mHasAnswerCheckBox.setChecked(false);
         switch (value) {
             case ANSWER_10:
                 mAnswer10Button.setBackground(mSelectedButtonDrawable);
@@ -106,7 +106,7 @@ public class QuestionViewHolder {
 
     private void setUpHasAnswerOption() {
         mHasAnswerCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (!isChecked) {
+            if (isChecked) {
                 clearAnswers();
                 mQuestionsAdapter.removeAnswer(getQuestionPosition());
                 mAnswerClickCallback.onAnswerClicked();

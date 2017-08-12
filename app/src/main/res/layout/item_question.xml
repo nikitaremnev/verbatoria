@@ -81,7 +81,7 @@
 
     <CheckBox
         android:id="@+id/has_answer_checkbox"
-        android:checked="false"
+        android:checked="true"
         android:textSize="@dimen/submit_question_has_answer_text_size"
         android:textAlignment="center"
         android:padding="@dimen/submit_question_has_answer_padding"
@@ -92,7 +92,7 @@
         android:layout_alignLeft="@+id/buttons_layout"
         android:layout_alignStart="@+id/buttons_layout"
         android:layout_below="@+id/buttons_layout"
-        android:text="@string/session_has_answer" />
+        android:text="@string/session_no_answer" />
 
 
 </RelativeLayout>

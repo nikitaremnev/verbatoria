@@ -38,7 +38,7 @@
 
     <string name="session_submit">Закончить</string>
 
-    <string name="session_has_answer">Есть ответ</string>
+    <string name="session_no_answer">Нет ответа</string>
 
     <string name="session_question_variant_10">10</string>
     <string name="session_question_variant_20">20</string>
