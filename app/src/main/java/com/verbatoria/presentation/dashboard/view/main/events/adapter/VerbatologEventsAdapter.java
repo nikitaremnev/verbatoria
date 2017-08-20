@@ -51,7 +51,12 @@ public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEven
     @Override
     public void onBindViewHolder(VerbatologEventViewHolder holder, int position) {
         EventModel event = mEventsList.get(position);
-        holder.setChildName(event.getChild().getName());
+        String childName = event.getChild().getName();
+        if (childName == null) {
+            holder.setChildName(mContext.getString(R.string.dashboard_unknown));
+        } else {
+            holder.setChildName(childName);
+        }
         holder.setAge(event.getFullAge(mContext));
         holder.setTimePeriod(event.getEventTime());
         holder.setOnClickListener(new VerbatologEventOnClickListener(event));

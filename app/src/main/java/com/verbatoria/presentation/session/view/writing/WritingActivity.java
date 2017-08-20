@@ -99,10 +99,8 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     */
     private Handler mUiHandler;
 
-    public static Intent newInstance(Context mContext, EventModel eventModel) {
-        Intent intent = new Intent(mContext, WritingActivity.class);
-        intent.putExtra(CalendarEventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
-        return intent;
+    public static Intent newInstance(Context mContext) {
+        return new Intent(mContext, WritingActivity.class);
     }
 
     @Override
@@ -117,7 +115,6 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mWritingPresenter.bindView(this);
-        mWritingPresenter.obtainEvent(getIntent());
     }
 
     @Override
@@ -256,7 +253,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
 
     @Override
     public void finishSession() {
-        Intent intent = new Intent(this, SubmitActivity.class);
+        Intent intent = SubmitActivity.newInstance(this);
         startActivity(intent);
         finish();
     }

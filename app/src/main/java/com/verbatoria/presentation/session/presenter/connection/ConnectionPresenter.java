@@ -47,18 +47,24 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
     }
 
     @Override
+    public EventModel getEvent() {
+        return mEventModel;
+    }
+
+    @Override
     public void connect() {
         mSessionInteractor.startConnection();
     }
 
     @Override
     public void startSession() {
+        Logger.e(TAG, mEventModel.toString());
         if (mEventModel != null) {
+            mConnectionView.showProgress();
             mSessionInteractor.startSession(mEventModel.getId())
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler())
                     .subscribe(this::handleSessionStarted, this::handleSessionStartError);
-            mConnectionView.showProgress();
         } else {
             handleSessionStarted(null);
         }
@@ -93,6 +99,7 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
         if (sessionResponseModel != null) {
             Logger.e(TAG, sessionResponseModel.toString());
         }
+        mSessionInteractor.saveSessionId(sessionResponseModel.getId());
         mConnectionView.startWriting();
         mConnectionView.hideProgress();
     }

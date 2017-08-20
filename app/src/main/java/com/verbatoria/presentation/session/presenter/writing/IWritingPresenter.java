@@ -2,6 +2,8 @@ package com.verbatoria.presentation.session.presenter.writing;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.presentation.session.view.writing.IWritingView;
 
 /**
@@ -25,5 +27,5 @@ public interface IWritingPresenter {
     void checkFinishAllowed();
 
     void submitCode(String code);
-    void obtainEvent(Intent intent);
+
 }

@@ -44,6 +44,9 @@ public class ChildModel implements Parcelable {
     }
 
     public Date getBirthday() {
+        if (mBirthday == null) {
+            mBirthday = new Date();
+        }
         return mBirthday;
     }
 

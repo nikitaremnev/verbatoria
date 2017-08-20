@@ -59,10 +59,8 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
     private QuestionsAdapter mQuestionsAdapter;
 
-    public static Intent newInstance(Context mContext, EventModel eventModel) {
-        Intent intent = new Intent(mContext, SubmitActivity.class);
-        intent.putExtra(CalendarEventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
-        return intent;
+    public static Intent newInstance(Context mContext) {
+        return new Intent(mContext, SubmitActivity.class);
     }
 
     @Override
@@ -75,7 +73,6 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mSubmitPresenter.bindView(this);
-        mSubmitPresenter.obtainEvent(getIntent());
     }
 
     @Override

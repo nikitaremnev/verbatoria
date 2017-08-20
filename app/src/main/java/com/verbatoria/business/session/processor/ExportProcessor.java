@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -65,7 +66,7 @@ public class ExportProcessor {
             outStream = new FileOutputStream(reportFile);
             outStreamWriter = new OutputStreamWriter(outStream);
 
-            outStreamWriter.append("[");
+            outStreamWriter.append("{\"file\":[");
 
             BaseMeasurementIterator iterator = new BaseMeasurementIterator(baseMeasurements);
             while (iterator.hasNext()) {
@@ -85,7 +86,7 @@ public class ExportProcessor {
                 }
             }
 
-            outStreamWriter.append("]");
+            outStreamWriter.append("]}");
 
             outStream.flush();
             outStreamWriter.flush();
@@ -109,6 +110,11 @@ public class ExportProcessor {
         }
         if (baseMeasurement instanceof EventMeasurement) {
             setEventFields(measurementRequestModel, (EventMeasurement) baseMeasurement);
+        }
+        try {
+            measurementRequestModel.setCreatedAtDate(DateUtils.toServerDateTimeString(baseMeasurement.getTimestamp()));
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

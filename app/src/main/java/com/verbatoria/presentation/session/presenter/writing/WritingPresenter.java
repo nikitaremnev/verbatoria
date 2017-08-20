@@ -58,11 +58,6 @@ public class WritingPresenter implements IWritingPresenter,
     }
 
     @Override
-    public void obtainEvent(Intent intent) {
-        mEventModel = intent.getParcelableExtra(ConnectionActivity.EXTRA_EVENT_MODEL);
-    }
-
-    @Override
     public void playClick() {
         mSessionInteractor.playClick();
     }

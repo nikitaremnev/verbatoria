@@ -2,7 +2,6 @@ package com.verbatoria.data.network.api;
 
 import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
-import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;

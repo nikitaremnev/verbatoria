@@ -56,6 +56,10 @@ public class DateUtils {
         return SERVER_DATETIME_FORMAT.parse(dateString);
     }
 
+    public static String toServerDateTimeString(long timestamp) throws ParseException {
+        return SERVER_DATETIME_FORMAT.format(timestamp * MILLIS_PER_SECOND);
+    }
+
     public static Date parseDate(String dateString) throws ParseException {
         return SERVER_DATE_FORMAT.parse(dateString);
     }

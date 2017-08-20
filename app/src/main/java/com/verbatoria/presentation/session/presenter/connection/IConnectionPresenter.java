@@ -2,6 +2,8 @@ package com.verbatoria.presentation.session.presenter.connection;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.presentation.session.view.connection.IConnectionView;
 
 /**
@@ -15,6 +17,8 @@ public interface IConnectionPresenter {
     void unbindView();
 
     void obtainEvent(Intent intent);
+    EventModel getEvent();
+
     void startSession();
     void connect();
 

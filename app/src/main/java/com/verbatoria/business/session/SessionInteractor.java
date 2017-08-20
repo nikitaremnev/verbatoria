@@ -9,15 +9,14 @@ import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.processor.ExportProcessor;
 import com.verbatoria.business.token.models.TokenModel;
-import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.Logger;
+import com.verbatoria.utils.PreferencesStorage;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
@@ -72,7 +71,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     @Override
     public Observable<ResponseBody> submitResults(RequestBody requestBody) {
-        return mSessionRepository.addResults("", getAccessToken(), requestBody);
+        return mSessionRepository.addResults(getAccessToken(), requestBody);
     }
 
     @Override
@@ -241,9 +240,14 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         mPlayerManager.hidePlayer();
     }
 
-     /*
-        Application callback methods
-     */
+    @Override
+    public void saveSessionId(String sessionId) {
+        mSessionRepository.saveSessionId(sessionId);
+    }
+
+    /*
+       Application callback methods
+    */
     @Override
     public void onConnectionStateChanged(int connectionCode) {
         if (mConnectionCallback != null) {

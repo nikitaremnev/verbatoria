@@ -72,8 +72,13 @@ public class EventModel implements Parcelable {
     }
 
     public String getFullAge(Context context) {
-        return String.format(context.getString(R.string.dashboard_age),
-                Integer.toString(DateUtils.getYearsFromDate(getChild().getBirthday())));
+        int fullAge = DateUtils.getYearsFromDate(getChild().getBirthday());
+        if (fullAge < 1) {
+            String unknown = context.getString(R.string.dashboard_unknown);
+            return String.format(context.getString(R.string.dashboard_age), unknown);
+        } else {
+            return String.format(context.getString(R.string.dashboard_age), Integer.toString(fullAge));
+        }
     }
 
     public String getEventTime() {

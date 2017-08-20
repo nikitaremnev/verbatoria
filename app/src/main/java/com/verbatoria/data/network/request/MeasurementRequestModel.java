@@ -1,14 +1,13 @@
 package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
 /**
  *
- * Модель запроса результатов
+ * Модель записи измерения для отправки
  *
  * @author nikitaremnev
  */

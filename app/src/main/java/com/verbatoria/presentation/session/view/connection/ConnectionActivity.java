@@ -17,7 +17,6 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
 import com.verbatoria.utils.Helper;
@@ -80,8 +79,9 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
     };
 
     public static Intent newInstance(Context mContext, EventModel eventModel) {
+        Logger.e(TAG, "eventModel: " + eventModel.toString());
         Intent intent = new Intent(mContext, ConnectionActivity.class);
-        intent.putExtra(CalendarEventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
+        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
         return intent;
     }
 
@@ -194,7 +194,7 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
 
     @Override
     public void startWriting() {
-        Intent intent = new Intent(this, WritingActivity.class);
+        Intent intent = WritingActivity.newInstance(this);
         startActivity(intent);
         finish();
     }

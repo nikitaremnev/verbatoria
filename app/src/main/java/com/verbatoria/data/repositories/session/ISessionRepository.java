@@ -34,7 +34,7 @@ public interface ISessionRepository {
 
     Observable<List<BaseMeasurement>> getAllMeasurements();
 
-    Observable<ResponseBody> addResults(String sessionId, String accessToken, RequestBody requestBody);
+    Observable<ResponseBody> addResults(String accessToken, RequestBody requestBody);
 
     void addEvent(String code);
 
@@ -44,6 +44,8 @@ public interface ISessionRepository {
 
     void addEEGValue(int delta, int theta, int lowAlpha, int highAlpha,
                      int lowBeta, int highBeta, int lowGamma, int midGamma);
+
+    void saveSessionId(String sessionId);
 
     void cleanUp();
 

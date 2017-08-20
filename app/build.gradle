@@ -130,8 +130,8 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
 
     //Ok Http
-    compile 'com.squareup.okhttp3:okhttp:3.3.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
 
     //Neuro
     compile files('libs/NskAlgoSdk.jar')

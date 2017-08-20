@@ -80,52 +80,51 @@ public class DoneActivitiesProcessor {
     }
 
     public static String getAllNotEnoughTimeActivities() {
-        return "";
-//        String result = "";
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_11) ||
-//                sDoneActivitiesTimeArray.get(CODE_11) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_11 : " + sDoneActivitiesTimeArray.get(CODE_11));
-//            result += CODE_11 + ", ";
-//        }
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_21) ||
-//                sDoneActivitiesTimeArray.get(CODE_21) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_21 : " + sDoneActivitiesTimeArray.get(CODE_21));
-//            result += CODE_21 + ", ";
-//        }
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_31) ||
-//                sDoneActivitiesTimeArray.get(CODE_31) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_31 : " + sDoneActivitiesTimeArray.get(CODE_31));
-//            result += CODE_31 + ", ";
-//        }
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_41) ||
-//                sDoneActivitiesTimeArray.get(CODE_41) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_41 : " + sDoneActivitiesTimeArray.get(CODE_41));
-//            result += CODE_41 + ", ";
-//        }
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_51) ||
-//                sDoneActivitiesTimeArray.get(CODE_51) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_51 : " + sDoneActivitiesTimeArray.get(CODE_51));
-//            result += CODE_51 + ", ";
-//        }
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_61) ||
-//                sDoneActivitiesTimeArray.get(CODE_61) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_61 : " + sDoneActivitiesTimeArray.get(CODE_61));
-//            result += CODE_61 + ", ";
-//        }
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_71) ||
-//                sDoneActivitiesTimeArray.get(CODE_71) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_71 : " + sDoneActivitiesTimeArray.get(CODE_71));
-//            result += CODE_71 + ", ";
-//        }
-//        if (!sDoneActivitiesTimeArray.containsKey(CODE_99) ||
-//                sDoneActivitiesTimeArray.get(CODE_99) < MINIMUM_ACTIVITY_TIME) {
-//            Logger.e(TAG, "CODE_99 : " + sDoneActivitiesTimeArray.get(CODE_99));
-//            result += CODE_99 + ", ";
-//        }
-//        if (!TextUtils.isEmpty(result)) {
-//            result = result.substring(0, result.length() - 2);
-//        }
-//        return result;
+        String result = "";
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_11) ||
+                sDoneActivitiesTimeArray.get(CODE_11) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_11 : " + sDoneActivitiesTimeArray.get(CODE_11));
+            result += CODE_11 + ", ";
+        }
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_21) ||
+                sDoneActivitiesTimeArray.get(CODE_21) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_21 : " + sDoneActivitiesTimeArray.get(CODE_21));
+            result += CODE_21 + ", ";
+        }
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_31) ||
+                sDoneActivitiesTimeArray.get(CODE_31) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_31 : " + sDoneActivitiesTimeArray.get(CODE_31));
+            result += CODE_31 + ", ";
+        }
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_41) ||
+                sDoneActivitiesTimeArray.get(CODE_41) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_41 : " + sDoneActivitiesTimeArray.get(CODE_41));
+            result += CODE_41 + ", ";
+        }
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_51) ||
+                sDoneActivitiesTimeArray.get(CODE_51) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_51 : " + sDoneActivitiesTimeArray.get(CODE_51));
+            result += CODE_51 + ", ";
+        }
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_61) ||
+                sDoneActivitiesTimeArray.get(CODE_61) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_61 : " + sDoneActivitiesTimeArray.get(CODE_61));
+            result += CODE_61 + ", ";
+        }
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_71) ||
+                sDoneActivitiesTimeArray.get(CODE_71) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_71 : " + sDoneActivitiesTimeArray.get(CODE_71));
+            result += CODE_71 + ", ";
+        }
+        if (!sDoneActivitiesTimeArray.containsKey(CODE_99) ||
+                sDoneActivitiesTimeArray.get(CODE_99) < MINIMUM_ACTIVITY_TIME) {
+            Logger.e(TAG, "CODE_99 : " + sDoneActivitiesTimeArray.get(CODE_99));
+            result += CODE_99 + ", ";
+        }
+        if (!TextUtils.isEmpty(result)) {
+            result = result.substring(0, result.length() - 2);
+        }
+        return result;
     }
 
     public static boolean addActivityToDoneArray(String string) {

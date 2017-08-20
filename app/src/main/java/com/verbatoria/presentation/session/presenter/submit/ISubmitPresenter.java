@@ -17,5 +17,4 @@ public interface ISubmitPresenter {
     void unbindView();
 
     void sendResults(Map<String, String> answers);
-    void obtainEvent(Intent intent);
 }

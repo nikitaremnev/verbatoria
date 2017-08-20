@@ -35,6 +35,7 @@ public class LoginPresenter implements ILoginPresenter {
 
     @Override
     public void login() {
+        mLoginView.showProgress();
         mLoginInteractor.login(mLoginView.getPhone(), mLoginView.getPassword())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler())

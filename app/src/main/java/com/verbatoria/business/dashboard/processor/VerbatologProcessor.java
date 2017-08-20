@@ -66,7 +66,9 @@ public class VerbatologProcessor {
         childModel.setId(verbatologChildResponseModel.getId());
         childModel.setName(verbatologChildResponseModel.getName());
         try {
-            childModel.setBirthday(DateUtils.parseDate(verbatologChildResponseModel.getBirthday()));
+            if (verbatologChildResponseModel.getBirthday() != null) {
+                childModel.setBirthday(DateUtils.parseDate(verbatologChildResponseModel.getBirthday()));
+            }
         } catch (ParseException e) {
             throw new DashboardInteractorException(e.getMessage());
         }

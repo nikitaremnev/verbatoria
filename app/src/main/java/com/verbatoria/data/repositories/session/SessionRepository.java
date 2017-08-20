@@ -13,6 +13,7 @@ import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
+import com.verbatoria.utils.PreferencesStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +77,8 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
-    public Observable<ResponseBody> addResults(String sessionId, String accessToken, RequestBody requestBody) {
-        return APIFactory.getAPIService().addResultsToSessionRequest(sessionId, accessToken, requestBody);
+    public Observable<ResponseBody> addResults(String accessToken, RequestBody requestBody) {
+        return APIFactory.getAPIService().addResultsToSessionRequest(PreferencesStorage.getInstance().getCurrentSessionId(), accessToken, requestBody);
     }
 
     @Override
@@ -100,6 +101,11 @@ public class SessionRepository implements ISessionRepository {
                             int lowBeta, int highBeta, int lowGamma, int midGamma) {
         NeurodataDatabase.addEEGToDatabase(mContext, System.currentTimeMillis(), delta, theta,
                 lowAlpha, highAlpha, lowBeta, highBeta, lowGamma, midGamma);
+    }
+
+    @Override
+    public void saveSessionId(String sessionId) {
+        PreferencesStorage.getInstance().setCurrentSessionId(sessionId);
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.data.network.request.MeasurementRequestModel;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.submit.ISubmitView;
 import com.verbatoria.utils.FileUtils;
@@ -15,9 +14,7 @@ import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
@@ -40,7 +37,6 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     private ISessionInteractor mSessionInteractor;
     private ISubmitView mSubmitView;
-    private EventModel mEventModel;
 
     public SubmitPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -58,11 +54,6 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     @Override
-    public void obtainEvent(Intent intent) {
-        mEventModel = intent.getParcelableExtra(ConnectionActivity.EXTRA_EVENT_MODEL);
-    }
-
-    @Override
     public void sendResults(Map<String, String> answers) {
         mSubmitView.showProgress();
         mSessionInteractor.getAllMeasurements(answers)
@@ -73,7 +64,7 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     private void handleMeasurementsReceived(Void object) {
         File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
-        RequestBody fileBody = RequestBody.create(MediaType.parse("text/plain"), file);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("application/json"), file);
 
         mSessionInteractor.submitResults(fileBody)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
