@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.neurosky.connection.ConnectionStates;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -35,7 +36,6 @@ public class WritingPresenter implements IWritingPresenter,
 
     private ISessionInteractor mSessionInteractor;
     private IWritingView mWritingView;
-    private EventModel mEventModel;
 
     public WritingPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -132,12 +132,14 @@ public class WritingPresenter implements IWritingPresenter,
 
     @Override
     public void onConnectionStateChanged(int connectionCode) {
+        Log.e(TAG, "connectionCode: " + connectionCode);
         switch (connectionCode) {
+            case ConnectionStates.STATE_STOPPED:
             case ConnectionStates.STATE_DISCONNECTED:
             case ConnectionStates.STATE_GET_DATA_TIME_OUT:
             case ConnectionStates.STATE_ERROR:
             case ConnectionStates.STATE_FAILED:
-                //TODO: return to connecting screen
+                mWritingView.showConnectionError();
                 break;
         }
     }

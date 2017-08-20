@@ -93,6 +93,16 @@ public class ActivitiesTimerTask extends TimerTask {
         return mIsActivityActive;
     }
 
+    public ActivitiesTimerTask copy(ISessionInteractor.IActivitiesCallback activitiesCallback) {
+        ActivitiesTimerTask activitiesTimerTask = new ActivitiesTimerTask(activitiesCallback);
+        activitiesTimerTask.setTotalSeconds(mTotalSeconds);
+        activitiesTimerTask.setAllActivitiesSeconds(mAllActivitiesSeconds);
+        activitiesTimerTask.setFullActivitySeconds(mFullActivitySeconds);
+        activitiesTimerTask.setCurrentActivitySeconds(mCurrentActivitySeconds);
+        activitiesTimerTask.setStartActivityTime(mStartActivityTime);
+        return activitiesTimerTask;
+    }
+
     private void updateTimerVariables() {
         mTotalSeconds++;
         if (mIsActivityActive) {
@@ -143,4 +153,5 @@ public class ActivitiesTimerTask extends TimerTask {
     private Date getCurrentActivityDate() {
         return new Date(mCurrentActivitySeconds * DateUtils.MILLIS_PER_SECOND);
     }
+
 }

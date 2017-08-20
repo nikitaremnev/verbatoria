@@ -57,6 +57,10 @@
             android:screenOrientation="sensorLandscape"/>
 
         <activity
+            android:name="com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity
             android:name="com.verbatoria.presentation.session.view.writing.WritingActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/FullScreenTheme"/>

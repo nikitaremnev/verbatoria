@@ -29,4 +29,6 @@ public interface IWritingView {
 
     void showSomeActivitiesNotFinished(String activities);
     void finishSession();
+
+    void showConnectionError();
 }

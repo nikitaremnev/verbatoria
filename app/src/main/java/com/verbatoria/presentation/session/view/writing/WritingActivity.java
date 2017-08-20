@@ -1,6 +1,7 @@
 package com.verbatoria.presentation.session.view.writing;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
+import com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;
 import com.verbatoria.utils.Logger;
 
@@ -258,6 +260,20 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         finish();
     }
 
+    @Override
+    public void showConnectionError() {
+        runOnUiThread(() -> {
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setMessage(getString(R.string.session_connection_error));
+            dialog.setNegativeButton(getString(R.string.session_connection_error_try), (dialog1, which) -> {
+                dialog1.dismiss();
+                startReconnection();
+            });
+            dialog.setCancelable(false);
+            dialog.show();
+        });
+    }
+
     private void setUpViews() {
         mPlayButton.setOnClickListener(v -> mWritingPresenter.playClick());
         mPauseButton.setOnClickListener(v -> {
@@ -363,6 +379,12 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
             default:
                 return mCode99Button;
         }
+    }
+
+    private void startReconnection() {
+        Intent intent = ReconnectionActivity.newInstance(this);
+        startActivity(intent);
+        finish();
     }
 
     private class SubmitCodeOnClickListener implements View.OnClickListener {

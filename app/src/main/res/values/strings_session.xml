@@ -50,6 +50,11 @@
     <string name="session_activity_not_finished">Код нагрузки %s записан в недостаточном объеме</string>
     <string name="session_continue">Продолжить</string>
 
+    <string name="session_connection_error">Возникли неполадки с соединением с нейроинтерфейсом. Пожалуйста, возобновите подключение.</string>
+
+    <string name="session_connection_error_try">Восстановить соединение</string>
+
+
     <string-array name="session_questions">
         <item>Речь</item>
         <item>Математика</item>

@@ -9,6 +9,8 @@ import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarE
 import com.verbatoria.presentation.dashboard.presenter.calendar.detail.ICalendarEventDetailPresenter;
 import com.verbatoria.presentation.session.presenter.connection.ConnectionPresenter;
 import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
+import com.verbatoria.presentation.session.presenter.reconnect.IReconnectionPresenter;
+import com.verbatoria.presentation.session.presenter.reconnect.ReconnectionPresenter;
 import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
 import com.verbatoria.presentation.session.presenter.submit.SubmitPresenter;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
@@ -47,6 +49,12 @@ public class SessionModule {
     @SessionScope
     IConnectionPresenter provideConnectionPresenter(ISessionInteractor sessionInteractor) {
         return new ConnectionPresenter(sessionInteractor);
+    }
+
+    @Provides
+    @SessionScope
+    IReconnectionPresenter provideReconnectionPresenter(ISessionInteractor sessionInteractor) {
+        return new ReconnectionPresenter(sessionInteractor);
     }
 
     @Provides

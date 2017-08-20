@@ -80,6 +80,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         mSessionRepository.cleanUp();
         DoneActivitiesProcessor.clearDoneActivities();
         DoneActivitiesProcessor.clearTimeDoneActivities();
+        VerbatoriaApplication.dropActivitiesTimer();
     }
 
     @Override
@@ -305,8 +306,8 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     private void startActivitiesTimer() {
+        mActivitiesTimerTask = VerbatoriaApplication.getActivitiesTimer(mActivitiesCallback);
         mActivitiesTimer = new Timer();
-        mActivitiesTimerTask = new ActivitiesTimerTask(mActivitiesCallback);
         mActivitiesTimer.schedule(mActivitiesTimerTask, ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY, ActivitiesTimerTask.ACTIVITIES_TIMER_DELAY);
     }
 

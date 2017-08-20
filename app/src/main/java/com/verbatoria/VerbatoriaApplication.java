@@ -14,6 +14,7 @@ import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 
 import com.verbatoria.business.session.ISessionInteractor;
+import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.di.application.ApplicationComponent;
 import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
@@ -38,6 +39,8 @@ public class VerbatoriaApplication extends MultiDexApplication {
     private static TgStreamHandler sStreamHandler;
 
     private static ISessionInteractor.IApplicationSessionInteractorCallback sSessionInteractorCallback;
+
+    private static ActivitiesTimerTask mActivitiesTimerTask;
 
     @NonNull
     private static ApplicationComponent mApplicationComponent;
@@ -68,6 +71,20 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
     public static void setSessionInteractorCallback(ISessionInteractor.IApplicationSessionInteractorCallback sessionInteractorCallback) {
         sSessionInteractorCallback = sessionInteractorCallback;
+    }
+
+    public static ActivitiesTimerTask getActivitiesTimer(ISessionInteractor.IActivitiesCallback activitiesCallback) {
+        if (mActivitiesTimerTask == null) {
+            mActivitiesTimerTask = new ActivitiesTimerTask(activitiesCallback);
+        } else {
+            mActivitiesTimerTask.cancel();
+            mActivitiesTimerTask = mActivitiesTimerTask.copy(activitiesCallback);
+        }
+        return mActivitiesTimerTask;
+    }
+
+    public static void dropActivitiesTimer() {
+        mActivitiesTimerTask = null;
     }
 
     public static void tryToConnect() {
