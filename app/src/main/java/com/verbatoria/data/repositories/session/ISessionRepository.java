@@ -1,6 +1,7 @@
 package com.verbatoria.data.repositories.session;
 
 import com.verbatoria.data.network.request.StartSessionRequestModel;
+import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.model.AttentionMeasurement;
 import com.verbatoria.data.repositories.session.model.BaseMeasurement;
@@ -23,6 +24,8 @@ import rx.Observable;
 public interface ISessionRepository {
 
     Observable<StartSessionResponseModel> startSession(String accessToken, StartSessionRequestModel eventId);
+
+    Observable<FinishSessionResponseModel> finishSession(String accessToken);
 
     Observable<List<AttentionMeasurement>> getAttentionMeasurements();
 

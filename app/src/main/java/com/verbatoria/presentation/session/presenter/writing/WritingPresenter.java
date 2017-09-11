@@ -15,6 +15,7 @@ import com.verbatoria.presentation.session.view.writing.IWritingView;
 
 import javax.inject.Inject;
 import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
+import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Реализация презентера для экрана записи
@@ -36,6 +37,7 @@ public class WritingPresenter implements IWritingPresenter,
 
     private ISessionInteractor mSessionInteractor;
     private IWritingView mWritingView;
+    private EventModel mEventModel;
 
     public WritingPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -55,6 +57,16 @@ public class WritingPresenter implements IWritingPresenter,
     public void unbindView() {
         mWritingView = null;
         mSessionInteractor.dropCallbacks();
+    }
+
+    @Override
+    public void obtainEvent(Intent intent) {
+        mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
+    }
+
+    @Override
+    public EventModel getEvent() {
+        return mEventModel;
     }
 
     @Override

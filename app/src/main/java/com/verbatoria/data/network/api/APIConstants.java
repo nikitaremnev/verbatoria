@@ -19,5 +19,6 @@ class APIConstants {
     static final String VERBATOLOG_EVENTS_URL = "verbatolog/current/events.json";
     static final String START_SESSION_URL = "reports.json";
     static final String ADD_RESULTS_TO_SESSION_URL = "reports/{" + SESSION_ID_PATH_KEY + "}/measurements/upload.json";
+    static final String FINISH_SESSION_URL = "reports/{" + SESSION_ID_PATH_KEY + "}/finalize.json";
 
 }

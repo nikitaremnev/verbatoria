@@ -16,6 +16,9 @@ public interface IReconnectionPresenter {
     void bindView(@NonNull IReconnectionView connectionView);
     void unbindView();
 
+    void obtainEvent(Intent intent);
+    EventModel getEvent();
+
     void continueSession();
     void connect();
 

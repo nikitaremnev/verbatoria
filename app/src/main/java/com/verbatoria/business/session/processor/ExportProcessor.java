@@ -1,5 +1,7 @@
 package com.verbatoria.business.session.processor;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.verbatoria.business.session.SessionInteractorException;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
@@ -10,6 +12,7 @@ import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
+import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Logger;
@@ -69,13 +72,14 @@ public class ExportProcessor {
             outStreamWriter.append("{\"file\":[");
 
             BaseMeasurementIterator iterator = new BaseMeasurementIterator(baseMeasurements);
+            int answersIndex = 0;
             while (iterator.hasNext()) {
                 MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
                 BaseMeasurement currentMeasurement = iterator.next();
-                if (answers.get(Integer.toString(iterator.getIndex())) != null) {
-                    measurementRequestModel.setReserveBlank2(answers.get(Integer.toString(iterator.getIndex())));
-                }
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
+                if (answersIndex < QuestionsAdapter.QUESTIONARY_SIZE) {
+                    measurementRequestModel.setReserveBlank2(answers.get(Integer.toString(answersIndex)));
+                }
                 while (iterator.hasNext() && currentMeasurement.getTimestamp() == iterator.next().getTimestamp()) {
                     setMeasurementRequestModelFields(measurementRequestModel, iterator.get());
                 }
@@ -84,6 +88,7 @@ public class ExportProcessor {
                 if (iterator.hasNext()) {
                     outStreamWriter.append(", ");
                 }
+                answersIndex ++;
             }
 
             outStreamWriter.append("]}");

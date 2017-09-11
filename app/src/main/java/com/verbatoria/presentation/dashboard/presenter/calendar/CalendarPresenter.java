@@ -39,8 +39,6 @@ public class CalendarPresenter implements ICalendarPresenter {
     @Override
     public void updateVerbatologEvents() {
         mDashboardInteractor.getVerbatologEvents()
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 

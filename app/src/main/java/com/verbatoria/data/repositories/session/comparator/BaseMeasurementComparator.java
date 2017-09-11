@@ -14,9 +14,9 @@ public class BaseMeasurementComparator implements Comparator<BaseMeasurement>  {
     @Override
     public int compare(BaseMeasurement measurement, BaseMeasurement anotherMeasurement) {
         if (measurement.getTimestamp() > anotherMeasurement.getTimestamp()) {
-            return 1;
-        } else if (measurement.getTimestamp() < anotherMeasurement.getTimestamp()) {
             return -1;
+        } else if (measurement.getTimestamp() < anotherMeasurement.getTimestamp()) {
+            return 1;
         }
         return 0;
     }

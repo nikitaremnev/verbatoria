@@ -13,18 +13,19 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
-import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer;
 import com.verbatoria.utils.Helper;
+import com.verbatoria.utils.Logger;
 
 import java.util.ArrayList;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Экран отправки результатов
@@ -32,6 +33,8 @@ import butterknife.ButterKnife;
  * @author nikitaremnev
  */
 public class SubmitActivity extends AppCompatActivity implements ISubmitView {
+
+    private static final String TAG = SubmitActivity.class.getSimpleName();
 
     @Inject
     ISubmitPresenter mSubmitPresenter;
@@ -63,6 +66,13 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         return new Intent(mContext, SubmitActivity.class);
     }
 
+    public static Intent newInstance(Context mContext, EventModel eventModel) {
+        Logger.e(TAG, "eventModel: " + eventModel.toString());
+        Intent intent = new Intent(mContext, SubmitActivity.class);
+        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +83,7 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mSubmitPresenter.bindView(this);
+        mSubmitPresenter.obtainEvent(getIntent());
     }
 
     @Override

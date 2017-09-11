@@ -16,6 +16,9 @@ public interface IWritingPresenter {
     void bindView(@NonNull IWritingView writingView);
     void unbindView();
 
+    void obtainEvent(Intent intent);
+    EventModel getEvent();
+
     void playClick();
     void pauseClick();
     void nextClick();

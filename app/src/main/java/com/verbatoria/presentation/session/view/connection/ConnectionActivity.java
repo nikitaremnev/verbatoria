@@ -194,7 +194,7 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
 
     @Override
     public void startWriting() {
-        Intent intent = WritingActivity.newInstance(this);
+        Intent intent = WritingActivity.newInstance(this, mConnectionPresenter.getEvent());
         startActivity(intent);
         finish();
     }

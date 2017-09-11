@@ -62,8 +62,6 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
         if (mEventModel != null) {
             mConnectionView.showProgress();
             mSessionInteractor.startSession(mEventModel.getId())
-                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                    .observeOn(RxSchedulers.getMainThreadScheduler())
                     .subscribe(this::handleSessionStarted, this::handleSessionStartError);
         } else {
             handleSessionStarted(null);

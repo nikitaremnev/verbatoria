@@ -19,6 +19,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.reconnect.IReconnectionPresenter;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
@@ -27,6 +28,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Экран пересоединения с BCI
@@ -77,8 +80,11 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
             R.drawable.ic_neurointerface_connecting_fourth
     };
 
-    public static Intent newInstance(Context mContext) {
-        return new Intent(mContext, ReconnectionActivity.class);
+    public static Intent newInstance(Context mContext, EventModel eventModel) {
+        Logger.e(TAG, "eventModel: " + eventModel.toString());
+        Intent intent = new Intent(mContext, ReconnectionActivity.class);
+        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
+        return intent;
     }
 
     @Override
@@ -93,6 +99,7 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mReconnectionPresenter.bindView(this);
+        mReconnectionPresenter.obtainEvent(getIntent());
         showDisconnectedState();
     }
 
@@ -188,7 +195,7 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
 
     @Override
     public void continueWriting() {
-        Intent intent = WritingActivity.newInstance(this);
+        Intent intent = WritingActivity.newInstance(this, mReconnectionPresenter.getEvent());
         startActivity(intent);
         finish();
     }

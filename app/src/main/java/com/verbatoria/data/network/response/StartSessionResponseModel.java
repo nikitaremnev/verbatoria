@@ -26,6 +26,9 @@ public class StartSessionResponseModel {
 
     private String mUpdatedAt;
 
+    private String mStatus;
+
+
     public StartSessionResponseModel() {
 
     }
@@ -50,6 +53,18 @@ public class StartSessionResponseModel {
     @JsonSetter("child_id")
     public void setChildId(String childId) {
         mChildId = childId;
+    }
+
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getStatus() {
+        return mStatus;
+    }
+
+    @JsonSetter("status")
+    public StartSessionResponseModel setStatus(String status) {
+        mStatus = status;
+        return this;
     }
 
     @JsonGetter("verbatolog_id")

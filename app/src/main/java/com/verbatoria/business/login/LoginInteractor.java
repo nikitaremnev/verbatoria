@@ -5,6 +5,8 @@ import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.RxSchedulers;
+
 import rx.Observable;
 
 /**
@@ -25,11 +27,13 @@ public class LoginInteractor implements ILoginInteractor {
     @Override
     public Observable<TokenModel> login(String phone, String password) {
         return mLoginRepository.getLogin(getLoginRequestModel(phone, password)).map(item -> {
-            TokenProcessor tokenProcessor = new TokenProcessor();
-            TokenModel tokenModel = tokenProcessor.obtainToken(item);
-            mTokenRepository.updateToken(tokenModel);
-            return tokenModel;
-        });
+                    TokenProcessor tokenProcessor = new TokenProcessor();
+                    TokenModel tokenModel = tokenProcessor.obtainToken(item);
+                    mTokenRepository.updateToken(tokenModel);
+                    return tokenModel;
+                })
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
+import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.database.ActivitiesDatabase;
 import com.verbatoria.data.repositories.session.database.NeurodataDatabase;
@@ -42,6 +43,11 @@ public class SessionRepository implements ISessionRepository {
     @Override
     public Observable<StartSessionResponseModel> startSession(String accessToken, StartSessionRequestModel eventId) {
         return APIFactory.getAPIService().startSessionRequest(accessToken, eventId);
+    }
+
+    @Override
+    public Observable<FinishSessionResponseModel> finishSession(String accessToken) {
+        return APIFactory.getAPIService().finishSessionRequest(PreferencesStorage.getInstance().getCurrentSessionId(), accessToken);
     }
 
     @Override

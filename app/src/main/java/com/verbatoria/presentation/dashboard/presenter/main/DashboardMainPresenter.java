@@ -41,8 +41,6 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     @Override
     public void updateVerbatologInfo() {
         mDashboardInteractor.getVerbatologInfo(mVerbatologModel)
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleVerbatologInfoReceived, this::handleVerbatologInfoLoadingFailed);
     }
 
@@ -50,8 +48,6 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     public void updateVerbatologEvents() {
         Log.e(TAG, "get verbatolog events updateVerbatologEvents");
         mDashboardInteractor.getVerbatologEvents(mVerbatologModel)
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 

@@ -1,6 +1,7 @@
 package com.verbatoria.business.session;
 
 import com.neurosky.connection.EEGPower;
+import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 
 import java.util.Map;
@@ -17,10 +18,11 @@ import rx.Observable;
 public interface ISessionInteractor {
 
     Observable<StartSessionResponseModel> startSession(String eventId);
+    Observable<FinishSessionResponseModel> finishSession(String eventId);
+
     Observable<Void> getAllMeasurements(Map<String, String> answers);
-    Observable<ResponseBody>
-    submitResults(RequestBody requestBody);
-    void cleanUp();
+    Observable<ResponseBody> submitResults();
+    Observable<Void> cleanUp();
 
     void startConnection();
 

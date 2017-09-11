@@ -2,6 +2,7 @@ package com.verbatoria.business.session.processor;
 
 import android.text.TextUtils;
 
+import com.remnev.verbatoriamini.BuildConfig;
 import com.verbatoria.utils.Logger;
 
 import java.util.HashMap;
@@ -21,7 +22,7 @@ public class DoneActivitiesProcessor {
 
     private static final String TAG = DoneActivitiesProcessor.class.getSimpleName();
 
-    private static final int MINIMUM_ACTIVITY_TIME = 15;
+    private static final int MINIMUM_ACTIVITY_TIME = BuildConfig.DEBUG ? 3 : 15;
 
     private static Set<String> sDoneActivitiesArray;
     private static Map<String, Long> sDoneActivitiesTimeArray;

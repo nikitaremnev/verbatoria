@@ -1,10 +1,14 @@
 package com.verbatoria.presentation.session.presenter.reconnect;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import com.neurosky.connection.ConnectionStates;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.presentation.session.view.reconnect.IReconnectionView;
 import com.verbatoria.utils.Logger;
+
+import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Реализация презентера для экрана соединения
@@ -17,6 +21,7 @@ public class ReconnectionPresenter implements IReconnectionPresenter, ISessionIn
 
     private ISessionInteractor mSessionInteractor;
     private IReconnectionView mReconnectionView;
+    private EventModel mEventModel;
 
     public ReconnectionPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -32,6 +37,16 @@ public class ReconnectionPresenter implements IReconnectionPresenter, ISessionIn
     public void unbindView() {
         mReconnectionView = null;
         mSessionInteractor.dropCallbacks();
+    }
+
+    @Override
+    public void obtainEvent(Intent intent) {
+        mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
+    }
+
+    @Override
+    public EventModel getEvent() {
+        return mEventModel;
     }
 
     @Override

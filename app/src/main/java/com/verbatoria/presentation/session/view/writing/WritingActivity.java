@@ -38,6 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
+import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Экран записи
@@ -101,8 +102,11 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     */
     private Handler mUiHandler;
 
-    public static Intent newInstance(Context mContext) {
-        return new Intent(mContext, WritingActivity.class);
+    public static Intent newInstance(Context mContext, EventModel eventModel) {
+        Logger.e(TAG, "eventModel: " + eventModel.toString());
+        Intent intent = new Intent(mContext, WritingActivity.class);
+        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
+        return intent;
     }
 
     @Override
@@ -117,6 +121,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         //bind views
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
         mWritingPresenter.bindView(this);
+        mWritingPresenter.obtainEvent(getIntent());
     }
 
     @Override
@@ -248,14 +253,17 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         } else {
             dialog.setMessage(String.format(getString(R.string.session_some_activities_not_finished), activities));
         }
-        dialog.setNegativeButton(getString(R.string.session_continue), (dialogInterface, i) -> dialogInterface.dismiss());
+        dialog.setNegativeButton(getString(R.string.session_continue), (dialogInterface, i) -> {
+            restoreButtonsStates(activities);
+            dialogInterface.dismiss();
+        });
         dialog.setCancelable(false);
         dialog.show();
     }
 
     @Override
     public void finishSession() {
-        Intent intent = SubmitActivity.newInstance(this);
+        Intent intent = SubmitActivity.newInstance(this, mWritingPresenter.getEvent());
         startActivity(intent);
         finish();
     }
@@ -360,6 +368,13 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         return set;
     }
 
+    private void restoreButtonsStates(String activities) {
+        String[] activitiesArray = activities.split(", ");
+        for (String activity: activitiesArray) {
+            setButtonState(ActivityButtonState.STATE_NEW, activity);
+        }
+    }
+
     private View foundButtonByCode(String code) {
         switch (code) {
             case CODE_11:
@@ -382,7 +397,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     }
 
     private void startReconnection() {
-        Intent intent = ReconnectionActivity.newInstance(this);
+        Intent intent = ReconnectionActivity.newInstance(this, mWritingPresenter.getEvent());
         startActivity(intent);
         finish();
     }

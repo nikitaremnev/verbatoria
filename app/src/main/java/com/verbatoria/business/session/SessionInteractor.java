@@ -10,19 +10,27 @@ import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.processor.ExportProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
+import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
+import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.PreferencesStorage;
+import com.verbatoria.utils.RxSchedulers;
 
+import java.io.File;
 import java.util.Map;
 import java.util.Timer;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
+import rx.Subscriber;
 
 import static com.verbatoria.business.session.activities.ActivitiesCodes.NO_CODE;
 
@@ -61,26 +69,46 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     @Override
     public Observable<StartSessionResponseModel> startSession(String eventId) {
-        return mSessionRepository.startSession(getAccessToken(), getStartSessionRequestModel(eventId));
+        return mSessionRepository.startSession(getAccessToken(), getStartSessionRequestModel(eventId))
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Observable<FinishSessionResponseModel> finishSession(String eventId) {
+        return mSessionRepository.finishSession(getAccessToken())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override
     public Observable<Void> getAllMeasurements(Map<String, String> answers) {
-        return new ExportProcessor(mSessionRepository).getAllMeasurements(answers);
+        return new ExportProcessor(mSessionRepository)
+                .getAllMeasurements(answers)
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override
-    public Observable<ResponseBody> submitResults(RequestBody requestBody) {
-        return mSessionRepository.addResults(getAccessToken(), requestBody);
+    public Observable<ResponseBody> submitResults() {
+        File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
+        RequestBody fileBody = RequestBody.create(MediaType.parse("application/json"), file);
+        return mSessionRepository.addResults(getAccessToken(), fileBody)
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override
-    public void cleanUp() {
+    public Observable<Void> cleanUp() {
         Logger.e(TAG, "cleanUp");
-        mSessionRepository.cleanUp();
-        DoneActivitiesProcessor.clearDoneActivities();
-        DoneActivitiesProcessor.clearTimeDoneActivities();
-        VerbatoriaApplication.dropActivitiesTimer();
+        return Observable.unsafeCreate((Observable.OnSubscribe<Void>) subscriber -> {
+                    mSessionRepository.cleanUp();
+                    DoneActivitiesProcessor.clearDoneActivities();
+                    DoneActivitiesProcessor.clearTimeDoneActivities();
+                    VerbatoriaApplication.dropActivitiesTimer();
+                })
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override

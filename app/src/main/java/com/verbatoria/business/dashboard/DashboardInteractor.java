@@ -6,6 +6,7 @@ import com.verbatoria.business.dashboard.processor.VerbatologProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.RxSchedulers;
 
 import java.util.List;
 
@@ -30,17 +31,26 @@ public class DashboardInteractor implements IDashboardInteractor {
 
     @Override
     public Observable<VerbatologModel> getVerbatologInfo(VerbatologModel verbatolog) {
-        return mDashboardRepository.getVerbatologInfo(getAccessToken()).map(item -> VerbatologProcessor.convertInfoResponseToVerbatologModel(verbatolog, item));
+        return mDashboardRepository.getVerbatologInfo(getAccessToken())
+                .map(item -> VerbatologProcessor.convertInfoResponseToVerbatologModel(verbatolog, item))
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override
     public Observable<VerbatologModel> getVerbatologEvents(VerbatologModel verbatolog) {
-        return mDashboardRepository.getVerbatologEvents(getAccessToken()).map(item -> VerbatologProcessor.convertEventsResponseToVerbatologModel(verbatolog, item));
+        return mDashboardRepository.getVerbatologEvents(getAccessToken())
+                .map(item -> VerbatologProcessor.convertEventsResponseToVerbatologModel(verbatolog, item))
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override
     public Observable<List<EventModel>> getVerbatologEvents() {
-        return mDashboardRepository.getVerbatologEvents(getAccessToken()).map(VerbatologProcessor::convertEventsResponseToVerbatologEventsModelList);
+        return mDashboardRepository.getVerbatologEvents(getAccessToken())
+                .map(VerbatologProcessor::convertEventsResponseToVerbatologEventsModelList)
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     private String getAccessToken() {
