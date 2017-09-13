@@ -22,7 +22,7 @@ public interface ISessionInteractor {
 
     Observable<Void> getAllMeasurements(Map<String, String> answers);
     Observable<ResponseBody> submitResults();
-    Observable<Void> cleanUp();
+    Observable<Object> cleanUp();
 
     void startConnection();
 

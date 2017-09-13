@@ -68,21 +68,25 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     private void handleMeasurementsReceived(Void object) {
+        Log.e(TAG, "handleMeasurementsReceived");
         mSessionInteractor.submitResults()
                 .subscribe(this::handleResultsSubmitted, this::handleError);
     }
 
     private void handleResultsSubmitted(ResponseBody responseBody) {
+        Log.e(TAG, "handleResultsSubmitted");
         mSessionInteractor.finishSession(mEventModel.getId())
                 .subscribe(this::handleSessionFinished, this::handleError);
     }
 
     private void handleSessionFinished(FinishSessionResponseModel finishSessionResponseModel) {
+        Log.e(TAG, "handleSessionFinished");
         mSessionInteractor.cleanUp()
                 .subscribe(this::cleanUpFinished, this::handleError);
     }
 
     private void cleanUpFinished(Object object) {
+        Log.e(TAG, "cleanUpFinished");
         mSubmitView.hideProgress();
         mSubmitView.finishSession();
     }

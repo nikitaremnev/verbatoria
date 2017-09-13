@@ -24,13 +24,11 @@ import java.io.File;
 import java.util.Map;
 import java.util.Timer;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import rx.Observable;
-import rx.Subscriber;
 
 import static com.verbatoria.business.session.activities.ActivitiesCodes.NO_CODE;
 
@@ -99,17 +97,19 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public Observable<Void> cleanUp() {
+    public Observable<Object> cleanUp() {
         Logger.e(TAG, "cleanUp");
-        return Observable.unsafeCreate((Observable.OnSubscribe<Void>) subscriber -> {
+        return Observable.fromCallable(() -> {
                     mSessionRepository.cleanUp();
                     DoneActivitiesProcessor.clearDoneActivities();
                     DoneActivitiesProcessor.clearTimeDoneActivities();
                     VerbatoriaApplication.dropActivitiesTimer();
+                    return null;
                 })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
+
 
     @Override
     public void startConnection() {
