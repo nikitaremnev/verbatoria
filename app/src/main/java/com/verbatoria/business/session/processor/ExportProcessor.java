@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -73,6 +74,7 @@ public class ExportProcessor {
 
             BaseMeasurementIterator iterator = new BaseMeasurementIterator(baseMeasurements);
             int answersIndex = 0;
+            List<MeasurementRequestModel> measurementRequestModelList = new ArrayList<>();
             while (iterator.hasNext()) {
                 MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
                 BaseMeasurement currentMeasurement = iterator.next();
@@ -84,12 +86,24 @@ public class ExportProcessor {
                     setMeasurementRequestModelFields(measurementRequestModel, iterator.get());
                 }
                 iterator.back();
-                outStreamWriter.append(objectMapper.writeValueAsString(measurementRequestModel));
-                if (iterator.hasNext()) {
-                    outStreamWriter.append(", ");
-                }
+                measurementRequestModelList.add(measurementRequestModel);
+//                outStreamWriter.append(objectMapper.writeValueAsString(measurementRequestModel));
+//                if (iterator.hasNext()) {
+//                    outStreamWriter.append(", ");
+//                }
                 answersIndex ++;
             }
+            baseMeasurements.clear();
+            System.gc();
+            Collections.reverse(measurementRequestModelList);
+
+            for (int i = 0; i < measurementRequestModelList.size(); i ++) {
+                outStreamWriter.append(objectMapper.writeValueAsString(measurementRequestModelList.get(i)));
+                if (measurementRequestModelList.size() - 1 > i) {
+                    outStreamWriter.append(", ");
+                }
+            }
+
 
             outStreamWriter.append("]}");
 

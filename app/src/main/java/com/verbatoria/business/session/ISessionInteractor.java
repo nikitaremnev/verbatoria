@@ -86,7 +86,7 @@ public interface ISessionInteractor {
         void showPlayerError(String error);
     }
 
-    interface IApplicationSessionInteractorCallback {
+    interface ISessionCallback {
         void onConnectionStateChanged(int code);
         void onDataReceivedCallback(int code, int value);
         void onEEGDataReceivedCallback(EEGPower eegPower);

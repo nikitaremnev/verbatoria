@@ -38,7 +38,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
     private static TgStreamReader sTgStreamReader;
     private static TgStreamHandler sStreamHandler;
 
-    private static ISessionInteractor.IApplicationSessionInteractorCallback sSessionInteractorCallback;
+    private static ISessionInteractor.ISessionCallback sSessionInteractorCallback;
 
     private static ActivitiesTimerTask mActivitiesTimerTask;
 
@@ -69,7 +69,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
         return mApplicationComponent;
     }
 
-    public static void setSessionInteractorCallback(ISessionInteractor.IApplicationSessionInteractorCallback sessionInteractorCallback) {
+    public static void setSessionInteractorCallback(ISessionInteractor.ISessionCallback sessionInteractorCallback) {
         sSessionInteractorCallback = sessionInteractorCallback;
     }
 
@@ -122,8 +122,10 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
         @Override
         public void onStatesChanged(int connectionState) {
-            Logger.e(TAG, "onStatesChanged: connectionState");
-            if (connectionState == ConnectionStates.STATE_CONNECTED) {
+            Logger.e(TAG, "onStatesChanged: " + connectionState);
+            if (connectionState == ConnectionStates.STATE_CONNECTED ||
+                    connectionState == ConnectionStates.STATE_WORKING ||
+                    connectionState == ConnectionStates.STATE_RECORDING_START) {
                 startWriting();
             }
             sSessionInteractorCallback.onConnectionStateChanged(connectionState);

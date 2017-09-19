@@ -3,7 +3,7 @@ package com.verbatoria.di.login;
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.business.session.SessionInteractor;
+import com.verbatoria.business.session.Session;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;

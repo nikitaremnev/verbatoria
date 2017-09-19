@@ -1,7 +1,7 @@
 package com.verbatoria.di.session;
 
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.business.session.SessionInteractor;
+import com.verbatoria.business.session.Session;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -36,7 +36,7 @@ public class SessionModule {
     @Provides
     @SessionScope
     ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
-        return new SessionInteractor(sessionRepository, tokenRepository);
+        return new Session(sessionRepository, tokenRepository);
     }
 
     @Provides

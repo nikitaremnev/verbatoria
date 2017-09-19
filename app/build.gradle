@@ -146,4 +146,7 @@ dependencies {
     //View
     compile 'com.redmadrobot:inputmask:2.3.0'
 
+    //Fonts
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+
 }
