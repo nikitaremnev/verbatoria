@@ -40,7 +40,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/logo_image_view"
         android:layout_marginRight="@dimen/activity_login_text_view_horizontal_margin"
-        android:textSize="@dimen/activity_login_text_size"
         android:hint="@string/login_phone_hint"/>
 
     <EditText

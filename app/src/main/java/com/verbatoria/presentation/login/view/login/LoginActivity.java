@@ -16,6 +16,8 @@ import com.redmadrobot.inputmask.MaskedTextChangedListener;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
+import com.verbatoria.infrastructure.BaseActivity;
+import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
 import com.verbatoria.presentation.login.view.recovery.RecoveryActivity;
@@ -32,7 +34,7 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-public class LoginActivity extends AppCompatActivity implements ILoginView {
+public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Inject
     ILoginPresenter mLoginPresenter;
@@ -67,17 +69,16 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
         VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
 
         //initialize views
         setContentView(R.layout.activity_login);
-        ButterKnife.bind(this);
-        setUpViews();
+
         //bind views
+        setPresenter((BasePresenter) mLoginPresenter);
         mLoginPresenter.bindView(this);
 
+        super.onCreate(savedInstanceState);
         //test
         setPhone("79266519001");
         setPassword("4eqx8pmRZpfy");
@@ -143,7 +144,8 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         finish();
     }
 
-    private void setUpViews() {
+    @Override
+    protected void setUpViews() {
         setUpPhoneFormatter();
         setUpCountryCodesSpinner();
         mLoginButton.setOnClickListener(v -> mLoginPresenter.login());

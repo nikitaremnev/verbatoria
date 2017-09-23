@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
@@ -46,7 +48,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
     public EditText mNewPasswordConfirmEditText;
 
     @BindView(R.id.remember_text_view)
-    public EditText mRememberTextView;
+    public TextView mRememberTextView;
 
     @BindView(R.id.submit_button)
     public Button mSubmitButton;

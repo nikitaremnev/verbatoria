@@ -1,8 +1,10 @@
 package com.verbatoria.presentation.login.presenter.login;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.login.view.login.ILoginView;
 import com.verbatoria.utils.Logger;
 
@@ -11,7 +13,7 @@ import com.verbatoria.utils.Logger;
  *
  * @author nikitaremnev
  */
-public class LoginPresenter implements ILoginPresenter {
+public class LoginPresenter extends BasePresenter implements ILoginPresenter {
 
     private static final String TAG = LoginPresenter.class.getSimpleName();
 
@@ -30,6 +32,17 @@ public class LoginPresenter implements ILoginPresenter {
     @Override
     public void unbindView() {
         mLoginView = null;
+    }
+
+    @Override
+    public void saveState(Bundle outState) {
+        //TODO: state storing
+    }
+
+    @Override
+    public void restoreState(Bundle savedInstanceState) {
+        //TODO: state storing
+
     }
 
     @Override

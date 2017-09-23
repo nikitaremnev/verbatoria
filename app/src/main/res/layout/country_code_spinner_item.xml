@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/activity_login_country_code_width"
     android:layout_height="@dimen/activity_login_country_code_height"
-    android:textSize="@dimen/activity_login_text_size"
     android:gravity="center"
     android:background="@color/background"
     android:textColor="@color/black"

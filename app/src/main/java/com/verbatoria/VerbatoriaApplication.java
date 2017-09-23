@@ -13,13 +13,16 @@ import com.neurosky.connection.EEGPower;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
 
+import com.remnev.verbatoriamini.R;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.di.application.ApplicationComponent;
 import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
-import com.verbatoria.utils.FontsOverride;
+
 import com.verbatoria.utils.Logger;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Application-класс. Инициализирует даггер-компонент для построения всех зависимостей.
@@ -112,10 +115,11 @@ public class VerbatoriaApplication extends MultiDexApplication {
     }
 
     private void overrideFonts() {
-        FontsOverride.setDefaultFont(this, "DEFAULT");
-        FontsOverride.setDefaultFont(this, "MONOSPACE");
-        FontsOverride.setDefaultFont(this, "SERIF");
-        FontsOverride.setDefaultFont(this, "SANS_SERIF");
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Lato-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
     }
 
     private static class DefaultTgStreamHandler implements TgStreamHandler {
