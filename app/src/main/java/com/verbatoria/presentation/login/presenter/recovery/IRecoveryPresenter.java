@@ -16,6 +16,8 @@ public interface IRecoveryPresenter {
     void bindView(@NonNull IRecoveryView recoveryView);
     void unbindView();
 
+    void rememberPassword();
+
     boolean confirmPassword(String password, String confirmedPassword);
 
     PasswordRequirements checkPasswordRequirements(String password);

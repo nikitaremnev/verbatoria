@@ -17,5 +17,6 @@
     <string name="recovery_send_code">Отправить код</string>
     <string name="recovery_send_code_confirm">Подтвердить код</string>
     <string name="recovery_send_new_password">Задать новый пароль</string>
+    <string name="recovery_remember_password">Я вспомнил пароль!</string>
 
 </resources>

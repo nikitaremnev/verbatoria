@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.login.view.recovery;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,6 +14,7 @@ import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.login.presenter.recovery.IRecoveryPresenter;
+import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.Helper;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -42,6 +44,9 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
     @BindView(R.id.new_password_confirm_edit_text)
     public EditText mNewPasswordConfirmEditText;
+
+    @BindView(R.id.remember_text_view)
+    public EditText mRememberTextView;
 
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
@@ -133,11 +138,19 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
     }
 
     @Override
+    public void rememberPassword() {
+        startActivity(LoginActivity.createIntent(this));
+        finish();
+    }
+
+    @Override
     protected void setUpViews() {
         setUpPhoneFormatter();
         setUpNewPasswordFormatter();
         setUpNewPasswordConfirmFormatter();
         mPhoneEditText.setText("");
+        mRememberTextView.setPaintFlags(mRememberTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        mRememberTextView.setOnClickListener(v -> mRecoveryPresenter.rememberPassword());
     }
 
     private void setUpPhoneFormatter() {

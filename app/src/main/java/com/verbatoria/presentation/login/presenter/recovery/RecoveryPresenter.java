@@ -5,7 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.infrastructure.BasePresenter;
@@ -42,6 +41,11 @@ public class RecoveryPresenter extends BasePresenter implements IRecoveryPresent
     @Override
     public void unbindView() {
         mRecoveryView = null;
+    }
+
+    @Override
+    public void rememberPassword() {
+        mRecoveryView.rememberPassword();
     }
 
     @Override

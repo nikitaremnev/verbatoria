@@ -40,9 +40,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startLoginActivity() {
-        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        startActivity(LoginActivity.createIntent(this));
         finish();
     }
 

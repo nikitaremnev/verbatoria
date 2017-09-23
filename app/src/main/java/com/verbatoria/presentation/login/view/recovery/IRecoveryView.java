@@ -24,4 +24,5 @@ public interface IRecoveryView {
 
     void showError(String message);
 
+    void rememberPassword();
 }

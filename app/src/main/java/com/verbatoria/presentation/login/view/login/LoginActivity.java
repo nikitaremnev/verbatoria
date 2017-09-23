@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.login.view.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
 import com.verbatoria.presentation.login.view.recovery.RecoveryActivity;
+import com.verbatoria.presentation.splash.SplashActivity;
 import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;
@@ -56,6 +58,12 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
 
     @BindView(R.id.progress_layout)
     public View mLoadingView;
+
+    public static Intent createIntent(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +138,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @Override
     public void startRecoveryPassword() {
         Intent intent = new Intent(this, RecoveryActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
