@@ -24,8 +24,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setUpViews();
 
-        mBasePresenter.onRestoreInstanceState(savedInstanceState);
-
         Logger.e(TAG, "onCreate");
     }
 
