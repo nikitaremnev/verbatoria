@@ -1,11 +1,10 @@
-package com.verbatoria.presentation.login.presenter;
+package com.verbatoria.presentation.login.presenter.login;
 
 import android.support.annotation.NonNull;
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.token.models.TokenModel;
-import com.verbatoria.presentation.login.view.ILoginView;
+import com.verbatoria.presentation.login.view.login.ILoginView;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.RxSchedulers;
 
 /**
  * Реализация презентера для логина
@@ -38,6 +37,11 @@ public class LoginPresenter implements ILoginPresenter {
         mLoginView.showProgress();
         mLoginInteractor.login(mLoginView.getPhone(), mLoginView.getPassword())
                 .subscribe(this::handleSuccessLogin, this::handleErrorLogin);
+    }
+
+    @Override
+    public void startRecoveryPassword() {
+        mLoginView.startRecoveryPassword();
     }
 
     @Override

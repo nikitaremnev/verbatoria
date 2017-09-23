@@ -2,16 +2,13 @@ package com.verbatoria.di.login;
 
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.login.LoginInteractor;
-import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.business.session.Session;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
-import com.verbatoria.data.repositories.session.ISessionRepository;
-import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.di.session.SessionScope;
-import com.verbatoria.presentation.login.presenter.ILoginPresenter;
-import com.verbatoria.presentation.login.presenter.LoginPresenter;
+import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
+import com.verbatoria.presentation.login.presenter.login.LoginPresenter;
+import com.verbatoria.presentation.login.presenter.recovery.IRecoveryPresenter;
+import com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -40,6 +37,12 @@ public class LoginModule {
     @LoginScope
     ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor) {
         return new LoginPresenter(loginInteractor);
+    }
+
+    @Provides
+    @LoginScope
+    IRecoveryPresenter provideRecoveryPresenter(ILoginInteractor loginInteractor) {
+        return new RecoveryPresenter(loginInteractor);
     }
 
 }

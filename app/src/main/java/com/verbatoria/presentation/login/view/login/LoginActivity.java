@@ -1,26 +1,24 @@
-package com.verbatoria.presentation.login.view;
+package com.verbatoria.presentation.login.view.login;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
-import com.verbatoria.presentation.login.presenter.ILoginPresenter;
+import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
+import com.verbatoria.presentation.login.view.recovery.RecoveryActivity;
 import com.verbatoria.utils.Helper;
-
-import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
@@ -44,14 +42,17 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
     @BindView(R.id.country_code_spinner)
     public Spinner mCounryCodeSpinner;
 
-    @BindView(R.id.login_text_view)
+    @BindView(R.id.login_edit_text)
     public EditText mLoginEditText;
 
-    @BindView(R.id.password_text_view)
+    @BindView(R.id.password_edit_text)
     public EditText mPasswordEditText;
 
     @BindView(R.id.login_button)
     public Button mLoginButton;
+
+    @BindView(R.id.recovery_password_text_view)
+    public TextView mRecoveryPasswordTextView;
 
     @BindView(R.id.progress_layout)
     public View mLoadingView;
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         mLoginPresenter.bindView(this);
 
         //test
-        setPhone("9266519001");
+        setPhone("79266519001");
         setPassword("4eqx8pmRZpfy");
     }
 
@@ -126,10 +127,19 @@ public class LoginActivity extends AppCompatActivity implements ILoginView {
         Helper.showSnackBar(mLoadingView, message);
     }
 
+    @Override
+    public void startRecoveryPassword() {
+        Intent intent = new Intent(this, RecoveryActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void setUpViews() {
         setUpPhoneFormatter();
         setUpCountryCodesSpinner();
         mLoginButton.setOnClickListener(v -> mLoginPresenter.login());
+        mRecoveryPasswordTextView.setPaintFlags(mRecoveryPasswordTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        mRecoveryPasswordTextView.setOnClickListener(v -> mLoginPresenter.startRecoveryPassword());
     }
 
     private void setUpCountryCodesSpinner() {

@@ -2,7 +2,6 @@ package com.verbatoria.di.session;
 
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.presentation.dashboard.view.calendar.detail.CalendarEventDetailActivity;
-import com.verbatoria.presentation.login.view.LoginActivity;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;

@@ -10,7 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import com.crashlytics.android.Crashlytics;
 import com.remnev.verbatoriamini.R;
-import com.verbatoria.presentation.login.view.LoginActivity;
+import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.FileUtils;
 import io.fabric.sdk.android.Fabric;
 

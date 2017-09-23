@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.login.view;
+package com.verbatoria.presentation.login.view.login;
 
 /**
  *
@@ -22,5 +22,7 @@ public interface ILoginView {
     //отображение результатов запроса
     void loginSuccess();
     void showError(String message);
+
+    void startRecoveryPassword();
 
 }

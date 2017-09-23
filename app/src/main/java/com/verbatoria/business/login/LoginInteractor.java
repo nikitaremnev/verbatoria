@@ -37,6 +37,21 @@ public class LoginInteractor implements ILoginInteractor {
     }
 
     @Override
+    public Void recoverPassword(String phone) {
+        return null;
+    }
+
+    @Override
+    public Void tryRecoveryCode(String phone, String code) {
+        return null;
+    }
+
+    @Override
+    public Void setNewPassword(String phone, String password) {
+        return null;
+    }
+
+    @Override
     public String[] getCountryCodes() {
         return new String[] {"+7"};
     }

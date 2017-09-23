@@ -1,8 +1,8 @@
-package com.verbatoria.presentation.login.presenter;
+package com.verbatoria.presentation.login.presenter.login;
 
 import android.support.annotation.NonNull;
 
-import com.verbatoria.presentation.login.view.ILoginView;
+import com.verbatoria.presentation.login.view.login.ILoginView;
 
 /**
  * Презентер для логина
@@ -15,6 +15,7 @@ public interface ILoginPresenter {
     void unbindView();
 
     void login();
+    void startRecoveryPassword();
 
     String[] getCountryCodesArray();
 }
