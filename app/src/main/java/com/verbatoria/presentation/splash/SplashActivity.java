@@ -1,7 +1,6 @@
 package com.verbatoria.presentation.splash;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startLoginActivity() {
-        startActivity(LoginActivity.createIntent(this));
+        startActivity(LoginActivity.newInstance(this));
         finish();
     }
 

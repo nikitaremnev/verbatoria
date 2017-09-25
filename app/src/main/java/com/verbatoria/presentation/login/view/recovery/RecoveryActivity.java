@@ -141,7 +141,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
     @Override
     public void rememberPassword() {
-        startActivity(LoginActivity.createIntent(this));
+        startActivity(LoginActivity.newInstance(this));
         finish();
     }
 

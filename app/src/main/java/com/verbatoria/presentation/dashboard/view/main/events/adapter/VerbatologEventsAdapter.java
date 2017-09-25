@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.presentation.calendar.view.detail.CalendarEventDetailActivity;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
 import java.lang.ref.SoftReference;
@@ -62,7 +63,7 @@ public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEven
         holder.setOnClickListener(new VerbatologEventOnClickListener(event));
     }
 
-    class VerbatologEventOnClickListener implements View.OnClickListener {
+    private class VerbatologEventOnClickListener implements View.OnClickListener {
 
         private SoftReference<EventModel> mEventModelSoftReference;
 
@@ -75,7 +76,7 @@ public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEven
             Activity activity = mActivitySoftReference.get();
             EventModel eventModel = mEventModelSoftReference.get();
             if (activity != null && eventModel != null) {
-                activity.startActivity(ConnectionActivity.newInstance(activity, eventModel));
+                activity.startActivity(CalendarEventDetailActivity.newInstance(activity, eventModel));
             }
         }
     }

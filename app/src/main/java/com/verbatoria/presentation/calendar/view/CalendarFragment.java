@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.calendar;
+package com.verbatoria.presentation.calendar.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,16 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.philliphsu.bottomsheetpickers.date.DatePickerDialog;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.calendar.ICalendarPresenter;
-import com.verbatoria.presentation.dashboard.view.calendar.add.AddCalendarEventActivity;
+import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
+import com.verbatoria.presentation.calendar.view.add.AddCalendarEventActivity;
 import com.verbatoria.presentation.dashboard.view.main.events.adapter.VerbatologEventsAdapter;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,7 +35,7 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-public class CalendarFragment extends Fragment implements ICalendarView {
+public class CalendarFragment extends Fragment implements ICalendarView, DatePickerDialog.OnDateSetListener {
 
     @Inject
     ICalendarPresenter mCalendarPresenter;
@@ -48,6 +52,9 @@ public class CalendarFragment extends Fragment implements ICalendarView {
     @BindView(R.id.no_events_text_view)
     public TextView mNoEventsTextView;
 
+    @BindView(R.id.calendar_button)
+    public ImageView mCalendarButton;
+
     public CalendarFragment() {
         // Required empty public constructor
     }
@@ -62,8 +69,8 @@ public class CalendarFragment extends Fragment implements ICalendarView {
         View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         ButterKnife.bind(this, rootView);
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
-        setUpAddEventButton();
-        setUpRecyclerView();
+
+        setUpViews();
 
         mCalendarPresenter.bindView(this);
         mCalendarPresenter.updateVerbatologEvents();
@@ -76,15 +83,34 @@ public class CalendarFragment extends Fragment implements ICalendarView {
         mEventsRecyclerView.setAdapter(new VerbatologEventsAdapter(verbatologEvents, getActivity()));
     }
 
+    private void setUpViews() {
+        setUpAddEventButton();
+        setUpRecyclerView();
+        setUpCalendarButton();
+    }
+
     private void setUpAddEventButton() {
         mAddEventButton.setOnClickListener(v -> startActivity(AddCalendarEventActivity.newInstance(getContext())));
         //TODO: show add event button - now it's hidden, because functionality is not ready
-        mAddEventButton.hide();
+        mAddEventButton.show();
     }
 
     private void setUpRecyclerView() {
         mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mEventsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+    }
+
+    private void setUpCalendarButton() {
+        mCalendarButton.setOnClickListener(v -> {
+            Calendar now = Calendar.getInstance();
+            DatePickerDialog date = new DatePickerDialog.Builder(
+                    CalendarFragment.this,
+                    now.get(Calendar.YEAR),
+                    now.get(Calendar.MONTH),
+                    now.get(Calendar.DAY_OF_MONTH))
+                    .build();
+            date.show(getFragmentManager(), "test");
+        });
     }
 
     private void setUpEventsLabel(int eventsSize) {
@@ -97,4 +123,8 @@ public class CalendarFragment extends Fragment implements ICalendarView {
         }
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+
+    }
 }

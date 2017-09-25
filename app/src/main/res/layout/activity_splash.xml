@@ -5,10 +5,9 @@
     android:background="@color/background">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/activity_splash_logo_width"
+        android:layout_height="wrap_content"
         android:scaleType="centerInside"
-        android:layout_margin="@dimen/activity_splash_margin"
         android:src="@mipmap/logo_splash"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"

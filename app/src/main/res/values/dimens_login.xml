@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="activity_splash_margin">64dp</dimen>
+    <dimen name="activity_splash_logo_width">300dp</dimen>
 
     <dimen name="activity_login_logo_height">30dp</dimen>
     <dimen name="activity_login_logo_horizontal_margin">48dp</dimen>
@@ -27,5 +27,6 @@
     <dimen name="activity_login_spinner_width">50dp</dimen>
 
     <dimen name="activity_recovery_button_width">250dp</dimen>
+
 
 </resources>

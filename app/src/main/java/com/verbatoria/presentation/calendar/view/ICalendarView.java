@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.calendar;
+package com.verbatoria.presentation.calendar.view;
 
 import com.verbatoria.business.dashboard.models.EventModel;
 

@@ -1,9 +1,9 @@
-package com.verbatoria.presentation.dashboard.presenter.calendar.detail;
+package com.verbatoria.presentation.calendar.presenter.detail;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.verbatoria.presentation.dashboard.view.calendar.detail.ICalendarEventDetailView;
+import com.verbatoria.presentation.calendar.view.detail.ICalendarEventDetailView;
 
 /**
  * Презентер для события календаря

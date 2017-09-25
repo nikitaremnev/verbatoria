@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.remnev.verbatoriamini.R;
-import com.verbatoria.presentation.dashboard.view.calendar.CalendarFragment;
+import com.verbatoria.presentation.calendar.view.CalendarFragment;
 import com.verbatoria.presentation.dashboard.view.main.DashboardMainFragment;
 import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
 

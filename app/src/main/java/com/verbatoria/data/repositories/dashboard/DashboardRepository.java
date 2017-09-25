@@ -16,7 +16,6 @@ import rx.Observable;
  */
 public class DashboardRepository implements IDashboardRepository {
 
-
     public DashboardRepository() {
 
     }

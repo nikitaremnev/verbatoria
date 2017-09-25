@@ -48,8 +48,11 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
     @Override
     public void login() {
         mLoginView.showProgress();
-        mLoginInteractor.login(mLoginView.getPhone(), mLoginView.getPassword())
-                .subscribe(this::handleSuccessLogin, this::handleErrorLogin);
+        addSubscription(
+                mLoginInteractor.login(mLoginView.getPhone(), mLoginView.getPassword())
+                                .subscribe(this::handleSuccessLogin, this::handleErrorLogin)
+        );
+
     }
 
     @Override

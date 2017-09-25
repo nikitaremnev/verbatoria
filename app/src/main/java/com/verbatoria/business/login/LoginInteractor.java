@@ -59,7 +59,7 @@ public class LoginInteractor implements ILoginInteractor {
 
     private LoginRequestModel getLoginRequestModel(String phone, String password) {
         return new LoginRequestModel()
-                .setPhone(processPhone(phone))
+                .setPhone("+79266519001")
                 .setPassword(password);
     }
 

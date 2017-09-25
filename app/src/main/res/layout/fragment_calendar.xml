@@ -3,24 +3,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.verbatoria.presentation.dashboard.view.calendar.CalendarFragment">
+    tools:context="com.verbatoria.presentation.calendar.view.CalendarFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/events_text_view"
-            android:visibility="gone"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:paddingLeft="@dimen/dashboard_horizontal_padding"
-            android:paddingRight="@dimen/dashboard_horizontal_padding"
-            android:paddingTop="@dimen/dashboard_padding"
-            android:layout_marginBottom="@dimen/verbatolog_between_info_and_events_margin"
-            android:text="@string/dashboard_events_title"/>
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/calendar_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_calendar_button_height"
+                app:srcCompat="@drawable/ic_arrow_left"
+                style="@style/ButtonBorderlessStyle"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/events_text_view"
+                android:visibility="visible"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/dashboard_events_title"/>
+
+            <ImageView
+                android:id="@+id/calendar_forward_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_calendar_button_height"
+                app:srcCompat="@drawable/ic_arrow_right"
+                style="@style/ButtonBorderlessStyle"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_calendar_button_height"
+                android:id="@+id/today_button"
+                android:text="@string/fragment_calendar_today"
+                style="@style/ButtonBorderlessStyle"
+                />
+
+            <ImageView
+                android:id="@+id/calendar_button"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/fragment_calendar_button_height"
+                app:srcCompat="@drawable/ic_calendar"
+                style="@style/ButtonBorderlessStyle"/>
+
+        </LinearLayout>
 
         <include layout="@layout/fragment_verbatolog_events"
             android:id="@+id/events_recycler_view"/>

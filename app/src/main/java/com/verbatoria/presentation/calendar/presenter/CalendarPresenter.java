@@ -1,12 +1,13 @@
-package com.verbatoria.presentation.dashboard.presenter.calendar;
+package com.verbatoria.presentation.calendar.presenter;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.presentation.dashboard.view.calendar.ICalendarView;
+import com.verbatoria.infrastructure.BasePresenter;
+import com.verbatoria.presentation.calendar.view.ICalendarView;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.RxSchedulers;
 
 import java.util.List;
 
@@ -51,4 +52,5 @@ public class CalendarPresenter implements ICalendarPresenter {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.calendar.add;
+package com.verbatoria.presentation.calendar.view.add;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.widget.EditText;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
-import com.verbatoria.presentation.dashboard.presenter.calendar.add.IAddCalendarEventPresenter;
+import com.verbatoria.presentation.calendar.presenter.add.IAddCalendarEventPresenter;
 
 import javax.inject.Inject;
 import butterknife.BindView;

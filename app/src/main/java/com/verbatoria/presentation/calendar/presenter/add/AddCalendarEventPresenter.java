@@ -1,9 +1,11 @@
-package com.verbatoria.presentation.dashboard.presenter.calendar.add;
+package com.verbatoria.presentation.calendar.presenter.add;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
-import com.verbatoria.presentation.dashboard.view.calendar.add.IAddCalendarEventView;
+import com.verbatoria.infrastructure.BasePresenter;
+import com.verbatoria.presentation.calendar.view.add.IAddCalendarEventView;
 
 /**
  * Реализация презентера для экрана добавления события
@@ -33,4 +35,5 @@ public class AddCalendarEventPresenter implements IAddCalendarEventPresenter {
     public void addEvent(String childId, String locationId, String startDate, String endDate) {
 
     }
+
 }

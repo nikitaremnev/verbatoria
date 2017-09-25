@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.calendar.detail;
+package com.verbatoria.presentation.calendar.view.detail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,10 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.ICalendarEventDetailPresenter;
+import com.verbatoria.infrastructure.BaseActivity;
+import com.verbatoria.infrastructure.BasePresenter;
+import com.verbatoria.presentation.calendar.presenter.detail.CalendarEventDetailPresenter;
+import com.verbatoria.presentation.calendar.presenter.detail.ICalendarEventDetailPresenter;
 
 import javax.inject.Inject;
 
@@ -26,7 +28,7 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-public class CalendarEventDetailActivity extends AppCompatActivity implements ICalendarEventDetailView {
+public class CalendarEventDetailActivity extends BaseActivity implements ICalendarEventDetailView {
 
     private static final String TAG = CalendarEventDetailActivity.class.getSimpleName();
 
@@ -47,14 +49,14 @@ public class CalendarEventDetailActivity extends AppCompatActivity implements IC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calendar_event_detail);
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
-        ButterKnife.bind(this);
-        setUpNavigation();
-        setUpStartSessionButton();
+        setContentView(R.layout.activity_calendar_event_detail);
+
         mCalendarEventDetailPresenter.bindView(this);
         mCalendarEventDetailPresenter.obtainEvent(getIntent());
+
+        setPresenter((BasePresenter) mCalendarEventDetailPresenter);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -65,7 +67,13 @@ public class CalendarEventDetailActivity extends AppCompatActivity implements IC
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpNavigation() {
+    @Override
+    protected void setUpViews() {
+        setUpToolbar();
+        setUpStartSessionButton();
+    }
+
+    private void setUpToolbar() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);

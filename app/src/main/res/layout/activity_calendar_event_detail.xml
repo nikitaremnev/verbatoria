@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/dashboard_background"
     android:padding="@dimen/calendar_add_event_padding"
-    tools:context="com.verbatoria.presentation.dashboard.view.calendar.add.AddCalendarEventActivity">
+    tools:context="com.verbatoria.presentation.calendar.view.add.AddCalendarEventActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

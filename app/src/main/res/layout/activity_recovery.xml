@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:animateLayoutChanges="true"
     android:background="@color/background">
 
@@ -13,7 +14,6 @@
         android:id="@+id/logo_image_view"
         android:scaleType="centerInside"
         android:src="@mipmap/logo_splash"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_login_logo_vertical_margin"
         android:layout_marginBottom="@dimen/activity_login_logo_vertical_margin"

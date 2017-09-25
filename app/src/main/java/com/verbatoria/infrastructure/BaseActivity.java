@@ -1,10 +1,14 @@
 package com.verbatoria.infrastructure;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.presentation.calendar.presenter.detail.CalendarEventDetailPresenter;
+import com.verbatoria.presentation.calendar.view.detail.CalendarEventDetailActivity;
 import com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter;
 import com.verbatoria.utils.Logger;
 

@@ -1,8 +1,8 @@
 package com.verbatoria.di.dashboard;
 
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
-import com.verbatoria.presentation.dashboard.view.calendar.CalendarFragment;
-import com.verbatoria.presentation.dashboard.view.calendar.add.AddCalendarEventActivity;
+import com.verbatoria.presentation.calendar.view.CalendarFragment;
+import com.verbatoria.presentation.calendar.view.add.AddCalendarEventActivity;
 import com.verbatoria.presentation.dashboard.view.main.DashboardMainFragment;
 import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
 

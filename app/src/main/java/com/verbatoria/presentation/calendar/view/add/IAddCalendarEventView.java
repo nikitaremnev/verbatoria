@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.calendar.add;
+package com.verbatoria.presentation.calendar.view.add;
 
 /**
  * Интерфейс вьюхи для добавления события в календарь

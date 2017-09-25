@@ -1,7 +1,6 @@
 package com.verbatoria.presentation.session.view.writing;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,9 +24,7 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.presentation.dashboard.presenter.calendar.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
-import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;
 import com.verbatoria.utils.Logger;

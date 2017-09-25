@@ -10,7 +10,7 @@
     </style>
 
     <style name="ButtonStyle" parent="Widget.AppCompat.Button.Colored">
-        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:elevation">@dimen/button_elevation</item>
     </style>
 

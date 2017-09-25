@@ -61,7 +61,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @BindView(R.id.progress_layout)
     public View mLoadingView;
 
-    public static Intent createIntent(Context context) {
+    public static Intent newInstance(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return intent;

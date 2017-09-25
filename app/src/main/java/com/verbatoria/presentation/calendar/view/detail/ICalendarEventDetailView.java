@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.calendar.detail;
+package com.verbatoria.presentation.calendar.view.detail;
 
 /**
  * Интерфейс вьюхи для отображения деталей события календаря
