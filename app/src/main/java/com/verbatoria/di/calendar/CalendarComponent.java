@@ -1,10 +1,8 @@
 package com.verbatoria.di.calendar;
 
-import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.di.login.LoginScope;
-import com.verbatoria.di.token.TokenModule;
-import com.verbatoria.presentation.login.view.login.LoginActivity;
-import com.verbatoria.presentation.login.view.recovery.RecoveryActivity;
+import com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity;
+import com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity;
 
 import dagger.Subcomponent;
 
@@ -17,5 +15,8 @@ import dagger.Subcomponent;
 @LoginScope
 public interface CalendarComponent {
 
+    void inject(ChildrenActivity childrenActivity);
+
+    void inject(ClientsActivity clientActivity);
 
 }

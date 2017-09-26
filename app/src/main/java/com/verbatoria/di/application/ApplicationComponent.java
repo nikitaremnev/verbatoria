@@ -1,5 +1,7 @@
 package com.verbatoria.di.application;
 
+import com.verbatoria.di.calendar.CalendarComponent;
+import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.di.dashboard.DashboardComponent;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.di.login.LoginComponent;
@@ -26,4 +28,6 @@ public interface ApplicationComponent extends ApplicationComponentInjects, Token
     DashboardComponent addModule(DashboardModule dashboardModule);
 
     SessionComponent addModule(SessionModule sessionModule);
+
+    CalendarComponent addModule(CalendarModule calendarModule);
 }

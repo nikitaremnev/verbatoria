@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="fragment_calendar_today">Сегодня</string>
+    <string name="calendar_today">Сегодня</string>
+
+    <string name="calendar_activity_add_child_birthday">Дата рождения</string>
+    <string name="calendar_activity_add_child_save">Сохранить</string>
+    <string name="calendar_activity_add_child_create">Создать запись</string>
+    <string name="calendar_activity_add_child_name">Имя ребенка</string>
+    <string name="calendar_activity_add_client_name">Имя клиента</string>
+    <string name="calendar_activity_add_client_email">Email</string>
+    <string name="calendar_activity_add_client_phone">Номер телефона</string>
+
+    <string name="calendar_activity_add_child_title">Создание записи ребенка</string>
+    <string name="calendar_activity_add_client_title">Создание записи клиента</string>
+
+    <dimen name="calendar_activity_between_fields_padding">8dp</dimen>
+
 </resources>

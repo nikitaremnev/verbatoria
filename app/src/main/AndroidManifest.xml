@@ -61,6 +61,14 @@
             android:screenOrientation="sensorLandscape"/>
 
         <activity
+            android:name="com.verbatoria.presentation.calendar.view.add.clients.ClientActivity"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity
+            android:name="com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity"
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity
             android:name="com.verbatoria.presentation.session.view.writing.WritingActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/FullScreenTheme"/>
