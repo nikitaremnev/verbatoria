@@ -34,7 +34,12 @@ public class AudioPlayerManager implements IAudioPlayerManager {
             R.raw.zvuk4,
             R.raw.zvuk5,
             R.raw.zvuk6,
-            R.raw.zvuk7
+            R.raw.zvuk7,
+            R.raw.zvuk8,
+            R.raw.zvuk9,
+            R.raw.zvuk10,
+            R.raw.zvuk11,
+            R.raw.zvuk12
     };
 
     public AudioPlayerManager(ISessionInteractor.IPlayerCallback playerCallback) {

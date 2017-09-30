@@ -1,5 +1,8 @@
 package com.verbatoria.data.network.common;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
@@ -9,7 +12,7 @@ import com.google.common.base.Objects;
  * @author nikitaremnev
  */
 
-public class ChildModel {
+public class ChildModel implements Parcelable {
 
     private String mName;
 
@@ -66,4 +69,32 @@ public class ChildModel {
                 .add("mBirthday", mBirthday)
                 .toString();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mName);
+        dest.writeString(this.mBirthday);
+    }
+
+    protected ChildModel(Parcel in) {
+        this.mName = in.readString();
+        this.mBirthday = in.readString();
+    }
+
+    public static final Parcelable.Creator<ChildModel> CREATOR = new Parcelable.Creator<ChildModel>() {
+        @Override
+        public ChildModel createFromParcel(Parcel source) {
+            return new ChildModel(source);
+        }
+
+        @Override
+        public ChildModel[] newArray(int size) {
+            return new ChildModel[size];
+        }
+    };
 }

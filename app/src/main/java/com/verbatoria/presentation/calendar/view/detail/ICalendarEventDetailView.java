@@ -11,7 +11,7 @@ public interface ICalendarEventDetailView {
     void showProgress();
     void hideProgress();
 
-    void startSession();
+    void startConnection();
     void showError(String message);
 
 }

@@ -1,27 +1,22 @@
 package com.verbatoria.di.calendar;
 
-import com.verbatoria.business.login.ILoginInteractor;
-import com.verbatoria.business.login.LoginInteractor;
+import com.verbatoria.business.children.ChildrenInteractor;
+import com.verbatoria.business.children.IChildrenInteractor;
+import com.verbatoria.business.clients.ClientsInteractor;
+import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.data.repositories.children.ChildrenRepository;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
 import com.verbatoria.data.repositories.clients.ClientsRepository;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
-import com.verbatoria.data.repositories.login.ILoginRepository;
-import com.verbatoria.data.repositories.login.LoginRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.di.login.LoginScope;
-import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
-import com.verbatoria.presentation.login.presenter.login.LoginPresenter;
-import com.verbatoria.presentation.login.presenter.recovery.IRecoveryPresenter;
-import com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter;
-
-import org.apache.poi.poifs.property.Child;
-
+import com.verbatoria.presentation.calendar.presenter.add.children.ChildrenPresenter;
+import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
+import com.verbatoria.presentation.calendar.presenter.add.clients.ClientsPresenter;
+import com.verbatoria.presentation.calendar.presenter.add.clients.IClientsPresenter;
 import dagger.Module;
 import dagger.Provides;
 
 /**
- * Модуль даггера для логина
+ * Модуль даггера для календаря
  *
  * @author nikitaremnev
  */
@@ -29,34 +24,39 @@ import dagger.Provides;
 public class CalendarModule {
 
     @Provides
-    @LoginScope
+    @CalendarScope
     IChildrenRepository provideChildrenRepository() {
         return new ChildrenRepository();
     }
 
     @Provides
-    @LoginScope
+    @CalendarScope
     IClientsRepository provideClientsRepository() {
         return new ClientsRepository();
     }
 
-//
-//    @Provides
-//    @LoginScope
-//    ILoginInteractor provideLoginInteractor(ILoginRepository loginRepository, ITokenRepository tokenRepository) {
-//        return new LoginInteractor(loginRepository, tokenRepository);
-//    }
-//
-//    @Provides
-//    @LoginScope
-//    ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor) {
-//        return new LoginPresenter(loginInteractor);
-//    }
-//
-//    @Provides
-//    @LoginScope
-//    IRecoveryPresenter provideRecoveryPresenter(ILoginInteractor loginInteractor) {
-//        return new RecoveryPresenter(loginInteractor);
-//    }
+    @Provides
+    @CalendarScope
+    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository) {
+        return new ChildrenInteractor(childrenRepository);
+    }
+
+    @Provides
+    @CalendarScope
+    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository) {
+        return new ClientsInteractor(clientsRepository);
+    }
+
+    @Provides
+    @CalendarScope
+    IChildrenPresenter provideChildrenPresenter(IChildrenInteractor childrenInteractor) {
+        return new ChildrenPresenter(childrenInteractor);
+    }
+
+    @Provides
+    @CalendarScope
+    IClientsPresenter provideClientsPresenter(IClientsInteractor clientsInteractor) {
+        return new ClientsPresenter(clientsInteractor);
+    }
 
 }

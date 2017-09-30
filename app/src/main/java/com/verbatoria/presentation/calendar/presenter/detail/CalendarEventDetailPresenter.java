@@ -54,10 +54,16 @@ public class CalendarEventDetailPresenter extends BasePresenter implements ICale
         mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
     }
 
+    @Override
+    public EventModel getEvent() {
+        return mEventModel;
+    }
+
     private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
         Logger.e(TAG, sessionResponseModel.toString());
-        mCalendarEventDetailView.startSession();
+        mSessionInteractor.saveSessionId(sessionResponseModel.getId());
         mCalendarEventDetailView.hideProgress();
+        mCalendarEventDetailView.startConnection();
     }
 
     private void handleSessionStartError(Throwable throwable) {

@@ -20,12 +20,17 @@ class APIConstants {
     static final String VERBATOLOG_INFO_URL = "verbatolog/current" + JSON_PATH;
     static final String VERBATOLOG_EVENTS_URL = "verbatolog/current/events" + JSON_PATH;
 
-    //session
+    static final String ADD_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children" + JSON_PATH;
+    static final String EDIT_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
+    static final String GET_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
 
+    static final String ADD_CLIENT_URL = "clients" + JSON_PATH;
+    static final String EDIT_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;
+    static final String GET_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;
 
-    //clients
-
-
-    //children
+    static final String SESSION_ID_PATH_KEY = "session_id";
+    static final String START_SESSION_URL = "reports" + JSON_PATH;
+    static final String ADD_RESULTS_TO_SESSION_URL = "reports/{" + SESSION_ID_PATH_KEY + "}/measurements/upload" + JSON_PATH;
+    static final String FINISH_SESSION_URL = "reports/{" + SESSION_ID_PATH_KEY + "}/finalize" + JSON_PATH;
 
 }

@@ -19,7 +19,8 @@ public interface IConnectionPresenter {
     void obtainEvent(Intent intent);
     EventModel getEvent();
 
-    void startSession();
+    void startWriting();
+
     void connect();
 
 }

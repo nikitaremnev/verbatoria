@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -17,11 +15,11 @@ import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.detail.CalendarEventDetailPresenter;
 import com.verbatoria.presentation.calendar.presenter.detail.ICalendarEventDetailPresenter;
+import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
+import com.verbatoria.presentation.session.view.writing.WritingActivity;
 
 import javax.inject.Inject;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Экран события
@@ -96,13 +94,14 @@ public class CalendarEventDetailActivity extends BaseActivity implements ICalend
     }
 
     @Override
-    public void startSession() {
-        mCalendarEventDetailPresenter.startSession();
+    public void startConnection() {
+        Intent intent = ConnectionActivity.newInstance(this, mCalendarEventDetailPresenter.getEvent());
+        startActivity(intent);
+        finish();
     }
 
     @Override
     public void showError(String message) {
-        //TODO: replace hint
         Snackbar snackbar = Snackbar.make(mLoadingView, message, Snackbar.LENGTH_LONG);
         snackbar.show();
     }

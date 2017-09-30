@@ -3,6 +3,7 @@ package com.verbatoria.presentation.calendar.presenter.detail;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.presentation.calendar.view.detail.ICalendarEventDetailView;
 
 /**
@@ -18,5 +19,6 @@ public interface ICalendarEventDetailPresenter {
     void startSession();
     void obtainEvent(Intent intent);
 
+    EventModel getEvent();
 
 }

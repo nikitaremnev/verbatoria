@@ -1,23 +1,23 @@
 package com.verbatoria.presentation.session.presenter.connection;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.neurosky.connection.ConnectionStates;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.data.network.response.StartSessionResponseModel;
+import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.connection.IConnectionView;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.RxSchedulers;
 
 /**
  * Реализация презентера для экрана соединения
  *
  * @author nikitaremnev
  */
-public class ConnectionPresenter implements IConnectionPresenter, ISessionInteractor.IConnectionCallback {
+public class ConnectionPresenter extends BasePresenter implements IConnectionPresenter, ISessionInteractor.IConnectionCallback {
 
     private static final String TAG = ConnectionPresenter.class.getSimpleName();
 
@@ -52,21 +52,15 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
     }
 
     @Override
+    public void startWriting() {
+        mConnectionView.startWriting();
+    }
+
+    @Override
     public void connect() {
         mSessionInteractor.startConnection();
     }
 
-    @Override
-    public void startSession() {
-        Logger.e(TAG, mEventModel.toString());
-        if (mEventModel != null) {
-            mConnectionView.showProgress();
-            mSessionInteractor.startSession(mEventModel.getId())
-                    .subscribe(this::handleSessionStarted, this::handleSessionStartError);
-        } else {
-            handleSessionStarted(null);
-        }
-    }
     @Override
     public void onConnectionStateChanged(int connectionCode) {
         Logger.e(TAG, "connectionCode: " + connectionCode);
@@ -93,19 +87,13 @@ public class ConnectionPresenter implements IConnectionPresenter, ISessionIntera
         mConnectionView.showBluetoothDisabled();
     }
 
-    private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
-        if (sessionResponseModel != null) {
-            Logger.e(TAG, sessionResponseModel.toString());
-        }
-        mSessionInteractor.saveSessionId(sessionResponseModel.getId());
-        mConnectionView.startWriting();
-        mConnectionView.hideProgress();
+    @Override
+    public void saveState(Bundle outState) {
+
     }
 
-    private void handleSessionStartError(Throwable throwable) {
-        throwable.printStackTrace();
-        Logger.exc(TAG, throwable);
-        mConnectionView.showError(throwable.getMessage());
-        mConnectionView.hideProgress();
+    @Override
+    public void restoreState(Bundle savedInstanceState) {
+
     }
 }

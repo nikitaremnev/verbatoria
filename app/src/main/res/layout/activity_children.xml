@@ -26,7 +26,7 @@
         <EditText
             android:id="@+id/child_name_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/calendar_add_edit_text_height"
+            android:layout_height="@dimen/calendar_edit_text_height"
             android:ems="10"
             android:hint="@string/calendar_activity_add_child_name"
             android:inputType="text"/>
@@ -52,7 +52,7 @@
         <EditText
             android:id="@+id/birthday_edit_text"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/calendar_add_edit_text_height"
+            android:layout_height="@dimen/calendar_edit_text_height"
             android:ems="10"
             android:hint="@string/calendar_activity_add_child_birthday"
             android:inputType="date"/>

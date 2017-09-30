@@ -1,5 +1,7 @@
 package com.verbatoria.data.network.common;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
@@ -11,7 +13,7 @@ import com.google.common.base.Objects;
  * @author nikitaremnev
  */
 
-public class ClientModel {
+public class ClientModel implements Parcelable {
 
     private String mName;
 
@@ -83,4 +85,34 @@ public class ClientModel {
                 .add("mPhone", mPhone)
                 .toString();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mName);
+        dest.writeString(this.mEmail);
+        dest.writeString(this.mPhone);
+    }
+
+    protected ClientModel(Parcel in) {
+        this.mName = in.readString();
+        this.mEmail = in.readString();
+        this.mPhone = in.readString();
+    }
+
+    public static final Parcelable.Creator<ClientModel> CREATOR = new Parcelable.Creator<ClientModel>() {
+        @Override
+        public ClientModel createFromParcel(Parcel source) {
+            return new ClientModel(source);
+        }
+
+        @Override
+        public ClientModel[] newArray(int size) {
+            return new ClientModel[size];
+        }
+    };
 }

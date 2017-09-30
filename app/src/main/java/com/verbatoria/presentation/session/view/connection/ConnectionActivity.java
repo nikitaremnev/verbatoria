@@ -17,6 +17,8 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
+import com.verbatoria.infrastructure.BaseActivity;
+import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
 import com.verbatoria.utils.Helper;
@@ -32,7 +34,7 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-public class ConnectionActivity extends AppCompatActivity implements IConnectionView {
+public class ConnectionActivity extends BaseActivity implements IConnectionView {
 
     private static final String TAG = ConnectionActivity.class.getSimpleName();
 
@@ -87,18 +89,16 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //initialize views
-        setContentView(R.layout.activity_connection);
-        ButterKnife.bind(this);
-        setUpViews();
-        setUpNavigation();
-        setUpHandler();
-        //bind views
+
         VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
+
+        setContentView(R.layout.activity_connection);
+
         mConnectionPresenter.bindView(this);
         mConnectionPresenter.obtainEvent(getIntent());
-        showDisconnectedState();
+        setPresenter((BasePresenter) mConnectionPresenter);
+
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -204,9 +204,14 @@ public class ConnectionActivity extends AppCompatActivity implements IConnection
         Helper.showSnackBar(mLoadingView, error);
     }
 
-    private void setUpViews() {
+    @Override
+    protected void setUpViews() {
+        setUpNavigation();
+        setUpHandler();
+        showDisconnectedState();
+
         mConnectButton.setOnClickListener(v -> mConnectionPresenter.connect());
-        mStartButton.setOnClickListener(v -> mConnectionPresenter.startSession());
+        mStartButton.setOnClickListener(v -> mConnectionPresenter.startWriting());
     }
 
     private void setUpNavigation() {
