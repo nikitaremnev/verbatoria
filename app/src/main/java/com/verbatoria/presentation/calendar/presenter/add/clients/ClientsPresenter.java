@@ -1,8 +1,10 @@
 package com.verbatoria.presentation.calendar.presenter.add.clients;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.clients.IClientsInteractor;
+import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
 
 /**
@@ -10,7 +12,7 @@ import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
  *
  * @author nikitaremnev
  */
-public class ClientsPresenter implements IClientsPresenter {
+public class ClientsPresenter extends BasePresenter implements IClientsPresenter {
 
     private IClientsInteractor mClientsInteractor;
     private IClientsView mClientView;
@@ -29,4 +31,13 @@ public class ClientsPresenter implements IClientsPresenter {
         mClientView = null;
     }
 
+    @Override
+    public void saveState(Bundle outState) {
+
+    }
+
+    @Override
+    public void restoreState(Bundle savedInstanceState) {
+
+    }
 }

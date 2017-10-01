@@ -5,8 +5,8 @@ import com.verbatoria.business.session.Session;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.calendar.presenter.detail.CalendarEventDetailPresenter;
-import com.verbatoria.presentation.calendar.presenter.detail.ICalendarEventDetailPresenter;
+import com.verbatoria.presentation.calendar.presenter.detail.EventDetailPresenter;
+import com.verbatoria.presentation.calendar.presenter.detail.IEventDetailPresenter;
 import com.verbatoria.presentation.session.presenter.connection.ConnectionPresenter;
 import com.verbatoria.presentation.session.presenter.connection.IConnectionPresenter;
 import com.verbatoria.presentation.session.presenter.reconnect.IReconnectionPresenter;
@@ -41,8 +41,8 @@ public class SessionModule {
 
     @Provides
     @SessionScope
-    ICalendarEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor) {
-        return new CalendarEventDetailPresenter(sessionInteractor);
+    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor) {
+        return new EventDetailPresenter(sessionInteractor);
     }
 
     @Provides

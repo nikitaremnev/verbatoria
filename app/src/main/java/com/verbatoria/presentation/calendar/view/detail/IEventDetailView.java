@@ -5,13 +5,16 @@ package com.verbatoria.presentation.calendar.view.detail;
  *
  * @author nikitaremnev
  */
-public interface ICalendarEventDetailView {
+public interface IEventDetailView {
 
     //отображение прогресса
     void showProgress();
     void hideProgress();
 
     void startConnection();
+    void startChild();
+    void startClient();
+    void startDatePicker();
     void showError(String message);
 
 }

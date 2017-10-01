@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
@@ -15,6 +14,7 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.add.clients.IClientsPresenter;
 
 import javax.inject.Inject;
+
 import butterknife.BindView;
 
 /**
@@ -29,17 +29,17 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     @Inject
     IClientsPresenter mClientsPresenter;
 
-    @BindView(R.id.child_id_edit_text)
-    public EditText mChildIdEditText;
-
-    @BindView(R.id.location_id_edit_text)
-    public EditText mLocationIdEditText;
-
-    @BindView(R.id.start_date_edit_text)
-    public EditText mStartDateEditText;
-
-    @BindView(R.id.end_date_edit_text)
-    public EditText mEndDateEditText;
+//    @BindView(R.id.child_id_edit_text)
+//    public EditText mChildIdEditText;
+//
+//    @BindView(R.id.location_id_edit_text)
+//    public EditText mLocationIdEditText;
+//
+//    @BindView(R.id.start_date_edit_text)
+//    public EditText mStartDateEditText;
+//
+//    @BindView(R.id.end_date_edit_text)
+//    public EditText mEndDateEditText;
 
     @BindView(R.id.progress_layout)
     public View mLoadingView;

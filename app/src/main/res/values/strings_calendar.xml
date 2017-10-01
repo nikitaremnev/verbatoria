@@ -13,6 +13,9 @@
     <string name="calendar_activity_add_child_title">Создание записи ребенка</string>
     <string name="calendar_activity_add_client_title">Создание записи клиента</string>
 
-    <dimen name="calendar_activity_between_fields_padding">8dp</dimen>
+
+    <string name="event_detail_activity_client">Клиент</string>
+    <string name="event_detail_activity_child">Ребенок</string>
+    <string name="event_detail_activity_time">Время</string>
 
 </resources>

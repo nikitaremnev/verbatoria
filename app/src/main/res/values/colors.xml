@@ -27,4 +27,8 @@
     <color name="button_text">#FFFFFF</color>
     <color name="loading_background">#FFFFC5</color>
 
+
+    <color name="field_title_color">#000</color>
+    <color name="field_subtitle_color">#999</color>
+
 </resources>

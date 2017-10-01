@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +18,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
-import com.verbatoria.presentation.calendar.view.add.AddCalendarEventActivity;
+import com.verbatoria.presentation.calendar.view.detail.EventDetailActivity;
 import com.verbatoria.presentation.dashboard.view.main.events.adapter.VerbatologEventsAdapter;
 
 import java.util.Calendar;
@@ -90,8 +89,7 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     }
 
     private void setUpAddEventButton() {
-        mAddEventButton.setOnClickListener(v -> startActivity(AddCalendarEventActivity.newInstance(getContext())));
-        //TODO: show add event button - now it's hidden, because functionality is not ready
+        mAddEventButton.setOnClickListener(v -> startActivity(EventDetailActivity.newInstance(getContext())));
         mAddEventButton.show();
     }
 
