@@ -1,7 +1,9 @@
 package com.verbatoria.presentation.calendar.presenter.add.clients;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
 
 /**
@@ -14,4 +16,15 @@ public interface IClientsPresenter {
     void bindView(@NonNull IClientsView clientView);
     void unbindView();
 
+    void obtainClient(Intent intent);
+    ClientModel getClientModel();
+
+    boolean isEditMode();
+
+    void createClient();
+    void editClient();
+
+    String getClientName();
+    String getClientPhone();
+    String getClientEmail();
 }

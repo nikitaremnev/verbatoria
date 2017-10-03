@@ -6,9 +6,12 @@ import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
+import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
+import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
+import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
@@ -40,6 +43,12 @@ public interface APIService {
     @POST(APIConstants.LOGIN_URL)
     Observable<LoginResponseModel> loginRequest(@Body LoginRequestModel loginData);
 
+    @POST(APIConstants.RECOVERY_PASSWORD_URL)
+    Observable<MessageResponseModel> recoveryPassword(@Body RecoveryPasswordRequestModel recoveryPasswordRequestModel);
+
+    @POST(APIConstants.RESET_PASSWORD_URL)
+    Observable<MessageResponseModel> resetPassword(@Body ResetPasswordRequestModel resetPasswordRequestModel);
+
     @GET(APIConstants.VERBATOLOG_INFO_URL)
     Observable<VerbatologInfoResponseModel> verbatologInfoRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
@@ -68,14 +77,13 @@ public interface APIService {
                                            @Header(TOKEN_HEADER_KEY) String accessToken);
 
     @POST(APIConstants.ADD_CLIENT_URL)
-    Observable<ResponseBody> addClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
-                                              @Header(TOKEN_HEADER_KEY) String accessToken,
-                                              @Body ClientRequestModel child);
+    Observable<MessageResponseModel> addClientRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                              @Body ClientRequestModel client);
 
     @PUT(APIConstants.EDIT_CLIENT_URL)
     Observable<ResponseBody> editClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
                                                @Header(TOKEN_HEADER_KEY) String accessToken,
-                                               @Body ClientRequestModel child);
+                                               @Body ClientRequestModel client);
 
     @GET(APIConstants.GET_CLIENT_URL)
     Observable<ClientModel> getClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,

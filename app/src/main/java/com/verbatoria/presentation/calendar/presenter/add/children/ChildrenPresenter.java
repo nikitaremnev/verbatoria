@@ -21,6 +21,7 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     private IChildrenInteractor mChildrenInteractor;
     private IChildrenView mChildrenView;
     private ChildModel mChildModel;
+    private boolean mIsEditMode;
 
     public ChildrenPresenter(IChildrenInteractor childrenInteractor) {
         mChildrenInteractor = childrenInteractor;
@@ -39,11 +40,19 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     @Override
     public void obtainChild(Intent intent) {
         mChildModel = intent.getParcelableExtra(EXTRA_CHILD_MODEL);
+        if (mChildModel != null) {
+            mIsEditMode = true;
+        }
     }
 
     @Override
-    public ChildModel getEvent() {
+    public ChildModel getChildModel() {
         return mChildModel;
+    }
+
+    @Override
+    public boolean isEditMode() {
+        return mIsEditMode;
     }
 
     @Override

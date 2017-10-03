@@ -1,9 +1,17 @@
 package com.verbatoria.presentation.login.view.recovery;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,10 +23,13 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
+import com.verbatoria.infrastructure.receivers.SMSReceiver;
 import com.verbatoria.presentation.login.presenter.recovery.IRecoveryPresenter;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.Helper;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 
 /**
@@ -27,7 +38,12 @@ import butterknife.BindView;
  *
  * @author nikitaremnev
  */
-public class RecoveryActivity extends BaseActivity implements IRecoveryView {
+public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRecoveryView.SMSCallback {
+
+    private static final String TAG = RecoveryActivity.class.getSimpleName();
+    public static final String EXTRA_PHONE = "com.verbatoria.presentation.login.view.recovery.EXTRA_PHONE";
+
+    private static final int REQUEST_PERMISSION_CODE = 2445;
 
     @Inject
     IRecoveryPresenter mRecoveryPresenter;
@@ -56,6 +72,17 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
     @BindView(R.id.progress_layout)
     public View mLoadingView;
 
+    private SMSReceiver mSMSReceiver;
+
+    public static Intent newInstance(Context mContext, String phone) {
+        Intent intent = new Intent(mContext, RecoveryActivity.class);
+        intent.putExtra(EXTRA_PHONE, phone);
+        return intent;
+    }
+
+    public static Intent newInstance(Context mContext) {
+        return new Intent(mContext, RecoveryActivity.class);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
@@ -68,16 +95,57 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
         mRecoveryPresenter.bindView(this);
 
         super.onCreate(savedInstanceState);
+
+        mRecoveryPresenter.obtainPhone(getIntent());
+        showPhoneInput();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mSMSReceiver = new SMSReceiver();
+        mSMSReceiver.setSMSCallback(this);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SMSReceiver.TELEPHONE_ACTION);
+        registerReceiver(mSMSReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mSMSReceiver.setSMSCallback(null);
+        unregisterReceiver(mSMSReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        askPermissions();
     }
 
     @Override
     public String getPhone() {
-        return mPhoneEditText.toString();
+        return mPhoneEditText.getText().toString();
+    }
+
+    @Override
+    public String getCode() {
+        return mCodeEditText.getText().toString();
+    }
+
+    @Override
+    public void setPhone(String phone) {
+        mPhoneEditText.setText(phone);
     }
 
     @Override
     public String getNewPassword() {
-        return mNewPasswordEditText.toString();
+        return mNewPasswordEditText.getText().toString();
+    }
+
+    @Override
+    public String getNewConfirmPassword() {
+        return mNewPasswordConfirmEditText.getText().toString();
     }
 
     @Override
@@ -113,16 +181,19 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
         mNewPasswordEditText.setVisibility(View.GONE);
         mNewPasswordConfirmEditText.setVisibility(View.GONE);
         mSubmitButton.setText(getString(R.string.recovery_send_code));
+        mSubmitButton.setOnClickListener(v -> mRecoveryPresenter.recoveryPassword());
     }
 
     @Override
     public void showCodeInput() {
+        mCodeEditText.setEnabled(true);
         mPhoneEditText.setEnabled(false);
         mPhoneEditText.setVisibility(View.VISIBLE);
         mCodeEditText.setVisibility(View.VISIBLE);
         mNewPasswordEditText.setVisibility(View.GONE);
         mNewPasswordConfirmEditText.setVisibility(View.GONE);
         mSubmitButton.setText(getString(R.string.recovery_send_code));
+        mSubmitButton.setOnClickListener(v -> showNewPasswordInput());
     }
 
     @Override
@@ -132,6 +203,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
         mNewPasswordEditText.setVisibility(View.VISIBLE);
         mNewPasswordConfirmEditText.setVisibility(View.VISIBLE);
         mSubmitButton.setText(getString(R.string.recovery_send_new_password));
+        mSubmitButton.setOnClickListener(v -> mRecoveryPresenter.sendNewPassword());
     }
 
     @Override
@@ -153,6 +225,14 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
         mPhoneEditText.setText("");
         mRememberTextView.setPaintFlags(mRememberTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         mRememberTextView.setOnClickListener(v -> mRecoveryPresenter.rememberPassword());
+    }
+
+    private void askPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{ Manifest.permission.RECEIVE_SMS }, REQUEST_PERMISSION_CODE);
+        }
     }
 
     private void setUpPhoneFormatter() {
@@ -181,7 +261,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mRecoveryPresenter.checkPasswordRequirements();
             }
         };
         mNewPasswordEditText.addTextChangedListener(newPasswordWatcher);
@@ -201,9 +281,17 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                mRecoveryPresenter.confirmPassword();
             }
         };
         mNewPasswordConfirmEditText.addTextChangedListener(newPasswordConfirmWatcher);
+    }
+
+    @Override
+    public void showConfirmationCode(String code) {
+        Log.e(TAG, "showConfirmationCode: " + code);
+        mCodeEditText.setText(mCodeEditText.getText().append(code));
+        mCodeEditText.setEnabled(false);
+        mSubmitButton.performClick();
     }
 }

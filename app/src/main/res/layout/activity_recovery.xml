@@ -47,8 +47,6 @@
             android:imeOptions="flagNoExtractUi"
             android:id="@+id/code_edit_text"
             android:visibility="gone"
-            android:inputType="numberPassword"
-            android:maxLength="4"
             android:hint="@string/recovery_password_confirm_code"/>
 
         <EditText

@@ -47,7 +47,7 @@ public class ClientModel implements Parcelable {
         return this;
     }
 
-    @JsonGetter("email")
+    @JsonGetter("phone")
     @Nullable
     public String getPhone() {
         return mPhone;

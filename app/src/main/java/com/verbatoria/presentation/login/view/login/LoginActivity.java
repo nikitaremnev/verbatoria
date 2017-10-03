@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,13 +20,11 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
 import com.verbatoria.presentation.login.view.recovery.RecoveryActivity;
-import com.verbatoria.presentation.splash.SplashActivity;
 import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Экран логина
@@ -80,8 +77,8 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
         super.onCreate(savedInstanceState);
         //test
-        setPhone("79266519001");
-        setPassword("4eqx8pmRZpfy");
+        setPhone("79153974689");
+        setPassword("test");
     }
 
     @Override
@@ -115,7 +112,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public String getPhone() {
-        return mCounryCodeSpinner.getSelectedItem().toString() + mLoginEditText.getText().toString();
+        return mLoginEditText.getText().toString();
     }
 
     @Override
@@ -138,7 +135,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void startRecoveryPassword() {
-        Intent intent = new Intent(this, RecoveryActivity.class);
+        Intent intent = RecoveryActivity.newInstance(this, getPhone());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +38,6 @@
         android:paddingRight="@dimen/verbatolog_event_name_horizontal_padding"
         android:paddingBottom="@dimen/verbatolog_event_bottom_vertical_padding"
         android:layout_below="@+id/age_text_view"
-        android:gravity="end"
         android:orientation="horizontal">
 
         <ImageView

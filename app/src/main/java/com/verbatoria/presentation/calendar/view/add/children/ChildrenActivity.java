@@ -3,6 +3,7 @@ package com.verbatoria.presentation.calendar.view.add.children;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -53,17 +54,28 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
         return intent;
     }
 
+    public static Intent newInstance(Context mContext) {
+        return new Intent(mContext, ChildrenActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         VerbatoriaApplication.getApplicationComponent().addModule(new CalendarModule()).inject(this);
+        mChildrenPresenter.obtainChild(getIntent());
 
         setContentView(R.layout.activity_children);
 
         setPresenter((BasePresenter) mChildrenPresenter);
         mChildrenPresenter.bindView(this);
-        mChildrenPresenter.obtainChild(getIntent());
+
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_edit, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

@@ -1,12 +1,15 @@
 package com.verbatoria.presentation.login.presenter.recovery;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.verbatoria.business.login.ILoginInteractor;
+import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.login.view.recovery.IRecoveryView;
 
@@ -14,6 +17,7 @@ import static com.verbatoria.presentation.login.presenter.recovery.RecoveryPrese
 import static com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter.RecoveryPresenterState.STATE_INPUT_CODE;
 import static com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter.RecoveryPresenterState.STATE_INPUT_PASSWORDS;
 import static com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter.RecoveryPresenterState.STATE_INPUT_PHONE;
+import static com.verbatoria.presentation.login.view.recovery.RecoveryActivity.EXTRA_PHONE;
 
 /**
  * Реализация презентера для восстановления пароля
@@ -44,8 +48,36 @@ public class RecoveryPresenter extends BasePresenter implements IRecoveryPresent
     }
 
     @Override
+    public void obtainPhone(Intent intent) {
+        String phone = intent.getStringExtra(EXTRA_PHONE);
+        if (phone != null) {
+            mRecoveryView.setPhone(phone);
+        }
+    }
+
+    @Override
     public void rememberPassword() {
         mRecoveryView.rememberPassword();
+    }
+
+    @Override
+    public void recoveryPassword() {
+        addSubscription(
+                mLoginInteractor.recoveryPassword(mRecoveryView.getPhone())
+                        .doOnSubscribe(() -> mRecoveryView.showProgress())
+                        .doOnUnsubscribe(() -> mRecoveryView.hideProgress())
+                        .subscribe(this::handleSuccessRecoveryPassword, this::handleErrorRecoveryPassword)
+        );
+    }
+
+    @Override
+    public void sendNewPassword() {
+        addSubscription(
+                mLoginInteractor.resetPassword(mRecoveryView.getPhone(), mRecoveryView.getCode(), mRecoveryView.getNewPassword())
+                        .doOnSubscribe(() -> mRecoveryView.showProgress())
+                        .doOnUnsubscribe(() -> mRecoveryView.hideProgress())
+                        .subscribe(this::handleSuccessResetPassword, this::handleErrorResetPassword)
+        );
     }
 
     @Override
@@ -72,16 +104,37 @@ public class RecoveryPresenter extends BasePresenter implements IRecoveryPresent
     }
 
     @Override
-    public boolean confirmPassword(String password, String confirmedPassword) {
-        return password.equals(confirmedPassword);
+    public boolean confirmPassword() {
+        return mRecoveryView.getNewPassword().equals(mRecoveryView.getNewConfirmPassword());
     }
 
     @Override
-    public PasswordRequirements checkPasswordRequirements(String password) {
+    public PasswordRequirements checkPasswordRequirements() {
+        String password = mRecoveryView.getNewPassword();
         if (TextUtils.isEmpty(password)) return PasswordRequirements.EMPTY;
         if (password.length() < 7) return PasswordRequirements.TOO_SHORT;
         if (password.equals("1234567") || password.equals("7654321")) return PasswordRequirements.TOO_EASY;
         return PasswordRequirements.OK;
+    }
+
+    private void handleSuccessRecoveryPassword(MessageResponseModel messageResponseModel) {
+        Log.e(TAG, "handleSuccessRecoveryPassword: " + messageResponseModel.toString());
+        mRecoveryView.showCodeInput();
+    }
+
+    private void handleErrorRecoveryPassword(Throwable throwable) {
+        throwable.printStackTrace();
+        mRecoveryView.showError(throwable.getMessage());
+    }
+
+    private void handleSuccessResetPassword(MessageResponseModel messageResponseModel) {
+        Log.e(TAG, "handleSuccessResetPassword: " + messageResponseModel.toString());
+        mRecoveryView.rememberPassword();
+    }
+
+    private void handleErrorResetPassword(Throwable throwable) {
+        throwable.printStackTrace();
+        mRecoveryView.showError(throwable.getMessage());
     }
 
     static class RecoveryPresenterState implements Parcelable {

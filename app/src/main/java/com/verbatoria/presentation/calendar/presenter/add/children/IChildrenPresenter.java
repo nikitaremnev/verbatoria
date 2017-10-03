@@ -17,6 +17,7 @@ public interface IChildrenPresenter {
     void unbindView();
 
     void obtainChild(Intent intent);
-    ChildModel getEvent();
+    ChildModel getChildModel();
 
+    boolean isEditMode();
 }

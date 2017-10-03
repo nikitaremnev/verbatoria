@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +36,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     private static final String TAG = EventDetailActivity.class.getSimpleName();
 
+    public static final int ACTIVITY_CHILDREN_CODE = 27;
+    public static final int ACTIVITY_ClIENTS_CODE = 28;
+
     @Inject
     IEventDetailPresenter mEventDetailPresenter;
 
@@ -47,7 +52,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public View mDateFieldView;
 
     @BindView(R.id.submit_button)
-    public View mSubmitButton;
+    public Button mSubmitButton;
 
     @BindView(R.id.progress_layout)
     public View mLoadingView;
@@ -102,13 +107,13 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void startChild() {
         Intent intent = ChildrenActivity.newInstance(this, mEventDetailPresenter.getChildModel());
-        startActivity(intent);
+        startActivityForResult(intent, ACTIVITY_CHILDREN_CODE);
     }
 
     @Override
     public void startClient() {
         Intent intent = ClientsActivity.newInstance(this);
-        startActivity(intent);
+        startActivityForResult(intent, ACTIVITY_ClIENTS_CODE);
     }
 
     @Override
@@ -137,22 +142,38 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     private void setUpButton() {
-        mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+        if (!mEventDetailPresenter.isEditMode()) {
+            mSubmitButton.setText(getString(R.string.calendar_activity_event_create));
+            mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+        } else {
+            mSubmitButton.setText(getString(R.string.dashboard_start_session));
+            mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+        }
     }
 
     private void setUpFields() {
-        setUpFieldView(mClientFieldView, R.drawable.ic_client, mEventDetailPresenter.getClient(), getString(R.string.event_detail_activity_client));
-        setUpFieldView(mChildFieldView, R.drawable.ic_child, mEventDetailPresenter.getChild(), getString(R.string.event_detail_activity_child));
-        setUpFieldView(mDateFieldView, R.drawable.ic_date, mEventDetailPresenter.getTime(), getString(R.string.event_detail_activity_time));
-        mClientFieldView.setOnClickListener(v -> startClient());
-        mChildFieldView.setOnClickListener(v -> startChild());
-        mDateFieldView.setOnClickListener(v -> startDatePicker());
+        String clientString = TextUtils.isEmpty(mEventDetailPresenter.getClient()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getClient();
+        String childString = TextUtils.isEmpty(mEventDetailPresenter.getChild()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getChild();
+        String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getTime();
+        setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
+        setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
+        setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
+        setUpFieldsStatus();
     }
 
-    private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle) {
+    private void setUpFieldsStatus() {
+        if (!mEventDetailPresenter.isEditMode()) {
+            ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+            ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+            ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+        }
+    }
+
+    private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
+        fieldView.setOnClickListener(onClickListener);
     }
 
 }

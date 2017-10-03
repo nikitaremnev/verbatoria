@@ -44,11 +44,16 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void startSession() {
-        mSessionInteractor.startSession(mEventModel.getId())
+        addSubscription(mSessionInteractor.startSession(mEventModel.getId())
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler())
-                .subscribe(this::handleSessionStarted, this::handleSessionStartError);
-        mCalendarEventDetailView.showProgress();
+                .subscribe(this::handleSessionStarted, this::handleSessionStartError));
+    }
+
+    @Override
+    public void createEvent() {
+
     }
 
     @Override
@@ -66,17 +71,17 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public String getTime() {
-        return mEventModel.getEventTime();
+        return mEventModel != null ? mEventModel.getEventTime() : "";
     }
 
     @Override
     public String getClient() {
-        return "Клиент";
+        return mEventModel != null ? "Клиент" : "";
     }
 
     @Override
     public String getChild() {
-        return "Ребенок";
+        return mEventModel != null ? "Ребенок" : "";
     }
 
     @Override

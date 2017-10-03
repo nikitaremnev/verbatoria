@@ -109,7 +109,7 @@
 
 
     <string name="email">Email</string>
-    <string name="phone">Phone</string>
+    <string name="message">Phone</string>
     <string name="city">City</string>
     <string name="diagnose">Diagnose</string>
     <string name="write_card">Write certificate</string>
@@ -124,7 +124,7 @@
     <string name="incorrect_code">Incorrect activity code!</string>
 
     <string name="scanning">Scanning</string>
-    <string name="scanning_autority">To start a session, please log in with your certificate to the phone and wait for the message on the screen</string>
+    <string name="scanning_autority">To start a session, please log in with your certificate to the message and wait for the message on the screen</string>
 
     <string name="tag_empty">The label is empty or not recognized!</string>
     <string name="tag_not_code">The label does not contain a activity code!</string>

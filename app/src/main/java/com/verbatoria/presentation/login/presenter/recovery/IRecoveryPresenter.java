@@ -1,9 +1,8 @@
 package com.verbatoria.presentation.login.presenter.recovery;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.verbatoria.presentation.login.view.login.ILoginView;
 import com.verbatoria.presentation.login.view.recovery.IRecoveryView;
 
 /**
@@ -16,11 +15,16 @@ public interface IRecoveryPresenter {
     void bindView(@NonNull IRecoveryView recoveryView);
     void unbindView();
 
+    void obtainPhone(Intent intent);
+
     void rememberPassword();
 
-    boolean confirmPassword(String password, String confirmedPassword);
+    void recoveryPassword();
+    void sendNewPassword();
 
-    PasswordRequirements checkPasswordRequirements(String password);
+    boolean confirmPassword();
+
+    PasswordRequirements checkPasswordRequirements();
 
     enum PasswordRequirements {
         TOO_SHORT, TOO_EASY, EMPTY, OK

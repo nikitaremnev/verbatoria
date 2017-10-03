@@ -4,11 +4,14 @@
 
     <string name="calendar_activity_add_child_birthday">Дата рождения</string>
     <string name="calendar_activity_add_child_save">Сохранить</string>
-    <string name="calendar_activity_add_child_create">Создать запись</string>
+    <string name="calendar_activity_save">Сохранить</string>
+    <string name="calendar_activity_create">Создать запись</string>
+
     <string name="calendar_activity_add_child_name">Имя ребенка</string>
     <string name="calendar_activity_add_client_name">Имя клиента</string>
     <string name="calendar_activity_add_client_email">Email</string>
     <string name="calendar_activity_add_client_phone">Номер телефона</string>
+    <string name="calendar_activity_event_create">Создать запись</string>
 
     <string name="calendar_activity_add_child_title">Создание записи ребенка</string>
     <string name="calendar_activity_add_client_title">Создание записи клиента</string>
@@ -17,5 +20,16 @@
     <string name="event_detail_activity_client">Клиент</string>
     <string name="event_detail_activity_child">Ребенок</string>
     <string name="event_detail_activity_time">Время</string>
+    <string name="event_detail_activity_field_empty">Данные не заполнены</string>
 
+    <string name="event_detail_activity_client_name">Имя клиента</string>
+    <string name="event_detail_activity_client_phone">Телефон</string>
+    <string name="event_detail_activity_client_email">Почтовый адрес</string>
+
+    <string name="event_detail_activity_client_name_editable_hint">Имя клиента</string>
+    <string name="event_detail_activity_client_phone_editable_hint">Телефон</string>
+    <string name="event_detail_activity_client_email_editable_hint">Почтовый адрес</string>
+
+    <string name="action_edit">Редактировать</string>
+    <string name="action_cancel">Отмена</string>
 </resources>

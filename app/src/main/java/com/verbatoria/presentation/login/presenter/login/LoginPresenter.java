@@ -52,7 +52,6 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
                 mLoginInteractor.login(mLoginView.getPhone(), mLoginView.getPassword())
                                 .subscribe(this::handleSuccessLogin, this::handleErrorLogin)
         );
-
     }
 
     @Override

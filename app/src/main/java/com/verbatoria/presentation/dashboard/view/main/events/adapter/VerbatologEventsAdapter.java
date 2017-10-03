@@ -39,7 +39,7 @@ public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEven
 
     @Override
     public VerbatologEventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_verbatolog_event, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
         return new VerbatologEventViewHolder(view);
     }
 

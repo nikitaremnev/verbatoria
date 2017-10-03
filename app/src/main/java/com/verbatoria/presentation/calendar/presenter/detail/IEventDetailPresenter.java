@@ -18,6 +18,7 @@ public interface IEventDetailPresenter {
     void unbindView();
 
     void startSession();
+    void createEvent();
     void obtainEvent(Intent intent);
 
     EventModel getEvent();

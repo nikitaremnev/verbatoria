@@ -11,4 +11,13 @@ public interface IClientsView {
     void showProgress();
     void hideProgress();
 
+    void setUpEditableMode();
+    void setUpReadonlyMode();
+    void setUpNewClientMode();
+
+    void finishWithResult();
+    void finishCanceled();
+
+    void showError(String message);
+
 }

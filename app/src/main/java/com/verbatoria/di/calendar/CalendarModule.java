@@ -8,6 +8,7 @@ import com.verbatoria.data.repositories.children.ChildrenRepository;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
 import com.verbatoria.data.repositories.clients.ClientsRepository;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
+import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.presentation.calendar.presenter.add.children.ChildrenPresenter;
 import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
 import com.verbatoria.presentation.calendar.presenter.add.clients.ClientsPresenter;
@@ -37,14 +38,14 @@ public class CalendarModule {
 
     @Provides
     @CalendarScope
-    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository) {
-        return new ChildrenInteractor(childrenRepository);
+    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository, ITokenRepository tokenRepository) {
+        return new ChildrenInteractor(childrenRepository, tokenRepository);
     }
 
     @Provides
     @CalendarScope
-    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository) {
-        return new ClientsInteractor(clientsRepository);
+    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository, ITokenRepository tokenRepository) {
+        return new ClientsInteractor(clientsRepository, tokenRepository);
     }
 
     @Provides

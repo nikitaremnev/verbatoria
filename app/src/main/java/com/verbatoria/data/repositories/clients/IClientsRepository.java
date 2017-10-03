@@ -2,6 +2,7 @@ package com.verbatoria.data.repositories.clients;
 
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
+import com.verbatoria.data.network.response.MessageResponseModel;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -11,7 +12,7 @@ import rx.Observable;
  */
 public interface IClientsRepository {
 
-    Observable<ResponseBody> addClient(String clientId, String accessToken, ClientRequestModel clientRequestModel);
+    Observable<MessageResponseModel> addClient(String accessToken, ClientRequestModel clientRequestModel);
 
     Observable<ResponseBody> editClient(String clientId, String accessToken, ClientRequestModel clientRequestModel);
 

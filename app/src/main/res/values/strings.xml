@@ -107,7 +107,7 @@
 
 
     <string name="email">Контактная почта</string>
-    <string name="phone">Контактный номер телефона</string>
+    <string name="message">Контактный номер телефона</string>
     <string name="city">Город</string>
     <string name="diagnose">Диагноз</string>
     <string name="write_card">Записать сертификат</string>

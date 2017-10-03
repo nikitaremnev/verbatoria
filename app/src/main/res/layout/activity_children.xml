@@ -63,7 +63,7 @@
         android:id="@+id/submit_button"
         android:layout_width="@dimen/activity_save_button_width"
         android:layout_height="@dimen/button_height"
-        android:text="@string/calendar_activity_add_child_create"
+        android:text="@string/calendar_activity_create"
         style="@style/ButtonStyle"
         android:layout_below="@+id/birthday_layout"
         android:layout_alignParentRight="true"
