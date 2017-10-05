@@ -2,6 +2,7 @@ package com.verbatoria.business.dashboard.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -18,6 +19,8 @@ import java.util.Date;
 public class ChildModel implements Parcelable {
 
     private String mId;
+
+    private String mClientId;
 
     private String mName;
 
@@ -58,6 +61,19 @@ public class ChildModel implements Parcelable {
         mBirthday = birthday;
     }
 
+    public String getClientId() {
+        return mClientId;
+    }
+
+    public ChildModel setClientId(String clientId) {
+        mClientId = clientId;
+        return this;
+    }
+
+    public boolean isFull() {
+        return !(TextUtils.isEmpty(mName) || mBirthday == null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,12 +85,13 @@ public class ChildModel implements Parcelable {
         ChildModel that = (ChildModel) o;
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mName, that.mName) &&
-                Objects.equal(mBirthday, that.mBirthday);
+                Objects.equal(mBirthday, that.mBirthday) &&
+                Objects.equal(mClientId, that.mClientId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mBirthday);
+        return Objects.hashCode(mId, mName, mBirthday, mClientId);
     }
 
     @Override
@@ -83,6 +100,7 @@ public class ChildModel implements Parcelable {
                 .add("mId", mId)
                 .add("mName", mName)
                 .add("mBirthday", mBirthday)
+                .add("mClientId", mClientId)
                 .toString();
     }
 
@@ -96,6 +114,8 @@ public class ChildModel implements Parcelable {
         dest.writeString(this.mId);
         dest.writeString(this.mName);
         dest.writeLong(this.mBirthday != null ? this.mBirthday.getTime() : -1);
+        dest.writeString(this.mClientId);
+
     }
 
     protected ChildModel(Parcel in) {
@@ -103,6 +123,8 @@ public class ChildModel implements Parcelable {
         this.mName = in.readString();
         long tmpMBirthday = in.readLong();
         this.mBirthday = tmpMBirthday == -1 ? null : new Date(tmpMBirthday);
+        this.mClientId = in.readString();
+
     }
 
     public static final Parcelable.Creator<ChildModel> CREATOR = new Parcelable.Creator<ChildModel>() {

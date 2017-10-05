@@ -3,9 +3,9 @@ package com.verbatoria.data.repositories.clients;
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
+import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
 
-import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -23,8 +23,8 @@ public class ClientsRepository implements IClientsRepository {
     }
 
     @Override
-    public Observable<ResponseBody> editClient(String clientId, String accessToken, ClientRequestModel clientRequestModel) {
-        return APIFactory.getAPIService().editClientRequest(clientId, accessToken, clientRequestModel);
+    public Observable<MessageResponseModel> editClient(String clientId, String accessToken, EditClientRequestModel editClientRequestModel) {
+        return APIFactory.getAPIService().editClientRequest(clientId, accessToken, editClientRequestModel);
     }
 
     @Override

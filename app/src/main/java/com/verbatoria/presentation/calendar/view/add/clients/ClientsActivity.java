@@ -61,9 +61,6 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
-    @BindView(R.id.progress_layout)
-    public View mLoadingView;
-
     private MenuItem mEditMenuItem;
     private MenuItem mCancelMenuItem;
 
@@ -115,12 +112,11 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         setUpNavigation();
         setUpFields();
         setUpEditableFields();
-//        if (mClientsPresenter.isEditMode()) {
-//            setUpReadonlyMode();
-//        } else {
-//            setUpNewClientMode();
-//        }
-        setUpNewClientMode();
+        if (mClientsPresenter.isEditMode()) {
+            setUpReadonlyMode();
+        } else {
+            setUpNewClientMode();
+        }
     }
 
     @Override
@@ -146,12 +142,12 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     @Override
     public void showProgress() {
-        mLoadingView.setVisibility(View.VISIBLE);
+        startProgress();
     }
 
     @Override
     public void hideProgress() {
-        mLoadingView.setVisibility(View.GONE);
+        stopProgress();
     }
 
     @Override
@@ -168,7 +164,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         }
         mSubmitButton.setText(getString(R.string.calendar_activity_save));
         mSubmitButton.setVisibility(View.VISIBLE);
-//        mSubmitButton.setOnClickListener(v -> mClientsPresenter.);
+        mSubmitButton.setOnClickListener(v -> mClientsPresenter.editClient());
     }
 
     @Override
@@ -191,13 +187,13 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     @Override
     public void finishWithResult() {
         setResult(RESULT_OK, createClientIntent());
-        finishWithResult();
+        finish();
     }
 
     @Override
     public void finishCanceled() {
         setResult(RESULT_CANCELED, createClientIntent());
-        finishWithResult();
+        finish();
     }
 
     private Intent createClientIntent() {
@@ -224,12 +220,11 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
             }
         }
         mSubmitButton.setVisibility(View.GONE);
-//        mSubmitButton.setOnClickListener(v -> mClientsPresenter.);
     }
 
     @Override
     public void showError(String message) {
-        Helper.showSnackBar(mLoadingView, message);
+        Helper.showSnackBar(mSubmitButton, message);
     }
 
     private void setUpFields() {

@@ -66,10 +66,10 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void editClient() {
-//        mClientsInteractor(getClientModel())
-//                .doOnSubscribe(() -> mClientView.showProgress())
-//                .doOnUnsubscribe(() -> mClientView.hideProgress())
-//                .subscribe(this::handleClientAdded, this::handleClientAddError);
+        mClientsInteractor.editClient(mClientModel)
+                .doOnSubscribe(() -> mClientView.showProgress())
+                .doOnUnsubscribe(() -> mClientView.hideProgress())
+                .subscribe(this::handleClientAdded, this::handleClientError);
     }
 
     @Override
@@ -99,9 +99,9 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
     }
 
     private void handleClientAdded(MessageResponseModel messageResponseModel) {
-        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
+//        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
             mClientView.finishWithResult();
-        }
+//        }
     }
 
     private void handleClientError(Throwable throwable) {

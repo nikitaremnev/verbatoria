@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
@@ -26,6 +29,8 @@ import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+
+import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity.EXTRA_CLIENT_MODEL;
 
 /**
  * Экран события
@@ -77,6 +82,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
         setPresenter((BasePresenter) mEventDetailPresenter);
         super.onCreate(savedInstanceState);
+
+        mEventDetailPresenter.loadClient();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ACTIVITY_ClIENTS_CODE && resultCode == RESULT_OK) {
+            ClientModel obtainedClientModel = data.getParcelableExtra(EXTRA_CLIENT_MODEL);
+            Log.e("test", "client obtained: " + obtainedClientModel.toString());
+            mEventDetailPresenter.setClientModel(obtainedClientModel);
+        }
     }
 
     @Override
@@ -126,6 +143,39 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         Snackbar snackbar = Snackbar.make(mLoadingView, message, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
+
+    @Override
+    public void updateClientView(ClientModel clientModel) {
+        if (clientModel == null) {
+            ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+        } else {
+            ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(clientModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
+            String clientString = TextUtils.isEmpty(clientModel.getName()) ? getString(R.string.event_detail_activity_field_empty): clientModel.getName();
+            setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
+        }
+    }
+
+    @Override
+    public void updateChildView(ChildModel childModel) {
+        if (childModel == null) {
+            ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+        } else {
+            ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(childModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
+            String childString = TextUtils.isEmpty(childModel.getName()) ? getString(R.string.event_detail_activity_field_empty): childModel.getName();
+            setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
+        }
+    }
+
+    @Override
+    public void disableButton() {
+        mSubmitButton.setEnabled(false);
+    }
+
+    @Override
+    public void enableButton() {
+        mSubmitButton.setEnabled(true);
+    }
+
 
     @Override
     protected void setUpViews() {

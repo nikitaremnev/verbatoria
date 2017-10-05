@@ -5,6 +5,7 @@ import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
+import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
@@ -81,9 +82,9 @@ public interface APIService {
                                               @Body ClientRequestModel client);
 
     @PUT(APIConstants.EDIT_CLIENT_URL)
-    Observable<ResponseBody> editClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
+    Observable<MessageResponseModel> editClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
                                                @Header(TOKEN_HEADER_KEY) String accessToken,
-                                               @Body ClientRequestModel client);
+                                               @Body EditClientRequestModel client);
 
     @GET(APIConstants.GET_CLIENT_URL)
     Observable<ClientModel> getClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,

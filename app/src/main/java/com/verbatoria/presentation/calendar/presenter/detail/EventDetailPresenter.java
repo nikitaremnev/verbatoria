@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
+import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.detail.IEventDetailView;
@@ -23,13 +25,16 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     private static final String TAG = EventDetailPresenter.class.getSimpleName();
     public static final String EXTRA_EVENT_MODEL = "com.verbatoria.presentation.dashboard.presenter.calendar.EXTRA_EVENT_MODEL";
 
+    private IClientsInteractor mClientsInteractor;
     private ISessionInteractor mSessionInteractor;
     private IEventDetailView mCalendarEventDetailView;
     private EventModel mEventModel;
+    private ClientModel mClientModel;
     private boolean mIsEditMode;
 
-    public EventDetailPresenter(ISessionInteractor sessionInteractor) {
+    public EventDetailPresenter(ISessionInteractor sessionInteractor, IClientsInteractor clientsInteractor) {
         mSessionInteractor = sessionInteractor;
+        mClientsInteractor = clientsInteractor;
     }
 
     @Override
@@ -90,6 +95,34 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
+    public ClientModel getClientModel() {
+        return mClientModel;
+    }
+
+    @Override
+    public void loadClient() {
+        if (mEventModel != null) {
+            addSubscription(mClientsInteractor.getClient(mEventModel.getChild().getClientId())
+                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler())
+                    .subscribe(this::handleClientLoaded, this::handleSessionStartError));
+        }
+    }
+
+    @Override
+    public void setClientModel(ClientModel clientModel) {
+        mClientModel = clientModel;
+        mCalendarEventDetailView.updateClientView(mClientModel);
+    }
+
+    @Override
+    public void setChildModel(ChildModel childModel) {
+        mEventModel.setChild(childModel);
+        mCalendarEventDetailView.updateChildView(childModel);
+    }
+
+    @Override
     public boolean isEditMode() {
         return mIsEditMode;
     }
@@ -102,6 +135,20 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     private void handleSessionStartError(Throwable throwable) {
+        throwable.printStackTrace();
+        Logger.exc(TAG, throwable);
+        mCalendarEventDetailView.showError(throwable.getMessage());
+        mCalendarEventDetailView.hideProgress();
+    }
+
+    private void handleClientLoaded(@NonNull ClientModel clientModel) {
+        Logger.e(TAG, clientModel.toString());
+        this.mClientModel = clientModel;
+        mCalendarEventDetailView.hideProgress();
+        mCalendarEventDetailView.updateClientView(mClientModel);
+    }
+
+    private void handleClientLoadingError(Throwable throwable) {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable);
         mCalendarEventDetailView.showError(throwable.getMessage());

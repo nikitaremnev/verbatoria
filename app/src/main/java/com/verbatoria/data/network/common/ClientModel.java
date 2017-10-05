@@ -3,6 +3,7 @@ package com.verbatoria.data.network.common;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,6 +16,8 @@ import com.google.common.base.Objects;
 
 public class ClientModel implements Parcelable {
 
+    private String mId;
+
     private String mName;
 
     private String mEmail;
@@ -23,6 +26,15 @@ public class ClientModel implements Parcelable {
 
     public ClientModel() {
 
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public ClientModel setId(String id) {
+        mId = id;
+        return this;
     }
 
     @JsonGetter("name")
@@ -58,6 +70,10 @@ public class ClientModel implements Parcelable {
         return this;
     }
 
+    public boolean isFull() {
+        return !(TextUtils.isEmpty(mEmail) || TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mName));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -67,24 +83,27 @@ public class ClientModel implements Parcelable {
             return false;
         }
         ClientModel that = (ClientModel) o;
-        return Objects.equal(mName, that.mName) &&
+        return Objects.equal(mId, that.mId) &&
+                Objects.equal(mName, that.mName) &&
                 Objects.equal(mEmail, that.mEmail) &&
                 Objects.equal(mPhone, that.mPhone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mName, mEmail, mPhone);
+        return Objects.hashCode(mId, mName, mEmail, mPhone);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                .add("mId", mId)
                 .add("mName", mName)
                 .add("mEmail", mEmail)
                 .add("mPhone", mPhone)
                 .toString();
     }
+
 
     @Override
     public int describeContents() {
@@ -93,12 +112,14 @@ public class ClientModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mId);
         dest.writeString(this.mName);
         dest.writeString(this.mEmail);
         dest.writeString(this.mPhone);
     }
 
     protected ClientModel(Parcel in) {
+        this.mId = in.readString();
         this.mName = in.readString();
         this.mEmail = in.readString();
         this.mPhone = in.readString();

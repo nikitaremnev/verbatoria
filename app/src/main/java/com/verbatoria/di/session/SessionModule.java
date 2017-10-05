@@ -1,7 +1,15 @@
 package com.verbatoria.di.session;
 
+import com.verbatoria.business.children.ChildrenInteractor;
+import com.verbatoria.business.children.IChildrenInteractor;
+import com.verbatoria.business.clients.ClientsInteractor;
+import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.Session;
+import com.verbatoria.data.repositories.children.ChildrenRepository;
+import com.verbatoria.data.repositories.children.IChildrenRepository;
+import com.verbatoria.data.repositories.clients.ClientsRepository;
+import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -29,6 +37,30 @@ public class SessionModule {
 
     @Provides
     @SessionScope
+    IChildrenRepository provideChildrenRepository() {
+        return new ChildrenRepository();
+    }
+
+    @Provides
+    @SessionScope
+    IClientsRepository provideClientsRepository() {
+        return new ClientsRepository();
+    }
+
+    @Provides
+    @SessionScope
+    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository, ITokenRepository tokenRepository) {
+        return new ChildrenInteractor(childrenRepository, tokenRepository);
+    }
+
+    @Provides
+    @SessionScope
+    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository, ITokenRepository tokenRepository) {
+        return new ClientsInteractor(clientsRepository, tokenRepository);
+    }
+
+    @Provides
+    @SessionScope
     ISessionRepository provideSessionRepository() {
         return new SessionRepository();
     }
@@ -41,8 +73,8 @@ public class SessionModule {
 
     @Provides
     @SessionScope
-    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor) {
-        return new EventDetailPresenter(sessionInteractor);
+    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, IClientsInteractor clientsInteractor) {
+        return new EventDetailPresenter(sessionInteractor, clientsInteractor);
     }
 
     @Provides

@@ -1,10 +1,12 @@
 package com.verbatoria.infrastructure;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.remnev.verbatoriamini.R;
 import com.verbatoria.utils.Logger;
 
 import butterknife.ButterKnife;
@@ -15,6 +17,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = BaseActivity.class.getSimpleName();
 
     private BasePresenter mBasePresenter;
+
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Logger.e(TAG, "onDestroy");
+        stopProgress();
     }
 
     @Override
@@ -63,6 +68,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         mBasePresenter.onRestoreInstanceState(savedInstanceState);
         Logger.e(TAG, "onRestoreInstanceState");
+    }
+
+    protected void startProgress() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setMessage(getString(R.string.loading_please_wait));
+        mProgressDialog.show();
+    }
+
+    protected void stopProgress() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
     }
 
     protected void setPresenter(BasePresenter basePresenter) {

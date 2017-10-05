@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.presentation.calendar.view.detail.IEventDetailView;
 
 /**
@@ -28,6 +29,12 @@ public interface IEventDetailPresenter {
     String getChild();
 
     ChildModel getChildModel();
+    ClientModel getClientModel();
+
+    void loadClient();
+
+    void setClientModel(ClientModel clientModel);
+    void setChildModel(ChildModel childModel);
 
     boolean isEditMode();
 

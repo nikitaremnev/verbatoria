@@ -3,6 +3,7 @@ package com.verbatoria.business.clients;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
+import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -33,25 +34,30 @@ public class ClientsInteractor implements IClientsInteractor {
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
-//    @Override
-//    public Observable<ResponseBody> editClient(ClientModel client) {
-//        return mClientsRepository.editClient(getAccessToken(), getClientRequestModel(client))
-//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-//                .observeOn(RxSchedulers.getMainThreadScheduler());
-//    }
-//
-//    @Override
-//    public Observable<ClientModel> getClient(String clientId) {
-//        return mClientsRepository.addClient(getAccessToken(), getClientRequestModel(client))
-//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-//                .observeOn(RxSchedulers.getMainThreadScheduler());
-//    }
+    @Override
+    public Observable<MessageResponseModel> editClient(ClientModel client) {
+        return mClientsRepository.editClient(client.getId(), getAccessToken(), getEditClientRequestModel(client))
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Observable<ClientModel> getClient(String clientId) {
+        return mClientsRepository.getClient(clientId, getAccessToken())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
 
     private ClientRequestModel getClientRequestModel(ClientModel client) {
         return new ClientRequestModel()
                 .setName(client.getName())
                 .setPhone(client.getPhone())
                 .setEmail(client.getEmail());
+    }
+
+    private EditClientRequestModel getEditClientRequestModel(ClientModel client) {
+        return new EditClientRequestModel()
+                .setClient(getClientRequestModel(client));
     }
 
     private String getAccessToken() {

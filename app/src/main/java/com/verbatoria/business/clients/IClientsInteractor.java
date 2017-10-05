@@ -12,9 +12,9 @@ import rx.Observable;
 public interface IClientsInteractor {
 
     Observable<MessageResponseModel> addClient(ClientModel client);
-//
-//    Observable<ResponseBody> editClient(ClientModel client);
-//
-//    Observable<ClientModel> getClient(String clientId);
+
+    Observable<MessageResponseModel> editClient(ClientModel client);
+
+    Observable<ClientModel> getClient(String clientId);
 
 }

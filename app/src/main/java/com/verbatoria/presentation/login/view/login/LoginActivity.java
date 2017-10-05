@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -55,9 +54,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @BindView(R.id.recovery_password_text_view)
     public TextView mRecoveryPasswordTextView;
 
-    @BindView(R.id.progress_layout)
-    public View mLoadingView;
-
     public static Intent newInstance(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -90,14 +86,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     //отображение прогресса
     @Override
     public void showProgress() {
-        mLoadingView.setVisibility(View.VISIBLE);
-        mLoginButton.setVisibility(View.GONE);
+        startProgress();
     }
 
     @Override
     public void hideProgress() {
-        mLoadingView.setVisibility(View.GONE);
-        mLoginButton.setVisibility(View.VISIBLE);
+        stopProgress();
     }
 
     @Override
@@ -130,7 +124,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void showError(String message) {
-        Helper.showSnackBar(mLoadingView, message);
+        Helper.showSnackBar(mLoginButton, message);
     }
 
     @Override
