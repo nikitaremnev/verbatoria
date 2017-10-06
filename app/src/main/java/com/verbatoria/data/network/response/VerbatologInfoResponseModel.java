@@ -23,6 +23,8 @@ public class VerbatologInfoResponseModel {
 
     private String mEmail;
 
+    private String mLocationId;
+
     public VerbatologInfoResponseModel() {
 
     }
@@ -77,6 +79,17 @@ public class VerbatologInfoResponseModel {
         mEmail = email;
     }
 
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLocationId() {
+        return mLocationId;
+    }
+
+    public VerbatologInfoResponseModel setLocationId(String locationId) {
+        mLocationId = locationId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -90,12 +103,13 @@ public class VerbatologInfoResponseModel {
                 Objects.equal(mLastName, that.mLastName) &&
                 Objects.equal(mMiddleName, that.mMiddleName) &&
                 Objects.equal(mPhone, that.mPhone) &&
-                Objects.equal(mEmail, that.mEmail);
+                Objects.equal(mEmail, that.mEmail) &&
+                Objects.equal(mLocationId, that.mLocationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail);
+        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId);
     }
 
     @Override
@@ -106,6 +120,7 @@ public class VerbatologInfoResponseModel {
                 .add("mMiddleName", mMiddleName)
                 .add("mPhone", mPhone)
                 .add("mEmail", mEmail)
+                .add("mLocationId", mLocationId)
                 .toString();
     }
 }

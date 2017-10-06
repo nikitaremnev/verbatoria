@@ -3,6 +3,7 @@ package com.verbatoria.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.VerbatologModel;
 
 import java.util.Map;
 
@@ -28,8 +29,17 @@ public class PreferencesStorage {
     private static final String LAST_REPORT_NAME_KEY = "LAST_REPORT_NAME_KEY";
     private static final String CURRENT_SESSION_ID = "CURRENT_SESSION_ID";
 
+    private static final String CACHE_PREFERENCES = "cache";
+    private static final String VERBATOLOG_FIRST_NAME_KEY = "VERBATOLOG_FIRST_NAME_KEY";
+    private static final String VERBATOLOG_LAST_NAME_KEY = "VERBATOLOG_LAST_NAME_KEY";
+    private static final String VERBATOLOG_MIDDLE_NAME_KEY = "VERBATOLOG_MIDDLE_NAME_KEY";
+    private static final String VERBATOLOG_PHONE_KEY = "VERBATOLOG_PHONE_KEY";
+    private static final String VERBATOLOG_EMAIL_KEY = "VERBATOLOG_EMAIL_KEY";
+    private static final String VERBATOLOG_LOCATION_ID_KEY = "VERBATOLOG_LOCATION_ID_KEY";
+
     private SharedPreferences mTokenPreferences;
     private SharedPreferences mQuestionsPreferences;
+    private SharedPreferences mCachePreferences;
 
     private static PreferencesStorage sInstance = null;
 
@@ -51,6 +61,7 @@ public class PreferencesStorage {
         if (mContext != null) {
             mTokenPreferences = mContext.getSharedPreferences(TOKEN_PREFERENCES, Context.MODE_PRIVATE);
             mQuestionsPreferences = mContext.getSharedPreferences(QUESTIONS_PREFERENCES, Context.MODE_PRIVATE);
+            mCachePreferences = mContext.getSharedPreferences(CACHE_PREFERENCES, Context.MODE_PRIVATE);
         }
     }
 
@@ -103,6 +114,32 @@ public class PreferencesStorage {
 
     public String getLastReportName() {
         return mTokenPreferences.getString(LAST_REPORT_NAME_KEY, null);
+    }
+
+    public void setVerbatologInfo(VerbatologModel verbatologModel) {
+        SharedPreferences.Editor editor = mCachePreferences.edit();
+        editor.putString(VERBATOLOG_FIRST_NAME_KEY, verbatologModel.getFirstName());
+        editor.putString(VERBATOLOG_LAST_NAME_KEY, verbatologModel.getLastName());
+        editor.putString(VERBATOLOG_MIDDLE_NAME_KEY, verbatologModel.getMiddleName());
+        editor.putString(VERBATOLOG_PHONE_KEY, verbatologModel.getPhone());
+        editor.putString(VERBATOLOG_LOCATION_ID_KEY, verbatologModel.getLocationId());
+        editor.putString(VERBATOLOG_EMAIL_KEY, verbatologModel.getEmail());
+        editor.apply();
+    }
+
+    public VerbatologModel getVerbatologInfo() {
+        return new VerbatologModel()
+                .setLocationId(mCachePreferences.getString(VERBATOLOG_LOCATION_ID_KEY, null))
+                .setEmail(mCachePreferences.getString(VERBATOLOG_EMAIL_KEY, null))
+                .setFirstName(mCachePreferences.getString(VERBATOLOG_FIRST_NAME_KEY, null))
+                .setLastName(mCachePreferences.getString(VERBATOLOG_LAST_NAME_KEY, null))
+                .setMiddleName(mCachePreferences.getString(VERBATOLOG_MIDDLE_NAME_KEY, null))
+                .setPhone(mCachePreferences.getString(VERBATOLOG_PHONE_KEY, null));
+
+    }
+
+    public String getLocationId() {
+        return mCachePreferences.getString(VERBATOLOG_LOCATION_ID_KEY, null);
     }
 
     public void setCurrentSessionId(String sessionId) {

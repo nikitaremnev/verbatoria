@@ -20,4 +20,11 @@ public interface IChildrenPresenter {
     ChildModel getChildModel();
 
     boolean isEditMode();
+
+    void createChild();
+    void editChild();
+
+    String getChildName();
+    String getChildBirthday();
+
 }

@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.verbatoria.data.network.response.IdResponseModel;
+
+import java.util.List;
 
 /**
  * @author nikitaremnev
@@ -23,6 +26,8 @@ public class ClientModel implements Parcelable {
     private String mEmail;
 
     private String mPhone;
+
+    private List<IdResponseModel> mChildren;
 
     public ClientModel() {
 
@@ -70,6 +75,17 @@ public class ClientModel implements Parcelable {
         return this;
     }
 
+    @JsonGetter("children")
+    @Nullable
+    public List<IdResponseModel> getChildren() {
+        return mChildren;
+    }
+
+    public ClientModel setChildren(List<IdResponseModel> children) {
+        mChildren = children;
+        return this;
+    }
+
     public boolean isFull() {
         return !(TextUtils.isEmpty(mEmail) || TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mName));
     }
@@ -86,12 +102,13 @@ public class ClientModel implements Parcelable {
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mName, that.mName) &&
                 Objects.equal(mEmail, that.mEmail) &&
-                Objects.equal(mPhone, that.mPhone);
+                Objects.equal(mPhone, that.mPhone) &&
+                Objects.equal(mChildren, that.mChildren);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mEmail, mPhone);
+        return Objects.hashCode(mId, mName, mEmail, mPhone, mChildren);
     }
 
     @Override
@@ -101,6 +118,7 @@ public class ClientModel implements Parcelable {
                 .add("mName", mName)
                 .add("mEmail", mEmail)
                 .add("mPhone", mPhone)
+                .add("mChildren", mChildren)
                 .toString();
     }
 
@@ -123,6 +141,7 @@ public class ClientModel implements Parcelable {
         this.mName = in.readString();
         this.mEmail = in.readString();
         this.mPhone = in.readString();
+        in.readList(this.mChildren, IdResponseModel.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<ClientModel> CREATOR = new Parcelable.Creator<ClientModel>() {

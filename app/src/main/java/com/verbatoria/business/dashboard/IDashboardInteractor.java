@@ -19,4 +19,6 @@ public interface IDashboardInteractor {
 
     Observable<List<EventModel>> getVerbatologEvents();
 
+    Observable<VerbatologModel> getVerbatologInfoFromCache();
+
 }

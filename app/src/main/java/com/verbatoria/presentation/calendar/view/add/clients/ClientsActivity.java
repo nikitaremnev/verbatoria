@@ -66,22 +66,12 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     public static Intent newInstance(Context mContext, ClientModel clientModel) {
         Intent intent = new Intent(mContext, ClientsActivity.class);
-        clientModel = new ClientModel();
-        clientModel.setEmail("test@mail.ru");
-        clientModel.setName("Test Testovich");
-        clientModel.setPhone("+7 915 397 4689");
         intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
         return intent;
     }
 
     public static Intent newInstance(Context mContext) {
-        Intent intent = new Intent(mContext, ClientsActivity.class);
-        ClientModel clientModel = new ClientModel();
-        clientModel.setEmail("test@mail.ru");
-        clientModel.setName("Test Testovich");
-        clientModel.setPhone("+7 915 397 4689");
-        intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
-        return intent;
+        return new Intent(mContext, ClientsActivity.class);
     }
 
     @Override
@@ -187,12 +177,6 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     @Override
     public void finishWithResult() {
         setResult(RESULT_OK, createClientIntent());
-        finish();
-    }
-
-    @Override
-    public void finishCanceled() {
-        setResult(RESULT_CANCELED, createClientIntent());
         finish();
     }
 

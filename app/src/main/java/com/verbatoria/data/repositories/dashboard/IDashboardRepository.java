@@ -1,8 +1,9 @@
 package com.verbatoria.data.repositories.dashboard;
 
-import com.verbatoria.data.network.response.VerbatologEventResponseModel;
+import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
-import java.util.List;
+
 import rx.Observable;
 
 /**
@@ -15,6 +16,9 @@ public interface IDashboardRepository {
 
     Observable<VerbatologInfoResponseModel> getVerbatologInfo(String accessToken);
 
-    Observable<List<VerbatologEventResponseModel>> getVerbatologEvents(String accessToken);
+    Observable<EventsResponseModel> getEvents(String accessToken);
 
+    Observable<VerbatologModel> getVerbatologInfoFromCache();
+
+    void saveVerbatologInfo(VerbatologModel verbatologModel);
 }

@@ -24,34 +24,12 @@ public class VerbatologModel {
 
     private String mEmail;
 
+    private String mLocationId;
+
     private List<EventModel> mEvents;
 
     public VerbatologModel() {
 
-    }
-
-    public String getFirstName() {
-        return mFirstName;
-    }
-
-    public void setFirstName(String firstName) {
-        mFirstName = firstName;
-    }
-
-    public String getLastName() {
-        return mLastName;
-    }
-
-    public void setLastName(String lastName) {
-        mLastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return mMiddleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        mMiddleName = middleName;
     }
 
     public String getFullName() {
@@ -68,28 +46,67 @@ public class VerbatologModel {
         return stringBuilder.toString();
     }
 
+    public String getFirstName() {
+        return mFirstName;
+    }
+
+    public VerbatologModel setFirstName(String firstName) {
+        mFirstName = firstName;
+        return this;
+    }
+
+    public String getLastName() {
+        return mLastName;
+    }
+
+    public VerbatologModel setLastName(String lastName) {
+        mLastName = lastName;
+        return this;
+    }
+
+    public String getMiddleName() {
+        return mMiddleName;
+    }
+
+    public VerbatologModel setMiddleName(String middleName) {
+        mMiddleName = middleName;
+        return this;
+    }
+
     public String getPhone() {
         return mPhone;
     }
 
-    public void setPhone(String phone) {
+    public VerbatologModel setPhone(String phone) {
         mPhone = phone;
+        return this;
     }
 
     public String getEmail() {
         return mEmail;
     }
 
-    public void setEmail(String email) {
+    public VerbatologModel setEmail(String email) {
         mEmail = email;
+        return this;
+    }
+
+    public String getLocationId() {
+        return mLocationId;
+    }
+
+    public VerbatologModel setLocationId(String locationId) {
+        mLocationId = locationId;
+        return this;
     }
 
     public List<EventModel> getEvents() {
         return mEvents;
     }
 
-    public void setEvents(List<EventModel> events) {
+    public VerbatologModel setEvents(List<EventModel> events) {
         mEvents = events;
+        return this;
     }
 
     @Override
@@ -106,12 +123,13 @@ public class VerbatologModel {
                 Objects.equal(mMiddleName, that.mMiddleName) &&
                 Objects.equal(mPhone, that.mPhone) &&
                 Objects.equal(mEmail, that.mEmail) &&
+                Objects.equal(mLocationId, that.mLocationId) &&
                 Objects.equal(mEvents, that.mEvents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mEvents);
+        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mEvents);
     }
 
     @Override
@@ -122,6 +140,7 @@ public class VerbatologModel {
                 .add("mMiddleName", mMiddleName)
                 .add("mPhone", mPhone)
                 .add("mEmail", mEmail)
+                .add("mLocationId", mLocationId)
                 .add("mEvents", mEvents)
                 .toString();
     }

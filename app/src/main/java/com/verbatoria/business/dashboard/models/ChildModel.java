@@ -3,12 +3,12 @@ package com.verbatoria.business.dashboard.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.verbatoria.utils.DateUtils;
 
-import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -53,8 +53,13 @@ public class ChildModel implements Parcelable {
         return mBirthday;
     }
 
-    public String getBirthdayDateString() throws ParseException {
-        return DateUtils.toString(mBirthday);
+    public String getBirthdayDateString() {
+        try {
+            return DateUtils.toString(mBirthday);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return "";
+        }
     }
 
     public void setBirthday(Date birthday) {
@@ -71,6 +76,8 @@ public class ChildModel implements Parcelable {
     }
 
     public boolean isFull() {
+        Log.e("test", "mName: " + TextUtils.isEmpty(mName));
+        Log.e("test", "mBirthday: " + (mBirthday == null));
         return !(TextUtils.isEmpty(mName) || mBirthday == null);
     }
 

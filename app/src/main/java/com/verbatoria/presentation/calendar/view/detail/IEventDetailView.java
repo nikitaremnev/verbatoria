@@ -1,6 +1,7 @@
 package com.verbatoria.presentation.calendar.view.detail;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.data.network.common.ClientModel;
 
 /**
@@ -18,12 +19,16 @@ public interface IEventDetailView {
     void startChild();
     void startClient();
     void startDatePicker();
+    void startTimePicker();
     void showError(String message);
 
     void updateClientView(ClientModel clientModel);
     void updateChildView(ChildModel childModel);
+    void updateEventTime(EventModel eventModel);
 
     void disableButton();
     void enableButton();
+
+    void finishWithResult();
 
 }

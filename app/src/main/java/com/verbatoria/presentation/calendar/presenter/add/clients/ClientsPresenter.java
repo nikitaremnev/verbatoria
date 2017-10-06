@@ -58,18 +58,18 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void createClient() {
-        mClientsInteractor.addClient(getClientModel())
+        addSubscription(mClientsInteractor.addClient(mClientModel)
                 .doOnSubscribe(() -> mClientView.showProgress())
                 .doOnUnsubscribe(() -> mClientView.hideProgress())
-                .subscribe(this::handleClientAdded, this::handleClientError);
+                .subscribe(this::handleClientRequestSuccess, this::handleClientRequestError));
     }
 
     @Override
     public void editClient() {
-        mClientsInteractor.editClient(mClientModel)
+        addSubscription(mClientsInteractor.editClient(mClientModel)
                 .doOnSubscribe(() -> mClientView.showProgress())
                 .doOnUnsubscribe(() -> mClientView.hideProgress())
-                .subscribe(this::handleClientAdded, this::handleClientError);
+                .subscribe(this::handleClientRequestSuccess, this::handleClientRequestError));
     }
 
     @Override
@@ -98,13 +98,13 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     }
 
-    private void handleClientAdded(MessageResponseModel messageResponseModel) {
+    private void handleClientRequestSuccess(MessageResponseModel messageResponseModel) {
 //        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
             mClientView.finishWithResult();
 //        }
     }
 
-    private void handleClientError(Throwable throwable) {
+    private void handleClientRequestError(Throwable throwable) {
         mClientView.showError(throwable.getMessage());
     }
 }

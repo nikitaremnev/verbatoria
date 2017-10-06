@@ -6,8 +6,11 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
+
+import okhttp3.ResponseBody;
 
 import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
 
@@ -56,6 +59,34 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     }
 
     @Override
+    public void createChild() {
+        mChildModel.setName(mChildrenView.getChildName());
+        addSubscription(mChildrenInteractor.addChild(mChildModel)
+                .doOnSubscribe(() -> mChildrenView.showProgress())
+                .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+                .subscribe(this::handleChildRequestSuccess, this::handleChildRequestError));
+    }
+
+    @Override
+    public void editChild() {
+        mChildModel.setName(mChildrenView.getChildName());
+        addSubscription(mChildrenInteractor.editChild(mChildModel)
+                .doOnSubscribe(() -> mChildrenView.showProgress())
+                .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+                .subscribe(this::handleChildRequestSuccess, this::handleChildRequestError));
+    }
+
+    @Override
+    public String getChildName() {
+        return mChildModel != null ? mChildModel.getName() != null ? mChildModel.getName() : "" : "";
+    }
+
+    @Override
+    public String getChildBirthday() {
+        return mChildModel != null ? mChildModel.getBirthdayDateString() != null ? mChildModel.getBirthdayDateString() : "" : "";
+    }
+
+    @Override
     public void saveState(Bundle outState) {
 
     }
@@ -63,5 +94,21 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     @Override
     public void restoreState(Bundle savedInstanceState) {
 
+    }
+
+    private void handleChildRequestSuccess(MessageResponseModel messageResponseModel) {
+//        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
+        mChildrenView.finishWithResult();
+//        }
+    }
+
+    private void handleChildRequestSuccess(ResponseBody responseBody) {
+//        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
+        mChildrenView.finishWithResult();
+//        }
+    }
+
+    private void handleChildRequestError(Throwable throwable) {
+        mChildrenView.showError(throwable.getMessage());
     }
 }

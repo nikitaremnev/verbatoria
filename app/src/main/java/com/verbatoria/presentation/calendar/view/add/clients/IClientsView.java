@@ -16,7 +16,6 @@ public interface IClientsView {
     void setUpNewClientMode();
 
     void finishWithResult();
-    void finishCanceled();
 
     void showError(String message);
 

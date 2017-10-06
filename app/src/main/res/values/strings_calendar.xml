@@ -26,9 +26,15 @@
     <string name="event_detail_activity_client_phone">Телефон</string>
     <string name="event_detail_activity_client_email">Почтовый адрес</string>
 
+    <string name="event_detail_activity_child_name">Имя ребенка</string>
+    <string name="event_detail_activity_child_birthday">Дата рождения</string>
+
     <string name="event_detail_activity_client_name_editable_hint">Имя клиента</string>
     <string name="event_detail_activity_client_phone_editable_hint">Телефон</string>
     <string name="event_detail_activity_client_email_editable_hint">Почтовый адрес</string>
+
+    <string name="event_detail_activity_child_name_editable_hint">Имя ребенка</string>
+    <string name="event_detail_activity_child_birthday_editable_hint">Дата рождения</string>
 
     <string name="action_edit">Редактировать</string>
     <string name="action_cancel">Отмена</string>

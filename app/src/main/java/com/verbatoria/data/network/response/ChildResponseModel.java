@@ -11,15 +11,17 @@ import com.google.common.base.Objects;
  *
  * @author nikitaremnev
  */
-public class VerbatologChildResponseModel {
+public class ChildResponseModel {
 
     private String mId;
+
+    private String mClientId;
 
     private String mName;
 
     private String mBirthday;
 
-    public VerbatologChildResponseModel() {
+    public ChildResponseModel() {
 
     }
 
@@ -31,6 +33,16 @@ public class VerbatologChildResponseModel {
 
     public void setId(String id) {
         mId = id;
+    }
+
+    @JsonGetter("client_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getClientId() {
+        return mClientId;
+    }
+
+    public void setClientId(String clientId) {
+        mClientId = clientId;
     }
 
     @JsonGetter("name")
@@ -61,23 +73,26 @@ public class VerbatologChildResponseModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        VerbatologChildResponseModel that = (VerbatologChildResponseModel) o;
+        ChildResponseModel that = (ChildResponseModel) o;
         return Objects.equal(mId, that.mId) &&
+                Objects.equal(mClientId, that.mClientId) &&
                 Objects.equal(mName, that.mName) &&
                 Objects.equal(mBirthday, that.mBirthday);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mBirthday);
+        return Objects.hashCode(mId, mClientId, mName, mBirthday);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("mId", mId)
+                .add("mClientId", mClientId)
                 .add("mName", mName)
                 .add("mBirthday", mBirthday)
                 .toString();
     }
 }
+

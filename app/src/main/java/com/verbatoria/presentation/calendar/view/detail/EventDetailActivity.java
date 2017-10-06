@@ -1,5 +1,7 @@
 package com.verbatoria.presentation.calendar.view.detail;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +11,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
@@ -26,10 +30,13 @@ import com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity;
 import com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 
+import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
 import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity.EXTRA_CLIENT_MODEL;
 
 /**
@@ -37,7 +44,9 @@ import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActiv
  *
  * @author nikitaremnev
  */
-public class EventDetailActivity extends BaseActivity implements IEventDetailView {
+public class EventDetailActivity extends BaseActivity implements IEventDetailView,
+        DatePickerDialog.OnDateSetListener,
+        TimePickerDialog.OnTimeSetListener {
 
     private static final String TAG = EventDetailActivity.class.getSimpleName();
 
@@ -62,6 +71,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @BindView(R.id.progress_layout)
     public View mLoadingView;
 
+    private Calendar mSelectTimeCalendar;
+
     public static Intent newInstance(Context mContext, EventModel eventModel) {
         Intent intent = new Intent(mContext, EventDetailActivity.class);
         intent.putExtra(EventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
@@ -81,8 +92,13 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         mEventDetailPresenter.obtainEvent(getIntent());
 
         setPresenter((BasePresenter) mEventDetailPresenter);
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mEventDetailPresenter.loadClient();
     }
 
@@ -93,6 +109,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             ClientModel obtainedClientModel = data.getParcelableExtra(EXTRA_CLIENT_MODEL);
             Log.e("test", "client obtained: " + obtainedClientModel.toString());
             mEventDetailPresenter.setClientModel(obtainedClientModel);
+        }
+        if (requestCode == ACTIVITY_CHILDREN_CODE && resultCode == RESULT_OK) {
+            ChildModel obtainedChildModel = data.getParcelableExtra(EXTRA_CHILD_MODEL);
+            Log.e("test", "child obtained: " + obtainedChildModel.toString());
+            mEventDetailPresenter.setChildModel(obtainedChildModel);
         }
     }
 
@@ -123,19 +144,39 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void startChild() {
-        Intent intent = ChildrenActivity.newInstance(this, mEventDetailPresenter.getChildModel());
+        ChildModel childModel = mEventDetailPresenter.getChildModel();
+        Intent intent = childModel == null ? ChildrenActivity.newInstance(this) : ChildrenActivity.newInstance(this, childModel);
         startActivityForResult(intent, ACTIVITY_CHILDREN_CODE);
     }
 
     @Override
     public void startClient() {
-        Intent intent = ClientsActivity.newInstance(this);
+        ClientModel clientModel = mEventDetailPresenter.getClientModel();
+        Intent intent = clientModel == null ? ClientsActivity.newInstance(this) : ClientsActivity.newInstance(this, clientModel);
         startActivityForResult(intent, ACTIVITY_ClIENTS_CODE);
     }
 
     @Override
     public void startDatePicker() {
+        mSelectTimeCalendar = null;
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
 
+    @Override
+    public void startTimePicker() {
+        Calendar now = Calendar.getInstance();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                this,
+                now.get(Calendar.HOUR_OF_DAY),
+                now.get(Calendar.MINUTE),
+                true);
+        timePickerDialog.show();
     }
 
     @Override
@@ -148,6 +189,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void updateClientView(ClientModel clientModel) {
         if (clientModel == null) {
             ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+            String clientString = getString(R.string.event_detail_activity_field_empty);
+            setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
         } else {
             ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(clientModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
             String clientString = TextUtils.isEmpty(clientModel.getName()) ? getString(R.string.event_detail_activity_field_empty): clientModel.getName();
@@ -159,10 +202,25 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void updateChildView(ChildModel childModel) {
         if (childModel == null) {
             ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+            String childString = getString(R.string.event_detail_activity_field_empty);
+            setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
         } else {
             ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(childModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
             String childString = TextUtils.isEmpty(childModel.getName()) ? getString(R.string.event_detail_activity_field_empty): childModel.getName();
             setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
+        }
+    }
+
+    @Override
+    public void updateEventTime(EventModel eventModel) {
+        if (eventModel == null) {
+            ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
+            String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getTime();
+            setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
+        } else {
+            ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(eventModel.hasTime() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
+            String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getTime();
+            setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
         }
     }
 
@@ -176,12 +234,33 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         mSubmitButton.setEnabled(true);
     }
 
+    @Override
+    public void finishWithResult() {
+        setResult(RESULT_OK, createEventIntent());
+        finish();
+    }
 
     @Override
     protected void setUpViews() {
         setUpToolbar();
         setUpButton();
         setUpFields();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        mSelectTimeCalendar = Calendar.getInstance();
+        mSelectTimeCalendar.set(Calendar.YEAR, year);
+        mSelectTimeCalendar.set(Calendar.MONTH, month);
+        mSelectTimeCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        startTimePicker();
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        mSelectTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        mSelectTimeCalendar.set(Calendar.MINUTE, minute);
+        mEventDetailPresenter.setEventDate(mSelectTimeCalendar);
     }
 
     private void setUpToolbar() {
@@ -202,21 +281,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     private void setUpFields() {
-        String clientString = TextUtils.isEmpty(mEventDetailPresenter.getClient()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getClient();
-        String childString = TextUtils.isEmpty(mEventDetailPresenter.getChild()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getChild();
-        String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getTime();
-        setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
-        setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
-        setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
-        setUpFieldsStatus();
-    }
-
-    private void setUpFieldsStatus() {
-        if (!mEventDetailPresenter.isEditMode()) {
-            ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-            ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-            ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-        }
+        updateClientView(mEventDetailPresenter.getClientModel());
+        updateChildView(mEventDetailPresenter.getChildModel());
+        updateEventTime(mEventDetailPresenter.getEvent());
     }
 
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {
@@ -224,6 +291,12 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
         fieldView.setOnClickListener(onClickListener);
+    }
+
+    private Intent createEventIntent() {
+        Intent intent = new Intent();
+        intent.putExtra(EventDetailPresenter.EXTRA_EVENT_MODEL, mEventDetailPresenter.getEvent());
+        return intent;
     }
 
 }

@@ -22,7 +22,7 @@ class APIConstants {
     static final String RESET_PASSWORD_URL = VERBATOLOG_ID_PATH_KEY + "/reset_password" + JSON_PATH;
 
     static final String VERBATOLOG_INFO_URL = VERBATOLOG_ID_PATH_KEY + "/current" + JSON_PATH;
-    static final String VERBATOLOG_EVENTS_URL = VERBATOLOG_ID_PATH_KEY + "/current/events" + JSON_PATH;
+    static final String EVENTS_URL = VERBATOLOG_ID_PATH_KEY + "/current/events" + JSON_PATH;
 
     static final String ADD_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children" + JSON_PATH;
     static final String EDIT_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;

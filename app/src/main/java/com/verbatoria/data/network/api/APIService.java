@@ -10,13 +10,12 @@ import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
+import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
-import com.verbatoria.data.network.response.VerbatologEventResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
-import java.util.List;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -51,18 +50,18 @@ public interface APIService {
     Observable<MessageResponseModel> resetPassword(@Body ResetPasswordRequestModel resetPasswordRequestModel);
 
     @GET(APIConstants.VERBATOLOG_INFO_URL)
-    Observable<VerbatologInfoResponseModel> verbatologInfoRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
+    Observable<VerbatologInfoResponseModel> getVerbatologInfoRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
-    @GET(APIConstants.VERBATOLOG_EVENTS_URL)
-    Observable<List<VerbatologEventResponseModel>> verbatologEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
+    @GET(APIConstants.EVENTS_URL)
+    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
 
-    @POST(APIConstants.VERBATOLOG_EVENTS_URL)
+    @POST(APIConstants.EVENTS_URL)
     Observable<ResponseBody> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
                                              @Body AddEventRequestModel event);
 
     @POST(APIConstants.ADD_CHILD_URL)
-    Observable<ResponseBody> addChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
+    Observable<MessageResponseModel> addChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
                                              @Header(TOKEN_HEADER_KEY) String accessToken,
                                              @Body ChildRequestModel child);
 

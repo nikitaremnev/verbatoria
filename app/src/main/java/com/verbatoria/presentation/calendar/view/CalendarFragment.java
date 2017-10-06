@@ -36,6 +36,8 @@ import butterknife.ButterKnife;
  */
 public class CalendarFragment extends Fragment implements ICalendarView, DatePickerDialog.OnDateSetListener {
 
+    public static final int ACTIVITY_EVENT_CODE = 30;
+
     @Inject
     ICalendarPresenter mCalendarPresenter;
 
@@ -89,7 +91,7 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     }
 
     private void setUpAddEventButton() {
-        mAddEventButton.setOnClickListener(v -> startActivity(EventDetailActivity.newInstance(getContext())));
+        mAddEventButton.setOnClickListener(v -> startActivityForResult(EventDetailActivity.newInstance(getContext()), ACTIVITY_EVENT_CODE));
         mAddEventButton.show();
     }
 
@@ -125,4 +127,5 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
 
     }
+
 }

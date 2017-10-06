@@ -33,13 +33,14 @@ public class DashboardInteractor implements IDashboardInteractor {
     public Observable<VerbatologModel> getVerbatologInfo(VerbatologModel verbatolog) {
         return mDashboardRepository.getVerbatologInfo(getAccessToken())
                 .map(item -> VerbatologProcessor.convertInfoResponseToVerbatologModel(verbatolog, item))
+                .doOnNext(verbatologModel -> mDashboardRepository.saveVerbatologInfo(verbatologModel))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override
     public Observable<VerbatologModel> getVerbatologEvents(VerbatologModel verbatolog) {
-        return mDashboardRepository.getVerbatologEvents(getAccessToken())
+        return mDashboardRepository.getEvents(getAccessToken())
                 .map(item -> VerbatologProcessor.convertEventsResponseToVerbatologModel(verbatolog, item))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
@@ -47,8 +48,15 @@ public class DashboardInteractor implements IDashboardInteractor {
 
     @Override
     public Observable<List<EventModel>> getVerbatologEvents() {
-        return mDashboardRepository.getVerbatologEvents(getAccessToken())
+        return mDashboardRepository.getEvents(getAccessToken())
                 .map(VerbatologProcessor::convertEventsResponseToVerbatologEventsModelList)
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Observable<VerbatologModel> getVerbatologInfoFromCache() {
+        return mDashboardRepository.getVerbatologInfoFromCache()
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

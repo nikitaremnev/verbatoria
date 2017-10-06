@@ -11,4 +11,14 @@ public interface IChildrenView {
     void showProgress();
     void hideProgress();
 
+    void setUpEditableMode();
+    void setUpReadonlyMode();
+    void setUpNewChildMode();
+
+    String getChildName();
+
+    void finishWithResult();
+
+    void showError(String message);
+
 }

@@ -4,8 +4,9 @@ import com.verbatoria.business.dashboard.DashboardInteractorException;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.data.network.response.VerbatologChildResponseModel;
-import com.verbatoria.data.network.response.VerbatologEventResponseModel;
+import com.verbatoria.data.network.response.ChildResponseModel;
+import com.verbatoria.data.network.response.EventResponseModel;
+import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.DateUtils;
 
@@ -27,47 +28,49 @@ public class VerbatologProcessor {
         verbatologModel.setMiddleName(verbatologInfoResponseModel.getMiddleName());
         verbatologModel.setEmail(verbatologInfoResponseModel.getEmail());
         verbatologModel.setPhone(verbatologInfoResponseModel.getPhone());
+        verbatologModel.setLocationId(verbatologInfoResponseModel.getLocationId());
         return verbatologModel;
     }
 
     public static VerbatologModel convertEventsResponseToVerbatologModel(VerbatologModel verbatologModel,
-                                                                   List<VerbatologEventResponseModel> verbatologEventResponseModelList) {
+                                                                   EventsResponseModel eventsResponseModel) {
         List<EventModel> verbatologEventsList = new ArrayList<>();
-        for (int i = 0; i < verbatologEventResponseModelList.size(); i ++) {
-            verbatologEventsList.add(convertVerbatologEventResponseToEventModel(verbatologEventResponseModelList.get(i)));
+        for (int i = 0; i < eventsResponseModel.getEvents().size(); i ++) {
+            verbatologEventsList.add(convertVerbatologEventResponseToEventModel(eventsResponseModel.getEvents().get(i)));
         }
         verbatologModel.setEvents(verbatologEventsList);
         return verbatologModel;
     }
 
-    public static List<EventModel> convertEventsResponseToVerbatologEventsModelList(List<VerbatologEventResponseModel> verbatologEventResponseModelList) {
+    public static List<EventModel> convertEventsResponseToVerbatologEventsModelList(EventsResponseModel eventsResponseModel) {
         List<EventModel> verbatologEventsList = new ArrayList<>();
-        for (int i = 0; i < verbatologEventResponseModelList.size(); i ++) {
-            verbatologEventsList.add(convertVerbatologEventResponseToEventModel(verbatologEventResponseModelList.get(i)));
+        for (int i = 0; i < eventsResponseModel.getEvents().size(); i ++) {
+            verbatologEventsList.add(convertVerbatologEventResponseToEventModel(eventsResponseModel.getEvents().get(i)));
         }
         return verbatologEventsList;
     }
 
-    private static EventModel convertVerbatologEventResponseToEventModel(VerbatologEventResponseModel verbatologEventResponseModel) {
+    private static EventModel convertVerbatologEventResponseToEventModel(EventResponseModel eventResponseModel) {
         EventModel eventModel = new EventModel();
-        eventModel.setId(verbatologEventResponseModel.getId());
+        eventModel.setId(eventResponseModel.getId());
         try {
-            eventModel.setStartAt(DateUtils.parseDate(verbatologEventResponseModel.getStartAt()));
-            eventModel.setEndAt(DateUtils.parseDate(verbatologEventResponseModel.getEndAt()));
+            eventModel.setStartAt(DateUtils.parseDate(eventResponseModel.getStartAt()));
+            eventModel.setEndAt(DateUtils.parseDate(eventResponseModel.getEndAt()));
         } catch (ParseException e) {
             throw new DashboardInteractorException(e.getMessage());
         }
-        eventModel.setChild(convertVerbatologChildResponseToEventModel(verbatologEventResponseModel.getChild()));
+        eventModel.setChild(convertVerbatologChildResponseToEventModel(eventResponseModel.getChild()));
         return eventModel;
     }
 
-    private static ChildModel convertVerbatologChildResponseToEventModel(VerbatologChildResponseModel verbatologChildResponseModel) throws DashboardInteractorException {
+    private static ChildModel convertVerbatologChildResponseToEventModel(ChildResponseModel childResponseModel) throws DashboardInteractorException {
         ChildModel childModel = new ChildModel();
-        childModel.setId(verbatologChildResponseModel.getId());
-        childModel.setName(verbatologChildResponseModel.getName());
+        childModel.setId(childResponseModel.getId());
+        childModel.setClientId(childResponseModel.getClientId());
+        childModel.setName(childResponseModel.getName());
         try {
-            if (verbatologChildResponseModel.getBirthday() != null) {
-                childModel.setBirthday(DateUtils.parseDate(verbatologChildResponseModel.getBirthday()));
+            if (childResponseModel.getBirthday() != null) {
+                childModel.setBirthday(DateUtils.parseDate(childResponseModel.getBirthday()));
             }
         } catch (ParseException e) {
             throw new DashboardInteractorException(e.getMessage());

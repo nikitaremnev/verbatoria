@@ -85,6 +85,10 @@ public class EventModel implements Parcelable {
         return DateUtils.periodToString(getStartAt(), getEndAt());
     }
 
+    public boolean hasTime() {
+        return mStartAt != null && mEndAt != null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

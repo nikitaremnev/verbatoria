@@ -11,7 +11,7 @@ import com.google.common.base.Objects;
  *
  * @author nikitaremnev
  */
-public class VerbatologEventResponseModel {
+public class EventResponseModel {
 
     private String mId;
 
@@ -19,9 +19,9 @@ public class VerbatologEventResponseModel {
 
     private String mEndAt;
 
-    private VerbatologChildResponseModel mChild;
+    private ChildResponseModel mChild;
 
-    public VerbatologEventResponseModel() {
+    public EventResponseModel() {
 
     }
 
@@ -57,11 +57,11 @@ public class VerbatologEventResponseModel {
 
     @JsonGetter("child")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public VerbatologChildResponseModel getChild() {
+    public ChildResponseModel getChild() {
         return mChild;
     }
 
-    public void setChild(VerbatologChildResponseModel child) {
+    public void setChild(ChildResponseModel child) {
         mChild = child;
     }
 
@@ -73,7 +73,7 @@ public class VerbatologEventResponseModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        VerbatologEventResponseModel that = (VerbatologEventResponseModel) o;
+        EventResponseModel that = (EventResponseModel) o;
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mStartAt, that.mStartAt) &&
                 Objects.equal(mEndAt, that.mEndAt) &&

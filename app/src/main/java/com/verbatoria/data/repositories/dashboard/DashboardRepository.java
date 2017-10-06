@@ -1,10 +1,10 @@
 package com.verbatoria.data.repositories.dashboard;
 
+import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.api.APIFactory;
-import com.verbatoria.data.network.response.VerbatologEventResponseModel;
+import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
-
-import java.util.List;
+import com.verbatoria.utils.PreferencesStorage;
 
 import rx.Observable;
 
@@ -22,11 +22,21 @@ public class DashboardRepository implements IDashboardRepository {
 
     @Override
     public Observable<VerbatologInfoResponseModel> getVerbatologInfo(String accessToken) {
-        return APIFactory.getAPIService().verbatologInfoRequest(accessToken);
+        return APIFactory.getAPIService().getVerbatologInfoRequest(accessToken);
     }
 
     @Override
-    public Observable<List<VerbatologEventResponseModel>> getVerbatologEvents(String accessToken) {
-        return APIFactory.getAPIService().verbatologEventsRequest(accessToken);
+    public Observable<EventsResponseModel> getEvents(String accessToken) {
+        return APIFactory.getAPIService().getEventsRequest(accessToken);
+    }
+
+    @Override
+    public Observable<VerbatologModel> getVerbatologInfoFromCache() {
+        return Observable.fromCallable(() -> PreferencesStorage.getInstance().getVerbatologInfo());
+    }
+
+    @Override
+    public void saveVerbatologInfo(VerbatologModel verbatologModel) {
+        PreferencesStorage.getInstance().setVerbatologInfo(verbatologModel);
     }
 }

@@ -15,6 +15,8 @@ import com.verbatoria.presentation.calendar.view.detail.IEventDetailView;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.RxSchedulers;
 
+import java.util.Calendar;
+
 /**
  * Реализация презентера для экрана события
  *
@@ -50,9 +52,10 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void startSession() {
         addSubscription(mSessionInteractor.startSession(mEventModel.getId())
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler())
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                 .subscribe(this::handleSessionStarted, this::handleSessionStartError));
     }
 
@@ -81,17 +84,17 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public String getClient() {
-        return mEventModel != null ? "Клиент" : "";
+        return mClientModel != null ? mClientModel.getName() : "";
     }
 
     @Override
     public String getChild() {
-        return mEventModel != null ? "Ребенок" : "";
+        return mEventModel != null ? mEventModel.getChild().getName() : "";
     }
 
     @Override
     public ChildModel getChildModel() {
-        return mEventModel.getChild();
+        return mEventModel != null ? mEventModel.getChild() : null;
     }
 
     @Override
@@ -103,9 +106,10 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void loadClient() {
         if (mEventModel != null) {
             addSubscription(mClientsInteractor.getClient(mEventModel.getChild().getClientId())
-                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler())
+                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                     .subscribe(this::handleClientLoaded, this::handleSessionStartError));
         }
     }
@@ -120,6 +124,14 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void setChildModel(ChildModel childModel) {
         mEventModel.setChild(childModel);
         mCalendarEventDetailView.updateChildView(childModel);
+    }
+
+    @Override
+    public void setEventDate(Calendar calendar) {
+        mEventModel.setStartAt(calendar.getTime());
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 30);
+        mEventModel.setEndAt(calendar.getTime());
+        mCalendarEventDetailView.updateEventTime(mEventModel);
     }
 
     @Override

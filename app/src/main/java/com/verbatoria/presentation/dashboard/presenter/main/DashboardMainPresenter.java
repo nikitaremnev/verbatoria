@@ -7,7 +7,6 @@ import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.presentation.dashboard.view.main.IDashboardMainView;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.RxSchedulers;
 
 /**
  * Реализация презентера для dashboard
@@ -57,7 +56,8 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     }
 
     private void handleVerbatologInfoLoadingFailed(Throwable throwable) {
-        Logger.exc(TAG, throwable);
+        mDashboardInteractor.getVerbatologInfoFromCache()
+                .subscribe(this::handleVerbatologInfoReceived, this::handleVerbatologEventsLoadingFailed);
     }
 
     private void handleVerbatologEventsReceived(@NonNull VerbatologModel verbatologModel) {

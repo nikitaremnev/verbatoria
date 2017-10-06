@@ -8,6 +8,8 @@ import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.presentation.calendar.view.detail.IEventDetailView;
 
+import java.util.Calendar;
+
 /**
  * Презентер для события календаря
  *
@@ -35,6 +37,7 @@ public interface IEventDetailPresenter {
 
     void setClientModel(ClientModel clientModel);
     void setChildModel(ChildModel childModel);
+    void setEventDate(Calendar calendar);
 
     boolean isEditMode();
 
