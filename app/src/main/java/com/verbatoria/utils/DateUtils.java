@@ -25,6 +25,7 @@ public class DateUtils {
     private static final SimpleDateFormat SERVER_DATE_WITHOUT_YEAR_FORMAT = new SimpleDateFormat("dd.MM", Locale.ROOT);
     private static final SimpleDateFormat SERVER_TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.ROOT);
     private static final SimpleDateFormat TIMER_TIME_FORMAT = new SimpleDateFormat("mm:ss", Locale.ROOT);
+    private static final SimpleDateFormat UI_DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
 
     public static boolean isCurrentYear(long millis) {
         Calendar currentCalendar = Calendar.getInstance();
@@ -66,6 +67,10 @@ public class DateUtils {
 
     public static String toString(Date date) {
         return SERVER_DATE_FORMAT.format(date);
+    }
+
+    public static String toUIDateString(Date date) {
+        return UI_DATE_FORMAT.format(date);
     }
 
     public static String fileNameFromDate(Date date) {

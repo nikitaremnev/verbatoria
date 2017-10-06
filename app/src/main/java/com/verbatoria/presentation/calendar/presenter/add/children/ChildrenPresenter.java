@@ -10,6 +10,8 @@ import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
 
+import java.util.Date;
+
 import okhttp3.ResponseBody;
 
 import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
@@ -45,6 +47,8 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
         mChildModel = intent.getParcelableExtra(EXTRA_CHILD_MODEL);
         if (mChildModel != null) {
             mIsEditMode = true;
+        } else {
+            mChildModel = new ChildModel();
         }
     }
 
@@ -87,6 +91,12 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     }
 
     @Override
+    public void setChildBirthday(Date birthday) {
+        mChildModel.setBirthday(birthday);
+        mChildrenView.updateBirthday();
+    }
+
+    @Override
     public void saveState(Bundle outState) {
 
     }
@@ -97,15 +107,11 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     }
 
     private void handleChildRequestSuccess(MessageResponseModel messageResponseModel) {
-//        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
         mChildrenView.finishWithResult();
-//        }
     }
 
     private void handleChildRequestSuccess(ResponseBody responseBody) {
-//        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
         mChildrenView.finishWithResult();
-//        }
     }
 
     private void handleChildRequestError(Throwable throwable) {

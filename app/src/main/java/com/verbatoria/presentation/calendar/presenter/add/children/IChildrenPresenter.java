@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
 
+import java.util.Date;
+
 /**
  * Презентер для добавления события в календарь
  *
@@ -27,4 +29,5 @@ public interface IChildrenPresenter {
     String getChildName();
     String getChildBirthday();
 
+    void setChildBirthday(Date birthday);
 }

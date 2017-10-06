@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.calendar.view.add.children;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +24,8 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
 import com.verbatoria.utils.Helper;
 
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -31,7 +35,8 @@ import butterknife.BindView;
  *
  * @author nikitaremnev
  */
-public class ChildrenActivity extends BaseActivity implements IChildrenView {
+public class ChildrenActivity extends BaseActivity implements IChildrenView,
+        DatePickerDialog.OnDateSetListener {
 
     private static final String TAG = ChildrenActivity.class.getSimpleName();
     public static final String EXTRA_CHILD_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CHILD_MODEL";
@@ -48,11 +53,10 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
     @BindView(R.id.child_name_editable_field)
     public View mChildNameEditableField;
 
-    @BindView(R.id.child_birthday_editable_field)
-    public View mChildBirthdayEditableField;
-
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
+
+    private Calendar mBirthday;
 
     private MenuItem mEditMenuItem;
     private MenuItem mCancelMenuItem;
@@ -116,13 +120,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setUpNavigation() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.calendar_activity_add_child_title));
-    }
-
     @Override
     public void showProgress() {
         startProgress();
@@ -136,9 +133,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
     @Override
     public void setUpEditableMode() {
         mChildNameEditableField.setVisibility(View.VISIBLE);
-        mChildBirthdayEditableField.setVisibility(View.VISIBLE);
         mChildNameField.setVisibility(View.GONE);
-        mChildBirthdayField.setVisibility(View.GONE);
         if (mEditMenuItem != null && mCancelMenuItem != null) {
             mEditMenuItem.setVisible(false);
             mCancelMenuItem.setVisible(true);
@@ -151,9 +146,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
     @Override
     public void setUpNewChildMode() {
         mChildNameEditableField.setVisibility(View.VISIBLE);
-        mChildBirthdayEditableField.setVisibility(View.VISIBLE);
         mChildNameField.setVisibility(View.GONE);
-        mChildBirthdayField.setVisibility(View.GONE);
         if (mEditMenuItem != null && mCancelMenuItem != null) {
             mEditMenuItem.setVisible(false);
             mCancelMenuItem.setVisible(true);
@@ -166,6 +159,16 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
     @Override
     public String getChildName() {
         return getFieldValue(mChildNameEditableField);
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        mBirthday = Calendar.getInstance();
+        mBirthday.set(Calendar.YEAR, year);
+        mBirthday.set(Calendar.MONTH, month);
+        mBirthday.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        mChildrenPresenter.setChildBirthday(mBirthday.getTime());
+
     }
 
     @Override
@@ -183,7 +186,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
     @Override
     public void setUpReadonlyMode() {
         mChildNameEditableField.setVisibility(View.GONE);
-        mChildBirthdayEditableField.setVisibility(View.GONE);
         mChildNameField.setVisibility(View.VISIBLE);
         mChildBirthdayField.setVisibility(View.VISIBLE);
         if (mEditMenuItem != null && mCancelMenuItem != null) {
@@ -199,29 +201,51 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
     }
 
     @Override
+    public void startDatePicker() {
+        mBirthday = null;
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                this,
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void updateBirthday() {
+        String childBirthdayString = TextUtils.isEmpty(mChildrenPresenter.getChildBirthday()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildBirthday();
+        setUpFieldView(mChildBirthdayField, R.drawable.ic_child_birthday, childBirthdayString, getString(R.string.event_detail_activity_child_birthday), v -> { startDatePicker(); });
+    }
+
+    @Override
     public void showError(String message) {
         Helper.showSnackBar(mSubmitButton, message);
     }
 
+    private void setUpNavigation() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle(getString(R.string.calendar_activity_add_child_title));
+    }
+
     private void setUpFields() {
         String childNameString = TextUtils.isEmpty(mChildrenPresenter.getChildName()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildName();
-        String childBirthdayString = TextUtils.isEmpty(mChildrenPresenter.getChildBirthday()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildBirthday();
-        setUpFieldView(mChildNameField, R.drawable.ic_child_name, childNameString, getString(R.string.event_detail_activity_child_name));
-        setUpFieldView(mChildBirthdayField, R.drawable.ic_child_birthday, childBirthdayString, getString(R.string.event_detail_activity_child_birthday));
-
+        setUpFieldView(mChildNameField, R.drawable.ic_child_name, childNameString, getString(R.string.event_detail_activity_child_name), v -> {});
+        updateBirthday();
     }
 
     private void setUpEditableFields() {
         setUpEditableFieldView(mChildNameEditableField, R.drawable.ic_child_name, mChildrenPresenter.getChildName(),
                 getString(R.string.event_detail_activity_child_name_editable_hint), InputType.TYPE_TEXT_FLAG_CAP_WORDS);
-        setUpEditableFieldView(mChildBirthdayEditableField, R.drawable.ic_child_birthday, mChildrenPresenter.getChildBirthday(),
-                getString(R.string.event_detail_activity_child_birthday_editable_hint), InputType.TYPE_CLASS_DATETIME);
     }
 
-    private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle) {
+    private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
+        fieldView.setOnClickListener(onClickListener);
     }
 
     private void setUpEditableFieldView(View fieldView, int imageResource, String title, String hint, int inputType) {

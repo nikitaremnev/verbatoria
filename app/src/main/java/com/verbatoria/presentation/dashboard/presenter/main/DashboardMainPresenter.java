@@ -3,6 +3,7 @@ package com.verbatoria.presentation.dashboard.presenter.main;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.presentation.dashboard.view.main.IDashboardMainView;
@@ -18,11 +19,13 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     private static final String TAG = DashboardMainPresenter.class.getSimpleName();
 
     private IDashboardInteractor mDashboardInteractor;
+    private ICalendarInteractor mCalendarInteractor;
     private IDashboardMainView mDashboardView;
     private VerbatologModel mVerbatologModel;
 
-    public DashboardMainPresenter(IDashboardInteractor dashboardInteractor) {
+    public DashboardMainPresenter(IDashboardInteractor dashboardInteractor, ICalendarInteractor calendarInteractor) {
         mDashboardInteractor = dashboardInteractor;
+        mCalendarInteractor = calendarInteractor;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     @Override
     public void updateVerbatologEvents() {
         Log.e(TAG, "get verbatolog events updateVerbatologEvents");
-        mDashboardInteractor.getVerbatologEvents(mVerbatologModel)
+        mCalendarInteractor.getVerbatologEvents(mVerbatologModel)
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 

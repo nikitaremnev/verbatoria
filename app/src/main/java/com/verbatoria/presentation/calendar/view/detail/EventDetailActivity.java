@@ -20,7 +20,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.data.network.common.ClientModel;
-import com.verbatoria.di.session.SessionModule;
+import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.detail.EventDetailPresenter;
@@ -84,7 +84,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
+        VerbatoriaApplication.getApplicationComponent().addModule(new CalendarModule()).inject(this);
+
         setContentView(R.layout.activity_event_detail);
 
         mEventDetailPresenter.bindView(this);

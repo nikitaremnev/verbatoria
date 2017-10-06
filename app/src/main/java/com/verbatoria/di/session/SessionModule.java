@@ -1,5 +1,6 @@
 package com.verbatoria.di.session;
 
+import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.children.ChildrenInteractor;
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.clients.ClientsInteractor;
@@ -73,8 +74,8 @@ public class SessionModule {
 
     @Provides
     @SessionScope
-    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, IClientsInteractor clientsInteractor) {
-        return new EventDetailPresenter(sessionInteractor, clientsInteractor);
+    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, ICalendarInteractor calendarInteractor, IClientsInteractor clientsInteractor) {
+        return new EventDetailPresenter(sessionInteractor, calendarInteractor, clientsInteractor);
     }
 
     @Provides

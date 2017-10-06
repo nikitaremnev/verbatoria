@@ -1,11 +1,10 @@
 package com.verbatoria.presentation.calendar.presenter;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.ICalendarView;
 import com.verbatoria.utils.Logger;
 
@@ -21,10 +20,12 @@ public class CalendarPresenter implements ICalendarPresenter {
     private static final String TAG = CalendarPresenter.class.getSimpleName();
 
     private IDashboardInteractor mDashboardInteractor;
+    private ICalendarInteractor mCalendarInteractor;
     private ICalendarView mCalendarView;
 
-    public CalendarPresenter(IDashboardInteractor dashboardInteractor) {
+    public CalendarPresenter(IDashboardInteractor dashboardInteractor, ICalendarInteractor calendarInteractor) {
         mDashboardInteractor = dashboardInteractor;
+        mCalendarInteractor = calendarInteractor;
     }
 
     @Override
@@ -39,7 +40,7 @@ public class CalendarPresenter implements ICalendarPresenter {
 
     @Override
     public void updateVerbatologEvents() {
-        mDashboardInteractor.getVerbatologEvents()
+        mCalendarInteractor.getVerbatologEvents()
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 

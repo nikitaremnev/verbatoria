@@ -1,7 +1,11 @@
 package com.verbatoria.di.dashboard;
 
+import com.verbatoria.business.calendar.CalendarInteractor;
+import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.dashboard.DashboardInteractor;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
+import com.verbatoria.data.repositories.calendar.CalendarRepository;
+import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.dashboard.DashboardRepository;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -33,6 +37,12 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
+    ICalendarRepository provideCalendarRepository() {
+        return new CalendarRepository();
+    }
+
+    @Provides
+    @DashboardScope
     IDashboardInteractor provideDashboardInteractor(IDashboardRepository dashboardRepository,
                                                     ITokenRepository tokenRepository) {
         return new DashboardInteractor(dashboardRepository, tokenRepository);
@@ -40,8 +50,16 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
-    IDashboardMainPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor) {
-        return new DashboardMainPresenter(dashboardInteractor);
+    ICalendarInteractor provideCalendarInteractor(ICalendarRepository calendarRepository,
+                                                  IDashboardRepository dashboardRepository,
+                                                  ITokenRepository tokenRepository) {
+        return new CalendarInteractor(calendarRepository, dashboardRepository, tokenRepository);
+    }
+
+    @Provides
+    @DashboardScope
+    IDashboardMainPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor, ICalendarInteractor calendarInteractor) {
+        return new DashboardMainPresenter(dashboardInteractor, calendarInteractor);
     }
 
     @Provides
@@ -58,7 +76,7 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
-    ICalendarPresenter provideCalendarPresenter(IDashboardInteractor dashboardInteractor) {
-        return new CalendarPresenter(dashboardInteractor);
+    ICalendarPresenter provideCalendarPresenter(IDashboardInteractor dashboardInteractor, ICalendarInteractor calendarInteractor) {
+        return new CalendarPresenter(dashboardInteractor, calendarInteractor);
     }
 }

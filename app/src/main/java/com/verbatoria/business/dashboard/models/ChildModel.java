@@ -55,7 +55,7 @@ public class ChildModel implements Parcelable {
 
     public String getBirthdayDateString() {
         try {
-            return DateUtils.toString(mBirthday);
+            return DateUtils.toUIDateString(mBirthday);
         } catch (Exception ex) {
             ex.printStackTrace();
             return "";

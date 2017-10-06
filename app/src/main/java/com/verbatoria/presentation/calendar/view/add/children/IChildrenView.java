@@ -21,4 +21,8 @@ public interface IChildrenView {
 
     void showError(String message);
 
+    void startDatePicker();
+
+    void updateBirthday();
+
 }

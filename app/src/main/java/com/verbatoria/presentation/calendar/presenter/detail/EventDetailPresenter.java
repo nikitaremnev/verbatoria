@@ -18,6 +18,8 @@ import com.verbatoria.utils.RxSchedulers;
 
 import java.util.Calendar;
 
+import okhttp3.ResponseBody;
+
 /**
  * Реализация презентера для экрана события
  *
@@ -61,17 +63,17 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
                 .observeOn(RxSchedulers.getMainThreadScheduler())
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleSessionStarted, this::handleSessionStartError));
+                .subscribe(this::handleSessionStarted, this::handleError));
     }
 
     @Override
     public void createEvent() {
-        addSubscription(mClientsInteractor.getClient(mEventModel.getChild().getClientId())
+        addSubscription(mCalendarInteractor.addEvent(mEventModel)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler())
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleClientLoaded, this::handleSessionStartError));
+                .subscribe(this::handleEventLoaded, this::handleError));
     }
 
     @Override
@@ -91,7 +93,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public String getTime() {
-        return mEventModel != null ? mEventModel.getEventTime() : "";
+        return mEventModel != null && mEventModel.getEndAt() != null && mEventModel.getStartAt() != null ? mEventModel.getEventTime() : "";
     }
 
     @Override
@@ -116,13 +118,13 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void loadClient() {
-        if (mEventModel != null) {
+        if (mEventModel != null && mEventModel.getChild() != null) {
             addSubscription(mClientsInteractor.getClient(mEventModel.getChild().getClientId())
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler())
                     .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                     .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                    .subscribe(this::handleClientLoaded, this::handleSessionStartError));
+                    .subscribe(this::handleClientLoaded, this::handleError));
         }
     }
 
@@ -158,25 +160,28 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mCalendarEventDetailView.startConnection();
     }
 
-    private void handleSessionStartError(Throwable throwable) {
-        throwable.printStackTrace();
-        Logger.exc(TAG, throwable);
-        mCalendarEventDetailView.showError(throwable.getMessage());
-        mCalendarEventDetailView.hideProgress();
-    }
-
     private void handleClientLoaded(@NonNull ClientModel clientModel) {
         Logger.e(TAG, clientModel.toString());
         this.mClientModel = clientModel;
-        mCalendarEventDetailView.hideProgress();
         mCalendarEventDetailView.updateClientView(mClientModel);
+    }
+
+
+    private void handleEventLoaded(@NonNull ResponseBody responseBody) {
+        Logger.e(TAG, responseBody.toString());
+        mCalendarEventDetailView.updateClientView(mClientModel);
+    }
+
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        Logger.exc(TAG, throwable);
+        mCalendarEventDetailView.showError(throwable.getMessage());
     }
 
     private void handleClientLoadingError(Throwable throwable) {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable);
         mCalendarEventDetailView.showError(throwable.getMessage());
-        mCalendarEventDetailView.hideProgress();
     }
 
     @Override
