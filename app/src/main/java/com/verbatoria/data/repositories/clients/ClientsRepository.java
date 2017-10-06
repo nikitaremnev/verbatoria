@@ -23,7 +23,7 @@ public class ClientsRepository implements IClientsRepository {
     }
 
     @Override
-    public Observable<MessageResponseModel> editClient(String clientId, String accessToken, EditClientRequestModel editClientRequestModel) {
+    public Observable<ClientModel> editClient(String clientId, String accessToken, EditClientRequestModel editClientRequestModel) {
         return APIFactory.getAPIService().editClientRequest(clientId, accessToken, editClientRequestModel);
     }
 

@@ -21,7 +21,8 @@ public class ClientsInteractor implements IClientsInteractor {
     private IClientsRepository mClientsRepository;
     private ITokenRepository mTokenRepository;
 
-    public ClientsInteractor(IClientsRepository clientsRepository, ITokenRepository tokenRepository) {
+    public ClientsInteractor(IClientsRepository clientsRepository,
+                             ITokenRepository tokenRepository) {
         mClientsRepository = clientsRepository;
         mTokenRepository = tokenRepository;
     }
@@ -35,7 +36,7 @@ public class ClientsInteractor implements IClientsInteractor {
     }
 
     @Override
-    public Observable<MessageResponseModel> editClient(ClientModel client) {
+    public Observable<ClientModel> editClient(ClientModel client) {
         return mClientsRepository.editClient(client.getId(), getAccessToken(), getEditClientRequestModel(client))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());

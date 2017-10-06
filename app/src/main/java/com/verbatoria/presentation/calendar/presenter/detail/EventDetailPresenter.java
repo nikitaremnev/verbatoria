@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -29,13 +30,17 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     private IClientsInteractor mClientsInteractor;
     private ISessionInteractor mSessionInteractor;
+    private ICalendarInteractor mCalendarInteractor;
     private IEventDetailView mCalendarEventDetailView;
     private EventModel mEventModel;
     private ClientModel mClientModel;
     private boolean mIsEditMode;
 
-    public EventDetailPresenter(ISessionInteractor sessionInteractor, IClientsInteractor clientsInteractor) {
+    public EventDetailPresenter(ISessionInteractor sessionInteractor,
+                                ICalendarInteractor calendarInteractor,
+                                IClientsInteractor clientsInteractor) {
         mSessionInteractor = sessionInteractor;
+        mCalendarInteractor = calendarInteractor;
         mClientsInteractor = clientsInteractor;
     }
 
@@ -61,7 +66,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void createEvent() {
-
+        addSubscription(mClientsInteractor.getClient(mEventModel.getChild().getClientId())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleClientLoaded, this::handleSessionStartError));
     }
 
     @Override
@@ -69,6 +79,8 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
         if (mEventModel != null) {
             mIsEditMode = true;
+        } else {
+            mEventModel = new EventModel();
         }
     }
 

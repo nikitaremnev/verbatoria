@@ -19,4 +19,8 @@ public interface IClientsView {
 
     void showError(String message);
 
+    String getClientName();
+    String getClientEmail();
+    String getClientPhone();
+
 }

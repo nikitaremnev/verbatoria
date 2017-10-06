@@ -81,7 +81,7 @@ public interface APIService {
                                               @Body ClientRequestModel client);
 
     @PUT(APIConstants.EDIT_CLIENT_URL)
-    Observable<MessageResponseModel> editClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
+    Observable<ClientModel> editClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
                                                @Header(TOKEN_HEADER_KEY) String accessToken,
                                                @Body EditClientRequestModel client);
 

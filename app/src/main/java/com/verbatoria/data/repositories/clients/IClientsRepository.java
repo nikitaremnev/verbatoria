@@ -14,7 +14,7 @@ public interface IClientsRepository {
 
     Observable<MessageResponseModel> addClient(String accessToken, ClientRequestModel clientRequestModel);
 
-    Observable<MessageResponseModel> editClient(String clientId, String accessToken, EditClientRequestModel editClientRequestModel);
+    Observable<ClientModel> editClient(String clientId, String accessToken, EditClientRequestModel editClientRequestModel);
 
     Observable<ClientModel> getClient(String clientId, String accessToken);
 

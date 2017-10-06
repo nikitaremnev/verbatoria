@@ -218,13 +218,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView {
                 getString(R.string.event_detail_activity_child_birthday_editable_hint), InputType.TYPE_CLASS_DATETIME);
     }
 
-    private void setUpFieldsStatus() {
-        if (!mChildrenPresenter.isEditMode()) {
-            ((ImageView) mChildNameField.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-            ((ImageView) mChildBirthdayField.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-        }
-    }
-
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle) {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);

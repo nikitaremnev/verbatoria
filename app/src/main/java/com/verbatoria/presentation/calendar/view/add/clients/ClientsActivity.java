@@ -211,6 +211,21 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         Helper.showSnackBar(mSubmitButton, message);
     }
 
+    @Override
+    public String getClientName() {
+        return getFieldValue(mClientNameEditableField);
+    }
+
+    @Override
+    public String getClientEmail() {
+        return getFieldValue(mClientEmailEditableField);
+    }
+
+    @Override
+    public String getClientPhone() {
+        return getFieldValue(mClientPhoneEditableField);
+    }
+
     private void setUpFields() {
         String clientNameString = TextUtils.isEmpty(mClientsPresenter.getClientName()) ? getString(R.string.event_detail_activity_field_empty): mClientsPresenter.getClientName();
         String clientPhoneString = TextUtils.isEmpty(mClientsPresenter.getClientPhone()) ? getString(R.string.event_detail_activity_field_empty): mClientsPresenter.getClientPhone();
@@ -265,6 +280,11 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         );
         phoneEditText.addTextChangedListener(listener);
         phoneEditText.setOnFocusChangeListener(listener);
+    }
+
+    private String getFieldValue(View fieldView) {
+        EditText fieldEditText = (EditText) fieldView.findViewById(R.id.field_edit_text);
+        return fieldEditText.getText().toString();
     }
 
 }

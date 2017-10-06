@@ -31,8 +31,9 @@ public class AddEventRequestModel {
         return mChildId;
     }
 
-    public void setChildId(String childId) {
+    public AddEventRequestModel setChildId(String childId) {
         mChildId = childId;
+        return this;
     }
 
     @JsonGetter("location_id")
@@ -41,8 +42,9 @@ public class AddEventRequestModel {
         return mLocationId;
     }
 
-    public void setLocationId(String locationId) {
+    public AddEventRequestModel setLocationId(String locationId) {
         mLocationId = locationId;
+        return this;
     }
 
     @JsonGetter("start_at")
@@ -51,8 +53,9 @@ public class AddEventRequestModel {
         return mStartAt;
     }
 
-    public void setStartAt(String startAt) {
+    public AddEventRequestModel setStartAt(String startAt) {
         mStartAt = startAt;
+        return this;
     }
 
     @JsonGetter("end_at")
@@ -61,8 +64,9 @@ public class AddEventRequestModel {
         return mEndAt;
     }
 
-    public void setEndAt(String endAt) {
+    public AddEventRequestModel setEndAt(String endAt) {
         mEndAt = endAt;
+        return this;
     }
 
     @Override

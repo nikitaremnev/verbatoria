@@ -58,6 +58,10 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void createClient() {
+        mClientModel = new ClientModel();
+        mClientModel.setName(mClientView.getClientName());
+        mClientModel.setEmail(mClientView.getClientEmail());
+        mClientModel.setPhone(mClientView.getClientPhone());
         addSubscription(mClientsInteractor.addClient(mClientModel)
                 .doOnSubscribe(() -> mClientView.showProgress())
                 .doOnUnsubscribe(() -> mClientView.hideProgress())
@@ -66,10 +70,13 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void editClient() {
+        mClientModel.setName(mClientView.getClientName());
+        mClientModel.setEmail(mClientView.getClientEmail());
+        mClientModel.setPhone(mClientView.getClientPhone());
         addSubscription(mClientsInteractor.editClient(mClientModel)
                 .doOnSubscribe(() -> mClientView.showProgress())
                 .doOnUnsubscribe(() -> mClientView.hideProgress())
-                .subscribe(this::handleClientRequestSuccess, this::handleClientRequestError));
+                .subscribe(this::handleClientEditSuccess, this::handleClientRequestError));
     }
 
     @Override
@@ -101,6 +108,12 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
     private void handleClientRequestSuccess(MessageResponseModel messageResponseModel) {
 //        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
             mClientView.finishWithResult();
+//        }
+    }
+
+    private void handleClientEditSuccess(ClientModel clientModel) {
+//        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
+        mClientView.finishWithResult();
 //        }
     }
 

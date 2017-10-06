@@ -13,7 +13,7 @@ public interface IClientsInteractor {
 
     Observable<MessageResponseModel> addClient(ClientModel client);
 
-    Observable<MessageResponseModel> editClient(ClientModel client);
+    Observable<ClientModel> editClient(ClientModel client);
 
     Observable<ClientModel> getClient(String clientId);
 
