@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
 import com.verbatoria.presentation.dashboard.view.main.events.IVerbatologEventsView;
@@ -74,7 +75,6 @@ public class DashboardMainFragment extends Fragment implements IDashboardMainVie
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         mDashboardPresenter.bindView(this);
         mDashboardPresenter.updateVerbatologInfo();
-//        mDashboardPresenter.updateVerbatologEvents();
     }
 
     @Override
@@ -127,6 +127,14 @@ public class DashboardMainFragment extends Fragment implements IDashboardMainVie
         mVerbatologInfoView.showVerbatologName(verbatologFullName);
         mVerbatologInfoView.showVerbatologPhone(verbatologPhone);
         mVerbatologInfoView.showVerbatologEmail(verbatologEmail);
+    }
+
+    @Override
+    public void showLocationInfo(LocationModel locationModel) {
+        mVerbatologInfoView.showLocationAddress(locationModel.getAddress());
+        mVerbatologInfoView.showLocationCityCountry(locationModel.getCityCountry());
+        mVerbatologInfoView.showLocationPartner(locationModel.getPartner());
+        mVerbatologInfoView.showLocationName(locationModel.getName());
     }
 
     @Override

@@ -13,4 +13,11 @@ public interface IVerbatologInfoView {
 
     void showVerbatologPhone(String verbatologPhone);
 
+    void showLocationPartner(String partner);
+
+    void showLocationCityCountry(String cityCountry);
+
+    void showLocationAddress(String address);
+
+    void showLocationName(String name);
 }

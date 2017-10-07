@@ -13,17 +13,19 @@ import com.google.common.base.Objects;
  * @author nikitaremnev
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ChildResponseModel {
+public class LocationResponseModel {
 
     private String mId;
 
-    private String mClientId;
-
     private String mName;
 
-    private String mBirthday;
+    private String mAddress;
 
-    public ChildResponseModel() {
+    private PartnerResponseModel mPartner;
+
+    private CityResponseModel mCity;
+
+    public LocationResponseModel() {
 
     }
 
@@ -37,16 +39,6 @@ public class ChildResponseModel {
         mId = id;
     }
 
-    @JsonGetter("client_id")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getClientId() {
-        return mClientId;
-    }
-
-    public void setClientId(String clientId) {
-        mClientId = clientId;
-    }
-
     @JsonGetter("name")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getName() {
@@ -57,14 +49,37 @@ public class ChildResponseModel {
         mName = name;
     }
 
-    @JsonGetter("birth_day")
+    @JsonGetter("address")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getBirthday() {
-        return mBirthday;
+    public String getAddress() {
+        return mAddress;
     }
 
-    public void setBirthday(String birthday) {
-        mBirthday = birthday;
+    public LocationResponseModel setAddress(String address) {
+        mAddress = address;
+        return this;
+    }
+
+    @JsonGetter("partner")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public PartnerResponseModel getPartner() {
+        return mPartner;
+    }
+
+    public LocationResponseModel setPartner(PartnerResponseModel partner) {
+        mPartner = partner;
+        return this;
+    }
+
+    @JsonGetter("city")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public CityResponseModel getCity() {
+        return mCity;
+    }
+
+    public LocationResponseModel setCity(CityResponseModel city) {
+        mCity = city;
+        return this;
     }
 
     @Override
@@ -75,25 +90,27 @@ public class ChildResponseModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ChildResponseModel that = (ChildResponseModel) o;
+        LocationResponseModel that = (LocationResponseModel) o;
         return Objects.equal(mId, that.mId) &&
-                Objects.equal(mClientId, that.mClientId) &&
                 Objects.equal(mName, that.mName) &&
-                Objects.equal(mBirthday, that.mBirthday);
+                Objects.equal(mAddress, that.mAddress) &&
+                Objects.equal(mPartner, that.mPartner) &&
+                Objects.equal(mCity, that.mCity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mClientId, mName, mBirthday);
+        return Objects.hashCode(mId, mName, mAddress, mPartner, mCity);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("mId", mId)
-                .add("mClientId", mClientId)
                 .add("mName", mName)
-                .add("mBirthday", mBirthday)
+                .add("mAddress", mAddress)
+                .add("mPartner", mPartner)
+                .add("mCity", mCity)
                 .toString();
     }
 }

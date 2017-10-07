@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -12,7 +13,7 @@ import com.google.common.base.Objects;
 /**
  * @author nikitaremnev
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ChildModel implements Parcelable {
 
     private String mName;

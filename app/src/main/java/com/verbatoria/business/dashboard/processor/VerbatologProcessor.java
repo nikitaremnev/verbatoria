@@ -3,10 +3,12 @@ package com.verbatoria.business.dashboard.processor;
 import com.verbatoria.business.dashboard.DashboardInteractorException;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.EventResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
+import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.DateUtils;
 
@@ -30,6 +32,16 @@ public class VerbatologProcessor {
         verbatologModel.setPhone(verbatologInfoResponseModel.getPhone());
         verbatologModel.setLocationId(verbatologInfoResponseModel.getLocationId());
         return verbatologModel;
+    }
+
+    public static LocationModel convertLocationResponseToLocationModel(LocationResponseModel locationResponseModel) {
+        LocationModel locationModel = new LocationModel();
+        locationModel.setName(locationResponseModel.getName());
+        locationModel.setAddress(locationResponseModel.getAddress());
+        locationModel.setCity(locationResponseModel.getCity().getName());
+        locationModel.setCountry(locationResponseModel.getCity().getCountry().getName());
+        locationModel.setPartner(locationResponseModel.getPartner().getName());
+        return locationModel;
     }
 
     public static VerbatologModel convertEventsResponseToVerbatologModel(VerbatologModel verbatologModel,

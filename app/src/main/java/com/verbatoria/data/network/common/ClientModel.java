@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * @author nikitaremnev
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ClientModel implements Parcelable {
 
     private String mId;

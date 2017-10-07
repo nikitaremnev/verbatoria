@@ -2,6 +2,7 @@ package com.verbatoria.data.repositories.dashboard;
 
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.api.APIFactory;
+import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.PreferencesStorage;
 
@@ -22,6 +23,11 @@ public class DashboardRepository implements IDashboardRepository {
     @Override
     public Observable<VerbatologInfoResponseModel> getVerbatologInfo(String accessToken) {
         return APIFactory.getAPIService().getVerbatologInfoRequest(accessToken);
+    }
+
+    @Override
+    public Observable<LocationResponseModel> getLocation(String accessToken) {
+        return APIFactory.getAPIService().getLocation(getLocationId(), accessToken);
     }
 
     @Override

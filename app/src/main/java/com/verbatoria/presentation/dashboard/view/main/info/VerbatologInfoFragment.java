@@ -18,13 +18,25 @@ import butterknife.ButterKnife;
 public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoView {
 
     @BindView(R.id.name_text_view)
-    public TextView verbatologNameTextView;
+    public TextView mVerbatologNameTextView;
 
     @BindView(R.id.phone_text_view)
-    public TextView verbatologPhoneTextView;
+    public TextView mVerbatologPhoneTextView;
 
     @BindView(R.id.email_text_view)
-    public TextView verbatologEmailTextView;
+    public TextView mVerbatologEmailTextView;
+
+    @BindView(R.id.location_name_text_view)
+    public TextView mLocationNameTextView;
+
+    @BindView(R.id.location_point_text_view)
+    public TextView mLocationCityCountryTextView;
+
+    @BindView(R.id.location_address_text_view)
+    public TextView mLocationAddressTextView;
+
+    @BindView(R.id.partner_name_text_view)
+    public TextView mPartnerNameTextView;
 
     public VerbatologInfoFragment() {
         // Required empty public constructor
@@ -44,17 +56,37 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
 
     @Override
     public void showVerbatologName(String verbatologName) {
-        verbatologNameTextView.setText(verbatologName);
+        mVerbatologNameTextView.setText(verbatologName);
     }
 
     @Override
     public void showVerbatologEmail(String verbatologEmail) {
-        verbatologEmailTextView.setText(verbatologEmail);
+        mVerbatologEmailTextView.setText(verbatologEmail);
     }
 
     @Override
     public void showVerbatologPhone(String verbatologPhone) {
-        verbatologPhoneTextView.setText(verbatologPhone);
+        mVerbatologPhoneTextView.setText(verbatologPhone);
+    }
+
+    @Override
+    public void showLocationPartner(String partner) {
+        mPartnerNameTextView.setText(partner);
+    }
+
+    @Override
+    public void showLocationCityCountry(String cityCountry) {
+        mLocationCityCountryTextView.setText(cityCountry);
+    }
+
+    @Override
+    public void showLocationAddress(String address) {
+        mLocationAddressTextView.setText(address);
+    }
+
+    @Override
+    public void showLocationName(String name) {
+        mLocationNameTextView.setText(name);
     }
 
 }

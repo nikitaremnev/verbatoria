@@ -1,5 +1,6 @@
 package com.verbatoria.business.dashboard;
 
+import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 
 import rx.Observable;
@@ -15,4 +16,7 @@ public interface IDashboardInteractor {
 
     Observable<VerbatologModel> getVerbatologInfoFromCache();
 
+    Observable<LocationModel> getLocation();
+
+    boolean hasLocationId();
 }

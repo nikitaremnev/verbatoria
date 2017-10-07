@@ -8,34 +8,39 @@ import com.google.common.base.Objects;
 
 /**
  *
- * Модель ответа от сервера на запрос авторизации
+ * Модель ответа от сервера на запрос данных о локации - партнер
  *
  * @author nikitaremnev
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MessageResponseModel {
+public class PartnerResponseModel {
 
-    public static final String CREATED_MESSAGE = "created";
+    private String mId;
 
-    private String mMessage;
+    private String mName;
 
-    public MessageResponseModel() {
+    public PartnerResponseModel() {
 
     }
 
-    public MessageResponseModel(String message) {
-        mMessage = message;
-    }
-
-    @JsonGetter("message")
+    @JsonGetter("id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public String getMessage() {
-        return mMessage;
+    public String getId() {
+        return mId;
     }
 
-    public MessageResponseModel setMessage(String message) {
-        mMessage = message;
-        return this;
+    public void setId(String id) {
+        mId = id;
+    }
+
+    @JsonGetter("name")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        mName = name;
     }
 
     @Override
@@ -46,20 +51,22 @@ public class MessageResponseModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MessageResponseModel that = (MessageResponseModel) o;
-        return Objects.equal(mMessage, that.mMessage);
+        PartnerResponseModel that = (PartnerResponseModel) o;
+        return Objects.equal(mId, that.mId) &&
+                Objects.equal(mName, that.mName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mMessage);
+        return Objects.hashCode(mId, mName);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                .add("mMessage", mMessage)
+                .add("mId", mId)
+                .add("mName", mName)
                 .toString();
     }
-
 }
+

@@ -7,7 +7,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dashboard_padding"
         android:id="@+id/verbatolog_info_frame_layout">
     </FrameLayout>
 

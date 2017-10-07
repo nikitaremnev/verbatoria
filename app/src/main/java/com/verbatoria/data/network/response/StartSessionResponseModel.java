@@ -1,6 +1,7 @@
 package com.verbatoria.data.network.response;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.MoreObjects;
@@ -12,6 +13,7 @@ import com.google.common.base.Objects;
  *
  * @author nikitaremnev
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class StartSessionResponseModel {
 
     private String mId;

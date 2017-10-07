@@ -32,4 +32,7 @@
     <dimen name="settings_item_right_padding">32dp</dimen>
     <dimen name="settings_item_vertical_padding">8dp</dimen>
 
+    <dimen name="verbatolog_info_subtitle_other_padding">16dp</dimen>
+    <dimen name="verbatolog_info_subtitle_bottom_padding">8dp</dimen>
+
 </resources>

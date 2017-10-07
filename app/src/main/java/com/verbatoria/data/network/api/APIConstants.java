@@ -13,6 +13,7 @@ class APIConstants {
 
     static final String VERBATOLOG_ID_PATH_KEY = "verbatolog";
     static final String TOKEN_HEADER_KEY = "token";
+    static final String LOCATION_ID_PATH_KEY = "location_id";
     static final String CLIENT_ID_PATH_KEY = "client_id";
     static final String CHILD_ID_PATH_KEY = "child_id";
     static final String EVENT_ID_PATH_KEY = "event_id";
@@ -38,6 +39,8 @@ class APIConstants {
     static final String ADD_CLIENT_URL = "clients" + JSON_PATH;
     static final String EDIT_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;
     static final String GET_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;
+
+    static final String GET_LOCATION_URL = "locations/{" + LOCATION_ID_PATH_KEY + "}" + JSON_PATH;
 
     static final String SESSION_ID_PATH_KEY = "session_id";
 

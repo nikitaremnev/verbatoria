@@ -1,62 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:paddingTop="@dimen/verbatolog_info_subtitle_other_padding"
+            android:paddingBottom="@dimen/verbatolog_info_subtitle_bottom_padding"
+            android:paddingRight="@dimen/verbatolog_info_subtitle_other_padding"
+            android:paddingLeft="@dimen/verbatolog_info_subtitle_other_padding"
+            android:text="@string/dashboard_neurometrist" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <View
-                android:layout_width="@dimen/verbatolog_status_diameter"
-                android:layout_height="@dimen/verbatolog_status_diameter"
-                android:layout_margin="@dimen/verbatolog_status_margin"
-                android:background="@drawable/verbatolog_status_green"/>
+                android:background="@color/settings_divider_item_color"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_divider_height"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/verbatolog_status_diameter"
+                    android:layout_height="@dimen/verbatolog_status_diameter"
+                    android:layout_margin="@dimen/verbatolog_status_margin"
+                    android:background="@drawable/verbatolog_status_green"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name_text_view"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    tools:text="Вербатолог Вербатологов"/>
+
+            </LinearLayout>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="346dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/name_text_view"
+                android:id="@+id/phone_text_view"
                 android:textStyle="bold"
-                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
                 android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                tools:text="Вербатолог Вербатологов"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:text="+7 (915) 397 46-89"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/email_text_view"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:text="test@test.ru"/>
+
+            <View
+                android:background="@color/settings_divider_item_color"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_height="@dimen/settings_item_divider_height"/>
 
         </LinearLayout>
 
         <TextView
-            android:layout_width="346dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/phone_text_view"
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
-            android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-            android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            tools:text="+7 (915) 397 46-89"/>
+            android:paddingTop="@dimen/verbatolog_info_subtitle_other_padding"
+            android:paddingBottom="@dimen/verbatolog_info_subtitle_bottom_padding"
+            android:paddingRight="@dimen/verbatolog_info_subtitle_other_padding"
+            android:paddingLeft="@dimen/verbatolog_info_subtitle_other_padding"
+            android:text="@string/dashboard_cabinet" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:background="@color/settings_divider_item_color"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_divider_height"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/location_name_text_view"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                    android:layout_marginTop="@dimen/verbatolog_status_margin"
+                    android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    tools:text="Вербатория Остоженка"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="346dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/location_address_text_view"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
+                android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:text="Остоженка 7"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/location_point_text_view"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:text="Москва, Россия"/>
+
+            <View
+                android:background="@color/settings_divider_item_color"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_height="@dimen/settings_item_divider_height"/>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/email_text_view"
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
-            android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-            android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            tools:text="test@test.ru"/>
+            android:paddingTop="@dimen/verbatolog_info_subtitle_other_padding"
+            android:paddingBottom="@dimen/verbatolog_info_subtitle_bottom_padding"
+            android:paddingRight="@dimen/verbatolog_info_subtitle_other_padding"
+            android:paddingLeft="@dimen/verbatolog_info_subtitle_other_padding"
+            android:text="@string/dashboard_partner" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:background="@color/settings_divider_item_color"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/settings_item_divider_height"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/partner_name_text_view"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                    android:layout_marginTop="@dimen/verbatolog_status_margin"
+                    android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    tools:text="Вербатория Остоженка"/>
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/settings_divider_item_color"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_height="@dimen/settings_item_divider_height"/>
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

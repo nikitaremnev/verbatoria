@@ -3,7 +3,6 @@ package com.verbatoria;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
-
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
@@ -12,14 +11,12 @@ import com.neurosky.connection.DataType.MindDataType;
 import com.neurosky.connection.EEGPower;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
-
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.di.application.ApplicationComponent;
 import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
-
 import com.verbatoria.utils.Logger;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -116,7 +113,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
     private void overrideFonts() {
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Lato-Regular.ttf")
+                .setDefaultFontPath("fonts/Roboto-Light.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

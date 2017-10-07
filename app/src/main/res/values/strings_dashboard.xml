@@ -21,5 +21,10 @@
     <string name="dashboard_unknown">Неизвестно</string>
 
     <string name="settings_item_connection">Соединение</string>
+
+    <string name="dashboard_neurometrist">Нейрометрист</string>
+    <string name="dashboard_cabinet">Кабинет</string>
+    <string name="dashboard_partner">Партнер</string>
+
     <string name="settings_item_quit">Выйти</string>
 </resources>

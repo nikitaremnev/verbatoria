@@ -16,4 +16,5 @@ public interface IDashboardMainPresenter {
 
     void updateVerbatologInfo();
     void updateVerbatologEvents();
+    void updateLocationInfo();
 }

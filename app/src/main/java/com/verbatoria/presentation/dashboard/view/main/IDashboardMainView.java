@@ -1,6 +1,7 @@
 package com.verbatoria.presentation.dashboard.view.main;
 
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.LocationModel;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface IDashboardMainView {
     void hideProgress();
 
     void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail);
+    void showLocationInfo(LocationModel locationModel);
+
     void showVerbatologEvents(List<EventModel> verbatologEvents);
 }

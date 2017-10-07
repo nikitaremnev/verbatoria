@@ -16,6 +16,7 @@ import com.verbatoria.data.network.response.ChildsResponseModel;
 import com.verbatoria.data.network.response.ClientsResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
+import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
@@ -34,6 +35,7 @@ import rx.Observable;
 import static com.verbatoria.data.network.api.APIConstants.CHILD_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.CLIENT_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.EVENT_ID_PATH_KEY;
+import static com.verbatoria.data.network.api.APIConstants.LOCATION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.QUERY_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.SESSION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.TOKEN_HEADER_KEY;
@@ -66,6 +68,9 @@ public interface APIService {
     @GET(APIConstants.VERBATOLOG_INFO_URL)
     Observable<VerbatologInfoResponseModel> getVerbatologInfoRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
+    @GET(APIConstants.GET_LOCATION_URL)
+    Observable<LocationResponseModel> getLocation(@Path(value = LOCATION_ID_PATH_KEY) String locationId,
+                                                  @Header(TOKEN_HEADER_KEY) String accessToken);
      /*
         Calendar
      */
@@ -148,5 +153,6 @@ public interface APIService {
     @POST(APIConstants.FINISH_SESSION_URL)
     Observable<FinishSessionResponseModel> finishSessionRequest(@Path(value = SESSION_ID_PATH_KEY) String sessionId,
                                                                 @Header(TOKEN_HEADER_KEY) String accessToken);
+
 
 }
