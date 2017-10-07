@@ -11,11 +11,11 @@ import com.google.common.base.Objects;
  *
  * @author nikitaremnev
  */
-public class AddEventRequestModel {
+public class EditEventRequestModel {
 
     private EventRequestModel mEvent;
 
-    public AddEventRequestModel() {
+    public EditEventRequestModel() {
 
     }
 
@@ -25,7 +25,7 @@ public class AddEventRequestModel {
         return mEvent;
     }
 
-    public AddEventRequestModel setEvent(EventRequestModel event) {
+    public EditEventRequestModel setEvent(EventRequestModel event) {
         mEvent = event;
         return this;
     }
@@ -38,7 +38,7 @@ public class AddEventRequestModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        AddEventRequestModel that = (AddEventRequestModel) o;
+        EditEventRequestModel that = (EditEventRequestModel) o;
         return Objects.equal(mEvent, that.mEvent);
     }
 

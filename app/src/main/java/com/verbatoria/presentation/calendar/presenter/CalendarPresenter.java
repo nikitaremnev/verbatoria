@@ -40,7 +40,7 @@ public class CalendarPresenter implements ICalendarPresenter {
 
     @Override
     public void updateVerbatologEvents() {
-        mCalendarInteractor.getVerbatologEvents()
+        mCalendarInteractor.getEvents()
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 

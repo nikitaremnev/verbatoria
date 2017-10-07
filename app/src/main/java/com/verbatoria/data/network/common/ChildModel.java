@@ -2,6 +2,7 @@ package com.verbatoria.data.network.common;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -38,7 +39,7 @@ public class ChildModel implements Parcelable {
     }
 
     @JsonGetter("birth_day")
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @Nullable
     public String getBirthday() {
         return mBirthday;
     }

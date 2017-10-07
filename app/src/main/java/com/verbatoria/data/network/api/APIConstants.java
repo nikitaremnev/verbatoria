@@ -15,6 +15,8 @@ class APIConstants {
     static final String TOKEN_HEADER_KEY = "token";
     static final String CLIENT_ID_PATH_KEY = "client_id";
     static final String CHILD_ID_PATH_KEY = "child_id";
+    static final String EVENT_ID_PATH_KEY = "event_id";
+    static final String QUERY_PATH_KEY = "query";
     static final String JSON_PATH = ".json";
 
     static final String LOGIN_URL = "session" + JSON_PATH;
@@ -22,12 +24,17 @@ class APIConstants {
     static final String RESET_PASSWORD_URL = VERBATOLOG_ID_PATH_KEY + "/reset_password" + JSON_PATH;
 
     static final String VERBATOLOG_INFO_URL = VERBATOLOG_ID_PATH_KEY + "/current" + JSON_PATH;
-    static final String EVENTS_URL = VERBATOLOG_ID_PATH_KEY + "/current/events" + JSON_PATH;
 
+    static final String GET_EVENTS_URL = VERBATOLOG_ID_PATH_KEY + "/current/events" + JSON_PATH;
+    static final String ADD_EVENT_URL = VERBATOLOG_ID_PATH_KEY + "/current/events" + JSON_PATH;
+    static final String EDIT_EVENT_URL = VERBATOLOG_ID_PATH_KEY + "/current/events/" + "{" + EVENT_ID_PATH_KEY + "}" + JSON_PATH;
+
+    static final String SEARCH_CHILD_URL = "children" + JSON_PATH + "?query=" + QUERY_PATH_KEY;
     static final String ADD_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children" + JSON_PATH;
     static final String EDIT_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
     static final String GET_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
 
+    static final String SEARCH_CLIENT_URL = "clients" + JSON_PATH + "?query=" + QUERY_PATH_KEY;
     static final String ADD_CLIENT_URL = "clients" + JSON_PATH;
     static final String EDIT_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;
     static final String GET_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;

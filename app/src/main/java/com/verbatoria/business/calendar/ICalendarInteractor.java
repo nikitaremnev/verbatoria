@@ -3,6 +3,7 @@ package com.verbatoria.business.calendar;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -14,10 +15,17 @@ import rx.Observable;
 
 public interface ICalendarInteractor {
 
-    Observable<VerbatologModel> getVerbatologEvents(VerbatologModel verbatolog);
+    Observable<VerbatologModel> getEvents(VerbatologModel verbatolog);
 
-    Observable<List<EventModel>> getVerbatologEvents();
+    Observable<List<EventModel>> getEvents();
+
+    Observable<VerbatologModel> getEvents(VerbatologModel verbatolog, Date startDate, Date endDate);
+
+    Observable<List<EventModel>> getEvents(Date startDate, Date endDate);
 
     Observable<ResponseBody> addEvent(EventModel eventModel);
+
+    Observable<ResponseBody> editEvent(EventModel eventModel);
+
 
 }

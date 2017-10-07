@@ -6,10 +6,14 @@ import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
+import com.verbatoria.data.network.request.EditEventRequestModel;
+import com.verbatoria.data.network.request.GetEventsRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
+import com.verbatoria.data.network.response.ChildsResponseModel;
+import com.verbatoria.data.network.response.ClientsResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
@@ -29,6 +33,8 @@ import rx.Observable;
 
 import static com.verbatoria.data.network.api.APIConstants.CHILD_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.CLIENT_ID_PATH_KEY;
+import static com.verbatoria.data.network.api.APIConstants.EVENT_ID_PATH_KEY;
+import static com.verbatoria.data.network.api.APIConstants.QUERY_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.SESSION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.TOKEN_HEADER_KEY;
 
@@ -40,6 +46,10 @@ import static com.verbatoria.data.network.api.APIConstants.TOKEN_HEADER_KEY;
  */
 public interface APIService {
 
+    /*
+        Login
+     */
+
     @POST(APIConstants.LOGIN_URL)
     Observable<LoginResponseModel> loginRequest(@Body LoginRequestModel loginData);
 
@@ -49,16 +59,41 @@ public interface APIService {
     @POST(APIConstants.RESET_PASSWORD_URL)
     Observable<MessageResponseModel> resetPassword(@Body ResetPasswordRequestModel resetPasswordRequestModel);
 
+    /*
+       Verbatolog info
+    */
+
     @GET(APIConstants.VERBATOLOG_INFO_URL)
     Observable<VerbatologInfoResponseModel> getVerbatologInfoRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
-    @GET(APIConstants.EVENTS_URL)
+     /*
+        Calendar
+     */
+
+    @GET(APIConstants.GET_EVENTS_URL)
+    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                                     @Body GetEventsRequestModel getEventsRequestModel);
+
+    @GET(APIConstants.GET_EVENTS_URL)
     Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
-
-    @POST(APIConstants.EVENTS_URL)
+    @POST(APIConstants.ADD_EVENT_URL)
     Observable<ResponseBody> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                             @Body AddEventRequestModel event);
+                                             @Body AddEventRequestModel addEventRequestModel);
+
+    @POST(APIConstants.EDIT_EVENT_URL)
+    Observable<ResponseBody> editEventRequest(@Path(value = EVENT_ID_PATH_KEY) String eventId,
+                                              @Header(TOKEN_HEADER_KEY) String accessToken,
+                                             @Body EditEventRequestModel editEventRequestModel);
+
+    /*
+        Childs
+     */
+
+    @POST(APIConstants.SEARCH_CHILD_URL)
+    Observable<ChildsResponseModel> findChildRequest(@Path(value = QUERY_PATH_KEY) String query,
+                                                     @Header(TOKEN_HEADER_KEY) String accessToken);
+
 
     @POST(APIConstants.ADD_CHILD_URL)
     Observable<MessageResponseModel> addChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
@@ -76,6 +111,14 @@ public interface APIService {
                                            @Path(value = CHILD_ID_PATH_KEY) String childId,
                                            @Header(TOKEN_HEADER_KEY) String accessToken);
 
+    /*
+        Clients
+     */
+
+    @POST(APIConstants.SEARCH_CLIENT_URL)
+    Observable<ClientsResponseModel> findClientRequest(@Path(value = QUERY_PATH_KEY) String query,
+                                                       @Header(TOKEN_HEADER_KEY) String accessToken);
+
     @POST(APIConstants.ADD_CLIENT_URL)
     Observable<MessageResponseModel> addClientRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
                                               @Body ClientRequestModel client);
@@ -88,6 +131,10 @@ public interface APIService {
     @GET(APIConstants.GET_CLIENT_URL)
     Observable<ClientModel> getClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
                                              @Header(TOKEN_HEADER_KEY) String accessToken);
+
+    /*
+        Session
+     */
 
     @POST(APIConstants.START_SESSION_URL)
     Observable<StartSessionResponseModel> startSessionRequest(@Header(TOKEN_HEADER_KEY) String accessToken,

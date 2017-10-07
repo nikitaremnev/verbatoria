@@ -4,33 +4,33 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+import com.verbatoria.business.dashboard.models.ChildModel;
 
 import java.util.List;
 
 /**
  *
- * Модель ответа от сервера на запрос событий нейрометриста
+ * Модель ответа от сервера на поиск детей
  *
  * @author nikitaremnev
  */
-public class EventsResponseModel extends PagingResponseModel {
+public class ChildsResponseModel extends PagingResponseModel {
 
 
-    private List<EventResponseModel> mEvents;
+    private List<ChildModel> mData;
 
-
-    public EventsResponseModel() {
+    public ChildsResponseModel() {
 
     }
 
     @JsonGetter("data")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<EventResponseModel> getEvents() {
-        return mEvents;
+    public List<ChildModel> getChilds() {
+        return mData;
     }
 
-    public EventsResponseModel setEvents(List<EventResponseModel> events) {
-        mEvents = events;
+    public ChildsResponseModel setChilds(List<ChildModel> childs) {
+        mData = childs;
         return this;
     }
 
@@ -42,18 +42,18 @@ public class EventsResponseModel extends PagingResponseModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EventsResponseModel that = (EventsResponseModel) o;
+        ChildsResponseModel that = (ChildsResponseModel) o;
         return mTotalEntries == that.mTotalEntries &&
                 mPerPage == that.mPerPage &&
                 mCurrentPage == that.mCurrentPage &&
                 Objects.equal(mNextPage, that.mNextPage) &&
                 Objects.equal(mPreviousPage, that.mPreviousPage) &&
-                Objects.equal(mEvents, that.mEvents);
+                Objects.equal(mData, that.mData);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage, mEvents);
+        return Objects.hashCode(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage, mData);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class EventsResponseModel extends PagingResponseModel {
                 .add("mCurrentPage", mCurrentPage)
                 .add("mNextPage", mNextPage)
                 .add("mPreviousPage", mPreviousPage)
-                .add("mEvents", mEvents)
+                .add("mData", mData)
                 .toString();
     }
 }

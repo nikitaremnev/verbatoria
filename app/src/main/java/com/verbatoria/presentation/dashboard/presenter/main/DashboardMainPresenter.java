@@ -49,7 +49,7 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     @Override
     public void updateVerbatologEvents() {
         Log.e(TAG, "get verbatolog events updateVerbatologEvents");
-        mCalendarInteractor.getVerbatologEvents(mVerbatologModel)
+        mCalendarInteractor.getEvents(mVerbatologModel)
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 
