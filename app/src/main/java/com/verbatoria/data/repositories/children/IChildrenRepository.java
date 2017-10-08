@@ -15,6 +15,4 @@ public interface IChildrenRepository {
 
     Observable<ResponseBody> editChild(String clientId, String childId, String accessToken, ChildRequestModel childRequestModel);
 
-//    Observable<ClientModel> getClient(String clientId, String accessToken);
-
 }

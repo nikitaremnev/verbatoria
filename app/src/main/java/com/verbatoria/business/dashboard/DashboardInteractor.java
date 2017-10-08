@@ -4,7 +4,7 @@ import android.text.TextUtils;
 
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.business.dashboard.processor.VerbatologProcessor;
+import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -32,7 +32,7 @@ public class DashboardInteractor implements IDashboardInteractor {
     @Override
     public Observable<VerbatologModel> getVerbatologInfo(VerbatologModel verbatolog) {
         return mDashboardRepository.getVerbatologInfo(getAccessToken())
-                .map(item -> VerbatologProcessor.convertInfoResponseToVerbatologModel(verbatolog, item))
+                .map(item -> ModelsConverter.convertInfoResponseToVerbatologModel(verbatolog, item))
                 .doOnNext(verbatologModel -> mDashboardRepository.saveVerbatologInfo(verbatologModel))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
@@ -48,7 +48,7 @@ public class DashboardInteractor implements IDashboardInteractor {
     @Override
     public Observable<LocationModel> getLocation() {
         return mDashboardRepository.getLocation(getAccessToken())
-                .map(VerbatologProcessor::convertLocationResponseToLocationModel)
+                .map(ModelsConverter::convertLocationResponseToLocationModel)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

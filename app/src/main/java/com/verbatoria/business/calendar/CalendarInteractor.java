@@ -2,7 +2,7 @@ package com.verbatoria.business.calendar;
 
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.business.dashboard.processor.VerbatologProcessor;
+import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
@@ -42,7 +42,7 @@ public class CalendarInteractor implements ICalendarInteractor {
     @Override
     public Observable<VerbatologModel> getEvents(VerbatologModel verbatolog) {
         return mCalendarRepository.getEvents(getAccessToken())
-                .map(item -> VerbatologProcessor.convertEventsResponseToVerbatologModel(verbatolog, item))
+                .map(item -> ModelsConverter.convertEventsResponseToVerbatologModel(verbatolog, item))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -50,7 +50,7 @@ public class CalendarInteractor implements ICalendarInteractor {
     @Override
     public Observable<List<EventModel>> getEvents() {
         return mCalendarRepository.getEvents(getAccessToken())
-                .map(VerbatologProcessor::convertEventsResponseToVerbatologEventsModelList)
+                .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -59,7 +59,7 @@ public class CalendarInteractor implements ICalendarInteractor {
     public Observable<VerbatologModel> getEvents(VerbatologModel verbatolog, Date startDate, Date endDate) {
         try {
             return mCalendarRepository.getEvents(getAccessToken(), getEventsRequestModel(startDate, endDate))
-                    .map(item -> VerbatologProcessor.convertEventsResponseToVerbatologModel(verbatolog, item))
+                    .map(item -> ModelsConverter.convertEventsResponseToVerbatologModel(verbatolog, item))
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {
@@ -72,7 +72,7 @@ public class CalendarInteractor implements ICalendarInteractor {
     public Observable<List<EventModel>> getEvents(Date startDate, Date endDate) {
         try {
             return mCalendarRepository.getEvents(getAccessToken(), getEventsRequestModel(startDate, endDate))
-                    .map(VerbatologProcessor::convertEventsResponseToVerbatologEventsModelList)
+                    .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {

@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс для конвертации моделей Вербатолога
+ * Класс для конвертации моделей ответа с сервера в модели используемые в приложении
  *
  * @author nikitaremnev
  */
-public class VerbatologProcessor {
+public class ModelsConverter {
 
     public static VerbatologModel convertInfoResponseToVerbatologModel(VerbatologModel verbatologModel,
                                                                  VerbatologInfoResponseModel verbatologInfoResponseModel) {
@@ -72,8 +72,8 @@ public class VerbatologProcessor {
         EventModel eventModel = new EventModel();
         eventModel.setId(eventResponseModel.getId());
         try {
-            eventModel.setStartAt(DateUtils.parseDate(eventResponseModel.getStartAt()));
-            eventModel.setEndAt(DateUtils.parseDate(eventResponseModel.getEndAt()));
+            eventModel.setStartAt(DateUtils.parseDateTime(eventResponseModel.getStartAt()));
+            eventModel.setEndAt(DateUtils.parseDateTime(eventResponseModel.getEndAt()));
         } catch (ParseException e) {
             throw new DashboardInteractorException(e.getMessage());
         }

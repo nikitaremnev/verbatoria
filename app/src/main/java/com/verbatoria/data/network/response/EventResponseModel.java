@@ -13,7 +13,6 @@ import com.google.common.base.Objects;
  * @author nikitaremnev
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class EventResponseModel {
 
     private String mId;
