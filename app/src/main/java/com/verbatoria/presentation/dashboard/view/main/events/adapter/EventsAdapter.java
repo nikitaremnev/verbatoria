@@ -23,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author nikitaremnev
  */
-public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEventViewHolder> {
+public class EventsAdapter extends RecyclerView.Adapter<VerbatologEventViewHolder> {
 
     private final List<EventModel> mEventsList;
 
@@ -32,7 +32,7 @@ public class VerbatologEventsAdapter extends RecyclerView.Adapter<VerbatologEven
 
     private SoftReference<Activity> mActivitySoftReference;
 
-    public VerbatologEventsAdapter(@NonNull List<EventModel> eventsList, Activity activity) {
+    public EventsAdapter(@NonNull List<EventModel> eventsList, Activity activity) {
         VerbatoriaApplication.getApplicationComponent().inject(this);
         mEventsList = eventsList;
         mActivitySoftReference = new SoftReference<>(activity);

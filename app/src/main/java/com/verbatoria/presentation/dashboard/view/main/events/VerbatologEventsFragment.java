@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.presentation.dashboard.view.main.events.adapter.VerbatologEventsAdapter;
+import com.verbatoria.presentation.dashboard.view.main.events.adapter.EventsAdapter;
 
 import java.util.List;
 
@@ -51,6 +51,6 @@ public class VerbatologEventsFragment extends Fragment implements IVerbatologEve
 
     @Override
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
-        mEventsRecyclerView.setAdapter(new VerbatologEventsAdapter(verbatologEvents, getActivity()));
+        mEventsRecyclerView.setAdapter(new EventsAdapter(verbatologEvents, getActivity()));
     }
 }

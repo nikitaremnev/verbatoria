@@ -3,7 +3,7 @@ package com.verbatoria.di.application;
 import com.verbatoria.business.session.manager.AudioPlayerManager;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.token.processor.TokenProcessor;
-import com.verbatoria.presentation.dashboard.view.main.events.adapter.VerbatologEventsAdapter;
+import com.verbatoria.presentation.dashboard.view.main.events.adapter.EventsAdapter;
 import com.verbatoria.presentation.login.presenter.login.LoginPresenter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionViewHolder;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
@@ -19,7 +19,7 @@ public interface ApplicationComponentInjects {
 
     void inject(TokenProcessor tokenProcessor);
 
-    void inject(VerbatologEventsAdapter verbatologEventsAdapter);
+    void inject(EventsAdapter eventsAdapter);
 
     void inject(ActivitiesTimerTask activitiesTimerTask);
 

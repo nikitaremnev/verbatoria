@@ -19,7 +19,7 @@ import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
 import com.verbatoria.presentation.calendar.view.detail.EventDetailActivity;
-import com.verbatoria.presentation.dashboard.view.main.events.adapter.VerbatologEventsAdapter;
+import com.verbatoria.presentation.dashboard.view.main.events.adapter.EventsAdapter;
 
 import java.util.Calendar;
 import java.util.List;
@@ -81,7 +81,7 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     @Override
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
         setUpEventsLabel(verbatologEvents.size());
-        mEventsRecyclerView.setAdapter(new VerbatologEventsAdapter(verbatologEvents, getActivity()));
+        mEventsRecyclerView.setAdapter(new EventsAdapter(verbatologEvents, getActivity()));
     }
 
     private void setUpViews() {
