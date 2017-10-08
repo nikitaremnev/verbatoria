@@ -32,9 +32,7 @@ public interface IEventDetailView {
     void setUpEventCreated();
     void setUpEventEdit();
 
-    void disableButton();
-    void enableButton();
-
-    void finishWithResult();
-
+    void showClientNotFullError();
+    void showChildNotFullError();
+    void showTimeNotSetError();
 }

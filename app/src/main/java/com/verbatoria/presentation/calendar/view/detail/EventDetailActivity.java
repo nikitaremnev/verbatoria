@@ -28,6 +28,7 @@ import com.verbatoria.presentation.calendar.presenter.detail.IEventDetailPresent
 import com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity;
 import com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
+import com.verbatoria.utils.Helper;
 
 import java.util.Calendar;
 
@@ -250,19 +251,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void disableButton() {
-        mSubmitButton.setEnabled(false);
+    public void showClientNotFullError() {
+        Helper.showSnackBar(mSubmitButton, getString(R.string.client_data_is_not_full));
     }
 
     @Override
-    public void enableButton() {
-        mSubmitButton.setEnabled(true);
+    public void showChildNotFullError() {
+        Helper.showSnackBar(mSubmitButton, getString(R.string.child_data_is_not_full));
     }
 
     @Override
-    public void finishWithResult() {
-        setResult(RESULT_OK, createEventIntent());
-        finish();
+    public void showTimeNotSetError() {
+        Helper.showSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
     }
 
     @Override

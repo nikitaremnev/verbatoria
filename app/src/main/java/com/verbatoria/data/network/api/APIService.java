@@ -87,7 +87,7 @@ public interface APIService {
     Observable<ResponseBody> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
                                              @Body AddEventRequestModel addEventRequestModel);
 
-    @POST(APIConstants.EDIT_EVENT_URL)
+    @PUT(APIConstants.EDIT_EVENT_URL)
     Observable<ResponseBody> editEventRequest(@Path(value = EVENT_ID_PATH_KEY) String eventId,
                                               @Header(TOKEN_HEADER_KEY) String accessToken,
                                              @Body EditEventRequestModel editEventRequestModel);

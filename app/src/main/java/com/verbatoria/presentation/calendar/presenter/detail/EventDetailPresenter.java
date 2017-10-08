@@ -58,32 +58,38 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void startSession() {
-        addSubscription(mSessionInteractor.startSession(mEventModel.getId())
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleSessionStarted, this::handleError));
+        if (!hasError()) {
+            addSubscription(mSessionInteractor.startSession(mEventModel.getId())
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler())
+                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                    .subscribe(this::handleSessionStarted, this::handleError));
+        }
     }
 
     @Override
     public void createEvent() {
-        addSubscription(mCalendarInteractor.addEvent(mEventModel)
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+        if (!hasError()) {
+            addSubscription(mCalendarInteractor.addEvent(mEventModel)
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler())
+                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                    .subscribe(this::handleEventEditedOrCreated, this::handleError));
+        }
     }
 
     @Override
     public void editEvent() {
-        addSubscription(mCalendarInteractor.editEvent(mEventModel)
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+        if (!hasError()) {
+            addSubscription(mCalendarInteractor.editEvent(mEventModel)
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler())
+                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                    .subscribe(this::handleEventEditedOrCreated, this::handleError));
+        }
     }
 
     @Override
@@ -104,16 +110,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public String getTime() {
         return mEventModel != null && mEventModel.getEndAt() != null && mEventModel.getStartAt() != null ? mEventModel.getEventTime() : "";
-    }
-
-    @Override
-    public String getClient() {
-        return mClientModel != null ? mClientModel.getName() : "";
-    }
-
-    @Override
-    public String getChild() {
-        return mEventModel != null ? mEventModel.getChild().getName() : "";
     }
 
     @Override
@@ -197,6 +193,22 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         throwable.printStackTrace();
         Logger.exc(TAG, throwable);
         mCalendarEventDetailView.showError(throwable.getMessage());
+    }
+
+    private boolean hasError() {
+        if (mClientModel == null || !mClientModel.isFull()) {
+            mCalendarEventDetailView.showClientNotFullError();
+            return true;
+        }
+        if (mEventModel == null || mEventModel.getChild() == null || !mEventModel.getChild().isFull()) {
+            mCalendarEventDetailView.showChildNotFullError();
+            return true;
+        }
+        if (mEventModel == null || !mEventModel.hasTime()) {
+            mCalendarEventDetailView.showChildNotFullError();
+            return true;
+        }
+        return false;
     }
 
     @Override

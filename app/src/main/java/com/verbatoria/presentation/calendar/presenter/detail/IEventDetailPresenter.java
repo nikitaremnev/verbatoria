@@ -28,8 +28,6 @@ public interface IEventDetailPresenter {
     EventModel getEvent();
 
     String getTime();
-    String getClient();
-    String getChild();
 
     ChildModel getChildModel();
     ClientModel getClientModel();
