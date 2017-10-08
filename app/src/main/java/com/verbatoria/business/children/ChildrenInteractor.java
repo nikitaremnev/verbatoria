@@ -1,9 +1,9 @@
 package com.verbatoria.business.children;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.business.dashboard.processor.VerbatologProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.ChildRequestModel;
-import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
@@ -29,8 +29,9 @@ public class ChildrenInteractor implements IChildrenInteractor {
     }
 
     @Override
-    public Observable<MessageResponseModel> addChild(ChildModel child) {
+    public Observable<ChildModel> addChild(ChildModel child) {
         return mChildrenRepository.addChild(child.getClientId(), getAccessToken(), getChildRequestModel(child))
+                .map(VerbatologProcessor::convertChildResponseModelToChildModel)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

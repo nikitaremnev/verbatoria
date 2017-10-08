@@ -40,6 +40,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     private static final String TAG = ChildrenActivity.class.getSimpleName();
     public static final String EXTRA_CHILD_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CHILD_MODEL";
+    public static final String EXTRA_CLIENT_ID = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CLIENT_ID";
 
     @Inject
     IChildrenPresenter mChildrenPresenter;
@@ -61,14 +62,17 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     private MenuItem mEditMenuItem;
     private MenuItem mCancelMenuItem;
 
-    public static Intent newInstance(Context mContext, ChildModel childModel) {
+    public static Intent newInstance(Context mContext, ChildModel childModel, String clientId) {
         Intent intent = new Intent(mContext, ChildrenActivity.class);
         intent.putExtra(EXTRA_CHILD_MODEL, childModel);
+        intent.putExtra(EXTRA_CLIENT_ID, clientId);
         return intent;
     }
 
-    public static Intent newInstance(Context mContext) {
-        return new Intent(mContext, ChildrenActivity.class);
+    public static Intent newInstance(Context mContext, String clientId) {
+        Intent intent = new Intent(mContext, ChildrenActivity.class);
+        intent.putExtra(EXTRA_CLIENT_ID, clientId);
+        return intent;
     }
 
     @Override

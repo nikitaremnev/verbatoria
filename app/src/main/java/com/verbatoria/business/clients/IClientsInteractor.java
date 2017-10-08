@@ -1,7 +1,6 @@
 package com.verbatoria.business.clients;
 
 import com.verbatoria.data.network.common.ClientModel;
-import com.verbatoria.data.network.response.MessageResponseModel;
 
 import rx.Observable;
 
@@ -11,7 +10,7 @@ import rx.Observable;
 
 public interface IClientsInteractor {
 
-    Observable<MessageResponseModel> addClient(ClientModel client);
+    Observable<ClientModel> addClient(ClientModel client);
 
     Observable<ClientModel> editClient(ClientModel client);
 

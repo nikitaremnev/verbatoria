@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.data.network.common.ClientModel;
-import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
 
@@ -105,10 +104,9 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     }
 
-    private void handleClientRequestSuccess(MessageResponseModel messageResponseModel) {
-//        if (messageResponseModel.getMessage().equals(MessageResponseModel.CREATED_MESSAGE)) {
-            mClientView.finishWithResult();
-//        }
+    private void handleClientRequestSuccess(ClientModel clientModel) {
+        mClientModel = clientModel;
+        mClientView.finishWithResult();
     }
 
     private void handleClientEditSuccess(ClientModel clientModel) {

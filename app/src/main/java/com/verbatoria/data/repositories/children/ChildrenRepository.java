@@ -2,7 +2,7 @@ package com.verbatoria.data.repositories.children;
 
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.request.ChildRequestModel;
-import com.verbatoria.data.network.response.MessageResponseModel;
+import com.verbatoria.data.network.response.ChildResponseModel;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -17,7 +17,7 @@ public class ChildrenRepository implements IChildrenRepository {
     }
 
     @Override
-    public Observable<MessageResponseModel> addChild(String clientId, String accessToken, ChildRequestModel childRequestModel) {
+    public Observable<ChildResponseModel> addChild(String clientId, String accessToken, ChildRequestModel childRequestModel) {
         return APIFactory.getAPIService().addChildRequest(clientId, accessToken, childRequestModel);
     }
 

@@ -73,7 +73,17 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
                 .observeOn(RxSchedulers.getMainThreadScheduler())
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleEventLoaded, this::handleError));
+                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+    }
+
+    @Override
+    public void editEvent() {
+        addSubscription(mCalendarInteractor.editEvent(mEventModel)
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleEventEditedOrCreated, this::handleError));
     }
 
     @Override
@@ -166,10 +176,10 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mCalendarEventDetailView.updateClientView(mClientModel);
     }
 
-
-    private void handleEventLoaded(@NonNull ResponseBody responseBody) {
+    private void handleEventEditedOrCreated(@NonNull ResponseBody responseBody) {
         Logger.e(TAG, responseBody.toString());
-        mCalendarEventDetailView.updateClientView(mClientModel);
+        mIsEditMode = true;
+        mCalendarEventDetailView.setUpEventCreated();
     }
 
     private void handleError(Throwable throwable) {

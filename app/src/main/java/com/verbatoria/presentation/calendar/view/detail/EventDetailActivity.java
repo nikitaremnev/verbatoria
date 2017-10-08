@@ -67,9 +67,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
-    @BindView(R.id.progress_layout)
-    public View mLoadingView;
-
     private Calendar mSelectTimeCalendar;
 
     public static Intent newInstance(Context mContext, EventModel eventModel) {
@@ -125,12 +122,12 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void showProgress() {
-        mLoadingView.setVisibility(View.VISIBLE);
+        startProgress();
     }
 
     @Override
     public void hideProgress() {
-        mLoadingView.setVisibility(View.GONE);
+        stopProgress();
     }
 
     @Override
@@ -142,9 +139,15 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void startChild() {
-        ChildModel childModel = mEventDetailPresenter.getChildModel();
-        Intent intent = childModel == null ? ChildrenActivity.newInstance(this) : ChildrenActivity.newInstance(this, childModel);
-        startActivityForResult(intent, ACTIVITY_CHILDREN_CODE);
+        if (!mEventDetailPresenter.isEditMode() && (mEventDetailPresenter.getClientModel() == null ||
+                (mEventDetailPresenter.getClientModel() != null && mEventDetailPresenter.getClientModel().getId() == null))) {
+            showError(getString(R.string.event_detail_add_client_first));
+        } else {
+            ChildModel childModel = mEventDetailPresenter.getChildModel();
+            Intent intent = childModel == null ? ChildrenActivity.newInstance(this, mEventDetailPresenter.getClientModel().getId())
+                    : ChildrenActivity.newInstance(this, childModel, mEventDetailPresenter.getClientModel().getId());
+            startActivityForResult(intent, ACTIVITY_CHILDREN_CODE);
+        }
     }
 
     @Override
@@ -179,7 +182,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void showError(String message) {
-        Snackbar snackbar = Snackbar.make(mLoadingView, message, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(mSubmitButton, message, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
@@ -223,6 +226,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void setUpEventCreated() {
+        mSubmitButton.setText(getString(R.string.dashboard_start_session));
+        mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+    }
+
+    @Override
+    public void setUpEventEdit() {
+        mSubmitButton.setText(getString(R.string.save));
+        mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.editEvent());
+    }
+
+    @Override
     public void disableButton() {
         mSubmitButton.setEnabled(false);
     }
@@ -259,6 +274,10 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         mSelectTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         mSelectTimeCalendar.set(Calendar.MINUTE, minute);
         mEventDetailPresenter.setEventDate(mSelectTimeCalendar);
+        if (mEventDetailPresenter.isEditMode()) {
+            setUpEventEdit();
+
+        }
     }
 
     private void setUpToolbar() {
@@ -271,7 +290,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     private void setUpButton() {
         if (!mEventDetailPresenter.isEditMode()) {
             mSubmitButton.setText(getString(R.string.calendar_activity_event_create));
-            mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+            mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.createEvent());
         } else {
             mSubmitButton.setText(getString(R.string.dashboard_start_session));
             mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());

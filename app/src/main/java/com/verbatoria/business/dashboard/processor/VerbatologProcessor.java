@@ -44,6 +44,12 @@ public class VerbatologProcessor {
         return locationModel;
     }
 
+    public static ChildModel convertChildResponseModelToChildModel(ChildResponseModel childResponseModel) {
+        ChildModel childModel = new ChildModel();
+        childModel.setId(childResponseModel.getId());
+        return childModel;
+    }
+
     public static VerbatologModel convertEventsResponseToVerbatologModel(VerbatologModel verbatologModel,
                                                                    EventsResponseModel eventsResponseModel) {
         List<EventModel> verbatologEventsList = new ArrayList<>();

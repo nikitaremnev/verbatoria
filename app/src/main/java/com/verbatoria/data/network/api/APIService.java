@@ -12,6 +12,7 @@ import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
+import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildsResponseModel;
 import com.verbatoria.data.network.response.ClientsResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
@@ -101,9 +102,9 @@ public interface APIService {
 
 
     @POST(APIConstants.ADD_CHILD_URL)
-    Observable<MessageResponseModel> addChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
-                                             @Header(TOKEN_HEADER_KEY) String accessToken,
-                                             @Body ChildRequestModel child);
+    Observable<ChildResponseModel> addChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
+                                                   @Header(TOKEN_HEADER_KEY) String accessToken,
+                                                   @Body ChildRequestModel child);
 
     @PUT(APIConstants.EDIT_CHILD_URL)
     Observable<ResponseBody> editChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
@@ -125,7 +126,7 @@ public interface APIService {
                                                        @Header(TOKEN_HEADER_KEY) String accessToken);
 
     @POST(APIConstants.ADD_CLIENT_URL)
-    Observable<MessageResponseModel> addClientRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
+    Observable<ClientModel> addClientRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
                                               @Body ClientRequestModel client);
 
     @PUT(APIConstants.EDIT_CLIENT_URL)

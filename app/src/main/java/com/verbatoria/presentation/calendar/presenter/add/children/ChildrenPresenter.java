@@ -15,6 +15,7 @@ import java.util.Date;
 import okhttp3.ResponseBody;
 
 import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
+import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CLIENT_ID;
 
 /**
  * Реализация презентера для экрана данных о детях
@@ -26,6 +27,7 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     private IChildrenInteractor mChildrenInteractor;
     private IChildrenView mChildrenView;
     private ChildModel mChildModel;
+    private String mClientId;
     private boolean mIsEditMode;
 
     public ChildrenPresenter(IChildrenInteractor childrenInteractor) {
@@ -50,6 +52,7 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
         } else {
             mChildModel = new ChildModel();
         }
+        mChildModel.setClientId(intent.getStringExtra(EXTRA_CLIENT_ID));
     }
 
     @Override
@@ -106,7 +109,8 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     }
 
-    private void handleChildRequestSuccess(MessageResponseModel messageResponseModel) {
+    private void handleChildRequestSuccess(ChildModel childModel) {
+        mChildModel.setId(childModel.getId());
         mChildrenView.finishWithResult();
     }
 

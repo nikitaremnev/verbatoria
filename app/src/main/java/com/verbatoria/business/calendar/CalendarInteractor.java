@@ -110,8 +110,8 @@ public class CalendarInteractor implements ICalendarInteractor {
                 .setEvent(new EventRequestModel()
                     .setChildId(eventModel.getChild().getId())
                     .setLocationId(mDashboardRepository.getLocationId())
-                    .setStartAt(DateUtils.toServerDateTimeString(eventModel.getStartAt().getTime()))
-                    .setEndAt(DateUtils.toServerDateTimeString(eventModel.getEndAt().getTime())));
+                    .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
+                    .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime())));
     }
 
     private EditEventRequestModel getEditEventRequestModel(EventModel eventModel) throws ParseException {

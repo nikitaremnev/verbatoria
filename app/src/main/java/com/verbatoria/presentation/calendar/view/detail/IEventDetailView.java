@@ -26,6 +26,9 @@ public interface IEventDetailView {
     void updateChildView(ChildModel childModel);
     void updateEventTime(EventModel eventModel);
 
+    void setUpEventCreated();
+    void setUpEventEdit();
+
     void disableButton();
     void enableButton();
 

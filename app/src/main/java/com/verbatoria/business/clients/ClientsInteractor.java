@@ -4,7 +4,6 @@ import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
-import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.RxSchedulers;
@@ -29,7 +28,7 @@ public class ClientsInteractor implements IClientsInteractor {
 
 
     @Override
-    public Observable<MessageResponseModel> addClient(ClientModel client) {
+    public Observable<ClientModel> addClient(ClientModel client) {
         return mClientsRepository.addClient(getAccessToken(), getClientRequestModel(client))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());

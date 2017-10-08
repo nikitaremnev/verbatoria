@@ -22,6 +22,7 @@ public interface IEventDetailPresenter {
 
     void startSession();
     void createEvent();
+    void editEvent();
     void obtainEvent(Intent intent);
 
     EventModel getEvent();

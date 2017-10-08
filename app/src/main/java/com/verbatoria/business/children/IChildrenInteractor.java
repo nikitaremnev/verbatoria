@@ -1,7 +1,6 @@
 package com.verbatoria.business.children;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
-import com.verbatoria.data.network.response.MessageResponseModel;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -12,7 +11,7 @@ import rx.Observable;
 
 public interface IChildrenInteractor {
 
-    Observable<MessageResponseModel> addChild(ChildModel child);
+    Observable<ChildModel> addChild(ChildModel child);
 
     Observable<ResponseBody> editChild(ChildModel child);
 
