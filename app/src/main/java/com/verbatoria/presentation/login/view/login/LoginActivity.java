@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -138,21 +137,9 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     protected void setUpViews() {
         setUpPhoneFormatter();
-        setUpCountryCodesSpinner();
         mLoginButton.setOnClickListener(v -> mLoginPresenter.login());
         mRecoveryPasswordTextView.setPaintFlags(mRecoveryPasswordTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         mRecoveryPasswordTextView.setOnClickListener(v -> mLoginPresenter.startRecoveryPassword());
-    }
-
-    private void setUpCountryCodesSpinner() {
-        String[] countryCodes = mLoginPresenter.getCountryCodesArray();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.country_code_spinner_item, countryCodes);
-        adapter.setDropDownViewResource(R.layout.country_code_spinner_selectable_item);
-        mCounryCodeSpinner.setAdapter(adapter);
-
-        if (countryCodes.length <= 1) {
-            mCounryCodeSpinner.setEnabled(false);
-        }
     }
 
     private void setUpPhoneFormatter() {

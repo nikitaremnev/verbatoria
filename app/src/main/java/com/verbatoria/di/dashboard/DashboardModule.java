@@ -13,8 +13,8 @@ import com.verbatoria.presentation.calendar.presenter.CalendarPresenter;
 import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
 import com.verbatoria.presentation.calendar.presenter.add.AddCalendarEventPresenter;
 import com.verbatoria.presentation.calendar.presenter.add.IAddCalendarEventPresenter;
-import com.verbatoria.presentation.dashboard.presenter.main.DashboardMainPresenter;
-import com.verbatoria.presentation.dashboard.presenter.main.IDashboardMainPresenter;
+import com.verbatoria.presentation.dashboard.presenter.main.IVerbatologInfoPresenter;
+import com.verbatoria.presentation.dashboard.presenter.main.VerbatologInfoPresenter;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.presentation.dashboard.presenter.settings.SettingsPresenter;
 
@@ -58,8 +58,8 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
-    IDashboardMainPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor) {
-        return new DashboardMainPresenter(dashboardInteractor);
+    IVerbatologInfoPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor) {
+        return new VerbatologInfoPresenter(dashboardInteractor);
     }
 
     @Provides

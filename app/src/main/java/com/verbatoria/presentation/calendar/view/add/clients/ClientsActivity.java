@@ -100,6 +100,11 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     }
 
     @Override
+    public void onBackPressed() {
+        finishWithResult();
+    }
+
+    @Override
     protected void setUpViews() {
         setUpNavigation();
         setUpFields();
@@ -129,7 +134,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.calendar_activity_add_client_title));
+        getSupportActionBar().setTitle(getString(R.string.calendar_activity_client_title));
     }
 
     @Override

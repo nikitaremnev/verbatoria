@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.calendar.view;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -9,17 +10,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.philliphsu.bottomsheetpickers.date.DatePickerDialog;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
 import com.verbatoria.presentation.calendar.view.detail.EventDetailActivity;
-import com.verbatoria.presentation.dashboard.view.main.events.adapter.EventsAdapter;
+import com.verbatoria.presentation.calendar.view.adapter.EventsAdapter;
+import com.verbatoria.utils.DateUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -44,17 +45,19 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     @BindView(R.id.add_event_button)
     public FloatingActionButton mAddEventButton;
 
+    @BindView(R.id.select_date_button)
+    public FloatingActionButton mCalendarButton;
+
     @BindView(R.id.events_recycler_view)
     public RecyclerView mEventsRecyclerView;
-
-    @BindView(R.id.events_text_view)
-    public TextView mEventsTextView;
 
     @BindView(R.id.no_events_text_view)
     public TextView mNoEventsTextView;
 
-    @BindView(R.id.calendar_button)
-    public ImageView mCalendarButton;
+    @BindView(R.id.current_date_text_view)
+    public TextView mCurrentDateTextView;
+
+    private Calendar mCalendar;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -80,14 +83,16 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
 
     @Override
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
-        setUpEventsLabel(verbatologEvents.size());
+        mNoEventsTextView.setVisibility(verbatologEvents.size() == 0 ? View.VISIBLE : View.GONE);
         mEventsRecyclerView.setAdapter(new EventsAdapter(verbatologEvents, getActivity()));
     }
 
     private void setUpViews() {
+        mCalendar = Calendar.getInstance();
         setUpAddEventButton();
-        setUpRecyclerView();
         setUpCalendarButton();
+        setUpCurrentDate();
+        setUpRecyclerView();
     }
 
     private void setUpAddEventButton() {
@@ -95,37 +100,35 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
         mAddEventButton.show();
     }
 
+    private void setUpCalendarButton() {
+        mCalendarButton.setOnClickListener(v -> showCalendar());
+        mCalendarButton.show();
+    }
+
+    private void setUpCurrentDate() {
+        mCurrentDateTextView.setText(DateUtils.toUIDateString(mCalendar.getTime()));
+    }
+
+
     private void setUpRecyclerView() {
         mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mEventsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
     }
 
-    private void setUpCalendarButton() {
+    private void showCalendar() {
         mCalendarButton.setOnClickListener(v -> {
-            Calendar now = Calendar.getInstance();
-            DatePickerDialog date = new DatePickerDialog.Builder(
-                    CalendarFragment.this,
-                    now.get(Calendar.YEAR),
-                    now.get(Calendar.MONTH),
-                    now.get(Calendar.DAY_OF_MONTH))
-                    .build();
-            date.show(getFragmentManager(), "test");
+            DatePickerDialog date = new DatePickerDialog(
+                    getActivity(),
+                    this,
+                    mCalendar.get(Calendar.YEAR),
+                    mCalendar.get(Calendar.MONTH),
+                    mCalendar.get(Calendar.DAY_OF_MONTH));
+            date.show();
         });
     }
 
-    private void setUpEventsLabel(int eventsSize) {
-        if (eventsSize == 0) {
-            mEventsTextView.setVisibility(View.GONE);
-            mNoEventsTextView.setVisibility(View.VISIBLE);
-        } else {
-            mEventsTextView.setVisibility(View.VISIBLE);
-            mNoEventsTextView.setVisibility(View.GONE);
-        }
-    }
-
     @Override
-    public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
     }
-
 }

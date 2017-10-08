@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.presentation.dashboard.view.main.IDashboardMainView;
+import com.verbatoria.presentation.dashboard.view.info.IVerbatologInfoView;
 import com.verbatoria.utils.Logger;
 
 /**
@@ -13,27 +13,27 @@ import com.verbatoria.utils.Logger;
  *
  * @author nikitaremnev
  */
-public class DashboardMainPresenter implements IDashboardMainPresenter {
+public class VerbatologInfoPresenter implements IVerbatologInfoPresenter {
 
-    private static final String TAG = DashboardMainPresenter.class.getSimpleName();
+    private static final String TAG = VerbatologInfoPresenter.class.getSimpleName();
 
     private IDashboardInteractor mDashboardInteractor;
-    private IDashboardMainView mDashboardView;
+    private IVerbatologInfoView mVerbatologInfoView;
     private VerbatologModel mVerbatologModel;
 
-    public DashboardMainPresenter(IDashboardInteractor dashboardInteractor) {
+    public VerbatologInfoPresenter(IDashboardInteractor dashboardInteractor) {
         mDashboardInteractor = dashboardInteractor;
     }
 
     @Override
-    public void bindView(@NonNull IDashboardMainView dashboardView) {
-        mDashboardView = dashboardView;
+    public void bindView(@NonNull IVerbatologInfoView verbatologInfoView) {
+        mVerbatologInfoView = verbatologInfoView;
         mVerbatologModel = new VerbatologModel();
     }
 
     @Override
     public void unbindView() {
-        mDashboardView = null;
+        mVerbatologInfoView = null;
         mVerbatologModel = null;
     }
 
@@ -52,7 +52,7 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     private void handleVerbatologInfoReceived(@NonNull VerbatologModel verbatologModel) {
         Logger.e(TAG, verbatologModel.toString());
         updateLocationInfo();
-        mDashboardView.showVerbatologInfo(verbatologModel.getFullName(), verbatologModel.getPhone(), verbatologModel.getEmail());
+        mVerbatologInfoView.showVerbatologInfo(verbatologModel.getFullName(), verbatologModel.getPhone(), verbatologModel.getEmail());
     }
 
     private void handleVerbatologInfoLoadingFailed(Throwable throwable) {
@@ -63,7 +63,7 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
 
     private void handleLocationInfoReceived(@NonNull LocationModel locationModel) {
         Logger.e(TAG, locationModel.toString());
-        mDashboardView.showLocationInfo(locationModel);
+        mVerbatologInfoView.showLocationInfo(locationModel);
     }
 
     private void handleLocationInfoLoadingFailed(Throwable throwable) {

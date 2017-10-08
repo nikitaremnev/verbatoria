@@ -2,18 +2,19 @@ package com.verbatoria.presentation.dashboard.presenter.main;
 
 import android.support.annotation.NonNull;
 
-import com.verbatoria.presentation.dashboard.view.main.IDashboardMainView;
+import com.verbatoria.presentation.dashboard.view.info.IVerbatologInfoView;
 
 /**
  * Презентер для dashboard - main экрана
  *
  * @author nikitaremnev
  */
-public interface IDashboardMainPresenter {
+public interface IVerbatologInfoPresenter {
 
-    void bindView(@NonNull IDashboardMainView dashboardView);
+    void bindView(@NonNull IVerbatologInfoView verbatologInfoView);
     void unbindView();
 
     void updateVerbatologInfo();
     void updateLocationInfo();
+
 }

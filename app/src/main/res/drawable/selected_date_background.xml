@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+
+    <solid android:color="@color/main"/>
+
+    <padding android:top="@dimen/calendar_selected_date_padding"
+        android:left="@dimen/calendar_selected_date_padding"
+        android:bottom="@dimen/calendar_selected_date_padding"
+        android:right="@dimen/calendar_selected_date_padding"
+        />
+
+    <corners android:radius="@dimen/calendar_selected_date_corner_radius"/>
+
+</shape>

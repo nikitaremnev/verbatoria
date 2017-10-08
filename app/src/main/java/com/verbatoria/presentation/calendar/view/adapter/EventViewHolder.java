@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.main.events.adapter;
+package com.verbatoria.presentation.calendar.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-public class VerbatologEventViewHolder extends RecyclerView.ViewHolder {
+public class EventViewHolder extends RecyclerView.ViewHolder {
 
     private View mRootView;
 
@@ -27,7 +27,7 @@ public class VerbatologEventViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.time_period_text_view)
     public TextView mTimePeriodTextView;
 
-    VerbatologEventViewHolder(View itemView) {
+    EventViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
         mRootView = itemView;

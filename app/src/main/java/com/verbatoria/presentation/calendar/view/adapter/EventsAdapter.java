@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.dashboard.view.main.events.adapter;
+package com.verbatoria.presentation.calendar.view.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author nikitaremnev
  */
-public class EventsAdapter extends RecyclerView.Adapter<VerbatologEventViewHolder> {
+public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     private final List<EventModel> mEventsList;
 
@@ -39,9 +39,9 @@ public class EventsAdapter extends RecyclerView.Adapter<VerbatologEventViewHolde
     }
 
     @Override
-    public VerbatologEventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
-        return new VerbatologEventViewHolder(view);
+        return new EventViewHolder(view);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class EventsAdapter extends RecyclerView.Adapter<VerbatologEventViewHolde
     }
 
     @Override
-    public void onBindViewHolder(VerbatologEventViewHolder holder, int position) {
+    public void onBindViewHolder(EventViewHolder holder, int position) {
         EventModel event = mEventsList.get(position);
         String childName = event.getChild().getName();
         if (childName == null) {
@@ -60,14 +60,14 @@ public class EventsAdapter extends RecyclerView.Adapter<VerbatologEventViewHolde
         }
         holder.setAge(event.getFullAge(mContext));
         holder.setTimePeriod(event.getEventTime());
-        holder.setOnClickListener(new VerbatologEventOnClickListener(event));
+        holder.setOnClickListener(new EventOnClickListener(event));
     }
 
-    private class VerbatologEventOnClickListener implements View.OnClickListener {
+    private class EventOnClickListener implements View.OnClickListener {
 
         private SoftReference<EventModel> mEventModelSoftReference;
 
-        VerbatologEventOnClickListener(EventModel eventModel) {
+        EventOnClickListener(EventModel eventModel) {
             mEventModelSoftReference = new SoftReference<>(eventModel);
         }
 

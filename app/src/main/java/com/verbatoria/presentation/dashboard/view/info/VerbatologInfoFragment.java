@@ -1,12 +1,20 @@
-package com.verbatoria.presentation.dashboard.view.main.info;
+package com.verbatoria.presentation.dashboard.view.info;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
+import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.LocationModel;
+import com.verbatoria.di.dashboard.DashboardModule;
+import com.verbatoria.presentation.dashboard.presenter.main.IVerbatologInfoPresenter;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -16,6 +24,9 @@ import butterknife.ButterKnife;
  * @author nikitaremnev
  */
 public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoView {
+
+    @Inject
+    IVerbatologInfoPresenter mVerbatologInfoPresenter;
 
     @BindView(R.id.name_text_view)
     public TextView mVerbatologNameTextView;
@@ -50,8 +61,26 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_verbatolog_info, container, false);
+        //bind views
         ButterKnife.bind(this, rootView);
+
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //bind views
+        VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
+        mVerbatologInfoPresenter.bindView(this);
+        mVerbatologInfoPresenter.updateVerbatologInfo();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mVerbatologInfoPresenter.unbindView();
     }
 
     @Override
@@ -89,4 +118,18 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
         mLocationNameTextView.setText(name);
     }
 
+    @Override
+    public void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail) {
+        showVerbatologName(verbatologFullName);
+        showVerbatologPhone(verbatologPhone);
+        showVerbatologEmail(verbatologEmail);
+    }
+
+    @Override
+    public void showLocationInfo(LocationModel locationModel) {
+        showLocationAddress(locationModel.getAddress());
+        showLocationCityCountry(locationModel.getCityCountry());
+        showLocationPartner(locationModel.getPartner());
+        showLocationName(locationModel.getName());
+    }
 }

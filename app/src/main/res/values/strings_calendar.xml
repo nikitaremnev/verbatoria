@@ -13,10 +13,9 @@
     <string name="calendar_activity_add_client_phone">Номер телефона</string>
     <string name="calendar_activity_event_create">Создать запись</string>
 
-    <string name="calendar_activity_add_child_title">Создание записи ребенка</string>
-    <string name="calendar_activity_add_client_title">Создание записи клиента</string>
-
-
+    <string name="calendar_activity_child_title">Запись ребенка</string>
+    <string name="calendar_activity_client_title">Запись клиента</string>
+    
     <string name="event_detail_activity_client">Клиент</string>
     <string name="event_detail_activity_child">Ребенок</string>
     <string name="event_detail_activity_time">Время</string>

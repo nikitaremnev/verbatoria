@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.presentation.calendar.view.CalendarFragment;
-import com.verbatoria.presentation.dashboard.view.main.DashboardMainFragment;
+import com.verbatoria.presentation.dashboard.view.info.VerbatologInfoFragment;
 import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
 
 import butterknife.BindView;
@@ -34,7 +34,7 @@ public class DashboardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setUpBottomNavigation();
-        setUpFragment(DashboardMainFragment.newInstance());
+        setUpFragment(VerbatologInfoFragment.newInstance());
     }
 
     private void setUpFragment(Fragment fragment) {
@@ -47,7 +47,7 @@ public class DashboardActivity extends AppCompatActivity {
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_main:
-                    setUpFragment(DashboardMainFragment.newInstance());
+                    setUpFragment(VerbatologInfoFragment.newInstance());
                     return true;
                 case R.id.navigation_calendar:
                     setUpFragment(CalendarFragment.newInstance());

@@ -101,6 +101,11 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     }
 
     @Override
+    public void onBackPressed() {
+        finishWithResult();
+    }
+
+    @Override
     protected void setUpViews() {
         setUpNavigation();
         setUpFields();
@@ -259,7 +264,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.calendar_activity_add_child_title));
+        getSupportActionBar().setTitle(getString(R.string.calendar_activity_child_title));
     }
 
     private void setUpFields() {
