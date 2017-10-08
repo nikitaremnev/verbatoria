@@ -18,6 +18,8 @@ public interface IClientsView {
     void finishWithResult();
 
     void showError(String message);
+    void showClientAdded();
+    void showClientEdited();
 
     String getClientName();
     String getClientEmail();

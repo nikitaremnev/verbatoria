@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -225,6 +227,32 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     @Override
     public void showError(String message) {
         Helper.showSnackBar(mSubmitButton, message);
+    }
+
+    @Override
+    public void showChildAdded() {
+        Snackbar.make(mSubmitButton, getString(R.string.child_added), Snackbar.LENGTH_SHORT)
+                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        finishWithResult();
+                    }
+                })
+                .show();
+    }
+
+    @Override
+    public void showChildEdited() {
+        Snackbar.make(mSubmitButton, getString(R.string.child_edited), Snackbar.LENGTH_SHORT)
+                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        finishWithResult();
+                    }
+                })
+                .show();
     }
 
     private void setUpNavigation() {

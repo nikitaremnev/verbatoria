@@ -2,7 +2,6 @@ package com.verbatoria.presentation.dashboard.presenter.main;
 
 import android.support.annotation.NonNull;
 
-import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
@@ -19,13 +18,11 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     private static final String TAG = DashboardMainPresenter.class.getSimpleName();
 
     private IDashboardInteractor mDashboardInteractor;
-    private ICalendarInteractor mCalendarInteractor;
     private IDashboardMainView mDashboardView;
     private VerbatologModel mVerbatologModel;
 
-    public DashboardMainPresenter(IDashboardInteractor dashboardInteractor, ICalendarInteractor calendarInteractor) {
+    public DashboardMainPresenter(IDashboardInteractor dashboardInteractor) {
         mDashboardInteractor = dashboardInteractor;
-        mCalendarInteractor = calendarInteractor;
     }
 
     @Override
@@ -47,14 +44,6 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     }
 
     @Override
-    public void updateVerbatologEvents() {
-        if (mDashboardInteractor.hasLocationId()) {
-            mCalendarInteractor.getEvents(mVerbatologModel)
-                    .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
-        }
-    }
-
-    @Override
     public void updateLocationInfo() {
         mDashboardInteractor.getLocation()
                 .subscribe(this::handleLocationInfoReceived, this::handleLocationInfoLoadingFailed);
@@ -69,12 +58,7 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
     private void handleVerbatologInfoLoadingFailed(Throwable throwable) {
         throwable.printStackTrace();
         mDashboardInteractor.getVerbatologInfoFromCache()
-                .subscribe(this::handleVerbatologInfoReceived, this::handleVerbatologEventsLoadingFailed);
-    }
-
-    private void handleVerbatologEventsReceived(@NonNull VerbatologModel verbatologModel) {
-        Logger.e(TAG, verbatologModel.toString());
-        mDashboardView.showVerbatologEvents(verbatologModel.getEvents());
+                .subscribe(this::handleVerbatologInfoReceived, this::handleVerbatologInfoLoadingFailed);
     }
 
     private void handleLocationInfoReceived(@NonNull LocationModel locationModel) {
@@ -82,15 +66,9 @@ public class DashboardMainPresenter implements IDashboardMainPresenter {
         mDashboardView.showLocationInfo(locationModel);
     }
 
-    private void handleVerbatologEventsLoadingFailed(Throwable throwable) {
-        throwable.printStackTrace();
-        Logger.exc(TAG, throwable);
-    }
-
     private void handleLocationInfoLoadingFailed(Throwable throwable) {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable);
     }
-
 
 }

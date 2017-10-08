@@ -58,8 +58,8 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
-    IDashboardMainPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor, ICalendarInteractor calendarInteractor) {
-        return new DashboardMainPresenter(dashboardInteractor, calendarInteractor);
+    IDashboardMainPresenter provideDashboardPresenter(IDashboardInteractor dashboardInteractor) {
+        return new DashboardMainPresenter(dashboardInteractor);
     }
 
     @Provides

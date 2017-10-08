@@ -21,6 +21,9 @@ public interface IChildrenView {
 
     void showError(String message);
 
+    void showChildAdded();
+    void showChildEdited();
+
     void startDatePicker();
 
     void updateBirthday();

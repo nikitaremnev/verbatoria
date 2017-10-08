@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
-import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
 
@@ -71,7 +70,7 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
         addSubscription(mChildrenInteractor.addChild(mChildModel)
                 .doOnSubscribe(() -> mChildrenView.showProgress())
                 .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                .subscribe(this::handleChildRequestSuccess, this::handleChildRequestError));
+                .subscribe(this::handleChildAddSuccess, this::handleChildRequestError));
     }
 
     @Override
@@ -80,7 +79,7 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
         addSubscription(mChildrenInteractor.editChild(mChildModel)
                 .doOnSubscribe(() -> mChildrenView.showProgress())
                 .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                .subscribe(this::handleChildRequestSuccess, this::handleChildRequestError));
+                .subscribe(this::handleChildEditSuccess, this::handleChildRequestError));
     }
 
     @Override
@@ -109,13 +108,13 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     }
 
-    private void handleChildRequestSuccess(ChildModel childModel) {
+    private void handleChildAddSuccess(ChildModel childModel) {
         mChildModel.setId(childModel.getId());
-        mChildrenView.finishWithResult();
+        mChildrenView.showChildAdded();
     }
 
-    private void handleChildRequestSuccess(ResponseBody responseBody) {
-        mChildrenView.finishWithResult();
+    private void handleChildEditSuccess(ResponseBody responseBody) {
+        mChildrenView.showChildEdited();
     }
 
     private void handleChildRequestError(Throwable throwable) {

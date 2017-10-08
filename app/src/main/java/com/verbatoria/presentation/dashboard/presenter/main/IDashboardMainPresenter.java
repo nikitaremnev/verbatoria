@@ -15,6 +15,5 @@ public interface IDashboardMainPresenter {
     void unbindView();
 
     void updateVerbatologInfo();
-    void updateVerbatologEvents();
     void updateLocationInfo();
 }

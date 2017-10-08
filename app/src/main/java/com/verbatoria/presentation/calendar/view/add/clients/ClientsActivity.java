@@ -3,6 +3,8 @@ package com.verbatoria.presentation.calendar.view.add.clients;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -212,6 +214,33 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     }
 
     @Override
+    public void showClientAdded() {
+        Snackbar.make(mSubmitButton, getString(R.string.client_added), Snackbar.LENGTH_SHORT)
+                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        finishWithResult();
+                    }
+                })
+                .show();
+
+    }
+
+    @Override
+    public void showClientEdited() {
+        Snackbar.make(mSubmitButton, getString(R.string.client_edited), Snackbar.LENGTH_SHORT)
+                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    @Override
+                    public void onDismissed(Snackbar transientBottomBar, int event) {
+                        super.onDismissed(transientBottomBar, event);
+                        finishWithResult();
+                    }
+                })
+                .show();
+    }
+
+    @Override
     public String getClientName() {
         return getFieldValue(mClientNameEditableField);
     }
@@ -243,14 +272,6 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
                 getString(R.string.event_detail_activity_client_email_editable_hint), InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         setUpEditableFieldView(mClientPhoneEditableField, R.drawable.ic_client_phone, mClientsPresenter.getClientPhone(),
                 getString(R.string.event_detail_activity_client_phone_editable_hint), InputType.TYPE_TEXT_VARIATION_PHONETIC);
-    }
-
-    private void setUpFieldsStatus() {
-        if (!mClientsPresenter.isEditMode()) {
-            ((ImageView) mClientNameField.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-            ((ImageView) mClientEmailField.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-            ((ImageView) mClientPhoneField.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-        }
     }
 
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle) {

@@ -22,6 +22,9 @@ public interface IEventDetailView {
     void startTimePicker();
     void showError(String message);
 
+    void showEventAdded();
+    void showEventEdited();
+
     void updateClientView(ClientModel clientModel);
     void updateChildView(ChildModel childModel);
     void updateEventTime(EventModel eventModel);

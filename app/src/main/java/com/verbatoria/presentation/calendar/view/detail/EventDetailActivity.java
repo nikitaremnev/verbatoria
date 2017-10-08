@@ -187,6 +187,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showEventAdded() {
+        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.event_detail_event_added), Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    @Override
+    public void showEventEdited() {
+        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.event_detail_event_edited), Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    @Override
     public void updateClientView(ClientModel clientModel) {
         if (clientModel == null) {
             ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);

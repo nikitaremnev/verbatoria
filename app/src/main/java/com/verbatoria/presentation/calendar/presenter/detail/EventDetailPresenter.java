@@ -178,6 +178,11 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     private void handleEventEditedOrCreated(@NonNull ResponseBody responseBody) {
         Logger.e(TAG, responseBody.toString());
+        if (!mIsEditMode) {
+            mCalendarEventDetailView.showEventAdded();
+        } else {
+            mCalendarEventDetailView.showEventEdited();
+        }
         mIsEditMode = true;
         mCalendarEventDetailView.setUpEventCreated();
     }
