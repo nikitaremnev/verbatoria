@@ -6,6 +6,7 @@
     <string name="calendar_activity_add_child_save">Сохранить</string>
     <string name="calendar_activity_save">Сохранить</string>
     <string name="calendar_activity_create">Создать запись</string>
+    <string name="calendar_activity_search">Найти</string>
 
     <string name="calendar_activity_add_child_name">Имя ребенка</string>
     <string name="calendar_activity_add_client_name">Имя клиента</string>
@@ -15,7 +16,8 @@
 
     <string name="calendar_activity_child_title">Запись ребенка</string>
     <string name="calendar_activity_client_title">Запись клиента</string>
-    
+    <string name="calendar_activity_search_client_title">Поиск записи клиента</string>
+
     <string name="event_detail_activity_client">Клиент</string>
     <string name="event_detail_activity_child">Ребенок</string>
     <string name="event_detail_activity_time">Время</string>
@@ -48,6 +50,7 @@
     <string name="child_data_is_not_full">Данные о ребенке указаны не полностью</string>
     <string name="time_is_not_set">Необходимо указать время записи</string>
 
+    <string name="action_search">Поиск</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_cancel">Отмена</string>
 </resources>

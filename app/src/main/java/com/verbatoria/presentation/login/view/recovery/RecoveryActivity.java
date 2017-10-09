@@ -201,7 +201,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
         mPhoneEditText.setVisibility(View.GONE);
         mCodeEditText.setVisibility(View.GONE);
         mNewPasswordEditText.setVisibility(View.VISIBLE);
-        mNewPasswordConfirmEditText.setVisibility(View.VISIBLE);
+//        mNewPasswordConfirmEditText.setVisibility(View.VISIBLE);
         mSubmitButton.setText(getString(R.string.recovery_send_new_password));
         mSubmitButton.setOnClickListener(v -> mRecoveryPresenter.sendNewPassword());
     }

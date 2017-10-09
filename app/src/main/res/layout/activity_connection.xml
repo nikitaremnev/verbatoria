@@ -41,7 +41,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/connection_status_image_left_margin"
         android:layout_marginTop="@dimen/connection_status_image_top_margin"
-        tools:src="@drawable/connect_bci"
         tools:ignore="ContentDescription" />
 
     <Button

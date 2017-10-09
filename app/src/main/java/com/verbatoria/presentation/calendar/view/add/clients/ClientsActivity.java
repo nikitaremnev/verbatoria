@@ -38,6 +38,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     private static final String TAG = ClientsActivity.class.getSimpleName();
     public static final String EXTRA_CLIENT_MODEL = "com.verbatoria.presentation.calendar.view.add.clients.EXTRA_CLIENT_MODEL";
+    public static final int ACTIVITY_SEARCH_CLIENT_CODE = 11;
 
     @Inject
     IClientsPresenter mClientsPresenter;
@@ -63,6 +64,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
+    private MenuItem mSearchMenuItem;
     private MenuItem mEditMenuItem;
     private MenuItem mCancelMenuItem;
 
@@ -91,10 +93,12 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_edit, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_clients, menu);
         mCancelMenuItem = menu.findItem(R.id.action_cancel);
         mEditMenuItem = menu.findItem(R.id.action_edit);
+        mSearchMenuItem = menu.findItem(R.id.action_search);
         mEditMenuItem.setVisible(mClientsPresenter.isEditMode());
+        mSearchMenuItem.setVisible(!mClientsPresenter.isEditMode());
         mCancelMenuItem.setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
@@ -127,6 +131,9 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         if (item.getItemId() == R.id.action_cancel) {
             setUpReadonlyMode();
         }
+        if (item.getItemId() == R.id.action_search) {
+            startSearch();
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -135,6 +142,10 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(getString(R.string.calendar_activity_client_title));
+    }
+
+    private void startSearch() {
+        startActivityForResult(SearchClientsActivity.newInstance(this), ACTIVITY_SEARCH_CLIENT_CODE);
     }
 
     @Override
@@ -267,7 +278,6 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         setUpFieldView(mClientNameField, R.drawable.ic_client_name, clientNameString, getString(R.string.event_detail_activity_client_name));
         setUpFieldView(mClientEmailField, R.drawable.ic_client_email, clientEmailString, getString(R.string.event_detail_activity_client_email));
         setUpFieldView(mClientPhoneField, R.drawable.ic_client_phone, clientPhoneString, getString(R.string.event_detail_activity_client_phone));
-
     }
 
     private void setUpEditableFields() {

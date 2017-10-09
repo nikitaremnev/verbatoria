@@ -8,6 +8,7 @@ import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
+import com.verbatoria.presentation.calendar.view.add.clients.ISearchClientsView;
 
 import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity.EXTRA_CLIENT_MODEL;
 
@@ -20,11 +21,17 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     private IClientsInteractor mClientsInteractor;
     private IClientsView mClientView;
+    private ISearchClientsView mSearchClientsView;
     private ClientModel mClientModel;
     private boolean mIsEditMode;
 
     public ClientsPresenter(IClientsInteractor clientsInteractor) {
         mClientsInteractor = clientsInteractor;
+    }
+
+    @Override
+    public void bindView(@NonNull ISearchClientsView searchClientsView) {
+        mSearchClientsView = searchClientsView;
     }
 
     @Override
@@ -35,6 +42,7 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
     @Override
     public void unbindView() {
         mClientView = null;
+        mSearchClientsView = null;
     }
 
     @Override
