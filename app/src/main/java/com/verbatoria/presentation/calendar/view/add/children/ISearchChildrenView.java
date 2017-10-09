@@ -1,6 +1,6 @@
-package com.verbatoria.presentation.calendar.view.add.clients;
+package com.verbatoria.presentation.calendar.view.add.children;
 
-import com.verbatoria.data.network.common.ClientModel;
+import com.verbatoria.business.dashboard.models.ChildModel;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author nikitaremnev
  */
-public interface ISearchClientsView {
+public interface ISearchChildrenView {
 
     //отображение прогресса
     void showProgress();
@@ -17,7 +17,7 @@ public interface ISearchClientsView {
 
     String getQuery();
 
-    void showClientsFound(List<ClientModel> clients);
+    void showChildsFound(List<ChildModel> childModels);
 
     void showError(String message);
 

@@ -3,6 +3,7 @@ package com.verbatoria.data.repositories.clients;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
+import com.verbatoria.data.network.response.ClientsResponseModel;
 
 import rx.Observable;
 
@@ -17,4 +18,7 @@ public interface IClientsRepository {
 
     Observable<ClientModel> getClient(String clientId, String accessToken);
 
+    Observable<ClientsResponseModel> searchClients(String query, String accessToken);
+
 }
+

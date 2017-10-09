@@ -44,6 +44,8 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     public static final String EXTRA_CHILD_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CHILD_MODEL";
     public static final String EXTRA_CLIENT_ID = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CLIENT_ID";
 
+    public static final int ACTIVITY_SEARCH_CHILDREN_CODE = 12;
+
     @Inject
     IChildrenPresenter mChildrenPresenter;
 
@@ -61,6 +63,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     private Calendar mBirthday;
 
+    private MenuItem mSearchMenuItem;
     private MenuItem mEditMenuItem;
     private MenuItem mCancelMenuItem;
 
@@ -92,9 +95,12 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_edit, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_edit_search, menu);
         mCancelMenuItem = menu.findItem(R.id.action_cancel);
+        mSearchMenuItem = menu.findItem(R.id.action_search);
         mEditMenuItem = menu.findItem(R.id.action_edit);
+
+        mSearchMenuItem.setVisible(!mChildrenPresenter.isEditMode());
         mEditMenuItem.setVisible(mChildrenPresenter.isEditMode());
         mCancelMenuItem.setVisible(false);
         return super.onCreateOptionsMenu(menu);
@@ -103,6 +109,15 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     @Override
     public void onBackPressed() {
         finishWithResult();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ACTIVITY_SEARCH_CHILDREN_CODE && resultCode == RESULT_OK) {
+            mChildrenPresenter.obtainChild(data);
+            finishWithResult();
+        }
     }
 
     @Override
@@ -127,6 +142,9 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
         }
         if (item.getItemId() == R.id.action_cancel) {
             setUpReadonlyMode();
+        }
+        if (item.getItemId() == R.id.action_search) {
+            startSearch();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -183,13 +201,13 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     @Override
     public void finishWithResult() {
-        setResult(RESULT_OK, createChildIntent());
+        setResult(RESULT_OK, createChildIntent(mChildrenPresenter.getChildModel()));
         finish();
     }
 
-    private Intent createChildIntent() {
+    public static Intent createChildIntent(ChildModel childModel) {
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_CHILD_MODEL, mChildrenPresenter.getChildModel());
+        intent.putExtra(EXTRA_CHILD_MODEL, childModel);
         return intent;
     }
 
@@ -295,6 +313,10 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     private String getFieldValue(View fieldView) {
         EditText fieldEditText = (EditText) fieldView.findViewById(R.id.field_edit_text);
         return fieldEditText.getText().toString();
+    }
+
+    private void startSearch() {
+        startActivityForResult(SearchChildrenActivity.newInstance(this), ACTIVITY_SEARCH_CHILDREN_CODE);
     }
 
 }

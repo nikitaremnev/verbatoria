@@ -32,12 +32,12 @@ class APIConstants {
     static final String ADD_EVENT_URL = VERBATOLOG_ID_PATH_KEY + "/current/events" + JSON_PATH;
     static final String EDIT_EVENT_URL = VERBATOLOG_ID_PATH_KEY + "/current/events/" + "{" + EVENT_ID_PATH_KEY + "}" + JSON_PATH;
 
-    static final String SEARCH_CHILD_URL = "children" + JSON_PATH + "?query=" + QUERY_PATH_KEY;
+    static final String SEARCH_CHILD_URL = "children" + JSON_PATH;
     static final String ADD_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children" + JSON_PATH;
     static final String EDIT_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
     static final String GET_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
 
-    static final String SEARCH_CLIENT_URL = "clients" + JSON_PATH + "?query=" + QUERY_PATH_KEY;
+    static final String SEARCH_CLIENT_URL = "clients" + JSON_PATH;
     static final String ADD_CLIENT_URL = "clients" + JSON_PATH;
     static final String EDIT_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;
     static final String GET_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;

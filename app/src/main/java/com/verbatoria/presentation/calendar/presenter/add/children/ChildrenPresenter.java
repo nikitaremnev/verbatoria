@@ -8,8 +8,10 @@ import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
+import com.verbatoria.presentation.calendar.view.add.children.ISearchChildrenView;
 
 import java.util.Date;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 
@@ -25,6 +27,7 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     private IChildrenInteractor mChildrenInteractor;
     private IChildrenView mChildrenView;
+    private ISearchChildrenView mSearchChildrenView;
     private ChildModel mChildModel;
     private String mClientId;
     private boolean mIsEditMode;
@@ -34,12 +37,18 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     }
 
     @Override
+    public void bindView(@NonNull ISearchChildrenView searchChildrenView) {
+        mSearchChildrenView = searchChildrenView;
+    }
+
+    @Override
     public void bindView(@NonNull IChildrenView childrenView) {
         mChildrenView = childrenView;
     }
 
     @Override
     public void unbindView() {
+        mSearchChildrenView = null;
         mChildrenView = null;
     }
 
@@ -50,8 +59,8 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
             mIsEditMode = true;
         } else {
             mChildModel = new ChildModel();
+            mChildModel.setClientId(intent.getStringExtra(EXTRA_CLIENT_ID));
         }
-        mChildModel.setClientId(intent.getStringExtra(EXTRA_CLIENT_ID));
     }
 
     @Override
@@ -80,6 +89,14 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
                 .doOnSubscribe(() -> mChildrenView.showProgress())
                 .doOnUnsubscribe(() -> mChildrenView.hideProgress())
                 .subscribe(this::handleChildEditSuccess, this::handleChildRequestError));
+    }
+
+    @Override
+    public void searchChilds() {
+        addSubscription(mChildrenInteractor.searchChildren(mSearchChildrenView.getQuery())
+                .doOnSubscribe(() -> mSearchChildrenView.showProgress())
+                .doOnUnsubscribe(() -> mSearchChildrenView.hideProgress())
+                .subscribe(this::handleChildrenFound, this::handleChildrenSearchError));
     }
 
     @Override
@@ -119,5 +136,13 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     private void handleChildRequestError(Throwable throwable) {
         mChildrenView.showError(throwable.getMessage());
+    }
+
+    private void handleChildrenFound(List<ChildModel> childrenList) {
+        mSearchChildrenView.showChildsFound(childrenList);
+    }
+
+    private void handleChildrenSearchError(Throwable throwable) {
+        mSearchChildrenView.showError(throwable.getMessage());
     }
 }

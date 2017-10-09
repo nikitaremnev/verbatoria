@@ -25,6 +25,7 @@ public interface IClientsPresenter {
 
     void createClient();
     void editClient();
+    void searchClients();
 
     String getClientName();
     String getClientPhone();

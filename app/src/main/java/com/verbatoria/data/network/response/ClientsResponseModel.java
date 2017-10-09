@@ -26,7 +26,7 @@ public class ClientsResponseModel extends PagingResponseModel {
 
     @JsonGetter("data")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public List<ClientModel> getEvents() {
+    public List<ClientModel> getClients() {
         return mData;
     }
 

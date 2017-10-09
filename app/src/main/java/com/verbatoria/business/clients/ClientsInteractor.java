@@ -8,6 +8,8 @@ import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.RxSchedulers;
 
+import java.util.List;
+
 import rx.Observable;
 
 /**
@@ -44,6 +46,14 @@ public class ClientsInteractor implements IClientsInteractor {
     @Override
     public Observable<ClientModel> getClient(String clientId) {
         return mClientsRepository.getClient(clientId, getAccessToken())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Observable<List<ClientModel>> searchClients(String query) {
+        return mClientsRepository.searchClients(query, getAccessToken())
+                .map(clientsResponseModel -> clientsResponseModel.getClients())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

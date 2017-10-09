@@ -10,6 +10,8 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
 import com.verbatoria.presentation.calendar.view.add.clients.ISearchClientsView;
 
+import java.util.List;
+
 import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity.EXTRA_CLIENT_MODEL;
 
 /**
@@ -24,6 +26,7 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
     private ISearchClientsView mSearchClientsView;
     private ClientModel mClientModel;
     private boolean mIsEditMode;
+    private boolean mSearchByPhone;
 
     public ClientsPresenter(IClientsInteractor clientsInteractor) {
         mClientsInteractor = clientsInteractor;
@@ -87,6 +90,14 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
     }
 
     @Override
+    public void searchClients() {
+        addSubscription(mClientsInteractor.searchClients(mSearchClientsView.getQuery())
+                .doOnSubscribe(() -> mSearchClientsView.showProgress())
+                .doOnUnsubscribe(() -> mSearchClientsView.hideProgress())
+                .subscribe(this::handleClientsFound, this::handleClientsSearchError));
+    }
+
+    @Override
     public String getClientName() {
         return mClientModel != null ? mClientModel.getName() != null ? mClientModel.getName() : "" : "";
     }
@@ -121,7 +132,16 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
         mClientView.showClientEdited();
     }
 
+    private void handleClientsFound(List<ClientModel> clients) {
+        mSearchClientsView.showClientsFound(clients);
+    }
+
+    private void handleClientsSearchError(Throwable throwable) {
+        mSearchClientsView.showError(throwable.getMessage());
+    }
+
     private void handleClientRequestError(Throwable throwable) {
         mClientView.showError(throwable.getMessage());
     }
+
 }

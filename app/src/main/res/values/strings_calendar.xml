@@ -17,6 +17,7 @@
     <string name="calendar_activity_child_title">Запись ребенка</string>
     <string name="calendar_activity_client_title">Запись клиента</string>
     <string name="calendar_activity_search_client_title">Поиск записи клиента</string>
+    <string name="calendar_activity_search_child_title">Поиск записи ребенка</string>
 
     <string name="event_detail_activity_client">Клиент</string>
     <string name="event_detail_activity_child">Ребенок</string>
@@ -45,6 +46,9 @@
     <string name="client_edited">Запись успешно изменена!</string>
     <string name="child_added">Запись успешно создана!</string>
     <string name="child_edited">Запись успешно изменена!</string>
+
+    <string name="search_by_name_email_phone">Имя, номер телефона или эл. почта</string>
+    <string name="search_by_child_name">Имя ребенка</string>
 
     <string name="client_data_is_not_full">Данные о клиенте указаны не полностью</string>
     <string name="child_data_is_not_full">Данные о ребенке указаны не полностью</string>

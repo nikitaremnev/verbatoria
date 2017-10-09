@@ -22,8 +22,11 @@
     <dimen name="field_title_top_margin">20dp</dimen>
     <dimen name="field_title_bottom_padding">32dp</dimen>
     <dimen name="field_subtitle_top_padding">4dp</dimen>
+    <dimen name="field_subtitle_bottom_padding">12dp</dimen>
     <dimen name="field_title_size">16sp</dimen>
     <dimen name="field_subtitle_size">12sp</dimen>
+
+    <dimen name="client_name_top_margin">8dp</dimen>
 
 
 </resources>

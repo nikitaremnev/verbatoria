@@ -4,6 +4,7 @@ import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
+import com.verbatoria.data.network.response.ClientsResponseModel;
 
 import rx.Observable;
 
@@ -29,5 +30,10 @@ public class ClientsRepository implements IClientsRepository {
     @Override
     public Observable<ClientModel> getClient(String clientId, String accessToken) {
         return APIFactory.getAPIService().getClientRequest(clientId, accessToken);
+    }
+
+    @Override
+    public Observable<ClientsResponseModel> searchClients(String query, String accessToken) {
+        return APIFactory.getAPIService().findClientRequest(query, accessToken);
     }
 }

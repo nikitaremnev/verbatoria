@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
-import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.data.network.common.ChildModel;
 
 import java.util.List;
 
@@ -16,12 +16,11 @@ import java.util.List;
  * @author nikitaremnev
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ChildsResponseModel extends PagingResponseModel {
-
+public class ChildrenResponseModel extends PagingResponseModel {
 
     private List<ChildModel> mData;
 
-    public ChildsResponseModel() {
+    public ChildrenResponseModel() {
 
     }
 
@@ -31,7 +30,7 @@ public class ChildsResponseModel extends PagingResponseModel {
         return mData;
     }
 
-    public ChildsResponseModel setChilds(List<ChildModel> childs) {
+    public ChildrenResponseModel setChilds(List<ChildModel> childs) {
         mData = childs;
         return this;
     }
@@ -44,7 +43,7 @@ public class ChildsResponseModel extends PagingResponseModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ChildsResponseModel that = (ChildsResponseModel) o;
+        ChildrenResponseModel that = (ChildrenResponseModel) o;
         return mTotalEntries == that.mTotalEntries &&
                 mPerPage == that.mPerPage &&
                 mCurrentPage == that.mCurrentPage &&

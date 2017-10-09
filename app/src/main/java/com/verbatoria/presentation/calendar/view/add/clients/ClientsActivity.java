@@ -93,7 +93,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_clients, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_edit_search, menu);
         mCancelMenuItem = menu.findItem(R.id.action_cancel);
         mEditMenuItem = menu.findItem(R.id.action_edit);
         mSearchMenuItem = menu.findItem(R.id.action_search);
@@ -135,6 +135,15 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
             startSearch();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ACTIVITY_SEARCH_CLIENT_CODE && resultCode == RESULT_OK) {
+            mClientsPresenter.obtainClient(data);
+            finishWithResult();
+        }
     }
 
     private void setUpNavigation() {
@@ -194,13 +203,13 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     @Override
     public void finishWithResult() {
-        setResult(RESULT_OK, createClientIntent());
+        setResult(RESULT_OK, createClientIntent(mClientsPresenter.getClientModel()));
         finish();
     }
 
-    private Intent createClientIntent() {
+    public static Intent createClientIntent(ClientModel clientModel) {
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_CLIENT_MODEL, mClientsPresenter.getClientModel());
+        intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
         return intent;
     }
 

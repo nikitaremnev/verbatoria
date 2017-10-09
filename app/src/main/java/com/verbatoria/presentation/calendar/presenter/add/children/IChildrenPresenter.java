@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
+import com.verbatoria.presentation.calendar.view.add.children.ISearchChildrenView;
 
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import java.util.Date;
  */
 public interface IChildrenPresenter {
 
+    void bindView(@NonNull ISearchChildrenView searchChildrenView);
     void bindView(@NonNull IChildrenView childrenView);
     void unbindView();
 
@@ -25,6 +27,7 @@ public interface IChildrenPresenter {
 
     void createChild();
     void editChild();
+    void searchChilds();
 
     String getChildName();
     String getChildBirthday();

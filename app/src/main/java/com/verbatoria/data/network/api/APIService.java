@@ -12,7 +12,7 @@ import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
-import com.verbatoria.data.network.response.ChildsResponseModel;
+import com.verbatoria.data.network.response.ChildrenResponseModel;
 import com.verbatoria.data.network.response.ClientsResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
@@ -99,9 +99,9 @@ public interface APIService {
         Childs
      */
 
-    @POST(APIConstants.SEARCH_CHILD_URL)
-    Observable<ChildsResponseModel> findChildRequest(@Path(value = QUERY_PATH_KEY) String query,
-                                                     @Header(TOKEN_HEADER_KEY) String accessToken);
+    @GET(APIConstants.SEARCH_CHILD_URL)
+    Observable<ChildrenResponseModel> findChildRequest(@Query(QUERY_PATH_KEY) String query,
+                                                       @Header(TOKEN_HEADER_KEY) String accessToken);
 
 
     @POST(APIConstants.ADD_CHILD_URL)
@@ -124,8 +124,8 @@ public interface APIService {
         Clients
      */
 
-    @POST(APIConstants.SEARCH_CLIENT_URL)
-    Observable<ClientsResponseModel> findClientRequest(@Path(value = QUERY_PATH_KEY) String query,
+    @GET(APIConstants.SEARCH_CLIENT_URL)
+    Observable<ClientsResponseModel> findClientRequest(@Query(QUERY_PATH_KEY) String query,
                                                        @Header(TOKEN_HEADER_KEY) String accessToken);
 
     @POST(APIConstants.ADD_CLIENT_URL)

@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.calendar.view.add.clients;
+package com.verbatoria.presentation.calendar.view.add.children;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +13,12 @@ import android.widget.ImageView;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.data.network.common.ClientModel;
+import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
-import com.verbatoria.presentation.calendar.presenter.add.clients.IClientsPresenter;
-import com.verbatoria.presentation.calendar.view.add.children.adapter.ClientsAdapter;
+import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
+import com.verbatoria.presentation.calendar.view.add.clients.adapter.ChildrenAdapter;
 import com.verbatoria.utils.Helper;
 
 import java.util.List;
@@ -28,16 +28,16 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 /**
- * Экран поиска клиентов
+ * Экран поиска детей
  *
  * @author nikitaremnev
  */
-public class SearchClientsActivity extends BaseActivity implements ISearchClientsView {
+public class SearchChildrenActivity extends BaseActivity implements ISearchChildrenView {
 
-    private static final String TAG = SearchClientsActivity.class.getSimpleName();
+    private static final String TAG = SearchChildrenActivity.class.getSimpleName();
 
     @Inject
-    IClientsPresenter mClientsPresenter;
+    IChildrenPresenter mChildrenPresenter;
 
     @BindView(R.id.query_edit_text)
     public EditText mQueryEditText;
@@ -46,13 +46,13 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
     public ImageView mImageView;
 
     @BindView(R.id.found_adapter)
-    public RecyclerView mFoundClientsRecyclerView;
+    public RecyclerView mFoundChildrenRecyclerView;
 
     @BindView(R.id.search_button)
     public Button mSearchButton;
 
     public static Intent newInstance(Context mContext) {
-        return new Intent(mContext, SearchClientsActivity.class);
+        return new Intent(mContext, SearchChildrenActivity.class);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
 
         setContentView(R.layout.activity_search);
 
-        setPresenter((BasePresenter) mClientsPresenter);
-        mClientsPresenter.bindView(this);
+        setPresenter((BasePresenter) mChildrenPresenter);
+        mChildrenPresenter.bindView(this);
 
         super.onCreate(savedInstanceState);
     }
@@ -73,14 +73,6 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
     }
 
     @Override
-    protected void setUpViews() {
-        setUpNavigation();
-        setUpRecyclerView();
-        mImageView.setImageResource(R.drawable.ic_search_color);
-        mSearchButton.setOnClickListener(v -> mClientsPresenter.searchClients());
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
@@ -88,12 +80,20 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void setUpViews() {
+        setUpNavigation();
+        setUpRecyclerView();
+        mImageView.setImageResource(R.drawable.ic_search_color);
+        mQueryEditText.setHint(getString(R.string.search_by_child_name));
+        mSearchButton.setOnClickListener(v -> mChildrenPresenter.searchChilds());
+    }
 
     private void setUpNavigation() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.calendar_activity_search_client_title));
+        getSupportActionBar().setTitle(getString(R.string.calendar_activity_search_child_title));
     }
 
     @Override
@@ -112,8 +112,8 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
     }
 
     @Override
-    public void showClientsFound(List<ClientModel> clients) {
-        mFoundClientsRecyclerView.setAdapter(new ClientsAdapter(clients, this));
+    public void showChildsFound(List<ChildModel> children) {
+        mFoundChildrenRecyclerView.setAdapter(new ChildrenAdapter(children, this));
     }
 
     @Override
@@ -122,7 +122,7 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
     }
 
     private void setUpRecyclerView() {
-        mFoundClientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mFoundClientsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        mFoundChildrenRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mFoundChildrenRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 }

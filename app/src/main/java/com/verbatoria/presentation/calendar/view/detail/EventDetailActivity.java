@@ -51,7 +51,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     private static final String TAG = EventDetailActivity.class.getSimpleName();
 
     public static final int ACTIVITY_CHILDREN_CODE = 27;
-    public static final int ACTIVITY_ClIENTS_CODE = 28;
+    public static final int ACTIVITY_CLIENTS_CODE = 28;
 
     @Inject
     IEventDetailPresenter mEventDetailPresenter;
@@ -103,7 +103,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ACTIVITY_ClIENTS_CODE && resultCode == RESULT_OK) {
+        if (requestCode == ACTIVITY_CLIENTS_CODE && resultCode == RESULT_OK) {
             ClientModel obtainedClientModel = data.getParcelableExtra(EXTRA_CLIENT_MODEL);
             mEventDetailPresenter.setClientModel(obtainedClientModel);
         }
@@ -155,7 +155,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void startClient() {
         ClientModel clientModel = mEventDetailPresenter.getClientModel();
         Intent intent = clientModel == null ? ClientsActivity.newInstance(this) : ClientsActivity.newInstance(this, clientModel);
-        startActivityForResult(intent, ACTIVITY_ClIENTS_CODE);
+        startActivityForResult(intent, ACTIVITY_CLIENTS_CODE);
     }
 
     @Override

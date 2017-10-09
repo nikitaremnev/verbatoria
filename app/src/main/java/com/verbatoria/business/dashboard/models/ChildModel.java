@@ -34,16 +34,18 @@ public class ChildModel implements Parcelable {
         return mId;
     }
 
-    public void setId(String id) {
+    public ChildModel setId(String id) {
         mId = id;
+        return this;
     }
 
     public String getName() {
         return mName;
     }
 
-    public void setName(String name) {
+    public ChildModel setName(String name) {
         mName = name;
+        return this;
     }
 
     public Date getBirthday() {
@@ -62,8 +64,9 @@ public class ChildModel implements Parcelable {
         }
     }
 
-    public void setBirthday(Date birthday) {
+    public ChildModel setBirthday(Date birthday) {
         mBirthday = birthday;
+        return this;
     }
 
     public String getClientId() {
