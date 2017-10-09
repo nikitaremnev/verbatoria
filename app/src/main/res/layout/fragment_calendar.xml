@@ -43,6 +43,26 @@
             android:layout_marginTop="@dimen/calendar_fab_between_margin"
             android:layout_marginRight="@dimen/calendar_fab_margin"
             android:layout_marginLeft="@dimen/calendar_fab_margin"
+            android:id="@+id/tomorrow_date_button"
+            app:fabSize="auto"
+            app:srcCompat="@drawable/ic_calendar_plus" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/calendar_fab_between_margin"
+            android:layout_marginRight="@dimen/calendar_fab_margin"
+            android:layout_marginLeft="@dimen/calendar_fab_margin"
+            android:id="@+id/yesterday_date_button"
+            app:fabSize="auto"
+            app:srcCompat="@drawable/ic_calendar_minus" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/calendar_fab_between_margin"
+            android:layout_marginRight="@dimen/calendar_fab_margin"
+            android:layout_marginLeft="@dimen/calendar_fab_margin"
             android:id="@+id/select_date_button"
             app:fabSize="auto"
             app:srcCompat="@drawable/ic_calendar" />

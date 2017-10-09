@@ -45,6 +45,12 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     @BindView(R.id.add_event_button)
     public FloatingActionButton mAddEventButton;
 
+    @BindView(R.id.tomorrow_date_button)
+    public FloatingActionButton mTomorrowDateButton;
+
+    @BindView(R.id.yesterday_date_button)
+    public FloatingActionButton mYesterdayDateButton;
+
     @BindView(R.id.select_date_button)
     public FloatingActionButton mCalendarButton;
 
@@ -77,7 +83,7 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
         setUpViews();
 
         mCalendarPresenter.bindView(this);
-        mCalendarPresenter.updateVerbatologEvents();
+        mCalendarPresenter.updateVerbatologEvents(mCalendar);
         return rootView;
     }
 
@@ -90,7 +96,7 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     private void setUpViews() {
         mCalendar = Calendar.getInstance();
         setUpAddEventButton();
-        setUpCalendarButton();
+        setUpCalendarButtons();
         setUpCurrentDate();
         setUpRecyclerView();
     }
@@ -100,9 +106,13 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
         mAddEventButton.show();
     }
 
-    private void setUpCalendarButton() {
+    private void setUpCalendarButtons() {
         mCalendarButton.setOnClickListener(v -> showCalendar());
+        mTomorrowDateButton.setOnClickListener(v -> showTomorrowCalendar());
+        mYesterdayDateButton.setOnClickListener(v -> showYesterdayCalendar());
         mCalendarButton.show();
+        mTomorrowDateButton.show();
+        mYesterdayDateButton.show();
     }
 
     private void setUpCurrentDate() {
@@ -116,19 +126,33 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     }
 
     private void showCalendar() {
-        mCalendarButton.setOnClickListener(v -> {
-            DatePickerDialog date = new DatePickerDialog(
-                    getActivity(),
-                    this,
-                    mCalendar.get(Calendar.YEAR),
-                    mCalendar.get(Calendar.MONTH),
-                    mCalendar.get(Calendar.DAY_OF_MONTH));
-            date.show();
-        });
+        DatePickerDialog date = new DatePickerDialog(
+                getActivity(),
+                this,
+                mCalendar.get(Calendar.YEAR),
+                mCalendar.get(Calendar.MONTH),
+                mCalendar.get(Calendar.DAY_OF_MONTH));
+        date.show();
+    }
+
+    private void showTomorrowCalendar() {
+        mCalendar.set(Calendar.DAY_OF_MONTH, mCalendar.get(Calendar.DAY_OF_MONTH) + 1);
+        setUpCurrentDate();
+        mCalendarPresenter.updateVerbatologEvents(mCalendar);
+    }
+
+    private void showYesterdayCalendar() {
+        mCalendar.set(Calendar.DAY_OF_MONTH, mCalendar.get(Calendar.DAY_OF_MONTH) - 1);
+        setUpCurrentDate();
+        mCalendarPresenter.updateVerbatologEvents(mCalendar);
     }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
+        mCalendar.set(Calendar.YEAR, year);
+        mCalendar.set(Calendar.MONTH, month);
+        mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        setUpCurrentDate();
+        mCalendarPresenter.updateVerbatologEvents(mCalendar);
     }
 }

@@ -17,6 +17,8 @@ class APIConstants {
     static final String CLIENT_ID_PATH_KEY = "client_id";
     static final String CHILD_ID_PATH_KEY = "child_id";
     static final String EVENT_ID_PATH_KEY = "event_id";
+    static final String FROM_TIME_QUERY_KEY = "from_time";
+    static final String TO_TIME_QUERY_KEY = "to_time";
     static final String QUERY_PATH_KEY = "query";
     static final String JSON_PATH = ".json";
 

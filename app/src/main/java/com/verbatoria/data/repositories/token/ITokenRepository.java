@@ -14,4 +14,7 @@ public interface ITokenRepository {
 
     TokenModel updateToken(TokenModel tokenModel);
 
+    String getStatus();
+
+    void setStatus(String status);
 }

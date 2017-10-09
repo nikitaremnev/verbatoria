@@ -18,6 +18,8 @@ public class TokenModel {
 
     private Date mExpireDate;
 
+    private String mStatus;
+
     public TokenModel() {
 
     }
@@ -42,6 +44,15 @@ public class TokenModel {
         mExpireDate = expireDate;
     }
 
+    public String getStatus() {
+        return mStatus;
+    }
+
+    public TokenModel setStatus(String status) {
+        mStatus = status;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -52,12 +63,13 @@ public class TokenModel {
         }
         TokenModel that = (TokenModel) o;
         return Objects.equal(mAccessToken, that.mAccessToken) &&
-                Objects.equal(mExpireDate, that.mExpireDate);
+                Objects.equal(mExpireDate, that.mExpireDate) &&
+                Objects.equal(mStatus, that.mStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mAccessToken, mExpireDate);
+        return Objects.hashCode(mAccessToken, mExpireDate, mStatus);
     }
 
     @Override
@@ -65,6 +77,7 @@ public class TokenModel {
         return MoreObjects.toStringHelper(this)
                 .add("mAccessToken", mAccessToken)
                 .add("mExpireDate", mExpireDate)
+                .add("mStatus", mStatus)
                 .toString();
     }
 

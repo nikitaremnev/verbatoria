@@ -3,7 +3,7 @@
 
     <string name="dashboard_age" formatted="false">Полных лет: %s</string>
     <string name="dashboard_events_title">Ближайшие записи:</string>
-    <string name="dashboard_no_events_title">На ближайшее время нет записей</string>
+    <string name="dashboard_no_events_title">На указанную дату нет записей</string>
 
     <string name="dashboard_bottom_item_main">Главная</string>
     <string name="dashboard_bottom_item_calendar">Календарь</string>
@@ -25,6 +25,8 @@
     <string name="dashboard_neurometrist">Нейрометрист</string>
     <string name="dashboard_cabinet">Кабинет</string>
     <string name="dashboard_partner">Партнер</string>
+
+    <string name="dashboard_blocked">К сожалению, Ваш аккаунт был заблокирован. Обратитесь к партнеру за подробностями.</string>
 
     <string name="settings_item_quit">Выйти</string>
 </resources>

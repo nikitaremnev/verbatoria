@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.business.token.models.UserStatus;
 import com.verbatoria.presentation.dashboard.view.info.IVerbatologInfoView;
 import com.verbatoria.utils.Logger;
 
@@ -47,6 +48,21 @@ public class VerbatologInfoPresenter implements IVerbatologInfoPresenter {
     public void updateLocationInfo() {
         mDashboardInteractor.getLocation()
                 .subscribe(this::handleLocationInfoReceived, this::handleLocationInfoLoadingFailed);
+    }
+
+    @Override
+    public void updateVerbatologStatus() {
+        switch (mDashboardInteractor.getUserStatus()) {
+            case UserStatus.ACTIVE_STATUS:
+                mVerbatologInfoView.showActiveStatus();
+                break;
+            case UserStatus.WARNING_STATUS:
+                mVerbatologInfoView.showWarningStatus();
+                break;
+            case UserStatus.BLOCKED_STATUS:
+                mVerbatologInfoView.showBlockedStatus();
+                break;
+        }
     }
 
     private void handleVerbatologInfoReceived(@NonNull VerbatologModel verbatologModel) {

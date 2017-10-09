@@ -49,6 +49,9 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     @BindView(R.id.partner_name_text_view)
     public TextView mPartnerNameTextView;
 
+    @BindView(R.id.verbatolog_status_view)
+    public View mStatusView;
+
     public VerbatologInfoFragment() {
         // Required empty public constructor
     }
@@ -75,6 +78,7 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         mVerbatologInfoPresenter.bindView(this);
         mVerbatologInfoPresenter.updateVerbatologInfo();
+        mVerbatologInfoPresenter.updateVerbatologStatus();
     }
 
     @Override
@@ -131,5 +135,20 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
         showLocationCityCountry(locationModel.getCityCountry());
         showLocationPartner(locationModel.getPartner());
         showLocationName(locationModel.getName());
+    }
+
+    @Override
+    public void showActiveStatus() {
+        mStatusView.setBackgroundResource(R.drawable.verbatolog_status_green);
+    }
+
+    @Override
+    public void showWarningStatus() {
+        mStatusView.setBackgroundResource(R.drawable.verbatolog_status_yellow);
+    }
+
+    @Override
+    public void showBlockedStatus() {
+        mStatusView.setBackgroundResource(R.drawable.verbatolog_status_red);
     }
 }

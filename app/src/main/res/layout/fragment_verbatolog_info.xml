@@ -38,7 +38,7 @@
                     android:layout_width="@dimen/verbatolog_status_diameter"
                     android:layout_height="@dimen/verbatolog_status_diameter"
                     android:layout_margin="@dimen/verbatolog_status_margin"
-                    android:background="@drawable/verbatolog_status_green"/>
+                    android:id="@+id/verbatolog_status_view"/>
 
                 <TextView
                     android:layout_width="wrap_content"

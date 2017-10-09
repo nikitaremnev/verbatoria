@@ -7,7 +7,6 @@ import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
 import com.verbatoria.data.network.request.EventRequestModel;
-import com.verbatoria.data.network.request.GetEventsRequestModel;
 import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -56,22 +55,11 @@ public class CalendarInteractor implements ICalendarInteractor {
     }
 
     @Override
-    public Observable<VerbatologModel> getEvents(VerbatologModel verbatolog, Date startDate, Date endDate) {
-        try {
-            return mCalendarRepository.getEvents(getAccessToken(), getEventsRequestModel(startDate, endDate))
-                    .map(item -> ModelsConverter.convertEventsResponseToVerbatologModel(verbatolog, item))
-                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                    .observeOn(RxSchedulers.getMainThreadScheduler());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    @Override
     public Observable<List<EventModel>> getEvents(Date startDate, Date endDate) {
         try {
-            return mCalendarRepository.getEvents(getAccessToken(), getEventsRequestModel(startDate, endDate))
+            return mCalendarRepository.getEvents(getAccessToken(),
+                    DateUtils.toServerDateTimeWithoutConvertingString(startDate.getTime()),
+                    DateUtils.toServerDateTimeWithoutConvertingString(endDate.getTime()))
                     .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
@@ -121,13 +109,6 @@ public class CalendarInteractor implements ICalendarInteractor {
                         .setLocationId(mDashboardRepository.getLocationId())
                         .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
                         .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime())));
-    }
-
-    private GetEventsRequestModel getEventsRequestModel(Date startDate, Date finishDate) throws ParseException {
-        return new GetEventsRequestModel()
-                .setFromTime(DateUtils.toServerDateTimeString(startDate.getTime()))
-                .setToTime(DateUtils.toServerDateTimeString(finishDate.getTime()));
-
     }
 
     private String getAccessToken() {

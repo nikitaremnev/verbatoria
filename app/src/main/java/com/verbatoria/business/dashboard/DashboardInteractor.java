@@ -58,6 +58,11 @@ public class DashboardInteractor implements IDashboardInteractor {
         return !TextUtils.isEmpty(mDashboardRepository.getLocationId());
     }
 
+    @Override
+    public String getUserStatus() {
+        return mTokenRepository.getStatus();
+    }
+
     private String getAccessToken() {
         TokenModel tokenModel = mTokenRepository.getToken();
         return tokenModel.getAccessToken();

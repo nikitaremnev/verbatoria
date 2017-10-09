@@ -3,11 +3,12 @@ package com.verbatoria.presentation.calendar.presenter;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.calendar.ICalendarInteractor;
-import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.presentation.calendar.view.ICalendarView;
 import com.verbatoria.utils.Logger;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,12 +20,10 @@ public class CalendarPresenter implements ICalendarPresenter {
 
     private static final String TAG = CalendarPresenter.class.getSimpleName();
 
-    private IDashboardInteractor mDashboardInteractor;
     private ICalendarInteractor mCalendarInteractor;
     private ICalendarView mCalendarView;
 
-    public CalendarPresenter(IDashboardInteractor dashboardInteractor, ICalendarInteractor calendarInteractor) {
-        mDashboardInteractor = dashboardInteractor;
+    public CalendarPresenter(ICalendarInteractor calendarInteractor) {
         mCalendarInteractor = calendarInteractor;
     }
 
@@ -39,8 +38,16 @@ public class CalendarPresenter implements ICalendarPresenter {
     }
 
     @Override
-    public void updateVerbatologEvents() {
-        mCalendarInteractor.getEvents()
+    public void updateVerbatologEvents(Calendar calendar) {
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.SECOND, 0);
+        Date fromDate = calendar.getTime();
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.SECOND, 59);
+        Date toDate = calendar.getTime();
+        mCalendarInteractor.getEvents(fromDate, toDate)
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 

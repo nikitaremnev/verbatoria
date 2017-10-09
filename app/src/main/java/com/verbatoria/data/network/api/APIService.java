@@ -7,7 +7,6 @@ import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
-import com.verbatoria.data.network.request.GetEventsRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
@@ -31,15 +30,18 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 import static com.verbatoria.data.network.api.APIConstants.CHILD_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.CLIENT_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.EVENT_ID_PATH_KEY;
+import static com.verbatoria.data.network.api.APIConstants.FROM_TIME_QUERY_KEY;
 import static com.verbatoria.data.network.api.APIConstants.LOCATION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.QUERY_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.SESSION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.TOKEN_HEADER_KEY;
+import static com.verbatoria.data.network.api.APIConstants.TO_TIME_QUERY_KEY;
 
 /**
  *
@@ -77,11 +79,12 @@ public interface APIService {
      */
 
     @GET(APIConstants.GET_EVENTS_URL)
-    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                                     @Body GetEventsRequestModel getEventsRequestModel);
+    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
     @GET(APIConstants.GET_EVENTS_URL)
-    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
+    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                                     @Query(FROM_TIME_QUERY_KEY) String fromTime,
+                                                     @Query(TO_TIME_QUERY_KEY) String toTime);
 
     @POST(APIConstants.ADD_EVENT_URL)
     Observable<ResponseBody> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,

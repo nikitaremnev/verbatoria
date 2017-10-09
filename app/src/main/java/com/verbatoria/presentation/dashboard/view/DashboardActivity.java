@@ -8,9 +8,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.remnev.verbatoriamini.R;
+import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.di.dashboard.DashboardModule;
+import com.verbatoria.presentation.blocked.BlockedFragment;
 import com.verbatoria.presentation.calendar.view.CalendarFragment;
+import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
 import com.verbatoria.presentation.dashboard.view.info.VerbatologInfoFragment;
 import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +30,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = DashboardActivity.class.getSimpleName();
 
+    @Inject
+    IDashboardPresenter mDashboardPresenter;
+
     @BindView(R.id.bottom_navigation_view)
     public BottomNavigationView mBottomNavigationView;
 
@@ -32,6 +41,7 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
+        VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
 
         setUpBottomNavigation();
         setUpFragment(VerbatologInfoFragment.newInstance());
@@ -50,7 +60,11 @@ public class DashboardActivity extends AppCompatActivity {
                     setUpFragment(VerbatologInfoFragment.newInstance());
                     return true;
                 case R.id.navigation_calendar:
-                    setUpFragment(CalendarFragment.newInstance());
+                    if (mDashboardPresenter.isBlocked()) {
+                        setUpFragment(BlockedFragment.newInstance());
+                    } else {
+                        setUpFragment(CalendarFragment.newInstance());
+                    }
                     return true;
                 case R.id.navigation_settings:
                     setUpFragment(SettingsFragment.newInstance());

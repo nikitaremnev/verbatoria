@@ -16,5 +16,6 @@ public interface IVerbatologInfoPresenter {
 
     void updateVerbatologInfo();
     void updateLocationInfo();
+    void updateVerbatologStatus();
 
 }

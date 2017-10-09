@@ -4,6 +4,7 @@ import com.verbatoria.business.login.LoginInteractorException;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.utils.PreferencesStorage;
+
 import java.text.ParseException;
 
 /**
@@ -29,6 +30,16 @@ public class TokenRepository implements ITokenRepository {
             throw new LoginInteractorException(e.getMessage());
         }
         return tokenModel;
+    }
+
+    @Override
+    public String getStatus() {
+        return PreferencesStorage.getInstance().getUserStatus();
+    }
+
+    @Override
+    public void setStatus(String status) {
+        PreferencesStorage.getInstance().setUserStatus(status);
     }
 
 }

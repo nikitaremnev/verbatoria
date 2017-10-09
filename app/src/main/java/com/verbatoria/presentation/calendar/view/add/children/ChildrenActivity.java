@@ -179,7 +179,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
         mBirthday.set(Calendar.MONTH, month);
         mBirthday.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         mChildrenPresenter.setChildBirthday(mBirthday.getTime());
-
     }
 
     @Override

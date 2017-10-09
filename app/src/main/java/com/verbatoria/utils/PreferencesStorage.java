@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.business.token.models.UserStatus;
 
 import java.util.Map;
 
@@ -21,6 +22,7 @@ public class PreferencesStorage {
     private static final String TOKEN_PREFERENCES = "token";
     private static final String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
     private static final String EXPIRES_TOKEN_KEY = "EXPIRES_TOKEN_KEY";
+    private static final String STATUS_TOKEN_KEY = "STATUS_TOKEN_KEY";
 
     private static final String QUESTIONS_PREFERENCES = "questions";
     private static final String ANSWERS_KEY = "ANSWERS_KEY";
@@ -83,6 +85,16 @@ public class PreferencesStorage {
 
     public String getExpiresToken() {
         return mTokenPreferences.getString(EXPIRES_TOKEN_KEY, null);
+    }
+
+    public void setUserStatus(String status) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putString(STATUS_TOKEN_KEY, status);
+        editor.apply();
+    }
+
+    public String getUserStatus() {
+        return mTokenPreferences.getString(STATUS_TOKEN_KEY, UserStatus.ACTIVE_STATUS);
     }
 
     public int getQuestionAnswer(String index) {

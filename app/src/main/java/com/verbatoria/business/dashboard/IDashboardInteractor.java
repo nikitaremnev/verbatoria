@@ -19,4 +19,6 @@ public interface IDashboardInteractor {
     Observable<LocationModel> getLocation();
 
     boolean hasLocationId();
+
+    String getUserStatus();
 }

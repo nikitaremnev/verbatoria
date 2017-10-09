@@ -19,8 +19,6 @@ public interface ICalendarInteractor {
 
     Observable<List<EventModel>> getEvents();
 
-    Observable<VerbatologModel> getEvents(VerbatologModel verbatolog, Date startDate, Date endDate);
-
     Observable<List<EventModel>> getEvents(Date startDate, Date endDate);
 
     Observable<ResponseBody> addEvent(EventModel eventModel);
