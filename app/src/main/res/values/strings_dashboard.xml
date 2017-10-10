@@ -29,4 +29,6 @@
     <string name="dashboard_blocked">К сожалению, Ваш аккаунт был заблокирован. Обратитесь к партнеру за подробностями.</string>
 
     <string name="settings_item_quit">Выйти</string>
+
+    <string name="dashboard_session_finish">Сессия успешно завершена!</string>
 </resources>

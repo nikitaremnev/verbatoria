@@ -135,6 +135,7 @@ public class ClientModel implements Parcelable {
         dest.writeString(this.mName);
         dest.writeString(this.mEmail);
         dest.writeString(this.mPhone);
+        dest.writeTypedList(this.mChildren);
     }
 
     protected ClientModel(Parcel in) {
@@ -142,7 +143,7 @@ public class ClientModel implements Parcelable {
         this.mName = in.readString();
         this.mEmail = in.readString();
         this.mPhone = in.readString();
-        in.readList(this.mChildren, IdResponseModel.class.getClassLoader());
+        this.mChildren = in.createTypedArrayList(IdResponseModel.CREATOR);
     }
 
     public static final Parcelable.Creator<ClientModel> CREATOR = new Parcelable.Creator<ClientModel>() {

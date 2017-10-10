@@ -73,11 +73,21 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_item_divider_height"
+        android:id="@+id/divider"
+        android:visibility="invisible"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/search_button"
+        android:background="@color/settings_divider_item_color">
+    </View>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/found_adapter"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_below="@+id/search_button"/>
+        android:layout_below="@+id/divider"
+       />
 
 </RelativeLayout>

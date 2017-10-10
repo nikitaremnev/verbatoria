@@ -47,7 +47,8 @@
                     android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/black"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Вербатолог Вербатологов"/>
 
             </LinearLayout>
@@ -59,7 +60,6 @@
                 android:textStyle="bold"
                 android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
                 android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 tools:text="+7 (915) 397 46-89"/>
 
             <TextView
@@ -70,7 +70,6 @@
                 android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
                 android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
                 android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 tools:text="test@test.ru"/>
 
             <View
@@ -114,7 +113,8 @@
                     android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
                     android:layout_marginTop="@dimen/verbatolog_status_margin"
                     android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/black"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Вербатория Остоженка"/>
 
             </LinearLayout>
@@ -127,7 +127,6 @@
                 android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
                 android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
                 android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 tools:text="Остоженка 7"/>
 
             <TextView
@@ -138,7 +137,6 @@
                 android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
                 android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
                 android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 tools:text="Москва, Россия"/>
 
             <View
@@ -182,7 +180,8 @@
                     android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
                     android:layout_marginTop="@dimen/verbatolog_status_margin"
                     android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/black"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     tools:text="Вербатория Остоженка"/>
 
             </LinearLayout>

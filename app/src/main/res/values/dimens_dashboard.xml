@@ -21,8 +21,10 @@
 
     <dimen name="verbatolog_between_info_and_events_margin">16dp</dimen>
 
-    <dimen name="calendar_fab_between_margin">16dp</dimen>
-    <dimen name="calendar_fab_margin">16dp</dimen>
+    <dimen name="calendar_fab_between_margin">8dp</dimen>
+    <dimen name="calendar_fab_margin">8dp</dimen>
+    <dimen name="calendar_fab_bottom_margin">16dp</dimen>
+
     <dimen name="calendar_add_event_padding">16dp</dimen>
 
     <dimen name="calendar_selected_date_padding">16dp</dimen>

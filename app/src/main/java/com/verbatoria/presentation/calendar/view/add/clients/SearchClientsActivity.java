@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,6 +51,9 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
 
     @BindView(R.id.search_button)
     public Button mSearchButton;
+
+    @BindView(R.id.divider)
+    public View mDivider;
 
     public static Intent newInstance(Context mContext) {
         return new Intent(mContext, SearchClientsActivity.class);
@@ -113,6 +117,7 @@ public class SearchClientsActivity extends BaseActivity implements ISearchClient
 
     @Override
     public void showClientsFound(List<ClientModel> clients) {
+        mDivider.setVisibility(clients.isEmpty() ? View.INVISIBLE : View.VISIBLE);
         mFoundClientsRecyclerView.setAdapter(new ClientsAdapter(clients, this));
     }
 

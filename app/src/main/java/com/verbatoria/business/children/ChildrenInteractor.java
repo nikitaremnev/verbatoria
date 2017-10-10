@@ -1,11 +1,12 @@
 package com.verbatoria.business.children;
 
+import android.util.Log;
+
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ChildRequestModel;
-import com.verbatoria.data.network.response.IdResponseModel;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
@@ -67,13 +68,15 @@ public class ChildrenInteractor implements IChildrenInteractor {
 
     @Override
     public Observable<List<ChildModel>> getChild(ClientModel clientModel) {
+        Log.e("test", "clientModel: " + clientModel.toString());
         List<Observable<ChildModel>> childObservables = new ArrayList<>();
-        for (IdResponseModel idResponseModel : clientModel.getChildren()) {
+        for (int i = 0; i < clientModel.getChildren().size(); i++) {
             childObservables.add(
-                    mChildrenRepository.getChild(clientModel.getId(), idResponseModel.getId(), getAccessToken())
-                        .map(this::getChildModel)
-                        .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                        .observeOn(RxSchedulers.getMainThreadScheduler())
+                    mChildrenRepository.getChild(clientModel.getId(), clientModel.getChildren().get(i).getId(),
+                            getAccessToken())
+                            .map(this::getChildModel)
+                            .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                            .observeOn(RxSchedulers.getMainThreadScheduler())
             );
         }
         return Observable.from(childObservables)

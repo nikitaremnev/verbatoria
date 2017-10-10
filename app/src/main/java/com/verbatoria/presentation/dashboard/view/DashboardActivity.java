@@ -1,10 +1,12 @@
 package com.verbatoria.presentation.dashboard.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.remnev.verbatoriamini.R;
@@ -30,11 +32,23 @@ public class DashboardActivity extends AppCompatActivity {
 
     private static final String TAG = DashboardActivity.class.getSimpleName();
 
+    public static final String EXTRA_FINISH_SESSION = "com.verbatoria.presentation.dashboard.view.EXTRA_FINISH_SESSION";
+
     @Inject
     IDashboardPresenter mDashboardPresenter;
 
     @BindView(R.id.bottom_navigation_view)
     public BottomNavigationView mBottomNavigationView;
+
+    public static Intent newInstance(Context mContext, boolean sessionFinish) {
+        Intent intent = new Intent(mContext, DashboardActivity.class);
+        intent.putExtra(EXTRA_FINISH_SESSION, sessionFinish);
+        return intent;
+    }
+
+    public static Intent newInstance(Context mContext) {
+        return new Intent(mContext, DashboardActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +59,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         setUpBottomNavigation();
         setUpFragment(VerbatologInfoFragment.newInstance());
+        showSessionFinish();
     }
 
     private void setUpFragment(Fragment fragment) {
@@ -72,6 +87,15 @@ public class DashboardActivity extends AppCompatActivity {
             }
             return false;
         });
+    }
+
+    private void showSessionFinish() {
+        if (getIntent().hasExtra(EXTRA_FINISH_SESSION)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.dashboard_session_finish));
+            builder.setNegativeButton(getString(R.string.ok), null);
+            builder.create().show();
+        }
     }
 
     @Override

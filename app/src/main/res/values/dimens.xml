@@ -26,7 +26,7 @@
     <dimen name="field_title_size">16sp</dimen>
     <dimen name="field_subtitle_size">12sp</dimen>
 
-    <dimen name="client_name_top_margin">8dp</dimen>
+    <dimen name="client_name_top_margin">4dp</dimen>
 
 
 </resources>

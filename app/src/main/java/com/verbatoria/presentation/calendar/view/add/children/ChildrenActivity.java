@@ -2,7 +2,6 @@ package com.verbatoria.presentation.calendar.view.add.children;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BaseTransientBottomBar;
@@ -29,7 +28,6 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
 import com.verbatoria.utils.Helper;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -95,6 +93,12 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
         mChildrenPresenter.bindView(this);
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mChildrenPresenter.searchClientChildren();
     }
 
     @Override
@@ -282,7 +286,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     public void showPossibleChildren(List<ChildModel> children) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.calendar_possible_children));
-        builder.setSingleChoiceItems(getChildrenNames(children), 0, (dialog, which) -> {
+        builder.setSingleChoiceItems(getChildrenNames(children), -1, (dialog, which) -> {
             setResult(RESULT_OK, createChildIntent(children.get(which)));
             finish();
         });

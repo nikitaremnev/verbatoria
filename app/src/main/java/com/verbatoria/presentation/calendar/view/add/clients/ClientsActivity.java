@@ -7,6 +7,7 @@ import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -142,6 +143,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ACTIVITY_SEARCH_CLIENT_CODE && resultCode == RESULT_OK) {
             mClientsPresenter.obtainClient(data);
+            Log.e("test", "clientModel cl ac: " + mClientsPresenter.getClientModel().toString());
             finishWithResult();
         }
     }

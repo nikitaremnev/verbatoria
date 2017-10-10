@@ -106,6 +106,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         if (requestCode == ACTIVITY_CLIENTS_CODE && resultCode == RESULT_OK) {
             ClientModel obtainedClientModel = data.getParcelableExtra(EXTRA_CLIENT_MODEL);
             mEventDetailPresenter.setClientModel(obtainedClientModel);
+
         }
         if (requestCode == ACTIVITY_CHILDREN_CODE && resultCode == RESULT_OK) {
             ChildModel obtainedChildModel = data.getParcelableExtra(EXTRA_CHILD_MODEL);

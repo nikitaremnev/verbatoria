@@ -67,7 +67,6 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
     }
 
     public static Intent newInstance(Context mContext, EventModel eventModel) {
-        Logger.e(TAG, "eventModel: " + eventModel.toString());
         Intent intent = new Intent(mContext, SubmitActivity.class);
         intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
         return intent;
@@ -189,8 +188,7 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
     @Override
     public void finishSession() {
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
+        startActivity(DashboardActivity.newInstance(this, true));
         finish();
     }
 

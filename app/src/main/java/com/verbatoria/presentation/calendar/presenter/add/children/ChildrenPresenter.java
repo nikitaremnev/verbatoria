@@ -63,7 +63,6 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
             mChildModel = new ChildModel();
             mChildModel.setClientId(mClientModel.getId());
         }
-        searchClientChildren();
     }
 
     @Override
@@ -104,10 +103,12 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     @Override
     public void searchClientChildren() {
-        addSubscription(mChildrenInteractor.getChild(mClientModel)
-                .doOnSubscribe(() -> mChildrenView.showProgress())
-                .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                .subscribe(this::handleClientChildrenFound, this::handleClientChildrenSearchError));
+        if (mClientModel.getChildren() != null && !mClientModel.getChildren().isEmpty()) {
+            addSubscription(mChildrenInteractor.getChild(mClientModel)
+                    .doOnSubscribe(() -> mChildrenView.showProgress())
+                    .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+                    .subscribe(this::handleClientChildrenFound, this::handleClientChildrenSearchError));
+        }
     }
 
     @Override
