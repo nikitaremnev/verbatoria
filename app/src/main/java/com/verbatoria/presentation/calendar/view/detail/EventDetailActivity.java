@@ -145,8 +145,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             showError(getString(R.string.event_detail_add_client_first));
         } else {
             ChildModel childModel = mEventDetailPresenter.getChildModel();
-            Intent intent = childModel == null ? ChildrenActivity.newInstance(this, mEventDetailPresenter.getClientModel().getId())
-                    : ChildrenActivity.newInstance(this, childModel, mEventDetailPresenter.getClientModel().getId());
+            Intent intent = childModel == null ? ChildrenActivity.newInstance(this, mEventDetailPresenter.getClientModel())
+                    : ChildrenActivity.newInstance(this, childModel, mEventDetailPresenter.getClientModel());
             startActivityForResult(intent, ACTIVITY_CHILDREN_CODE);
         }
     }
@@ -320,12 +320,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
         fieldView.setOnClickListener(onClickListener);
-    }
-
-    private Intent createEventIntent() {
-        Intent intent = new Intent();
-        intent.putExtra(EventDetailPresenter.EXTRA_EVENT_MODEL, mEventDetailPresenter.getEvent());
-        return intent;
     }
 
 }

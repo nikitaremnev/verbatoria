@@ -27,7 +27,7 @@
 
     <dimen name="calendar_selected_date_padding">16dp</dimen>
     <dimen name="calendar_selected_date_corner_radius">24dp</dimen>
-    <dimen name="calendar_selected_date_width">150dp</dimen>
+    <dimen name="calendar_selected_date_width">130dp</dimen>
 
     <dimen name="settings_item_height">60dp</dimen>
 

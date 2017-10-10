@@ -1,6 +1,7 @@
 package com.verbatoria.business.children;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.data.network.common.ClientModel;
 
 import java.util.List;
 
@@ -19,6 +20,6 @@ public interface IChildrenInteractor {
 
     Observable<List<ChildModel>> searchChildren(String query);
 
-//    Observable<ChildModel> getChild(String childId);
+    Observable<List<ChildModel>> getChild(ClientModel clientModel);
 
 }

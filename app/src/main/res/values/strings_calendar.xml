@@ -15,6 +15,7 @@
     <string name="calendar_activity_event_create">Создать запись</string>
 
     <string name="calendar_activity_child_title">Запись ребенка</string>
+    <string name="calendar_possible_children">Возможные варианты</string>
     <string name="calendar_activity_client_title">Запись клиента</string>
     <string name="calendar_activity_search_client_title">Поиск записи клиента</string>
     <string name="calendar_activity_search_child_title">Поиск записи ребенка</string>

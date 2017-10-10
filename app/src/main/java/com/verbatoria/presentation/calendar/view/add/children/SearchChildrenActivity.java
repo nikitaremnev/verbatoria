@@ -86,7 +86,7 @@ public class SearchChildrenActivity extends BaseActivity implements ISearchChild
         setUpRecyclerView();
         mImageView.setImageResource(R.drawable.ic_search_color);
         mQueryEditText.setHint(getString(R.string.search_by_child_name));
-        mSearchButton.setOnClickListener(v -> mChildrenPresenter.searchChilds());
+        mSearchButton.setOnClickListener(v -> mChildrenPresenter.searchChildren());
     }
 
     private void setUpNavigation() {

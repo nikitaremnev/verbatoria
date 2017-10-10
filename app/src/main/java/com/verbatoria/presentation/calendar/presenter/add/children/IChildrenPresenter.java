@@ -27,7 +27,9 @@ public interface IChildrenPresenter {
 
     void createChild();
     void editChild();
-    void searchChilds();
+    void searchChildren();
+
+    void searchClientChildren();
 
     String getChildName();
     String getChildBirthday();

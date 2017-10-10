@@ -1,5 +1,6 @@
 package com.verbatoria.data.repositories.children;
 
+import com.verbatoria.data.network.common.ChildModel;
 import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildrenResponseModel;
@@ -15,6 +16,8 @@ public interface IChildrenRepository {
     Observable<ChildResponseModel> addChild(String clientId, String accessToken, ChildRequestModel childRequestModel);
 
     Observable<ResponseBody> editChild(String clientId, String childId, String accessToken, ChildRequestModel childRequestModel);
+
+    Observable<ChildModel> getChild(String clientId, String childId, String accessToken);
 
     Observable<ChildrenResponseModel> searchClients(String query, String accessToken);
 

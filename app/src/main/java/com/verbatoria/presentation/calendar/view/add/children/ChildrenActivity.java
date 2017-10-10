@@ -2,10 +2,12 @@ package com.verbatoria.presentation.calendar.view.add.children;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -20,13 +22,16 @@ import android.widget.TextView;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
 import com.verbatoria.utils.Helper;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -42,7 +47,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     private static final String TAG = ChildrenActivity.class.getSimpleName();
     public static final String EXTRA_CHILD_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CHILD_MODEL";
-    public static final String EXTRA_CLIENT_ID = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CLIENT_ID";
+    public static final String EXTRA_CLIENT_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CLIENT_MODEL";
 
     public static final int ACTIVITY_SEARCH_CHILDREN_CODE = 12;
 
@@ -63,20 +68,19 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     private Calendar mBirthday;
 
-    private MenuItem mSearchMenuItem;
     private MenuItem mEditMenuItem;
     private MenuItem mCancelMenuItem;
 
-    public static Intent newInstance(Context mContext, ChildModel childModel, String clientId) {
+    public static Intent newInstance(Context mContext, ChildModel childModel, ClientModel clientModel) {
         Intent intent = new Intent(mContext, ChildrenActivity.class);
         intent.putExtra(EXTRA_CHILD_MODEL, childModel);
-        intent.putExtra(EXTRA_CLIENT_ID, clientId);
+        intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
         return intent;
     }
 
-    public static Intent newInstance(Context mContext, String clientId) {
+    public static Intent newInstance(Context mContext, ClientModel clientModel) {
         Intent intent = new Intent(mContext, ChildrenActivity.class);
-        intent.putExtra(EXTRA_CLIENT_ID, clientId);
+        intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
         return intent;
     }
 
@@ -95,12 +99,9 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_edit_search, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar_edit, menu);
         mCancelMenuItem = menu.findItem(R.id.action_cancel);
-        mSearchMenuItem = menu.findItem(R.id.action_search);
         mEditMenuItem = menu.findItem(R.id.action_edit);
-
-        mSearchMenuItem.setVisible(!mChildrenPresenter.isEditMode());
         mEditMenuItem.setVisible(mChildrenPresenter.isEditMode());
         mCancelMenuItem.setVisible(false);
         return super.onCreateOptionsMenu(menu);
@@ -277,6 +278,19 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
                 .show();
     }
 
+    @Override
+    public void showPossibleChildren(List<ChildModel> children) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.calendar_possible_children));
+        builder.setSingleChoiceItems(getChildrenNames(children), 0, (dialog, which) -> {
+            setResult(RESULT_OK, createChildIntent(children.get(which)));
+            finish();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+
     private void setUpNavigation() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -317,6 +331,16 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     private void startSearch() {
         startActivityForResult(SearchChildrenActivity.newInstance(this), ACTIVITY_SEARCH_CHILDREN_CODE);
+    }
+
+    private String[] getChildrenNames(List<ChildModel> children) {
+        String[] childrenNames = new String[children.size()];
+        int index = 0;
+        for (ChildModel child : children) {
+            childrenNames[index] = child.getName();
+            index ++;
+        }
+        return childrenNames;
     }
 
 }

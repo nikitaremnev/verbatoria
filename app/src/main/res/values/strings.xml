@@ -98,6 +98,7 @@
     <string name="nav_drawer_item_codes">Коды нагрузок</string>
     <string name="save">Сохранить</string>
     <string name="cancel">Отмена</string>
+    <string name="choose">Выбрать</string>
 
     <string name="address_saved">Адрес ВЦ Вербатория</string>
 

@@ -20,6 +20,7 @@
         android:background="@null"
         android:maxLines="1"
         android:maxLength="100"
+        android:imeOptions="flagNoExtractUi"
         android:gravity="center_vertical"
         android:layout_centerVertical="true"
         android:textColor="@color/field_title_color"
@@ -27,7 +28,7 @@
         android:paddingRight="@dimen/field_title_right_padding"
         android:layout_toLeftOf="@+id/status_image_view"
         android:layout_toRightOf="@+id/field_image_view"
-        tools:text="Привет привет это тестовая херотень" />
+        tools:text="Привет" />
 
     <ImageView
         android:layout_width="wrap_content"

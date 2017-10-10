@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
+import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
 import com.verbatoria.presentation.calendar.view.add.children.ISearchChildrenView;
@@ -16,7 +17,7 @@ import java.util.List;
 import okhttp3.ResponseBody;
 
 import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
-import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CLIENT_ID;
+import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CLIENT_MODEL;
 
 /**
  * Реализация презентера для экрана данных о детях
@@ -29,7 +30,7 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     private IChildrenView mChildrenView;
     private ISearchChildrenView mSearchChildrenView;
     private ChildModel mChildModel;
-    private String mClientId;
+    private ClientModel mClientModel;
     private boolean mIsEditMode;
 
     public ChildrenPresenter(IChildrenInteractor childrenInteractor) {
@@ -54,13 +55,15 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     @Override
     public void obtainChild(Intent intent) {
+        mClientModel = intent.getParcelableExtra(EXTRA_CLIENT_MODEL);
         mChildModel = intent.getParcelableExtra(EXTRA_CHILD_MODEL);
         if (mChildModel != null) {
             mIsEditMode = true;
         } else {
             mChildModel = new ChildModel();
-            mChildModel.setClientId(intent.getStringExtra(EXTRA_CLIENT_ID));
+            mChildModel.setClientId(mClientModel.getId());
         }
+        searchClientChildren();
     }
 
     @Override
@@ -92,11 +95,19 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     }
 
     @Override
-    public void searchChilds() {
+    public void searchChildren() {
         addSubscription(mChildrenInteractor.searchChildren(mSearchChildrenView.getQuery())
                 .doOnSubscribe(() -> mSearchChildrenView.showProgress())
                 .doOnUnsubscribe(() -> mSearchChildrenView.hideProgress())
                 .subscribe(this::handleChildrenFound, this::handleChildrenSearchError));
+    }
+
+    @Override
+    public void searchClientChildren() {
+        addSubscription(mChildrenInteractor.getChild(mClientModel)
+                .doOnSubscribe(() -> mChildrenView.showProgress())
+                .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+                .subscribe(this::handleClientChildrenFound, this::handleClientChildrenSearchError));
     }
 
     @Override
@@ -144,5 +155,13 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     private void handleChildrenSearchError(Throwable throwable) {
         mSearchChildrenView.showError(throwable.getMessage());
+    }
+
+    private void handleClientChildrenFound(List<ChildModel> childrenList) {
+        mChildrenView.showPossibleChildren(childrenList);
+    }
+
+    private void handleClientChildrenSearchError(Throwable throwable) {
+        //ignore
     }
 }
