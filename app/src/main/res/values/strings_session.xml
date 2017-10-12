@@ -64,4 +64,7 @@
         <item>Коммуникабельность</item>
         <item>Внутреннее Я</item>
     </string-array>
+
+    <string name="session_last_question">Включать ли отчет Внимание/Память?</string>
+
 </resources>

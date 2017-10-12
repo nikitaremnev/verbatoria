@@ -49,14 +49,6 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     @Override
     public void sendResults(Map<String, String> answers) {
-        Log.e(TAG, "answer: " + answers.get("0"));
-        Log.e(TAG, "answer: " + answers.get("1"));
-        Log.e(TAG, "answer: " + answers.get("2"));
-        Log.e(TAG, "answer: " + answers.get("3"));
-        Log.e(TAG, "answer: " + answers.get("4"));
-        Log.e(TAG, "answer: " + answers.get("5"));
-        Log.e(TAG, "answer: " + answers.get("6"));
-
         mSubmitView.showProgress();
         mSessionInteractor.getAllMeasurements(answers)
                 .subscribe(this::handleMeasurementsReceived, this::handleError);

@@ -40,6 +40,7 @@
 
     <dimen name="submit_question_answer_text_size">22sp</dimen>
     <dimen name="submit_question_answer_right_margin">12dp</dimen>
+    <dimen name="submit_last_question_answer_margin">24dp</dimen>
 
     <dimen name="submit_question_answers_horizontal_margin">16dp</dimen>
     <dimen name="submit_question_answers_top_margin">24dp</dimen>

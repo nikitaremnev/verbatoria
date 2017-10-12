@@ -29,6 +29,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     private static final String TAG = EventDetailPresenter.class.getSimpleName();
     public static final String EXTRA_EVENT_MODEL = "com.verbatoria.presentation.dashboard.presenter.calendar.EXTRA_EVENT_MODEL";
+    public static final int EVENT_LENGTH_MINUTES = 60;
 
     private IClientsInteractor mClientsInteractor;
     private ISessionInteractor mSessionInteractor;
@@ -149,7 +150,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void setEventDate(Calendar calendar) {
         mEventModel.setStartAt(calendar.getTime());
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 30);
+        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + EVENT_LENGTH_MINUTES);
         mEventModel.setEndAt(calendar.getTime());
         mCalendarEventDetailView.updateEventTime(mEventModel);
     }

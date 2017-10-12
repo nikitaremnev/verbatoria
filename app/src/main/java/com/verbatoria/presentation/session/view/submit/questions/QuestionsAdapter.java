@@ -21,7 +21,7 @@ import javax.inject.Inject;
 public class QuestionsAdapter extends PagerAdapter {
 
     public static final int OFFSCREEN_PAGE_LIMIT = 2;
-    public static final int QUESTIONARY_SIZE = 7;
+    public static final int QUESTIONARY_SIZE = 8;
 
     @Inject
     public Context mContext;
@@ -41,19 +41,33 @@ public class QuestionsAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
-        View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_question, null);
-        rootView.setTag(position);
+        if (position == QUESTIONARY_SIZE - 1) {
+            View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_last_question, null);
+            rootView.setTag(position);
 
-        QuestionViewHolder questionViewHolder = new QuestionViewHolder(this, mAnswerClickCallback, rootView);
-        questionViewHolder.bind(mQuestionsArray[position]);
-        container.addView(rootView);
+            LastQuestionViewHolder lastQuestionViewHolder = new LastQuestionViewHolder(this, mAnswerClickCallback, rootView);
+            lastQuestionViewHolder.bind();
+            container.addView(rootView);
 
-        String value = mAnswersMap.get(Integer.toString(position));
-        if (value != null) {
-            questionViewHolder.selectAnswer(Integer.parseInt(value));
+            String value = mAnswersMap.get(Integer.toString(position));
+            if (value != null) {
+                lastQuestionViewHolder.selectAnswer(Integer.parseInt(value));
+            }
+            return rootView;
+        } else {
+            View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_question, null);
+            rootView.setTag(position);
+
+            QuestionViewHolder questionViewHolder = new QuestionViewHolder(this, mAnswerClickCallback, rootView);
+            questionViewHolder.bind(mQuestionsArray[position]);
+            container.addView(rootView);
+
+            String value = mAnswersMap.get(Integer.toString(position));
+            if (value != null) {
+                questionViewHolder.selectAnswer(Integer.parseInt(value));
+            }
+            return rootView;
         }
-
-        return rootView;
     }
 
     @Override

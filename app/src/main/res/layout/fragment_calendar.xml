@@ -29,20 +29,22 @@
         android:gravity="bottom"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="@dimen/calendar_selected_date_width"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/calendar_fab_margin"
+            android:background="@drawable/selected_date_background"
+            android:id="@+id/current_date_text_view"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            tools:text="10.10.2016" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:orientation="horizontal">
-
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/calendar_fab_margin"
-                android:layout_marginRight="@dimen/calendar_fab_margin"
-                android:layout_marginBottom="@dimen/calendar_fab_between_margin"
-                android:id="@+id/tomorrow_date_button"
-                app:fabSize="auto"
-                app:srcCompat="@drawable/ic_calendar_plus" />
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -54,11 +56,22 @@
                 app:fabSize="auto"
                 app:srcCompat="@drawable/ic_calendar_minus" />
 
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/calendar_fab_margin"
+                android:layout_marginRight="@dimen/calendar_fab_margin"
+                android:layout_marginBottom="@dimen/calendar_fab_between_margin"
+                android:id="@+id/tomorrow_date_button"
+                app:fabSize="auto"
+                app:srcCompat="@drawable/ic_calendar_plus" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
             android:orientation="horizontal">
 
             <android.support.design.widget.FloatingActionButton
@@ -85,28 +98,6 @@
 
         </LinearLayout>
 
-
-
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="@dimen/calendar_selected_date_width"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:visibility="visible"
-        android:layout_margin="@dimen/calendar_fab_margin"
-        android:background="@drawable/selected_date_background">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/current_date_text_view"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            tools:text="10.10.2016" />
-
-    </RelativeLayout>
-
 
 </FrameLayout>
