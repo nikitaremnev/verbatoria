@@ -7,18 +7,19 @@ import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
 import com.verbatoria.data.network.request.EventRequestModel;
 import com.verbatoria.data.repositories.calendar.ICalendarRepository;
+import com.verbatoria.data.repositories.calendar.comparator.EventsComparator;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.RxSchedulers;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
-import rx.functions.Func2;
 
 /**
  * @author nikitaremnev
@@ -38,22 +39,6 @@ public class CalendarInteractor implements ICalendarInteractor {
         mTokenRepository = tokenRepository;
     }
 
-//    @Override
-//    public Observable<VerbatologModel> getEvents(VerbatologModel verbatolog) {
-//        return mCalendarRepository.getEvents(getAccessToken())
-//                .map(item -> ModelsConverter.convertEventsResponseToVerbatologModel(verbatolog, item))
-//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-//                .observeOn(RxSchedulers.getMainThreadScheduler());
-//    }
-//
-//    @Override
-//    public Observable<List<EventModel>> getEvents() {
-//        return mCalendarRepository.getEvents(getAccessToken())
-//                .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
-//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-//                .observeOn(RxSchedulers.getMainThreadScheduler());
-//    }
-
     @Override
     public Observable<List<EventModel>> getEvents(Date startDate, Date endDate) {
         try {
@@ -61,7 +46,10 @@ public class CalendarInteractor implements ICalendarInteractor {
                     DateUtils.toServerDateTimeWithoutConvertingString(startDate.getTime()),
                     DateUtils.toServerDateTimeWithoutConvertingString(endDate.getTime()))
                     .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
-                    .sor
+                    .map( unsortedList -> {
+                        Collections.sort(unsortedList, new EventsComparator());
+                        return unsortedList;
+                    })
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {

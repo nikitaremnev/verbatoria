@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context="com.verbatoria.presentation.calendar.view.CalendarFragment">
 
-    <include layout="@layout/fragment_events"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/events_recycler_view"/>
+        android:id="@+id/events_recycler_view"
+        android:overScrollMode="never"/>
 
     <TextView
         android:layout_width="match_parent"
