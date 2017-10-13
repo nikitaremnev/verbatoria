@@ -50,16 +50,6 @@ public class ModelsConverter {
         return childModel;
     }
 
-    public static VerbatologModel convertEventsResponseToVerbatologModel(VerbatologModel verbatologModel,
-                                                                   EventsResponseModel eventsResponseModel) {
-        List<EventModel> verbatologEventsList = new ArrayList<>();
-        for (int i = 0; i < eventsResponseModel.getEvents().size(); i ++) {
-            verbatologEventsList.add(convertVerbatologEventResponseToEventModel(eventsResponseModel.getEvents().get(i)));
-        }
-        verbatologModel.setEvents(verbatologEventsList);
-        return verbatologModel;
-    }
-
     public static List<EventModel> convertEventsResponseToVerbatologEventsModelList(EventsResponseModel eventsResponseModel) {
         List<EventModel> verbatologEventsList = new ArrayList<>();
         for (int i = 0; i < eventsResponseModel.getEvents().size(); i ++) {

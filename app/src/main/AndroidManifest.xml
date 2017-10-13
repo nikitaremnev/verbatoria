@@ -34,10 +34,6 @@
             android:name="com.verbatoria.presentation.login.view.login.LoginActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/FullScreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity

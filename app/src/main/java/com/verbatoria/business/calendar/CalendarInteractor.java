@@ -1,7 +1,6 @@
 package com.verbatoria.business.calendar;
 
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.AddEventRequestModel;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
+import rx.functions.Func2;
 
 /**
  * @author nikitaremnev
@@ -38,21 +38,21 @@ public class CalendarInteractor implements ICalendarInteractor {
         mTokenRepository = tokenRepository;
     }
 
-    @Override
-    public Observable<VerbatologModel> getEvents(VerbatologModel verbatolog) {
-        return mCalendarRepository.getEvents(getAccessToken())
-                .map(item -> ModelsConverter.convertEventsResponseToVerbatologModel(verbatolog, item))
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler());
-    }
-
-    @Override
-    public Observable<List<EventModel>> getEvents() {
-        return mCalendarRepository.getEvents(getAccessToken())
-                .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler());
-    }
+//    @Override
+//    public Observable<VerbatologModel> getEvents(VerbatologModel verbatolog) {
+//        return mCalendarRepository.getEvents(getAccessToken())
+//                .map(item -> ModelsConverter.convertEventsResponseToVerbatologModel(verbatolog, item))
+//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+//                .observeOn(RxSchedulers.getMainThreadScheduler());
+//    }
+//
+//    @Override
+//    public Observable<List<EventModel>> getEvents() {
+//        return mCalendarRepository.getEvents(getAccessToken())
+//                .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
+//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+//                .observeOn(RxSchedulers.getMainThreadScheduler());
+//    }
 
     @Override
     public Observable<List<EventModel>> getEvents(Date startDate, Date endDate) {
@@ -61,6 +61,7 @@ public class CalendarInteractor implements ICalendarInteractor {
                     DateUtils.toServerDateTimeWithoutConvertingString(startDate.getTime()),
                     DateUtils.toServerDateTimeWithoutConvertingString(endDate.getTime()))
                     .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
+                    .sor
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {
