@@ -22,6 +22,10 @@
         <include android:id="@+id/date_field"
             layout="@layout/item_field"/>
 
+        <include android:id="@+id/report_field"
+            android:visibility="gone"
+            layout="@layout/item_field"/>
+
     </LinearLayout>
 
     <Button

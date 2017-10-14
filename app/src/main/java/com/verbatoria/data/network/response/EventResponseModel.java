@@ -23,6 +23,8 @@ public class EventResponseModel {
 
     private ChildResponseModel mChild;
 
+    private ReportResponseModel mReport;
+
     public EventResponseModel() {
 
     }
@@ -67,6 +69,17 @@ public class EventResponseModel {
         mChild = child;
     }
 
+    @JsonGetter("report")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public ReportResponseModel getReport() {
+        return mReport;
+    }
+
+    public EventResponseModel setReport(ReportResponseModel report) {
+        mReport = report;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,12 +92,13 @@ public class EventResponseModel {
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mStartAt, that.mStartAt) &&
                 Objects.equal(mEndAt, that.mEndAt) &&
-                Objects.equal(mChild, that.mChild);
+                Objects.equal(mChild, that.mChild) &&
+                Objects.equal(mReport, that.mReport);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mStartAt, mEndAt, mChild);
+        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport);
     }
 
     @Override
@@ -94,6 +108,7 @@ public class EventResponseModel {
                 .add("mStartAt", mStartAt)
                 .add("mEndAt", mEndAt)
                 .add("mChild", mChild)
+                .add("mReport", mReport)
                 .toString();
     }
 }

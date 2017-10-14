@@ -4,11 +4,13 @@ import com.verbatoria.business.dashboard.DashboardInteractorException;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
+import com.verbatoria.business.dashboard.models.ReportModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.EventResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
+import com.verbatoria.data.network.response.ReportResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.DateUtils;
 
@@ -68,6 +70,7 @@ public class ModelsConverter {
             throw new DashboardInteractorException(e.getMessage());
         }
         eventModel.setChild(convertVerbatologChildResponseToEventModel(eventResponseModel.getChild()));
+        eventModel.setReport(convertReportResponseModelToReportModel(eventResponseModel.getReport()));
         return eventModel;
     }
 
@@ -84,5 +87,26 @@ public class ModelsConverter {
             throw new DashboardInteractorException(e.getMessage());
         }
         return childModel;
+    }
+
+    private static ReportModel convertReportResponseModelToReportModel(ReportResponseModel reportResponseModel) throws DashboardInteractorException {
+        ReportModel reportModel = new ReportModel();
+        reportModel.setId(reportResponseModel.getId());
+        reportModel.setChildId(reportResponseModel.getChildId());
+        reportModel.setStatus(reportResponseModel.getStatus());
+        try {
+            if (reportResponseModel.getCreatedAt() != null) {
+                reportModel.setCreatedAt(DateUtils.parseDate(reportResponseModel.getCreatedAt()));
+            }
+            if (reportResponseModel.getUpdatedAt() != null) {
+                reportModel.setUpdatedAt(DateUtils.parseDate(reportResponseModel.getUpdatedAt()));
+            }
+        } catch (ParseException e) {
+            throw new DashboardInteractorException(e.getMessage());
+        }
+        reportModel.setLocationId(reportResponseModel.getLocationId());
+        reportModel.setVerbatologId(reportResponseModel.getVerbatologId());
+        reportModel.setReportId(reportResponseModel.getReportId());
+        return reportModel;
     }
 }

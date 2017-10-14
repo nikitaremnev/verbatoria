@@ -2,6 +2,7 @@ package com.verbatoria.presentation.calendar.view.detail;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.ReportModel;
 import com.verbatoria.data.network.common.ClientModel;
 
 /**
@@ -27,6 +28,7 @@ public interface IEventDetailView {
 
     void updateClientView(ClientModel clientModel);
     void updateChildView(ChildModel childModel);
+    void updateReportView(ReportModel reportModel);
     void updateEventTime(EventModel eventModel);
 
     void setUpEventCreated();

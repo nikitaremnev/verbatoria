@@ -19,6 +19,7 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.ReportModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
@@ -64,6 +65,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @BindView(R.id.date_field)
     public View mDateFieldView;
+
+    @BindView(R.id.report_field)
+    public View mReportFieldView;
 
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
@@ -227,6 +231,16 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void updateReportView(ReportModel reportModel) {
+        if (reportModel == null) {
+            mReportFieldView.setVisibility(View.GONE);
+        } else {
+            setUpFieldView(mReportFieldView, R.drawable.ic_report, reportModel.getReportId(), getString(R.string.event_detail_activity_report), v -> {});
+            mReportFieldView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void updateEventTime(EventModel eventModel) {
         if (eventModel == null) {
             ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
@@ -314,6 +328,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateClientView(mEventDetailPresenter.getClientModel());
         updateChildView(mEventDetailPresenter.getChildModel());
         updateEventTime(mEventDetailPresenter.getEvent());
+        updateReportView(mEventDetailPresenter.getEvent().getReport());
     }
 
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {

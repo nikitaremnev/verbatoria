@@ -27,6 +27,8 @@ public class EventModel implements Parcelable {
 
     private ChildModel mChild;
 
+    private ReportModel mReport;
+
     public EventModel() {
 
     }
@@ -89,6 +91,15 @@ public class EventModel implements Parcelable {
         return mStartAt != null && mEndAt != null;
     }
 
+    public ReportModel getReport() {
+        return mReport;
+    }
+
+    public EventModel setReport(ReportModel report) {
+        mReport = report;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -101,12 +112,13 @@ public class EventModel implements Parcelable {
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mStartAt, that.mStartAt) &&
                 Objects.equal(mEndAt, that.mEndAt) &&
-                Objects.equal(mChild, that.mChild);
+                Objects.equal(mChild, that.mChild) &&
+                Objects.equal(mReport, that.mReport);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mStartAt, mEndAt, mChild);
+        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport);
     }
 
     @Override
@@ -116,8 +128,10 @@ public class EventModel implements Parcelable {
                 .add("mStartAt", mStartAt)
                 .add("mEndAt", mEndAt)
                 .add("mChild", mChild)
+                .add("mReport", mReport)
                 .toString();
     }
+
 
     @Override
     public int describeContents() {
@@ -130,6 +144,7 @@ public class EventModel implements Parcelable {
         dest.writeLong(this.mStartAt != null ? this.mStartAt.getTime() : -1);
         dest.writeLong(this.mEndAt != null ? this.mEndAt.getTime() : -1);
         dest.writeParcelable(this.mChild, flags);
+        dest.writeParcelable(this.mReport, flags);
     }
 
     protected EventModel(Parcel in) {
@@ -139,6 +154,7 @@ public class EventModel implements Parcelable {
         long tmpMEndAt = in.readLong();
         this.mEndAt = tmpMEndAt == -1 ? null : new Date(tmpMEndAt);
         this.mChild = in.readParcelable(ChildModel.class.getClassLoader());
+        this.mReport = in.readParcelable(ReportModel.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<EventModel> CREATOR = new Parcelable.Creator<EventModel>() {
