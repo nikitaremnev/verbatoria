@@ -7,12 +7,12 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.DrawableRes;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -27,7 +27,6 @@ import com.verbatoria.utils.Logger;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Экран соединения с BCI
@@ -183,6 +182,7 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
     @Override
     public void showBluetoothDisabled() {
         Snackbar snackbar = Snackbar.make(mConnectionStatusTextView, getString(R.string.session_bluetooth_disabled), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundResource(R.color.error_color);
         snackbar.setAction(getString(R.string.session_settings), view -> {
             Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -201,7 +201,7 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
 
     @Override
     public void showError(String error) {
-        Helper.showSnackBar(mLoadingView, error);
+        Helper.showErrorSnackBar(mLoadingView, error);
     }
 
     @Override

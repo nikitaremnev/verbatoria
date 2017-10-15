@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="dashboard_age" formatted="false">Полных лет: %s</string>
+    <string name="dashboard_report_id" formatted="false">Номер отчета: %s</string>
+    <string name="dashboard_age" formatted="false">Возраст: %s</string>
     <string name="dashboard_events_title">Ближайшие записи:</string>
     <string name="dashboard_no_events_title">На указанную дату нет записей</string>
 
@@ -31,4 +32,10 @@
     <string name="settings_item_quit">Выйти</string>
 
     <string name="dashboard_session_finish">Сессия успешно завершена!</string>
+
+    <string name="dashboard_status_green_hint">Работа в приложении доступна без ограничений</string>
+    <string name="dashboard_status_yellow_hint">Работа в приложении доступна, однако в скором времени может быть заблокирована</string>
+    <string name="dashboard_status_red_hint">Работа в приложении заблокирована, обратитесь к партеру для восстановления доступа</string>
+
+
 </resources>

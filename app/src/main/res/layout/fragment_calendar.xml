@@ -23,17 +23,101 @@
         android:paddingRight="@dimen/dashboard_horizontal_padding"
         android:text="@string/dashboard_no_events_title"/>
 
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:gravity="bottom"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="@dimen/calendar_selected_date_width"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/calendar_fab_margin"-->
+            <!--android:elevation="2dp"-->
+            <!--android:background="@drawable/selected_date_background"-->
+            <!--android:id="@+id/current_date_text_view"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textStyle="bold"-->
+            <!--android:gravity="center"-->
+            <!--tools:text="10.10.2016" />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_between_margin"-->
+                <!--android:id="@+id/yesterday_date_button"-->
+                <!--app:fabSize="auto"-->
+                <!--app:srcCompat="@drawable/ic_calendar_minus" />-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_between_margin"-->
+                <!--android:id="@+id/tomorrow_date_button"-->
+                <!--app:fabSize="auto"-->
+                <!--app:srcCompat="@drawable/ic_calendar_plus" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginTop="@dimen/calendar_fab_between_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"-->
+                <!--android:id="@+id/select_date_button"-->
+                <!--app:fabSize="auto"-->
+                <!--android:visibility="gone"-->
+                <!--app:srcCompat="@drawable/ic_calendar" />-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginTop="@dimen/calendar_fab_between_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"-->
+                <!--android:id="@+id/add_event_button"-->
+                <!--app:fabSize="auto"-->
+                <!--app:srcCompat="@drawable/ic_calendar_add_event" />-->
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom|end"
-        android:gravity="bottom"
+        android:layout_gravity="top|end"
+        android:gravity="top"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="@dimen/calendar_selected_date_width"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/calendar_fab_margin"
+            android:layout_marginTop="@dimen/calendar_fab_top_margin"
+            android:layout_marginLeft="@dimen/calendar_fab_margin"
+            android:layout_marginRight="@dimen/calendar_fab_right_margin"
+            android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"
+            android:elevation="@dimen/calendar_current_date_elevation"
             android:background="@drawable/selected_date_background"
             android:id="@+id/current_date_text_view"
             android:textColor="@color/white"
@@ -61,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/calendar_fab_margin"
-                android:layout_marginRight="@dimen/calendar_fab_margin"
+                android:layout_marginRight="@dimen/calendar_fab_right_margin"
                 android:layout_marginBottom="@dimen/calendar_fab_between_margin"
                 android:id="@+id/tomorrow_date_button"
                 app:fabSize="auto"
@@ -69,36 +153,115 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:orientation="horizontal">
-
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/calendar_fab_margin"
-                android:layout_marginRight="@dimen/calendar_fab_margin"
-                android:layout_marginTop="@dimen/calendar_fab_between_margin"
-                android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"
-                android:id="@+id/select_date_button"
-                app:fabSize="auto"
-                app:srcCompat="@drawable/ic_calendar" />
-
-            <android.support.design.widget.FloatingActionButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/calendar_fab_margin"
-                android:layout_marginRight="@dimen/calendar_fab_margin"
-                android:layout_marginTop="@dimen/calendar_fab_between_margin"
-                android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"
-                android:id="@+id/add_event_button"
-                app:fabSize="auto"
-                app:srcCompat="@drawable/ic_calendar_add_event" />
-
-        </LinearLayout>
-
     </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:gravity="bottom"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<TextView-->
+            <!--android:layout_width="@dimen/calendar_selected_date_width"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/calendar_fab_margin"-->
+            <!--android:elevation="2dp"-->
+            <!--android:background="@drawable/selected_date_background"-->
+            <!--android:id="@+id/current_date_text_view"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textStyle="bold"-->
+            <!--android:gravity="center"-->
+            <!--tools:text="10.10.2016" />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_between_margin"-->
+                <!--android:id="@+id/yesterday_date_button"-->
+                <!--app:fabSize="auto"-->
+                <!--app:srcCompat="@drawable/ic_calendar_minus" />-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_between_margin"-->
+                <!--android:id="@+id/tomorrow_date_button"-->
+                <!--app:fabSize="auto"-->
+                <!--app:srcCompat="@drawable/ic_calendar_plus" />-->
+
+        <!--</LinearLayout>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginTop="@dimen/calendar_fab_between_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"-->
+                <!--android:id="@+id/select_date_button"-->
+                <!--app:fabSize="auto"-->
+                <!--android:visibility="gone"-->
+                <!--app:srcCompat="@drawable/ic_calendar" />-->
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginRight="@dimen/calendar_fab_margin"-->
+                <!--android:layout_marginTop="@dimen/calendar_fab_between_margin"-->
+                <!--android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"-->
+                <!--android:id="@+id/add_event_button"-->
+                <!--app:fabSize="auto"-->
+                <!--app:srcCompat="@drawable/ic_calendar_add_event" />-->
+
+        <!--</LinearLayout>-->
+
+    <TextView
+        android:layout_width="@dimen/calendar_selected_date_width"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginLeft="@dimen/calendar_fab_margin"
+        android:layout_marginRight="@dimen/calendar_fab_right_margin"
+        android:layout_marginTop="@dimen/calendar_fab_between_margin"
+        android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"
+        android:elevation="@dimen/calendar_current_date_elevation"
+        android:background="@drawable/selected_date_background"
+        android:id="@+id/add_event_button"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/calendar_add_event"
+        android:gravity="center"
+        tools:text="10.10.2016" />
+    <!---->
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end|bottom"-->
+            <!--android:layout_marginLeft="@dimen/calendar_fab_margin"-->
+            <!--android:layout_marginRight="@dimen/calendar_fab_right_margin"-->
+            <!--android:layout_marginTop="@dimen/calendar_fab_between_margin"-->
+            <!--android:layout_marginBottom="@dimen/calendar_fab_bottom_margin"-->
+            <!--android:id="@+id/add_event_button"-->
+            <!--app:fabSize="auto"-->
+            <!--app:srcCompat="@drawable/ic_calendar_add_event" />-->
+
+    <!--</LinearLayout>-->
 
 </FrameLayout>

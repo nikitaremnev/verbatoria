@@ -123,7 +123,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     public void showError(String message) {
-        Helper.showSnackBar(mLoginButton, message);
+        Helper.showErrorSnackBar(mLoginButton, message);
     }
 
     @Override

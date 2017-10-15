@@ -12,6 +12,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.main.IVerbatologInfoPresenter;
+import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;
 
@@ -51,6 +52,9 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
 
     @BindView(R.id.verbatolog_status_view)
     public View mStatusView;
+
+    @BindView(R.id.hint_press_layout)
+    public View mHintLayout;
 
     public VerbatologInfoFragment() {
         // Required empty public constructor
@@ -140,15 +144,19 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     @Override
     public void showActiveStatus() {
         mStatusView.setBackgroundResource(R.drawable.verbatolog_status_green);
+        mHintLayout.setOnClickListener(v -> Helper.showHintSnackBar(mHintLayout, getString(R.string.dashboard_status_green_hint)));
     }
 
     @Override
     public void showWarningStatus() {
         mStatusView.setBackgroundResource(R.drawable.verbatolog_status_yellow);
+        mHintLayout.setOnClickListener(v -> Helper.showWarningSnackBar(mHintLayout, getString(R.string.dashboard_status_yellow_hint)));
     }
 
     @Override
     public void showBlockedStatus() {
         mStatusView.setBackgroundResource(R.drawable.verbatolog_status_red);
+        mHintLayout.setOnClickListener(v -> Helper.showErrorSnackBar(mHintLayout, getString(R.string.dashboard_status_red_hint)));
     }
+
 }

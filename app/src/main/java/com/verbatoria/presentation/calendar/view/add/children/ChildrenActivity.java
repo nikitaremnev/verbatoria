@@ -98,7 +98,9 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     @Override
     protected void onStart() {
         super.onStart();
-        mChildrenPresenter.searchClientChildren();
+        if (!mChildrenPresenter.isEditMode()) {
+            mChildrenPresenter.searchClientChildren();
+        }
     }
 
     @Override
@@ -144,9 +146,11 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
         }
         if (item.getItemId() == R.id.action_edit) {
             setUpEditableMode();
+            Helper.showHintSnackBar(mSubmitButton, getString(R.string.children_activity_edit_hint));
         }
         if (item.getItemId() == R.id.action_cancel) {
             setUpReadonlyMode();
+            Helper.showHintSnackBar(mSubmitButton, getString(R.string.children_activity_cancel_edit_hint));
         }
         if (item.getItemId() == R.id.action_search) {
             startSearch();
@@ -253,33 +257,36 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     @Override
     public void showError(String message) {
-        Helper.showSnackBar(mSubmitButton, message);
+        Helper.showErrorSnackBar(mSubmitButton, message);
     }
 
     @Override
     public void showChildAdded() {
-        Snackbar.make(mSubmitButton, getString(R.string.child_added), Snackbar.LENGTH_SHORT)
-                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.child_added), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundResource(R.color.hint_color);
+        snackbar.addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
                         finishWithResult();
                     }
-                })
-                .show();
+                });
+        snackbar.show();
     }
 
     @Override
     public void showChildEdited() {
-        Snackbar.make(mSubmitButton, getString(R.string.child_edited), Snackbar.LENGTH_SHORT)
-                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                    @Override
-                    public void onDismissed(Snackbar transientBottomBar, int event) {
-                        super.onDismissed(transientBottomBar, event);
-                        finishWithResult();
-                    }
-                })
-                .show();
+        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.child_edited), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundResource(R.color.hint_color);
+        snackbar.addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                finishWithResult();
+            }
+        });
+        snackbar.show();
+
     }
 
     @Override

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="verbatolog_status_green">#2F8D4F</color>
-    <color name="verbatolog_status_yellow">#FFEE00</color>
-    <color name="verbatolog_status_red">#BF0036</color>
+    <color name="verbatolog_status_yellow">#FFCC00</color>
+    <color name="verbatolog_status_red">#AF0036</color>
 
     <color name="verbatolog_info_background">#FFFFFF</color>
 
@@ -12,5 +12,10 @@
     <color name="settings_text_color">#000</color>
 
     <color name="settings_divider_item_color">#CCCCCC</color>
+
+    <color name="report_new_color">#E59700</color>
+    <color name="report_sent_color">#2F8D4F</color>
+    <color name="report_uploaded_color">#40B469</color>
+    <color name="report_ready_color">#40B469</color>
 
 </resources>

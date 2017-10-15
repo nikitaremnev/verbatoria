@@ -3,6 +3,7 @@ package com.verbatoria.business.dashboard.models;
 import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
@@ -82,6 +83,16 @@ public class EventModel implements Parcelable {
             return String.format(context.getString(R.string.dashboard_age), Integer.toString(fullAge));
         }
     }
+
+    public String getReportId(Context context) {
+        String reportId = mReport != null ? mReport.getReportId() : "";
+        if (TextUtils.isEmpty(reportId)) {
+            return context.getString(R.string.dashboard_unknown);
+        } else {
+            return reportId;
+        }
+    }
+
 
     public String getEventTime() {
         return DateUtils.periodToString(getStartAt(), getEndAt());

@@ -118,7 +118,7 @@ public class SearchChildrenActivity extends BaseActivity implements ISearchChild
 
     @Override
     public void showError(String message) {
-        Helper.showSnackBar(mSearchButton, message);
+        Helper.showErrorSnackBar(mSearchButton, message);
     }
 
     private void setUpRecyclerView() {

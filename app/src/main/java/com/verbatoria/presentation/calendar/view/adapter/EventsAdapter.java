@@ -40,7 +40,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     @Override
     public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event_new, parent, false);
         return new EventViewHolder(view);
     }
 
@@ -52,14 +52,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> {
     @Override
     public void onBindViewHolder(EventViewHolder holder, int position) {
         EventModel event = mEventsList.get(position);
-        String childName = event.getChild().getName();
-        if (childName == null) {
-            holder.setChildName(mContext.getString(R.string.dashboard_unknown));
-        } else {
-            holder.setChildName(childName);
-        }
-        holder.setAge(event.getFullAge(mContext));
-        holder.setTimePeriod(event.getEventTime());
+        EventViewHolderBinder.bind(event, holder, mContext);
         holder.setOnClickListener(new EventOnClickListener(event));
     }
 

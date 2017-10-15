@@ -86,9 +86,7 @@ public class DateUtils {
     }
 
     public static String periodToString(Date startDate, Date endDate) {
-        return SERVER_DATE_WITHOUT_YEAR_FORMAT.format(startDate) +
-                " " +
-                SERVER_TIME_FORMAT.format(startDate) +
+        return SERVER_TIME_FORMAT.format(startDate) +
                 " - " +
                 SERVER_TIME_FORMAT.format(endDate);
     }

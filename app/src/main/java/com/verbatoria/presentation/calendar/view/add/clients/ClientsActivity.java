@@ -128,9 +128,11 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         }
         if (item.getItemId() == R.id.action_edit) {
             setUpEditableMode();
+            Helper.showHintSnackBar(mSubmitButton, getString(R.string.client_activity_edit_hint));
         }
         if (item.getItemId() == R.id.action_cancel) {
             setUpReadonlyMode();
+            Helper.showHintSnackBar(mSubmitButton, getString(R.string.client_activity_cancel_edit_hint));
         }
         if (item.getItemId() == R.id.action_search) {
             startSearch();
@@ -237,34 +239,35 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     @Override
     public void showError(String message) {
-        Helper.showSnackBar(mSubmitButton, message);
+        Helper.showErrorSnackBar(mSubmitButton, message);
     }
 
     @Override
     public void showClientAdded() {
-        Snackbar.make(mSubmitButton, getString(R.string.client_added), Snackbar.LENGTH_SHORT)
-                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                    @Override
-                    public void onDismissed(Snackbar transientBottomBar, int event) {
-                        super.onDismissed(transientBottomBar, event);
-                        finishWithResult();
-                    }
-                })
-                .show();
-
+        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.client_added), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundResource(R.color.hint_color);
+        snackbar.addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                finishWithResult();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
     public void showClientEdited() {
-        Snackbar.make(mSubmitButton, getString(R.string.client_edited), Snackbar.LENGTH_SHORT)
-                .addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                    @Override
-                    public void onDismissed(Snackbar transientBottomBar, int event) {
-                        super.onDismissed(transientBottomBar, event);
-                        finishWithResult();
-                    }
-                })
-                .show();
+        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.client_edited), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundResource(R.color.hint_color);
+        snackbar.addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                finishWithResult();
+            }
+        });
+        snackbar.show();
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
+import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 
 import javax.inject.Inject;
@@ -73,7 +74,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     private void setUpQuitView() {
         setUpSettingsItemText(mQuitView, R.string.settings_item_quit);
         setUpSettingsImageView(mQuitView, R.drawable.ic_exit);
-        mQuitView.setOnClickListener(v -> mSettingsPresenter.quit());
+        mQuitView.setOnClickListener(v -> startLogin());
     }
 
     /*
@@ -93,6 +94,10 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     private void startConnection() {
         Intent intent = new Intent(getActivity(), ConnectionActivity.class);
         startActivity(intent);
+    }
+
+    private void startLogin() {
+        startActivity(LoginActivity.newInstance(getActivity()));
     }
 
 }

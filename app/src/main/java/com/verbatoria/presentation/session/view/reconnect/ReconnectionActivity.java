@@ -19,7 +19,6 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.reconnect.IReconnectionPresenter;
-import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
@@ -184,6 +183,7 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
     @Override
     public void showBluetoothDisabled() {
         Snackbar snackbar = Snackbar.make(mConnectionStatusTextView, getString(R.string.session_bluetooth_disabled), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundResource(R.color.error_color);
         snackbar.setAction(getString(R.string.session_settings), view -> {
             Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -202,7 +202,7 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
 
     @Override
     public void showError(String error) {
-        Helper.showSnackBar(mLoadingView, error);
+        Helper.showErrorSnackBar(mLoadingView, error);
     }
 
     private void setUpViews() {

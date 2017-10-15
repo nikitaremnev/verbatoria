@@ -208,7 +208,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
 
     @Override
     public void showError(String message) {
-        Helper.showSnackBar(mLoadingView, message);
+        Helper.showErrorSnackBar(mLoadingView, message);
     }
 
     @Override

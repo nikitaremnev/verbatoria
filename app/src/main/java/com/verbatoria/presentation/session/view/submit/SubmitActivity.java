@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -18,10 +19,11 @@ import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer;
 import com.verbatoria.utils.Helper;
-import com.verbatoria.utils.Logger;
 
 import java.util.ArrayList;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -182,8 +184,8 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
     }
 
     @Override
-    public void showMessage(String message) {
-        Helper.showSnackBar(mLoadingView, message);
+    public void showError(String message) {
+        Helper.showErrorSnackBar(mLoadingView, message);
     }
 
     @Override

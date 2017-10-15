@@ -5,7 +5,6 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -188,20 +187,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void showError(String message) {
-        Snackbar snackbar = Snackbar.make(mSubmitButton, message, Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Helper.showErrorSnackBar(mSubmitButton, message);
     }
 
     @Override
     public void showEventAdded() {
-        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.event_detail_event_added), Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Helper.showHintSnackBar(mSubmitButton, getString(R.string.event_detail_event_added));
     }
 
     @Override
     public void showEventEdited() {
-        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.event_detail_event_edited), Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Helper.showHintSnackBar(mSubmitButton, getString(R.string.event_detail_event_edited));
+
     }
 
     @Override
@@ -235,7 +232,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         if (reportModel == null) {
             mReportFieldView.setVisibility(View.GONE);
         } else {
-            setUpFieldView(mReportFieldView, R.drawable.ic_report, reportModel.getReportId(), getString(R.string.event_detail_activity_report), v -> {});
+            setUpFieldView(mReportFieldView, R.drawable.ic_report, reportModel.getReportId(), getString(R.string.event_detail_activity_report), v -> { showStatusHint(reportModel); });
+            setUpReportStatus(reportModel);
             mReportFieldView.setVisibility(View.VISIBLE);
         }
     }
@@ -267,17 +265,17 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void showClientNotFullError() {
-        Helper.showSnackBar(mSubmitButton, getString(R.string.client_data_is_not_full));
+        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.client_data_is_not_full));
     }
 
     @Override
     public void showChildNotFullError() {
-        Helper.showSnackBar(mSubmitButton, getString(R.string.child_data_is_not_full));
+        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.child_data_is_not_full));
     }
 
     @Override
     public void showTimeNotSetError() {
-        Helper.showSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
+        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
     }
 
     @Override
@@ -337,5 +335,40 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
         fieldView.setOnClickListener(onClickListener);
     }
+
+    private void setUpReportStatus(ReportModel reportModel) {
+        switch (reportModel.getStatus()) {
+            case ReportModel.STATUS.NEW:
+                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_new);
+                break;
+            case ReportModel.STATUS.READY:
+                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_ready);
+                break;
+            case ReportModel.STATUS.SENT:
+                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_sent);
+                break;
+            case ReportModel.STATUS.UPLOADED:
+                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_uploaded);
+                break;
+        }
+    }
+
+    private void showStatusHint(ReportModel reportModel) {
+        switch (reportModel.getStatus()) {
+            case ReportModel.STATUS.NEW:
+                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_new));
+                break;
+            case ReportModel.STATUS.READY:
+                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_ready));
+                break;
+            case ReportModel.STATUS.SENT:
+                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_sent));
+                break;
+            case ReportModel.STATUS.UPLOADED:
+                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_uploaded));
+                break;
+        }
+    }
+
 
 }

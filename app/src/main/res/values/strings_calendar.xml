@@ -60,4 +60,27 @@
     <string name="action_search">Поиск</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_cancel">Отмена</string>
+
+    <string name="event_detail_activity_hint_status_new">Запись еще не была произведена</string>
+    <string name="event_detail_activity_hint_status_ready">Результаты измерений обработаны и отчет готов</string>
+    <string name="event_detail_activity_hint_status_sent">Отчет был выслан клиенту</string>
+    <string name="event_detail_activity_hint_status_uploaded">Результаты измерений были загружены</string>
+
+    <string name="calendar_add_event">СОЗДАТЬ</string>
+
+    <string name="event_detail_activity_choose_date_hint">Показаны события за %s</string>
+
+    <string name="children_activity_edit_hint">Вы перешли в режим редактирования записи</string>
+    <string name="children_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
+
+    <string name="client_activity_edit_hint">Вы перешли в режим редактирования записи</string>
+    <string name="client_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
+
+
+    <string name="calendar_report_new">Новый</string>
+    <string name="calendar_report_uploaded">Загружен</string>
+    <string name="calendar_report_ready">Готов</string>
+    <string name="calendar_report_sent">Отправлен</string>
+
+
 </resources>

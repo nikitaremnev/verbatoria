@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -27,6 +26,7 @@ import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;
+import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
 
 import javax.inject.Inject;
@@ -34,7 +34,13 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_11;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_21;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_31;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_41;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_51;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_61;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_71;
 import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
@@ -201,8 +207,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
 
     @Override
     public void showError(String error) {
-        Snackbar snackbar = Snackbar.make(mPlayerContainer, error, Snackbar.LENGTH_LONG);
-        snackbar.show();
+        Helper.showErrorSnackBar(mPlayerContainer, error);
     }
 
     @Override

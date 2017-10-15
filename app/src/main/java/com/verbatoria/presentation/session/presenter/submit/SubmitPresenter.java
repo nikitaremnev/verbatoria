@@ -87,7 +87,7 @@ public class SubmitPresenter implements ISubmitPresenter {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
         mSubmitView.hideProgress();
-        mSubmitView.showMessage(throwable.getLocalizedMessage());
+        mSubmitView.showError(throwable.getLocalizedMessage());
     }
 
 }

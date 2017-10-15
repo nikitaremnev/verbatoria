@@ -12,7 +12,7 @@ public interface ISubmitView extends IAnswerClickCallback {
     void showProgress();
     void hideProgress();
 
-    void showMessage(String message);
+    void showError(String message);
 
     void finishSession();
 }

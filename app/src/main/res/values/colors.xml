@@ -31,4 +31,9 @@
     <color name="field_title_color">#000</color>
     <color name="field_subtitle_color">#999</color>
 
+    <color name="hint_color">#2F8D4F</color>
+    <color name="error_color">#AF0036</color>
+
+
+
 </resources>
