@@ -9,9 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.provider.BaseColumns;
 
-import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.data.repositories.session.model.AttentionMeasurement;
-import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
 import com.verbatoria.utils.FileUtils;
@@ -182,27 +180,7 @@ public class NeurodataDatabase extends SQLiteOpenHelper implements BaseColumns {
                         .setTimestamp(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.TIMESTAMP_COLUMN_NAME))))
                         .setAttentionValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.ATTENTION_COLUMN_NAME)));
                 attentionMeasurements.add(measurement);
-            } while (cursor.moveToNext());
-            cursor.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        Logger.e(TAG, "attentionMeasurements.size() " + attentionMeasurements.size());
-        return attentionMeasurements;
-    }
-
-    public static List<BaseMeasurement> getAttentionBaseValues(Context context) {
-        Logger.e(TAG, "getAttentionValues");
-        SQLiteDatabase sqdb = getMyWritableDatabase(context);
-        List<BaseMeasurement> attentionMeasurements = new ArrayList<>();
-        try {
-            Cursor cursor = sqdb.query(NeurodataDatabase.ATTENTION_TABLE_NAME, null, null, null, null, null, null);
-            cursor.moveToFirst();
-            do {
-                AttentionMeasurement measurement = new AttentionMeasurement()
-                        .setTimestamp(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.TIMESTAMP_COLUMN_NAME))))
-                        .setAttentionValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.ATTENTION_COLUMN_NAME)));
-                attentionMeasurements.add(measurement);
+                Logger.e(TAG, "extract attention: " + measurement.toString());
             } while (cursor.moveToNext());
             cursor.close();
         } catch (Exception ex) {
@@ -224,27 +202,7 @@ public class NeurodataDatabase extends SQLiteOpenHelper implements BaseColumns {
                         .setTimestamp(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.TIMESTAMP_COLUMN_NAME))))
                         .setMediationValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.MEDIATION_COLUMN_NAME)));
                 mediationMeasurements.add(measurement);
-            } while (cursor.moveToNext());
-            cursor.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        Logger.e(TAG, "mediationMeasurements.size() " + mediationMeasurements.size());
-        return mediationMeasurements;
-    }
-
-    public static List<BaseMeasurement> getMediationBaseValues(Context context) {
-        Logger.e(TAG, "getMediationValues");
-        SQLiteDatabase sqdb = getMyWritableDatabase(context);
-        List<BaseMeasurement> mediationMeasurements = new ArrayList<>();
-        try {
-            Cursor cursor = sqdb.query(NeurodataDatabase.MEDIATION_TABLE_NAME, null, null, null, null, null, null);
-            cursor.moveToFirst();
-            do {
-                MediationMeasurement measurement = new MediationMeasurement()
-                        .setTimestamp(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.TIMESTAMP_COLUMN_NAME))))
-                        .setMediationValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.MEDIATION_COLUMN_NAME)));
-                mediationMeasurements.add(measurement);
+                Logger.e(TAG, "extract mediation: " + measurement.toString());
             } while (cursor.moveToNext());
             cursor.close();
         } catch (Exception ex) {
@@ -258,34 +216,6 @@ public class NeurodataDatabase extends SQLiteOpenHelper implements BaseColumns {
         Logger.e(TAG, "getEEGValues");
         SQLiteDatabase sqdb = getMyWritableDatabase(context);
         List<EEGMeasurement> eegMeasurements = new ArrayList<>();
-        try {
-            Cursor cursor = sqdb.query(NeurodataDatabase.EEG_TABLE_NAME, null, null, null, null, null, null);
-            cursor.moveToFirst();
-            do {
-                EEGMeasurement measurement = new EEGMeasurement()
-                        .setTimestamp(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.TIMESTAMP_COLUMN_NAME))))
-                        .setDeltaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.DELTA_COLUMN_NAME)))
-                        .setHighAlphaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.HIGH_ALPHA_COLUMN_NAME)))
-                        .setHighBetaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.HIGH_BETA_COLUMN_NAME)))
-                        .setLowAlphaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.LOW_ALPHA_COLUMN_NAME)))
-                        .setLowBetaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.LOW_BETA_COLUMN_NAME)))
-                        .setLowGammaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.LOW_GAMMA_COLUMN_NAME)))
-                        .setMidGammaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.MID_GAMMA_COLUMN_NAME)))
-                        .setThetaValue(cursor.getLong(cursor.getColumnIndex(NeurodataDatabase.THETA_COLUMN_NAME)));
-                eegMeasurements.add(measurement);
-            } while (cursor.moveToNext());
-            cursor.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        Logger.e(TAG, "eegMeasurements.size() " + eegMeasurements.size());
-        return eegMeasurements;
-    }
-
-    public static List<BaseMeasurement> getEEGBaseValues(Context context) {
-        Logger.e(TAG, "getEEGValues");
-        SQLiteDatabase sqdb = getMyWritableDatabase(context);
-        List<BaseMeasurement> eegMeasurements = new ArrayList<>();
         try {
             Cursor cursor = sqdb.query(NeurodataDatabase.EEG_TABLE_NAME, null, null, null, null, null, null);
             cursor.moveToFirst();

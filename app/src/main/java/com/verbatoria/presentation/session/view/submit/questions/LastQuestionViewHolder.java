@@ -62,8 +62,8 @@ public class LastQuestionViewHolder {
     }
 
     private void setUpButtons() {
-        mAnswerYesButton.setOnClickListener(v -> { buttonClick(true); });
-        mAnswerNoButton.setOnClickListener(v -> { buttonClick(true); });
+        mAnswerYesButton.setOnClickListener(v -> buttonClick(true));
+        mAnswerNoButton.setOnClickListener(v -> buttonClick(false));
     }
 
     private void buttonClick(boolean yes) {

@@ -1,5 +1,7 @@
 package com.verbatoria.business.session.processor;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.verbatoria.business.session.SessionInteractorException;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
@@ -74,7 +76,7 @@ public class ExportProcessor {
             int answersIndex = 0;
             while (iterator.hasNext()) {
                 MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
-                BaseMeasurement currentMeasurement = iterator.next();
+                BaseMeasurement currentMeasurement = iterator.get();
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
                 if (answersIndex < QuestionsAdapter.QUESTIONARY_SIZE) {
                     measurementRequestModel.setReserveBlank2(answers.get(Integer.toString(answersIndex)));
@@ -168,6 +170,7 @@ public class ExportProcessor {
 
         public BaseMeasurementIterator(List<? extends BaseMeasurement> measurements) {
             mMeasurements = measurements;
+            mIndex = 0;
         }
 
         @Override

@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_dashboard"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context="com.verbatoria.presentation.calendar.view.add.AddCalendarEventActivity">
+    android:background="@color/background">
 
-    <LinearLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_dashboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fields_layout"
-        android:orientation="vertical">
+        tools:context="com.verbatoria.presentation.calendar.view.add.AddCalendarEventActivity">
 
-        <include android:id="@+id/client_field"
-            layout="@layout/item_field"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fields_layout"
+            android:orientation="vertical">
 
-        <include android:id="@+id/child_field"
-            layout="@layout/item_field"/>
+            <include android:id="@+id/client_field"
+                layout="@layout/item_field"/>
 
-        <include android:id="@+id/date_field"
-            layout="@layout/item_field"/>
+            <include android:id="@+id/child_field"
+                layout="@layout/item_field"/>
 
-        <include android:id="@+id/report_field"
-            android:visibility="gone"
-            layout="@layout/item_field"/>
+            <include android:id="@+id/date_field"
+                layout="@layout/item_field"/>
 
-    </LinearLayout>
+            <include android:id="@+id/report_field"
+                android:visibility="gone"
+                layout="@layout/item_field"/>
 
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="@dimen/activity_save_button_width"
-        android:layout_height="@dimen/button_height"
-        android:text="@string/dashboard_start_session"
-        style="@style/ButtonStyle"
-        android:layout_below="@+id/fields_layout"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_between_margin"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        </LinearLayout>
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="@dimen/activity_save_button_width"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/dashboard_start_session"
+            style="@style/ButtonStyle"
+            android:layout_below="@+id/fields_layout"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_between_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+</ScrollView>
