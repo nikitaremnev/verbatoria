@@ -94,6 +94,16 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
+    public void deleteEvent() {
+//        addSubscription(mCalendarInteractor.editEvent(mEventModel)
+//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+//                .observeOn(RxSchedulers.getMainThreadScheduler())
+//                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+//                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+//                .subscribe(this::handleEventDeleted, this::handleError));
+    }
+
+    @Override
     public void obtainEvent(Intent intent) {
         mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
         if (mEventModel != null) {
@@ -182,6 +192,10 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         }
         mIsEditMode = true;
         mCalendarEventDetailView.setUpEventCreated();
+    }
+
+    private void handleEventDeleted(@NonNull ResponseBody responseBody) {
+        mCalendarEventDetailView.closeWhenDeleted();
     }
 
     private void handleError(Throwable throwable) {

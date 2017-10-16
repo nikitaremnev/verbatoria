@@ -5,7 +5,11 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -73,6 +77,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     private Calendar mSelectTimeCalendar;
 
+    private MenuItem mDeleteMenuItem;
+
     public static Intent newInstance(Context mContext, EventModel eventModel) {
         Intent intent = new Intent(mContext, EventDetailActivity.class);
         intent.putExtra(EventDetailPresenter.EXTRA_EVENT_MODEL, eventModel);
@@ -95,6 +101,14 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         setPresenter((BasePresenter) mEventDetailPresenter);
 
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_toolbar_delete, menu);
+        mDeleteMenuItem = menu.findItem(R.id.action_delete);
+        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -121,6 +135,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
+        }
+        if (item.getItemId() == R.id.action_delete) {
+            showConfirmDeleteDialog();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -198,7 +215,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void showEventEdited() {
         Helper.showHintSnackBar(mSubmitButton, getString(R.string.event_detail_event_edited));
-
     }
 
     @Override
@@ -255,6 +271,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void setUpEventCreated() {
         mSubmitButton.setText(getString(R.string.dashboard_start_session));
         mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
     }
 
     @Override
@@ -276,6 +293,20 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void showTimeNotSetError() {
         Helper.showErrorSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
+    }
+
+    @Override
+    public void closeWhenDeleted() {
+        Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT);
+        snackbar.getView().setBackgroundResource(R.color.hint_color);
+        snackbar.addCallback(new BaseTransientBottomBar.BaseCallback<Snackbar>() {
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                finish();
+            }
+        });
+        snackbar.show();
     }
 
     @Override
@@ -370,5 +401,15 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         }
     }
 
+    private void showConfirmDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.calendar_confirm_delete_title))
+                .setMessage(getString(R.string.calendar_confirm_delete_message));
+        builder.setPositiveButton(getString(R.string.delete), (dialog, which) -> {
+            mEventDetailPresenter.deleteEvent();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
 
 }

@@ -37,5 +37,4 @@
     <string name="dashboard_status_yellow_hint">Работа в приложении доступна, однако в скором времени может быть заблокирована</string>
     <string name="dashboard_status_red_hint">Работа в приложении заблокирована, обратитесь к партеру для восстановления доступа</string>
 
-
 </resources>
