@@ -23,6 +23,8 @@ public interface IVerbatologInfoView {
 
     void showLocationName(String name);
 
+    void showLocationId(String locationId);
+
     void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail);
     void showLocationInfo(LocationModel locationModel);
 

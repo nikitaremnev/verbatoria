@@ -24,4 +24,6 @@ public interface ILoginInteractor {
 
     String[] getCountryCodes();
 
+    String getLastLogin();
+
 }

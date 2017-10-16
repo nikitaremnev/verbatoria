@@ -18,4 +18,5 @@ public interface ICalendarPresenter {
 
     void updateVerbatologEvents(Calendar calendar);
 
+    void restoreLastDate();
 }

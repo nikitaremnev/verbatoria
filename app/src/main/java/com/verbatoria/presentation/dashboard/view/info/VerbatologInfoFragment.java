@@ -50,6 +50,9 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     @BindView(R.id.partner_name_text_view)
     public TextView mPartnerNameTextView;
 
+    @BindView(R.id.location_id_text_view)
+    public TextView mLocationIdTextView;
+
     @BindView(R.id.verbatolog_status_view)
     public View mStatusView;
 
@@ -127,6 +130,11 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     }
 
     @Override
+    public void showLocationId(String locationId) {
+        mLocationIdTextView.setText(locationId);
+    }
+
+    @Override
     public void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail) {
         showVerbatologName(verbatologFullName);
         showVerbatologPhone(verbatologPhone);
@@ -139,6 +147,7 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
         showLocationCityCountry(locationModel.getCityCountry());
         showLocationPartner(locationModel.getPartner());
         showLocationName(locationModel.getName());
+        showLocationId(locationModel.getId());
     }
 
     @Override

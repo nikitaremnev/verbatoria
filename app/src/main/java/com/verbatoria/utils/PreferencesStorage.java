@@ -23,6 +23,7 @@ public class PreferencesStorage {
     private static final String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
     private static final String EXPIRES_TOKEN_KEY = "EXPIRES_TOKEN_KEY";
     private static final String STATUS_TOKEN_KEY = "STATUS_TOKEN_KEY";
+    private static final String LAST_LOGIN_KEY = "LAST_LOGIN_KEY";
 
     private static final String QUESTIONS_PREFERENCES = "questions";
     private static final String ANSWERS_KEY = "ANSWERS_KEY";
@@ -30,6 +31,7 @@ public class PreferencesStorage {
     private static final String SESSION_PREFERENCES = "questions";
     private static final String LAST_REPORT_NAME_KEY = "LAST_REPORT_NAME_KEY";
     private static final String CURRENT_SESSION_ID = "CURRENT_SESSION_ID";
+    private static final String LAST_DATE_KEY = "LAST_DATE_KEY";
 
     private static final String CACHE_PREFERENCES = "cache";
     private static final String VERBATOLOG_FIRST_NAME_KEY = "VERBATOLOG_FIRST_NAME_KEY";
@@ -85,6 +87,16 @@ public class PreferencesStorage {
 
     public String getExpiresToken() {
         return mTokenPreferences.getString(EXPIRES_TOKEN_KEY, null);
+    }
+
+    public void setLastLogin(String login) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putString(LAST_LOGIN_KEY, login);
+        editor.apply();
+    }
+
+    public String getLastLogin() {
+        return mTokenPreferences.getString(LAST_LOGIN_KEY, "");
     }
 
     public void setUserStatus(String status) {
@@ -162,5 +174,15 @@ public class PreferencesStorage {
 
     public String getCurrentSessionId() {
         return mTokenPreferences.getString(CURRENT_SESSION_ID, null);
+    }
+
+    public void setLastDate(String lastDate) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putString(LAST_DATE_KEY, lastDate);
+        editor.apply();
+    }
+
+    public String getLastDate() {
+        return mTokenPreferences.getString(LAST_DATE_KEY, null);
     }
 }

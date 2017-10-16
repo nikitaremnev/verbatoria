@@ -36,6 +36,7 @@ public class LoginInteractor implements ILoginInteractor {
                     TokenModel tokenModel = tokenProcessor.obtainToken(item);
                     mTokenRepository.updateToken(tokenModel);
                     mTokenRepository.setStatus(tokenModel.getStatus());
+                    mLoginRepository.updateLastLogin(phone);
                     return tokenModel;
                 })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
@@ -70,6 +71,11 @@ public class LoginInteractor implements ILoginInteractor {
     @Override
     public String[] getCountryCodes() {
         return new String[] {"+7"};
+    }
+
+    @Override
+    public String getLastLogin() {
+        return mLoginRepository.lastLogin();
     }
 
     private LoginRequestModel getLoginRequestModel(String phone, String password) {

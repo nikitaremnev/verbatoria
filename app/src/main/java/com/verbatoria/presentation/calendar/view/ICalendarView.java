@@ -2,6 +2,7 @@ package com.verbatoria.presentation.calendar.view;
 
 import com.verbatoria.business.dashboard.models.EventModel;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,4 +14,5 @@ public interface ICalendarView {
 
     void showVerbatologEvents(List<EventModel> verbatologEvents);
 
+    void updateTime(Date date);
 }

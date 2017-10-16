@@ -22,4 +22,8 @@ public interface ILoginRepository {
 
     Observable<MessageResponseModel> resetPassword(ResetPasswordRequestModel resetPasswordRequestModel);
 
+    String lastLogin();
+
+    void updateLastLogin(String login);
+
 }

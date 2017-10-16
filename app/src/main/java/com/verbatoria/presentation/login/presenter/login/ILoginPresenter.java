@@ -17,5 +17,7 @@ public interface ILoginPresenter {
     void login();
     void startRecoveryPassword();
 
+    void setUpLastLogin();
+
     String[] getCountryCodesArray();
 }

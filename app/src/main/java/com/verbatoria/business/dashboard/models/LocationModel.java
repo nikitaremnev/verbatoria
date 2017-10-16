@@ -13,6 +13,8 @@ import com.google.common.base.Objects;
  */
 public class LocationModel implements Parcelable {
 
+    private String mId;
+
     private String mName;
 
     private String mAddress;
@@ -25,6 +27,15 @@ public class LocationModel implements Parcelable {
 
     public LocationModel() {
 
+    }
+
+    public String getId() {
+        return mId;
+    }
+
+    public LocationModel setId(String id) {
+        mId = id;
+        return this;
     }
 
     public String getName() {
@@ -85,7 +96,8 @@ public class LocationModel implements Parcelable {
             return false;
         }
         LocationModel that = (LocationModel) o;
-        return Objects.equal(mName, that.mName) &&
+        return Objects.equal(mId, that.mId) &&
+                Objects.equal(mName, that.mName) &&
                 Objects.equal(mAddress, that.mAddress) &&
                 Objects.equal(mPartner, that.mPartner) &&
                 Objects.equal(mCity, that.mCity) &&
@@ -94,12 +106,13 @@ public class LocationModel implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mName, mAddress, mPartner, mCity, mCountry);
+        return Objects.hashCode(mId, mName, mAddress, mPartner, mCity, mCountry);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                .add("mId", mId)
                 .add("mName", mName)
                 .add("mAddress", mAddress)
                 .add("mPartner", mPartner)
@@ -116,6 +129,7 @@ public class LocationModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.mId);
         dest.writeString(this.mName);
         dest.writeString(this.mAddress);
         dest.writeString(this.mPartner);
@@ -124,6 +138,7 @@ public class LocationModel implements Parcelable {
     }
 
     protected LocationModel(Parcel in) {
+        this.mId = in.readString();
         this.mName = in.readString();
         this.mAddress = in.readString();
         this.mPartner = in.readString();
@@ -131,7 +146,7 @@ public class LocationModel implements Parcelable {
         this.mCountry = in.readString();
     }
 
-    public static final Creator<LocationModel> CREATOR = new Creator<LocationModel>() {
+    public static final Parcelable.Creator<LocationModel> CREATOR = new Parcelable.Creator<LocationModel>() {
         @Override
         public LocationModel createFromParcel(Parcel source) {
             return new LocationModel(source);

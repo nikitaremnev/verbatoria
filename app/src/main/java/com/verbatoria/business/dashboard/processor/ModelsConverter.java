@@ -38,6 +38,7 @@ public class ModelsConverter {
 
     public static LocationModel convertLocationResponseToLocationModel(LocationResponseModel locationResponseModel) {
         LocationModel locationModel = new LocationModel();
+        locationModel.setId(locationResponseModel.getId());
         locationModel.setName(locationResponseModel.getName());
         locationModel.setAddress(locationResponseModel.getAddress());
         locationModel.setCity(locationResponseModel.getCity().getName());

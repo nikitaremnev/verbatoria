@@ -90,7 +90,7 @@
             android:paddingLeft="@dimen/verbatolog_info_subtitle_other_padding"
             android:text="@string/dashboard_cabinet" />
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="vertical"
             android:background="@color/white"
             android:layout_width="match_parent"
@@ -101,52 +101,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/settings_item_divider_height"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/main_dark"
+                android:paddingLeft="@dimen/dashboard_horizontal_padding"
+                android:textSize="@dimen/location_id_text_size"
+                android:id="@+id/location_id_text_view"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textStyle="bold"
+                tools:text="32" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/location_name_text_view"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
-                    android:layout_marginTop="@dimen/verbatolog_status_margin"
-                    android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
-                    android:textColor="@color/black"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    tools:text="Вербатория Остоженка"/>
-
-            </LinearLayout>
+                android:id="@+id/location_name_text_view"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/location_id_text_view"
+                android:layout_marginLeft="@dimen/verbatolog_location_info_left_margin"
+                android:layout_marginTop="@dimen/verbatolog_status_margin"
+                android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                android:textColor="@color/black"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                tools:text="Вербатория Остоженка"/>
 
             <TextView
                 android:layout_width="346dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/location_address_text_view"
+                android:layout_below="@+id/location_name_text_view"
                 android:textStyle="bold"
+                android:layout_toRightOf="@+id/location_id_text_view"
                 android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
-                android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                android:layout_marginLeft="@dimen/verbatolog_location_info_left_margin"
                 android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
                 tools:text="Остоженка 7"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/location_address_text_view"
                 android:id="@+id/location_point_text_view"
                 android:textStyle="bold"
-                android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                android:layout_toRightOf="@+id/location_id_text_view"
+                android:layout_marginLeft="@dimen/verbatolog_location_info_left_margin"
                 android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
                 android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
                 tools:text="Москва, Россия"/>
 
             <View
                 android:background="@color/settings_divider_item_color"
+                android:layout_below="@+id/location_point_text_view"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_height="@dimen/settings_item_divider_height"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <TextView
             android:layout_width="match_parent"

@@ -60,6 +60,12 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
     }
 
     @Override
+    public void setUpLastLogin() {
+        String lastLogin = mLoginInteractor.getLastLogin();
+        mLoginView.setPhone(lastLogin);
+    }
+
+    @Override
     public String[] getCountryCodesArray() {
         return mLoginInteractor.getCountryCodes();
     }

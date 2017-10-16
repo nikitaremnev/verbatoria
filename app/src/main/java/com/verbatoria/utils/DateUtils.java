@@ -77,6 +77,10 @@ public class DateUtils {
         return UI_DATE_FORMAT.format(date);
     }
 
+    public static Date parseUIDateString(String date) throws Exception {
+        return UI_DATE_FORMAT.parse(date);
+    }
+
     public static String fileNameFromDate(Date date) {
         return SERVER_FILENAME_FORMAT.format(date);
     }

@@ -50,6 +50,7 @@ public class CalendarInteractor implements ICalendarInteractor {
                         Collections.sort(unsortedList, new EventsComparator());
                         return unsortedList;
                     })
+                    .doOnNext(eventModels -> mCalendarRepository.saveLastDate(startDate))
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {
@@ -80,6 +81,11 @@ public class CalendarInteractor implements ICalendarInteractor {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Date getLastDate() {
+        return mCalendarRepository.getLastDate();
     }
 
     private AddEventRequestModel getAddEventRequestModel(EventModel eventModel) throws ParseException {

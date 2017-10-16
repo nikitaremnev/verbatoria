@@ -72,8 +72,10 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
         super.onCreate(savedInstanceState);
         //test
-        setPhone("79153974689");
-        setPassword("test");
+//        setPhone("79153974689");
+//        setPassword("test");
+
+        mLoginPresenter.setUpLastLogin();
     }
 
     @Override

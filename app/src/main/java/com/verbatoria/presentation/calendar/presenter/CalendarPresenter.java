@@ -51,6 +51,11 @@ public class CalendarPresenter implements ICalendarPresenter {
                 .subscribe(this::handleVerbatologEventsReceived, this::handleVerbatologEventsLoadingFailed);
     }
 
+    @Override
+    public void restoreLastDate() {
+        mCalendarView.updateTime(mCalendarInteractor.getLastDate());
+    }
+
     private void handleVerbatologEventsReceived(@NonNull List<EventModel> eventModelList) {
         Logger.e(TAG, eventModelList.toString());
         mCalendarView.showVerbatologEvents(eventModelList);

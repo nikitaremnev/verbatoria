@@ -4,6 +4,11 @@ import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
+import com.verbatoria.utils.DateUtils;
+import com.verbatoria.utils.PreferencesStorage;
+
+import java.text.ParseException;
+import java.util.Date;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
@@ -32,4 +37,21 @@ public class CalendarRepository implements ICalendarRepository {
     public Observable<ResponseBody> editEvent(String eventId, String accessToken, EditEventRequestModel editEventRequestModel) {
         return APIFactory.getAPIService().editEventRequest(eventId, accessToken, editEventRequestModel);
     }
+
+    @Override
+    public void saveLastDate(Date fromDate) {
+        PreferencesStorage.getInstance().setLastDate(DateUtils.toUIDateString(fromDate));
+    }
+
+    @Override
+    public Date getLastDate() {
+        try {
+            return DateUtils.parseUIDateString(PreferencesStorage.getInstance().getLastDate());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Date();
+    }
+
+
 }

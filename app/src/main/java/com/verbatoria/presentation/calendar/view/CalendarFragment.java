@@ -24,6 +24,7 @@ import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.Helper;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,9 +61,6 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
 
     @BindView(R.id.no_events_text_view)
     public TextView mNoEventsTextView;
-//
-//    @BindView(R.id.current_date_text_view)
-//    public TextView mCurrentDateTextView;
 
     private Calendar mCalendar;
 
@@ -84,7 +82,8 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
         setUpViews();
 
         mCalendarPresenter.bindView(this);
-        mCalendarPresenter.updateVerbatologEvents(mCalendar);
+
+        mCalendarPresenter.restoreLastDate();
         return rootView;
     }
 
@@ -92,6 +91,17 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
         mNoEventsTextView.setVisibility(verbatologEvents.size() == 0 ? View.VISIBLE : View.GONE);
         mEventsRecyclerView.setAdapter(new EventsAdapter(verbatologEvents, getActivity()));
+    }
+
+    private void setUpCurrentDate() {
+        mCalendarButton.setText(DateUtils.toUIDateString(mCalendar.getTime()));
+    }
+
+    @Override
+    public void updateTime(Date date) {
+        mCalendar.setTime(date);
+        setUpCurrentDate();
+        mCalendarPresenter.updateVerbatologEvents(mCalendar);
     }
 
     private void setUpViews() {
@@ -104,22 +114,15 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
 
     private void setUpAddEventButton() {
         mAddEventButton.setOnClickListener(v -> startActivityForResult(EventDetailActivity.newInstance(getContext()), ACTIVITY_EVENT_CODE));
-//        mAddEventButton.show();
     }
 
     private void setUpCalendarButtons() {
         mCalendarButton.setOnClickListener(v -> showCalendar());
         mTomorrowDateButton.setOnClickListener(v -> showTomorrowCalendar());
         mYesterdayDateButton.setOnClickListener(v -> showYesterdayCalendar());
-//        m.show();
         mTomorrowDateButton.show();
         mYesterdayDateButton.show();
     }
-
-    private void setUpCurrentDate() {
-        mCalendarButton.setText(DateUtils.toUIDateString(mCalendar.getTime()));
-    }
-
 
     private void setUpRecyclerView() {
         mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
