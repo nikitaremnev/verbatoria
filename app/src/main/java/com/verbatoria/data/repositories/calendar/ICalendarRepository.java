@@ -23,6 +23,8 @@ public interface ICalendarRepository {
 
     Observable<ResponseBody> editEvent(String eventId, String accessToken, EditEventRequestModel editEventRequestModel);
 
+    Observable<ResponseBody> deleteEvent(String eventId, String accessToken);
+
     void saveLastDate(Date fromDate);
 
     Date getLastDate();

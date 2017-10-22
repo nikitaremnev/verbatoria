@@ -95,12 +95,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void deleteEvent() {
-//        addSubscription(mCalendarInteractor.editEvent(mEventModel)
-//                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-//                .observeOn(RxSchedulers.getMainThreadScheduler())
-//                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-//                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-//                .subscribe(this::handleEventDeleted, this::handleError));
+        addSubscription(mCalendarInteractor.deleteEvent(mEventModel)
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler())
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleEventDeleted, this::handleError));
     }
 
     @Override

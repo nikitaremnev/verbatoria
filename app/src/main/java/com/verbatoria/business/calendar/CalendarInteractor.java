@@ -84,6 +84,13 @@ public class CalendarInteractor implements ICalendarInteractor {
     }
 
     @Override
+    public Observable<ResponseBody> deleteEvent(EventModel eventModel) {
+        return mCalendarRepository.deleteEvent(eventModel.getId(), getAccessToken())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
     public Date getLastDate() {
         return mCalendarRepository.getLastDate();
     }

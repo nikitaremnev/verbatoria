@@ -20,6 +20,8 @@ public interface ICalendarInteractor {
 
     Observable<ResponseBody> editEvent(EventModel eventModel);
 
+    Observable<ResponseBody> deleteEvent(EventModel eventModel);
+
     Date getLastDate();
 
 }

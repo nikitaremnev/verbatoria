@@ -7,7 +7,6 @@ import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.PreferencesStorage;
 
-import java.text.ParseException;
 import java.util.Date;
 
 import okhttp3.ResponseBody;
@@ -36,6 +35,11 @@ public class CalendarRepository implements ICalendarRepository {
     @Override
     public Observable<ResponseBody> editEvent(String eventId, String accessToken, EditEventRequestModel editEventRequestModel) {
         return APIFactory.getAPIService().editEventRequest(eventId, accessToken, editEventRequestModel);
+    }
+
+    @Override
+    public Observable<ResponseBody> deleteEvent(String eventId, String accessToken) {
+        return APIFactory.getAPIService().deleteEventRequest(eventId, accessToken);
     }
 
     @Override

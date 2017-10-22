@@ -25,6 +25,7 @@ import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -95,6 +96,9 @@ public interface APIService {
                                               @Header(TOKEN_HEADER_KEY) String accessToken,
                                              @Body EditEventRequestModel editEventRequestModel);
 
+    @DELETE(APIConstants.DELETE_EVENT_URL)
+    Observable<ResponseBody> deleteEventRequest(@Path(value = EVENT_ID_PATH_KEY) String eventId,
+                                              @Header(TOKEN_HEADER_KEY) String accessToken);
     /*
         Childs
      */
