@@ -15,7 +15,9 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="4dp"
+            android:minWidth="80dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:orientation="vertical"
             android:id="@+id/report_container">
 
@@ -23,9 +25,8 @@
                 android:layout_width="@dimen/calendar_report_status_size"
                 android:layout_height="@dimen/calendar_report_status_size"
                 android:id="@+id/report_status_image_view"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
                 android:layout_marginBottom="4dp"
                 app:srcCompat="@drawable/ic_report_ready_large" />
 
@@ -33,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/report_status_text_view"
-                android:text="Новый"
+                android:text="Отправлен"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/calendar_report_id_text_size"
                 android:layout_below="@+id/report_status_image_view" />
