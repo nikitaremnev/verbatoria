@@ -1,7 +1,6 @@
 package com.verbatoria.presentation.calendar.view.detail;
 
 import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,13 +15,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.ReportModel;
+import com.verbatoria.business.dashboard.models.TimeIntervalModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
@@ -35,6 +34,7 @@ import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.utils.Helper;
 
 import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -49,8 +49,7 @@ import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActiv
  * @author nikitaremnev
  */
 public class EventDetailActivity extends BaseActivity implements IEventDetailView,
-        DatePickerDialog.OnDateSetListener,
-        TimePickerDialog.OnTimeSetListener {
+        DatePickerDialog.OnDateSetListener {
 
     private static final String TAG = EventDetailActivity.class.getSimpleName();
 
@@ -192,17 +191,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void startTimePicker() {
-        Calendar now = Calendar.getInstance();
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                this,
-                now.get(Calendar.HOUR_OF_DAY),
-                now.get(Calendar.MINUTE),
-                true);
-        timePickerDialog.show();
-    }
-
-    @Override
     public void showError(String message) {
         Helper.showErrorSnackBar(mSubmitButton, message);
     }
@@ -296,6 +284,21 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.event_detail_activity_available_time));
+        builder.setSingleChoiceItems(getTimeIntervalsStrings(timeIntervals), -1, (dialog, which) -> {
+            mSelectTimeCalendar.setTime(timeIntervals.get(which).getStartAt());
+            mEventDetailPresenter.setEventDate(mSelectTimeCalendar);
+            if (mEventDetailPresenter.isEditMode()) {
+                setUpEventEdit();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.ok), null);
+        builder.create().show();
+    }
+
+    @Override
     public void closeWhenDeleted() {
         Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT);
         snackbar.getView().setBackgroundResource(R.color.hint_color);
@@ -322,18 +325,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         mSelectTimeCalendar.set(Calendar.YEAR, year);
         mSelectTimeCalendar.set(Calendar.MONTH, month);
         mSelectTimeCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        startTimePicker();
-    }
-
-    @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        mSelectTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        mSelectTimeCalendar.set(Calendar.MINUTE, minute);
-        mEventDetailPresenter.setEventDate(mSelectTimeCalendar);
-        if (mEventDetailPresenter.isEditMode()) {
-            setUpEventEdit();
-
-        }
+        mEventDetailPresenter.pickTime(mSelectTimeCalendar);
     }
 
     private void setUpToolbar() {
@@ -410,6 +402,16 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         });
         builder.setNegativeButton(getString(R.string.cancel), null);
         builder.create().show();
+    }
+
+    private String[] getTimeIntervalsStrings(List<TimeIntervalModel> timeIntervalModels) {
+        String[] intervalsStrings = new String[timeIntervalModels.size()];
+        int index = 0;
+        for (TimeIntervalModel timeIntervalModel : timeIntervalModels) {
+            intervalsStrings[index] = timeIntervalModel.getIntervalString();
+            index ++;
+        }
+        return intervalsStrings;
     }
 
 }

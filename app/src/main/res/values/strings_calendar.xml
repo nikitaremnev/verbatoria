@@ -20,6 +20,8 @@
     <string name="calendar_activity_search_client_title">Поиск записи клиента</string>
     <string name="calendar_activity_search_child_title">Поиск записи ребенка</string>
 
+    <string name="event_detail_activity_available_time">Доступное время</string>
+
     <string name="event_detail_activity_client">Клиент</string>
     <string name="event_detail_activity_child">Ребенок</string>
     <string name="event_detail_activity_time">Время</string>

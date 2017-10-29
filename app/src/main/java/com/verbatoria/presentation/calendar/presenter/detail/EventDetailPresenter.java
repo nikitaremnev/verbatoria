@@ -9,15 +9,16 @@ import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.TimeIntervalModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.detail.IEventDetailView;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.RxSchedulers;
 
 import java.util.Calendar;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 
@@ -62,8 +63,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void startSession() {
         if (!hasError()) {
             addSubscription(mSessionInteractor.startSession(mEventModel.getId())
-                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                    .observeOn(RxSchedulers.getMainThreadScheduler())
                     .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                     .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                     .subscribe(this::handleSessionStarted, this::handleError));
@@ -74,8 +73,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void createEvent() {
         if (!hasError()) {
             addSubscription(mCalendarInteractor.addEvent(mEventModel)
-                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                    .observeOn(RxSchedulers.getMainThreadScheduler())
                     .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                     .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                     .subscribe(this::handleEventEditedOrCreated, this::handleError));
@@ -86,8 +83,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void editEvent() {
         if (!hasError()) {
             addSubscription(mCalendarInteractor.editEvent(mEventModel)
-                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                    .observeOn(RxSchedulers.getMainThreadScheduler())
                     .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                     .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                     .subscribe(this::handleEventEditedOrCreated, this::handleError));
@@ -97,8 +92,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void deleteEvent() {
         addSubscription(mCalendarInteractor.deleteEvent(mEventModel)
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler())
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                 .subscribe(this::handleEventDeleted, this::handleError));
@@ -139,8 +132,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void loadClient() {
         if (mEventModel != null && mEventModel.getChild() != null) {
             addSubscription(mClientsInteractor.getClient(mEventModel.getChild().getClientId())
-                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                    .observeOn(RxSchedulers.getMainThreadScheduler())
                     .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                     .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                     .subscribe(this::handleClientLoaded, this::handleError));
@@ -170,6 +161,16 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public boolean isEditMode() {
         return mIsEditMode;
+    }
+
+    @Override
+    public void pickTime(Calendar calendar) {
+        addSubscription(
+                mCalendarInteractor.getAvailableTimeIntervals(calendar)
+                        .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                        .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                        .subscribe(this::handleTimeIntervalsReceived, this::handleError)
+        );
     }
 
     private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
@@ -206,10 +207,8 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mCalendarEventDetailView.showError(throwable.getMessage());
     }
 
-    private void handleClientLoadingError(Throwable throwable) {
-        throwable.printStackTrace();
-        Logger.exc(TAG, throwable);
-        mCalendarEventDetailView.showError(throwable.getMessage());
+    private void handleTimeIntervalsReceived(List<TimeIntervalModel> timeIntervals) {
+        mCalendarEventDetailView.showPossibleTimeIntervals(timeIntervals);
     }
 
     private boolean hasError() {

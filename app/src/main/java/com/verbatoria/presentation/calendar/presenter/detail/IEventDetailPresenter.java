@@ -41,4 +41,6 @@ public interface IEventDetailPresenter {
 
     boolean isEditMode();
 
+    void pickTime(Calendar calendar);
+
 }

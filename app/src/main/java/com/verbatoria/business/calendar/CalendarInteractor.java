@@ -1,6 +1,7 @@
 package com.verbatoria.business.calendar;
 
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.TimeIntervalModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.AddEventRequestModel;
@@ -14,6 +15,7 @@ import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.RxSchedulers;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +53,21 @@ public class CalendarInteractor implements ICalendarInteractor {
                         return unsortedList;
                     })
                     .doOnNext(eventModels -> mCalendarRepository.saveLastDate(startDate))
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public Observable<List<TimeIntervalModel>> getAvailableTimeIntervals(Calendar calendar) {
+        try {
+            return mCalendarRepository.getEvents(getAccessToken(),
+                    DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
+                    DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar)))
+                    .map( eventsResponseModel -> ModelsConverter.convertEventsResponseToTimeIntervalsList(calendar, eventsResponseModel))
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {
@@ -116,6 +133,27 @@ public class CalendarInteractor implements ICalendarInteractor {
     private String getAccessToken() {
         TokenModel tokenModel = mTokenRepository.getToken();
         return tokenModel.getAccessToken();
+    }
+
+    private long getFromTimeInMillis(Calendar calendar) {
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    private Date getFromDate(Calendar calendar) {
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
+    }
+
+    private long getToTimeInMillis(Calendar calendar) {
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.SECOND, 59);
+        return calendar.getTimeInMillis();
     }
 
 }

@@ -3,7 +3,10 @@ package com.verbatoria.presentation.calendar.view.detail;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.ReportModel;
+import com.verbatoria.business.dashboard.models.TimeIntervalModel;
 import com.verbatoria.data.network.common.ClientModel;
+
+import java.util.List;
 
 /**
  * Интерфейс вьюхи для отображения деталей события календаря
@@ -20,7 +23,6 @@ public interface IEventDetailView {
     void startChild();
     void startClient();
     void startDatePicker();
-    void startTimePicker();
     void showError(String message);
 
     void showEventAdded();
@@ -37,6 +39,8 @@ public interface IEventDetailView {
     void showClientNotFullError();
     void showChildNotFullError();
     void showTimeNotSetError();
+
+    void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals);
 
     void closeWhenDeleted();
 }

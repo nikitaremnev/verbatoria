@@ -77,6 +77,10 @@ public class DateUtils {
         return UI_DATE_FORMAT.format(date);
     }
 
+    public static String toDDMMString(Date date) {
+        return SERVER_DATE_WITHOUT_YEAR_FORMAT.format(date);
+    }
+
     public static Date parseUIDateString(String date) throws Exception {
         return UI_DATE_FORMAT.parse(date);
     }
