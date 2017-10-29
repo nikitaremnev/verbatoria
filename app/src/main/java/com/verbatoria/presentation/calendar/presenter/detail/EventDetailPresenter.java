@@ -3,6 +3,7 @@ package com.verbatoria.presentation.calendar.presenter.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
@@ -111,6 +112,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         } else {
             mEventModel = new EventModel();
         }
+        Log.e("test", mEventModel.toString());
     }
 
     @Override

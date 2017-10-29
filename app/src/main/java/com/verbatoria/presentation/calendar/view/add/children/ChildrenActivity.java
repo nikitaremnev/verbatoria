@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,6 +71,8 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     private MenuItem mCancelMenuItem;
 
     public static Intent newInstance(Context mContext, ChildModel childModel, ClientModel clientModel) {
+        Log.e("test", childModel.toString());
+        Log.e("test", clientModel.toString());
         Intent intent = new Intent(mContext, ChildrenActivity.class);
         intent.putExtra(EXTRA_CHILD_MODEL, childModel);
         intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
@@ -77,6 +80,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     }
 
     public static Intent newInstance(Context mContext, ClientModel clientModel) {
+        Log.e("test", clientModel.toString());
         Intent intent = new Intent(mContext, ChildrenActivity.class);
         intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
         return intent;

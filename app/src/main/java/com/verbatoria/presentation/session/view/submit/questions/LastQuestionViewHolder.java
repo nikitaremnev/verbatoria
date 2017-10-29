@@ -67,7 +67,7 @@ public class LastQuestionViewHolder {
     }
 
     private void buttonClick(boolean yes) {
-        int value = yes ? 1 : 0;
+        int value = yes ? 1 : 2;
         mQuestionsAdapter.addAnswer(getQuestionPosition(), value);
         selectAnswer(value);
         mAnswerClickCallback.onAnswerClicked();

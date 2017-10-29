@@ -70,6 +70,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     private MenuItem mCancelMenuItem;
 
     public static Intent newInstance(Context mContext, ClientModel clientModel) {
+        Log.e("test", clientModel.toString());
         Intent intent = new Intent(mContext, ClientsActivity.class);
         intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
         return intent;
