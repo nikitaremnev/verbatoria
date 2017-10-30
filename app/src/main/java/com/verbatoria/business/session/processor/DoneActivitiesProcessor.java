@@ -3,14 +3,22 @@ package com.verbatoria.business.session.processor;
 import android.text.TextUtils;
 
 import com.remnev.verbatoriamini.BuildConfig;
-import com.verbatoria.utils.Logger;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
 import javax.inject.Singleton;
-import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
+
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_11;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_21;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_31;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_41;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_51;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_61;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_71;
+import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_99;
 
 /**
  * Процессор для обработки активностей во время сессии

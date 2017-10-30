@@ -20,6 +20,7 @@ public interface IEventDetailPresenter {
     void bindView(@NonNull IEventDetailView calendarEventDetailView);
     void unbindView();
 
+    boolean checkStartSession();
     void startSession();
     void createEvent();
     void editEvent();

@@ -21,6 +21,10 @@
     <string name="calendar_activity_search_child_title">Поиск записи ребенка</string>
 
     <string name="event_detail_activity_available_time">Доступное время</string>
+    <string name="event_detail_activity_confirm_override_title">Подтверждение</string>
+    <string name="event_detail_activity_confirm_override_message">Отчет уже был отправлен ранее. Нажимая продолжить, вы соглашаетесь с тем, что данные будут перезаписаны.</string>
+    <string name="event_detail_activity_continue">Продолжить</string>
+    <string name="event_detail_activity_cancel">Отмена</string>
 
     <string name="event_detail_activity_client">Клиент</string>
     <string name="event_detail_activity_child">Ребенок</string>

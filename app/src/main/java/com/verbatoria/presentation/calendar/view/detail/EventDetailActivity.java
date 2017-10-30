@@ -258,7 +258,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void setUpEventCreated() {
         mSubmitButton.setText(getString(R.string.dashboard_start_session));
-        mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+        mSubmitButton.setOnClickListener(v -> {
+            mEventDetailPresenter.startSession();
+        });
         mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
     }
 
@@ -313,6 +315,21 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showConfirmOverrideWriting() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.event_detail_activity_confirm_override_title))
+                .setMessage(getString(R.string.event_detail_activity_confirm_override_message))
+                .setIcon(R.drawable.ic_neurointerface_error)
+                .setPositiveButton(getString(R.string.event_detail_activity_continue), (dialog, which) -> {
+                    mEventDetailPresenter.startSession();
+                })
+                .setNegativeButton(getString(R.string.event_detail_activity_cancel), (dialog, which) -> {
+                    dialog.dismiss();
+                });
+        builder.create().show();
+    }
+
+    @Override
     protected void setUpViews() {
         setUpToolbar();
         setUpButton();
@@ -341,7 +358,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.createEvent());
         } else {
             mSubmitButton.setText(getString(R.string.dashboard_start_session));
-            mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.startSession());
+            mSubmitButton.setOnClickListener(v -> {
+                if (!mEventDetailPresenter.checkStartSession()) {
+                    mEventDetailPresenter.startSession();
+                }
+            });
         }
     }
 

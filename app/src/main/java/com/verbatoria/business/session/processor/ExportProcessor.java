@@ -1,7 +1,5 @@
 package com.verbatoria.business.session.processor;
 
-import android.util.Log;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.verbatoria.business.session.SessionInteractorException;
 import com.verbatoria.data.network.request.MeasurementRequestModel;
@@ -42,6 +40,8 @@ public class ExportProcessor {
     private static final String TAG = ExportProcessor.class.getSimpleName();
 
     private ISessionRepository mSessionRepository;
+
+    private long mCurrentActivityCode = 0;
 
     public ExportProcessor(ISessionRepository sessionRepository) {
         mSessionRepository = sessionRepository;
@@ -116,6 +116,8 @@ public class ExportProcessor {
         }
         if (baseMeasurement instanceof EventMeasurement) {
             setEventFields(measurementRequestModel, (EventMeasurement) baseMeasurement);
+        } else {
+            measurementRequestModel.setActionId(mCurrentActivityCode);
         }
         try {
             measurementRequestModel.setCreatedAtDate(DateUtils.toServerDateTimeString(baseMeasurement.getTimestamp()));
@@ -148,7 +150,16 @@ public class ExportProcessor {
 
     private void setEventFields(MeasurementRequestModel measurementRequestModel,
                                 EventMeasurement eventMeasurement) {
-        measurementRequestModel.setActionId(eventMeasurement.getActivityCode());
+        measurementRequestModel.setActionId(mCurrentActivityCode);
+        if (mCurrentActivityCode == 0 && eventMeasurement.getActivityCode() != 0) {
+            mCurrentActivityCode = eventMeasurement.getActivityCode();
+            measurementRequestModel.setActionId(mCurrentActivityCode);
+            return;
+        }
+        if (mCurrentActivityCode != 0 && mCurrentActivityCode == eventMeasurement.getActivityCode()) {
+            measurementRequestModel.setActionId(mCurrentActivityCode);
+            mCurrentActivityCode = 0;
+        }
     }
 
     private File createReportFile() throws IOException {

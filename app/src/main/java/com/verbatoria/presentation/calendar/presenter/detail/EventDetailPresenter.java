@@ -9,6 +9,7 @@ import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.models.ReportModel;
 import com.verbatoria.business.dashboard.models.TimeIntervalModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.data.network.common.ClientModel;
@@ -57,6 +58,22 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void unbindView() {
         mCalendarEventDetailView = null;
+    }
+
+    @Override
+    public boolean checkStartSession() {
+        Log.e("test", "checkStartSession");
+        if (mEventModel != null && mEventModel.getReport() != null) {
+            switch (mEventModel.getReport().getStatus()) {
+                case ReportModel.STATUS.READY:
+                case ReportModel.STATUS.SENT:
+                case ReportModel.STATUS.UPLOADED:
+                    Log.e("test", "showConfirmOverrideWriting");
+                    mCalendarEventDetailView.showConfirmOverrideWriting();
+                    return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -43,4 +43,6 @@ public interface IEventDetailView {
     void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals);
 
     void closeWhenDeleted();
+
+    void showConfirmOverrideWriting();
 }
