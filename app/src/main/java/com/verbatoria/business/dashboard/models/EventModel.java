@@ -95,7 +95,7 @@ public class EventModel implements Parcelable {
 
 
     public String getEventTime() {
-        return DateUtils.toDDMMString(getStartAt()) + " " + DateUtils.periodToString(getStartAt(), getEndAt());
+        return DateUtils.toDDMMString(getStartAt()) + " " + DateUtils.timeHHmmToString(getStartAt());
     }
 
     public boolean hasTime() {

@@ -29,12 +29,15 @@ public class EventViewHolderBinder {
                 break;
             case ReportModel.STATUS.READY:
                 holder.showReadyReport(context);
+                holder.setDoneBackground();
                 break;
             case ReportModel.STATUS.SENT:
                 holder.showSentReport(context);
+                holder.setDoneBackground();
                 break;
             case ReportModel.STATUS.UPLOADED:
                 holder.showUploadedReport(context);
+                holder.setDoneBackground();
                 break;
         }
     }

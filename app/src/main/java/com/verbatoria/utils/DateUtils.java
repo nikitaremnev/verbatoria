@@ -93,6 +93,10 @@ public class DateUtils {
         return TIMER_TIME_FORMAT.format(date);
     }
 
+    public static String timeHHmmToString(Date date) {
+        return SERVER_TIME_FORMAT.format(date);
+    }
+
     public static String periodToString(Date startDate, Date endDate) {
         return SERVER_TIME_FORMAT.format(startDate) +
                 " - " +

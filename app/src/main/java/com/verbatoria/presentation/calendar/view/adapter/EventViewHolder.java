@@ -44,6 +44,10 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         mRootView = itemView;
     }
 
+    void setDoneBackground() {
+        mRootView.setBackgroundResource(R.color.main_shadowed);
+    }
+
     void setChildName(String childName) {
         mChildNameTextView.setText(childName);
     }

@@ -34,6 +34,8 @@
     <color name="hint_color">#2F8D4F</color>
     <color name="error_color">#AF0036</color>
 
+    <color name="main_shadowed">#3356C869</color>
+
 
 
 </resources>
