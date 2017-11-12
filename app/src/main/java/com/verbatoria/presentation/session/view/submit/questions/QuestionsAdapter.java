@@ -21,7 +21,7 @@ import javax.inject.Inject;
 public class QuestionsAdapter extends PagerAdapter {
 
     public static final int OFFSCREEN_PAGE_LIMIT = 2;
-    public static final int QUESTIONARY_SIZE = 8;
+    public static final int QUESTIONARY_SIZE = 9;
 
     @Inject
     public Context mContext;
@@ -42,7 +42,20 @@ public class QuestionsAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
         if (position == QUESTIONARY_SIZE - 1) {
-            View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_last_question, null);
+            View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_report_type_question, null);
+            rootView.setTag(position);
+
+            ReportTypeQuestionViewHolder reportTypeQuestionViewHolder = new ReportTypeQuestionViewHolder(this, mAnswerClickCallback, rootView);
+            reportTypeQuestionViewHolder.bind();
+            container.addView(rootView);
+
+            String value = mAnswersMap.get(Integer.toString(position));
+            if (value != null) {
+                reportTypeQuestionViewHolder.selectAnswer(Integer.parseInt(value));
+            }
+            return rootView;
+        } else if (position == QUESTIONARY_SIZE - 2) {
+            View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_include_attention_question, null);
             rootView.setTag(position);
 
             IncludeAttentionQuestionViewHolder includeAttentionQuestionViewHolder = new IncludeAttentionQuestionViewHolder(this, mAnswerClickCallback, rootView);

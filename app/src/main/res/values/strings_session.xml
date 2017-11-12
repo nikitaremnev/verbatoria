@@ -66,5 +66,17 @@
     </string-array>
 
     <string name="session_include_attention_question">Включать ли отчет Внимание/Память?</string>
+    <string name="session_report_type_question">Выберите тип отчета:</string>
+    <string name="session_report_type_0">Тип 0</string>
+    <string name="session_report_type_1">Тип 1</string>
+    <string name="session_report_type_2">Тип 2</string>
+    <string name="session_report_type_3">Тип 3</string>
+    <string name="session_report_type_4">Тип 4</string>
+    <string name="session_report_type_5">Тип 5</string>
+    <string name="session_report_type_6">Тип 6</string>
+    <string name="session_report_type_7">Тип 7</string>
+    <string name="session_report_type_8">Тип 8</string>
+    <string name="session_report_type_9">Тип 9</string>
+    <string name="session_report_type_10">Тип 10</string>
 
 </resources>
