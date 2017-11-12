@@ -45,13 +45,13 @@ public class QuestionsAdapter extends PagerAdapter {
             View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_last_question, null);
             rootView.setTag(position);
 
-            LastQuestionViewHolder lastQuestionViewHolder = new LastQuestionViewHolder(this, mAnswerClickCallback, rootView);
-            lastQuestionViewHolder.bind();
+            IncludeAttentionQuestionViewHolder includeAttentionQuestionViewHolder = new IncludeAttentionQuestionViewHolder(this, mAnswerClickCallback, rootView);
+            includeAttentionQuestionViewHolder.bind();
             container.addView(rootView);
 
             String value = mAnswersMap.get(Integer.toString(position));
             if (value != null) {
-                lastQuestionViewHolder.selectAnswer(Integer.parseInt(value));
+                includeAttentionQuestionViewHolder.selectAnswer(Integer.parseInt(value));
             }
             return rootView;
         } else {

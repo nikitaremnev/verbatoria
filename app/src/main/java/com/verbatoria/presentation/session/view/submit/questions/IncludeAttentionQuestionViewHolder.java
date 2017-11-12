@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  *
  * @author nikitaremnev
  */
-public class LastQuestionViewHolder {
+public class IncludeAttentionQuestionViewHolder {
 
     @Inject
     public Context mContext;
@@ -41,7 +41,7 @@ public class LastQuestionViewHolder {
 
     private QuestionsAdapter mQuestionsAdapter;
 
-    LastQuestionViewHolder(QuestionsAdapter questionsAdapter, IAnswerClickCallback answerClickCallback, View rootView) {
+    IncludeAttentionQuestionViewHolder(QuestionsAdapter questionsAdapter, IAnswerClickCallback answerClickCallback, View rootView) {
         ButterKnife.bind(this, rootView);
         mRootView = rootView;
         mAnswerClickCallback = answerClickCallback;

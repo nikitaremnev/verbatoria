@@ -10,7 +10,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:text="@string/session_last_question"
+        android:text="@string/session_include_attention_question"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:id="@+id/question_text_view" />
 
