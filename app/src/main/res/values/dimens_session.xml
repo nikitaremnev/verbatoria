@@ -49,7 +49,7 @@
 
     <dimen name="submit_question_has_answer_padding">6dp</dimen>
     <dimen name="submit_question_has_answer_text_size">18sp</dimen>
-    <dimen name="submit_question_report_type_padding">4dp</dimen>
+    <dimen name="submit_question_report_type_padding">12dp</dimen>
 
 
 </resources>

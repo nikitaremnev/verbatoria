@@ -17,7 +17,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
-import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
+import com.verbatoria.presentation.session.view.submit.SubmitActivity;
 
 import javax.inject.Inject;
 
@@ -92,7 +92,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     }
 
     private void startConnection() {
-        Intent intent = new Intent(getActivity(), ConnectionActivity.class);
+        Intent intent = new Intent(getActivity(), SubmitActivity.class);
         startActivity(intent);
     }
 

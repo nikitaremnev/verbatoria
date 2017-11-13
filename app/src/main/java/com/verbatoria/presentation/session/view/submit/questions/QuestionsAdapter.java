@@ -52,6 +52,9 @@ public class QuestionsAdapter extends PagerAdapter {
             String value = mAnswersMap.get(Integer.toString(position));
             if (value != null) {
                 reportTypeQuestionViewHolder.selectAnswer(Integer.parseInt(value));
+            } else {
+                reportTypeQuestionViewHolder.addAnswer(0);
+                reportTypeQuestionViewHolder.selectAnswer(0);
             }
             return rootView;
         } else if (position == QUESTIONARY_SIZE - 2) {
