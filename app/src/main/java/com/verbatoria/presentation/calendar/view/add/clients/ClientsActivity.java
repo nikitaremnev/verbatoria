@@ -272,6 +272,11 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     }
 
     @Override
+    public void showEmailIncorrectError() {
+        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.email_incorrect_error));
+    }
+
+    @Override
     public String getClientName() {
         return getFieldValue(mClientNameEditableField);
     }

@@ -270,5 +270,7 @@
 
     <string name="have_answer">Есть ответ</string>
 
+    <string name="email_incorrect_error">Вы указали некорректный email-адрес!</string>
+
 
 </resources>

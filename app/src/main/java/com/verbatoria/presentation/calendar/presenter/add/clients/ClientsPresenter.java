@@ -21,6 +21,8 @@ import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActiv
  */
 public class ClientsPresenter extends BasePresenter implements IClientsPresenter {
 
+    private static final int MINIMUM_EMAIL_LENGTH = 7;
+
     private IClientsInteractor mClientsInteractor;
     private IClientsView mClientView;
     private ISearchClientsView mSearchClientsView;
@@ -68,6 +70,9 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void createClient() {
+        if (!isEmailCorrect(mClientView.getClientEmail())) {
+            return;
+        }
         mClientModel = new ClientModel();
         mClientModel.setName(mClientView.getClientName());
         mClientModel.setEmail(mClientView.getClientEmail());
@@ -80,6 +85,9 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void editClient() {
+        if (!isEmailCorrect(mClientView.getClientEmail())) {
+            return;
+        }
         mClientModel.setName(mClientView.getClientName());
         mClientModel.setEmail(mClientView.getClientEmail());
         mClientModel.setPhone(mClientView.getClientPhone());
@@ -142,6 +150,15 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     private void handleClientRequestError(Throwable throwable) {
         mClientView.showError(throwable.getMessage());
+    }
+
+    private boolean isEmailCorrect(String email) {
+        if (email.contains("@") && email.contains(".") && email.length() > MINIMUM_EMAIL_LENGTH) {
+            return true;
+        } else {
+            mClientView.showEmailIncorrectError();
+            return false;
+        }
     }
 
 }

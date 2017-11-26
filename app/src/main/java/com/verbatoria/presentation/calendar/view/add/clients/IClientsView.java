@@ -20,6 +20,7 @@ public interface IClientsView {
     void showError(String message);
     void showClientAdded();
     void showClientEdited();
+    void showEmailIncorrectError();
 
     String getClientName();
     String getClientEmail();
