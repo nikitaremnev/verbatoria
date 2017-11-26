@@ -19,6 +19,8 @@ public class LoginResponseModel {
 
     private String mExpiresToken;
 
+    private String mStatus;
+
     public LoginResponseModel() {
 
     }
@@ -43,6 +45,17 @@ public class LoginResponseModel {
         mExpiresToken = expiresToken;
     }
 
+    @JsonGetter("status")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getStatus() {
+        return mStatus;
+    }
+
+    public LoginResponseModel setStatus(String status) {
+        mStatus = status;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -53,12 +66,13 @@ public class LoginResponseModel {
         }
         LoginResponseModel that = (LoginResponseModel) o;
         return Objects.equal(mAccessToken, that.mAccessToken) &&
-                Objects.equal(mExpiresToken, that.mExpiresToken);
+                Objects.equal(mExpiresToken, that.mExpiresToken) &&
+                Objects.equal(mStatus, that.mStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mAccessToken, mExpiresToken);
+        return Objects.hashCode(mAccessToken, mExpiresToken, mStatus);
     }
 
     @Override
@@ -66,6 +80,7 @@ public class LoginResponseModel {
         return MoreObjects.toStringHelper(this)
                 .add("mAccessToken", mAccessToken)
                 .add("mExpiresToken", mExpiresToken)
+                .add("mStatus", mStatus)
                 .toString();
     }
 }

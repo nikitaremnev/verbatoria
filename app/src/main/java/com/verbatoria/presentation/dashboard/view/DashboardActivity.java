@@ -73,7 +73,11 @@ public class DashboardActivity extends AppCompatActivity {
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_main:
-                    setUpFragment(VerbatologInfoFragment.newInstance());
+                    if (mDashboardPresenter.isBlocked()) {
+                        setUpFragment(BlockedFragment.newInstance());
+                    } else {
+                        setUpFragment(VerbatologInfoFragment.newInstance());
+                    }
                     return true;
                 case R.id.navigation_calendar:
                     if (mDashboardPresenter.isBlocked()) {

@@ -41,6 +41,7 @@ public class TokenProcessor {
         } catch (ParseException e) {
             throw new TokenInteractorException(e.getMessage());
         }
+        tokenModel.setStatus(loginResponseModel.getStatus());
         return tokenModel;
     }
 
