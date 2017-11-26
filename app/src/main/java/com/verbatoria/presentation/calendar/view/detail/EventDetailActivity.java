@@ -106,7 +106,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_delete, menu);
         mDeleteMenuItem = menu.findItem(R.id.action_delete);
-        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
+        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode() && mEventDetailPresenter.isDeleteEnabled());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -261,7 +261,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         mSubmitButton.setOnClickListener(v -> {
             mEventDetailPresenter.startSession();
         });
-        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
+        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode() && mEventDetailPresenter.isDeleteEnabled());
     }
 
     @Override

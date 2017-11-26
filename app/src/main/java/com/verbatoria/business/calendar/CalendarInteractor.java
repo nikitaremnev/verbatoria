@@ -29,6 +29,8 @@ import rx.Observable;
 
 public class CalendarInteractor implements ICalendarInteractor {
 
+    private static final String OSTOJENKA_LOCATION_ID = "32";
+
     private ICalendarRepository mCalendarRepository;
     private IDashboardRepository mDashboardRepository;
     private ITokenRepository mTokenRepository;
@@ -105,6 +107,11 @@ public class CalendarInteractor implements ICalendarInteractor {
         return mCalendarRepository.deleteEvent(eventModel.getId(), getAccessToken())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Boolean isDeleteEnabled() {
+        return mCalendarRepository.getLocationId().equals(OSTOJENKA_LOCATION_ID);
     }
 
     @Override

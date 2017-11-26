@@ -41,6 +41,7 @@ public interface IEventDetailPresenter {
     void setEventDate(Calendar calendar);
 
     boolean isEditMode();
+    boolean isDeleteEnabled();
 
     void pickTime(Calendar calendar);
 

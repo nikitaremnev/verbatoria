@@ -25,6 +25,8 @@ public interface ICalendarRepository {
 
     Observable<ResponseBody> deleteEvent(String eventId, String accessToken);
 
+    String getLocationId();
+
     void saveLastDate(Date fromDate);
 
     Date getLastDate();

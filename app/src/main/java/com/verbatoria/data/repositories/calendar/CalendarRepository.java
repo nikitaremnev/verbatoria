@@ -43,6 +43,11 @@ public class CalendarRepository implements ICalendarRepository {
     }
 
     @Override
+    public String getLocationId() {
+        return PreferencesStorage.getInstance().getLocationId();
+    }
+
+    @Override
     public void saveLastDate(Date fromDate) {
         PreferencesStorage.getInstance().setLastDate(DateUtils.toUIDateString(fromDate));
     }

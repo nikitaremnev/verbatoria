@@ -181,6 +181,11 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
+    public boolean isDeleteEnabled() {
+        return mCalendarInteractor.isDeleteEnabled();
+    }
+
+    @Override
     public void pickTime(Calendar calendar) {
         addSubscription(
                 mCalendarInteractor.getAvailableTimeIntervals(calendar)

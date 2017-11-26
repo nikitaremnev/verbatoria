@@ -26,6 +26,8 @@ public interface ICalendarInteractor {
 
     Observable<ResponseBody> deleteEvent(EventModel eventModel);
 
+    Boolean isDeleteEnabled();
+
     Date getLastDate();
 
 }
