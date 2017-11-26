@@ -256,7 +256,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     @Override
     public void updateBirthday() {
         String childBirthdayString = TextUtils.isEmpty(mChildrenPresenter.getChildBirthday()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildBirthday();
-        setUpFieldView(mChildBirthdayField, R.drawable.ic_child_birthday, childBirthdayString, getString(R.string.event_detail_activity_child_birthday), v -> { startDatePicker(); });
+        setUpFieldView(mChildBirthdayField, R.drawable.ic_child_birthday, childBirthdayString, getString(R.string.event_detail_activity_child_age), v -> { startDatePicker(); });
     }
 
     @Override
