@@ -36,7 +36,7 @@ repositories {
 }
 
 def version_name = "9.0"
-def version_code = 12
+def version_code = 1
 def target_sdk_version = 25
 def min_sdk_version = 16
 def build_tools_version = "25.0.2"
@@ -46,7 +46,7 @@ android {
     buildToolsVersion build_tools_version
 
     defaultConfig {
-        applicationId "com.verbatoria.neurometr"
+        applicationId "ru.verbatoria"
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
         versionCode version_code
