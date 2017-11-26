@@ -21,7 +21,7 @@ import com.remnev.verbatoriamini.R;
  */
 public class ChildAgeDialogFragment extends BottomSheetDialogFragment {
 
-    private static final int START_AGE = 4;
+    public static final int START_AGE = 4;
     private static final int END_AGE = 65;
 
     private static final int COLUMN_COUNT = 4;

@@ -28,6 +28,8 @@ public interface IChildrenView {
 
     void showError(String message);
 
+    void showAgeError();
+
     void showChildAdded();
 
     void showChildEdited();

@@ -18,6 +18,7 @@ import okhttp3.ResponseBody;
 
 import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
 import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CLIENT_MODEL;
+import static com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeDialogFragment.START_AGE;
 
 /**
  * Реализация презентера для экрана данных о детях
@@ -77,6 +78,10 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     @Override
     public void createChild() {
+        if (!isAgeValid()) {
+            mChildrenView.showAgeError();
+            return;
+        }
         mChildModel.setName(mChildrenView.getChildName());
         addSubscription(mChildrenInteractor.addChild(mChildModel)
                 .doOnSubscribe(() -> mChildrenView.showProgress())
@@ -164,5 +169,9 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     private void handleClientChildrenSearchError(Throwable throwable) {
         //ignore
+    }
+
+    private boolean isAgeValid() {
+        return mChildModel.getAge() >= START_AGE;
     }
 }

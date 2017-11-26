@@ -11,6 +11,8 @@ import com.verbatoria.utils.DateUtils;
 
 import java.util.Date;
 
+import static com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeDialogFragment.START_AGE;
+
 /**
  * Реализация модели для ребенка, записанного на сеанс нейрометрии
  *
@@ -57,11 +59,19 @@ public class ChildModel implements Parcelable {
 
     public String getBirthdayDateString() {
         try {
-            return String.valueOf(DateUtils.getYearsFromDate(getBirthday()));
+            int yearsFromDate = getAge();
+            if (yearsFromDate < START_AGE) {
+                return "";
+            }
+            return String.valueOf(yearsFromDate);
         } catch (Exception ex) {
             ex.printStackTrace();
             return "";
         }
+    }
+
+    public int getAge() {
+        return DateUtils.getYearsFromDate(getBirthday());
     }
 
     public ChildModel setBirthday(Date birthday) {
