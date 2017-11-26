@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.21.6'
+        classpath 'io.fabric.tools:gradle:1.22.2'
     }
 }
 
@@ -33,13 +33,15 @@ buildscript {
 // Required because retrolambda is on maven central
 repositories {
     mavenCentral()
+    google()
 }
 
-def version_name = "9.0"
-def version_code = 1
-def target_sdk_version = 25
+def version_name = "9.0.1"
+def version_code = 2
+def target_sdk_version = 26
 def min_sdk_version = 16
-def build_tools_version = "25.0.2"
+def build_tools_version = "26.0.2"
+def supportLibVersion = '27.0.1'
 
 android {
     compileSdkVersion target_sdk_version
@@ -88,10 +90,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion build_tools_version
 }
-
-def supportLibVersion = '25.3.1'
-def playServicesLibVersion = '9.8.0'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -115,8 +115,8 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //dagger2
-    compile 'com.google.dagger:dagger:2.7'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
+    compile 'com.google.dagger:dagger:2.10'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     //butterknife
@@ -132,8 +132,8 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
 
     //Ok Http
-    compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
 
     //Neuro
     compile files('libs/NskAlgoSdk.jar')
@@ -142,7 +142,7 @@ dependencies {
     compile 'com.google.guava:guava:22.0-android'
 
     //Multidex
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
 
     //View
     compile 'com.redmadrobot:inputmask:2.3.0'
