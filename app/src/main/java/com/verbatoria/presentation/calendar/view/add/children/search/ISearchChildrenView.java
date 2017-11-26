@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.calendar.view.add.children;
+package com.verbatoria.presentation.calendar.view.add.children.search;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
 

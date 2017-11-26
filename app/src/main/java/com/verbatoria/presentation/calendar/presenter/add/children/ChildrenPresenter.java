@@ -9,7 +9,7 @@ import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
-import com.verbatoria.presentation.calendar.view.add.children.ISearchChildrenView;
+import com.verbatoria.presentation.calendar.view.add.children.search.ISearchChildrenView;
 
 import java.util.Date;
 import java.util.List;
@@ -117,14 +117,14 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     }
 
     @Override
-    public String getChildBirthday() {
-        return mChildModel != null ? mChildModel.getBirthdayDateString() != null ? mChildModel.getBirthdayDateString() : "" : "";
+    public String getChildAge() {
+        return mChildModel != null ? mChildModel.getBirthday() != null ? mChildModel.getBirthdayDateString() : "" : "";
     }
 
     @Override
     public void setChildBirthday(Date birthday) {
         mChildModel.setBirthday(birthday);
-        mChildrenView.updateBirthday();
+        mChildrenView.updateAge();
     }
 
     @Override

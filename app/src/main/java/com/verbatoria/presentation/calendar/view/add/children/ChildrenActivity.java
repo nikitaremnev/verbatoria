@@ -1,6 +1,5 @@
 package com.verbatoria.presentation.calendar.view.add.children;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +25,9 @@ import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
+import com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeClickListener;
+import com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeDialogFragment;
+import com.verbatoria.presentation.calendar.view.add.children.search.SearchChildrenActivity;
 import com.verbatoria.utils.Helper;
 
 import java.util.Calendar;
@@ -41,8 +42,7 @@ import butterknife.BindView;
  *
  * @author nikitaremnev
  */
-public class ChildrenActivity extends BaseActivity implements IChildrenView,
-        DatePickerDialog.OnDateSetListener {
+public class ChildrenActivity extends BaseActivity implements IChildrenView, ChildAgeClickListener {
 
     private static final String TAG = ChildrenActivity.class.getSimpleName();
     public static final String EXTRA_CHILD_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CHILD_MODEL";
@@ -204,15 +204,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        mBirthday = Calendar.getInstance();
-        mBirthday.set(Calendar.YEAR, year);
-        mBirthday.set(Calendar.MONTH, month);
-        mBirthday.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        mChildrenPresenter.setChildBirthday(mBirthday.getTime());
-    }
-
-    @Override
     public void finishWithResult() {
         setResult(RESULT_OK, createChildIntent(mChildrenPresenter.getChildModel()));
         finish();
@@ -242,21 +233,21 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     }
 
     @Override
-    public void startDatePicker() {
+    public void startAgePicker() {
         mBirthday = null;
-        Calendar now = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                this,
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH));
-        datePickerDialog.show();
+        ChildAgeDialogFragment
+                .newInstance()
+                .show(getSupportFragmentManager(), TAG);
     }
 
     @Override
-    public void updateBirthday() {
-        String childBirthdayString = TextUtils.isEmpty(mChildrenPresenter.getChildBirthday()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildBirthday();
-        setUpFieldView(mChildBirthdayField, R.drawable.ic_child_birthday, childBirthdayString, getString(R.string.event_detail_activity_child_age), v -> { startDatePicker(); });
+    public void updateAge() {
+        String childAgeString = TextUtils.isEmpty(mChildrenPresenter.getChildAge()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildAge();
+        setUpFieldView(mChildBirthdayField, R.drawable.ic_child_birthday, childAgeString, getString(R.string.event_detail_activity_child_age), v -> {
+            if (mSubmitButton.getVisibility() == View.VISIBLE) {
+                startAgePicker();
+            }
+        });
     }
 
     @Override
@@ -305,6 +296,13 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
         builder.create().show();
     }
 
+    @Override
+    public void onChildAgeClicked(int age) {
+        mBirthday = Calendar.getInstance();
+        mBirthday.set(Calendar.YEAR, mBirthday.get(Calendar.YEAR) - age);
+        mBirthday.set(Calendar.DAY_OF_MONTH, mBirthday.get(Calendar.DAY_OF_MONTH) - 7);
+        mChildrenPresenter.setChildBirthday(mBirthday.getTime());
+    }
 
     private void setUpNavigation() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -316,7 +314,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
     private void setUpFields() {
         String childNameString = TextUtils.isEmpty(mChildrenPresenter.getChildName()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildName();
         setUpFieldView(mChildNameField, R.drawable.ic_child_name, childNameString, getString(R.string.event_detail_activity_child_name), v -> {});
-        updateBirthday();
+        updateAge();
     }
 
     private void setUpEditableFields() {
@@ -333,14 +331,14 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView,
 
     private void setUpEditableFieldView(View fieldView, int imageResource, String title, String hint, int inputType) {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
-        EditText fieldEditText = (EditText) fieldView.findViewById(R.id.field_edit_text);
+        EditText fieldEditText = fieldView.findViewById(R.id.field_edit_text);
         fieldEditText.setInputType(inputType);
         fieldEditText.setText(title);
         fieldEditText.setHint(hint);
     }
 
     private String getFieldValue(View fieldView) {
-        EditText fieldEditText = (EditText) fieldView.findViewById(R.id.field_edit_text);
+        EditText fieldEditText = fieldView.findViewById(R.id.field_edit_text);
         return fieldEditText.getText().toString();
     }
 

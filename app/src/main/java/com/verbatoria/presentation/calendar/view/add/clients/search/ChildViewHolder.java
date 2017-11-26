@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.calendar.view.add.clients.adapter;
+package com.verbatoria.presentation.calendar.view.add.clients.search;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

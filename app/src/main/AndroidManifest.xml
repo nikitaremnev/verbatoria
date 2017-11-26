@@ -66,11 +66,11 @@
             android:screenOrientation="sensorLandscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.add.clients.SearchClientsActivity"
+            android:name="com.verbatoria.presentation.calendar.view.add.clients.search.SearchClientsActivity"
             android:screenOrientation="sensorLandscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.add.children.SearchChildrenActivity"
+            android:name="com.verbatoria.presentation.calendar.view.add.children.search.SearchChildrenActivity"
             android:screenOrientation="sensorLandscape"/>
 
         <activity

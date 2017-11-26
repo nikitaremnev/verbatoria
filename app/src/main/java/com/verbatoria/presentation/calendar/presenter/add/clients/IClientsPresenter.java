@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
-import com.verbatoria.presentation.calendar.view.add.clients.ISearchClientsView;
+import com.verbatoria.presentation.calendar.view.add.clients.search.ISearchClientsView;
 
 /**
  * Презентер для добавления события в календарь

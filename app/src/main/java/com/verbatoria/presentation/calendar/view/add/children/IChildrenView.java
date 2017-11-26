@@ -32,9 +32,9 @@ public interface IChildrenView {
 
     void showChildEdited();
 
-    void startDatePicker();
+    void startAgePicker();
 
-    void updateBirthday();
+    void updateAge();
 
     void showPossibleChildren(List<ChildModel> children);
 

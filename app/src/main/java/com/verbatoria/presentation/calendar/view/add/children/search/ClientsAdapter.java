@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.calendar.view.add.children.adapter;
+package com.verbatoria.presentation.calendar.view.add.children.search;
 
 import android.app.Activity;
 import android.content.Context;

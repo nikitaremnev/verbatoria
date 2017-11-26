@@ -8,7 +8,7 @@ import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.clients.IClientsView;
-import com.verbatoria.presentation.calendar.view.add.clients.ISearchClientsView;
+import com.verbatoria.presentation.calendar.view.add.clients.search.ISearchClientsView;
 
 import java.util.List;
 

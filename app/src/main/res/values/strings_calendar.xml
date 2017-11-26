@@ -93,5 +93,7 @@
     <string name="calendar_confirm_delete_message">Вы действительно хотите удалить запись?</string>
     <string name="calendar_confirm_delete_title">Подтверждение</string>
 
+    <string name="childen_choose_age">Выберите возраст:</string>
+
 
 </resources>

@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.calendar.view.add.clients;
+package com.verbatoria.presentation.calendar.view.add.clients.search;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.add.clients.IClientsPresenter;
-import com.verbatoria.presentation.calendar.view.add.children.adapter.ClientsAdapter;
+import com.verbatoria.presentation.calendar.view.add.children.search.ClientsAdapter;
 import com.verbatoria.utils.Helper;
 
 import java.util.List;

@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.presentation.calendar.view.add.children.IChildrenView;
-import com.verbatoria.presentation.calendar.view.add.children.ISearchChildrenView;
+import com.verbatoria.presentation.calendar.view.add.children.search.ISearchChildrenView;
 
 import java.util.Date;
 
@@ -32,7 +32,7 @@ public interface IChildrenPresenter {
     void searchClientChildren();
 
     String getChildName();
-    String getChildBirthday();
+    String getChildAge();
 
     void setChildBirthday(Date birthday);
 }

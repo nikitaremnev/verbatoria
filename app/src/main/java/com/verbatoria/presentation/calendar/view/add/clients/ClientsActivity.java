@@ -24,6 +24,7 @@ import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.add.clients.IClientsPresenter;
+import com.verbatoria.presentation.calendar.view.add.clients.search.SearchClientsActivity;
 import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;

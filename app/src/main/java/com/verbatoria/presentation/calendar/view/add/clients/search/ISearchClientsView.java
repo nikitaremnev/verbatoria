@@ -1,4 +1,4 @@
-package com.verbatoria.presentation.calendar.view.add.clients;
+package com.verbatoria.presentation.calendar.view.add.clients.search;
 
 import com.verbatoria.data.network.common.ClientModel;
 
