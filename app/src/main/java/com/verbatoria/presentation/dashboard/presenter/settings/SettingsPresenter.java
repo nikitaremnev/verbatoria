@@ -31,9 +31,22 @@ public class SettingsPresenter implements ISettingsPresenter {
         mSettingsView = null;
     }
 
+//    @Override
+//    public void onConnectionClicked() {
+//        mSettingsView.showConnection()
+//    }
+
     @Override
-    public void quit() {
-        System.exit(0);
+    public void onDeveloperInfoClicked() {
+        mSettingsView.showDeveloperInfo(
+                mDashboardInteractor.getApplicationVersion(),
+                mDashboardInteractor.getAndroidVersion()
+        );
+    }
+
+    @Override
+    public void onQuitClicked() {
+        mSettingsView.showLogin();
     }
 
 }

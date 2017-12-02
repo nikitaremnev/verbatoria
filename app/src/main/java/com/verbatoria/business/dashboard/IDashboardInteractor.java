@@ -21,4 +21,8 @@ public interface IDashboardInteractor {
     boolean hasLocationId();
 
     String getUserStatus();
+
+    String getApplicationVersion();
+
+    String getAndroidVersion();
 }

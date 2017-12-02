@@ -5,8 +5,11 @@
     android:orientation="vertical"
     tools:context="com.verbatoria.presentation.dashboard.view.settings.SettingsFragment">
 
+    <!--<include layout="@layout/item_settings"-->
+        <!--android:id="@+id/item_settings_connection"/>-->
+
     <include layout="@layout/item_settings"
-        android:id="@+id/item_settings_connection"/>
+        android:id="@+id/item_settings_developer"/>
 
     <include layout="@layout/item_settings"
         android:id="@+id/item_settings_quit"/>

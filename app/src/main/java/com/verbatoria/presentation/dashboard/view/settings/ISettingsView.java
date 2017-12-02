@@ -7,5 +7,8 @@ package com.verbatoria.presentation.dashboard.view.settings;
  */
 public interface ISettingsView {
 
+    void showDeveloperInfo(String version, String androidVersion);
+//    void showConnection();
+    void showLogin();
 
 }

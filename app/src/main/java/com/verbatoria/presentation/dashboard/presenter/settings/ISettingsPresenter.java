@@ -14,6 +14,8 @@ public interface ISettingsPresenter {
     void bindView(@NonNull ISettingsView settingsView);
     void unbindView();
 
-    void quit();
+    void onDeveloperInfoClicked();
+//    void onConnectionClicked();
+    void onQuitClicked();
 
 }

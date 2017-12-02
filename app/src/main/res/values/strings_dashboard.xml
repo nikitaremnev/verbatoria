@@ -22,6 +22,7 @@
     <string name="dashboard_unknown">Неизвестно</string>
 
     <string name="settings_item_connection">Соединение</string>
+    <string name="settings_item_developer">О приложении</string>
 
     <string name="dashboard_neurometrist">Нейрометрист</string>
     <string name="dashboard_cabinet">Кабинет</string>
@@ -36,5 +37,8 @@
     <string name="dashboard_status_green_hint">Работа в приложении доступна без ограничений</string>
     <string name="dashboard_status_yellow_hint">Работа в приложении доступна, однако в скором времени может быть заблокирована</string>
     <string name="dashboard_status_red_hint">Работа в приложении заблокирована, обратитесь к партеру для восстановления доступа</string>
+
+    <string name="developer_info_android_version">Версия Android</string>
+    <string name="developer_info_application_version">Версия приложения</string>
 
 </resources>

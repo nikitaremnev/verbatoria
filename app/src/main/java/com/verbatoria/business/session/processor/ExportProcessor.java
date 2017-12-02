@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
-import rx.functions.Func1;
 
 /**
  * Процессор для генерации отчета
@@ -49,13 +48,10 @@ public class ExportProcessor {
 
     public Observable<Void> getAllMeasurements(Map<String, String> answers) {
         return mSessionRepository.getAllMeasurements()
-                .map(new Func1<List<? extends BaseMeasurement>, Void>() {
-                    @Override
-                    public Void call(List<? extends BaseMeasurement> baseMeasurements) {
-                        Collections.sort(baseMeasurements, new BaseMeasurementComparator());
-                        writeToJsonFile(baseMeasurements, answers);
-                        return null;
-                    }
+                .map(baseMeasurements -> {
+                    Collections.sort(baseMeasurements, new BaseMeasurementComparator());
+                    writeToJsonFile(baseMeasurements, answers);
+                    return null;
                 });
     }
 
