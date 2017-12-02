@@ -74,7 +74,7 @@ public class ExportProcessor {
             int answersIndex = 0;
             while (iterator.hasNext()) {
                 MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
-                measurementRequestModel.setReserveBlank1(mApplicationVersion);
+                measurementRequestModel.setMistake(mApplicationVersion);
                 BaseMeasurement currentMeasurement = iterator.get();
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
                 if (answersIndex < QuestionsAdapter.QUESTIONARY_SIZE) {
