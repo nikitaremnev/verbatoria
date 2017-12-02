@@ -24,6 +24,8 @@ public interface IRecoveryPresenter {
 
     boolean confirmPassword();
 
+    String getCountry();
+
     PasswordRequirements checkPasswordRequirements();
 
     enum PasswordRequirements {

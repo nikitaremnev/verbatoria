@@ -327,8 +327,15 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     }
 
     private void setUpPhoneFormatter(EditText phoneEditText) {
+        String country = mClientsPresenter.getCountry();
+        int formatterResource;
+        if (country.equals(getString(R.string.country_russia))) {
+            formatterResource = R.string.login_phone_mask;
+        } else {
+            formatterResource = R.string.login_ukraine_phone_mask;
+        }
         final MaskedTextChangedListener listener = new MaskedTextChangedListener(
-                getString(R.string.login_phone_mask),
+                getString(formatterResource),
                 true,
                 phoneEditText,
                 null,

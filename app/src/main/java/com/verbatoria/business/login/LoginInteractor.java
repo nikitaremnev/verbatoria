@@ -8,6 +8,7 @@ import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
 import rx.Observable;
@@ -76,6 +77,16 @@ public class LoginInteractor implements ILoginInteractor {
     @Override
     public String getLastLogin() {
         return mLoginRepository.lastLogin();
+    }
+
+    @Override
+    public void saveCountrySelection(String country) {
+        PreferencesStorage.getInstance().setCountry(country);
+    }
+
+    @Override
+    public String getCountry() {
+        return PreferencesStorage.getInstance().getCountry();
     }
 
     private LoginRequestModel getLoginRequestModel(String phone, String password) {

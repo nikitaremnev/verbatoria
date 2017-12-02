@@ -19,4 +19,10 @@
     <string name="recovery_send_new_password">Задать новый пароль</string>
     <string name="recovery_remember_password">Я вспомнил пароль!</string>
 
+    <string name="country_russia">Россия</string>
+    <string name="country_ukraine">Украина</string>
+
+    <string name="select_country">Выберите местоположение</string>
+
+
 </resources>

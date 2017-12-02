@@ -6,6 +6,7 @@ import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
 import java.util.List;
@@ -56,6 +57,11 @@ public class ClientsInteractor implements IClientsInteractor {
                 .map(clientsResponseModel -> clientsResponseModel.getClients())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public String getCountry() {
+        return PreferencesStorage.getInstance().getCountry();
     }
 
     private ClientRequestModel getClientRequestModel(ClientModel client) {

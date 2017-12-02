@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -51,8 +54,13 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @BindView(R.id.login_button)
     public Button mLoginButton;
 
+    @BindView(R.id.country_selection_layout)
+    public View mCountryView;
+
     @BindView(R.id.recovery_password_text_view)
     public TextView mRecoveryPasswordTextView;
+
+    private MaskedTextChangedListener mMaskedTextChangedListener;
 
     public static Intent newInstance(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -101,6 +109,27 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
+    public void showCountrySelection() {
+        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_select_country, null);
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setView(dialogRootView)
+                .setTitle(R.string.select_country)
+                .setNegativeButton(R.string.cancel, null)
+                .create();
+        setUpFieldView(dialogRootView.findViewById(R.id.russia_field), R.drawable.ic_flag_ru,
+                getString(R.string.country_russia), view -> {
+                    mLoginPresenter.onCountrySelected(getString(R.string.country_russia));
+                    alertDialog.dismiss();
+                });
+        setUpFieldView(dialogRootView.findViewById(R.id.ukraine_field), R.drawable.ic_flag_uk,
+                getString(R.string.country_ukraine), view -> {
+                    mLoginPresenter.onCountrySelected(getString(R.string.country_ukraine));
+                    alertDialog.dismiss();
+                });
+        alertDialog.show();
+    }
+
+    @Override
     public void setPhone(String phone) {
         mLoginEditText.setText(phone);
     }
@@ -142,24 +171,46 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
+    public void setUpCountry(String country) {
+        if (country.equals(getString(R.string.country_russia))) {
+            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_ru);
+            ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_russia));
+            setUpPhoneFormatter(getString(R.string.login_phone_mask));
+        } else {
+            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_uk);
+            ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_ukraine));
+            setUpPhoneFormatter(getString(R.string.login_ukraine_phone_mask));
+        }
+    }
+
+    @Override
     protected void setUpViews() {
-        setUpPhoneFormatter();
         mLoginButton.setOnClickListener(v -> mLoginPresenter.login());
         mRecoveryPasswordTextView.setPaintFlags(mRecoveryPasswordTextView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         mRecoveryPasswordTextView.setOnClickListener(v -> mLoginPresenter.startRecoveryPassword());
+        mCountryView.setOnClickListener(v -> mLoginPresenter.onCountrySelectionClicked());
     }
 
-    private void setUpPhoneFormatter() {
-        final MaskedTextChangedListener listener = new MaskedTextChangedListener(
-                getString(R.string.login_phone_mask),
+    private void setUpPhoneFormatter(String formatter) {
+        if (mMaskedTextChangedListener != null) {
+            mLoginEditText.removeTextChangedListener(mMaskedTextChangedListener);
+        }
+        mMaskedTextChangedListener = new MaskedTextChangedListener(
+                formatter,
                 true,
                 mLoginEditText,
                 null,
                 (b, s) -> {}
         );
+        mLoginEditText.addTextChangedListener(mMaskedTextChangedListener);
+        mLoginEditText.setOnFocusChangeListener(mMaskedTextChangedListener);
+        mLoginEditText.setText(mLoginEditText.getText());
+    }
 
-        mLoginEditText.addTextChangedListener(listener);
-        mLoginEditText.setOnFocusChangeListener(listener);
+    private void setUpFieldView(View fieldView, int imageResource, String title, View.OnClickListener onClickListener) {
+        ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
+        ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
+        fieldView.setOnClickListener(onClickListener);
     }
 
 }

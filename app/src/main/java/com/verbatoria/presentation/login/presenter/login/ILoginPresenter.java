@@ -17,6 +17,10 @@ public interface ILoginPresenter {
     void login();
     void startRecoveryPassword();
 
+    void onCountrySelectionClicked();
+
+    void onCountrySelected(String country);
+
     void setUpLastLogin();
 
     String[] getCountryCodesArray();

@@ -12,6 +12,8 @@ public interface ILoginView {
     void showProgress();
     void hideProgress();
 
+    void showCountrySelection();
+
     void setPhone(String phone);
     void setPassword(String password);
 
@@ -24,5 +26,7 @@ public interface ILoginView {
     void showError(String message);
 
     void startRecoveryPassword();
+
+    void setUpCountry(String country);
 
 }

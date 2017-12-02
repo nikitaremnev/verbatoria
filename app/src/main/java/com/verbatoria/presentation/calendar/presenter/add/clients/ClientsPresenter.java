@@ -123,6 +123,11 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
     }
 
     @Override
+    public String getCountry() {
+        return mClientsInteractor.getCountry();
+    }
+
+    @Override
     public void saveState(Bundle outState) {
 
     }

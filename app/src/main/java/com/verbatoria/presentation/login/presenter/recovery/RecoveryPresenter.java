@@ -109,6 +109,11 @@ public class RecoveryPresenter extends BasePresenter implements IRecoveryPresent
     }
 
     @Override
+    public String getCountry() {
+        return mLoginInteractor.getCountry();
+    }
+
+    @Override
     public PasswordRequirements checkPasswordRequirements() {
         String password = mRecoveryView.getNewPassword();
         if (TextUtils.isEmpty(password)) return PasswordRequirements.EMPTY;

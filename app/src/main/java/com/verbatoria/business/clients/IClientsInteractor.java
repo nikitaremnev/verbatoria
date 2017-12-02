@@ -20,4 +20,5 @@ public interface IClientsInteractor {
 
     Observable<List<ClientModel>> searchClients(String query);
 
+    String getCountry();
 }

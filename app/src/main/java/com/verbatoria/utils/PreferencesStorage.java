@@ -2,6 +2,8 @@ package com.verbatoria.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.token.models.UserStatus;
@@ -24,6 +26,7 @@ public class PreferencesStorage {
     private static final String EXPIRES_TOKEN_KEY = "EXPIRES_TOKEN_KEY";
     private static final String STATUS_TOKEN_KEY = "STATUS_TOKEN_KEY";
     private static final String LAST_LOGIN_KEY = "LAST_LOGIN_KEY";
+    private static final String COUNTRY_KEY = "COUNTRY_KEY";
 
     private static final String QUESTIONS_PREFERENCES = "questions";
     private static final String ANSWERS_KEY = "ANSWERS_KEY";
@@ -77,6 +80,16 @@ public class PreferencesStorage {
 
     public String getAccessToken() {
         return mTokenPreferences.getString(ACCESS_TOKEN_KEY, null);
+    }
+
+    public void setCountry(String country) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putString(COUNTRY_KEY, country);
+        editor.apply();
+    }
+
+    public String getCountry() {
+        return mTokenPreferences.getString(COUNTRY_KEY, mContext.getString(R.string.country_russia));
     }
 
     public void setExpiresToken(String expiresToken) {

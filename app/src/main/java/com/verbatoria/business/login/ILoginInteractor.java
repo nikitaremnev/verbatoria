@@ -26,4 +26,8 @@ public interface ILoginInteractor {
 
     String getLastLogin();
 
+    void saveCountrySelection(String country);
+
+    String getCountry();
+
 }

@@ -30,4 +30,6 @@ public interface IClientsPresenter {
     String getClientName();
     String getClientPhone();
     String getClientEmail();
+
+    String getCountry();
 }

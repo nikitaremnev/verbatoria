@@ -2,6 +2,7 @@ package com.verbatoria.presentation.login.presenter.login;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.infrastructure.BasePresenter;
@@ -35,6 +36,12 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mLoginView.setUpCountry(mLoginInteractor.getCountry());
+    }
+
+    @Override
     public void saveState(Bundle outState) {
         //TODO: state storing
     }
@@ -57,6 +64,17 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
     @Override
     public void startRecoveryPassword() {
         mLoginView.startRecoveryPassword();
+    }
+
+    @Override
+    public void onCountrySelectionClicked() {
+        mLoginView.showCountrySelection();
+    }
+
+    @Override
+    public void onCountrySelected(String country) {
+        mLoginInteractor.saveCountrySelection(country);
+        mLoginView.setUpCountry(country);
     }
 
     @Override
