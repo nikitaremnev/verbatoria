@@ -21,7 +21,7 @@
             android:orientation="vertical"
             android:id="@+id/report_container">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/calendar_report_status_size"
                 android:layout_height="@dimen/calendar_report_status_size"
                 android:id="@+id/report_status_image_view"

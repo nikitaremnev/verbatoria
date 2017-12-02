@@ -6,7 +6,7 @@
     android:paddingRight="@dimen/submit_questionary_navigation_item_horizonal_padding"
     android:paddingLeft="@dimen/submit_questionary_navigation_item_horizonal_padding">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/circle_image_view"
         android:layout_width="@dimen/submit_questionary_navigation_item_size"
         android:layout_height="@dimen/submit_questionary_navigation_item_size"

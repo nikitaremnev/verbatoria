@@ -149,7 +149,9 @@
                 android:layout_marginBottom="@dimen/calendar_fab_between_margin"
                 android:id="@+id/tomorrow_date_button"
                 app:fabSize="auto"
-                app:srcCompat="@drawable/ic_calendar_plus" />
+                app:srcCompat="@drawable/ic_calendar_plus"
+                android:layout_marginEnd="@dimen/calendar_fab_right_margin"
+                android:layout_marginStart="@dimen/calendar_fab_margin" />
 
         </LinearLayout>
 

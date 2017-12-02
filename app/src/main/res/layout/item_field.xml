@@ -52,7 +52,7 @@
             android:layout_toRightOf="@+id/field_image_view"
             tools:text="Привет привет это тестовая херотень" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/field_image_view"
@@ -64,7 +64,7 @@
             app:srcCompat="@drawable/ic_exit"
             tools:ignore="ContentDescription" />
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/status_image_view"

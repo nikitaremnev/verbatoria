@@ -33,7 +33,7 @@
         android:layout_above="@+id/connection_instruction_text_view"
         tools:text="Не подключено" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/connection_status_image_view"

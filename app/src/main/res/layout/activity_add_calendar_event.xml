@@ -16,7 +16,7 @@
         android:gravity="center_vertical"
         android:id="@+id/child_id_layout">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
@@ -41,7 +41,7 @@
         android:layout_below="@+id/child_id_layout"
         android:id="@+id/location_id_layout">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
@@ -66,7 +66,7 @@
         android:layout_below="@+id/location_id_layout"
         android:id="@+id/start_date_layout">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
@@ -91,7 +91,7 @@
         android:layout_below="@+id/start_date_layout"
         android:id="@+id/end_date_layout">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/image_view_right_margin"
