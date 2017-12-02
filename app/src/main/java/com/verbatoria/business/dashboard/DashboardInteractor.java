@@ -1,15 +1,14 @@
 package com.verbatoria.business.dashboard;
 
-import android.os.Build;
 import android.text.TextUtils;
 
-import com.remnev.verbatoriamini.BuildConfig;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.DeveloperUtils;
 import com.verbatoria.utils.RxSchedulers;
 
 import rx.Observable;
@@ -67,12 +66,12 @@ public class DashboardInteractor implements IDashboardInteractor {
 
     @Override
     public String getApplicationVersion() {
-        return BuildConfig.VERSION_NAME;
+        return DeveloperUtils.getApplicationVersion();
     }
 
     @Override
     public String getAndroidVersion() {
-        return String.valueOf(Build.VERSION.SDK_INT);
+        return DeveloperUtils.getAndroidVersion();
     }
 
     private String getAccessToken() {

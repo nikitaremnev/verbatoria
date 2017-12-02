@@ -3,10 +3,10 @@ package com.verbatoria.business.session;
 import com.neurosky.connection.DataType.MindDataType;
 import com.neurosky.connection.EEGPower;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.manager.AudioPlayerManager;
 import com.verbatoria.business.session.processor.AttentionValueProcessor;
 import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
-import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.processor.ExportProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
@@ -15,6 +15,7 @@ import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
+import com.verbatoria.utils.DeveloperUtils;
 import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Logger;
 import com.verbatoria.utils.PreferencesStorage;
@@ -23,7 +24,6 @@ import com.verbatoria.utils.RxSchedulers;
 import java.io.File;
 import java.util.Map;
 import java.util.Timer;
-import java.util.concurrent.Callable;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -81,7 +81,7 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
 
     @Override
     public Observable<Void> getAllMeasurements(Map<String, String> answers) {
-        return new ExportProcessor(mSessionRepository)
+        return new ExportProcessor(mSessionRepository, DeveloperUtils.getApplicationVersion())
                 .getAllMeasurements(answers)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());

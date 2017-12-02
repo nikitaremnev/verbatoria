@@ -3,6 +3,8 @@ package com.verbatoria.presentation.calendar.presenter.add.clients;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Patterns;
 
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.data.network.common.ClientModel;
@@ -21,14 +23,13 @@ import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActiv
  */
 public class ClientsPresenter extends BasePresenter implements IClientsPresenter {
 
-    private static final int MINIMUM_EMAIL_LENGTH = 7;
 
     private IClientsInteractor mClientsInteractor;
     private IClientsView mClientView;
     private ISearchClientsView mSearchClientsView;
     private ClientModel mClientModel;
     private boolean mIsEditMode;
-    private boolean mSearchByPhone;
+//    private boolean mSearchByPhone;
 
     public ClientsPresenter(IClientsInteractor clientsInteractor) {
         mClientsInteractor = clientsInteractor;
@@ -153,7 +154,7 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
     }
 
     private boolean isEmailCorrect(String email) {
-        if (email.contains("@") && email.contains(".") && email.length() > MINIMUM_EMAIL_LENGTH) {
+        if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return true;
         } else {
             mClientView.showEmailIncorrectError();

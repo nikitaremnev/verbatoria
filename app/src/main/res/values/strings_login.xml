@@ -2,8 +2,8 @@
 <resources>
     <string name="login_submit">Войти</string>
     <string name="login_phone_hint">Номер телефона</string>
-    <string name="login_phone_mask">+ [0] ([000]) [000] [00] [00]</string>
-
+    <string name="login_phone_mask">+ [0] [000] [000] [00] [00]</string>
+    <string name="login_ukraine_phone_mask">+ [000] [00] [000] [00] [00]</string>
     <string name="login_password_hint">Пароль</string>
 
     <string name="splash_application_will_be_unstable">Приложение будет работать нестабильно. Пожалуйста, дайте необходимые разрешения в настройках приложения</string>

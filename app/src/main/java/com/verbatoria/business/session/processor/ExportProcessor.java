@@ -41,9 +41,11 @@ public class ExportProcessor {
     private ISessionRepository mSessionRepository;
 
     private long mCurrentActivityCode = 0;
+    private String mApplicationVersion;
 
-    public ExportProcessor(ISessionRepository sessionRepository) {
+    public ExportProcessor(ISessionRepository sessionRepository, String applicationVersion) {
         mSessionRepository = sessionRepository;
+        mApplicationVersion = applicationVersion;
     }
 
     public Observable<Void> getAllMeasurements(Map<String, String> answers) {
@@ -72,6 +74,7 @@ public class ExportProcessor {
             int answersIndex = 0;
             while (iterator.hasNext()) {
                 MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
+                measurementRequestModel.setReserveBlank1(mApplicationVersion);
                 BaseMeasurement currentMeasurement = iterator.get();
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
                 if (answersIndex < QuestionsAdapter.QUESTIONARY_SIZE) {

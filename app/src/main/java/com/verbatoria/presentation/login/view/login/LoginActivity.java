@@ -152,6 +152,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                 null,
                 (b, s) -> {}
         );
+
         mLoginEditText.addTextChangedListener(listener);
         mLoginEditText.setOnFocusChangeListener(listener);
     }

@@ -147,7 +147,6 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ACTIVITY_SEARCH_CLIENT_CODE && resultCode == RESULT_OK) {
             mClientsPresenter.obtainClient(data);
-            Log.e("test", "clientModel cl ac: " + mClientsPresenter.getClientModel().toString());
             finishWithResult();
         }
     }
