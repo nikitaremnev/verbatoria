@@ -3,6 +3,8 @@ package com.verbatoria.business.session.manager;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.util.Log;
+
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.session.ISessionInteractor;
@@ -99,14 +101,12 @@ public class AudioPlayerManager implements IAudioPlayerManager {
 
     @Override
     public void dropPlayer() {
+        Log.e("test", "audioPlayer: dropPlayer()");
         try {
-            if (mMediaPlayer != null) {
-                mMediaPlayer.stop();
-            }
+            pausePlayer();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        mMediaPlayer = null;
         sMusicRaw = null;
     }
 
@@ -152,6 +152,8 @@ public class AudioPlayerManager implements IAudioPlayerManager {
     private void pausePlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
+            mMediaPlayer.reset();
+            mMediaPlayer.release();
             mMediaPlayer = null;
         }
     }

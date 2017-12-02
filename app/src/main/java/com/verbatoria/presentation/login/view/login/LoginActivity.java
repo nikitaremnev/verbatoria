@@ -10,6 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
+import com.remnev.verbatoriamini.BuildConfig;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
@@ -76,6 +77,10 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 //        setPassword("test");
 
         mLoginPresenter.setUpLastLogin();
+
+        if (BuildConfig.DEBUG) {
+            mPasswordEditText.setText("123474858");
+        }
     }
 
     @Override

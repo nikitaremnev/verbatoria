@@ -31,7 +31,7 @@ public class DoneActivitiesProcessor {
 
     private static final String TAG = DoneActivitiesProcessor.class.getSimpleName();
 
-    private static final int MINIMUM_ACTIVITY_TIME = BuildConfig.DEBUG ? 3 : 15;
+    private static final int MINIMUM_ACTIVITY_TIME = BuildConfig.DEBUG ? 0 : 15;
 
     private static Set<String> sDoneActivitiesArray;
     private static Map<String, Long> sDoneActivitiesTimeArray;
@@ -162,7 +162,6 @@ public class DoneActivitiesProcessor {
     }
 
     public static boolean removeActivityFromDoneArray(String string) {
-        int i = 0;
         if (sDoneActivitiesTimeArray.containsKey(string)) {
             sDoneActivitiesTimeArray.remove(string);
         }
