@@ -30,4 +30,5 @@ public interface ICalendarInteractor {
 
     Date getLastDate();
 
+    void saveLastDate(Date date);
 }

@@ -119,6 +119,11 @@ public class CalendarInteractor implements ICalendarInteractor {
         return mCalendarRepository.getLastDate();
     }
 
+    @Override
+    public void saveLastDate(Date date) {
+        mCalendarRepository.saveLastDate(date);
+    }
+
     private AddEventRequestModel getAddEventRequestModel(EventModel eventModel) throws ParseException {
         return new AddEventRequestModel()
                 .setEvent(new EventRequestModel()
