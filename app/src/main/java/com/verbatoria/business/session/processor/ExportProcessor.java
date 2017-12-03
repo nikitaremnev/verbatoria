@@ -156,8 +156,10 @@ public class ExportProcessor {
             return;
         }
         if (mCurrentActivityCode != 0 && mCurrentActivityCode == eventMeasurement.getActivityCode()) {
-            measurementRequestModel.setActionId(mCurrentActivityCode);
             mCurrentActivityCode = 0;
+        }
+        if (mCurrentActivityCode != 0 && mCurrentActivityCode != eventMeasurement.getActivityCode()) {
+            mCurrentActivityCode = eventMeasurement.getActivityCode();
         }
     }
 
