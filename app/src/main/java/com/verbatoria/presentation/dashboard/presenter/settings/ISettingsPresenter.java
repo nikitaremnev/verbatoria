@@ -18,4 +18,6 @@ public interface ISettingsPresenter {
 //    void onConnectionClicked();
     void onQuitClicked();
 
+    void onScheduleClicked();
+
 }

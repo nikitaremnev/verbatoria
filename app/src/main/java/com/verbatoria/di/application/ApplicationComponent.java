@@ -6,6 +6,8 @@ import com.verbatoria.di.dashboard.DashboardComponent;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.di.login.LoginComponent;
 import com.verbatoria.di.login.LoginModule;
+import com.verbatoria.di.schedule.ScheduleComponent;
+import com.verbatoria.di.schedule.ScheduleModule;
 import com.verbatoria.di.session.SessionComponent;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.di.token.TokenComponentInjects;
@@ -30,4 +32,7 @@ public interface ApplicationComponent extends ApplicationComponentInjects, Token
     SessionComponent addModule(SessionModule sessionModule);
 
     CalendarComponent addModule(CalendarModule calendarModule);
+
+    ScheduleComponent addModule(ScheduleModule scheduleModule);
+
 }

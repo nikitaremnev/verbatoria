@@ -10,5 +10,6 @@ public interface ISettingsView {
     void showDeveloperInfo(String version, String androidVersion);
 //    void showConnection();
     void showLogin();
+    void showSchedule();
 
 }

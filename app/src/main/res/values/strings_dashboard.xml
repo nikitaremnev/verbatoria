@@ -41,4 +41,7 @@
     <string name="developer_info_android_version">Версия Android</string>
     <string name="developer_info_application_version">Версия приложения</string>
 
+    <string name="schedule_title">График работы</string>
+
+
 </resources>

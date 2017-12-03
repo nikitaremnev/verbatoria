@@ -70,6 +70,9 @@
     <string name="action_edit">Редактировать</string>
     <string name="action_cancel">Отмена</string>
     <string name="action_delete">Удалить</string>
+    <string name="action_next_week">Следующая неделя</string>
+    <string name="action_prev_week">Предыдущая неделя</string>
+    <string name="action_clear">Очистить</string>
 
     <string name="event_detail_activity_hint_status_new">Запись еще не была произведена</string>
     <string name="event_detail_activity_hint_status_ready">Результаты измерений обработаны и отчет готов</string>

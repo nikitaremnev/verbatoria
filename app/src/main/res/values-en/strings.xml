@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="app_name">Neuroscreen v8.4</string>
     <string name="title_activity_navigation_drawer">Neuroscreen v8.4</string>
     <string name="navigation_drawer_open">Neuroscreen v8.4</string>
     <string name="navigation_drawer_close">Neuroscreen v8.4</string>

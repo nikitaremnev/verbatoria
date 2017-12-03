@@ -17,6 +17,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
+import com.verbatoria.presentation.schedule.view.ScheduleActivity;
 
 import javax.inject.Inject;
 
@@ -35,6 +36,8 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
 //    @BindView(R.id.item_settings_connection)
 //    public View mConnectionView;
+    @BindView(R.id.item_settings_schedule)
+    public View mScheduleView;
 
     @BindView(R.id.item_settings_developer)
     public View mDeveloperView;
@@ -63,6 +66,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         super.onViewCreated(view, savedInstanceState);
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         setUpQuitView();
+        setUpScheduleView();
 //        setUpConnectionView();
         setUpDeveloperView();
         mSettingsPresenter.bindView(this);
@@ -93,6 +97,11 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         startActivity(LoginActivity.newInstance(getActivity()));
     }
 
+    @Override
+    public void showSchedule() {
+        startActivity(ScheduleActivity.newInstance(getActivity()));
+    }
+
 //    private void setUpConnectionView() {
 //        setUpSettingsItemText(mConnectionView, R.string.settings_item_connection);
 //        setUpSettingsImageView(mConnectionView, R.drawable.ic_connection);
@@ -109,6 +118,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         setUpSettingsItemText(mQuitView, R.string.settings_item_quit);
         setUpSettingsImageView(mQuitView, R.drawable.ic_exit);
         mQuitView.setOnClickListener(v -> mSettingsPresenter.onQuitClicked());
+    }
+
+    private void setUpScheduleView() {
+        setUpSettingsItemText(mScheduleView, R.string.schedule_title);
+        setUpSettingsImageView(mScheduleView, R.drawable.ic_schedule);
+        mScheduleView.setOnClickListener(v -> mSettingsPresenter.onScheduleClicked());
     }
 
     /*

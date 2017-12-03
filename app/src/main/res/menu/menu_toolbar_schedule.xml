@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_clear"
+        android:icon="@drawable/ic_calendar_clear"
+        android:title="@string/action_clear"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_prev_week"
+        android:icon="@drawable/ic_calendar_minus"
+        android:title="@string/action_prev_week"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/action_next_week"
+        android:icon="@drawable/ic_calendar_plus"
+        android:title="@string/action_next_week"
+        app:showAsAction="always"/>
+
+</menu>

@@ -49,4 +49,9 @@ public class SettingsPresenter implements ISettingsPresenter {
         mSettingsView.showLogin();
     }
 
+    @Override
+    public void onScheduleClicked() {
+        mSettingsView.showSchedule();
+    }
+
 }

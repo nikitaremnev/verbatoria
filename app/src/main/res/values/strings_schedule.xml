@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="rows_names">
+        <item>ПН, %s</item>
+        <item>ВТ, %s</item>
+        <item>СР, %s</item>
+        <item>ЧТ, %s</item>
+        <item>ПТ, %s</item>
+        <item>СБ, %s</item>
+        <item>ВС, %s</item>
+    </string-array>
+
+    <string name="schedule_clear">Очистить</string>
+    <string name="schedule_clear_confirm_title">Подтверждение</string>
+    <string name="schedule_clear_confirm_message">Вы уверены, что хотите очистить расписание?</string>
+
+    <string name="schedule_week_selected_message">Показано расписание за неделю %s</string>
+
+
+</resources>
