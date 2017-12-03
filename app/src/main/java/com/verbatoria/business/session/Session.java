@@ -214,7 +214,7 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
             mActivitiesTimerTask.setActivityActive(false);
         } else { //заканчиваем предыдущую активность и начинаем новую
             //заканчиваем
-            mSessionRepository.addEvent(mCurrentCode);
+//            mSessionRepository.addEvent(mCurrentCode);
             addActivityToDoneArray(mCurrentCode, (System.currentTimeMillis() - mActivitiesTimerTask.getStartActivityTime()) / DateUtils.MILLIS_PER_SECOND);
             //начинаем новую
             mSessionRepository.addEvent(code);
