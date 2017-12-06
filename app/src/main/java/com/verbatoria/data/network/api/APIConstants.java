@@ -38,6 +38,9 @@ class APIConstants {
     static final String EDIT_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
     static final String GET_CHILD_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}/children/{" + CHILD_ID_PATH_KEY + "}" + JSON_PATH;
 
+    static final String GET_SCHEDULE_URL = VERBATOLOG_ID_PATH_KEY + "/current/schedule_entries" + JSON_PATH;
+    static final String ADD_SCHEDULE_URL = VERBATOLOG_ID_PATH_KEY + "/current/schedule_entries" + JSON_PATH;
+
     static final String SEARCH_CLIENT_URL = "clients" + JSON_PATH;
     static final String ADD_CLIENT_URL = "clients" + JSON_PATH;
     static final String EDIT_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;

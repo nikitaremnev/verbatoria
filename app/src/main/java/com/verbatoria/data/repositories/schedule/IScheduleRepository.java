@@ -1,6 +1,6 @@
 package com.verbatoria.data.repositories.schedule;
 
-import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
+import com.verbatoria.data.network.response.ScheduleResponseModel;
 
 import rx.Observable;
 
@@ -9,6 +9,6 @@ import rx.Observable;
  */
 public interface IScheduleRepository {
 
-    Observable<IScheduleDataSource> getSchedule(String accessToken);
+    Observable<ScheduleResponseModel> getScheduleFromNetwork(String accessToken, String fromTime, String toTime);
 
 }

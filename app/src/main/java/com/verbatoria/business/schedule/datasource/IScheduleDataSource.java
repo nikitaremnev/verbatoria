@@ -1,5 +1,7 @@
 package com.verbatoria.business.schedule.datasource;
 
+import java.util.Date;
+
 /**
  * @author nikitaremnev
  */
@@ -25,5 +27,12 @@ public interface IScheduleDataSource<TFirstHeaderDataType, TRowHeaderDataType, T
     String getWeekTitle();
 
     void clearSchedule();
+
+    Date getWeekStart();
+
+    Date getWeekEnd();
+
+    void setWorkingInterval(Date date);
+
 
 }

@@ -1,9 +1,7 @@
 package com.verbatoria.data.repositories.schedule;
 
-import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
-import com.verbatoria.business.schedule.datasource.ScheduleDataSource;
-
-import java.util.concurrent.Callable;
+import com.verbatoria.data.network.api.APIFactory;
+import com.verbatoria.data.network.response.ScheduleResponseModel;
 
 import rx.Observable;
 
@@ -17,8 +15,8 @@ public class ScheduleRepository implements IScheduleRepository {
     }
 
     @Override
-    public Observable<IScheduleDataSource> getSchedule(String accessToken) {
-        return Observable.fromCallable((Callable<IScheduleDataSource>) () -> new ScheduleDataSource());
+    public Observable<ScheduleResponseModel> getScheduleFromNetwork(String accessToken, String fromTime, String toTime) {
+        return APIFactory.getAPIService().getSchedule(accessToken, fromTime, toTime);
     }
 
 }

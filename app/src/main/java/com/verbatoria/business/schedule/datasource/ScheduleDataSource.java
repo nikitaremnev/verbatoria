@@ -85,7 +85,6 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     @Override
     public void moveToThePreviousWeek() {
         mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT);
-
     }
 
     @Override
@@ -103,6 +102,39 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
             }
             dayOfWeekIndex ++;
         }
+    }
+
+    @Override
+    public Date getWeekStart() {
+        mCalendar = Calendar.getInstance();
+        mCalendar.setTime(mOriginalCalendar.getTime());
+        int currentDayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) == FIRST_DAY_OF_WEEK ? WEEK_COUNT : FIRST_DAY_OF_WEEK;
+        int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
+        mCalendar.set(Calendar.HOUR, 0);
+        mCalendar.set(Calendar.MINUTE, 0);
+        mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (currentDayOfWeek - firstDayOfWeek));
+        return mCalendar.getTime();
+    }
+
+    @Override
+    public Date getWeekEnd() {
+        mCalendar = Calendar.getInstance();
+        mCalendar.setTime(mOriginalCalendar.getTime());
+        int currentDayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) == FIRST_DAY_OF_WEEK ? WEEK_COUNT : FIRST_DAY_OF_WEEK;
+        int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
+        mCalendar.set(Calendar.HOUR, 0);
+        mCalendar.set(Calendar.MINUTE, 0);
+        mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (currentDayOfWeek - firstDayOfWeek - WEEK_COUNT));
+        return mCalendar.getTime();
+    }
+
+    @Override
+    public void setWorkingInterval(Date date) {
+        mCalendar = Calendar.getInstance();
+        mCalendar.setTime(date);
+        int currentDayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) == FIRST_DAY_OF_WEEK ? WEEK_COUNT : FIRST_DAY_OF_WEEK;
+        int currentHour = mCalendar.get(Calendar.HOUR);
+        mItems.get(currentDayOfWeek).get(currentHour - START_HOUR + 1).setSelected(true);
     }
 
 }

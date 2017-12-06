@@ -19,6 +19,7 @@ import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
+import com.verbatoria.data.network.response.ScheduleResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 
@@ -162,5 +163,17 @@ public interface APIService {
     Observable<FinishSessionResponseModel> finishSessionRequest(@Path(value = SESSION_ID_PATH_KEY) String sessionId,
                                                                 @Header(TOKEN_HEADER_KEY) String accessToken);
 
+    /*
+        Schedule
+     */
+
+    @GET(APIConstants.GET_SCHEDULE_URL)
+    Observable<ScheduleResponseModel> getSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                                  @Query(FROM_TIME_QUERY_KEY) String fromTime,
+                                                  @Query(TO_TIME_QUERY_KEY) String toTime);
+
+    @POST(APIConstants.ADD_SCHEDULE_URL)
+    Observable<ResponseBody> addSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                             @Body AddEventRequestModel addEventRequestModel);
 
 }
