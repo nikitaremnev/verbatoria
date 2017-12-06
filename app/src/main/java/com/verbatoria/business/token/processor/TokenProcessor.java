@@ -37,7 +37,7 @@ public class TokenProcessor {
         tokenModel.setAccessToken(loginResponseModel.getAccessToken());
         try {
             Logger.e(TAG, "expiresToken: " + loginResponseModel.getExpiresToken());
-            tokenModel.setExpireDate(DateUtils.parseDate(loginResponseModel.getExpiresToken()));
+            tokenModel.setExpireDate(DateUtils.parseDateTime(loginResponseModel.getExpiresToken()));
         } catch (ParseException e) {
             throw new TokenInteractorException(e.getMessage());
         }
