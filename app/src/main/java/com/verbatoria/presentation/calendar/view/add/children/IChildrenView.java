@@ -30,6 +30,8 @@ public interface IChildrenView {
 
     void showAgeError();
 
+    void showNameError();
+
     void showChildAdded();
 
     void showChildEdited();

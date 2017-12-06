@@ -261,6 +261,11 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
     }
 
     @Override
+    public void showNameError() {
+        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.child_name_not_set));
+    }
+
+    @Override
     public void showChildAdded() {
         Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.child_added), Snackbar.LENGTH_SHORT);
         snackbar.getView().setBackgroundResource(R.color.hint_color);
