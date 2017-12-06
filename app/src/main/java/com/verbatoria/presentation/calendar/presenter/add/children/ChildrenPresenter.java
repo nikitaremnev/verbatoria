@@ -3,6 +3,7 @@ package com.verbatoria.presentation.calendar.presenter.add.children;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
@@ -78,24 +79,24 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     @Override
     public void createChild() {
-        if (!isAgeValid()) {
-            mChildrenView.showAgeError();
-            return;
-        }
         mChildModel.setName(mChildrenView.getChildName());
-        addSubscription(mChildrenInteractor.addChild(mChildModel)
-                .doOnSubscribe(() -> mChildrenView.showProgress())
-                .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                .subscribe(this::handleChildAddSuccess, this::handleChildRequestError));
+        if (isChildValid()) {
+            addSubscription(mChildrenInteractor.addChild(mChildModel)
+                    .doOnSubscribe(() -> mChildrenView.showProgress())
+                    .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+                    .subscribe(this::handleChildAddSuccess, this::handleChildRequestError));
+        }
     }
 
     @Override
     public void editChild() {
         mChildModel.setName(mChildrenView.getChildName());
-        addSubscription(mChildrenInteractor.editChild(mChildModel)
-                .doOnSubscribe(() -> mChildrenView.showProgress())
-                .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                .subscribe(this::handleChildEditSuccess, this::handleChildRequestError));
+        if (isChildValid()) {
+            addSubscription(mChildrenInteractor.editChild(mChildModel)
+                    .doOnSubscribe(() -> mChildrenView.showProgress())
+                    .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+                    .subscribe(this::handleChildEditSuccess, this::handleChildRequestError));
+        }
     }
 
     @Override
@@ -173,5 +174,25 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
 
     private boolean isAgeValid() {
         return mChildModel.getAge() >= START_AGE;
+    }
+
+    private boolean isNameValid() {
+        return !TextUtils.isEmpty(mChildModel.getName());
+    }
+
+    private boolean isChildValid() {
+        if (!isNameValid()) {
+            mChildrenView.showNameError();
+            return false;
+        }
+
+        if (!isAgeValid()) {
+            mChildrenView.showAgeError();
+            return false;
+        }
+
+
+
+        return true;
     }
 }

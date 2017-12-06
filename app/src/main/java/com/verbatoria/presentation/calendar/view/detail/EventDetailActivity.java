@@ -220,7 +220,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void updateChildView(ChildModel childModel) {
-        if (childModel == null) {
+        if (childModel == null || childModel.getBirthday() == null || childModel.getName() == null) {
             ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
             String childString = getString(R.string.event_detail_activity_field_empty);
             setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());

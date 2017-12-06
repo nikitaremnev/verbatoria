@@ -91,7 +91,7 @@ public class ChildModel implements Parcelable {
     public boolean isFull() {
         Log.e("test", "mName: " + TextUtils.isEmpty(mName));
         Log.e("test", "mBirthday: " + (mBirthday == null));
-        return !(TextUtils.isEmpty(mName) || mBirthday == null);
+        return !(TextUtils.isEmpty(mName) || mBirthday == null || DateUtils.getYearsFromDate(mBirthday) < START_AGE);
     }
 
     @Override
