@@ -2,7 +2,6 @@ package com.verbatoria.business.schedule;
 
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 
-import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -14,5 +13,5 @@ public interface IScheduleInteractor {
 
     Observable<IScheduleDataSource> getSchedule();
 
-    Observable<ResponseBody> saveSchedule(IScheduleDataSource scheduleDataSource);
+    Observable<IScheduleDataSource> saveSchedule(IScheduleDataSource scheduleDataSource);
 }

@@ -1,6 +1,8 @@
 package com.verbatoria.business.schedule.datasource;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author nikitaremnev
@@ -34,5 +36,6 @@ public interface IScheduleDataSource<TFirstHeaderDataType, TRowHeaderDataType, T
 
     void setWorkingInterval(Date date);
 
+    Map<Date, List<Date>> getItems(boolean selected);
 
 }

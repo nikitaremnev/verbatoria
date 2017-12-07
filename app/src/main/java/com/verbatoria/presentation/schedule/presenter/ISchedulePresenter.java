@@ -23,6 +23,8 @@ public interface ISchedulePresenter {
 
     void onPreviousWeekClicked();
 
+    void onSaveScheduleClicked();
+
     void clearSchedule();
 
 }

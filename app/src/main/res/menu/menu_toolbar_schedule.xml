@@ -20,4 +20,9 @@
         android:title="@string/action_next_week"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_save"
+        android:title="@string/save"
+        app:showAsAction="always"/>
+
 </menu>

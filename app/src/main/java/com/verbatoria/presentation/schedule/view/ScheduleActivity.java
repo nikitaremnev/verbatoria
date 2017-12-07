@@ -79,6 +79,9 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
             case R.id.action_clear:
                 mSchedulePresenter.onClearScheduleClicked();
                 break;
+            case R.id.action_save:
+                mSchedulePresenter.onSaveScheduleClicked();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

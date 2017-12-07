@@ -10,6 +10,7 @@ import com.verbatoria.data.network.request.EditEventRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
+import com.verbatoria.data.network.request.ScheduleRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildrenResponseModel;
@@ -173,7 +174,7 @@ public interface APIService {
                                                   @Query(TO_TIME_QUERY_KEY) String toTime);
 
     @POST(APIConstants.ADD_SCHEDULE_URL)
-    Observable<ResponseBody> addSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                             @Body AddEventRequestModel addEventRequestModel);
+    Observable<ScheduleResponseModel> addSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                             @Body ScheduleRequestModel scheduleRequestModel);
 
 }
