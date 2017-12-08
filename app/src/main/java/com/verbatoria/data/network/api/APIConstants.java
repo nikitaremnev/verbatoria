@@ -19,6 +19,7 @@ class APIConstants {
     static final String EVENT_ID_PATH_KEY = "event_id";
     static final String FROM_TIME_QUERY_KEY = "from_time";
     static final String TO_TIME_QUERY_KEY = "to_time";
+    static final String PER_PAGE_KEY = "per_page";
     static final String QUERY_PATH_KEY = "query";
     static final String JSON_PATH = ".json";
 
@@ -40,6 +41,7 @@ class APIConstants {
 
     static final String GET_SCHEDULE_URL = VERBATOLOG_ID_PATH_KEY + "/current/schedule_entries" + JSON_PATH;
     static final String ADD_SCHEDULE_URL = VERBATOLOG_ID_PATH_KEY + "/current/schedule_entries" + JSON_PATH;
+    static final String DELETE_SCHEDULE_URL = VERBATOLOG_ID_PATH_KEY + "/current/schedule_entries" + JSON_PATH;
 
     static final String SEARCH_CLIENT_URL = "clients" + JSON_PATH;
     static final String ADD_CLIENT_URL = "clients" + JSON_PATH;

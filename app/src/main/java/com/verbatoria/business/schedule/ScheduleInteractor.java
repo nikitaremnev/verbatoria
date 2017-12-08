@@ -48,6 +48,7 @@ public class ScheduleInteractor implements IScheduleInteractor {
                     DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekStart().getTime()),
                     DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekEnd().getTime()))
                     .map(scheduleResponseModel -> {
+                        IScheduleDataSource hardScheduleDataSource = new ScheduleDataSource(true);
                         for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleResponseModel.getScheduleItems()) {
                             Date fromDate = null;
                             try {
@@ -56,9 +57,9 @@ public class ScheduleInteractor implements IScheduleInteractor {
                                 e.printStackTrace();
                             }
                             Log.e("test", "fromDate: " + fromDate.toString());
-                            scheduleDataSource.setWorkingInterval(fromDate);
+                            hardScheduleDataSource.setWorkingInterval(fromDate);
                         }
-                        return scheduleDataSource;
+                        return hardScheduleDataSource;
                     })
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
@@ -72,8 +73,8 @@ public class ScheduleInteractor implements IScheduleInteractor {
     public Observable<IScheduleDataSource> saveSchedule(IScheduleDataSource scheduleDataSource) {
         try {
             return mScheduleRepository.saveSchedule(getAccessToken(), createScheduleRequestModel(scheduleDataSource))
-                    .map(scheduleResponseModel -> {
-                        for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleResponseModel.getScheduleItems()) {
+                    .map(scheduleItemResponseModels -> {
+                        for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleItemResponseModels) {
                             Date fromDate = null;
                             try {
                                 fromDate = DateUtils.parseDateTime(scheduleItemResponseModel.getFromTime());
@@ -119,11 +120,17 @@ public class ScheduleInteractor implements IScheduleInteractor {
                 Date time = subItems.get(i);
                 Log.e("test", "item: " + time);
                 helperCalendar.setTime(time);
-                int hour = helperCalendar.get(Calendar.HOUR);
-                calendar.set(Calendar.HOUR, hour);
+                int hour = helperCalendar.get(Calendar.HOUR_OF_DAY);
+                Log.e("test", "hour: " + hour);
+                calendar.set(Calendar.HOUR_OF_DAY, hour);
                 Date start = calendar.getTime();
-                calendar.set(Calendar.HOUR, hour + 1);
+                Log.e("test", "start: " + start.toString());
+                calendar.set(Calendar.HOUR_OF_DAY, hour + 1);
                 Date end = calendar.getTime();
+                Log.e("test", "end: " + end.toString());
+
+                Log.e("test", "start.getTime(): " + DateUtils.toServerDateTimeWithoutConvertingString(start.getTime()));
+                Log.e("test", "end.getTime(): " + DateUtils.toServerDateTimeWithoutConvertingString(end.getTime()));
                 scheduleItemRequestModelList.add(new ScheduleItemRequestModel()
                         .setFromTime(DateUtils.toServerDateTimeWithoutConvertingString(start.getTime()))
                         .setToTime(DateUtils.toServerDateTimeWithoutConvertingString(end.getTime())));

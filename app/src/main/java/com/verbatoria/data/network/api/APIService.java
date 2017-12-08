@@ -20,9 +20,12 @@ import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
+import com.verbatoria.data.network.response.ScheduleItemResponseModel;
 import com.verbatoria.data.network.response.ScheduleResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
+
+import java.util.List;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -41,6 +44,7 @@ import static com.verbatoria.data.network.api.APIConstants.CLIENT_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.EVENT_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.FROM_TIME_QUERY_KEY;
 import static com.verbatoria.data.network.api.APIConstants.LOCATION_ID_PATH_KEY;
+import static com.verbatoria.data.network.api.APIConstants.PER_PAGE_KEY;
 import static com.verbatoria.data.network.api.APIConstants.QUERY_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.SESSION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.TOKEN_HEADER_KEY;
@@ -171,10 +175,12 @@ public interface APIService {
     @GET(APIConstants.GET_SCHEDULE_URL)
     Observable<ScheduleResponseModel> getSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
                                                   @Query(FROM_TIME_QUERY_KEY) String fromTime,
-                                                  @Query(TO_TIME_QUERY_KEY) String toTime);
+                                                  @Query(TO_TIME_QUERY_KEY) String toTime,
+                                                  @Query(PER_PAGE_KEY) int perPage);
 
     @POST(APIConstants.ADD_SCHEDULE_URL)
-    Observable<ScheduleResponseModel> addSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                             @Body ScheduleRequestModel scheduleRequestModel);
+    Observable<List<ScheduleItemResponseModel>> saveSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                                            @Body ScheduleRequestModel scheduleRequestModel);
+
 
 }

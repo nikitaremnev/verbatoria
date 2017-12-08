@@ -32,6 +32,10 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     private Calendar mOriginalCalendar = Calendar.getInstance();
 
     public ScheduleDataSource() {
+
+    }
+
+    public ScheduleDataSource(boolean hard) {
         int dayOfWeekIndex = 0;
         while (dayOfWeekIndex < WEEK_COUNT) {
             List<ScheduleItemModel> dayGenerated = new ArrayList<>();
@@ -111,7 +115,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mOriginalCalendar.getTime());
         int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
-        mCalendar.set(Calendar.HOUR, 0);
+        mCalendar.set(Calendar.HOUR_OF_DAY, 0);
         mCalendar.set(Calendar.MINUTE, 0);
         mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek));
         return mCalendar.getTime();
@@ -122,7 +126,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mOriginalCalendar.getTime());
         int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
-        mCalendar.set(Calendar.HOUR, 0);
+        mCalendar.set(Calendar.HOUR_OF_DAY, 0);
         mCalendar.set(Calendar.MINUTE, 0);
         mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - WEEK_COUNT));
         return mCalendar.getTime();
@@ -133,25 +137,36 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(date);
         int currentHour = mCalendar.get(Calendar.HOUR_OF_DAY);
-        Log.e("test", "currentHour: " + currentHour);
         if (isHourInBorders(currentHour)) {
-
+            Log.e("test", "currentHour: " + currentHour);
+            Log.e("test", "hour in borders");
+            Log.e("test", "getCurrentDayOfWeek() - 1: " + (getCurrentDayOfWeek() - 1));
+            Log.e("test", "currentHour - START_HOUR: " + (currentHour - START_HOUR));
             mItems.get(getCurrentDayOfWeek() - 1).get(currentHour - START_HOUR).setSelected(true);
         }
     }
 
     @Override
     public Map<Date, List<Date>> getItems(boolean selected) {
-        Map<Date, List<Date>> resultItems = new HashMap<>();
         int dayOfWeekIndex = 0;
+        while (dayOfWeekIndex < WEEK_COUNT) {
+            Log.e("test", "dayOfWeekIndex: " + dayOfWeekIndex);
+            Log.e("test", "row_header_data: " + getRowHeaderData(dayOfWeekIndex));
+            dayOfWeekIndex ++;
+        }
+
+        Map<Date, List<Date>> resultItems = new HashMap<>();
+        dayOfWeekIndex = 0;
         while (dayOfWeekIndex < WEEK_COUNT) {
             List<ScheduleItemModel> scheduleItemModelList = mItems.get(dayOfWeekIndex);
             List<Date> subItems = new ArrayList<>();
             for (int i = 0; i < scheduleItemModelList.size(); i++) {
                 if (scheduleItemModelList.get(i).isSelected() == selected) {
+                    Log.e("test", "column_header_data: " + getColumnHeaderData(i));
                     subItems.add(getColumnHeaderData(i));
                 }
             }
+            Log.e("test", "row_header_data: " + getRowHeaderData(dayOfWeekIndex));
             resultItems.put(getRowHeaderData(dayOfWeekIndex), subItems);
             dayOfWeekIndex ++;
         }
