@@ -1,9 +1,6 @@
 package com.verbatoria.business.schedule.datasource;
 
-import android.util.Log;
-
 import com.verbatoria.business.schedule.models.ScheduleItemModel;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,8 +33,8 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     }
 
     public ScheduleDataSource(boolean hard) {
-        int dayOfWeekIndex = 0;
-        while (dayOfWeekIndex < WEEK_COUNT) {
+        int dayOfWeekIndex = 1;
+        while (dayOfWeekIndex < ROWS_COUNT) {
             List<ScheduleItemModel> dayGenerated = new ArrayList<>();
             for (int i = START_HOUR; i < END_HOUR; i++) {
                 dayGenerated.add(new ScheduleItemModel());
@@ -67,7 +64,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mOriginalCalendar.getTime());
         int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
-        mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - (index - 1)));
+        mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - index));
         return mCalendar.getTime();
     }
 
@@ -80,7 +77,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     @Override
     public ScheduleItemModel getItemData(int rowIndex, int columnIndex) {
-        return mItems.get(rowIndex - 1).get(columnIndex - 1);
+        return mItems.get(rowIndex).get(columnIndex - 1);
     }
 
     @Override
@@ -138,35 +135,22 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
         mCalendar.setTime(date);
         int currentHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         if (isHourInBorders(currentHour)) {
-            Log.e("test", "currentHour: " + currentHour);
-            Log.e("test", "hour in borders");
-            Log.e("test", "getCurrentDayOfWeek() - 1: " + (getCurrentDayOfWeek() - 1));
-            Log.e("test", "currentHour - START_HOUR: " + (currentHour - START_HOUR));
             mItems.get(getCurrentDayOfWeek() - 1).get(currentHour - START_HOUR).setSelected(true);
         }
     }
 
     @Override
     public Map<Date, List<Date>> getItems(boolean selected) {
-        int dayOfWeekIndex = 0;
-        while (dayOfWeekIndex < WEEK_COUNT) {
-            Log.e("test", "dayOfWeekIndex: " + dayOfWeekIndex);
-            Log.e("test", "row_header_data: " + getRowHeaderData(dayOfWeekIndex));
-            dayOfWeekIndex ++;
-        }
-
+        int dayOfWeekIndex = 1;
         Map<Date, List<Date>> resultItems = new HashMap<>();
-        dayOfWeekIndex = 0;
-        while (dayOfWeekIndex < WEEK_COUNT) {
+        while (dayOfWeekIndex < ROWS_COUNT) {
             List<ScheduleItemModel> scheduleItemModelList = mItems.get(dayOfWeekIndex);
             List<Date> subItems = new ArrayList<>();
             for (int i = 0; i < scheduleItemModelList.size(); i++) {
                 if (scheduleItemModelList.get(i).isSelected() == selected) {
-                    Log.e("test", "column_header_data: " + getColumnHeaderData(i));
-                    subItems.add(getColumnHeaderData(i));
+                    subItems.add(getColumnHeaderData(i + 1));
                 }
             }
-            Log.e("test", "row_header_data: " + getRowHeaderData(dayOfWeekIndex));
             resultItems.put(getRowHeaderData(dayOfWeekIndex), subItems);
             dayOfWeekIndex ++;
         }

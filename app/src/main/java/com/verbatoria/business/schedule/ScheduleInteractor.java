@@ -1,7 +1,5 @@
 package com.verbatoria.business.schedule;
 
-import android.util.Log;
-
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 import com.verbatoria.business.schedule.datasource.ScheduleDataSource;
 import com.verbatoria.business.token.models.TokenModel;
@@ -57,7 +55,6 @@ public class ScheduleInteractor implements IScheduleInteractor {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-                            Log.e("test", "fromDate: " + fromDate.toString());
                             hardScheduleDataSource.setWorkingInterval(fromDate);
                         }
                         return hardScheduleDataSource;
@@ -129,28 +126,19 @@ public class ScheduleInteractor implements IScheduleInteractor {
         Calendar calendar = Calendar.getInstance();
         Calendar helperCalendar = Calendar.getInstance();
         for (Date key : keys) {
-
             calendar.setTime(key);
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MILLISECOND, 0);
-            Log.e("test", "key: " + key);
             List<Date> subItems = scheduleItems.get(key);
             for (int i = 0; i < subItems.size(); i ++) {
                 Date time = subItems.get(i);
-                Log.e("test", "item: " + time);
                 helperCalendar.setTime(time);
                 int hour = helperCalendar.get(Calendar.HOUR_OF_DAY);
-                Log.e("test", "hour: " + hour);
                 calendar.set(Calendar.HOUR_OF_DAY, hour);
                 Date start = calendar.getTime();
-                Log.e("test", "start: " + start.toString());
                 calendar.set(Calendar.HOUR_OF_DAY, hour + 1);
                 Date end = calendar.getTime();
-                Log.e("test", "end: " + end.toString());
-
-                Log.e("test", "start.getTime(): " + DateUtils.toServerDateTimeWithoutConvertingString(start.getTime()));
-                Log.e("test", "end.getTime(): " + DateUtils.toServerDateTimeWithoutConvertingString(end.getTime()));
                 scheduleItemRequestModelList.add(new ScheduleItemRequestModel()
                         .setFromTime(DateUtils.toServerDateTimeWithoutConvertingString(start.getTime()))
                         .setToTime(DateUtils.toServerDateTimeWithoutConvertingString(end.getTime())));
