@@ -14,4 +14,6 @@ public interface IScheduleInteractor {
     Observable<IScheduleDataSource> getSchedule();
 
     Observable<IScheduleDataSource> saveSchedule(IScheduleDataSource scheduleDataSource);
+
+    Observable<IScheduleDataSource> deleteSchedule(IScheduleDataSource scheduleDataSource);
 }

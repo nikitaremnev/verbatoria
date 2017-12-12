@@ -68,8 +68,8 @@ public class SchedulePresenter extends BasePresenter implements ISchedulePresent
 
     @Override
     public void onSaveScheduleClicked() {
-        mScheduleInteractor.saveSchedule(mScheduleDataSource)
-                .subscribe(this::handleScheduleSaved, this::handleScheduleError);
+        mScheduleInteractor.deleteSchedule(mScheduleDataSource)
+                .subscribe(this::handleScheduleDeleted, this::handleScheduleError);
     }
 
     @Override
@@ -91,6 +91,11 @@ public class SchedulePresenter extends BasePresenter implements ISchedulePresent
     private void handleScheduleReceived(IScheduleDataSource scheduleDataSource) {
         mScheduleDataSource = scheduleDataSource;
         mScheduleView.setUpAdapter(scheduleDataSource);
+    }
+
+    private void handleScheduleDeleted(IScheduleDataSource scheduleDataSource) {
+        mScheduleInteractor.saveSchedule(mScheduleDataSource)
+                .subscribe(this::handleScheduleSaved, this::handleScheduleError);
     }
 
     private void handleScheduleSaved(IScheduleDataSource scheduleDataSource) {

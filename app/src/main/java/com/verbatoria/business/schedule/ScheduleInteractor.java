@@ -5,6 +5,7 @@ import android.util.Log;
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 import com.verbatoria.business.schedule.datasource.ScheduleDataSource;
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.data.network.request.ScheduleDeleteRequestModel;
 import com.verbatoria.data.network.request.ScheduleItemRequestModel;
 import com.verbatoria.data.network.request.ScheduleRequestModel;
 import com.verbatoria.data.network.response.ScheduleItemResponseModel;
@@ -93,6 +94,19 @@ public class ScheduleInteractor implements IScheduleInteractor {
         return null;
     }
 
+    @Override
+    public Observable<IScheduleDataSource> deleteSchedule(IScheduleDataSource scheduleDataSource) {
+        try {
+            return mScheduleRepository.deleteSchedule(getAccessToken(), createScheduleDeleteRequestModel(scheduleDataSource))
+                    .map(scheduleItemResponseModels -> scheduleDataSource)
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private String getAccessToken() {
         TokenModel tokenModel = mTokenRepository.getToken();
         return tokenModel.getAccessToken();
@@ -101,6 +115,12 @@ public class ScheduleInteractor implements IScheduleInteractor {
     private ScheduleRequestModel createScheduleRequestModel(IScheduleDataSource scheduleDataSource) throws ParseException {
         return new ScheduleRequestModel()
                 .setScheduleItems(createScheduleItemsRequestModel(scheduleDataSource.getItems(true)));
+    }
+
+    private ScheduleDeleteRequestModel createScheduleDeleteRequestModel(IScheduleDataSource scheduleDataSource) throws ParseException {
+        return new ScheduleDeleteRequestModel()
+                .setFromTime(DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekStart().getTime()))
+                .setToTime(DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekEnd().getTime()));
     }
 
     private List<ScheduleItemRequestModel> createScheduleItemsRequestModel(Map<Date, List<Date>> scheduleItems) throws ParseException {

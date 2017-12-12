@@ -1,6 +1,7 @@
 package com.verbatoria.data.repositories.schedule;
 
 import com.verbatoria.data.network.api.APIFactory;
+import com.verbatoria.data.network.request.ScheduleDeleteRequestModel;
 import com.verbatoria.data.network.request.ScheduleRequestModel;
 import com.verbatoria.data.network.response.ScheduleItemResponseModel;
 import com.verbatoria.data.network.response.ScheduleResponseModel;
@@ -28,6 +29,11 @@ public class ScheduleRepository implements IScheduleRepository {
     @Override
     public Observable<List<ScheduleItemResponseModel>> saveSchedule(String accessToken, ScheduleRequestModel scheduleRequestModel) {
         return APIFactory.getAPIService().saveSchedule(accessToken, scheduleRequestModel);
+    }
+
+    @Override
+    public Observable<List<ScheduleItemResponseModel>> deleteSchedule(String accessToken, ScheduleDeleteRequestModel scheduleDeleteRequestModel) {
+        return APIFactory.getAPIService().deleteSchedule(accessToken, scheduleDeleteRequestModel);
     }
 
 }

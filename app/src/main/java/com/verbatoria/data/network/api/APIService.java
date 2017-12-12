@@ -10,6 +10,7 @@ import com.verbatoria.data.network.request.EditEventRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
+import com.verbatoria.data.network.request.ScheduleDeleteRequestModel;
 import com.verbatoria.data.network.request.ScheduleRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
@@ -32,6 +33,7 @@ import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -182,5 +184,9 @@ public interface APIService {
     Observable<List<ScheduleItemResponseModel>> saveSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
                                                             @Body ScheduleRequestModel scheduleRequestModel);
 
+
+    @HTTP(method = "DELETE", path = APIConstants.DELETE_SCHEDULE_URL, hasBody = true)
+    Observable<List<ScheduleItemResponseModel>> deleteSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                                              @Body ScheduleDeleteRequestModel scheduleDeleteRequestModel);
 
 }
