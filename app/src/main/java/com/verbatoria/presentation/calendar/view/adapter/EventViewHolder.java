@@ -48,6 +48,11 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
         mRootView.setBackgroundResource(R.color.main_shadowed);
     }
 
+    void setDeletedBackground() {
+        mRootView.setBackgroundResource(R.color.main_shadowed);
+    }
+
+
     void setChildName(String childName) {
         mChildNameTextView.setText(childName);
     }

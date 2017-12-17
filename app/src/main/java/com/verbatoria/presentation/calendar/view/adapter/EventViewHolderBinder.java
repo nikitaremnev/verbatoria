@@ -39,6 +39,10 @@ public class EventViewHolderBinder {
                 holder.showUploadedReport(context);
                 holder.setDoneBackground();
                 break;
+            case ReportModel.STATUS.CANCELED:
+                holder.showUploadedReport(context);
+                holder.setDoneBackground();
+                break;
         }
     }
 

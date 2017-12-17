@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 public class QuestionsAdapter extends PagerAdapter {
 
     public static final int OFFSCREEN_PAGE_LIMIT = 2;
+    public static final int NO_ANSWERS_SIZE = 7;
     public static final int QUESTIONARY_SIZE = 9;
 
     @Inject
@@ -103,7 +105,7 @@ public class QuestionsAdapter extends PagerAdapter {
 
     public boolean isAllQuestionsAnswered() {
         //6
-        for (int i = 0; i < QUESTIONARY_SIZE; i ++) {
+        for (int i = NO_ANSWERS_SIZE; i < QUESTIONARY_SIZE; i ++) {
             if (!mAnswersMap.containsKey(String.valueOf(i))) {
                 return false;
             }

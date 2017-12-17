@@ -18,6 +18,7 @@ public class ReportModel implements Parcelable {
 
     public class STATUS {
         public static final String NEW = "new";
+        public static final String CANCELED = "canceled";
         public static final String UPLOADED = "uploaded";
         public static final String READY = "ready";
         public static final String SENT = "sent";
@@ -116,6 +117,10 @@ public class ReportModel implements Parcelable {
     public ReportModel setUpdatedAt(Date updatedAt) {
         mUpdatedAt = updatedAt;
         return this;
+    }
+
+    public boolean isCanceled() {
+        return mStatus.equals(STATUS.CANCELED);
     }
 
     @Override

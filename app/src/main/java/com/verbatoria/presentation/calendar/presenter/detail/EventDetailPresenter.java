@@ -182,7 +182,9 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public boolean isDeleteEnabled() {
-        return mCalendarInteractor.isDeleteEnabled();
+       // return mCalendarInteractor.isDeleteEnabled();
+
+        return true;
     }
 
     @Override

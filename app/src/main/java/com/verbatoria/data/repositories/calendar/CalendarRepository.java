@@ -23,11 +23,6 @@ public class CalendarRepository implements ICalendarRepository {
     }
 
     @Override
-    public Observable<EventsResponseModel> getEvents(String accessToken) {
-        return APIFactory.getAPIService().getEventsRequest(accessToken);
-    }
-
-    @Override
     public Observable<ResponseBody> addEvent(String accessToken, AddEventRequestModel addEventRequestModel) {
         return APIFactory.getAPIService().addEventRequest(accessToken, addEventRequestModel);
     }

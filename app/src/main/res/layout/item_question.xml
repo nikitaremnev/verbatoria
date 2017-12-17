@@ -84,7 +84,6 @@
         android:id="@+id/has_answer_checkbox"
         android:checked="true"
         android:textSize="@dimen/submit_question_has_answer_text_size"
-        android:textAlignment="center"
         android:padding="@dimen/submit_question_has_answer_padding"
         android:layout_marginTop="@dimen/submit_question_has_answer_vertical_margin"
         android:layout_marginBottom="@dimen/submit_question_has_answer_vertical_margin"

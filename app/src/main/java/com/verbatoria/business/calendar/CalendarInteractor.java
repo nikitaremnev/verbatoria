@@ -10,11 +10,13 @@ import com.verbatoria.data.network.request.EventRequestModel;
 import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.calendar.comparator.EventsComparator;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
+import com.verbatoria.data.repositories.schedule.IScheduleRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.RxSchedulers;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -32,13 +34,16 @@ public class CalendarInteractor implements ICalendarInteractor {
     private static final String OSTOJENKA_LOCATION_ID = "32";
 
     private ICalendarRepository mCalendarRepository;
+    private IScheduleRepository mScheduleRepository;
     private IDashboardRepository mDashboardRepository;
     private ITokenRepository mTokenRepository;
 
     public CalendarInteractor(ICalendarRepository calendarRepository,
+                              IScheduleRepository scheduleRepository,
                               IDashboardRepository dashboardRepository,
                               ITokenRepository tokenRepository) {
         mCalendarRepository = calendarRepository;
+        mScheduleRepository = scheduleRepository;
         mDashboardRepository = dashboardRepository;
         mTokenRepository = tokenRepository;
     }
@@ -51,8 +56,14 @@ public class CalendarInteractor implements ICalendarInteractor {
                     DateUtils.toServerDateTimeWithoutConvertingString(endDate.getTime()))
                     .map(ModelsConverter::convertEventsResponseToVerbatologEventsModelList)
                     .map( unsortedList -> {
-                        Collections.sort(unsortedList, new EventsComparator());
-                        return unsortedList;
+                        List<EventModel> eventModels = new ArrayList<>();
+                        for (int i = 0; i < unsortedList.size(); i ++) {
+                            if (!unsortedList.get(i).getReport().isCanceled()) {
+                                eventModels.add(unsortedList.get(i));
+                            }
+                        }
+                        Collections.sort(eventModels, new EventsComparator());
+                        return eventModels;
                     })
                     .doOnNext(eventModels -> mCalendarRepository.saveLastDate(startDate))
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
@@ -66,10 +77,17 @@ public class CalendarInteractor implements ICalendarInteractor {
     @Override
     public Observable<List<TimeIntervalModel>> getAvailableTimeIntervals(Calendar calendar) {
         try {
-            return mCalendarRepository.getEvents(getAccessToken(),
-                    DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
-                    DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar)))
-                    .map( eventsResponseModel -> ModelsConverter.convertEventsResponseToTimeIntervalsList(calendar, eventsResponseModel))
+            return Observable.zip(
+                    mCalendarRepository.getEvents(getAccessToken(),
+                            DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
+                            DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar)))
+                    ,
+                    mScheduleRepository.getSchedule(getAccessToken(),
+                            DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
+                            DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar))),
+                    (eventsResponseModel, scheduleResponseModel) ->
+                            ModelsConverter.convertEventsResponseToTimeIntervalsList(calendar, eventsResponseModel, scheduleResponseModel)
+            )
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {

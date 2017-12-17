@@ -8,6 +8,8 @@ import com.verbatoria.data.repositories.calendar.CalendarRepository;
 import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.dashboard.DashboardRepository;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
+import com.verbatoria.data.repositories.schedule.IScheduleRepository;
+import com.verbatoria.data.repositories.schedule.ScheduleRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.presentation.calendar.presenter.CalendarPresenter;
 import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
@@ -45,6 +47,12 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
+    IScheduleRepository provideScheduleRepository() {
+        return new ScheduleRepository();
+    }
+
+    @Provides
+    @DashboardScope
     IDashboardInteractor provideDashboardInteractor(IDashboardRepository dashboardRepository,
                                                     ITokenRepository tokenRepository) {
         return new DashboardInteractor(dashboardRepository, tokenRepository);
@@ -53,9 +61,10 @@ public class DashboardModule {
     @Provides
     @DashboardScope
     ICalendarInteractor provideCalendarInteractor(ICalendarRepository calendarRepository,
+                                                  IScheduleRepository scheduleRepository,
                                                   IDashboardRepository dashboardRepository,
                                                   ITokenRepository tokenRepository) {
-        return new CalendarInteractor(calendarRepository, dashboardRepository, tokenRepository);
+        return new CalendarInteractor(calendarRepository, scheduleRepository, dashboardRepository, tokenRepository);
     }
 
     @Provides

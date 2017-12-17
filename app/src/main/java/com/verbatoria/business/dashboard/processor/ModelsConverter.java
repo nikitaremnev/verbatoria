@@ -1,5 +1,7 @@
 package com.verbatoria.business.dashboard.processor;
 
+import android.util.Log;
+
 import com.verbatoria.business.dashboard.DashboardInteractorException;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -12,6 +14,8 @@ import com.verbatoria.data.network.response.EventResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.ReportResponseModel;
+import com.verbatoria.data.network.response.ScheduleItemResponseModel;
+import com.verbatoria.data.network.response.ScheduleResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.DateUtils;
 
@@ -63,33 +67,46 @@ public class ModelsConverter {
         return verbatologEventsList;
     }
 
-    public static List<TimeIntervalModel> convertEventsResponseToTimeIntervalsList(Calendar calendar, EventsResponseModel eventsResponseModel) {
+    private static final int HOUR_START = 8;
+    private static final int HOUR_FINISH = 23;
+
+    public static List<TimeIntervalModel> convertEventsResponseToTimeIntervalsList(Calendar calendar,
+                                                                                   EventsResponseModel eventsResponseModel,
+                                                                                   ScheduleResponseModel scheduleResponseModel) {
         List<TimeIntervalModel> timeIntervalModels = new ArrayList<>();
         calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
+        calendar.set(Calendar.HOUR_OF_DAY, HOUR_START);
         calendar.set(Calendar.SECOND, 0);
-        for (int i = 10; i < 21; i ++) {
+        Calendar calendarHelper = Calendar.getInstance();
+        for (int i = HOUR_START + 1; i < HOUR_FINISH; i ++) {
             TimeIntervalModel timeIntervalModel = new TimeIntervalModel();
             timeIntervalModel.setStartAt(calendar.getTime());
             calendar.set(Calendar.HOUR_OF_DAY, i);
             timeIntervalModel.setEndAt(calendar.getTime());
-            timeIntervalModels.add(timeIntervalModel);
+            calendarHelper.setTime(timeIntervalModel.getStartAt());
+            int timeIntervalStartHour = calendarHelper.get(Calendar.HOUR_OF_DAY);
+            for (int j = 0; j < scheduleResponseModel.getScheduleItems().size(); j ++) {
+                EventModel eventModel = convertScheduleItemEventResponseToEventModel(scheduleResponseModel.getScheduleItems().get(j));
+                calendarHelper.setTime(eventModel.getStartAt());
+                if (calendarHelper.get(Calendar.HOUR_OF_DAY) == timeIntervalStartHour) {
+                    timeIntervalModels.add(timeIntervalModel);
+                    break;
+                }
+            }
         }
 
-        Calendar calendarHelper = Calendar.getInstance();
-
+        calendarHelper = Calendar.getInstance();
         for (int i = 0; i < eventsResponseModel.getEvents().size(); i ++) {
             EventModel eventModel = convertVerbatologEventResponseToEventModel(eventsResponseModel.getEvents().get(i));
-
+            Log.e("test", "eventModel: " + eventModel.toString());
             calendarHelper.setTime(eventModel.getStartAt());
             int startCalendarHour = calendarHelper.get(Calendar.HOUR_OF_DAY);
-
             for (int j = 0; j < timeIntervalModels.size(); j ++) {
                 TimeIntervalModel timeIntervalModel = timeIntervalModels.get(j);
                 calendarHelper.setTime(timeIntervalModel.getStartAt());
                 int currentStartHour = calendarHelper.get(Calendar.HOUR_OF_DAY);
-
-                if (startCalendarHour == currentStartHour) {
+                if (startCalendarHour == currentStartHour && !eventModel.getReport().isCanceled()) {
+                    Log.e("test", "timeIntervalModels.remove: " + currentStartHour);
                     timeIntervalModels.remove(j);
                     break;
                 }
@@ -110,6 +127,18 @@ public class ModelsConverter {
         }
         eventModel.setChild(convertVerbatologChildResponseToEventModel(eventResponseModel.getChild()));
         eventModel.setReport(convertReportResponseModelToReportModel(eventResponseModel.getReport()));
+        return eventModel;
+    }
+
+    private static EventModel convertScheduleItemEventResponseToEventModel(ScheduleItemResponseModel scheduleItemResponseModel) {
+        EventModel eventModel = new EventModel();
+        eventModel.setId(scheduleItemResponseModel.getId());
+        try {
+            eventModel.setStartAt(DateUtils.parseDateTime(scheduleItemResponseModel.getFromTime()));
+            eventModel.setEndAt(DateUtils.parseDateTime(scheduleItemResponseModel.getToTime()));
+        } catch (ParseException e) {
+            throw new DashboardInteractorException(e.getMessage());
+        }
         return eventModel;
     }
 
