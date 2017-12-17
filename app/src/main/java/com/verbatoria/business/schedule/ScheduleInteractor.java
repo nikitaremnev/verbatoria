@@ -47,7 +47,7 @@ public class ScheduleInteractor implements IScheduleInteractor {
                     DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekStart().getTime()),
                     DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekEnd().getTime()))
                     .map(scheduleResponseModel -> {
-                        IScheduleDataSource hardScheduleDataSource = new ScheduleDataSource(true);
+                        IScheduleDataSource hardScheduleDataSource = new ScheduleDataSource(Calendar.getInstance());
                         for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleResponseModel.getScheduleItems()) {
                             Date fromDate = null;
                             try {
@@ -68,9 +68,67 @@ public class ScheduleInteractor implements IScheduleInteractor {
     }
 
     @Override
-    public Observable<IScheduleDataSource> saveSchedule(IScheduleDataSource scheduleDataSource) {
+    public Observable<IScheduleDataSource> getSchedulePreviousWeek(IScheduleDataSource currentScheduleDataSource) {
         try {
-            return mScheduleRepository.saveSchedule(getAccessToken(), createScheduleRequestModel(scheduleDataSource))
+            return mScheduleRepository.getSchedule(getAccessToken(),
+                    DateUtils.toServerDateTimeWithoutConvertingString(currentScheduleDataSource.getPreviousWeekStart().getTime()),
+                    DateUtils.toServerDateTimeWithoutConvertingString(currentScheduleDataSource.getPreviousWeekFinish().getTime()))
+                    .map(scheduleResponseModel -> {
+                        Calendar calendar = currentScheduleDataSource.getOriginalCalendar();
+                        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - 7);
+                        IScheduleDataSource hardScheduleDataSource = new ScheduleDataSource(calendar);
+                        for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleResponseModel.getScheduleItems()) {
+                            Date fromDate = null;
+                            try {
+                                fromDate = DateUtils.parseDateTime(scheduleItemResponseModel.getFromTime());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            hardScheduleDataSource.setWorkingInterval(fromDate);
+                        }
+                        return hardScheduleDataSource;
+                    })
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Observable<IScheduleDataSource> getScheduleNextWeek(IScheduleDataSource currentScheduleDataSource) {
+        try {
+            return mScheduleRepository.getSchedule(getAccessToken(),
+                    DateUtils.toServerDateTimeWithoutConvertingString(currentScheduleDataSource.getNextWeekStart().getTime()),
+                    DateUtils.toServerDateTimeWithoutConvertingString(currentScheduleDataSource.getNextWeekFinish().getTime()))
+                    .map(scheduleResponseModel -> {
+                        Calendar calendar = currentScheduleDataSource.getOriginalCalendar();
+                        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) + 7);
+                        IScheduleDataSource hardScheduleDataSource = new ScheduleDataSource(calendar);
+                        for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleResponseModel.getScheduleItems()) {
+                            Date fromDate = null;
+                            try {
+                                fromDate = DateUtils.parseDateTime(scheduleItemResponseModel.getFromTime());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            hardScheduleDataSource.setWorkingInterval(fromDate);
+                        }
+                        return hardScheduleDataSource;
+                    })
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Observable<IScheduleDataSource> saveSchedule(IScheduleDataSource scheduleDataSource, int weeksForwardCount) {
+        try {
+            return mScheduleRepository.saveSchedule(getAccessToken(), createScheduleRequestModel(scheduleDataSource, weeksForwardCount))
                     .map(scheduleItemResponseModels -> {
                         for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleItemResponseModels) {
                             Date fromDate = null;
@@ -92,10 +150,10 @@ public class ScheduleInteractor implements IScheduleInteractor {
     }
 
     @Override
-    public Observable<IScheduleDataSource> deleteSchedule(IScheduleDataSource scheduleDataSource) {
+    public Observable<Integer> deleteSchedule(IScheduleDataSource scheduleDataSource, int weeksForwardCount) {
         try {
-            return mScheduleRepository.deleteSchedule(getAccessToken(), createScheduleDeleteRequestModel(scheduleDataSource))
-                    .map(scheduleItemResponseModels -> scheduleDataSource)
+            return mScheduleRepository.deleteSchedule(getAccessToken(), createScheduleDeleteRequestModel(scheduleDataSource, weeksForwardCount))
+                    .map(scheduleItemResponseModels -> weeksForwardCount)
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {
@@ -109,15 +167,15 @@ public class ScheduleInteractor implements IScheduleInteractor {
         return tokenModel.getAccessToken();
     }
 
-    private ScheduleRequestModel createScheduleRequestModel(IScheduleDataSource scheduleDataSource) throws ParseException {
+    private ScheduleRequestModel createScheduleRequestModel(IScheduleDataSource scheduleDataSource, int weeksForwardCount) throws ParseException {
         return new ScheduleRequestModel()
-                .setScheduleItems(createScheduleItemsRequestModel(scheduleDataSource.getItems(true)));
+                .setScheduleItems(createScheduleItemsRequestModel(scheduleDataSource.getItems(true, weeksForwardCount)));
     }
 
-    private ScheduleDeleteRequestModel createScheduleDeleteRequestModel(IScheduleDataSource scheduleDataSource) throws ParseException {
+    private ScheduleDeleteRequestModel createScheduleDeleteRequestModel(IScheduleDataSource scheduleDataSource, int weeksForwardCount) throws ParseException {
         return new ScheduleDeleteRequestModel()
                 .setFromTime(DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekStart().getTime()))
-                .setToTime(DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekEnd().getTime()));
+                .setToTime(DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getDeleteBorder(weeksForwardCount).getTime()));
     }
 
     private List<ScheduleItemRequestModel> createScheduleItemsRequestModel(Map<Date, List<Date>> scheduleItems) throws ParseException {

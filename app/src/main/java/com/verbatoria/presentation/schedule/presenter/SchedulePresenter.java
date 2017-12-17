@@ -31,6 +31,8 @@ public class SchedulePresenter extends BasePresenter implements ISchedulePresent
     protected void onStart() {
         super.onStart();
         mScheduleInteractor.getSchedule()
+                .doOnSubscribe(() -> mScheduleView.showProgress())
+                .doOnUnsubscribe(() -> mScheduleView.hideProgress())
                 .subscribe(this::handleScheduleReceived, this::handleScheduleError);
     }
 
@@ -58,24 +60,39 @@ public class SchedulePresenter extends BasePresenter implements ISchedulePresent
 
     @Override
     public void onNextWeekClicked() {
-        mScheduleDataSource.moveToTheNextWeek();
+        mScheduleInteractor.getScheduleNextWeek(mScheduleDataSource)
+                .doOnSubscribe(() -> mScheduleView.showProgress())
+                .doOnUnsubscribe(() -> mScheduleView.hideProgress())
+                .subscribe(this::handleScheduleReceived, this::handleScheduleError);
     }
 
     @Override
     public void onPreviousWeekClicked() {
-        mScheduleDataSource.moveToThePreviousWeek();
+        mScheduleInteractor.getSchedulePreviousWeek(mScheduleDataSource)
+                .doOnSubscribe(() -> mScheduleView.showProgress())
+                .doOnUnsubscribe(() -> mScheduleView.hideProgress())
+                .subscribe(this::handleScheduleReceived, this::handleScheduleError);
     }
 
     @Override
     public void onSaveScheduleClicked() {
-        mScheduleInteractor.deleteSchedule(mScheduleDataSource)
-                .subscribe(this::handleScheduleDeleted, this::handleScheduleError);
+        mScheduleView.confirmSaveSchedule();
     }
 
     @Override
     public void clearSchedule() {
-        mScheduleDataSource.clearSchedule();
-        mScheduleView.notifyScheduleCleared();
+        mScheduleInteractor
+                .deleteSchedule(mScheduleDataSource, 0)
+                .doOnSubscribe(() -> mScheduleView.showProgress())
+                .doOnUnsubscribe(() -> mScheduleView.hideProgress())
+                .subscribe(this::handleScheduleCleared, this::handleScheduleError);
+    }
+
+    @Override
+    public void saveSchedule(int weeksForwardCount) {
+        mScheduleInteractor.deleteSchedule(mScheduleDataSource, weeksForwardCount)
+            .doOnSubscribe(() -> mScheduleView.showProgress())
+            .subscribe(this::handleScheduleDeleted, this::handleScheduleError);
     }
 
     @Override
@@ -91,19 +108,28 @@ public class SchedulePresenter extends BasePresenter implements ISchedulePresent
     private void handleScheduleReceived(IScheduleDataSource scheduleDataSource) {
         mScheduleDataSource = scheduleDataSource;
         mScheduleView.setUpAdapter(scheduleDataSource);
+        mScheduleView.showScheduleLoaded(mScheduleDataSource.getWeekTitle());
     }
 
-    private void handleScheduleDeleted(IScheduleDataSource scheduleDataSource) {
-        mScheduleInteractor.saveSchedule(mScheduleDataSource)
+    private void handleScheduleDeleted(int weeksForwardCount) {
+        mScheduleInteractor.saveSchedule(mScheduleDataSource, weeksForwardCount)
+                .doOnUnsubscribe(() -> mScheduleView.hideProgress())
                 .subscribe(this::handleScheduleSaved, this::handleScheduleError);
+    }
+
+    private void handleScheduleCleared(int weeksForwardCount) {
+        mScheduleDataSource.clearSchedule();
+        mScheduleView.notifyScheduleCleared();
     }
 
     private void handleScheduleSaved(IScheduleDataSource scheduleDataSource) {
         mScheduleDataSource = scheduleDataSource;
         mScheduleView.setUpAdapter(scheduleDataSource);
+        mScheduleView.showScheduleSaved();
     }
 
     private void handleScheduleError(Throwable throwable) {
+        mScheduleView.showError(throwable.getLocalizedMessage());
         throwable.printStackTrace();
     }
 }

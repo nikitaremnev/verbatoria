@@ -13,7 +13,11 @@ public interface IScheduleInteractor {
 
     Observable<IScheduleDataSource> getSchedule();
 
-    Observable<IScheduleDataSource> saveSchedule(IScheduleDataSource scheduleDataSource);
+    Observable<IScheduleDataSource> getScheduleNextWeek(IScheduleDataSource scheduleDataSource);
 
-    Observable<IScheduleDataSource> deleteSchedule(IScheduleDataSource scheduleDataSource);
+    Observable<IScheduleDataSource> getSchedulePreviousWeek(IScheduleDataSource scheduleDataSource);
+
+    Observable<IScheduleDataSource> saveSchedule(IScheduleDataSource scheduleDataSource, int weeksForwardCount);
+
+    Observable<Integer> deleteSchedule(IScheduleDataSource scheduleDataSource,  int weeksForwardCount);
 }

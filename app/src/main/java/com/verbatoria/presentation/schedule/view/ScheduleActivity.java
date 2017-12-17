@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RadioButton;
 
 import com.cleveroad.adaptivetablelayout.AdaptiveTableLayout;
 import com.cleveroad.adaptivetablelayout.OnItemClickListener;
@@ -94,12 +96,12 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
 
     @Override
     public void showProgress() {
-
+        startProgress();
     }
 
     @Override
     public void hideProgress() {
-
+        stopProgress();
     }
 
     @Override
@@ -109,7 +111,8 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
 
     @Override
     public void notifyScheduleCleared() {
-        mScheduleAdapter.notifyDataSetChanged();
+        Helper.showShortHintSnackBar(mScheduleLayout, getString(R.string.schedule_cleared));
+        mScheduleLayout.notifyDataSetChanged();
     }
 
     @Override
@@ -130,13 +133,38 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
     }
 
     @Override
-    public void showScheduleNextWeekSelectedMessage(String week) {
-        Helper.showShortHintSnackBar(mScheduleLayout, String.format(getString(R.string.schedule_week_selected_message), week));
+    public void showScheduleSaved() {
+        Helper.showShortHintSnackBar(mScheduleLayout, getString(R.string.schedule_saved));
     }
 
     @Override
-    public void showSchedulePreviousWeekSelectedMessage(String week) {
-        Helper.showShortHintSnackBar(mScheduleLayout, String.format(getString(R.string.schedule_week_selected_message), week));
+    public void showScheduleLoaded(String period) {
+        Helper.showShortHintSnackBar(mScheduleLayout, String.format(getString(R.string.schedule_loaded_by_period), period));
+    }
+
+    @Override
+    public void confirmSaveSchedule() {
+        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_save_schedule, null);
+        RadioButton noOption = dialogRootView.findViewById(R.id.no_option);
+        RadioButton firstOption = dialogRootView.findViewById(R.id.first_option);
+        RadioButton secondOption = dialogRootView.findViewById(R.id.second_option);
+        RadioButton thirdOption = dialogRootView.findViewById(R.id.third_option);
+        RadioButton fourthOption = dialogRootView.findViewById(R.id.fourth_option);
+        AlertDialog builder = new AlertDialog.Builder(this)
+                .setView(dialogRootView)
+                .setTitle(getString(R.string.schedule_saving))
+                .setPositiveButton(getString(R.string.schedule_save), (dialog, which) -> {
+                    int selectedWeeks = noOption.isChecked() ? 0 :
+                            firstOption.isChecked() ? 1 :
+                                    secondOption.isChecked() ? 2 :
+                                            thirdOption.isChecked() ? 3 :
+                                                    fourthOption.isChecked() ? 4 : 5;
+                    mSchedulePresenter.saveSchedule(selectedWeeks);
+                })
+                .setNegativeButton(getString(R.string.cancel), null)
+                .create();
+        noOption.setChecked(true);
+        builder.show();
     }
 
     @Override
@@ -156,6 +184,7 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
         mScheduleAdapter = new ScheduleAdapter(this, scheduleDataSource);
         mScheduleAdapter.setOnItemClickListener(this);
         mScheduleLayout.setAdapter(mScheduleAdapter);
+        mScheduleLayout.notifyLayoutChanged();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.verbatoria.business.schedule.datasource;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,13 @@ public interface IScheduleDataSource<TFirstHeaderDataType, TRowHeaderDataType, T
 
     TItemDataType getItemData(int rowIndex, int columnIndex);
 
-    void moveToTheNextWeek();
+    Date getNextWeekStart();
 
-    void moveToThePreviousWeek();
+    Date getNextWeekFinish();
+
+    Date getPreviousWeekStart();
+
+    Date getPreviousWeekFinish();
 
     String getWeekTitle();
 
@@ -34,8 +39,14 @@ public interface IScheduleDataSource<TFirstHeaderDataType, TRowHeaderDataType, T
 
     Date getWeekEnd();
 
+    Date getDeleteBorder(int weeksForwardCount);
+
+    Calendar getOriginalCalendar();
+
     void setWorkingInterval(Date date);
 
     Map<Date, List<Date>> getItems(boolean selected);
+
+    Map<Date, List<Date>> getItems(boolean selected, int nextWeeksCount);
 
 }

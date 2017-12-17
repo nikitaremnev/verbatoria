@@ -1,6 +1,8 @@
 package com.verbatoria.business.schedule.datasource;
 
 import com.verbatoria.business.schedule.models.ScheduleItemModel;
+import com.verbatoria.utils.DateUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,13 +28,14 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     private Calendar mCalendar = Calendar.getInstance();
 
-    private Calendar mOriginalCalendar = Calendar.getInstance();
+    private Calendar mOriginalCalendar;
 
     public ScheduleDataSource() {
-
+        mOriginalCalendar = Calendar.getInstance();
     }
 
-    public ScheduleDataSource(boolean hard) {
+    public ScheduleDataSource(Calendar calendar) {
+        mOriginalCalendar = calendar;
         int dayOfWeekIndex = 1;
         while (dayOfWeekIndex < ROWS_COUNT) {
             List<ScheduleItemModel> dayGenerated = new ArrayList<>();
@@ -64,7 +67,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mOriginalCalendar.getTime());
         int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
-        mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - index));
+        mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - (index - 1)));
         return mCalendar.getTime();
     }
 
@@ -81,24 +84,46 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     }
 
     @Override
-    public void moveToTheNextWeek() {
+    public Date getNextWeekStart() {
         mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) + WEEK_COUNT);
+        Date result = getWeekStart();
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT);
+        return result;
     }
 
     @Override
-    public void moveToThePreviousWeek() {
+    public Date getNextWeekFinish() {
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) + WEEK_COUNT);
+        Date result = getWeekEnd();
         mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT);
+        return result;
+    }
+
+    @Override
+    public Date getPreviousWeekStart() {
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT);
+        Date result = getWeekStart();
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) + WEEK_COUNT);
+        return result;
+    }
+
+    @Override
+    public Date getPreviousWeekFinish() {
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT);
+        Date result = getWeekEnd();
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) + WEEK_COUNT);
+        return result;
     }
 
     @Override
     public String getWeekTitle() {
-        return null;
+        return DateUtils.datePeriodToString(getRowHeaderData(FIRST_DAY_OF_WEEK), getRowHeaderData(ROWS_COUNT - 1));
     }
 
     @Override
     public void clearSchedule() {
-        int dayOfWeekIndex = 0;
-        while (dayOfWeekIndex < WEEK_COUNT) {
+        int dayOfWeekIndex = FIRST_DAY_OF_WEEK;
+        while (dayOfWeekIndex < ROWS_COUNT) {
             List<ScheduleItemModel> scheduleItemModelList = mItems.get(dayOfWeekIndex);
             for (int i = 0; i < scheduleItemModelList.size(); i++) {
                 scheduleItemModelList.get(i).setSelected(false);
@@ -130,18 +155,31 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     }
 
     @Override
+    public Date getDeleteBorder(int weeksForwardCount) {
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) + WEEK_COUNT * weeksForwardCount);
+        Date result = getWeekEnd();
+        mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT * weeksForwardCount);
+        return result;
+    }
+
+    @Override
+    public Calendar getOriginalCalendar() {
+        return mOriginalCalendar;
+    }
+
+    @Override
     public void setWorkingInterval(Date date) {
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(date);
         int currentHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         if (isHourInBorders(currentHour)) {
-            mItems.get(getCurrentDayOfWeek() - 1).get(currentHour - START_HOUR).setSelected(true);
+            mItems.get(getCurrentDayOfWeek()).get(currentHour - START_HOUR).setSelected(true);
         }
     }
 
     @Override
     public Map<Date, List<Date>> getItems(boolean selected) {
-        int dayOfWeekIndex = 1;
+        int dayOfWeekIndex = FIRST_DAY_OF_WEEK;
         Map<Date, List<Date>> resultItems = new HashMap<>();
         while (dayOfWeekIndex < ROWS_COUNT) {
             List<ScheduleItemModel> scheduleItemModelList = mItems.get(dayOfWeekIndex);
@@ -153,6 +191,28 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
             }
             resultItems.put(getRowHeaderData(dayOfWeekIndex), subItems);
             dayOfWeekIndex ++;
+        }
+        return resultItems;
+    }
+
+    @Override
+    public Map<Date, List<Date>> getItems(boolean selected, int nextWeeksCount) {
+        Map<Date, List<Date>> resultItems = new HashMap<>();
+        for (int weekForward = 0; weekForward < nextWeeksCount + 1; weekForward ++) {
+            mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) + WEEK_COUNT * weekForward);
+            int dayOfWeekIndex = FIRST_DAY_OF_WEEK;
+            while (dayOfWeekIndex < ROWS_COUNT) {
+                List<ScheduleItemModel> scheduleItemModelList = mItems.get(dayOfWeekIndex);
+                List<Date> subItems = new ArrayList<>();
+                for (int i = 0; i < scheduleItemModelList.size(); i++) {
+                    if (scheduleItemModelList.get(i).isSelected() == selected) {
+                        subItems.add(getColumnHeaderData(i + 1));
+                    }
+                }
+                resultItems.put(getRowHeaderData(dayOfWeekIndex), subItems);
+                dayOfWeekIndex ++;
+            }
+            mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT * weekForward);
         }
         return resultItems;
     }

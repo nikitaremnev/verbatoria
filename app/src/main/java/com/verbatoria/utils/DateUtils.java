@@ -103,6 +103,12 @@ public class DateUtils {
                 SERVER_TIME_FORMAT.format(endDate);
     }
 
+    public static String datePeriodToString(Date startDate, Date endDate) {
+        return SERVER_DATE_WITHOUT_YEAR_FORMAT.format(startDate) +
+                " - " +
+                SERVER_DATE_WITHOUT_YEAR_FORMAT.format(endDate);
+    }
+
     public static int getYearsBetweenDates(Date startDate, Date endDate) {
         Calendar firstCalendar = GregorianCalendar.getInstance();
         Calendar secondCalendar = GregorianCalendar.getInstance();

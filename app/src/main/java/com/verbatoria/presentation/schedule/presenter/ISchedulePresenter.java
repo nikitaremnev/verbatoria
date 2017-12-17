@@ -27,4 +27,6 @@ public interface ISchedulePresenter {
 
     void clearSchedule();
 
+    void saveSchedule(int weeksForwardCount);
+
 }

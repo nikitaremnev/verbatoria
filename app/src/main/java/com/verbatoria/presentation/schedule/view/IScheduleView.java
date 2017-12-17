@@ -11,18 +11,23 @@ import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 public interface IScheduleView {
 
     void showProgress();
+
     void hideProgress();
 
     void setUpAdapter(IScheduleDataSource scheduleDataSource);
+
     void notifyItemChanged(int row, int column, boolean state);
+
     void notifyScheduleCleared();
 
     void showScheduleClearConfirmation();
 
     void showError(String error);
 
-    void showScheduleNextWeekSelectedMessage(String week);
+    void showScheduleSaved();
 
-    void showSchedulePreviousWeekSelectedMessage(String week);
+    void showScheduleLoaded(String period);
+
+    void confirmSaveSchedule();
 
 }

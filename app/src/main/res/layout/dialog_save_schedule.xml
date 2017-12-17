@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="@dimen/save_dialog_padding"
+    android:layout_height="match_parent">
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/save_dialog_option_padding"
+            android:text="@string/schedule_only_this_week"
+            android:id="@+id/no_option"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/save_dialog_option_padding"
+            android:text="@string/schedule_save_1_week"
+            android:id="@+id/first_option"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/save_dialog_option_padding"
+            android:text="@string/schedule_save_2_weeks"
+            android:id="@+id/second_option"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/save_dialog_option_padding"
+            android:text="@string/schedule_save_3_weeks"
+            android:id="@+id/third_option"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/save_dialog_option_padding"
+            android:text="@string/schedule_save_4_weeks"
+            android:id="@+id/fourth_option"/>
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/save_dialog_option_padding"
+            android:text="@string/schedule_save_5_weeks"
+            android:id="@+id/fifth_option"/>
+
+    </RadioGroup>
+
+</LinearLayout>
