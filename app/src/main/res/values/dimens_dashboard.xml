@@ -3,8 +3,12 @@
     <dimen name="verbatolog_info_card_elevation">5dp</dimen>
     <dimen name="dashboard_horizontal_padding">16dp</dimen>
     <dimen name="dashboard_padding">16dp</dimen>
-    <dimen name="verbatolog_status_diameter">20dp</dimen>
+    <dimen name="verbatolog_status_diameter">15dp</dimen>
     <dimen name="verbatolog_status_margin">16dp</dimen>
+    <dimen name="verbatolog_status_right_margin">21dp</dimen>
+
+    <dimen name="verbatolog_status_vertical_margin">16dp</dimen>
+
     <dimen name="verbatolog_fields_left_margin">52dp</dimen>
     <dimen name="verbatolog_fields_right_margin">16dp</dimen>
     <dimen name="verbatolog_fields_top_margin">4dp</dimen>
@@ -45,6 +49,10 @@
 
     <dimen name="verbatolog_info_subtitle_other_padding">16dp</dimen>
     <dimen name="verbatolog_info_subtitle_bottom_padding">8dp</dimen>
+    <dimen name="verbatolog_info_subtitle_top_padding">8dp</dimen>
+
+    <dimen name="verbatolog_big_text_size">15sp</dimen>
+    <dimen name="verbatolog_small_text_size">13sp</dimen>
 
     <dimen name="verbatolog_location_info_left_margin">24dp</dimen>
 
