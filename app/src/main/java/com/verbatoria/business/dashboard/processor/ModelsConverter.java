@@ -67,8 +67,8 @@ public class ModelsConverter {
         return verbatologEventsList;
     }
 
-    private static final int HOUR_START = 8;
-    private static final int HOUR_FINISH = 23;
+    private static final int HOUR_START = 9;
+    private static final int HOUR_FINISH = 21;
 
     public static List<TimeIntervalModel> convertEventsResponseToTimeIntervalsList(Calendar calendar,
                                                                                    EventsResponseModel eventsResponseModel,

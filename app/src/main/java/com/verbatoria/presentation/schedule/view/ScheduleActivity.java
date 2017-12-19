@@ -181,7 +181,7 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
 
     @Override
     public void setUpAdapter(IScheduleDataSource scheduleDataSource) {
-        mScheduleAdapter = new ScheduleAdapter(this, scheduleDataSource);
+        mScheduleAdapter = new ScheduleAdapter(this, scheduleDataSource, mScheduleLayout.getWidth(), mScheduleLayout.getHeight());
         mScheduleAdapter.setOnItemClickListener(this);
         mScheduleLayout.setAdapter(mScheduleAdapter);
         mScheduleLayout.notifyLayoutChanged();

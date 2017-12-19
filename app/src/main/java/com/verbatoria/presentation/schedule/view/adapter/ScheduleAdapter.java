@@ -26,6 +26,9 @@ import java.util.Locale;
 
 public class ScheduleAdapter extends LinkedAdaptiveTableAdapter<ViewHolderImpl> {
 
+    private static final int ROWS_COUNT = 7;
+    private static final int COLUMN_COUNT = 11;
+
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM", Locale.ROOT);
     private static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm", Locale.ROOT);
 
@@ -40,13 +43,13 @@ public class ScheduleAdapter extends LinkedAdaptiveTableAdapter<ViewHolderImpl> 
 
     private IScheduleDataSource<String, Date, Date, ScheduleItemModel> mDataSource;
 
-    public ScheduleAdapter(Context context, IScheduleDataSource<String, Date, Date, ScheduleItemModel> dataSource) {
+    public ScheduleAdapter(Context context, IScheduleDataSource<String, Date, Date, ScheduleItemModel> dataSource, int width, int height) {
         mLayoutInflater = LayoutInflater.from(context);
         Resources resources = context.getResources();
         mHeaderColumnHeight = resources.getDimensionPixelSize(R.dimen.column_header_height);
-        mRowHeight = resources.getDimensionPixelSize(R.dimen.row_height);
+        mRowHeight = (height - mHeaderColumnHeight) / ROWS_COUNT;
         mHeaderRowWidth = resources.getDimensionPixelSize(R.dimen.row_header_width);
-        mColumnWidth = resources.getDimensionPixelSize(R.dimen.column_width);
+        mColumnWidth = (width - mHeaderRowWidth) / COLUMN_COUNT;
         ROWS_NAMES = context.getResources().getStringArray(R.array.rows_names);
         mDataSource = dataSource;
     }

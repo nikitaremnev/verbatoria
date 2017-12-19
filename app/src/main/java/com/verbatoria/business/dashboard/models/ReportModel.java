@@ -18,7 +18,7 @@ public class ReportModel implements Parcelable {
 
     public class STATUS {
         public static final String NEW = "new";
-        public static final String CANCELED = "canceled";
+        public static final String CANCELED = "cancelled";
         public static final String UPLOADED = "uploaded";
         public static final String READY = "ready";
         public static final String SENT = "sent";

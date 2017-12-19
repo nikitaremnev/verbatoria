@@ -1,5 +1,7 @@
 package com.verbatoria.business.schedule.datasource;
 
+import android.util.Log;
+
 import com.verbatoria.business.schedule.models.ScheduleItemModel;
 import com.verbatoria.utils.DateUtils;
 
@@ -18,8 +20,8 @@ import java.util.WeakHashMap;
 public class ScheduleDataSource implements IScheduleDataSource<String, Date, Date, ScheduleItemModel> {
 
     private static final int ROWS_COUNT = 8;
-    private static final int START_HOUR = 8;
-    private static final int END_HOUR = 21;
+    private static final int START_HOUR = 9;
+    private static final int END_HOUR = 20;
     private static final int WEEK_COUNT = 7;
     private static final int FIRST_DAY_OF_WEEK = 1;
     private static final int COLUMN_COUNT = END_HOUR - START_HOUR + 1;
@@ -66,7 +68,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     public Date getRowHeaderData(int index) {
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mOriginalCalendar.getTime());
-        int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
+        int firstDayOfWeek = getFirstDayOfWeek();
         mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - (index - 1)));
         return mCalendar.getTime();
     }
@@ -136,7 +138,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     public Date getWeekStart() {
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mOriginalCalendar.getTime());
-        int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
+        int firstDayOfWeek = getFirstDayOfWeek();
         mCalendar.set(Calendar.HOUR_OF_DAY, 0);
         mCalendar.set(Calendar.MINUTE, 0);
         mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek));
@@ -147,7 +149,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     public Date getWeekEnd() {
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(mOriginalCalendar.getTime());
-        int firstDayOfWeek = mCalendar.getFirstDayOfWeek();
+        int firstDayOfWeek = getFirstDayOfWeek();
         mCalendar.set(Calendar.HOUR_OF_DAY, 0);
         mCalendar.set(Calendar.MINUTE, 0);
         mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - WEEK_COUNT));
@@ -171,6 +173,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
     public void setWorkingInterval(Date date) {
         mCalendar = Calendar.getInstance();
         mCalendar.setTime(date);
+        Log.e("test", "getCurrentDayOfWeek: " + getCurrentDayOfWeek());
         int currentHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         if (isHourInBorders(currentHour)) {
             mItems.get(getCurrentDayOfWeek()).get(currentHour - START_HOUR).setSelected(true);
@@ -215,6 +218,10 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
             mOriginalCalendar.set(Calendar.DAY_OF_YEAR, mOriginalCalendar.get(Calendar.DAY_OF_YEAR) - WEEK_COUNT * weekForward);
         }
         return resultItems;
+    }
+
+    private int getFirstDayOfWeek() {
+        return mCalendar.getFirstDayOfWeek() - 1;
     }
 
     private int getCurrentDayOfWeek() {
