@@ -3,6 +3,8 @@ package com.verbatoria.business.session;
 import com.neurosky.connection.DataType.MindDataType;
 import com.neurosky.connection.EEGPower;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.manager.AudioPlayerManager;
 import com.verbatoria.business.session.processor.AttentionValueProcessor;
@@ -10,7 +12,6 @@ import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.session.processor.ExportProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
-import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -27,7 +28,7 @@ import java.util.Timer;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 import static com.verbatoria.business.session.activities.ActivitiesCodes.NO_CODE;
@@ -73,8 +74,9 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
     }
 
     @Override
-    public Observable<FinishSessionResponseModel> finishSession(String eventId) {
+    public Completable finishSession(String eventId) {
         return mSessionRepository.finishSession(getAccessToken())
+                .toCompletable()
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -88,10 +90,21 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
     }
 
     @Override
-    public Observable<ResponseBody> submitResults() {
+    public Completable submitResults() {
         File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
         RequestBody fileBody = RequestBody.create(MediaType.parse("application/json"), file);
         return mSessionRepository.addResults(getAccessToken(), fileBody)
+                .toCompletable()
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Completable submitResults(String fileName) {
+        File file = new File(FileUtils.getApplicationDirectory(), fileName);
+        RequestBody fileBody = RequestBody.create(MediaType.parse("application/json"), file);
+        return mSessionRepository.addResults(getAccessToken(), fileBody)
+                .toCompletable()
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -110,6 +123,12 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
+    @Override
+    public Completable backupReport(EventModel eventModel) {
+        return Completable.fromAction(() -> mSessionRepository.backupReport(createLateReportModel(eventModel)))
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
 
     @Override
     public void startConnection() {
@@ -346,6 +365,16 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
         if (mActivitiesCallback != null) {
             mActivitiesCallback = null;
         }
+    }
+
+    private LateReportModel createLateReportModel(EventModel eventModel) {
+        return new LateReportModel()
+                .setSessionId(PreferencesStorage.getInstance().getCurrentSessionId())
+                .setChildName(eventModel.getChild().getName())
+                .setReportId(eventModel.getReport().getReportId())
+                .setReportFileName(PreferencesStorage.getInstance().getLastReportName())
+                .setStartAt(eventModel.getStartAt())
+                .setEndAt(eventModel.getEndAt());
     }
 
 }

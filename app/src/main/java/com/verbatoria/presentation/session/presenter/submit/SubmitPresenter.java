@@ -7,12 +7,12 @@ import android.util.Log;
 
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.presentation.session.view.submit.ISubmitView;
 import com.verbatoria.utils.Logger;
+
 import java.util.Map;
+
 import javax.inject.Inject;
-import okhttp3.ResponseBody;
 
 import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
@@ -65,13 +65,13 @@ public class SubmitPresenter implements ISubmitPresenter {
                 .subscribe(this::handleResultsSubmitted, this::handleError);
     }
 
-    private void handleResultsSubmitted(ResponseBody responseBody) {
+    private void handleResultsSubmitted() {
         Log.e(TAG, "handleResultsSubmitted");
         mSessionInteractor.finishSession(mEventModel.getId())
                 .subscribe(this::handleSessionFinished, this::handleError);
     }
 
-    private void handleSessionFinished(FinishSessionResponseModel finishSessionResponseModel) {
+    private void handleSessionFinished() {
         Log.e(TAG, "handleSessionFinished");
         mSessionInteractor.cleanUp()
                 .subscribe(this::cleanUpFinished, this::handleError);
@@ -83,11 +83,24 @@ public class SubmitPresenter implements ISubmitPresenter {
         mSubmitView.finishSession();
     }
 
-    private void handleError(Throwable throwable) {
+    private void handleReportBackUp() {
+        mSubmitView.hideProgress();
+        mSubmitView.finishSessionWithError();
+    }
+
+    private void handleReportBackUpError(Throwable throwable) {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
         mSubmitView.hideProgress();
         mSubmitView.showError(throwable.getLocalizedMessage());
+    }
+
+    private void handleError(Throwable throwable) {
+        throwable.printStackTrace();
+        Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
+        mSubmitView.showError(throwable.getLocalizedMessage());
+        mSessionInteractor.backupReport(mEventModel)
+                .subscribe(this::handleReportBackUp, this::handleReportBackUpError);
     }
 
 }

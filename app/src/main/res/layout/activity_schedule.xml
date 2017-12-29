@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
+    android:background="@color/background_schedule"
     android:orientation="vertical">
 
     <com.cleveroad.adaptivetablelayout.AdaptiveTableLayout
         android:id="@+id/schedule_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cellMargin="1dp"
+        app:cellMargin="2dp"
         app:fixedHeaders="true"
         app:solidRowHeaders="true"
         app:dragAndDropEnabled="false"/>

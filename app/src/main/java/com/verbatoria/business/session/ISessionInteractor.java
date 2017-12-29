@@ -1,13 +1,12 @@
 package com.verbatoria.business.session;
 
 import com.neurosky.connection.EEGPower;
-import com.verbatoria.data.network.response.FinishSessionResponseModel;
+import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 
 import java.util.Map;
 
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -18,11 +17,14 @@ import rx.Observable;
 public interface ISessionInteractor {
 
     Observable<StartSessionResponseModel> startSession(String eventId);
-    Observable<FinishSessionResponseModel> finishSession(String eventId);
+    Completable finishSession(String eventId);
 
     Observable<Void> getAllMeasurements(Map<String, String> answers);
-    Observable<ResponseBody> submitResults();
+    Completable submitResults();
+    Completable submitResults(String fileName);
     Observable<Object> cleanUp();
+
+    Completable backupReport(EventModel eventModel);
 
     void startConnection();
 

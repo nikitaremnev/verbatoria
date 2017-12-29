@@ -194,4 +194,10 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         finish();
     }
 
+    @Override
+    public void finishSessionWithError() {
+        startActivity(DashboardActivity.newInstance(this, false));
+        finish();
+    }
+
 }

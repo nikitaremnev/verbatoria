@@ -11,5 +11,5 @@ public interface ISettingsView {
 //    void showConnection();
     void showLogin();
     void showSchedule();
-
+    void showLateSend();
 }

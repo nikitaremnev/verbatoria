@@ -95,10 +95,15 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void showSessionFinish() {
-        if (getIntent().hasExtra(EXTRA_FINISH_SESSION)) {
+        if (getIntent().getBooleanExtra(EXTRA_FINISH_SESSION, false)) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this)
                     .setMessage(getString(R.string.dashboard_session_finish));
             builder.setNegativeButton(getString(R.string.ok), null);
+            builder.create().show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setMessage(getString(R.string.dashboard_session_finish_error));
+            builder.setNegativeButton(getString(R.string.all_understand), null);
             builder.create().show();
         }
     }

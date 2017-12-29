@@ -120,6 +120,7 @@ public class SchedulePresenter extends BasePresenter implements ISchedulePresent
     private void handleScheduleCleared(int weeksForwardCount) {
         mScheduleDataSource.clearSchedule();
         mScheduleView.notifyScheduleCleared();
+        mScheduleView.showScheduleSaved();
     }
 
     private void handleScheduleSaved(IScheduleDataSource scheduleDataSource) {

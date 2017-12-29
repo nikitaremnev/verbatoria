@@ -15,4 +15,5 @@ public interface ISubmitView extends IAnswerClickCallback {
     void showError(String message);
 
     void finishSession();
+    void finishSessionWithError();
 }

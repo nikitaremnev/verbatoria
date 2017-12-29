@@ -20,4 +20,6 @@ public interface ISettingsPresenter {
 
     void onScheduleClicked();
 
+    void onLateSendClicked();
+
 }

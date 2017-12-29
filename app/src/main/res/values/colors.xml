@@ -37,6 +37,7 @@
     <color name="main_shadowed">#3356C869</color>
     <color name="main_canceled">#33D24B1B</color>
 
+    <color name="background_schedule">#aaFFFFaa</color>
 
 
 </resources>

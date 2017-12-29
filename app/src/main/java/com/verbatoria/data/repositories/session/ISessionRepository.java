@@ -1,5 +1,6 @@
 package com.verbatoria.data.repositories.session;
 
+import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
@@ -39,6 +40,8 @@ public interface ISessionRepository {
 
     Observable<ResponseBody> addResults(String accessToken, RequestBody requestBody);
 
+    Observable<ResponseBody> addResults(String accessToken, String sessionId, RequestBody requestBody);
+
     void addEvent(String code);
 
     void addAttentionValue(int value);
@@ -51,5 +54,7 @@ public interface ISessionRepository {
     void saveSessionId(String sessionId);
 
     void cleanUp();
+
+    void backupReport(LateReportModel lateReportModel);
 
 }

@@ -16,6 +16,7 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresenter;
+import com.verbatoria.presentation.late_send.view.LateSendActivity;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.presentation.schedule.view.ScheduleActivity;
 
@@ -38,6 +39,9 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 //    public View mConnectionView;
     @BindView(R.id.item_settings_schedule)
     public View mScheduleView;
+
+    @BindView(R.id.item_settings_late_send)
+    public View mLateSendView;
 
     @BindView(R.id.item_settings_developer)
     public View mDeveloperView;
@@ -67,6 +71,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
         setUpQuitView();
         setUpScheduleView();
+        setUpLateSendView();
 //        setUpConnectionView();
         setUpDeveloperView();
         mSettingsPresenter.bindView(this);
@@ -102,11 +107,22 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         startActivity(ScheduleActivity.newInstance(getActivity()));
     }
 
+    @Override
+    public void showLateSend() {
+        startActivity(LateSendActivity.newInstance(getActivity()));
+    }
+
 //    private void setUpConnectionView() {
 //        setUpSettingsItemText(mConnectionView, R.string.settings_item_connection);
 //        setUpSettingsImageView(mConnectionView, R.drawable.ic_connection);
 //        mConnectionView.setOnClickListener(v -> mSettingsPresenter.onConnectionClicked());
 //    }
+
+    private void setUpLateSendView() {
+        setUpSettingsItemText(mLateSendView, R.string.late_send_title);
+        setUpSettingsImageView(mLateSendView, R.drawable.ic_report);
+        mLateSendView.setOnClickListener(v -> mSettingsPresenter.onLateSendClicked());
+    }
 
     private void setUpDeveloperView() {
         setUpSettingsItemText(mDeveloperView, R.string.settings_item_developer);

@@ -75,12 +75,11 @@
 
         <activity
             android:name="com.verbatoria.presentation.schedule.view.ScheduleActivity"
-            android:screenOrientation="sensorLandscape">
-        <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
-        </activity>
+            android:screenOrientation="sensorLandscape"/>
+
+        <activity
+            android:name="com.verbatoria.presentation.late_send.view.LateSendActivity"
+            android:screenOrientation="sensorLandscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.session.view.writing.WritingActivity"

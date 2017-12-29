@@ -3,11 +3,13 @@ package com.verbatoria.data.repositories.session;
 import android.content.Context;
 
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.database.ActivitiesDatabase;
+import com.verbatoria.data.repositories.session.database.LateReportsDatabase;
 import com.verbatoria.data.repositories.session.database.NeurodataDatabase;
 import com.verbatoria.data.repositories.session.model.AttentionMeasurement;
 import com.verbatoria.data.repositories.session.model.BaseMeasurement;
@@ -88,6 +90,11 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
+    public Observable<ResponseBody> addResults(String accessToken, String sessionId, RequestBody requestBody) {
+        return APIFactory.getAPIService().addResultsToSessionRequest(sessionId, accessToken, requestBody);
+    }
+
+    @Override
     public void addEvent(String code) {
         ActivitiesDatabase.addEventToDatabase(mContext, code);
     }
@@ -118,5 +125,10 @@ public class SessionRepository implements ISessionRepository {
     public void cleanUp() {
         ActivitiesDatabase.clear(mContext);
         NeurodataDatabase.clear(mContext);
+    }
+
+    @Override
+    public void backupReport(LateReportModel lateReportModel) {
+        LateReportsDatabase.addReportBackup(mContext, lateReportModel);
     }
 }
