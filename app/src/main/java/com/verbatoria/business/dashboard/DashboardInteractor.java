@@ -47,9 +47,17 @@ public class DashboardInteractor implements IDashboardInteractor {
     }
 
     @Override
+    public Observable<LocationModel> getLocationInfoFromCache() {
+        return mDashboardRepository.getLocationFromCache()
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
     public Observable<LocationModel> getLocation() {
         return mDashboardRepository.getLocation(getAccessToken())
                 .map(ModelsConverter::convertLocationResponseToLocationModel)
+                .doOnNext(locationModel -> mDashboardRepository.saveLocationInfo(locationModel))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

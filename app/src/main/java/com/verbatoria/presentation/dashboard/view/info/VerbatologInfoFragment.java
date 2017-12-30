@@ -142,6 +142,15 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     }
 
     @Override
+    public void showLocationInfo(String address, String city, String country, String partner, String name, String id) {
+        showLocationAddress(address);
+        showLocationCityCountry(city + ", " + country);
+        showLocationPartner(partner);
+        showLocationName(name);
+        showLocationId(id);
+    }
+
+    @Override
     public void showLocationInfo(LocationModel locationModel) {
         showLocationAddress(locationModel.getAddress());
         showLocationCityCountry(locationModel.getCityCountry());

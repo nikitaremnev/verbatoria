@@ -1,5 +1,6 @@
 package com.verbatoria.data.repositories.dashboard;
 
+import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.response.LocationResponseModel;
@@ -36,8 +37,18 @@ public class DashboardRepository implements IDashboardRepository {
     }
 
     @Override
+    public Observable<LocationModel> getLocationFromCache() {
+        return Observable.fromCallable(() -> PreferencesStorage.getInstance().getLocationInfo());
+    }
+
+    @Override
     public void saveVerbatologInfo(VerbatologModel verbatologModel) {
         PreferencesStorage.getInstance().setVerbatologInfo(verbatologModel);
+    }
+
+    @Override
+    public void saveLocationInfo(LocationModel locationModel) {
+        PreferencesStorage.getInstance().setLocationInfo(locationModel);
     }
 
     @Override

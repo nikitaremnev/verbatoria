@@ -16,6 +16,8 @@ public interface IDashboardInteractor {
 
     Observable<VerbatologModel> getVerbatologInfoFromCache();
 
+    Observable<LocationModel> getLocationInfoFromCache();
+
     Observable<LocationModel> getLocation();
 
     boolean hasLocationId();

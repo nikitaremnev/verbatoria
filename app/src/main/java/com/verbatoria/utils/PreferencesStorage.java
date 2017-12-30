@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.token.models.UserStatus;
 
@@ -43,6 +44,13 @@ public class PreferencesStorage {
     private static final String VERBATOLOG_PHONE_KEY = "VERBATOLOG_PHONE_KEY";
     private static final String VERBATOLOG_EMAIL_KEY = "VERBATOLOG_EMAIL_KEY";
     private static final String VERBATOLOG_LOCATION_ID_KEY = "VERBATOLOG_LOCATION_ID_KEY";
+
+    private static final String LOCATION_ADDRESS_KEY = "LOCATION_ADDRESS_KEY";
+    private static final String LOCATION_CITY_KEY = "LOCATION_CITY_KEY";
+    private static final String LOCATION_COUNTRY_KEY = "LOCATION_COUNTRY_KEY";
+    private static final String LOCATION_PARTNER_KEY = "LOCATION_PARTNER_KEY";
+    private static final String LOCATION_NAME_KEY = "LOCATION_NAME_KEY";
+    private static final String LOCATION_ID_KEY = "LOCATION_ID_KEY";
 
     private SharedPreferences mTokenPreferences;
     private SharedPreferences mQuestionsPreferences;
@@ -164,6 +172,17 @@ public class PreferencesStorage {
         editor.apply();
     }
 
+    public void setLocationInfo(LocationModel locationModel) {
+        SharedPreferences.Editor editor = mCachePreferences.edit();
+        editor.putString(LOCATION_ADDRESS_KEY, locationModel.getAddress());
+        editor.putString(LOCATION_CITY_KEY, locationModel.getCity());
+        editor.putString(LOCATION_COUNTRY_KEY, locationModel.getCountry());
+        editor.putString(LOCATION_PARTNER_KEY, locationModel.getPartner());
+        editor.putString(LOCATION_NAME_KEY, locationModel.getName());
+        editor.putString(LOCATION_ID_KEY, locationModel.getId());
+        editor.apply();
+    }
+
     public VerbatologModel getVerbatologInfo() {
         return new VerbatologModel()
                 .setLocationId(mCachePreferences.getString(VERBATOLOG_LOCATION_ID_KEY, null))
@@ -172,6 +191,16 @@ public class PreferencesStorage {
                 .setLastName(mCachePreferences.getString(VERBATOLOG_LAST_NAME_KEY, null))
                 .setMiddleName(mCachePreferences.getString(VERBATOLOG_MIDDLE_NAME_KEY, null))
                 .setPhone(mCachePreferences.getString(VERBATOLOG_PHONE_KEY, null));
+    }
+
+    public LocationModel getLocationInfo() {
+        return new LocationModel()
+                .setAddress(mCachePreferences.getString(LOCATION_ADDRESS_KEY, null))
+                .setCity(mCachePreferences.getString(LOCATION_CITY_KEY, null))
+                .setCountry(mCachePreferences.getString(LOCATION_COUNTRY_KEY, null))
+                .setPartner(mCachePreferences.getString(LOCATION_PARTNER_KEY, null))
+                .setName(mCachePreferences.getString(LOCATION_NAME_KEY, null))
+                .setId(mCachePreferences.getString(LOCATION_ID_KEY, null));
 
     }
 

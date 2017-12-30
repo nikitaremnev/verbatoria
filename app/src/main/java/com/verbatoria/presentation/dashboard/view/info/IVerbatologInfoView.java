@@ -26,6 +26,9 @@ public interface IVerbatologInfoView {
     void showLocationId(String locationId);
 
     void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail);
+
+    void showLocationInfo(String address, String city, String country, String partner, String name, String id);
+
     void showLocationInfo(LocationModel locationModel);
 
     void showActiveStatus();

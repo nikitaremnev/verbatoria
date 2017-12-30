@@ -91,6 +91,8 @@ public class VerbatologInfoPresenter implements IVerbatologInfoPresenter {
     private void handleLocationInfoLoadingFailed(Throwable throwable) {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable);
+        mDashboardInteractor.getLocationInfoFromCache()
+                .subscribe(this::handleLocationInfoReceived, this::handleVerbatologInfoLoadingFromCacheFailed);
     }
 
 }
