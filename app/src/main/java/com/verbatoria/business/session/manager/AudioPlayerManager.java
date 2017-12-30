@@ -121,7 +121,7 @@ public class AudioPlayerManager implements IAudioPlayerManager {
         });
         mMediaPlayer.setOnCompletionListener(mediaPlayer -> {
             mPlayerCallback.setUpPlayMode();
-            mMediaPlayer = null;
+            pausePlayer();
         });
     }
 

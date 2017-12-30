@@ -232,7 +232,7 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
     }
 
     private void setStartButtonEnabled(boolean enabled) {
-        mStartButton.setEnabled(true);
+        mStartButton.setEnabled(enabled);
         mConnectButton.setEnabled(!enabled);
     }
 
