@@ -117,6 +117,10 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
                     DoneActivitiesProcessor.clearDoneActivities();
                     DoneActivitiesProcessor.clearTimeDoneActivities();
                     VerbatoriaApplication.dropActivitiesTimer();
+                    File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
+                    if (file.exists()) {
+                        file.delete();
+                    }
                     return null;
                 })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())

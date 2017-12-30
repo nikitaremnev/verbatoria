@@ -5,8 +5,6 @@ import com.verbatoria.business.late_send.LateSendInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.data.repositories.late_send.ILateSendRepository;
 import com.verbatoria.data.repositories.late_send.LateSendRepository;
-import com.verbatoria.data.repositories.session.ISessionRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.di.session.SessionScope;
 import com.verbatoria.presentation.late_send.presenter.ILateSendPresenter;
 import com.verbatoria.presentation.late_send.presenter.LateSendPresenter;
@@ -30,10 +28,8 @@ public class LateSendModule {
 
     @Provides
     @SessionScope
-    ILateSendInteractor provideLateSendInteractor(ILateSendRepository lateSendRepository,
-                                                  ISessionRepository sessionRepository,
-                                                  ITokenRepository tokenRepository) {
-        return new LateSendInteractor(lateSendRepository, sessionRepository, tokenRepository);
+    ILateSendInteractor provideLateSendInteractor(ILateSendRepository lateSendRepository) {
+        return new LateSendInteractor(lateSendRepository);
     }
 
     @Provides

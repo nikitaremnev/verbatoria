@@ -97,9 +97,10 @@ public class CalendarInteractor implements ICalendarInteractor {
     }
 
     @Override
-    public Observable<ResponseBody> addEvent(EventModel eventModel) {
+    public Observable<EventModel> addEvent(EventModel eventModel) {
         try {
             return mCalendarRepository.addEvent(getAccessToken(), getAddEventRequestModel(eventModel))
+                    .map(ModelsConverter::convertVerbatologEventResponseToEventModel)
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {
@@ -109,9 +110,10 @@ public class CalendarInteractor implements ICalendarInteractor {
     }
 
     @Override
-    public Observable<ResponseBody> editEvent(EventModel eventModel) {
+    public Observable<EventModel> editEvent(EventModel eventModel) {
         try {
             return mCalendarRepository.editEvent(eventModel.getId(), getAccessToken(), getEditEventRequestModel(eventModel))
+                    .map(ModelsConverter::convertVerbatologEventResponseToEventModel)
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {

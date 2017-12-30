@@ -20,9 +20,9 @@ public interface ICalendarInteractor {
 
     Observable<List<TimeIntervalModel>> getAvailableTimeIntervals(Calendar day);
 
-    Observable<ResponseBody> addEvent(EventModel eventModel);
+    Observable<EventModel> addEvent(EventModel eventModel);
 
-    Observable<ResponseBody> editEvent(EventModel eventModel);
+    Observable<EventModel> editEvent(EventModel eventModel);
 
     Observable<ResponseBody> deleteEvent(EventModel eventModel);
 

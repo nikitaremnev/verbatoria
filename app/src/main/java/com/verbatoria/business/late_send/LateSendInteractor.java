@@ -1,12 +1,11 @@
 package com.verbatoria.business.late_send;
 
 import com.verbatoria.business.late_send.models.LateReportModel;
-import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.repositories.late_send.ILateSendRepository;
-import com.verbatoria.data.repositories.session.ISessionRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.RxSchedulers;
 
+import java.io.File;
 import java.util.List;
 
 import rx.Completable;
@@ -20,15 +19,9 @@ public class LateSendInteractor implements ILateSendInteractor {
     private static final String TAG = LateSendInteractor.class.getSimpleName();
 
     private ILateSendRepository mLateSendRepository;
-    private ISessionRepository mSessionRepository;
-    private ITokenRepository mTokenRepository;
 
-    public LateSendInteractor(ILateSendRepository lateSendRepository,
-                              ISessionRepository sessionRepository,
-                              ITokenRepository tokenRepository) {
+    public LateSendInteractor(ILateSendRepository lateSendRepository) {
         mLateSendRepository = lateSendRepository;
-        mSessionRepository = sessionRepository;
-        mTokenRepository = tokenRepository;
     }
 
     @Override
@@ -40,13 +33,15 @@ public class LateSendInteractor implements ILateSendInteractor {
 
     @Override
     public Completable cleanUp(LateReportModel lateReportModel) {
-        return Completable.fromAction(() -> mLateSendRepository.removeReport(lateReportModel))
+        return Completable.fromAction(() -> {
+            mLateSendRepository.removeReport(lateReportModel);
+            File file = new File(FileUtils.getApplicationDirectory(), lateReportModel.getReportFileName());
+            if (file.exists()) {
+                file.delete();
+            }
+        })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
-    private String getAccessToken() {
-        TokenModel tokenModel = mTokenRepository.getToken();
-        return tokenModel.getAccessToken();
-    }
 }

@@ -16,6 +16,7 @@ import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildrenResponseModel;
 import com.verbatoria.data.network.response.ClientsResponseModel;
+import com.verbatoria.data.network.response.EventResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
@@ -96,11 +97,11 @@ public interface APIService {
                                                      @Query(TO_TIME_QUERY_KEY) String toTime);
 
     @POST(APIConstants.ADD_EVENT_URL)
-    Observable<ResponseBody> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                             @Body AddEventRequestModel addEventRequestModel);
+    Observable<EventResponseModel> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                                   @Body AddEventRequestModel addEventRequestModel);
 
     @PUT(APIConstants.EDIT_EVENT_URL)
-    Observable<ResponseBody> editEventRequest(@Path(value = EVENT_ID_PATH_KEY) String eventId,
+    Observable<EventResponseModel> editEventRequest(@Path(value = EVENT_ID_PATH_KEY) String eventId,
                                               @Header(TOKEN_HEADER_KEY) String accessToken,
                                              @Body EditEventRequestModel editEventRequestModel);
 

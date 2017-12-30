@@ -62,13 +62,11 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public boolean checkStartSession() {
-        Log.e("test", "checkStartSession");
         if (mEventModel != null && mEventModel.getReport() != null) {
             switch (mEventModel.getReport().getStatus()) {
                 case ReportModel.STATUS.READY:
                 case ReportModel.STATUS.SENT:
                 case ReportModel.STATUS.UPLOADED:
-                    Log.e("test", "showConfirmOverrideWriting");
                     mCalendarEventDetailView.showConfirmOverrideWriting();
                     return true;
             }
@@ -210,14 +208,15 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mCalendarEventDetailView.updateClientView(mClientModel);
     }
 
-    private void handleEventEditedOrCreated(@NonNull ResponseBody responseBody) {
-        Logger.e(TAG, responseBody.toString());
+    private void handleEventEditedOrCreated(@NonNull EventModel eventModel) {
         if (!mIsEditMode) {
             mCalendarEventDetailView.showEventAdded();
         } else {
             mCalendarEventDetailView.showEventEdited();
         }
         mIsEditMode = true;
+        mEventModel = eventModel;
+        mCalendarEventDetailView.updateReportView(eventModel.getReport());
         mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
         mCalendarEventDetailView.setUpEventCreated();
     }

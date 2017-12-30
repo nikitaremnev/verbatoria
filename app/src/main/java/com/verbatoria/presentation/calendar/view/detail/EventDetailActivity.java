@@ -237,6 +237,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             mReportFieldView.setVisibility(View.GONE);
         } else {
             setUpFieldView(mReportFieldView, R.drawable.ic_report, reportModel.getReportId(), getString(R.string.event_detail_activity_report), v -> { showStatusHint(reportModel); });
+            mReportFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
             setUpReportStatus(reportModel);
             mReportFieldView.setVisibility(View.VISIBLE);
         }

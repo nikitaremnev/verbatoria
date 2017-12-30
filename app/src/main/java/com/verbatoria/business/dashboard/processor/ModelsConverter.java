@@ -116,7 +116,7 @@ public class ModelsConverter {
         return timeIntervalModels;
     }
 
-    private static EventModel convertVerbatologEventResponseToEventModel(EventResponseModel eventResponseModel) {
+    public static EventModel convertVerbatologEventResponseToEventModel(EventResponseModel eventResponseModel) {
         EventModel eventModel = new EventModel();
         eventModel.setId(eventResponseModel.getId());
         try {

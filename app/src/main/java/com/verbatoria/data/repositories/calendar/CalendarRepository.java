@@ -3,6 +3,7 @@ package com.verbatoria.data.repositories.calendar;
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
+import com.verbatoria.data.network.response.EventResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.PreferencesStorage;
@@ -23,12 +24,12 @@ public class CalendarRepository implements ICalendarRepository {
     }
 
     @Override
-    public Observable<ResponseBody> addEvent(String accessToken, AddEventRequestModel addEventRequestModel) {
+    public Observable<EventResponseModel> addEvent(String accessToken, AddEventRequestModel addEventRequestModel) {
         return APIFactory.getAPIService().addEventRequest(accessToken, addEventRequestModel);
     }
 
     @Override
-    public Observable<ResponseBody> editEvent(String eventId, String accessToken, EditEventRequestModel editEventRequestModel) {
+    public Observable<EventResponseModel> editEvent(String eventId, String accessToken, EditEventRequestModel editEventRequestModel) {
         return APIFactory.getAPIService().editEventRequest(eventId, accessToken, editEventRequestModel);
     }
 
