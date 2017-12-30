@@ -313,17 +313,20 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
+        fieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
     }
 
     private void setUpEditableFieldView(View fieldView, int imageResource, String title, String hint, int inputType) {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
-        EditText fieldEditText = (EditText) fieldView.findViewById(R.id.field_edit_text);
+        EditText fieldEditText = fieldView.findViewById(R.id.field_edit_text);
         fieldEditText.setInputType(inputType);
         if (inputType == InputType.TYPE_TEXT_VARIATION_PHONETIC) {
             setUpPhoneFormatter(fieldEditText);
         }
         fieldEditText.setText(title);
         fieldEditText.setHint(hint);
+        fieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
+
     }
 
     private void setUpPhoneFormatter(EditText phoneEditText) {

@@ -336,11 +336,13 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
+        fieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
         fieldView.setOnClickListener(onClickListener);
     }
 
     private void setUpEditableFieldView(View fieldView, int imageResource, String title, String hint, int inputType) {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
+        fieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
         EditText fieldEditText = fieldView.findViewById(R.id.field_edit_text);
         fieldEditText.setInputType(inputType);
         fieldEditText.setText(title);
