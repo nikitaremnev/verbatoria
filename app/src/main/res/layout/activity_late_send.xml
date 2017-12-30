@@ -14,9 +14,8 @@
     <TextView
         android:id="@+id/no_reports_text_view"
         android:padding="@dimen/dashboard_padding"
-        android:textColor="@color/main_dark"
         android:visibility="gone"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/late_send_no_reports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

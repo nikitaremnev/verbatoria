@@ -1,6 +1,5 @@
 package com.verbatoria.presentation.late_send.view.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,8 +42,8 @@ public class LateReportViewHolder extends RecyclerView.ViewHolder {
         mSubtitle.setText(subtitle);
     }
 
-    void showImage(Context context) {
-        mFieldImageView.setImageResource(R.drawable.ic_report_ready_large);
+    void showImage() {
+        mFieldImageView.setImageResource(R.drawable.ic_late_report);
     }
 
     void setOnClickListener(View.OnClickListener onClickListener) {

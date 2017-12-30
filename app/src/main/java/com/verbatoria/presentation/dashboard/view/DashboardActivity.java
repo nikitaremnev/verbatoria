@@ -95,16 +95,20 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void showSessionFinish() {
-        if (getIntent().getBooleanExtra(EXTRA_FINISH_SESSION, false)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setMessage(getString(R.string.dashboard_session_finish));
-            builder.setNegativeButton(getString(R.string.ok), null);
-            builder.create().show();
-        } else {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                    .setMessage(getString(R.string.dashboard_session_finish_error));
-            builder.setNegativeButton(getString(R.string.all_understand), null);
-            builder.create().show();
+        if (getIntent().hasExtra(EXTRA_FINISH_SESSION)) {
+            if (getIntent().getBooleanExtra(EXTRA_FINISH_SESSION, false)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                        .setMessage(getString(R.string.dashboard_session_finish));
+                builder.setNegativeButton(getString(R.string.ok), null);
+                builder.create().show();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.dashboard_session_finish_error_title))
+                        .setIcon(R.drawable.ic_neurointerface_error)
+                        .setMessage(getString(R.string.dashboard_session_finish_error_message));
+                builder.setNegativeButton(getString(R.string.all_understand), null);
+                builder.create().show();
+            }
         }
     }
 

@@ -12,6 +12,7 @@ public class LateReportHolderBinder {
     public static void bind(LateReportModel lateReportModel, LateReportViewHolder holder) {
         holder.setTitle(lateReportModel.getChildName());
         holder.setSubtitle(lateReportModel.getReportId());
+        holder.showImage();
     }
 
 }

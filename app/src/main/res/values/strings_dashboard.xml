@@ -34,7 +34,9 @@
 
     <string name="dashboard_session_finish">Сессия успешно завершена!</string>
 
-    <string name="dashboard_session_finish_error">Сессия не завершена! Необходимо отправить отчет через настройки.</string>
+    <string name="dashboard_session_finish_error_title">Сессия не завершена!</string>
+
+    <string name="dashboard_session_finish_error_message">Необходимо отправить отчет через настройки.</string>
 
     <string name="dashboard_status_green_hint">Работа в приложении доступна без ограничений</string>
     <string name="dashboard_status_yellow_hint">Работа в приложении доступна, однако в скором времени может быть заблокирована</string>

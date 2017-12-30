@@ -107,10 +107,10 @@ public class LateReportsDatabase extends SQLiteOpenHelper implements BaseColumns
             cv.put(LateReportsDatabase.REPORT_ID_COLUMN_NAME, lateReportModel.getReportId());
             cv.put(LateReportsDatabase.REPORT_FILE_NAME_COLUMN_NAME, lateReportModel.getReportFileName());
             sqdb.insert(LateReportsDatabase.LATE_REPORTS_TABLE_NAME, null, cv);
-        } catch (SQLiteException exception) {
+        } catch (SQLiteException | ParseException exception) {
             exception.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } finally {
+            sqdb.close();
         }
     }
 
@@ -120,6 +120,8 @@ public class LateReportsDatabase extends SQLiteOpenHelper implements BaseColumns
             sqdb.delete(LateReportsDatabase.LATE_REPORTS_TABLE_NAME, SESSION_ID_COLUMN_NAME + " = " + lateReportModel.getSessionId(), null);
         } catch (SQLiteException exception) {
             exception.printStackTrace();
+        } finally {
+            sqdb.close();
         }
     }
 
@@ -142,6 +144,8 @@ public class LateReportsDatabase extends SQLiteOpenHelper implements BaseColumns
             cursor.close();
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            sqdb.close();
         }
         Collections.sort(lateReportModels, new LateSendComparator());
         return lateReportModels;

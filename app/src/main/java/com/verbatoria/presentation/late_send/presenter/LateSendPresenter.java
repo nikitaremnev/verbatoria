@@ -68,17 +68,11 @@ public class LateSendPresenter extends BasePresenter implements ILateSendPresent
         mSelectedPosition = position;
         mLateSendView.showProgress();
         mSessionInteractor.submitResults(mLateReportModels.get(mSelectedPosition).getReportFileName())
-                .subscribe(this::handleResultsSubmitted, this::handleLateReportsError);
+                .subscribe(this::handleResultsSubmitted, this::handleSendError);
     }
 
     private void handleLateReportsReceived(List<LateReportModel> lateReportModelList) {
         mLateReportModels = lateReportModelList;
-        mLateReportModels.add(new LateReportModel()
-                .setChildName("childName")
-                .setReportFileName("reportFileName")
-                .setReportId("reportId")
-                .setSessionId("sessionId")
-        );
         if (mLateReportModels.isEmpty()) {
             mLateSendView.showNoReportsToSend();
         } else {
@@ -86,7 +80,13 @@ public class LateSendPresenter extends BasePresenter implements ILateSendPresent
         }
     }
 
+    private void handleSendError(Throwable throwable) {
+        mLateSendView.hideProgress();
+        mLateSendView.showError(throwable.getLocalizedMessage());
+    }
+
     private void handleLateReportsError(Throwable throwable) {
+        throwable.printStackTrace();
         mLateSendView.hideProgress();
         mLateSendView.showNoReportsToSend();
         mLateSendView.showError(throwable.getLocalizedMessage());
@@ -94,17 +94,21 @@ public class LateSendPresenter extends BasePresenter implements ILateSendPresent
 
     private void handleResultsSubmitted() {
         mSessionInteractor.finishSession(mLateReportModels.get(mSelectedPosition).getSessionId())
-                .subscribe(this::handleSessionFinished, this::handleLateReportsError);
+                .subscribe(this::handleSessionFinished, this::handleSendError);
     }
 
     private void handleSessionFinished() {
         mLateSendInteractor.cleanUp(mLateReportModels.get(mSelectedPosition))
-                .subscribe(this::cleanUpFinished, this::handleLateReportsError);
+                .subscribe(this::cleanUpFinished, this::handleSendError);
     }
 
     private void cleanUpFinished() {
         mLateSendView.hideProgress();
+        mLateReportModels.remove(mSelectedPosition);
         mLateSendView.notifyItemSent(mSelectedPosition);
+        if (mLateReportModels.size() == 0) {
+            mLateSendView.showNoReportsToSend();
+        }
     }
 
 }

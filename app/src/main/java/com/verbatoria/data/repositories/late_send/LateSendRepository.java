@@ -2,6 +2,7 @@ package com.verbatoria.data.repositories.late_send;
 
 import android.content.Context;
 
+import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.data.repositories.session.database.LateReportsDatabase;
 
@@ -21,7 +22,7 @@ public class LateSendRepository implements ILateSendRepository {
     public Context mContext;
 
     public LateSendRepository() {
-
+        VerbatoriaApplication.getApplicationComponent().inject(this);
     }
 
     @Override
