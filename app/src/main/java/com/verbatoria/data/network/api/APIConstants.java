@@ -9,7 +9,7 @@ package com.verbatoria.data.network.api;
 class APIConstants {
 
     private static final int API_VERSION = 1;
-    static final String API_BASE_URL = "http://verbatoria.ru/api/v" + API_VERSION + "/";
+    static final String API_BASE_URL = "https://verbatoria.ru/api/v" + API_VERSION + "/";
 
     static final String VERBATOLOG_ID_PATH_KEY = "verbatolog";
     static final String TOKEN_HEADER_KEY = "token";

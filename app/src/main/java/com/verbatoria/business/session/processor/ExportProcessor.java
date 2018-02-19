@@ -72,6 +72,7 @@ public class ExportProcessor {
 
             BaseMeasurementIterator iterator = new BaseMeasurementIterator(baseMeasurements);
             int answersIndex = 0;
+            String lastWrittenString = "";
             while (iterator.hasNext()) {
                 MeasurementRequestModel measurementRequestModel = new MeasurementRequestModel();
                 measurementRequestModel.setMistake(mApplicationVersion);
@@ -84,10 +85,16 @@ public class ExportProcessor {
                     setMeasurementRequestModelFields(measurementRequestModel, iterator.get());
                 }
                 iterator.back();
-                outStreamWriter.append(objectMapper.writeValueAsString(measurementRequestModel));
-                if (iterator.hasNext()) {
-                    outStreamWriter.append(", ");
+
+                String writingValue = objectMapper.writeValueAsString(measurementRequestModel);
+                if (!lastWrittenString.equals(writingValue)) {
+                    if (!lastWrittenString.equals("")) {
+                        outStreamWriter.append(", ");
+                    }
+                    outStreamWriter.append(writingValue);
+                    lastWrittenString = writingValue;
                 }
+
                 answersIndex ++;
             }
 
