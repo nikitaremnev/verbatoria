@@ -88,7 +88,7 @@ public class ClientModel implements Parcelable {
     }
 
     public boolean isFull() {
-        return !(TextUtils.isEmpty(mEmail) || TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mName));
+        return !(TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mName));
     }
 
     @Override
