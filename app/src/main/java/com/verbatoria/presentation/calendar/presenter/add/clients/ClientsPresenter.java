@@ -71,7 +71,8 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void createClient() {
-        if (!isEmailCorrect(mClientView.getClientEmail())) {
+        if (!isNameAndPhoneCorrect(mClientView.getClientName(), mClientView.getClientPhone())
+                || !isEmailCorrect(mClientView.getClientEmail())) {
             return;
         }
         mClientModel = new ClientModel();
@@ -86,7 +87,8 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
 
     @Override
     public void editClient() {
-        if (!isEmailCorrect(mClientView.getClientEmail())) {
+        if (!isNameAndPhoneCorrect(mClientView.getClientName(), mClientView.getClientPhone())  ||
+                !isEmailCorrect(mClientView.getClientEmail())) {
             return;
         }
         mClientModel.setName(mClientView.getClientName());
@@ -158,8 +160,17 @@ public class ClientsPresenter extends BasePresenter implements IClientsPresenter
         mClientView.showError(throwable.getMessage());
     }
 
+    private boolean isNameAndPhoneCorrect(String name, String phone) {
+        if (!TextUtils.isEmpty(name) && (!TextUtils.isEmpty(phone) && !phone.equals("+ ") && !phone.equals("+"))) {
+            return true;
+        } else {
+            mClientView.showNameOrPhoneEmptyError();
+            return false;
+        }
+    }
+
     private boolean isEmailCorrect(String email) {
-        if (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (TextUtils.isEmpty(email) || Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return true;
         } else {
             mClientView.showEmailIncorrectError();

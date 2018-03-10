@@ -21,6 +21,7 @@ public interface IClientsView {
     void showClientAdded();
     void showClientEdited();
     void showEmailIncorrectError();
+    void showNameOrPhoneEmptyError();
 
     String getClientName();
     String getClientEmail();

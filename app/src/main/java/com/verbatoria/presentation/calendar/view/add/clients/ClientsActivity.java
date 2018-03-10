@@ -277,6 +277,11 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
     }
 
     @Override
+    public void showNameOrPhoneEmptyError() {
+        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.name_or_phone_empty_error));
+    }
+
+    @Override
     public String getClientName() {
         return getFieldValue(mClientNameEditableField);
     }

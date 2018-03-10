@@ -272,6 +272,7 @@
     <string name="have_answer">Есть ответ</string>
 
     <string name="email_incorrect_error">Вы указали некорректный email-адрес!</string>
+    <string name="name_or_phone_empty_error">Пожалуйста, заполните поля имя и номер телефона</string>
 
 
 </resources>
