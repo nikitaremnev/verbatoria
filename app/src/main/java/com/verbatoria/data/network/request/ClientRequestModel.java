@@ -21,6 +21,8 @@ public class ClientRequestModel implements Parcelable {
 
     private String mPhone;
 
+    private String mPhoneCountry;
+
     public ClientRequestModel() {
 
     }
@@ -58,6 +60,17 @@ public class ClientRequestModel implements Parcelable {
         return this;
     }
 
+    @JsonGetter("phone_country")
+    @Nullable
+    public String getPhoneCountry() {
+        return mPhoneCountry;
+    }
+
+    public ClientRequestModel setPhoneCountry(String phoneCountry) {
+        mPhoneCountry = phoneCountry;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -69,12 +82,13 @@ public class ClientRequestModel implements Parcelable {
         ClientRequestModel that = (ClientRequestModel) o;
         return Objects.equal(mName, that.mName) &&
                 Objects.equal(mEmail, that.mEmail) &&
-                Objects.equal(mPhone, that.mPhone);
+                Objects.equal(mPhone, that.mPhone) &&
+                Objects.equal(mPhoneCountry, that.mPhoneCountry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mName, mEmail, mPhone);
+        return Objects.hashCode(mName, mEmail, mPhone, mPhoneCountry);
     }
 
     @Override
@@ -83,6 +97,7 @@ public class ClientRequestModel implements Parcelable {
                 .add("mName", mName)
                 .add("mEmail", mEmail)
                 .add("mPhone", mPhone)
+                .add("mPhoneCountry", mPhoneCountry)
                 .toString();
     }
 
@@ -96,12 +111,14 @@ public class ClientRequestModel implements Parcelable {
         dest.writeString(this.mName);
         dest.writeString(this.mEmail);
         dest.writeString(this.mPhone);
+        dest.writeString(this.mPhoneCountry);
     }
 
     protected ClientRequestModel(Parcel in) {
         this.mName = in.readString();
         this.mEmail = in.readString();
         this.mPhone = in.readString();
+        this.mPhoneCountry = in.readString();
     }
 
     public static final Parcelable.Creator<ClientRequestModel> CREATOR = new Parcelable.Creator<ClientRequestModel>() {

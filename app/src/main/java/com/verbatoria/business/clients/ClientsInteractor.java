@@ -6,6 +6,7 @@ import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.utils.CountriesHelper;
 import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
@@ -68,7 +69,8 @@ public class ClientsInteractor implements IClientsInteractor {
         return new ClientRequestModel()
                 .setName(client.getName())
                 .setPhone(client.getPhone())
-                .setEmail(client.getEmail());
+                .setEmail(client.getEmail())
+                .setPhoneCountry(CountriesHelper.getCountryCodeByCountryName(PreferencesStorage.getInstance().getCountry()));
     }
 
     private EditClientRequestModel getEditClientRequestModel(ClientModel client) {

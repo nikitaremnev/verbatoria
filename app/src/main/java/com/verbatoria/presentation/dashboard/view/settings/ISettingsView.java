@@ -12,4 +12,7 @@ public interface ISettingsView {
     void showLogin();
     void showSchedule();
     void showLateSend();
+
+    void showClearDatabaseConfirmation();
+    void showDatabaseCleared();
 }

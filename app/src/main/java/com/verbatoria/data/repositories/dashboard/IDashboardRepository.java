@@ -5,6 +5,7 @@ import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -18,6 +19,8 @@ public interface IDashboardRepository {
     Observable<VerbatologInfoResponseModel> getVerbatologInfo(String accessToken);
 
     Observable<LocationResponseModel> getLocation(String accessToken);
+
+    Observable<ResponseBody> getCountries(String accessToken);
 
     Observable<VerbatologModel> getVerbatologInfoFromCache();
 

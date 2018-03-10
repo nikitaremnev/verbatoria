@@ -2,15 +2,24 @@ package com.verbatoria.business.dashboard;
 
 import android.text.TextUtils;
 
+import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
+import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
+import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DeveloperUtils;
+import com.verbatoria.utils.FileUtils;
+import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
+import java.io.File;
+
+import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -24,10 +33,14 @@ public class DashboardInteractor implements IDashboardInteractor {
 
     private IDashboardRepository mDashboardRepository;
     private ITokenRepository mTokenRepository;
+    private ISessionRepository mSessionRepository;
 
-    public DashboardInteractor(IDashboardRepository dashboardRepository, ITokenRepository tokenRepository) {
+    public DashboardInteractor(IDashboardRepository dashboardRepository,
+                               ITokenRepository tokenRepository,
+                               ISessionRepository sessionRepository) {
         mDashboardRepository = dashboardRepository;
         mTokenRepository = tokenRepository;
+        mSessionRepository = sessionRepository;
     }
 
     @Override
@@ -58,6 +71,33 @@ public class DashboardInteractor implements IDashboardInteractor {
         return mDashboardRepository.getLocation(getAccessToken())
                 .map(ModelsConverter::convertLocationResponseToLocationModel)
                 .doOnNext(locationModel -> mDashboardRepository.saveLocationInfo(locationModel))
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Observable<ResponseBody> getCountries() {
+        return mDashboardRepository.getCountries(getAccessToken())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Completable cleanUpDatabase() {
+        return Completable.fromCallable(() -> {
+            mSessionRepository.cleanUp();
+            DoneActivitiesProcessor.clearDoneActivities();
+            DoneActivitiesProcessor.clearTimeDoneActivities();
+            VerbatoriaApplication.dropActivitiesTimer();
+            String fileName = PreferencesStorage.getInstance().getLastReportName();
+            if (fileName != null) {
+                File file = new File(FileUtils.getApplicationDirectory(), fileName);
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+            return null;
+        })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

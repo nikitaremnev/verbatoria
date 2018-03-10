@@ -19,6 +19,7 @@ import com.verbatoria.presentation.dashboard.presenter.settings.ISettingsPresent
 import com.verbatoria.presentation.late_send.view.LateSendActivity;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.presentation.schedule.view.ScheduleActivity;
+import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;
 
@@ -45,6 +46,9 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
     @BindView(R.id.item_settings_developer)
     public View mDeveloperView;
+
+    @BindView(R.id.item_settings_clear)
+    public View mClearView;
 
     @BindView(R.id.item_settings_quit)
     public View mQuitView;
@@ -74,6 +78,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         setUpLateSendView();
 //        setUpConnectionView();
         setUpDeveloperView();
+        setUpClearView();
         mSettingsPresenter.bindView(this);
     }
 
@@ -112,6 +117,24 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         startActivity(LateSendActivity.newInstance(getActivity()));
     }
 
+    @Override
+    public void showClearDatabaseConfirmation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                .setTitle(getString(R.string.settings_clear_database_confirm_title))
+                .setMessage(getString(R.string.settings_clear_database_confirm_message));
+        builder.setPositiveButton(getString(R.string.settings_item_clear), (dialog, which) -> {
+            mSettingsPresenter.clearDatabase();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+    @Override
+    public void showDatabaseCleared() {
+        Helper.showHintSnackBar(mClearView, getString(R.string.settings_database_cleared));
+    }
+
+
 //    private void setUpConnectionView() {
 //        setUpSettingsItemText(mConnectionView, R.string.settings_item_connection);
 //        setUpSettingsImageView(mConnectionView, R.drawable.ic_connection);
@@ -140,6 +163,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         setUpSettingsItemText(mScheduleView, R.string.schedule_title);
         setUpSettingsImageView(mScheduleView, R.drawable.ic_schedule);
         mScheduleView.setOnClickListener(v -> mSettingsPresenter.onScheduleClicked());
+    }
+
+    private void setUpClearView() {
+        setUpSettingsItemText(mClearView, R.string.settings_item_clear);
+        setUpSettingsImageView(mClearView, R.drawable.ic_clear);
+        mClearView.setOnClickListener(v -> mSettingsPresenter.onClearDatabaseClicked());
     }
 
     /*

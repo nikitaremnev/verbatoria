@@ -239,9 +239,11 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
         String country = mRecoveryPresenter.getCountry();
         int formatterResource;
         if (country.equals(getString(R.string.country_russia))) {
-            formatterResource = R.string.login_phone_mask;
-        } else {
+            formatterResource = R.string.login_russia_phone_mask;
+        } else if (country.equals(getString(R.string.country_ukraine))) {
             formatterResource = R.string.login_ukraine_phone_mask;
+        } else {
+            formatterResource = R.string.login_azerbaijan_phone_mask;
         }
         final MaskedTextChangedListener listener = new MaskedTextChangedListener(
                 getString(formatterResource),

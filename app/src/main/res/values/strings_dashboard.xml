@@ -24,6 +24,11 @@
     <string name="settings_item_connection">Соединение</string>
     <string name="settings_item_developer">О приложении</string>
 
+    <string name="settings_clear_database">Очистить</string>
+    <string name="settings_clear_database_confirm_title">Подтверждение</string>
+    <string name="settings_clear_database_confirm_message">Вы уверены, что хотите очистить базу данных?
+        Обычно это нужно перед проведением первой реальной записи после обучения.</string>
+
     <string name="dashboard_neurometrist">Нейрометрист</string>
     <string name="dashboard_cabinet">Кабинет</string>
     <string name="dashboard_partner">Партнер</string>
@@ -31,6 +36,9 @@
     <string name="dashboard_blocked">К сожалению, Ваш аккаунт был заблокирован. Обратитесь к партнеру за подробностями.</string>
 
     <string name="settings_item_quit">Выйти</string>
+    <string name="settings_item_clear">Очистить базу данных</string>
+
+    <string name="settings_database_cleared">База данных была успешно очищена</string>
 
     <string name="dashboard_session_finish">Сессия успешно завершена!</string>
 
@@ -49,6 +57,5 @@
 
     <string name="late_send_title">Отправка отчетов</string>
     <string name="late_send_no_reports">Нет отчетов для отправки</string>
-
 
 </resources>

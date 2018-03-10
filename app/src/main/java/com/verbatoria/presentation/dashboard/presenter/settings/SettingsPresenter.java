@@ -55,8 +55,23 @@ public class SettingsPresenter implements ISettingsPresenter {
     }
 
     @Override
+    public void onClearDatabaseClicked() {
+        mSettingsView.showClearDatabaseConfirmation();
+    }
+
+    @Override
     public void onLateSendClicked() {
         mSettingsView.showLateSend();
+    }
+
+    @Override
+    public void clearDatabase() {
+        mDashboardInteractor.cleanUpDatabase()
+                .subscribe(this::handleDatabaseCleared);
+    }
+
+    private void handleDatabaseCleared() {
+        mSettingsView.showDatabaseCleared();
     }
 
 }

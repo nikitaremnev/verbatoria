@@ -74,6 +74,9 @@ public interface APIService {
     @POST(APIConstants.RESET_PASSWORD_URL)
     Observable<MessageResponseModel> resetPassword(@Body ResetPasswordRequestModel resetPasswordRequestModel);
 
+    @GET(APIConstants.COUNTRIES_URL)
+    Observable<ResponseBody> getCountries(@Header(TOKEN_HEADER_KEY) String accessToken);
+
     /*
        Verbatolog info
     */

@@ -26,6 +26,7 @@ class APIConstants {
     static final String LOGIN_URL = "session" + JSON_PATH;
     static final String RECOVERY_PASSWORD_URL = VERBATOLOG_ID_PATH_KEY + "/restore_password" + JSON_PATH;
     static final String RESET_PASSWORD_URL = VERBATOLOG_ID_PATH_KEY + "/reset_password" + JSON_PATH;
+    static final String COUNTRIES_URL = "countries" + JSON_PATH;
 
     static final String VERBATOLOG_INFO_URL = VERBATOLOG_ID_PATH_KEY + "/current" + JSON_PATH;
 

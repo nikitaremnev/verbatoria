@@ -20,6 +20,10 @@ public interface ISettingsPresenter {
 
     void onScheduleClicked();
 
+    void onClearDatabaseClicked();
+
     void onLateSendClicked();
+
+    void clearDatabase();
 
 }

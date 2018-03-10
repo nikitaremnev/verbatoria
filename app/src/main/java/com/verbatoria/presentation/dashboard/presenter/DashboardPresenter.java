@@ -22,4 +22,5 @@ public class DashboardPresenter implements IDashboardPresenter {
     public boolean isBlocked() {
         return mDashboardInteractor.getUserStatus().equals(UserStatus.BLOCKED_STATUS);
     }
+
 }

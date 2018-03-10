@@ -10,6 +10,8 @@ import com.verbatoria.data.repositories.dashboard.DashboardRepository;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.schedule.IScheduleRepository;
 import com.verbatoria.data.repositories.schedule.ScheduleRepository;
+import com.verbatoria.data.repositories.session.ISessionRepository;
+import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.presentation.calendar.presenter.CalendarPresenter;
 import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
@@ -53,9 +55,16 @@ public class DashboardModule {
 
     @Provides
     @DashboardScope
+    ISessionRepository provideSessionRepository() {
+        return new SessionRepository();
+    }
+
+    @Provides
+    @DashboardScope
     IDashboardInteractor provideDashboardInteractor(IDashboardRepository dashboardRepository,
-                                                    ITokenRepository tokenRepository) {
-        return new DashboardInteractor(dashboardRepository, tokenRepository);
+                                                    ITokenRepository tokenRepository,
+                                                    ISessionRepository sessionRepository) {
+        return new DashboardInteractor(dashboardRepository, tokenRepository, sessionRepository);
     }
 
     @Provides

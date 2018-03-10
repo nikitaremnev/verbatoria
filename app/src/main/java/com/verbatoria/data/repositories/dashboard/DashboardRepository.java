@@ -7,6 +7,7 @@ import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.PreferencesStorage;
 
+import okhttp3.ResponseBody;
 import rx.Observable;
 
 /**
@@ -29,6 +30,11 @@ public class DashboardRepository implements IDashboardRepository {
     @Override
     public Observable<LocationResponseModel> getLocation(String accessToken) {
         return APIFactory.getAPIService().getLocation(getLocationId(), accessToken);
+    }
+
+    @Override
+    public Observable<ResponseBody> getCountries(String accessToken) {
+        return APIFactory.getAPIService().getCountries(accessToken);
     }
 
     @Override
