@@ -131,6 +131,16 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                     mLoginPresenter.onCountrySelected(getString(R.string.country_azerbaijan));
                     alertDialog.dismiss();
                 });
+        setUpFieldView(dialogRootView.findViewById(R.id.uae_field), R.drawable.ic_flag_ae,
+                getString(R.string.country_uae), view -> {
+                    mLoginPresenter.onCountrySelected(getString(R.string.country_uae));
+                    alertDialog.dismiss();
+                });
+        setUpFieldView(dialogRootView.findViewById(R.id.thailand_field), R.drawable.ic_flag_th,
+                getString(R.string.country_thailand), view -> {
+                    mLoginPresenter.onCountrySelected(getString(R.string.country_thailand));
+                    alertDialog.dismiss();
+                });
         alertDialog.show();
     }
 
@@ -185,10 +195,18 @@ public class LoginActivity extends BaseActivity implements ILoginView {
             ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_uk);
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_ukraine));
             setUpPhoneFormatter(getString(R.string.login_ukraine_phone_mask));
-        } else {
+        } else if (country.equals(getString(R.string.country_azerbaijan))) {
             ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_az);
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_azerbaijan));
             setUpPhoneFormatter(getString(R.string.login_azerbaijan_phone_mask));
+        } else if (country.equals(getString(R.string.country_uae))) {
+            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_ae);
+            ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_uae));
+            setUpPhoneFormatter(getString(R.string.login_uae_phone_mask));
+        } else if (country.equals(getString(R.string.country_thailand))) {
+            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_th);
+            ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_thailand));
+            setUpPhoneFormatter(getString(R.string.login_thailand_phone_mask));
         }
     }
 

@@ -5,6 +5,8 @@
     <string name="login_russia_phone_mask">+ [0] [000] [000] [00] [00]</string>
     <string name="login_ukraine_phone_mask">+ [000] [00] [000] [00] [00]</string>
     <string name="login_azerbaijan_phone_mask">+ [000] [00] [000] [00] [00]</string>
+    <string name="login_uae_phone_mask">+ [000] [0] [0000000]</string>
+    <string name="login_thailand_phone_mask">+ [00] [0000000]</string>
 
     <string name="login_password_hint">Пароль</string>
 
@@ -24,10 +26,14 @@
     <string name="country_russia">Россия</string>
     <string name="country_ukraine">Украина</string>
     <string name="country_azerbaijan">Азербайджан</string>
+    <string name="country_uae">ОАЭ</string>
+    <string name="country_thailand">Таиланд</string>
 
     <string name="country_code_russia">ru</string>
     <string name="country_code_ukraine">ua</string>
     <string name="country_code_azerbaijan">az</string>
+    <string name="country_code_thailand">th</string>
+    <string name="country_code_uae">ae</string>
 
     <string name="select_country">Выберите местоположение</string>
 
