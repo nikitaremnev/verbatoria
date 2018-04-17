@@ -33,7 +33,7 @@
     <string name="dashboard_cabinet">Кабинет</string>
     <string name="dashboard_partner">Партнер</string>
 
-    <string name="dashboard_blocked">К сожалению, Ваш аккаунт был заблокирован. Обратитесь к партнеру за подробностями.</string>
+    <string name="dashboard_blocked">Ваш аккаунт был заблокирован. Обратитесь к партнеру за подробностями.</string>
 
     <string name="settings_item_quit">Выйти</string>
     <string name="settings_item_clear">Очистить базу данных</string>

@@ -1,5 +1,7 @@
 package com.verbatoria.business.login;
 
+import android.util.Log;
+
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.business.token.processor.TokenProcessor;
 import com.verbatoria.data.network.request.LoginRequestModel;
@@ -36,6 +38,7 @@ public class LoginInteractor implements ILoginInteractor {
                     TokenProcessor tokenProcessor = new TokenProcessor();
                     TokenModel tokenModel = tokenProcessor.obtainToken(item);
                     mTokenRepository.updateToken(tokenModel);
+                    Log.e("test", "login(String phone, String password): " + tokenModel.getStatus());
                     mTokenRepository.setStatus(tokenModel.getStatus());
                     mLoginRepository.updateLastLogin(phone);
                     return tokenModel;

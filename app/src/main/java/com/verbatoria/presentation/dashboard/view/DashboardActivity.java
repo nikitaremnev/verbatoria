@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
@@ -59,7 +60,11 @@ public class DashboardActivity extends AppCompatActivity {
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
 
         setUpBottomNavigation();
-        setUpFragment(VerbatologInfoFragment.newInstance());
+        if (mDashboardPresenter.isBlocked()) {
+            setUpFragment(BlockedFragment.newInstance());
+        } else {
+            setUpFragment(VerbatologInfoFragment.newInstance());
+        }
         showSessionFinish();
     }
 
@@ -73,6 +78,7 @@ public class DashboardActivity extends AppCompatActivity {
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_main:
+                    Log.e("test", "setUpBottomNavigation(): " + mDashboardPresenter.isBlocked());
                     if (mDashboardPresenter.isBlocked()) {
                         setUpFragment(BlockedFragment.newInstance());
                     } else {
@@ -80,6 +86,7 @@ public class DashboardActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.navigation_calendar:
+                    Log.e("test", "setUpBottomNavigation(): " + mDashboardPresenter.isBlocked());
                     if (mDashboardPresenter.isBlocked()) {
                         setUpFragment(BlockedFragment.newInstance());
                     } else {
