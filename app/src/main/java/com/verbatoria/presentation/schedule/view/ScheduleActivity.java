@@ -118,9 +118,9 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
     @Override
     public void showScheduleClearConfirmation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.schedule_clear_confirm_title))
+                .setTitle(getString(R.string.confirmation))
                 .setMessage(getString(R.string.schedule_clear_confirm_message));
-        builder.setPositiveButton(getString(R.string.schedule_clear), (dialog, which) -> {
+        builder.setPositiveButton(getString(R.string.clear), (dialog, which) -> {
             mSchedulePresenter.clearSchedule();
         });
         builder.setNegativeButton(getString(R.string.cancel), null);
@@ -153,7 +153,7 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
         AlertDialog builder = new AlertDialog.Builder(this)
                 .setView(dialogRootView)
                 .setTitle(getString(R.string.schedule_saving))
-                .setPositiveButton(getString(R.string.schedule_save), (dialog, which) -> {
+                .setPositiveButton(getString(R.string.save), (dialog, which) -> {
                     int selectedWeeks = noOption.isChecked() ? 0 :
                             firstOption.isChecked() ? 1 :
                                     secondOption.isChecked() ? 2 :

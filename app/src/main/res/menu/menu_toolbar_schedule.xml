@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_clear"
         android:icon="@drawable/ic_calendar_clear"
-        android:title="@string/action_clear"
+        android:title="@string/clear"
         app:showAsAction="always"/>
 
     <item

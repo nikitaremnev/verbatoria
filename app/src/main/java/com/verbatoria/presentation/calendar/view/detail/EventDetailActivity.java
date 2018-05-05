@@ -318,13 +318,13 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void showConfirmOverrideWriting() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.event_detail_activity_confirm_override_title))
+                .setTitle(getString(R.string.confirmation))
                 .setMessage(getString(R.string.event_detail_activity_confirm_override_message))
                 .setIcon(R.drawable.ic_neurointerface_error)
                 .setPositiveButton(getString(R.string.event_detail_activity_continue), (dialog, which) -> {
                     mEventDetailPresenter.startSession();
                 })
-                .setNegativeButton(getString(R.string.event_detail_activity_cancel), (dialog, which) -> {
+                .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
                     dialog.dismiss();
                 });
         builder.create().show();
@@ -355,7 +355,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     private void setUpButton() {
         if (!mEventDetailPresenter.isEditMode()) {
-            mSubmitButton.setText(getString(R.string.calendar_activity_event_create));
+            mSubmitButton.setText(getString(R.string.calendar_activity_create));
             mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.createEvent());
         } else {
             mSubmitButton.setText(getString(R.string.dashboard_start_session));

@@ -11,8 +11,6 @@
         <item>ВС, %s</item>
     </string-array>
 
-    <string name="schedule_clear">Очистить</string>
-    <string name="schedule_clear_confirm_title">Подтверждение</string>
     <string name="schedule_clear_confirm_message">Вы уверены, что хотите очистить расписание?</string>
 
     <string name="schedule_saved">Расписание успешно сохранено!</string>
@@ -21,7 +19,6 @@
 
     <string name="schedule_saving">Сохранение расписания</string>
 
-    <string name="schedule_save">Сохранить</string>
     <string name="schedule_only_this_week">только эта неделя</string>
     <string name="schedule_save_1_week">1 неделя</string>
     <string name="schedule_save_2_weeks">2 недели</string>

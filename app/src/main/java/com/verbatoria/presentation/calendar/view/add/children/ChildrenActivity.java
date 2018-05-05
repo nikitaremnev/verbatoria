@@ -180,7 +180,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
             mEditMenuItem.setVisible(false);
             mCancelMenuItem.setVisible(true);
         }
-        mSubmitButton.setText(getString(R.string.calendar_activity_save));
+        mSubmitButton.setText(getString(R.string.save));
         mSubmitButton.setVisibility(View.VISIBLE);
         mSubmitButton.setOnClickListener(v -> mChildrenPresenter.editChild());
     }
