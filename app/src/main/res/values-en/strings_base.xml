@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <string name="app_name">Вербатория v9.1.5</string>
+
+    <string name="loading_please_wait">Пожалуйста, подождите</string>
+
+    <string name="ok">OK</string>
+    <string name="all_understand">Все понятно</string>
+    <string name="delete">Удалить</string>
+
+    <string name="noData">Нет данных</string>
+
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <string name="token_empty_error">Токен не найден!</string>
+
+    <string name="email_incorrect_error">Вы указали некорректный email-адрес!</string>
+    <string name="name_or_phone_empty_error">Пожалуйста, заполните поля имя и номер телефона</string>
+    
 </resources>

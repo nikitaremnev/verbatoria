@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="calendar_activity_save">Сохранить</string>
+    <string name="calendar_activity_create">Создать запись</string>
+    <string name="calendar_activity_search">Найти</string>
+
+    <string name="calendar_activity_event_create">Создать запись</string>
+
+    <string name="calendar_activity_child_title">Запись ребенка</string>
+    <string name="calendar_possible_children">Возможные варианты</string>
+    <string name="calendar_activity_client_title">Запись клиента</string>
+    <string name="calendar_activity_search_client_title">Поиск записи клиента</string>
+    <string name="calendar_activity_search_child_title">Поиск записи ребенка</string>
+
+    <string name="event_detail_activity_available_time">Доступное время</string>
+    <string name="event_detail_activity_confirm_override_title">Подтверждение</string>
+    <string name="event_detail_activity_confirm_override_message">Отчет уже был отправлен ранее. Нажимая продолжить, вы соглашаетесь с тем, что данные будут перезаписаны.</string>
+    <string name="event_detail_activity_continue">Продолжить</string>
+    <string name="event_detail_activity_cancel">Отмена</string>
+
+    <string name="event_detail_activity_client">Клиент</string>
+    <string name="event_detail_activity_child">Ребенок</string>
+    <string name="event_detail_activity_time">Время</string>
+    <string name="event_detail_activity_report">Отчет</string>
+
+    <string name="event_detail_activity_field_empty">Данные не заполнены</string>
+
+    <string name="event_detail_activity_client_name">Имя клиента</string>
+    <string name="event_detail_activity_client_phone">Телефон</string>
+    <string name="event_detail_activity_client_email">Почтовый адрес</string>
+
+    <string name="event_detail_activity_child_name">Имя ребенка</string>
+    <string name="event_detail_activity_child_age">Возраст</string>
+
+    <string name="event_detail_activity_client_name_editable_hint">Имя клиента</string>
+    <string name="event_detail_activity_client_phone_editable_hint">Телефон</string>
+    <string name="event_detail_activity_client_email_editable_hint">Почтовый адрес</string>
+
+    <string name="event_detail_activity_child_name_editable_hint">Имя ребенка</string>
+
+    <string name="event_detail_add_client_first">Необходимо сначала внести данные о клиенте!</string>
+    <string name="event_detail_event_added">Запись успешно создана!</string>
+    <string name="event_detail_event_edited">Запись успешно изменена!</string>
+
+    <string name="client_added">Запись успешно создана!</string>
+    <string name="client_edited">Запись успешно изменена!</string>
+    <string name="child_added">Запись успешно создана!</string>
+    <string name="child_edited">Запись успешно изменена!</string>
+
+    <string name="event_deleted">Запись была удалена</string>
+
+    <string name="search_by_name_email_phone">Имя, номер телефона или эл. почта</string>
+    <string name="search_by_child_name">Имя ребенка</string>
+
+    <string name="client_data_is_not_full">Данные о клиенте указаны не полностью</string>
+    <string name="child_data_is_not_full">Данные о ребенке указаны не полностью</string>
+    <string name="child_age_not_set">Укажите возраст!</string>
+    <string name="child_name_not_set">Укажите имя!</string>
+    <string name="time_is_not_set">Необходимо указать время записи</string>
+
+    <string name="action_search">Поиск</string>
+    <string name="action_edit">Редактировать</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_delete">Удалить</string>
+    <string name="action_next_week">Следующая неделя</string>
+    <string name="action_prev_week">Предыдущая неделя</string>
+    <string name="action_clear">Очистить</string>
+
+    <string name="event_detail_activity_hint_status_new">Запись еще не была произведена</string>
+    <string name="event_detail_activity_hint_status_ready">Результаты измерений обработаны и отчет готов</string>
+    <string name="event_detail_activity_hint_status_sent">Отчет был выслан клиенту</string>
+    <string name="event_detail_activity_hint_status_uploaded">Результаты измерений были загружены</string>
+
+    <string name="calendar_add_event">СОЗДАТЬ</string>
+
+    <string name="event_detail_activity_choose_date_hint">Показаны события за %s</string>
+
+    <string name="children_activity_edit_hint">Вы перешли в режим редактирования записи</string>
+    <string name="children_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
+
+    <string name="client_activity_edit_hint">Вы перешли в режим редактирования записи</string>
+    <string name="client_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
+
+    <string name="calendar_report_new">Новый</string>
+    <string name="calendar_report_uploaded">Загружен</string>
+    <string name="calendar_report_ready">Готов</string>
+    <string name="calendar_report_sent">Отправлен</string>
+
+    <string name="calendar_confirm_delete_message">Вы действительно хотите удалить запись?</string>
+    <string name="calendar_confirm_delete_title">Подтверждение</string>
+
+    <string name="childen_choose_age">Выберите возраст:</string>
+
+
+</resources>
