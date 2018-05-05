@@ -315,7 +315,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
 
     private void setUpChart() {
         mLineChart.setDescription("");
-        mLineChart.setNoDataText(getString(R.string.noData));
+        mLineChart.setNoDataText(getString(R.string.no_data));
         mLineChart.setDrawGridBackground(false);
         mLineChart.setDrawMarkerViews(false);
         mLineChart.getLegend().setEnabled(false);
