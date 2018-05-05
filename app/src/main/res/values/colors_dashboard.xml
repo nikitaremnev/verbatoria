@@ -4,11 +4,8 @@
     <color name="verbatolog_status_yellow">#FFCC00</color>
     <color name="verbatolog_status_red">#AF0036</color>
 
-    <color name="verbatolog_info_background">#FFFFFF</color>
-
     <color name="dashboard_background">#FFFFC5</color>
 
-    <color name="settings_item_background">#FFFFFF</color>
     <color name="settings_text_color">#000</color>
 
     <color name="settings_divider_item_color">#CCCCCC</color>

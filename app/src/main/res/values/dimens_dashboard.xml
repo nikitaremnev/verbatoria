@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="verbatolog_info_card_elevation">5dp</dimen>
     <dimen name="dashboard_horizontal_padding">16dp</dimen>
     <dimen name="dashboard_padding">16dp</dimen>
     <dimen name="verbatolog_status_diameter">15dp</dimen>
@@ -13,18 +12,12 @@
     <dimen name="verbatolog_fields_right_margin">16dp</dimen>
     <dimen name="verbatolog_fields_top_margin">4dp</dimen>
 
-    <dimen name="verbatolog_event_minimum_height">40dp</dimen>
-    <dimen name="verbatolog_event_corner_radius">4dp</dimen>
-    <dimen name="verbatolog_event_padding">8dp</dimen>
     <dimen name="verbatolog_event_name_horizontal_padding">12dp</dimen>
-    <dimen name="verbatolog_event_name_vertical_padding">8dp</dimen>
     <dimen name="verbatolog_event_between_vertical_padding">2dp</dimen>
     <dimen name="verbatolog_event_between_horizontal_padding">8dp</dimen>
     <dimen name="verbatolog_event_top_vertical_padding">12dp</dimen>
     <dimen name="verbatolog_event_bottom_vertical_padding">6dp</dimen>
     <dimen name="verbatolog_event_time_top_vertical_padding">4dp</dimen>
-
-    <dimen name="verbatolog_between_info_and_events_margin">16dp</dimen>
 
     <dimen name="calendar_fab_between_margin">8dp</dimen>
     <dimen name="calendar_fab_margin">8dp</dimen>
@@ -45,7 +38,6 @@
 
     <dimen name="settings_item_left_padding">16dp</dimen>
     <dimen name="settings_item_right_padding">32dp</dimen>
-    <dimen name="settings_item_vertical_padding">8dp</dimen>
 
     <dimen name="verbatolog_info_subtitle_other_padding">16dp</dimen>
     <dimen name="verbatolog_info_subtitle_bottom_padding">8dp</dimen>

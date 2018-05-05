@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="dashboard_report_id" formatted="false">Номер отчета: %s</string>
     <string name="dashboard_age" formatted="false">Возраст: %s</string>
-    <string name="dashboard_events_title">Ближайшие записи:</string>
     <string name="dashboard_no_events_title">На указанную дату нет записей</string>
 
     <string name="dashboard_bottom_item_main">Главная</string>
@@ -21,10 +19,8 @@
 
     <string name="dashboard_unknown">Неизвестно</string>
 
-    <string name="settings_item_connection">Соединение</string>
     <string name="settings_item_developer">О приложении</string>
 
-    <string name="settings_clear_database">Очистить</string>
     <string name="settings_clear_database_confirm_title">Подтверждение</string>
     <string name="settings_clear_database_confirm_message">Вы уверены, что хотите очистить базу данных?
         Обычно это нужно перед проведением первой реальной записи после обучения.</string>

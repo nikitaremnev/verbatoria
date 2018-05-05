@@ -9,8 +9,6 @@
     <string name="login_thailand_phone_mask">+ [00] [00] [00000000]</string>
     <string name="login_password_hint">Пароль</string>
 
-    <string name="splash_application_will_be_unstable">Приложение будет работать нестабильно. Пожалуйста, дайте необходимые разрешения в настройках приложения</string>
-
     <string name="login_forgot_password">Не помню пароль</string>
 
     <string name="recovery_password_confirm_code">Код подтверждения</string>
@@ -18,7 +16,6 @@
     <string name="recovery_new_password_confirm">Подтвердите новый пароль</string>
 
     <string name="recovery_send_code">Отправить код</string>
-    <string name="recovery_send_code_confirm">Подтвердить код</string>
     <string name="recovery_send_new_password">Задать новый пароль</string>
     <string name="recovery_remember_password">Я вспомнил пароль!</string>
 
@@ -27,12 +24,6 @@
     <string name="country_azerbaijan">Азербайджан</string>
     <string name="country_uae">ОАЭ</string>
     <string name="country_thailand">Таиланд</string>
-
-    <string name="country_code_russia">ru</string>
-    <string name="country_code_ukraine">ua</string>
-    <string name="country_code_azerbaijan">az</string>
-    <string name="country_code_thailand">th</string>
-    <string name="country_code_uae">ae</string>
 
     <string name="select_country">Выберите местоположение</string>
 

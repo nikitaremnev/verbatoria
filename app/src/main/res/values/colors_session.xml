@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="connection_status_text_color">#000</color>
-    <color name="connection_loading_color">#E59700</color>
     <color name="connection_error">#BF0036</color>
     <color name="connection_disconnected">#2222aa</color>
     <color name="connection_connected">#2F8D4F</color>

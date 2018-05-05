@@ -47,8 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/save_dialog_option_padding"
-            android:text="@string/schedule_save_5_weeks"
-            android:id="@+id/fifth_option"/>
+            android:text="@string/schedule_save_5_weeks" />
 
     </RadioGroup>
 
