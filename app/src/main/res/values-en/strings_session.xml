@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="session_connection">Соединение</string>
-    <string name="session_start_writing">Начать запись</string>
-    <string name="session_connect">Соединить</string>
-    <string name="session_connected">Подключено</string>
-    <string name="session_connection_in_progress">Идет соединение...</string>
-    <string name="session_not_connected">Не подключено</string>
+    <string name="session_connection">Connection</string>
+    <string name="session_start_writing">Start record</string>
+    <string name="session_connect">Connect</string>
+    <string name="session_connected">Connected</string>
+    <string name="session_connection_in_progress">Connecting...</string>
+    <string name="session_not_connected">Not connected</string>
     <string name="session_connection_instruction">
-        1. Включите питание на нейроинтерфейсе, убедитесь что он работает.
-        \n\n2. Нажмите на кнопку \"Соединить\" и дождитесь статуса \"Подключено\".
-        \n\n3. Нажмите на кнопку \"Начать запись\" для начала работы.
+        1. Turn on the power on the interface, make sure it\'s working.
+        \n\n2. Click the \"Connect\" button and wait for the status \"Connected\".
+        \n\n3. Click the \"Start recording\" button to get started.
     </string>
     <string name="session_bluetooth_disabled">Bluetooth отключен</string>
-    <string name="session_settings">Настройки</string>
+    <string name="session_settings">Settings</string>
 
     <string name="session_writing_load_99">99</string>
     <string name="session_writing_load_11">11</string>
@@ -23,18 +23,18 @@
     <string name="session_writing_load_61">61</string>
     <string name="session_writing_load_71">71</string>
 
-    <string name="session_timer_string_full" formatted="false">Общее время: %s\nОбщее время нагрузок: %s\nОбщее время текущей нагрузки: %s\nВремя нагрузки: %s</string>
-    <string name="session_timer_string_only_full_and_loadings" formatted="false">Общее время: %s\nОбщее время нагрузок: %s</string>
-    <string name="session_timer_string_only_full" formatted="false">Общее время: %s</string>
+    <string name="session_timer_string_full" formatted="false">Total time: %s\nTotal loadings time: %s\nTotal time of the current load: %s\nLoading time: %s</string>
+    <string name="session_timer_string_only_full_and_loadings" formatted="false">Total time: %s\nTotal loadings time: %s</string>
+    <string name="session_timer_string_only_full" formatted="false">Total time: %s</string>
 
-    <string name="session_player_error">Файлы для воспроизведения не найдены!</string>
+    <string name="session_player_error">No files found for playback!</string>
 
-    <string name="session_submit_back">Назад</string>
-    <string name="session_submit_next">Далее</string>
+    <string name="session_submit_back">Back</string>
+    <string name="session_submit_next">Next</string>
 
-    <string name="session_submit">Закончить</string>
+    <string name="session_submit">Submit</string>
 
-    <string name="session_no_answer">Нет ответа</string>
+    <string name="session_no_answer">No answer</string>
 
     <string name="session_question_variant_10">10</string>
     <string name="session_question_variant_20">20</string>
@@ -42,37 +42,37 @@
     <string name="session_question_variant_60">60</string>
     <string name="session_question_variant_90">90</string>
 
-    <string name="session_some_activities_not_finished">Коды нагрузки %s записаны в недостаточном объеме</string>
-    <string name="session_activity_not_finished">Код нагрузки %s записан в недостаточном объеме</string>
-    <string name="session_continue">Продолжить</string>
+    <string name="session_some_activities_not_finished">Loading codes %s are not recorded enough</string>
+    <string name="session_activity_not_finished">Loading code %s is not recorded enough</string>
+    <string name="session_continue">Continue</string>
 
-    <string name="session_connection_error">Возникли неполадки с соединением с нейроинтерфейсом. Пожалуйста, возобновите подключение.</string>
+    <string name="session_connection_error">There was a problem with the connection to the neurointerface. Please resume the connection.</string>
 
-    <string name="session_connection_error_try">Восстановить соединение</string>
+    <string name="session_connection_error_try">Reconnect</string>
 
 
     <string-array name="session_questions">
-        <item>Речь</item>
-        <item>Математика</item>
-        <item>Музыка</item>
-        <item>Творчество</item>
-        <item>Кинестетика</item>
-        <item>Коммуникабельность</item>
-        <item>Внутреннее Я</item>
+        <item>Speech</item>
+        <item>Math</item>
+        <item>Music</item>
+        <item>Creativity</item>
+        <item>Kinesthetic</item>
+        <item>Communication</item>
+        <item>Internal self</item>
     </string-array>
 
-    <string name="session_include_attention_question">Включать ли отчет Внимание/Память?</string>
-    <string name="session_report_type_question">Выберите тип отчета:</string>
-    <string name="session_report_type_0">Тип 0</string>
-    <string name="session_report_type_1">Тип 1</string>
-    <string name="session_report_type_2">Тип 2</string>
-    <string name="session_report_type_3">Тип 3</string>
-    <string name="session_report_type_4">Тип 4</string>
-    <string name="session_report_type_5">Тип 5</string>
-    <string name="session_report_type_6">Тип 6</string>
-    <string name="session_report_type_7">Тип 7</string>
-    <string name="session_report_type_8">Тип 8</string>
-    <string name="session_report_type_9">Тип 9</string>
-    <string name="session_report_type_10">Тип 10</string>
+    <string name="session_include_attention_question">Should I include the Attention/Memory report?</string>
+    <string name="session_report_type_question">Choose report type:</string>
+    <string name="session_report_type_0">Type 0</string>
+    <string name="session_report_type_1">Type 1</string>
+    <string name="session_report_type_2">Type 2</string>
+    <string name="session_report_type_3">Type 3</string>
+    <string name="session_report_type_4">Type 4</string>
+    <string name="session_report_type_5">Type 5</string>
+    <string name="session_report_type_6">Type 6</string>
+    <string name="session_report_type_7">Type 7</string>
+    <string name="session_report_type_8">Type 8</string>
+    <string name="session_report_type_9">Type 9</string>
+    <string name="session_report_type_10">Type 10</string>
 
 </resources>
