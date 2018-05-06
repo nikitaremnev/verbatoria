@@ -7,6 +7,8 @@
     <string name="login_azerbaijan_phone_mask">+ [000] [00] [000] [00] [00]</string>
     <string name="login_uae_phone_mask">+ [000] [00] [0000000]</string>
     <string name="login_thailand_phone_mask">+ [00] [00] [00000000]</string>
+    <string name="login_belarus_phone_mask">+ [000] [00] [000] [00] [00]</string>
+
     <string name="login_password_hint">Password</string>
 
     <string name="login_forgot_password">Forgot password</string>
@@ -20,6 +22,7 @@
     <string name="recovery_remember_password">I remembered password!</string>
 
     <string name="country_russia">Russia</string>
+    <string name="country_belarus">Belarus</string>
     <string name="country_ukraine">Ukraine</string>
     <string name="country_azerbaijan">Azerbaijan</string>
     <string name="country_uae">UAE</string>
