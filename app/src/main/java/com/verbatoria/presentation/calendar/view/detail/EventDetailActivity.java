@@ -355,7 +355,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     private void setUpButton() {
         if (!mEventDetailPresenter.isEditMode()) {
-            mSubmitButton.setText(getString(R.string.calendar_activity_create));
+            mSubmitButton.setText(getString(R.string.dashboard_add_event));
             mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.createEvent());
         } else {
             mSubmitButton.setText(getString(R.string.dashboard_start_session));

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="calendar_activity_create">Create recording</string>
+    <string name="calendar_activity_create">Create entry</string>
     <string name="calendar_activity_child_title">Child entry</string>
     <string name="calendar_possible_children">Possible variants</string>
     <string name="calendar_activity_client_title">Client entry</string>

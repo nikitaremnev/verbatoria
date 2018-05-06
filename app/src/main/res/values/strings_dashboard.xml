@@ -22,8 +22,7 @@
     <string name="settings_item_developer">О приложении</string>
 
     <string name="settings_clear_database_confirm_title">Подтверждение</string>
-    <string name="settings_clear_database_confirm_message">Вы уверены, что хотите очистить базу данных?
-        Обычно это нужно перед проведением первой реальной записи после обучения.</string>
+    <string name="settings_clear_database_confirm_message">Вы уверены, что хотите очистить базу данных? Обычно это нужно перед проведением первой реальной записи после обучения.</string>
 
     <string name="dashboard_neurometrist">Нейрометрист</string>
     <string name="dashboard_cabinet">Кабинет</string>
