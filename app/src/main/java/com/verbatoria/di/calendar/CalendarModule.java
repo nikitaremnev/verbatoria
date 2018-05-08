@@ -7,7 +7,7 @@ import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.clients.ClientsInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.business.session.Session;
+import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.data.repositories.calendar.CalendarRepository;
 import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.children.ChildrenRepository;
@@ -111,7 +111,7 @@ public class CalendarModule {
     @Provides
     @CalendarScope
     ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
-        return new Session(sessionRepository, tokenRepository);
+        return new SessionInteractor(sessionRepository, tokenRepository);
     }
 
     @Provides

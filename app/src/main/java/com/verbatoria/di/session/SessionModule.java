@@ -6,7 +6,7 @@ import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.clients.ClientsInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.business.session.Session;
+import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.data.repositories.children.ChildrenRepository;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
 import com.verbatoria.data.repositories.clients.ClientsRepository;
@@ -69,7 +69,7 @@ public class SessionModule {
     @Provides
     @SessionScope
     ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
-        return new Session(sessionRepository, tokenRepository);
+        return new SessionInteractor(sessionRepository, tokenRepository);
     }
 
     @Provides

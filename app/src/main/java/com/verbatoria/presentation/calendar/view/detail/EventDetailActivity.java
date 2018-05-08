@@ -71,6 +71,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @BindView(R.id.report_field)
     public View mReportFieldView;
 
+    @BindView(R.id.send_to_location_field)
+    public View mSendToLocationFieldView;
+
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
@@ -257,6 +260,22 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void updateSendToLocationView(ReportModel reportModel, boolean isSent) {
+        if (reportModel == null || !reportModel.isSent()) {
+            mSendToLocationFieldView.setVisibility(View.GONE);
+        } else {
+            if (isSent) {
+                ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_ok);
+                mSendToLocationFieldView.findViewById(R.id.status_image_view).setVisibility(View.VISIBLE);
+            } else {
+                mSendToLocationFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
+            }
+            setUpFieldView(mSendToLocationFieldView, R.drawable.ic_location_plus, getString(R.string.event_detail_activity_send_to_branch), getString(R.string.event_detail_activity_branch), v -> mEventDetailPresenter.onSendReportToLocationClicked());
+            mSendToLocationFieldView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void setUpEventCreated() {
         mSubmitButton.setText(getString(R.string.dashboard_start_session));
         mSubmitButton.setOnClickListener(v -> {
@@ -284,6 +303,28 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void showTimeNotSetError() {
         Helper.showErrorSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
+    }
+
+    @Override
+    public void showConfirmSendToLocation() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.confirmation))
+                .setMessage(getString(R.string.event_confirm_send_report_to_location));
+        builder.setPositiveButton(getString(R.string.event_confirm_send_report_to_location_send), (dialog, which) -> {
+            mEventDetailPresenter.onSendReportToLocationConfirmed();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+    @Override
+    public void showSentToLocationSuccess() {
+        Helper.showSnackBar(mSendToLocationFieldView, getString(R.string.event_confirm_send_report_to_location_success));
+    }
+
+    @Override
+    public void showSentToLocationError(String error) {
+        Helper.showErrorSnackBar(mSendToLocationFieldView, error);
     }
 
     @Override
@@ -372,6 +413,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateChildView(mEventDetailPresenter.getChildModel());
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
+        updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
     }
 
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {

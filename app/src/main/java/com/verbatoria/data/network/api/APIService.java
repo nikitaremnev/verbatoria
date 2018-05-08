@@ -49,6 +49,7 @@ import static com.verbatoria.data.network.api.APIConstants.FROM_TIME_QUERY_KEY;
 import static com.verbatoria.data.network.api.APIConstants.LOCATION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.PER_PAGE_KEY;
 import static com.verbatoria.data.network.api.APIConstants.QUERY_PATH_KEY;
+import static com.verbatoria.data.network.api.APIConstants.REPORT_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.SESSION_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.TOKEN_HEADER_KEY;
 import static com.verbatoria.data.network.api.APIConstants.TO_TIME_QUERY_KEY;
@@ -192,5 +193,13 @@ public interface APIService {
     @HTTP(method = "DELETE", path = APIConstants.DELETE_SCHEDULE_URL, hasBody = true)
     Observable<List<ScheduleItemResponseModel>> deleteSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
                                                               @Body ScheduleDeleteRequestModel scheduleDeleteRequestModel);
+
+    /*
+        Send report to location
+     */
+
+    @POST(APIConstants.SEND_REPORT_TO_LOCATION_URL)
+    Observable<ResponseBody> sendReportToLocation(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                                  @Path(value = REPORT_ID_PATH_KEY) String reportId);
 
 }

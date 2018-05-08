@@ -28,6 +28,7 @@ import java.util.Timer;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import rx.Completable;
 import rx.Observable;
 
@@ -38,9 +39,9 @@ import static com.verbatoria.business.session.activities.ActivitiesCodes.NO_CODE
  *
  * @author nikitaremnev
  */
-public class Session implements ISessionInteractor, ISessionInteractor.ISessionCallback {
+public class SessionInteractor implements ISessionInteractor, ISessionInteractor.ISessionCallback {
 
-    private static final String TAG = Session.class.getSimpleName();
+    private static final String TAG = SessionInteractor.class.getSimpleName();
 
     private ISessionRepository mSessionRepository;
     private ITokenRepository mTokenRepository;
@@ -56,7 +57,7 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
 
     private String mCurrentCode = NO_CODE;
 
-    public Session(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
+    public SessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
         mSessionRepository = sessionRepository;
         mTokenRepository = tokenRepository;
         VerbatoriaApplication.setSessionInteractorCallback(this);
@@ -123,6 +124,13 @@ public class Session implements ISessionInteractor, ISessionInteractor.ISessionC
                     }
                     return null;
                 })
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Observable<ResponseBody> sendReportToLocation(String reportId) {
+        return mSessionRepository.sendReportToLocation(mTokenRepository.getToken().getAccessToken(), reportId)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

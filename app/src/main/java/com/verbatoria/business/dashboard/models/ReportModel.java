@@ -123,6 +123,10 @@ public class ReportModel implements Parcelable {
         return mStatus.equals(STATUS.CANCELED);
     }
 
+    public boolean isSent() {
+        return mStatus.equals(STATUS.SENT);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

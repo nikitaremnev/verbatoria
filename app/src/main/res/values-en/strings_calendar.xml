@@ -16,6 +16,8 @@
     <string name="event_detail_activity_child">Child</string>
     <string name="event_detail_activity_time">Time</string>
     <string name="event_detail_activity_report">Report</string>
+    <string name="event_detail_activity_send_to_branch">Send report to branch</string>
+    <string name="event_detail_activity_branch">Branch office</string>
 
     <string name="event_detail_activity_field_empty">Data not filled</string>
 
@@ -78,5 +80,9 @@
     <string name="calendar_confirm_delete_title">Confirmation</string>
 
     <string name="childen_choose_age">Choose age:</string>
+
+    <string name="event_confirm_send_report_to_location">Send a copy of the report to the branch office without sending SMS notification to client and with an automatic copy to the email address configured in the admin panel?</string>
+    <string name="event_confirm_send_report_to_location_send">Send</string>
+    <string name="event_confirm_send_report_to_location_success">A copy of the report was sent to the branch office</string>
 
 </resources>

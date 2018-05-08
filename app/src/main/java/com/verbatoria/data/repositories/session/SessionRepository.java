@@ -95,6 +95,11 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
+    public Observable<ResponseBody> sendReportToLocation(String accessToken, String reportId) {
+        return APIFactory.getAPIService().sendReportToLocation(accessToken, reportId);
+    }
+
+    @Override
     public void addEvent(String code) {
         ActivitiesDatabase.addEventToDatabase(mContext, code);
     }

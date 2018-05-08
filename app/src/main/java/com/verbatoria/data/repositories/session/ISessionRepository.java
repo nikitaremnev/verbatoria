@@ -42,6 +42,8 @@ public interface ISessionRepository {
 
     Observable<ResponseBody> addResults(String accessToken, String sessionId, RequestBody requestBody);
 
+    Observable<ResponseBody> sendReportToLocation(String accessToken, String reportId);
+
     void addEvent(String code);
 
     void addAttentionValue(int value);

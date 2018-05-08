@@ -40,6 +40,9 @@ public interface IEventDetailPresenter {
     void setChildModel(ChildModel childModel);
     void setEventDate(Calendar calendar);
 
+    void onSendReportToLocationClicked();
+    void onSendReportToLocationConfirmed();
+
     boolean isEditMode();
     boolean isDeleteEnabled();
 

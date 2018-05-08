@@ -18,10 +18,12 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.detail.IEventDetailView;
 import com.verbatoria.utils.Logger;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 
 /**
  * Реализация презентера для экрана события
@@ -174,6 +176,21 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
+    public void onSendReportToLocationClicked() {
+        mCalendarEventDetailView.showConfirmSendToLocation();
+    }
+
+    @Override
+    public void onSendReportToLocationConfirmed() {
+        addSubscription(
+                mSessionInteractor.sendReportToLocation(mEventModel.getReport().getId())
+                        .doOnSubscribe(()-> mCalendarEventDetailView.showProgress())
+                        .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                        .subscribe(this::handleReportSentToLocation, this::handleReportSendToLocationError)
+        );
+    }
+
+    @Override
     public boolean isEditMode() {
         return mIsEditMode;
     }
@@ -233,6 +250,24 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     private void handleTimeIntervalsReceived(List<TimeIntervalModel> timeIntervals) {
         mCalendarEventDetailView.showPossibleTimeIntervals(timeIntervals);
+    }
+
+    private void handleReportSentToLocation(ResponseBody responseBody) {
+        mCalendarEventDetailView.updateSendToLocationView(mEventModel.getReport(), true);
+        mCalendarEventDetailView.showSentToLocationSuccess();
+    }
+
+    private void handleReportSendToLocationError(Throwable throwable) {
+        try {
+            HttpException error = (HttpException) throwable;
+            String errorBody = error.response().errorBody().string()
+                    .replace("{\"error\":\"", "")
+                    .replace("\"}", "");
+            mCalendarEventDetailView.showSentToLocationError(errorBody);
+        } catch (IOException e) {
+            e.printStackTrace();
+            mCalendarEventDetailView.showError(throwable.getMessage());
+        }
     }
 
     private boolean hasError() {

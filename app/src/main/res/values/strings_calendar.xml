@@ -16,6 +16,8 @@
     <string name="event_detail_activity_child">Ребенок</string>
     <string name="event_detail_activity_time">Время</string>
     <string name="event_detail_activity_report">Отчет</string>
+    <string name="event_detail_activity_send_to_branch">Отправить отчет в филиал</string>
+    <string name="event_detail_activity_branch">Филиал</string>
 
     <string name="event_detail_activity_field_empty">Данные не заполнены</string>
 
@@ -78,5 +80,9 @@
     <string name="calendar_confirm_delete_title">Подтверждение</string>
 
     <string name="childen_choose_age">Выберите возраст:</string>
+
+    <string name="event_confirm_send_report_to_location">Отправить копию отчета в филиал без СМС уведомления клиента и с автоматической копией на настраиваемый в панели администратора email-адрес?</string>
+    <string name="event_confirm_send_report_to_location_send">Отправить</string>
+    <string name="event_confirm_send_report_to_location_success">Копия отчета была отправлена в филиал</string>
 
 </resources>

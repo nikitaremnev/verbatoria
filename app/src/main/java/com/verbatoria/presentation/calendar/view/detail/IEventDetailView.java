@@ -32,6 +32,7 @@ public interface IEventDetailView {
     void updateChildView(ChildModel childModel);
     void updateReportView(ReportModel reportModel);
     void updateEventTime(EventModel eventModel);
+    void updateSendToLocationView(ReportModel reportModel, boolean isSent);
 
     void setUpEventCreated();
     void setUpEventEdit();
@@ -39,6 +40,11 @@ public interface IEventDetailView {
     void showClientNotFullError();
     void showChildNotFullError();
     void showTimeNotSetError();
+
+    void showConfirmSendToLocation();
+
+    void showSentToLocationSuccess();
+    void showSentToLocationError(String error);
 
     void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals);
 
