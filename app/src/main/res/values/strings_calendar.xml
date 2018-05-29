@@ -81,7 +81,7 @@
 
     <string name="childen_choose_age">Выберите возраст:</string>
 
-    <string name="event_confirm_send_report_to_location">Отправить копию отчета в филиал без СМС уведомления клиента и с автоматической копией на настраиваемый в панели администратора email-адрес?</string>
+    <string name="event_confirm_send_report_to_location">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
     <string name="event_confirm_send_report_to_location_send">Отправить</string>
     <string name="event_confirm_send_report_to_location_success">Копия отчета была отправлена в филиал</string>
 

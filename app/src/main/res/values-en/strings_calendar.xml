@@ -81,7 +81,7 @@
 
     <string name="childen_choose_age">Choose age:</string>
 
-    <string name="event_confirm_send_report_to_location">Send a copy of the report to the branch office without sending SMS notification to client and with an automatic copy to the email address configured in the admin panel?</string>
+    <string name="event_confirm_send_report_to_location">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
     <string name="event_confirm_send_report_to_location_send">Send</string>
     <string name="event_confirm_send_report_to_location_success">A copy of the report was sent to the branch office</string>
 
