@@ -21,7 +21,10 @@ public interface IEventDetailPresenter {
     void unbindView();
 
     boolean checkStartSession();
+    void clearDatabase();
     void startSession();
+    void checkDatabaseClear();
+
     void createEvent();
     void editEvent();
     void deleteEvent();

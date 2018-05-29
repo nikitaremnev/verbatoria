@@ -91,4 +91,8 @@
     <string name="event_confirm_include_attention_memory_include">Включить</string>
     <string name="event_confirm_attention_memory_include_success">Модуль Внимание/Память добавлен в отчет</string>
 
+    <string name="event_confirm_clear_database">База данных содержит записи, очистить ее перед проведением приема?</string>
+    <string name="event_confirm_clear">Очистить</string>
+    <string name="event_confirm_clear_database_title">Обнаружены данные</string>
+
 </resources>

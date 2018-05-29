@@ -77,6 +77,14 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
+    public void clearDatabase() {
+        mCalendarEventDetailView.showProgress();
+        addSubscription(mSessionInteractor.clearDatabases()
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleDatabaseCleared, this::handleError));
+    }
+
+    @Override
     public void startSession() {
         if (!hasError()) {
             addSubscription(mSessionInteractor.startSession(mEventModel.getId())
@@ -84,6 +92,14 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
                     .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                     .subscribe(this::handleSessionStarted, this::handleError));
         }
+    }
+
+    @Override
+    public void checkDatabaseClear() {
+        addSubscription(mSessionInteractor.isDatabasesClear()
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleIsDatabaseClear, this::handleError));
     }
 
     @Override
@@ -288,6 +304,18 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     private void handleAttentionMemoryIncluded(ResponseBody responseBody) {
         mCalendarEventDetailView.updateIncludeAttentionMemoryView(mEventModel.getReport(), true);
         mCalendarEventDetailView.showIncludeAttentionMemorySuccess();
+    }
+
+    private void handleIsDatabaseClear(boolean isClear) {
+        if (isClear) {
+            startSession();
+        } else {
+            mCalendarEventDetailView.showConfirmClearDatabase();
+        }
+    }
+
+    private void handleDatabaseCleared() {
+        startSession();
     }
 
     private void handleAttentionMemoryIncludeError(Throwable throwable) {

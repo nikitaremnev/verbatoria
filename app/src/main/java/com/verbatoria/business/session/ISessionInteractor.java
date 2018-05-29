@@ -23,6 +23,10 @@ public interface ISessionInteractor {
     Observable<Void> getAllMeasurements(Map<String, String> answers);
     Completable submitResults();
     Completable submitResults(String fileName);
+
+    Observable<Boolean> isDatabasesClear();
+    Completable clearDatabases();
+
     Observable<Object> cleanUp();
 
     Observable<ResponseBody> sendReportToLocation(String reportId);

@@ -44,6 +44,7 @@ public interface IEventDetailView {
 
     void showConfirmSendToLocation();
     void showConfirmIncludeAttentionMemory();
+    void showConfirmClearDatabase();
 
     void showSentToLocationSuccess();
     void showSentToLocationError(String error);

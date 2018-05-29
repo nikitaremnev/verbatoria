@@ -105,6 +105,11 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
+    public Observable<Boolean> hasMeasurements() {
+        return Observable.fromCallable(() -> !NeurodataDatabase.getAttentionValues(mContext).isEmpty() || !ActivitiesDatabase.getEvents(mContext).isEmpty());
+    }
+
+    @Override
     public void addEvent(String code) {
         ActivitiesDatabase.addEventToDatabase(mContext, code);
     }

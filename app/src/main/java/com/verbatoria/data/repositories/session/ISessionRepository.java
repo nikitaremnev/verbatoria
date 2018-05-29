@@ -46,6 +46,8 @@ public interface ISessionRepository {
 
     Observable<ResponseBody> sendReportToLocation(String accessToken, String reportId);
 
+    Observable<Boolean> hasMeasurements();
+
     void addEvent(String code);
 
     void addAttentionValue(int value);

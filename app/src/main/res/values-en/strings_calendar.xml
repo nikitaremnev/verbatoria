@@ -91,4 +91,8 @@
     <string name="event_confirm_include_attention_memory_include">Include</string>
     <string name="event_confirm_attention_memory_include_success">The Attention/Memory module has been added in the report</string>
 
+    <string name="event_confirm_clear_database">Database contains some data. Clear it before the writing new data?</string>
+    <string name="event_confirm_clear">Clear</string>
+    <string name="event_confirm_clear_database_title">Data found</string>
+
 </resources>

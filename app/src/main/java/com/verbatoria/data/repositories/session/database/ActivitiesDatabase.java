@@ -124,28 +124,6 @@ public class ActivitiesDatabase extends SQLiteOpenHelper implements BaseColumns 
         return eventMeasurements;
     }
 
-    public static ArrayList<BaseMeasurement> getBaseEvents(Context context) {
-        Logger.e(TAG, "getEvents");
-        SQLiteDatabase sqdb = getMyWritableDatabase(context);
-        ArrayList<BaseMeasurement> eventMeasurements = new ArrayList<>();
-        try {
-            Cursor cursor = sqdb.query(ActivitiesDatabase.EVENTS_TABLE_NAME, null, null, null, null, null, null);
-            cursor.moveToFirst();
-            do {
-                EventMeasurement eventMeasurement = new EventMeasurement()
-                        .setTimestamp(Helper.processTimestamp(cursor.getLong(cursor.getColumnIndex(ActivitiesDatabase.TIMESTAMP_COLUMN_NAME))))
-                        .setActivityCode(cursor.getLong(cursor.getColumnIndex(ActivitiesDatabase.ACTIVITY_CODE_COLUMN_NAME)));
-                eventMeasurements.add(eventMeasurement);
-            } while (cursor.moveToNext());
-            cursor.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        Collections.sort(eventMeasurements, new EventsComparator());
-        Logger.e(TAG, "eventMeasurements.size() " + eventMeasurements.size());
-        return eventMeasurements;
-    }
-
     public static void clear(Context context) {
         ActivitiesDatabase sqh = ActivitiesDatabase.getInstance(context);
         SQLiteDatabase sqdb = getMyWritableDatabase(context);

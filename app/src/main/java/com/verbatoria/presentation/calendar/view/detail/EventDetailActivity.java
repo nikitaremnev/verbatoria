@@ -298,7 +298,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void setUpEventCreated() {
         mSubmitButton.setText(getString(R.string.dashboard_start_session));
         mSubmitButton.setOnClickListener(v -> {
-            mEventDetailPresenter.startSession();
+            mEventDetailPresenter.checkDatabaseClear();
         });
         mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode() && mEventDetailPresenter.isDeleteEnabled());
     }
@@ -343,6 +343,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 .setMessage(getString(R.string.event_confirm_include_attention_memory));
         builder.setPositiveButton(getString(R.string.event_confirm_include_attention_memory_include), (dialog, which) -> {
             mEventDetailPresenter.onIncludeAttentionMemoryConfirmed();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+    @Override
+    public void showConfirmClearDatabase() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.event_confirm_clear_database_title))
+                .setMessage(getString(R.string.event_confirm_clear_database));
+        builder.setPositiveButton(getString(R.string.event_confirm_clear), (dialog, which) -> {
+            mEventDetailPresenter.clearDatabase();
         });
         builder.setNegativeButton(getString(R.string.cancel), null);
         builder.create().show();
@@ -404,7 +416,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 .setMessage(getString(R.string.event_detail_activity_confirm_override_message))
                 .setIcon(R.drawable.ic_neurointerface_error)
                 .setPositiveButton(getString(R.string.event_detail_activity_continue), (dialog, which) -> {
-                    mEventDetailPresenter.startSession();
+                    mEventDetailPresenter.checkDatabaseClear();
                 })
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
                     dialog.dismiss();
@@ -443,7 +455,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             mSubmitButton.setText(getString(R.string.dashboard_start_session));
             mSubmitButton.setOnClickListener(v -> {
                 if (!mEventDetailPresenter.checkStartSession()) {
-                    mEventDetailPresenter.startSession();
+                    mEventDetailPresenter.checkDatabaseClear();
                 }
             });
         }
