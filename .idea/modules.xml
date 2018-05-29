@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VerbatoriaMini.iml" filepath="$PROJECT_DIR$/VerbatoriaMini.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/verbatoriia.iml" filepath="$PROJECT_DIR$/verbatoriia.iml" />
       <module fileurl="file://$PROJECT_DIR$/verbatoriia.iml" filepath="$PROJECT_DIR$/verbatoriia.iml" />
     </modules>
   </component>
