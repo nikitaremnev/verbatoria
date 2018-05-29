@@ -31,7 +31,6 @@ public class FinishSessionResponseModel {
 
     private String mStatus;
 
-
     public FinishSessionResponseModel() {
 
     }

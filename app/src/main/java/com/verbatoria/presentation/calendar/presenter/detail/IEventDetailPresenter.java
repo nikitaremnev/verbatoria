@@ -43,6 +43,9 @@ public interface IEventDetailPresenter {
     void onSendReportToLocationClicked();
     void onSendReportToLocationConfirmed();
 
+    void onIncludeAttentionMemoryClicked();
+    void onIncludeAttentionMemoryConfirmed();
+
     boolean isEditMode();
     boolean isDeleteEnabled();
 

@@ -148,6 +148,13 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
+    public Observable<ResponseBody> includeAttentionMemory(String reportId) {
+        return mSessionRepository.includeAttentionMemory(reportId, mTokenRepository.getToken().getAccessToken())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
     public void setConnectionCallback(IConnectionCallback connectionCallback) {
         mConnectionCallback = connectionCallback;
     }

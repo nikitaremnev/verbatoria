@@ -191,6 +191,21 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
+    public void onIncludeAttentionMemoryClicked() {
+        mCalendarEventDetailView.showConfirmIncludeAttentionMemory();
+    }
+
+    @Override
+    public void onIncludeAttentionMemoryConfirmed() {
+        addSubscription(
+                mSessionInteractor.includeAttentionMemory(mEventModel.getReport().getId())
+                        .doOnSubscribe(()-> mCalendarEventDetailView.showProgress())
+                        .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                        .subscribe(this::handleAttentionMemoryIncluded, this::handleAttentionMemoryIncludeError)
+        );
+    }
+
+    @Override
     public boolean isEditMode() {
         return mIsEditMode;
     }
@@ -264,6 +279,24 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
                     .replace("{\"error\":\"", "")
                     .replace("\"}", "");
             mCalendarEventDetailView.showSentToLocationError(errorBody);
+        } catch (IOException e) {
+            e.printStackTrace();
+            mCalendarEventDetailView.showError(throwable.getMessage());
+        }
+    }
+
+    private void handleAttentionMemoryIncluded(ResponseBody responseBody) {
+        mCalendarEventDetailView.updateIncludeAttentionMemoryView(mEventModel.getReport(), true);
+        mCalendarEventDetailView.showIncludeAttentionMemorySuccess();
+    }
+
+    private void handleAttentionMemoryIncludeError(Throwable throwable) {
+        try {
+            HttpException error = (HttpException) throwable;
+            String errorBody = error.response().errorBody().string()
+                    .replace("{\"error\":\"", "")
+                    .replace("\"}", "");
+            mCalendarEventDetailView.showIncludeAttentionMemoryError(errorBody);
         } catch (IOException e) {
             e.printStackTrace();
             mCalendarEventDetailView.showError(throwable.getMessage());

@@ -34,6 +34,10 @@
                 android:visibility="gone"
                 layout="@layout/item_field"/>
 
+            <include android:id="@+id/include_attention_memory_field"
+                android:visibility="visible"
+                layout="@layout/item_field"/>
+
         </LinearLayout>
 
         <Button

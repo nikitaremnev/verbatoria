@@ -31,6 +31,8 @@ public interface ISessionInteractor {
 
     void startConnection();
 
+    Observable<ResponseBody> includeAttentionMemory(String reportId);
+
     /*
         ЖЦ коллбеков
      */

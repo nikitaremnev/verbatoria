@@ -28,6 +28,8 @@ public interface ISessionRepository {
 
     Observable<FinishSessionResponseModel> finishSession(String accessToken);
 
+    Observable<ResponseBody> includeAttentionMemory(String reportId, String accessToken);
+
     Observable<List<AttentionMeasurement>> getAttentionMeasurements();
 
     Observable<List<MediationMeasurement>> getMediationMeasurements();

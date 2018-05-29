@@ -53,6 +53,11 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
+    public Observable<ResponseBody> includeAttentionMemory(String reportId, String accessToken) {
+        return APIFactory.getAPIService().includeAttentionMemoryRequest(reportId, accessToken);
+    }
+
+    @Override
     public Observable<List<AttentionMeasurement>> getAttentionMeasurements() {
         return Observable.fromCallable(() -> NeurodataDatabase.getAttentionValues(mContext));
     }
