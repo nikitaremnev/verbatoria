@@ -53,11 +53,11 @@
 
     <string-array name="session_questions">
         <item>Речь</item>
-        <item>Математика</item>
+        <item>Логика</item>
         <item>Музыка</item>
         <item>Творчество</item>
         <item>Кинестетика</item>
-        <item>Коммуникабельность</item>
+        <item>Эмпатия</item>
         <item>Внутреннее Я</item>
     </string-array>
 
