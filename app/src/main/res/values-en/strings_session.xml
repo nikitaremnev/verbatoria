@@ -53,11 +53,11 @@
 
     <string-array name="session_questions">
         <item>Speech</item>
-        <item>Math</item>
+        <item>Logic</item>
         <item>Music</item>
         <item>Creativity</item>
         <item>Kinesthetic</item>
-        <item>Communication</item>
+        <item>Empathy</item>
         <item>Internal self</item>
     </string-array>
 

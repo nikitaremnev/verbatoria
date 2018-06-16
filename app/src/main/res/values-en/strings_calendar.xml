@@ -18,6 +18,8 @@
     <string name="event_detail_activity_report">Report</string>
     <string name="event_detail_activity_send_to_branch">Send report to branch</string>
     <string name="event_detail_activity_branch">Branch office</string>
+    <string name="event_detail_activity_attention_memory">Attention/Memory</string>
+    <string name="event_detail_activity_attention_memory_include">Include Attention/Memory module to the report</string>
 
     <string name="event_detail_activity_field_empty">Data not filled</string>
 
@@ -84,5 +86,13 @@
     <string name="event_confirm_send_report_to_location">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
     <string name="event_confirm_send_report_to_location_send">Send</string>
     <string name="event_confirm_send_report_to_location_success">A copy of the report was sent to the branch office</string>
+
+    <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
+    <string name="event_confirm_include_attention_memory_include">Include</string>
+    <string name="event_confirm_attention_memory_include_success">The Attention/Memory module has been added in the report</string>
+
+    <string name="event_confirm_clear_database">Database contains some data. Clear it before the writing new data?</string>
+    <string name="event_confirm_clear">Clear</string>
+    <string name="event_confirm_clear_database_title">Data found</string>
 
 </resources>

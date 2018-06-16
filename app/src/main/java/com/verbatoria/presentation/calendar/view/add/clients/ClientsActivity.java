@@ -347,6 +347,8 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
             formatterResource = R.string.login_thailand_phone_mask;
         } else if (country.equals(getString(R.string.country_belarus))) {
             formatterResource = R.string.login_belarus_phone_mask;
+        } else if (country.equals(getString(R.string.country_israel))) {
+            formatterResource = R.string.login_israel_phone_mask;
         } else {
             formatterResource = R.string.login_uae_phone_mask;
         }

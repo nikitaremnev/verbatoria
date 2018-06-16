@@ -28,6 +28,8 @@ public interface ISessionRepository {
 
     Observable<FinishSessionResponseModel> finishSession(String accessToken);
 
+    Observable<ResponseBody> includeAttentionMemory(String reportId, String accessToken);
+
     Observable<List<AttentionMeasurement>> getAttentionMeasurements();
 
     Observable<List<MediationMeasurement>> getMediationMeasurements();
@@ -43,6 +45,8 @@ public interface ISessionRepository {
     Observable<ResponseBody> addResults(String accessToken, String sessionId, RequestBody requestBody);
 
     Observable<ResponseBody> sendReportToLocation(String accessToken, String reportId);
+
+    Observable<Boolean> hasMeasurements();
 
     void addEvent(String code);
 

@@ -30,7 +30,6 @@ public class StartSessionResponseModel {
 
     private String mStatus;
 
-
     public StartSessionResponseModel() {
 
     }

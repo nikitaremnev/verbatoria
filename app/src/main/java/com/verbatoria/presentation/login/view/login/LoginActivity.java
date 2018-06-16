@@ -146,6 +146,11 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                     mLoginPresenter.onCountrySelected(getString(R.string.country_thailand));
                     alertDialog.dismiss();
                 });
+        setUpFieldView(dialogRootView.findViewById(R.id.israel_field), R.drawable.ic_flag_isr,
+                getString(R.string.country_israel), view -> {
+                    mLoginPresenter.onCountrySelected(getString(R.string.country_israel));
+                    alertDialog.dismiss();
+                });
         alertDialog.show();
     }
 
@@ -212,6 +217,10 @@ public class LoginActivity extends BaseActivity implements ILoginView {
             ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_th);
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_thailand));
             setUpPhoneFormatter(getString(R.string.login_thailand_phone_mask));
+        } else if (country.equals(getString(R.string.country_israel))) {
+            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_isr);
+            ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_israel));
+            setUpPhoneFormatter(getString(R.string.login_israel_phone_mask));
         } else if (country.equals(getString(R.string.country_belarus))) {
             ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_by);
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_belarus));

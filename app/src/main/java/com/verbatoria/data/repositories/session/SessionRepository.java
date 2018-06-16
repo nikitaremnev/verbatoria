@@ -53,6 +53,11 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
+    public Observable<ResponseBody> includeAttentionMemory(String reportId, String accessToken) {
+        return APIFactory.getAPIService().includeAttentionMemoryRequest(reportId, accessToken);
+    }
+
+    @Override
     public Observable<List<AttentionMeasurement>> getAttentionMeasurements() {
         return Observable.fromCallable(() -> NeurodataDatabase.getAttentionValues(mContext));
     }
@@ -97,6 +102,11 @@ public class SessionRepository implements ISessionRepository {
     @Override
     public Observable<ResponseBody> sendReportToLocation(String accessToken, String reportId) {
         return APIFactory.getAPIService().sendReportToLocation(accessToken, reportId);
+    }
+
+    @Override
+    public Observable<Boolean> hasMeasurements() {
+        return Observable.fromCallable(() -> !NeurodataDatabase.getAttentionValues(mContext).isEmpty() || !ActivitiesDatabase.getEvents(mContext).isEmpty());
     }
 
     @Override

@@ -55,6 +55,7 @@ class APIConstants {
     static final String REPORT_ID_PATH_KEY = "report_id";
 
     static final String START_SESSION_URL = "reports" + JSON_PATH;
+    static final String INCLUDE_ATTENTION_MEMORY_URL = "reports/{" + REPORT_ID_PATH_KEY + "}/add_vnp" + JSON_PATH;
     static final String ADD_RESULTS_TO_SESSION_URL = "reports/{" + SESSION_ID_PATH_KEY + "}/measurements/upload" + JSON_PATH;
     static final String FINISH_SESSION_URL = "reports/{" + SESSION_ID_PATH_KEY + "}/finalize" + JSON_PATH;
     static final String SEND_REPORT_TO_LOCATION_URL = "reports/{" + REPORT_ID_PATH_KEY + "}/send_to_location" + JSON_PATH;

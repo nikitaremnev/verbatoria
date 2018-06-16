@@ -111,6 +111,20 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
+    public Observable<Boolean> isDatabasesClear() {
+        return mSessionRepository.hasMeasurements()
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Completable clearDatabases() {
+        return Completable.fromAction(() -> mSessionRepository.cleanUp())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
     public Observable<Object> cleanUp() {
         Logger.e(TAG, "cleanUp");
         return Observable.fromCallable(() -> {
@@ -145,6 +159,13 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     @Override
     public void startConnection() {
         VerbatoriaApplication.tryToConnect();
+    }
+
+    @Override
+    public Observable<ResponseBody> includeAttentionMemory(String reportId) {
+        return mSessionRepository.includeAttentionMemory(reportId, mTokenRepository.getToken().getAccessToken())
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override

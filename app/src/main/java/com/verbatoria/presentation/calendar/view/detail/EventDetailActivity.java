@@ -74,6 +74,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @BindView(R.id.send_to_location_field)
     public View mSendToLocationFieldView;
 
+    @BindView(R.id.include_attention_memory_field)
+    public View mIncludeAttentionMemoryFieldView;
+
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
@@ -276,10 +279,26 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void updateIncludeAttentionMemoryView(ReportModel reportModel, boolean isSent) {
+        if (reportModel == null || !reportModel.isReadyOrSent()) {
+            mIncludeAttentionMemoryFieldView.setVisibility(View.GONE);
+        } else {
+            if (isSent) {
+                ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_ok);
+                mIncludeAttentionMemoryFieldView.findViewById(R.id.status_image_view).setVisibility(View.VISIBLE);
+            } else {
+                mIncludeAttentionMemoryFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
+            }
+            setUpFieldView(mIncludeAttentionMemoryFieldView, R.drawable.ic_report, getString(R.string.event_detail_activity_attention_memory), getString(R.string.event_detail_activity_attention_memory_include), v -> mEventDetailPresenter.onIncludeAttentionMemoryClicked());
+            mIncludeAttentionMemoryFieldView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
     public void setUpEventCreated() {
         mSubmitButton.setText(getString(R.string.dashboard_start_session));
         mSubmitButton.setOnClickListener(v -> {
-            mEventDetailPresenter.startSession();
+            mEventDetailPresenter.checkDatabaseClear();
         });
         mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode() && mEventDetailPresenter.isDeleteEnabled());
     }
@@ -318,6 +337,30 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showConfirmIncludeAttentionMemory() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.confirmation))
+                .setMessage(getString(R.string.event_confirm_include_attention_memory));
+        builder.setPositiveButton(getString(R.string.event_confirm_include_attention_memory_include), (dialog, which) -> {
+            mEventDetailPresenter.onIncludeAttentionMemoryConfirmed();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+    @Override
+    public void showConfirmClearDatabase() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.event_confirm_clear_database_title))
+                .setMessage(getString(R.string.event_confirm_clear_database));
+        builder.setPositiveButton(getString(R.string.event_confirm_clear), (dialog, which) -> {
+            mEventDetailPresenter.clearDatabase();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+    @Override
     public void showSentToLocationSuccess() {
         Helper.showSnackBar(mSendToLocationFieldView, getString(R.string.event_confirm_send_report_to_location_success));
     }
@@ -325,6 +368,16 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void showSentToLocationError(String error) {
         Helper.showErrorSnackBar(mSendToLocationFieldView, error);
+    }
+
+    @Override
+    public void showIncludeAttentionMemorySuccess() {
+        Helper.showSnackBar(mIncludeAttentionMemoryFieldView, getString(R.string.event_confirm_attention_memory_include_success));
+    }
+
+    @Override
+    public void showIncludeAttentionMemoryError(String error) {
+        Helper.showErrorSnackBar(mIncludeAttentionMemoryFieldView, error);
     }
 
     @Override
@@ -363,7 +416,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 .setMessage(getString(R.string.event_detail_activity_confirm_override_message))
                 .setIcon(R.drawable.ic_neurointerface_error)
                 .setPositiveButton(getString(R.string.event_detail_activity_continue), (dialog, which) -> {
-                    mEventDetailPresenter.startSession();
+                    mEventDetailPresenter.checkDatabaseClear();
                 })
                 .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
                     dialog.dismiss();
@@ -402,7 +455,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             mSubmitButton.setText(getString(R.string.dashboard_start_session));
             mSubmitButton.setOnClickListener(v -> {
                 if (!mEventDetailPresenter.checkStartSession()) {
-                    mEventDetailPresenter.startSession();
+                    mEventDetailPresenter.checkDatabaseClear();
                 }
             });
         }
@@ -414,6 +467,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
+        updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
     }
 
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {

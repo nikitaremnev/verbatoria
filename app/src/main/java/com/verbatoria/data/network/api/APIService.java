@@ -175,6 +175,10 @@ public interface APIService {
     Observable<FinishSessionResponseModel> finishSessionRequest(@Path(value = SESSION_ID_PATH_KEY) String sessionId,
                                                                 @Header(TOKEN_HEADER_KEY) String accessToken);
 
+    @POST(APIConstants.INCLUDE_ATTENTION_MEMORY_URL)
+    Observable<ResponseBody> includeAttentionMemoryRequest(@Path(value = REPORT_ID_PATH_KEY) String reportId,
+                                                                @Header(TOKEN_HEADER_KEY) String accessToken);
+
     /*
         Schedule
      */

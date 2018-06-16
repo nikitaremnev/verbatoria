@@ -127,6 +127,10 @@ public class ReportModel implements Parcelable {
         return mStatus.equals(STATUS.SENT);
     }
 
+    public boolean isReadyOrSent() {
+        return mStatus.equals(STATUS.SENT) || mStatus.equals(STATUS.READY);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

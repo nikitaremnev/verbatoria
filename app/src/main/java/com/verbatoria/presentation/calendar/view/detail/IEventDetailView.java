@@ -33,6 +33,7 @@ public interface IEventDetailView {
     void updateReportView(ReportModel reportModel);
     void updateEventTime(EventModel eventModel);
     void updateSendToLocationView(ReportModel reportModel, boolean isSent);
+    void updateIncludeAttentionMemoryView(ReportModel reportModel, boolean isSent);
 
     void setUpEventCreated();
     void setUpEventEdit();
@@ -42,9 +43,14 @@ public interface IEventDetailView {
     void showTimeNotSetError();
 
     void showConfirmSendToLocation();
+    void showConfirmIncludeAttentionMemory();
+    void showConfirmClearDatabase();
 
     void showSentToLocationSuccess();
     void showSentToLocationError(String error);
+
+    void showIncludeAttentionMemorySuccess();
+    void showIncludeAttentionMemoryError(String error);
 
     void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals);
 
