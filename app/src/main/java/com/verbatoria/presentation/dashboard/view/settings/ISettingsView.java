@@ -8,11 +8,14 @@ package com.verbatoria.presentation.dashboard.view.settings;
 public interface ISettingsView {
 
     void showDeveloperInfo(String version, String androidVersion);
-//    void showConnection();
     void showLogin();
     void showSchedule();
     void showLateSend();
 
     void showClearDatabaseConfirmation();
     void showDatabaseCleared();
+    void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable);
+
+    void setLanguage(String language);
+
 }

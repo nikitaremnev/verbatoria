@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include android:id="@+id/russian_language_field"
+        android:layout_width="@dimen/developer_info_field_width"
+        android:layout_height="@dimen/field_height"
+        layout="@layout/item_field_language"/>
+
+    <include android:id="@+id/english_language_field"
+        android:layout_width="@dimen/developer_info_field_width"
+        android:layout_height="@dimen/field_height"
+        layout="@layout/item_field_language"/>
+
+</LinearLayout>

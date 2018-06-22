@@ -50,6 +50,7 @@ class APIConstants {
     static final String GET_CLIENT_URL = "clients/{" + CLIENT_ID_PATH_KEY + "}" + JSON_PATH;
 
     static final String GET_LOCATION_URL = "locations/{" + LOCATION_ID_PATH_KEY + "}" + JSON_PATH;
+    static final String SET_LOCATION_LANGUAGE_URL = "locations/{" + LOCATION_ID_PATH_KEY + "}" + JSON_PATH;
 
     static final String SESSION_ID_PATH_KEY = "session_id";
     static final String REPORT_ID_PATH_KEY = "report_id";

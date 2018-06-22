@@ -13,6 +13,7 @@ import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.presentation.dashboard.presenter.main.IVerbatologInfoPresenter;
 import com.verbatoria.utils.Helper;
+import com.verbatoria.utils.LocaleHelper;
 
 import javax.inject.Inject;
 
@@ -142,15 +143,6 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     }
 
     @Override
-    public void showLocationInfo(String address, String city, String country, String partner, String name, String id) {
-        showLocationAddress(address);
-        showLocationCityCountry(city + ", " + country);
-        showLocationPartner(partner);
-        showLocationName(name);
-        showLocationId(id);
-    }
-
-    @Override
     public void showLocationInfo(LocationModel locationModel) {
         showLocationAddress(locationModel.getAddress());
         showLocationCityCountry(locationModel.getCityCountry());
@@ -175,6 +167,12 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     public void showBlockedStatus() {
         mStatusView.setBackgroundResource(R.drawable.verbatolog_status_red);
         mHintLayout.setOnClickListener(v -> Helper.showErrorSnackBar(mHintLayout, getString(R.string.dashboard_status_red_hint)));
+    }
+
+    @Override
+    public void updateLocale(String language) {
+        LocaleHelper.setLocale(getActivity(), language);
+        getActivity().recreate();
     }
 
 }

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 
+import java.util.List;
+
 /**
  *
  * Модель ответа от сервера на запрос событий нейрометриста - сущность ребенка
@@ -20,6 +22,10 @@ public class LocationResponseModel {
     private String mName;
 
     private String mAddress;
+
+    private String mLocale;
+
+    private List<String> mAvailableLocales;
 
     private PartnerResponseModel mPartner;
 
@@ -60,6 +66,26 @@ public class LocationResponseModel {
         return this;
     }
 
+    @JsonGetter("locale")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLocale() {
+        return mLocale;
+    }
+
+    public void setLocale(String locale) {
+        this.mLocale = locale;
+    }
+
+    @JsonGetter("available_locales_array")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public List<String> getAvailableLocales() {
+        return mAvailableLocales;
+    }
+
+    public void setAvailableLocales(List<String> availableLocales) {
+        this.mAvailableLocales = availableLocales;
+    }
+
     @JsonGetter("partner")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public PartnerResponseModel getPartner() {
@@ -94,13 +120,15 @@ public class LocationResponseModel {
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mName, that.mName) &&
                 Objects.equal(mAddress, that.mAddress) &&
+                Objects.equal(mLocale, that.mLocale) &&
+                Objects.equal(mAvailableLocales, that.mAvailableLocales) &&
                 Objects.equal(mPartner, that.mPartner) &&
                 Objects.equal(mCity, that.mCity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mAddress, mPartner, mCity);
+        return Objects.hashCode(mId, mName, mAddress, mLocale, mAvailableLocales, mPartner, mCity);
     }
 
     @Override
@@ -109,6 +137,8 @@ public class LocationResponseModel {
                 .add("mId", mId)
                 .add("mName", mName)
                 .add("mAddress", mAddress)
+                .add("mLocale", mLocale)
+                .add("mAvailableLocales", mAvailableLocales)
                 .add("mPartner", mPartner)
                 .add("mCity", mCity)
                 .toString();

@@ -7,6 +7,8 @@ import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.PreferencesStorage;
 
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -58,7 +60,23 @@ public class DashboardRepository implements IDashboardRepository {
     }
 
     @Override
+    public void saveCurrentLocale(String currentLocale) {
+        PreferencesStorage.getInstance().setCurrentLocale(currentLocale);
+    }
+
+    @Override
     public String getLocationId() {
         return PreferencesStorage.getInstance().getLocationId();
     }
+
+    @Override
+    public List<String> getAvailableLanguages() {
+        return PreferencesStorage.getInstance().getLocationInfo().getAvailableLocales();
+    }
+
+    @Override
+    public String getCurrentLocale() {
+        return PreferencesStorage.getInstance().getLocationInfo().getLocale();
+    }
+
 }

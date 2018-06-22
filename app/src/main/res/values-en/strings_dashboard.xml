@@ -32,6 +32,7 @@
 
     <string name="settings_item_quit">Exit</string>
     <string name="settings_item_clear">Clear database</string>
+    <string name="settings_item_locale">App language</string>
 
     <string name="settings_database_cleared">The database has been successfully cleaned</string>
 
@@ -52,5 +53,8 @@
 
     <string name="late_send_title">Sending reports</string>
     <string name="late_send_no_reports">No reports to send</string>
+
+    <string name="language_russian">Русский</string>
+    <string name="language_english">English</string>
 
 </resources>

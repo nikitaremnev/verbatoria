@@ -32,6 +32,7 @@
 
     <string name="settings_item_quit">Выйти</string>
     <string name="settings_item_clear">Очистить базу данных</string>
+    <string name="settings_item_locale">Язык приложения</string>
 
     <string name="settings_database_cleared">База данных была успешно очищена</string>
 
@@ -52,5 +53,8 @@
 
     <string name="late_send_title">Отправка отчетов</string>
     <string name="late_send_no_reports">Нет отчетов для отправки</string>
+
+    <string name="language_russian">Русский</string>
+    <string name="language_english">English</string>
 
 </resources>

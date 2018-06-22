@@ -1,6 +1,6 @@
 package com.verbatoria.business.dashboard;
 
-import android.text.TextUtils;
+import android.util.Log;
 
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.LocationModel;
@@ -15,10 +15,8 @@ import com.verbatoria.utils.DeveloperUtils;
 import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
-
 import java.io.File;
-
-import okhttp3.ResponseBody;
+import java.util.List;
 import rx.Completable;
 import rx.Observable;
 
@@ -71,13 +69,15 @@ public class DashboardInteractor implements IDashboardInteractor {
         return mDashboardRepository.getLocation(getAccessToken())
                 .map(ModelsConverter::convertLocationResponseToLocationModel)
                 .doOnNext(locationModel -> mDashboardRepository.saveLocationInfo(locationModel))
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler());
-    }
-
-    @Override
-    public Observable<ResponseBody> getCountries() {
-        return mDashboardRepository.getCountries(getAccessToken())
+                .doOnNext(locationModel -> {
+                    String currentLocale = mDashboardRepository.getCurrentLocale();
+                    Log.e("test", "currentLocale: " + currentLocale);
+                    Log.e("test", "locationModel.getLocale(): " + locationModel.getLocale());
+                    if (!currentLocale.equals(locationModel.getLocale())) {
+                        mDashboardRepository.saveCurrentLocale(locationModel.getLocale());
+                        locationModel.setUpdateLocaleRequired(true);
+                    }
+                })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -103,11 +103,6 @@ public class DashboardInteractor implements IDashboardInteractor {
     }
 
     @Override
-    public boolean hasLocationId() {
-        return !TextUtils.isEmpty(mDashboardRepository.getLocationId());
-    }
-
-    @Override
     public String getUserStatus() {
         return mTokenRepository.getStatus();
     }
@@ -120,6 +115,16 @@ public class DashboardInteractor implements IDashboardInteractor {
     @Override
     public String getAndroidVersion() {
         return DeveloperUtils.getAndroidVersion();
+    }
+
+    @Override
+    public List<String> getAvailableLanguages() {
+        return mDashboardRepository.getAvailableLanguages();
+    }
+
+    @Override
+    public void updateCurrentLocale(String currentLocale) {
+        mDashboardRepository.saveCurrentLocale(currentLocale);
     }
 
     private String getAccessToken() {

@@ -39,6 +39,7 @@
         <activity
             android:name="com.verbatoria.presentation.dashboard.view.DashboardActivity"
             android:screenOrientation="sensorLandscape"
+            android:configChanges="locale"
             android:theme="@style/FullScreenTheme"/>
 
         <activity

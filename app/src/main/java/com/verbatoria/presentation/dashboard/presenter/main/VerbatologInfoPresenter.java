@@ -1,6 +1,7 @@
 package com.verbatoria.presentation.dashboard.presenter.main;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.LocationModel;
@@ -85,7 +86,13 @@ public class VerbatologInfoPresenter implements IVerbatologInfoPresenter {
 
     private void handleLocationInfoReceived(@NonNull LocationModel locationModel) {
         Logger.e(TAG, locationModel.toString());
-        mVerbatologInfoView.showLocationInfo(locationModel);
+        if (mVerbatologInfoView != null) {
+            Log.e("test", "locationModel.isUpdateLocaleRequired(): " + locationModel.isUpdateLocaleRequired());
+            if (locationModel.isUpdateLocaleRequired()) {
+                mVerbatologInfoView.updateLocale(locationModel.getLocale());
+            }
+            mVerbatologInfoView.showLocationInfo(locationModel);
+        }
     }
 
     private void handleLocationInfoLoadingFailed(Throwable throwable) {

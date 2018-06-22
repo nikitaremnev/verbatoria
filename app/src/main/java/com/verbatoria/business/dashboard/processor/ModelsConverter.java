@@ -1,7 +1,5 @@
 package com.verbatoria.business.dashboard.processor;
 
-import android.util.Log;
-
 import com.verbatoria.business.dashboard.DashboardInteractorException;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -50,6 +48,8 @@ public class ModelsConverter {
         locationModel.setCity(locationResponseModel.getCity().getName());
         locationModel.setCountry(locationResponseModel.getCity().getCountry().getName());
         locationModel.setPartner(locationResponseModel.getPartner().getName());
+        locationModel.setAvailableLocales(locationResponseModel.getAvailableLocales());
+        locationModel.setLocale(locationResponseModel.getLocale());
         return locationModel;
     }
 
@@ -98,7 +98,6 @@ public class ModelsConverter {
         calendarHelper = Calendar.getInstance();
         for (int i = 0; i < eventsResponseModel.getEvents().size(); i ++) {
             EventModel eventModel = convertVerbatologEventResponseToEventModel(eventsResponseModel.getEvents().get(i));
-            Log.e("test", "eventModel: " + eventModel.toString());
             calendarHelper.setTime(eventModel.getStartAt());
             int startCalendarHour = calendarHelper.get(Calendar.HOUR_OF_DAY);
             for (int j = 0; j < timeIntervalModels.size(); j ++) {
@@ -106,7 +105,6 @@ public class ModelsConverter {
                 calendarHelper.setTime(timeIntervalModel.getStartAt());
                 int currentStartHour = calendarHelper.get(Calendar.HOUR_OF_DAY);
                 if (startCalendarHour == currentStartHour && !eventModel.getReport().isCanceled()) {
-                    Log.e("test", "timeIntervalModels.remove: " + currentStartHour);
                     timeIntervalModels.remove(j);
                     break;
                 }

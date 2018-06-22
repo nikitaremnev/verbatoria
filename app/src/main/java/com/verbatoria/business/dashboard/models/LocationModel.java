@@ -3,8 +3,12 @@ package com.verbatoria.business.dashboard.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
+
+import java.util.List;
 
 /**
  * Реализация модели для записи нейрометрии
@@ -19,11 +23,17 @@ public class LocationModel implements Parcelable {
 
     private String mAddress;
 
+    private String mLocale;
+
+    private List<String> mAvailableLocales;
+
     private String mPartner;
 
     private String mCity;
 
     private String mCountry;
+
+    private boolean mIsUpdateLocaleRequired;
 
     public LocationModel() {
 
@@ -53,6 +63,24 @@ public class LocationModel implements Parcelable {
 
     public LocationModel setAddress(String address) {
         mAddress = address;
+        return this;
+    }
+
+    public String getLocale() {
+        return mLocale;
+    }
+
+    public LocationModel setLocale(String locale) {
+        this.mLocale = locale;
+        return this;
+    }
+
+    public List<String> getAvailableLocales() {
+        return mAvailableLocales;
+    }
+
+    public LocationModel setAvailableLocales(List<String> availableLocales) {
+        this.mAvailableLocales = availableLocales;
         return this;
     }
 
@@ -87,6 +115,14 @@ public class LocationModel implements Parcelable {
         return mCity + ", " + mCountry;
     }
 
+    public boolean isUpdateLocaleRequired() {
+        return mIsUpdateLocaleRequired;
+    }
+
+    public void setUpdateLocaleRequired(boolean updateLocaleRequired) {
+        this.mIsUpdateLocaleRequired = updateLocaleRequired;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -99,6 +135,8 @@ public class LocationModel implements Parcelable {
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mName, that.mName) &&
                 Objects.equal(mAddress, that.mAddress) &&
+                Objects.equal(mLocale, that.mLocale) &&
+                Objects.equal(mAvailableLocales, that.mAvailableLocales) &&
                 Objects.equal(mPartner, that.mPartner) &&
                 Objects.equal(mCity, that.mCity) &&
                 Objects.equal(mCountry, that.mCountry);
@@ -106,7 +144,7 @@ public class LocationModel implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mAddress, mPartner, mCity, mCountry);
+        return Objects.hashCode(mId, mName, mAddress, mLocale, mAvailableLocales, mPartner, mCity, mCountry);
     }
 
     @Override
@@ -115,6 +153,8 @@ public class LocationModel implements Parcelable {
                 .add("mId", mId)
                 .add("mName", mName)
                 .add("mAddress", mAddress)
+                .add("mLocale", mLocale)
+                .add("mAvailableLocales", mAvailableLocales)
                 .add("mPartner", mPartner)
                 .add("mCity", mCity)
                 .add("mCountry", mCountry)
@@ -132,6 +172,8 @@ public class LocationModel implements Parcelable {
         dest.writeString(this.mId);
         dest.writeString(this.mName);
         dest.writeString(this.mAddress);
+        dest.writeString(this.mLocale);
+        dest.writeList(this.mAvailableLocales);
         dest.writeString(this.mPartner);
         dest.writeString(this.mCity);
         dest.writeString(this.mCountry);
@@ -141,6 +183,8 @@ public class LocationModel implements Parcelable {
         this.mId = in.readString();
         this.mName = in.readString();
         this.mAddress = in.readString();
+        this.mLocale = in.readString();
+        in.readStringList(this.mAvailableLocales);
         this.mPartner = in.readString();
         this.mCity = in.readString();
         this.mCountry = in.readString();

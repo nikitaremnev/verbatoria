@@ -7,6 +7,7 @@ import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
+import com.verbatoria.data.network.request.LocationLanguageRequestModel;
 import com.verbatoria.data.network.request.LoginRequestModel;
 import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
@@ -88,12 +89,13 @@ public interface APIService {
     @GET(APIConstants.GET_LOCATION_URL)
     Observable<LocationResponseModel> getLocation(@Path(value = LOCATION_ID_PATH_KEY) String locationId,
                                                   @Header(TOKEN_HEADER_KEY) String accessToken);
+
+    @PUT(APIConstants.SET_LOCATION_LANGUAGE_URL)
+    Observable<LocationResponseModel> setLocationLanguage(@Path(value = LOCATION_ID_PATH_KEY) String locationId,
+                                                  @Body LocationLanguageRequestModel locationLanguageRequestModel);
      /*
         Calendar
      */
-
-    @GET(APIConstants.GET_EVENTS_URL)
-    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
 
     @GET(APIConstants.GET_EVENTS_URL)
     Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken,

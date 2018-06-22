@@ -2,15 +2,17 @@ package com.verbatoria.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.token.models.UserStatus;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
-
 import javax.inject.Inject;
 
 /**
@@ -34,8 +36,9 @@ public class PreferencesStorage {
 
     private static final String SESSION_PREFERENCES = "questions";
     private static final String LAST_REPORT_NAME_KEY = "LAST_REPORT_NAME_KEY";
-    private static final String CURRENT_SESSION_ID = "CURRENT_SESSION_ID";
+    private static final String CURRENT_SESSION_ID_KEY = "CURRENT_SESSION_ID_KEY";
     private static final String LAST_DATE_KEY = "LAST_DATE_KEY";
+    private static final String CURRENT_LOCALE_KEY = "CURRENT_LOCALE_KEY";
 
     private static final String CACHE_PREFERENCES = "cache";
     private static final String VERBATOLOG_FIRST_NAME_KEY = "VERBATOLOG_FIRST_NAME_KEY";
@@ -50,6 +53,8 @@ public class PreferencesStorage {
     private static final String LOCATION_COUNTRY_KEY = "LOCATION_COUNTRY_KEY";
     private static final String LOCATION_PARTNER_KEY = "LOCATION_PARTNER_KEY";
     private static final String LOCATION_NAME_KEY = "LOCATION_NAME_KEY";
+    private static final String LOCATION_LOCALE_KEY = "LOCATION_LOCALE_KEY";
+    private static final String LOCATION_AVAILABLE_LOCALES_KEY = "LOCATION_AVAILABLE_LOCALES_KEY";
     private static final String LOCATION_ID_KEY = "LOCATION_ID_KEY";
 
     private SharedPreferences mTokenPreferences;
@@ -180,6 +185,8 @@ public class PreferencesStorage {
         editor.putString(LOCATION_PARTNER_KEY, locationModel.getPartner());
         editor.putString(LOCATION_NAME_KEY, locationModel.getName());
         editor.putString(LOCATION_ID_KEY, locationModel.getId());
+        editor.putString(LOCATION_LOCALE_KEY, locationModel.getLocale());
+        editor.putStringSet(LOCATION_AVAILABLE_LOCALES_KEY, new HashSet<>(locationModel.getAvailableLocales()));
         editor.apply();
     }
 
@@ -200,8 +207,9 @@ public class PreferencesStorage {
                 .setCountry(mCachePreferences.getString(LOCATION_COUNTRY_KEY, null))
                 .setPartner(mCachePreferences.getString(LOCATION_PARTNER_KEY, null))
                 .setName(mCachePreferences.getString(LOCATION_NAME_KEY, null))
-                .setId(mCachePreferences.getString(LOCATION_ID_KEY, null));
-
+                .setId(mCachePreferences.getString(LOCATION_ID_KEY, null))
+                .setLocale(mCachePreferences.getString(LOCATION_LOCALE_KEY, null))
+                .setAvailableLocales(new ArrayList<>(mCachePreferences.getStringSet(LOCATION_AVAILABLE_LOCALES_KEY, Collections.emptySet())));
     }
 
     public String getLocationId() {
@@ -210,12 +218,12 @@ public class PreferencesStorage {
 
     public void setCurrentSessionId(String sessionId) {
         SharedPreferences.Editor editor = mTokenPreferences.edit();
-        editor.putString(CURRENT_SESSION_ID, sessionId);
+        editor.putString(CURRENT_SESSION_ID_KEY, sessionId);
         editor.apply();
     }
 
     public String getCurrentSessionId() {
-        return mTokenPreferences.getString(CURRENT_SESSION_ID, null);
+        return mTokenPreferences.getString(CURRENT_SESSION_ID_KEY, null);
     }
 
     public void setLastDate(String lastDate) {
@@ -226,5 +234,16 @@ public class PreferencesStorage {
 
     public String getLastDate() {
         return mTokenPreferences.getString(LAST_DATE_KEY, null);
+    }
+
+    public void setCurrentLocale(String currentLocale) {
+        Log.e("test", "currentLocale: " + currentLocale);
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putString(CURRENT_LOCALE_KEY, currentLocale);
+        editor.apply();
+    }
+
+    public String getCurrentLocale() {
+        return mTokenPreferences.getString(CURRENT_LOCALE_KEY, null);
     }
 }

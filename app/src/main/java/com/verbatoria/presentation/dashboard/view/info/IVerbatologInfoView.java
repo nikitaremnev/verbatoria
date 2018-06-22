@@ -27,11 +27,14 @@ public interface IVerbatologInfoView {
 
     void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail);
 
-    void showLocationInfo(String address, String city, String country, String partner, String name, String id);
-
     void showLocationInfo(LocationModel locationModel);
 
     void showActiveStatus();
+
     void showWarningStatus();
+
     void showBlockedStatus();
+
+    void updateLocale(String language);
+
 }

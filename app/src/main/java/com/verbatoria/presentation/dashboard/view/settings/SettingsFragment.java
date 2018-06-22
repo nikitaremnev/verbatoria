@@ -20,6 +20,7 @@ import com.verbatoria.presentation.late_send.view.LateSendActivity;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.presentation.schedule.view.ScheduleActivity;
 import com.verbatoria.utils.Helper;
+import com.verbatoria.utils.LocaleHelper;
 
 import javax.inject.Inject;
 
@@ -36,8 +37,6 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     @Inject
     ISettingsPresenter mSettingsPresenter;
 
-//    @BindView(R.id.item_settings_connection)
-//    public View mConnectionView;
     @BindView(R.id.item_settings_schedule)
     public View mScheduleView;
 
@@ -50,8 +49,13 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     @BindView(R.id.item_settings_clear)
     public View mClearView;
 
+    @BindView(R.id.item_settings_locale)
+    public View mLocaleView;
+
     @BindView(R.id.item_settings_quit)
     public View mQuitView;
+
+    private AlertDialog mLanguageDialog;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -76,9 +80,9 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         setUpQuitView();
         setUpScheduleView();
         setUpLateSendView();
-//        setUpConnectionView();
         setUpDeveloperView();
         setUpClearView();
+        setUpLocaleView();
         mSettingsPresenter.bindView(this);
     }
 
@@ -96,11 +100,6 @@ public class SettingsFragment extends Fragment implements ISettingsView {
                 .create()
                 .show();
     }
-
-//    @Override
-//    public void showConnection() {
-//        startActivity(ConnectionActivity.newInstance(getActivity(), EventModel()));
-//    }
 
     @Override
     public void showLogin() {
@@ -134,12 +133,37 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         Helper.showHintSnackBar(mClearView, getString(R.string.settings_database_cleared));
     }
 
+    @Override
+    public void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable) {
+        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_languages, null);
+        View russianLanguageView = dialogRootView.findViewById(R.id.russian_language_field);
+        View englishLanguageView = dialogRootView.findViewById(R.id.english_language_field);
+        if (isRussianAvailable) {
+            setUpLanguageFieldView(russianLanguageView, R.drawable.ic_flag_ru,
+                    getString(R.string.language_russian), v -> mSettingsPresenter.onRussianLanguageSelected());
+        } else {
+            russianLanguageView.setVisibility(View.GONE);
+        }
+        if (isEnglishAvailable) {
+            setUpLanguageFieldView(englishLanguageView, R.drawable.ic_flag_uk,
+                    getString(R.string.language_english), v -> mSettingsPresenter.onEnglishLanguageSelected());
+        } else {
+            englishLanguageView.setVisibility(View.GONE);
+        }
+        mLanguageDialog = new AlertDialog.Builder(getActivity())
+                .setView(dialogRootView)
+                .setTitle(R.string.settings_item_locale)
+                .setNegativeButton(getString(R.string.ok), null)
+                .create();
+        mLanguageDialog.show();
+    }
 
-//    private void setUpConnectionView() {
-//        setUpSettingsItemText(mConnectionView, R.string.settings_item_connection);
-//        setUpSettingsImageView(mConnectionView, R.drawable.ic_connection);
-//        mConnectionView.setOnClickListener(v -> mSettingsPresenter.onConnectionClicked());
-//    }
+    @Override
+    public void setLanguage(String language) {
+        mLanguageDialog.dismiss();
+        LocaleHelper.setLocale(getActivity(), language);
+        getActivity().recreate();
+    }
 
     private void setUpLateSendView() {
         setUpSettingsItemText(mLateSendView, R.string.late_send_title);
@@ -171,6 +195,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         mClearView.setOnClickListener(v -> mSettingsPresenter.onClearDatabaseClicked());
     }
 
+    private void setUpLocaleView() {
+        setUpSettingsItemText(mLocaleView, R.string.settings_item_locale);
+        setUpSettingsImageView(mLocaleView, R.drawable.ic_location);
+        mLocaleView.setOnClickListener(v -> mSettingsPresenter.onLanguageClicked());
+    }
+
     /*
         Задание текста для итема настроек
      */
@@ -189,6 +219,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
+        fieldView.setOnClickListener(onClickListener);
+    }
+
+    private void setUpLanguageFieldView(View fieldView, int imageResource, String title, View.OnClickListener onClickListener) {
+        ((ImageView) fieldView.findViewById(R.id.field_image_view)).setImageResource(imageResource);
+        ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         fieldView.setOnClickListener(onClickListener);
     }
 

@@ -11,6 +11,9 @@ import com.crashlytics.android.Crashlytics;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.FileUtils;
+import com.verbatoria.utils.LocaleHelper;
+import com.verbatoria.utils.PreferencesStorage;
+
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -31,6 +34,7 @@ public class SplashActivity extends AppCompatActivity {
 
         FileUtils.createApplicationDirectory();
         askPermissions();
+        LocaleHelper.updateLocaleToSaved(this);
     }
 
     private void setUpHandler() {

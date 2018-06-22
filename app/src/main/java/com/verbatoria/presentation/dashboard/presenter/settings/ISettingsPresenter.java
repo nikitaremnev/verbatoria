@@ -15,7 +15,7 @@ public interface ISettingsPresenter {
     void unbindView();
 
     void onDeveloperInfoClicked();
-//    void onConnectionClicked();
+
     void onQuitClicked();
 
     void onScheduleClicked();
@@ -25,5 +25,11 @@ public interface ISettingsPresenter {
     void onLateSendClicked();
 
     void clearDatabase();
+
+    void onLanguageClicked();
+
+    void onRussianLanguageSelected();
+
+    void onEnglishLanguageSelected();
 
 }

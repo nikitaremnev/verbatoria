@@ -5,6 +5,8 @@ import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 
+import java.util.List;
+
 import okhttp3.ResponseBody;
 import rx.Observable;
 
@@ -30,5 +32,12 @@ public interface IDashboardRepository {
 
     void saveLocationInfo(LocationModel locationModel);
 
+    void saveCurrentLocale(String currentLocale);
+
     String getLocationId();
+
+    List<String> getAvailableLanguages();
+
+    String getCurrentLocale();
+
 }

@@ -1,26 +1,34 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.verbatoria.presentation.dashboard.view.settings.SettingsFragment">
+    android:orientation="vertical">
 
-    <!--<include layout="@layout/item_settings"-->
-        <!--android:id="@+id/item_settings_connection"/>-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.verbatoria.presentation.dashboard.view.settings.SettingsFragment">
 
-    <include layout="@layout/item_settings"
-        android:id="@+id/item_settings_schedule"/>
+        <include layout="@layout/item_settings"
+            android:id="@+id/item_settings_schedule"/>
 
-    <include layout="@layout/item_settings"
-        android:id="@+id/item_settings_late_send"/>
+        <include layout="@layout/item_settings"
+            android:id="@+id/item_settings_late_send"/>
 
-    <include layout="@layout/item_settings"
-        android:id="@+id/item_settings_developer"/>
+        <include layout="@layout/item_settings"
+            android:id="@+id/item_settings_developer"/>
 
-    <include layout="@layout/item_settings"
-        android:id="@+id/item_settings_clear"/>
+        <include layout="@layout/item_settings"
+            android:id="@+id/item_settings_clear"/>
 
-    <include layout="@layout/item_settings"
-        android:id="@+id/item_settings_quit"/>
+        <include layout="@layout/item_settings"
+            android:id="@+id/item_settings_locale"/>
 
-</LinearLayout>
+        <include layout="@layout/item_settings"
+            android:id="@+id/item_settings_quit"/>
+
+    </LinearLayout>
+
+</ScrollView>
