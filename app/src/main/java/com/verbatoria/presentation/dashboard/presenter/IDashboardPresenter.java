@@ -9,4 +9,8 @@ public interface IDashboardPresenter {
 
     boolean isBlocked();
 
+    boolean isShowSettings();
+
+    void setShowSettings(boolean showSettings);
+
 }

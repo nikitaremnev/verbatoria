@@ -3,6 +3,7 @@ package com.verbatoria.data.repositories.dashboard;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.api.APIFactory;
+import com.verbatoria.data.network.request.LocationLanguageRequestModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.PreferencesStorage;
@@ -10,6 +11,7 @@ import com.verbatoria.utils.PreferencesStorage;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -50,6 +52,16 @@ public class DashboardRepository implements IDashboardRepository {
     }
 
     @Override
+    public LocationModel getLocationSyncFromCache() {
+        return PreferencesStorage.getInstance().getLocationInfo();
+    }
+
+    @Override
+    public Completable updateCurrentLocale(String accessToken, String locationId, LocationLanguageRequestModel locationLanguageRequestModel) {
+        return APIFactory.getAPIService().setLocationLanguage(accessToken, locationId, locationLanguageRequestModel);
+    }
+
+    @Override
     public void saveVerbatologInfo(VerbatologModel verbatologModel) {
         PreferencesStorage.getInstance().setVerbatologInfo(verbatologModel);
     }
@@ -57,11 +69,6 @@ public class DashboardRepository implements IDashboardRepository {
     @Override
     public void saveLocationInfo(LocationModel locationModel) {
         PreferencesStorage.getInstance().setLocationInfo(locationModel);
-    }
-
-    @Override
-    public void saveCurrentLocale(String currentLocale) {
-        PreferencesStorage.getInstance().setCurrentLocale(currentLocale);
     }
 
     @Override
@@ -77,6 +84,21 @@ public class DashboardRepository implements IDashboardRepository {
     @Override
     public String getCurrentLocale() {
         return PreferencesStorage.getInstance().getLocationInfo().getLocale();
+    }
+
+    @Override
+    public void saveCurrentLocale(String newCurrentLocale) {
+        PreferencesStorage.getInstance().getLocationInfo().setLocale(newCurrentLocale);
+    }
+
+    @Override
+    public boolean isShowSettings() {
+        return PreferencesStorage.getInstance().getShowSettings();
+    }
+
+    @Override
+    public void setShowSettings(boolean showSettings) {
+        PreferencesStorage.getInstance().setShowSettings(showSettings);
     }
 
 }

@@ -2,12 +2,14 @@ package com.verbatoria.data.repositories.dashboard;
 
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.data.network.request.LocationLanguageRequestModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -28,16 +30,24 @@ public interface IDashboardRepository {
 
     Observable<LocationModel> getLocationFromCache();
 
+    LocationModel getLocationSyncFromCache();
+
+    Completable updateCurrentLocale(String accessToken, String locationId, LocationLanguageRequestModel locationLanguageRequestModel);
+
     void saveVerbatologInfo(VerbatologModel verbatologModel);
 
     void saveLocationInfo(LocationModel locationModel);
-
-    void saveCurrentLocale(String currentLocale);
 
     String getLocationId();
 
     List<String> getAvailableLanguages();
 
     String getCurrentLocale();
+
+    void saveCurrentLocale(String newCurrentLocale);
+
+    boolean isShowSettings();
+
+    void setShowSettings(boolean showSettings);
 
 }

@@ -1,5 +1,6 @@
 package com.verbatoria.presentation.dashboard.view.settings;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -56,6 +57,8 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     public View mQuitView;
 
     private AlertDialog mLanguageDialog;
+
+    private ProgressDialog mProgressDialog;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -163,6 +166,27 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         mLanguageDialog.dismiss();
         LocaleHelper.setLocale(getActivity(), language);
         getActivity().recreate();
+    }
+
+    public void startProgress() {
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setMessage(getString(R.string.loading_please_wait));
+        mProgressDialog.show();
+        if (mLanguageDialog != null && mLanguageDialog.isShowing()) {
+            mLanguageDialog.dismiss();
+        }
+    }
+
+    public void stopProgress() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+    @Override
+    public void showUpdateLanguageError() {
+        Helper.showErrorSnackBar(getView(), getString(R.string.dashboard_update_language_error));
     }
 
     private void setUpLateSendView() {

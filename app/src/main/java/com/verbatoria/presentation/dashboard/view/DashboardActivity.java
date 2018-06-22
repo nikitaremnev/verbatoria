@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
@@ -18,9 +16,7 @@ import com.verbatoria.presentation.calendar.view.CalendarFragment;
 import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
 import com.verbatoria.presentation.dashboard.view.info.VerbatologInfoFragment;
 import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -60,10 +56,15 @@ public class DashboardActivity extends AppCompatActivity {
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
 
         setUpBottomNavigation();
-        if (mDashboardPresenter.isBlocked()) {
-            setUpFragment(BlockedFragment.newInstance());
+        if (mDashboardPresenter.isShowSettings()) {
+            mDashboardPresenter.setShowSettings(false);
+            setUpFragment(SettingsFragment.newInstance());
         } else {
-            setUpFragment(VerbatologInfoFragment.newInstance());
+            if (mDashboardPresenter.isBlocked()) {
+                setUpFragment(BlockedFragment.newInstance());
+            } else {
+                setUpFragment(VerbatologInfoFragment.newInstance());
+            }
         }
         showSessionFinish();
     }
@@ -78,7 +79,6 @@ public class DashboardActivity extends AppCompatActivity {
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.navigation_main:
-                    Log.e("test", "setUpBottomNavigation(): " + mDashboardPresenter.isBlocked());
                     if (mDashboardPresenter.isBlocked()) {
                         setUpFragment(BlockedFragment.newInstance());
                     } else {
@@ -86,7 +86,6 @@ public class DashboardActivity extends AppCompatActivity {
                     }
                     return true;
                 case R.id.navigation_calendar:
-                    Log.e("test", "setUpBottomNavigation(): " + mDashboardPresenter.isBlocked());
                     if (mDashboardPresenter.isBlocked()) {
                         setUpFragment(BlockedFragment.newInstance());
                     } else {

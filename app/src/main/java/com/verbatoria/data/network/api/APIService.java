@@ -41,6 +41,7 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import rx.Completable;
 import rx.Observable;
 
 import static com.verbatoria.data.network.api.APIConstants.CHILD_ID_PATH_KEY;
@@ -91,8 +92,9 @@ public interface APIService {
                                                   @Header(TOKEN_HEADER_KEY) String accessToken);
 
     @PUT(APIConstants.SET_LOCATION_LANGUAGE_URL)
-    Observable<LocationResponseModel> setLocationLanguage(@Path(value = LOCATION_ID_PATH_KEY) String locationId,
-                                                  @Body LocationLanguageRequestModel locationLanguageRequestModel);
+    Completable setLocationLanguage(@Header(TOKEN_HEADER_KEY) String accessToken,
+                                    @Path(value = LOCATION_ID_PATH_KEY) String locationId,
+                                    @Body LocationLanguageRequestModel locationLanguageRequestModel);
      /*
         Calendar
      */

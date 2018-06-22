@@ -8,6 +8,8 @@ import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.data.network.request.LocationLanguageRequestModel;
+import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -103,6 +105,14 @@ public class DashboardInteractor implements IDashboardInteractor {
     }
 
     @Override
+    public Completable updateCurrentLocale(String locationId, String currentLocale) {
+        return mDashboardRepository.updateCurrentLocale(getAccessToken(), locationId, createLocationLanguageRequestModel(currentLocale))
+                .doOnCompleted(() -> mDashboardRepository.saveCurrentLocale(currentLocale))
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
     public String getUserStatus() {
         return mTokenRepository.getStatus();
     }
@@ -118,18 +128,27 @@ public class DashboardInteractor implements IDashboardInteractor {
     }
 
     @Override
-    public List<String> getAvailableLanguages() {
-        return mDashboardRepository.getAvailableLanguages();
+    public LocationModel getCurrentLocation() {
+        return mDashboardRepository.getLocationSyncFromCache();
     }
 
     @Override
-    public void updateCurrentLocale(String currentLocale) {
-        mDashboardRepository.saveCurrentLocale(currentLocale);
+    public boolean isShowSettings() {
+        return mDashboardRepository.isShowSettings();
+    }
+
+    @Override
+    public void setShowSettings(boolean showSettings) {
+        mDashboardRepository.setShowSettings(showSettings);
     }
 
     private String getAccessToken() {
         TokenModel tokenModel = mTokenRepository.getToken();
         return tokenModel.getAccessToken();
+    }
+
+    private LocationLanguageRequestModel createLocationLanguageRequestModel(String locale) {
+        return new LocationLanguageRequestModel().setLocale(locale);
     }
 
 }

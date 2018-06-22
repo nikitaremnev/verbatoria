@@ -23,4 +23,14 @@ public class DashboardPresenter implements IDashboardPresenter {
         return mDashboardInteractor.getUserStatus().equals(UserStatus.BLOCKED_STATUS);
     }
 
+    @Override
+    public boolean isShowSettings() {
+        return mDashboardInteractor.isShowSettings();
+    }
+
+    @Override
+    public void setShowSettings(boolean showSettings) {
+        mDashboardInteractor.setShowSettings(showSettings);
+    }
+
 }

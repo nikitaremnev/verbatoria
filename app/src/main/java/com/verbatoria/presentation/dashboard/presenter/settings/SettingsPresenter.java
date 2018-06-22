@@ -3,6 +3,7 @@ package com.verbatoria.presentation.dashboard.presenter.settings;
 import android.support.annotation.NonNull;
 
 import com.verbatoria.business.dashboard.IDashboardInteractor;
+import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.presentation.dashboard.view.settings.ISettingsView;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class SettingsPresenter implements ISettingsPresenter {
 
     private IDashboardInteractor mDashboardInteractor;
     private ISettingsView mSettingsView;
+
+    private LocationModel mCurrentModel;
 
     public SettingsPresenter(IDashboardInteractor dashboardInteractor) {
         mDashboardInteractor = dashboardInteractor;
@@ -73,7 +76,8 @@ public class SettingsPresenter implements ISettingsPresenter {
 
     @Override
     public void onLanguageClicked() {
-        List<String> availableLanguages = mDashboardInteractor.getAvailableLanguages();
+        mCurrentModel = mDashboardInteractor.getCurrentLocation();
+        List<String> availableLanguages = mCurrentModel.getAvailableLocales();
         availableLanguages.add("en");
         if (availableLanguages != null && !availableLanguages.isEmpty()) {
             mSettingsView.showLanguagesDialog(availableLanguages.contains(RUSSIAN_LOCALE), availableLanguages.contains(ENGLISH_LOCALE));
@@ -84,18 +88,38 @@ public class SettingsPresenter implements ISettingsPresenter {
 
     @Override
     public void onRussianLanguageSelected() {
-        mDashboardInteractor.updateCurrentLocale(RUSSIAN_LOCALE);
-        mSettingsView.setLanguage(RUSSIAN_LOCALE);
+        mSettingsView.startProgress();
+        mDashboardInteractor.updateCurrentLocale(mCurrentModel.getId(), RUSSIAN_LOCALE)
+                .doOnUnsubscribe(() -> mSettingsView.stopProgress())
+                .subscribe(this::handleRussianLanguageUpdated, this::handleLanguageUpdateError);
     }
 
     @Override
     public void onEnglishLanguageSelected() {
-        mDashboardInteractor.updateCurrentLocale(ENGLISH_LOCALE);
-        mSettingsView.setLanguage(ENGLISH_LOCALE);
+        mSettingsView.startProgress();
+        mDashboardInteractor.updateCurrentLocale(mCurrentModel.getId(), ENGLISH_LOCALE)
+                .doOnUnsubscribe(() -> mSettingsView.stopProgress())
+                .subscribe(this::handleEnglishLanguageUpdated, this::handleLanguageUpdateError);
     }
 
     private void handleDatabaseCleared() {
         mSettingsView.showDatabaseCleared();
+    }
+
+    private void handleRussianLanguageUpdated() {
+        mDashboardInteractor.setShowSettings(true);
+        mSettingsView.setLanguage(RUSSIAN_LOCALE);
+    }
+
+    private void handleEnglishLanguageUpdated() {
+        mDashboardInteractor.setShowSettings(true);
+        mSettingsView.setLanguage(ENGLISH_LOCALE);
+    }
+
+    private void handleLanguageUpdateError(Throwable throwable) {
+//        mSettingsView.showUpdateLanguageError();
+        mDashboardInteractor.setShowSettings(true);
+        mSettingsView.setLanguage(ENGLISH_LOCALE);
     }
 
 }

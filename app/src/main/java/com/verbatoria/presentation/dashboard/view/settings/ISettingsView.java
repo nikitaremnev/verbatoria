@@ -5,6 +5,7 @@ package com.verbatoria.presentation.dashboard.view.settings;
  *
  * @author nikitaremnev
  */
+
 public interface ISettingsView {
 
     void showDeveloperInfo(String version, String androidVersion);
@@ -17,5 +18,10 @@ public interface ISettingsView {
     void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable);
 
     void setLanguage(String language);
+
+    void startProgress();
+    void stopProgress();
+
+    void showUpdateLanguageError();
 
 }

@@ -30,6 +30,7 @@ public class PreferencesStorage {
     private static final String STATUS_TOKEN_KEY = "STATUS_TOKEN_KEY";
     private static final String LAST_LOGIN_KEY = "LAST_LOGIN_KEY";
     private static final String COUNTRY_KEY = "COUNTRY_KEY";
+    private static final String SHOW_SETTINGS_KEY = "SHOW_SETTINGS_KEY";
 
     private static final String QUESTIONS_PREFERENCES = "questions";
     private static final String ANSWERS_KEY = "ANSWERS_KEY";
@@ -237,7 +238,6 @@ public class PreferencesStorage {
     }
 
     public void setCurrentLocale(String currentLocale) {
-        Log.e("test", "currentLocale: " + currentLocale);
         SharedPreferences.Editor editor = mTokenPreferences.edit();
         editor.putString(CURRENT_LOCALE_KEY, currentLocale);
         editor.apply();
@@ -245,5 +245,15 @@ public class PreferencesStorage {
 
     public String getCurrentLocale() {
         return mTokenPreferences.getString(CURRENT_LOCALE_KEY, null);
+    }
+
+    public void setShowSettings(boolean showSettings) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putBoolean(SHOW_SETTINGS_KEY, showSettings);
+        editor.apply();
+    }
+
+    public boolean getShowSettings() {
+        return mTokenPreferences.getBoolean(SHOW_SETTINGS_KEY, false);
     }
 }

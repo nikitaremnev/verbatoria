@@ -57,4 +57,6 @@
     <string name="language_russian">Русский</string>
     <string name="language_english">English</string>
 
+    <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
+
 </resources>

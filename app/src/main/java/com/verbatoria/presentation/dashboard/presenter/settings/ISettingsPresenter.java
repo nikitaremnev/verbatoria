@@ -12,6 +12,7 @@ import com.verbatoria.presentation.dashboard.view.settings.ISettingsView;
 public interface ISettingsPresenter {
 
     void bindView(@NonNull ISettingsView settingsView);
+
     void unbindView();
 
     void onDeveloperInfoClicked();

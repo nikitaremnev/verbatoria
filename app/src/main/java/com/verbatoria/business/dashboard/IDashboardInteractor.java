@@ -2,6 +2,7 @@ package com.verbatoria.business.dashboard;
 
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.data.network.response.LocationResponseModel;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ public interface IDashboardInteractor {
 
     Observable<LocationModel> getLocation();
 
+    Completable updateCurrentLocale(String locationId, String currentLocale);
+
     Completable cleanUpDatabase();
 
     String getUserStatus();
@@ -32,8 +35,10 @@ public interface IDashboardInteractor {
 
     String getAndroidVersion();
 
-    List<String> getAvailableLanguages();
+    LocationModel getCurrentLocation();
 
-    void updateCurrentLocale(String currentLocale);
+    boolean isShowSettings();
+
+    void setShowSettings(boolean showSettings);
 
 }
