@@ -80,6 +80,8 @@ public class ExportProcessor {
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
                 if (answersIndex < QuestionsAdapter.QUESTIONARY_SIZE) {
                     measurementRequestModel.setReserveBlank2(answers.get(Integer.toString(answersIndex)));
+                } else if (answersIndex == QuestionsAdapter.QUESTIONARY_SIZE) {
+                    measurementRequestModel.setReserveBlank2(PreferencesStorage.getInstance().getCurrentLocale());
                 }
                 while (iterator.hasNext() && currentMeasurement.getTimestamp() == iterator.next().getTimestamp()) {
                     setMeasurementRequestModelFields(measurementRequestModel, iterator.get());
