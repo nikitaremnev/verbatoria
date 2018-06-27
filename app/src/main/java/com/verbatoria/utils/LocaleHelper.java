@@ -26,11 +26,14 @@ public class LocaleHelper {
     public static Context updateLocaleToSaved(Context context) {
         String language = PreferencesStorage.getInstance().getCurrentLocale();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return updateResources(context, language);
-        }
+        if (language != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                return updateResources(context, language);
+            }
 
-        return updateResourcesLegacy(context, language);
+            return updateResourcesLegacy(context, language);
+        }
+        return context;
     }
 
     @TargetApi(Build.VERSION_CODES.N)

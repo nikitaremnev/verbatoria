@@ -78,7 +78,6 @@ public class SettingsPresenter implements ISettingsPresenter {
     public void onLanguageClicked() {
         mCurrentModel = mDashboardInteractor.getCurrentLocation();
         List<String> availableLanguages = mCurrentModel.getAvailableLocales();
-        availableLanguages.add("en");
         if (availableLanguages != null && !availableLanguages.isEmpty()) {
             mSettingsView.showLanguagesDialog(availableLanguages.contains(RUSSIAN_LOCALE), availableLanguages.contains(ENGLISH_LOCALE));
         } else {
