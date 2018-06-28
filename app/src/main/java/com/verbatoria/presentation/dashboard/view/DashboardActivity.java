@@ -7,10 +7,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
+import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.presentation.blocked.BlockedFragment;
 import com.verbatoria.presentation.calendar.view.CalendarFragment;
 import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
@@ -18,14 +18,13 @@ import com.verbatoria.presentation.dashboard.view.info.VerbatologInfoFragment;
 import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
 import javax.inject.Inject;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Экран dashboard
  *
  * @author nikitaremnev
  */
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends BaseActivity {
 
     private static final String TAG = DashboardActivity.class.getSimpleName();
 
@@ -50,11 +49,15 @@ public class DashboardActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-        ButterKnife.bind(this);
         VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
 
+        setContentView(R.layout.activity_dashboard);
+
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void setUpViews() {
         setUpBottomNavigation();
         if (mDashboardPresenter.isShowSettings()) {
             mDashboardPresenter.setShowSettings(false);

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.remnev.verbatoriamini.R;
+import com.verbatoria.utils.LocaleHelper;
 import com.verbatoria.utils.Logger;
 
 import butterknife.ButterKnife;
@@ -28,6 +29,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         setUpViews();
 
         Logger.e(TAG, "onCreate");
+
+        LocaleHelper.updateLocaleToSaved(this);
     }
 
     @Override
@@ -38,14 +41,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mBasePresenter.onStart();
+        if (mBasePresenter != null) {
+            mBasePresenter.onStart();
+        }
         Logger.e(TAG, "onStart");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mBasePresenter.onStop();
+        if (mBasePresenter != null) {
+            mBasePresenter.onStop();
+        }
         Logger.e(TAG, "onStop");
     }
 
@@ -59,14 +66,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mBasePresenter.onSaveInstanceState(outState);
+        if (mBasePresenter != null) {
+            mBasePresenter.onSaveInstanceState(outState);
+        }
         Logger.e(TAG, "onSaveInstanceState");
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        mBasePresenter.onRestoreInstanceState(savedInstanceState);
+        if (mBasePresenter != null) {
+            mBasePresenter.onRestoreInstanceState(savedInstanceState);
+        }
         Logger.e(TAG, "onRestoreInstanceState");
     }
 

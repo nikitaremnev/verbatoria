@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import com.crashlytics.android.Crashlytics;
 import com.remnev.verbatoriamini.R;
+import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.LocaleHelper;
-import com.verbatoria.utils.PreferencesStorage;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -21,7 +20,7 @@ import io.fabric.sdk.android.Fabric;
  *
  * @author nikitaremnev
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private final static int START_LOGIN_ACTIVITY_DELAY = 2000;
     private static final int REQUEST_PERMISSION_CODE = 2444;
@@ -34,7 +33,11 @@ public class SplashActivity extends AppCompatActivity {
 
         FileUtils.createApplicationDirectory();
         askPermissions();
-        LocaleHelper.updateLocaleToSaved(this);
+    }
+
+    @Override
+    protected void setUpViews() {
+        //empty
     }
 
     private void setUpHandler() {
