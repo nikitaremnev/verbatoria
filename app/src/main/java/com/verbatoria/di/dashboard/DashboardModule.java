@@ -15,8 +15,6 @@ import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.presentation.calendar.presenter.CalendarPresenter;
 import com.verbatoria.presentation.calendar.presenter.ICalendarPresenter;
-import com.verbatoria.presentation.calendar.presenter.add.AddCalendarEventPresenter;
-import com.verbatoria.presentation.calendar.presenter.add.IAddCalendarEventPresenter;
 import com.verbatoria.presentation.dashboard.presenter.DashboardPresenter;
 import com.verbatoria.presentation.dashboard.presenter.IDashboardPresenter;
 import com.verbatoria.presentation.dashboard.presenter.main.IVerbatologInfoPresenter;
@@ -86,12 +84,6 @@ public class DashboardModule {
     @DashboardScope
     IVerbatologInfoPresenter provideVerbatologInfoPresenter(IDashboardInteractor dashboardInteractor) {
         return new VerbatologInfoPresenter(dashboardInteractor);
-    }
-
-    @Provides
-    @DashboardScope
-    IAddCalendarEventPresenter provideAddCalendarEventPresenter(IDashboardInteractor dashboardInteractor) {
-        return new AddCalendarEventPresenter(dashboardInteractor);
     }
 
     @Provides

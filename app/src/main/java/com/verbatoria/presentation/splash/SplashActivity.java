@@ -11,7 +11,6 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.FileUtils;
-import com.verbatoria.utils.LocaleHelper;
 
 import io.fabric.sdk.android.Fabric;
 
