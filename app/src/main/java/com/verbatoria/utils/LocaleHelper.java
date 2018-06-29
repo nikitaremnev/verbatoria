@@ -13,6 +13,9 @@ import java.util.Locale;
 
 public class LocaleHelper {
 
+    public static final String LOCALE_RU = "ru";
+    public static final String LOCALE_EN = "en";
+
     public static Context setLocale(Context context, String language) {
         PreferencesStorage.getInstance().setCurrentLocale(language);
 

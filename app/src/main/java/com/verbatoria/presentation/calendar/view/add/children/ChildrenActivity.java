@@ -32,10 +32,13 @@ import com.verbatoria.utils.Helper;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
  * Экран добавления детей
@@ -308,7 +311,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
 
     @Override
     public void onChildAgeClicked(int age) {
-        mBirthday = Calendar.getInstance();
+        mBirthday = Calendar.getInstance(new Locale(LOCALE_RU));
         mBirthday.set(Calendar.YEAR, mBirthday.get(Calendar.YEAR) - age);
         mBirthday.set(Calendar.DAY_OF_MONTH, mBirthday.get(Calendar.DAY_OF_MONTH) - 7);
         mChildrenPresenter.setChildBirthday(mBirthday.getTime());

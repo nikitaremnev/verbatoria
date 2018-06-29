@@ -35,6 +35,7 @@ import com.verbatoria.utils.Helper;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -42,6 +43,7 @@ import butterknife.BindView;
 
 import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
 import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity.EXTRA_CLIENT_MODEL;
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
  * Экран события
@@ -187,7 +189,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void startDatePicker() {
         mSelectTimeCalendar = null;
-        Calendar now = Calendar.getInstance();
+        Calendar now = Calendar.getInstance(new Locale(LOCALE_RU));
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 this,
                 now.get(Calendar.YEAR),
@@ -433,7 +435,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        mSelectTimeCalendar = Calendar.getInstance();
+        mSelectTimeCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         mSelectTimeCalendar.set(Calendar.YEAR, year);
         mSelectTimeCalendar.set(Calendar.MONTH, month);
         mSelectTimeCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);

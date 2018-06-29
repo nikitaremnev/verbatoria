@@ -17,10 +17,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 import rx.Observable;
+
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
  * Реализация интерактора для расписания
@@ -47,7 +50,7 @@ public class ScheduleInteractor implements IScheduleInteractor {
                     DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekStart().getTime()),
                     DateUtils.toServerDateTimeWithoutConvertingString(scheduleDataSource.getWeekEnd().getTime()))
                     .map(scheduleResponseModel -> {
-                        IScheduleDataSource hardScheduleDataSource = new ScheduleDataSource(Calendar.getInstance());
+                        IScheduleDataSource hardScheduleDataSource = new ScheduleDataSource(Calendar.getInstance(new Locale(LOCALE_RU)));
                         for (ScheduleItemResponseModel scheduleItemResponseModel : scheduleResponseModel.getScheduleItems()) {
                             Date fromDate = null;
                             try {
@@ -181,8 +184,8 @@ public class ScheduleInteractor implements IScheduleInteractor {
     private List<ScheduleItemRequestModel> createScheduleItemsRequestModel(Map<Date, List<Date>> scheduleItems) throws ParseException {
         List<ScheduleItemRequestModel> scheduleItemRequestModelList = new ArrayList<>();
         Set<Date> keys = scheduleItems.keySet();
-        Calendar calendar = Calendar.getInstance();
-        Calendar helperCalendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(new Locale(LOCALE_RU));
+        Calendar helperCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         for (Date key : keys) {
             calendar.setTime(key);
             calendar.set(Calendar.MINUTE, 0);

@@ -2,13 +2,13 @@
 <resources>
 
     <string-array name="rows_names">
-        <item>SUN, %s</item>
         <item>MON, %s</item>
         <item>TUE, %s</item>
         <item>WED, %s</item>
         <item>THU, %s</item>
         <item>FRI, %s</item>
         <item>SAT, %s</item>
+        <item>SUN, %s</item>
     </string-array>
 
     <string name="schedule_clear_confirm_message">Are you sure you want to clear the schedule?</string>

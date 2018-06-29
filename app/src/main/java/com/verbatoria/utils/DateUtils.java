@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
+
 /**
  * Утилиты для работы с датами
  *
@@ -28,16 +30,16 @@ public class DateUtils {
     private static final SimpleDateFormat UI_DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
 
     public static boolean isCurrentYear(long millis) {
-        Calendar currentCalendar = Calendar.getInstance();
-        Calendar tempCalendar = Calendar.getInstance();
+        Calendar currentCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
+        Calendar tempCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         currentCalendar.setTimeInMillis(System.currentTimeMillis());
         tempCalendar.setTimeInMillis(millis);
         return currentCalendar.get(Calendar.YEAR) == tempCalendar.get(Calendar.YEAR);
     }
 
     public static boolean isToday(long millis) {
-        Calendar currentCalendar = Calendar.getInstance();
-        Calendar tempCalendar = Calendar.getInstance();
+        Calendar currentCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
+        Calendar tempCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         currentCalendar.setTimeInMillis(System.currentTimeMillis());
         tempCalendar.setTimeInMillis(millis);
         return currentCalendar.get(Calendar.YEAR) == tempCalendar.get(Calendar.YEAR)
@@ -45,8 +47,8 @@ public class DateUtils {
     }
 
     public static boolean isYesterday(long millis) {
-        Calendar yesterdayCalendar = Calendar.getInstance();
-        Calendar tempCalendar = Calendar.getInstance();
+        Calendar yesterdayCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
+        Calendar tempCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         yesterdayCalendar.setTimeInMillis(System.currentTimeMillis() - android.text.format.DateUtils.DAY_IN_MILLIS);
         tempCalendar.setTimeInMillis(millis);
         return yesterdayCalendar.get(Calendar.YEAR) == tempCalendar.get(Calendar.YEAR)
@@ -110,8 +112,8 @@ public class DateUtils {
     }
 
     public static int getYearsBetweenDates(Date startDate, Date endDate) {
-        Calendar firstCalendar = GregorianCalendar.getInstance();
-        Calendar secondCalendar = GregorianCalendar.getInstance();
+        Calendar firstCalendar = GregorianCalendar.getInstance(new Locale(LOCALE_RU));
+        Calendar secondCalendar = GregorianCalendar.getInstance(new Locale(LOCALE_RU));
         firstCalendar.setTime(startDate);
         secondCalendar.setTime(endDate);
         secondCalendar.add(Calendar.DAY_OF_YEAR, - firstCalendar.get(Calendar.DAY_OF_YEAR));
@@ -119,8 +121,8 @@ public class DateUtils {
     }
 
     public static int getYearsFromDate(Date date) {
-        Calendar firstCalendar = GregorianCalendar.getInstance();
-        Calendar secondCalendar = GregorianCalendar.getInstance();
+        Calendar firstCalendar = GregorianCalendar.getInstance(new Locale(LOCALE_RU));
+        Calendar secondCalendar = GregorianCalendar.getInstance(new Locale(LOCALE_RU));
         firstCalendar.setTime(date);
         secondCalendar.add(Calendar.DAY_OF_YEAR, - firstCalendar.get(Calendar.DAY_OF_YEAR));
         return secondCalendar.get(Calendar.YEAR) - firstCalendar.get(Calendar.YEAR);

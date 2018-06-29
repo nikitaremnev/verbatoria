@@ -26,11 +26,14 @@ import com.verbatoria.utils.Helper;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
  * Фрагмент для отображения календаря
@@ -105,7 +108,7 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     }
 
     private void setUpViews() {
-        mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         setUpAddEventButton();
         setUpCalendarButtons();
         setUpCurrentDate();

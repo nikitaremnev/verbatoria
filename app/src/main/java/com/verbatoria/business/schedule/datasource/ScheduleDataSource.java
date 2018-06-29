@@ -1,17 +1,18 @@
 package com.verbatoria.business.schedule.datasource;
 
-import android.util.Log;
-
 import com.verbatoria.business.schedule.models.ScheduleItemModel;
 import com.verbatoria.utils.DateUtils;
-
+import com.verbatoria.utils.PreferencesStorage;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
  * @author nikitaremnev
@@ -28,12 +29,15 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     private final Map<Integer, List<ScheduleItemModel>> mItems = new WeakHashMap<>();
 
-    private Calendar mCalendar = Calendar.getInstance();
+    private Calendar mCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
 
     private Calendar mOriginalCalendar;
 
+    private String currentLocale;
+
     public ScheduleDataSource() {
-        mOriginalCalendar = Calendar.getInstance();
+        mOriginalCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
+        currentLocale = PreferencesStorage.getInstance().getCurrentLocale();
     }
 
     public ScheduleDataSource(Calendar calendar) {
@@ -47,6 +51,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
             mItems.put(dayOfWeekIndex, dayGenerated);
             dayOfWeekIndex ++;
         }
+        currentLocale = PreferencesStorage.getInstance().getCurrentLocale();
     }
 
     @Override
@@ -66,7 +71,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     @Override
     public Date getRowHeaderData(int index) {
-        mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         mCalendar.setTime(mOriginalCalendar.getTime());
         int firstDayOfWeek = getFirstDayOfWeek();
         mCalendar.set(Calendar.DAY_OF_YEAR, mCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - (index - 1)));
@@ -136,7 +141,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     @Override
     public Date getWeekStart() {
-        mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         mCalendar.setTime(mOriginalCalendar.getTime());
         int firstDayOfWeek = getFirstDayOfWeek();
         mCalendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -147,7 +152,7 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     @Override
     public Date getWeekEnd() {
-        mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         mCalendar.setTime(mOriginalCalendar.getTime());
         int firstDayOfWeek = getFirstDayOfWeek();
         mCalendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -171,9 +176,8 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     @Override
     public void setWorkingInterval(Date date) {
-        mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
         mCalendar.setTime(date);
-        Log.e("test", "getCurrentDayOfWeek: " + getCurrentDayOfWeek());
         int currentHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         if (isHourInBorders(currentHour)) {
             mItems.get(getCurrentDayOfWeek()).get(currentHour - START_HOUR).setSelected(true);

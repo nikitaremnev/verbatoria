@@ -80,14 +80,17 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         mLoginPresenter.bindView(this);
 
         super.onCreate(savedInstanceState);
-        //test
-//        setPhone("79153974689");
-//        setPassword("test");
 
         mLoginPresenter.setUpLastLogin();
 
         if (BuildConfig.DEBUG) {
-            mPasswordEditText.setText("123474858");
+            //maria
+            mLoginEditText.setText("79268932040");
+            mPasswordEditText.setText("89268932040");
+
+            //my account
+//            mLoginEditText.setText("79153974689");
+//            mPasswordEditText.setText("123474858");
         }
     }
 

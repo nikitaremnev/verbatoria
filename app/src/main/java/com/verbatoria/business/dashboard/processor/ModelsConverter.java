@@ -21,6 +21,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
+
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
  * Класс для конвертации моделей ответа с сервера в модели используемые в приложении
@@ -77,7 +80,7 @@ public class ModelsConverter {
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.HOUR_OF_DAY, HOUR_START);
         calendar.set(Calendar.SECOND, 0);
-        Calendar calendarHelper = Calendar.getInstance();
+        Calendar calendarHelper = Calendar.getInstance(new Locale(LOCALE_RU));
         for (int i = HOUR_START + 1; i < HOUR_FINISH; i ++) {
             TimeIntervalModel timeIntervalModel = new TimeIntervalModel();
             timeIntervalModel.setStartAt(calendar.getTime());
@@ -95,7 +98,7 @@ public class ModelsConverter {
             }
         }
 
-        calendarHelper = Calendar.getInstance();
+        calendarHelper = Calendar.getInstance(new Locale(LOCALE_RU));
         for (int i = 0; i < eventsResponseModel.getEvents().size(); i ++) {
             EventModel eventModel = convertVerbatologEventResponseToEventModel(eventsResponseModel.getEvents().get(i));
             calendarHelper.setTime(eventModel.getStartAt());

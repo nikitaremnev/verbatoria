@@ -55,6 +55,7 @@ public class SettingsPresenter implements ISettingsPresenter {
 
     @Override
     public void onScheduleClicked() {
+        mDashboardInteractor.setShowSettings(true);
         mSettingsView.showSchedule();
     }
 
@@ -65,6 +66,7 @@ public class SettingsPresenter implements ISettingsPresenter {
 
     @Override
     public void onLateSendClicked() {
+        mDashboardInteractor.setShowSettings(true);
         mSettingsView.showLateSend();
     }
 
