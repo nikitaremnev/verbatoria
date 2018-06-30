@@ -38,6 +38,8 @@ public class ExportProcessor {
 
     private static final String TAG = ExportProcessor.class.getSimpleName();
 
+    public static final int LANGUAGE_LABEL_INDEX = 10;
+
     private ISessionRepository mSessionRepository;
 
     private long mCurrentActivityCode = 0;
@@ -80,7 +82,7 @@ public class ExportProcessor {
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
                 if (answersIndex < QuestionsAdapter.QUESTIONARY_SIZE) {
                     measurementRequestModel.setReserveBlank2(answers.get(Integer.toString(answersIndex)));
-                } else if (answersIndex == QuestionsAdapter.QUESTIONARY_SIZE) {
+                } else if (answersIndex == LANGUAGE_LABEL_INDEX) {
                     measurementRequestModel.setReserveBlank2(PreferencesStorage.getInstance().getCurrentLocale());
                 }
                 while (iterator.hasNext() && currentMeasurement.getTimestamp() == iterator.next().getTimestamp()) {
