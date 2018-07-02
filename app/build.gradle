@@ -36,8 +36,8 @@ repositories {
     google()
 }
 
-def version_name = "9.1.8"
-def version_code = 14
+def version_name = "9.1.9"
+def version_code = 15
 def target_sdk_version = 26
 def min_sdk_version = 21
 def build_tools_version = "26.0.2"
@@ -91,6 +91,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildToolsVersion build_tools_version
+    buildToolsVersion '27.0.3'
 }
 
 dependencies {
