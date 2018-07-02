@@ -83,12 +83,12 @@ public class DashboardRepository implements IDashboardRepository {
 
     @Override
     public String getCurrentLocale() {
-        return PreferencesStorage.getInstance().getLocationInfo().getLocale();
+        return PreferencesStorage.getInstance().getCurrentLocale();
     }
 
     @Override
     public void saveCurrentLocale(String newCurrentLocale) {
-        PreferencesStorage.getInstance().getLocationInfo().setLocale(newCurrentLocale);
+        PreferencesStorage.getInstance().setCurrentLocale(newCurrentLocale);
     }
 
     @Override

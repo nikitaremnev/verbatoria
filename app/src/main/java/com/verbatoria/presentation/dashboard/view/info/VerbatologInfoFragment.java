@@ -172,7 +172,11 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     @Override
     public void updateLocale(String language) {
         LocaleHelper.setLocale(getActivity(), language);
-        getActivity().recreate();
+        try {
+            getActivity().recreate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }

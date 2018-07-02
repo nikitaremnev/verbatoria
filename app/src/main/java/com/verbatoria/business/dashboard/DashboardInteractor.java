@@ -75,7 +75,7 @@ public class DashboardInteractor implements IDashboardInteractor {
                     String currentLocale = mDashboardRepository.getCurrentLocale();
                     Log.e("test", "currentLocale: " + currentLocale);
                     Log.e("test", "locationModel.getLocale(): " + locationModel.getLocale());
-                    if (!currentLocale.equals(locationModel.getLocale())) {
+                    if (currentLocale == null || !currentLocale.equals(locationModel.getLocale())) {
                         mDashboardRepository.saveCurrentLocale(locationModel.getLocale());
                         locationModel.setUpdateLocaleRequired(true);
                     }
