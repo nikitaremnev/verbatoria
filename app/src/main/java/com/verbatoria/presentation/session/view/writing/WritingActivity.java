@@ -164,6 +164,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
 
         mLineChart.notifyDataSetChanged();
         mLineChart.setScaleXEnabled(false);
+        mLineChart.setScaleYEnabled(false);
         mLineChart.setVisibleXRangeMaximum(20);
         mLineChart.moveViewToX(data.getXValCount() - 21);
     }
