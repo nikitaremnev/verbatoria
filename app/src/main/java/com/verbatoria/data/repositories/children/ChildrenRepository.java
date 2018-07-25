@@ -38,18 +38,4 @@ public class ChildrenRepository implements IChildrenRepository {
         return APIFactory.getAPIService().findChildRequest(query, accessToken);
     }
 
-//    @Override
-//    public Observable<ResponseBody> addChild(String clientId, String accessToken, ChildRequestModel childRequestModel) {
-//        return APIFactory.getAPIService().addChildRequest(clientId, accessToken, childRequestModel);
-//    }
-//
-//    @Override
-//    public Observable<ResponseBody> editChild(String clientId, String childId, String accessToken, ChildRequestModel childRequestModel) {
-//        return APIFactory.getAPIService().editChildRequest(clientId, childId, accessToken, childRequestModel);
-//    }
-//
-//    @Override
-//    public Observable<ChildModel> getChild(String clientId, String childId, String accessToken) {
-//        return APIFactory.getAPIService().getChildRequest(clientId, childId, accessToken);
-//    }
 }

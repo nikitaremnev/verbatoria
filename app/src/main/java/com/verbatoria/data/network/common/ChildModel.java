@@ -24,6 +24,8 @@ public class ChildModel implements Parcelable {
 
     private String mClientId;
 
+    private String mGender;
+
     public ChildModel() {
 
     }
@@ -72,6 +74,18 @@ public class ChildModel implements Parcelable {
         return this;
     }
 
+    @JsonGetter("gender")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getGender() {
+        return mGender;
+    }
+
+    public ChildModel setGender(String gender) {
+        mGender = gender;
+        return this;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -84,12 +98,13 @@ public class ChildModel implements Parcelable {
         return Objects.equal(mName, that.mName) &&
                 Objects.equal(mBirthday, that.mBirthday) &&
                 Objects.equal(mId, that.mId) &&
-                Objects.equal(mClientId, that.mClientId);
+                Objects.equal(mClientId, that.mClientId) &&
+                Objects.equal(mGender, that.mGender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mName, mBirthday, mId, mClientId);
+        return Objects.hashCode(mName, mBirthday, mId, mClientId, mGender);
     }
 
 
@@ -104,6 +119,7 @@ public class ChildModel implements Parcelable {
         dest.writeString(this.mBirthday);
         dest.writeString(this.mId);
         dest.writeString(this.mClientId);
+        dest.writeString(this.mGender);
     }
 
     protected ChildModel(Parcel in) {
@@ -111,6 +127,7 @@ public class ChildModel implements Parcelable {
         this.mBirthday = in.readString();
         this.mId = in.readString();
         this.mClientId = in.readString();
+        this.mGender = in.readString();
     }
 
     public static final Creator<ChildModel> CREATOR = new Creator<ChildModel>() {
@@ -132,6 +149,7 @@ public class ChildModel implements Parcelable {
                 .add("mBirthday", mBirthday)
                 .add("mId", mId)
                 .add("mClientId", mClientId)
+                .add("mGender", mGender)
                 .toString();
     }
 }
