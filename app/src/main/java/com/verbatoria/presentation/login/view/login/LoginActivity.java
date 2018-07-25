@@ -85,12 +85,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
         if (BuildConfig.DEBUG) {
             //maria
-            mLoginEditText.setText("79268932040");
-            mPasswordEditText.setText("89268932040");
+//            mLoginEditText.setText("79268932040");
+//            mPasswordEditText.setText("89268932040");
 
             //my account
-//            mLoginEditText.setText("79153974689");
-//            mPasswordEditText.setText("123474858");
+            mLoginEditText.setText("79153974689");
+            mPasswordEditText.setText("123474858");
         }
     }
 

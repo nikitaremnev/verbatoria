@@ -59,4 +59,8 @@
 
     <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
 
+    <string name="dashboard_gender">Пол ребенка</string>
+    <string name="dashboard_gender_male">Мужской</string>
+    <string name="dashboard_gender_female">Женский</string>
+
 </resources>

@@ -59,4 +59,8 @@
 
     <string name="dashboard_update_language_error">Error during updating language occurred</string>
 
+    <string name="dashboard_gender">Child's sex</string>
+    <string name="dashboard_gender_male">Male</string>
+    <string name="dashboard_gender_female">Female</string>
+
 </resources>

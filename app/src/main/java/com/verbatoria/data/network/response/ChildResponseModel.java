@@ -23,6 +23,8 @@ public class ChildResponseModel {
 
     private String mBirthday;
 
+    private String mGender;
+
     public ChildResponseModel() {
 
     }
@@ -67,6 +69,16 @@ public class ChildResponseModel {
         mBirthday = birthday;
     }
 
+    @JsonGetter("gender")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getGender() {
+        return mGender;
+    }
+
+    public void setGender(String gender) {
+        mGender = gender;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,12 +91,13 @@ public class ChildResponseModel {
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mClientId, that.mClientId) &&
                 Objects.equal(mName, that.mName) &&
-                Objects.equal(mBirthday, that.mBirthday);
+                Objects.equal(mBirthday, that.mBirthday) &&
+                Objects.equal(mGender, that.mGender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mClientId, mName, mBirthday);
+        return Objects.hashCode(mId, mClientId, mName, mBirthday, mGender);
     }
 
     @Override
@@ -94,6 +107,7 @@ public class ChildResponseModel {
                 .add("mClientId", mClientId)
                 .add("mName", mName)
                 .add("mBirthday", mBirthday)
+                .add("mGender", mGender)
                 .toString();
     }
 }

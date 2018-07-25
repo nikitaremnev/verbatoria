@@ -148,6 +148,7 @@ public class ModelsConverter {
         childModel.setId(childResponseModel.getId());
         childModel.setClientId(childResponseModel.getClientId());
         childModel.setName(childResponseModel.getName());
+        childModel.setGender(childResponseModel.getGender());
         try {
             if (childResponseModel.getBirthday() != null) {
                 childModel.setBirthday(DateUtils.parseDate(childResponseModel.getBirthday()));
