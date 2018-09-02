@@ -21,6 +21,8 @@ public class LoginResponseModel {
 
     private String mStatus;
 
+    private String mLocationId;
+
     public LoginResponseModel() {
 
     }
@@ -49,6 +51,16 @@ public class LoginResponseModel {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public String getStatus() {
         return mStatus;
+    }
+
+    @JsonGetter("location_id")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getLocationId() {
+        return mLocationId;
+    }
+
+    public void setLocationId(String locationId) {
+        mLocationId = locationId;
     }
 
     public LoginResponseModel setStatus(String status) {

@@ -20,6 +20,8 @@ public class TokenModel {
 
     private String mStatus;
 
+    private String mLocationId;
+
     public TokenModel() {
 
     }
@@ -50,6 +52,15 @@ public class TokenModel {
 
     public TokenModel setStatus(String status) {
         mStatus = status;
+        return this;
+    }
+
+    public String getLocationId() {
+        return mLocationId;
+    }
+
+    public TokenModel setLocationId(String locationId) {
+        mLocationId = locationId;
         return this;
     }
 

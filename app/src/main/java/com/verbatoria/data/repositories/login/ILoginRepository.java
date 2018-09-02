@@ -26,4 +26,6 @@ public interface ILoginRepository {
 
     void updateLastLogin(String login);
 
+    void updateLocationId(String locationId);
+
 }

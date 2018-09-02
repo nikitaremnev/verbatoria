@@ -42,6 +42,7 @@ public class TokenProcessor {
             throw new TokenInteractorException(e.getMessage());
         }
         tokenModel.setStatus(loginResponseModel.getStatus());
+        tokenModel.setLocationId(loginResponseModel.getLocationId());
         return tokenModel;
     }
 

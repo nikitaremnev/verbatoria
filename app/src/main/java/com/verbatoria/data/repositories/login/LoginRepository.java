@@ -42,4 +42,10 @@ public class LoginRepository implements ILoginRepository {
     public void updateLastLogin(String login) {
         PreferencesStorage.getInstance().setLastLogin(login);
     }
+
+    @Override
+    public void updateLocationId(String locationId) {
+        PreferencesStorage.getInstance().setLocationId(locationId);
+    }
+
 }

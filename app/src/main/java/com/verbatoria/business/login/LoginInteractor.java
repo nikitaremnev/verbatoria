@@ -38,9 +38,9 @@ public class LoginInteractor implements ILoginInteractor {
                     TokenProcessor tokenProcessor = new TokenProcessor();
                     TokenModel tokenModel = tokenProcessor.obtainToken(item);
                     mTokenRepository.updateToken(tokenModel);
-                    Log.e("test", "login(String phone, String password): " + tokenModel.getStatus());
                     mTokenRepository.setStatus(tokenModel.getStatus());
                     mLoginRepository.updateLastLogin(phone);
+                    mLoginRepository.updateLocationId(tokenModel.getLocationId());
                     return tokenModel;
                 })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())

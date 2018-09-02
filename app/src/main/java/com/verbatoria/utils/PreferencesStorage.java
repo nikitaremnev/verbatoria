@@ -2,17 +2,18 @@ package com.verbatoria.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.token.models.UserStatus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
+
 import javax.inject.Inject;
 
 /**
@@ -211,6 +212,12 @@ public class PreferencesStorage {
                 .setId(mCachePreferences.getString(LOCATION_ID_KEY, null))
                 .setLocale(mCachePreferences.getString(LOCATION_LOCALE_KEY, null))
                 .setAvailableLocales(new ArrayList<>(mCachePreferences.getStringSet(LOCATION_AVAILABLE_LOCALES_KEY, Collections.emptySet())));
+    }
+
+    public void setLocationId(String locationId) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putString(VERBATOLOG_LOCATION_ID_KEY, locationId);
+        editor.apply();
     }
 
     public String getLocationId() {
