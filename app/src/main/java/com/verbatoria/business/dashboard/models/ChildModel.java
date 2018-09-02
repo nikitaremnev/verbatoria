@@ -3,8 +3,6 @@ package com.verbatoria.business.dashboard.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import android.util.Log;
-
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.verbatoria.utils.DateUtils;
@@ -18,7 +16,13 @@ import static com.verbatoria.presentation.calendar.view.add.children.age.ChildAg
  *
  * @author nikitaremnev
  */
+
+
 public class ChildModel implements Parcelable {
+
+    public static final String FEMALE_GENDER = "female";
+
+    public static final String MALE_GENDER = "male";
 
     private String mId;
 
@@ -28,8 +32,17 @@ public class ChildModel implements Parcelable {
 
     private Date mBirthday;
 
-    public ChildModel() {
+    private String mGender;
 
+    public ChildModel() {
+    }
+
+    public static boolean isFemale(String gender) {
+        return gender != null && gender.equals(FEMALE_GENDER);
+    }
+
+    public static boolean isMale(String gender) {
+        return gender != null && gender.equals(MALE_GENDER);
     }
 
     public String getId() {
@@ -88,10 +101,25 @@ public class ChildModel implements Parcelable {
         return this;
     }
 
+    public String getGender() {
+        return mGender;
+    }
+
+    public ChildModel setGender(String gender) {
+        mGender = gender;
+        return this;
+    }
+
     public boolean isFull() {
-        Log.e("test", "mName: " + TextUtils.isEmpty(mName));
-        Log.e("test", "mBirthday: " + (mBirthday == null));
-        return !(TextUtils.isEmpty(mName) || mBirthday == null || DateUtils.getYearsFromDate(mBirthday) < START_AGE);
+        return !(TextUtils.isEmpty(mName) || mBirthday == null || mGender == null && DateUtils.getYearsFromDate(mBirthday) < START_AGE);
+    }
+
+    public boolean isMale() {
+        return mGender != null && mGender.equals(MALE_GENDER);
+    }
+
+    public boolean isFemale() {
+        return mGender != null && mGender.equals(FEMALE_GENDER);
     }
 
     @Override
@@ -106,12 +134,13 @@ public class ChildModel implements Parcelable {
         return Objects.equal(mId, that.mId) &&
                 Objects.equal(mName, that.mName) &&
                 Objects.equal(mBirthday, that.mBirthday) &&
-                Objects.equal(mClientId, that.mClientId);
+                Objects.equal(mClientId, that.mClientId) &&
+                Objects.equal(mGender, that.mGender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mBirthday, mClientId);
+        return Objects.hashCode(mId, mName, mBirthday, mClientId, mGender);
     }
 
     @Override
@@ -121,6 +150,7 @@ public class ChildModel implements Parcelable {
                 .add("mName", mName)
                 .add("mBirthday", mBirthday)
                 .add("mClientId", mClientId)
+                .add("mGender", mGender)
                 .toString();
     }
 
@@ -135,7 +165,7 @@ public class ChildModel implements Parcelable {
         dest.writeString(this.mName);
         dest.writeLong(this.mBirthday != null ? this.mBirthday.getTime() : -1);
         dest.writeString(this.mClientId);
-
+        dest.writeString(this.mGender);
     }
 
     protected ChildModel(Parcel in) {
@@ -144,7 +174,7 @@ public class ChildModel implements Parcelable {
         long tmpMBirthday = in.readLong();
         this.mBirthday = tmpMBirthday == -1 ? null : new Date(tmpMBirthday);
         this.mClientId = in.readString();
-
+        this.mGender = in.readString();
     }
 
     public static final Parcelable.Creator<ChildModel> CREATOR = new Parcelable.Creator<ChildModel>() {

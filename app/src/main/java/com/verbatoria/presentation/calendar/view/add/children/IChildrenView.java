@@ -40,6 +40,8 @@ public interface IChildrenView {
 
     void updateAge();
 
+    void updateGender();
+
     void showPossibleChildren(List<ChildModel> children);
 
 }

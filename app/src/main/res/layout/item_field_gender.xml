@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_item_divider_height"
+        android:background="@color/settings_divider_item_color"
+        android:layout_below="@+id/gender_radio_group">
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:id="@+id/field_title"
+        android:text="@string/dashboard_gender"
+        android:textSize="@dimen/field_title_size"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textColor="@color/field_title_color"
+        android:layout_marginTop="@dimen/field_title_top_margin"
+        android:paddingLeft="@dimen/field_title_left_padding"
+        android:paddingRight="@dimen/field_title_right_padding"
+        android:layout_toLeftOf="@+id/status_image_view"
+        android:layout_toRightOf="@+id/field_image_view" />
+
+    <RadioGroup
+        android:id="@+id/gender_radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:lines="1"
+        android:ellipsize="end"
+        android:textSize="@dimen/field_subtitle_size"
+        android:textColor="@color/field_subtitle_color"
+        android:layout_marginBottom="8dp"
+        android:paddingTop="@dimen/field_subtitle_top_padding"
+        android:paddingLeft="@dimen/field_title_left_padding"
+        android:paddingRight="@dimen/field_title_right_padding"
+        android:layout_below="@+id/field_title"
+        android:layout_toLeftOf="@+id/status_image_view"
+        android:layout_toRightOf="@+id/field_image_view">
+
+        <RadioButton
+            android:id="@+id/male_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="8dp"
+            android:textSize="14sp"
+            android:textColor="@color/field_subtitle_color"
+            android:text="@string/dashboard_gender_male"/>
+
+        <RadioButton
+            android:id="@+id/female_radio_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="8dp"
+            android:textSize="14sp"
+            android:textColor="@color/field_subtitle_color"
+            android:text="@string/dashboard_gender_female"/>
+
+    </RadioGroup>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/field_image_view"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="@dimen/image_view_right_margin"
+        android:layout_marginLeft="@dimen/image_view_right_margin"
+        app:srcCompat="@drawable/ic_gender"
+        tools:ignore="ContentDescription" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gender_status_image_view"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/image_view_right_margin"
+        android:layout_marginLeft="@dimen/image_view_right_margin"
+        app:srcCompat="@drawable/ic_not_ok"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

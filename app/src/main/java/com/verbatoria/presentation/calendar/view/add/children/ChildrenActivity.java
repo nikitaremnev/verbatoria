@@ -8,13 +8,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.remnev.verbatoriamini.R;
@@ -38,6 +40,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
+import static com.verbatoria.business.dashboard.models.ChildModel.FEMALE_GENDER;
+import static com.verbatoria.business.dashboard.models.ChildModel.MALE_GENDER;
 import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
@@ -65,6 +69,21 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
     @BindView(R.id.child_name_editable_field)
     public View mChildNameEditableField;
 
+    @BindView(R.id.gender_radio_group)
+    public RadioGroup mGenderRadioGroup;
+
+    @BindView(R.id.male_radio_button)
+    public RadioButton mMaleRadioButton;
+
+    @BindView(R.id.female_radio_button)
+    public RadioButton mFemaleRadioButton;
+
+    @BindView(R.id.gender_status_image_view)
+    public View mGenderErrorView;
+
+    @BindView(R.id.child_gender_field)
+    public View mGenderField;
+
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
@@ -74,8 +93,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
     private MenuItem mCancelMenuItem;
 
     public static Intent newInstance(Context mContext, ChildModel childModel, ClientModel clientModel) {
-        Log.e("test", childModel.toString());
-        Log.e("test", clientModel.toString());
         Intent intent = new Intent(mContext, ChildrenActivity.class);
         intent.putExtra(EXTRA_CHILD_MODEL, childModel);
         intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
@@ -83,7 +100,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
     }
 
     public static Intent newInstance(Context mContext, ClientModel clientModel) {
-        Log.e("test", clientModel.toString());
         Intent intent = new Intent(mContext, ChildrenActivity.class);
         intent.putExtra(EXTRA_CLIENT_MODEL, clientModel);
         return intent;
@@ -94,7 +110,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
         VerbatoriaApplication.getApplicationComponent().addModule(new CalendarModule()).inject(this);
         mChildrenPresenter.obtainChild(getIntent());
 
-        setContentView(R.layout.activity_children);
+        setContentView(R.layout.activity_child);
 
         setPresenter((BasePresenter) mChildrenPresenter);
         mChildrenPresenter.bindView(this);
@@ -183,9 +199,24 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
             mEditMenuItem.setVisible(false);
             mCancelMenuItem.setVisible(true);
         }
+        mGenderRadioGroup.setEnabled(true);
+        mFemaleRadioButton.setEnabled(true);
+        mMaleRadioButton.setEnabled(true);
+        mGenderErrorView.setVisibility(View.GONE);
+        mGenderField.setVisibility(View.VISIBLE);
         mSubmitButton.setText(getString(R.string.save));
         mSubmitButton.setVisibility(View.VISIBLE);
         mSubmitButton.setOnClickListener(v -> mChildrenPresenter.editChild());
+        mMaleRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                mChildrenPresenter.setChildGender(MALE_GENDER);
+            }
+        });
+        mFemaleRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                mChildrenPresenter.setChildGender(FEMALE_GENDER);
+            }
+        });
     }
 
     @Override
@@ -196,9 +227,45 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
             mEditMenuItem.setVisible(false);
             mCancelMenuItem.setVisible(true);
         }
+        mGenderRadioGroup.setEnabled(true);
+        mFemaleRadioButton.setEnabled(true);
+        mMaleRadioButton.setEnabled(true);
+        mGenderErrorView.setVisibility(View.GONE);
+        mGenderField.setVisibility(View.VISIBLE);
         mSubmitButton.setText(getString(R.string.calendar_activity_create));
         mSubmitButton.setVisibility(View.VISIBLE);
         mSubmitButton.setOnClickListener(v -> mChildrenPresenter.createChild());
+        mMaleRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                mChildrenPresenter.setChildGender(MALE_GENDER);
+            }
+        });
+        mFemaleRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                mChildrenPresenter.setChildGender(FEMALE_GENDER);
+            }
+        });
+    }
+
+    @Override
+    public void setUpReadonlyMode() {
+        mChildNameEditableField.setVisibility(View.GONE);
+        mChildNameField.setVisibility(View.VISIBLE);
+        mChildBirthdayField.setVisibility(View.VISIBLE);
+        mGenderRadioGroup.setEnabled(false);
+        mFemaleRadioButton.setEnabled(false);
+        mMaleRadioButton.setEnabled(false);
+        mGenderErrorView.setVisibility(!mChildrenPresenter.isGenderSet() ? View.VISIBLE : View.GONE);
+        if (mEditMenuItem != null && mCancelMenuItem != null) {
+            if (mChildrenPresenter.isEditMode()) {
+                mEditMenuItem.setVisible(true);
+                mCancelMenuItem.setVisible(false);
+            } else {
+                mEditMenuItem.setVisible(false);
+                mCancelMenuItem.setVisible(false);
+            }
+        }
+        mSubmitButton.setVisibility(View.GONE);
     }
 
     @Override
@@ -219,23 +286,6 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
     }
 
     @Override
-    public void setUpReadonlyMode() {
-        mChildNameEditableField.setVisibility(View.GONE);
-        mChildNameField.setVisibility(View.VISIBLE);
-        mChildBirthdayField.setVisibility(View.VISIBLE);
-        if (mEditMenuItem != null && mCancelMenuItem != null) {
-            if (mChildrenPresenter.isEditMode()) {
-                mEditMenuItem.setVisible(true);
-                mCancelMenuItem.setVisible(false);
-            } else {
-                mEditMenuItem.setVisible(false);
-                mCancelMenuItem.setVisible(false);
-            }
-        }
-        mSubmitButton.setVisibility(View.GONE);
-    }
-
-    @Override
     public void startAgePicker() {
         mBirthday = null;
         ChildAgeDialogFragment
@@ -251,6 +301,20 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
                 startAgePicker();
             }
         });
+    }
+
+    @Override
+    public void updateGender() {
+        String gender = mChildrenPresenter.getChildGender();
+        mGenderErrorView.setVisibility(View.VISIBLE);
+        if (ChildModel.isFemale(gender)) {
+            mFemaleRadioButton.setChecked(true);
+            mGenderErrorView.setVisibility(View.GONE);
+        }
+        if (ChildModel.isMale(gender)) {
+            mMaleRadioButton.setChecked(true);
+            mGenderErrorView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -328,6 +392,7 @@ public class ChildrenActivity extends BaseActivity implements IChildrenView, Chi
         String childNameString = TextUtils.isEmpty(mChildrenPresenter.getChildName()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildName();
         setUpFieldView(mChildNameField, R.drawable.ic_child_name, childNameString, getString(R.string.event_detail_activity_child_name), v -> {});
         updateAge();
+        updateGender();
     }
 
     private void setUpEditableFields() {

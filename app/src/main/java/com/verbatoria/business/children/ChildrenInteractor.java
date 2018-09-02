@@ -96,7 +96,8 @@ public class ChildrenInteractor implements IChildrenInteractor {
                 .setName(childModel.getName())
                 .setId(childModel.getId())
                 .setClientId(childModel.getClientId())
-                .setBirthday(DateUtils.toString(childModel.getBirthday()));
+                .setBirthday(DateUtils.toString(childModel.getBirthday()))
+                .setGender(childModel.getGender());
     }
 
     private ChildModel getChildModel(com.verbatoria.data.network.common.ChildModel childModel) {
@@ -111,7 +112,8 @@ public class ChildrenInteractor implements IChildrenInteractor {
                 .setName(childModel.getName())
                 .setId(childModel.getId())
                 .setClientId(childModel.getClientId())
-                .setBirthday(birthday);
+                .setBirthday(birthday)
+                .setGender(childModel.getGender());
     }
 
 

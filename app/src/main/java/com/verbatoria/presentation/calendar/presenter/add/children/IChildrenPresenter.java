@@ -33,6 +33,11 @@ public interface IChildrenPresenter {
 
     String getChildName();
     String getChildAge();
+    String getChildGender();
 
     void setChildBirthday(Date birthday);
+    void setChildGender(String gender);
+
+    boolean isGenderSet();
+
 }

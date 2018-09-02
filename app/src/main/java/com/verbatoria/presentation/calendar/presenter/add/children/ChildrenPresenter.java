@@ -128,9 +128,25 @@ public class ChildrenPresenter extends BasePresenter implements IChildrenPresent
     }
 
     @Override
+    public String getChildGender() {
+        return mChildModel != null ? mChildModel.getGender() : null;
+    }
+
+    @Override
     public void setChildBirthday(Date birthday) {
         mChildModel.setBirthday(birthday);
         mChildrenView.updateAge();
+    }
+
+    @Override
+    public void setChildGender(String gender) {
+        mChildModel.setGender(gender);
+        mChildrenView.updateGender();
+    }
+
+    @Override
+    public boolean isGenderSet() {
+        return mChildModel.isFemale() || mChildModel.isMale();
     }
 
     @Override
