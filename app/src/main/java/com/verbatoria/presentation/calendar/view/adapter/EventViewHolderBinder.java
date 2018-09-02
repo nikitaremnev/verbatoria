@@ -20,6 +20,11 @@ public class EventViewHolderBinder {
         } else {
             holder.setChildName(childName);
         }
+        if (event.isInstantReport()) {
+            holder.showInstantReport();
+        } else {
+            holder.hideInstantReport();
+        }
         holder.setAge(event.getFullAge(context));
         holder.setReportId(event.getReportId(context));
         holder.setTimePeriod(event.getEventTime());

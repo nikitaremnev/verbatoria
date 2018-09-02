@@ -79,12 +79,13 @@ public class LoginResponseModel {
         LoginResponseModel that = (LoginResponseModel) o;
         return Objects.equal(mAccessToken, that.mAccessToken) &&
                 Objects.equal(mExpiresToken, that.mExpiresToken) &&
-                Objects.equal(mStatus, that.mStatus);
+                Objects.equal(mStatus, that.mStatus) &&
+                Objects.equal(mLocationId, that.mLocationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mAccessToken, mExpiresToken, mStatus);
+        return Objects.hashCode(mAccessToken, mExpiresToken, mStatus, mLocationId);
     }
 
     @Override
@@ -93,6 +94,7 @@ public class LoginResponseModel {
                 .add("mAccessToken", mAccessToken)
                 .add("mExpiresToken", mExpiresToken)
                 .add("mStatus", mStatus)
+                .add("mLocationId", mLocationId)
                 .toString();
     }
 }

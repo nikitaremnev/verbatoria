@@ -30,6 +30,8 @@ public class EventModel implements Parcelable {
 
     private ReportModel mReport;
 
+    private boolean mIsInstantReport;
+
     public EventModel() {
 
     }
@@ -40,6 +42,14 @@ public class EventModel implements Parcelable {
 
     public void setId(String id) {
         mId = id;
+    }
+
+    public boolean isInstantReport() {
+        return mIsInstantReport;
+    }
+
+    public void setIsInstantReport(boolean isInstantReport) {
+        mIsInstantReport = isInstantReport;
     }
 
     public Date getStartAt() {

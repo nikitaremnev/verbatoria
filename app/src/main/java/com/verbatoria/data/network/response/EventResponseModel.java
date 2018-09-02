@@ -21,6 +21,8 @@ public class EventResponseModel {
 
     private String mEndAt;
 
+    private boolean mIsInstantReport;
+
     private ChildResponseModel mChild;
 
     private ReportResponseModel mReport;
@@ -57,6 +59,16 @@ public class EventResponseModel {
 
     public void setEndAt(String endAt) {
         mEndAt = endAt;
+    }
+
+    @JsonGetter("instant_report")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean isInstantReport() {
+        return mIsInstantReport;
+    }
+
+    public void setIsInstantReport(boolean isInstantReport) {
+        mIsInstantReport = isInstantReport;
     }
 
     @JsonGetter("child")

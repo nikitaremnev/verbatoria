@@ -75,12 +75,13 @@ public class TokenModel {
         TokenModel that = (TokenModel) o;
         return Objects.equal(mAccessToken, that.mAccessToken) &&
                 Objects.equal(mExpireDate, that.mExpireDate) &&
-                Objects.equal(mStatus, that.mStatus);
+                Objects.equal(mStatus, that.mStatus) &&
+                Objects.equal(mLocationId, that.mLocationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mAccessToken, mExpireDate, mStatus);
+        return Objects.hashCode(mAccessToken, mExpireDate, mStatus, mLocationId);
     }
 
     @Override
@@ -89,6 +90,7 @@ public class TokenModel {
                 .add("mAccessToken", mAccessToken)
                 .add("mExpireDate", mExpireDate)
                 .add("mStatus", mStatus)
+                .add("mLocationId", mLocationId)
                 .toString();
     }
 
