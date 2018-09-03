@@ -289,7 +289,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mIsEditMode = true;
         mEventModel = eventModel;
         mCalendarEventDetailView.updateReportView(eventModel.getReport());
-        mCalendarEventDetailView.updateInstantReportView(true, eventModel.isInstantReport());
+        mCalendarEventDetailView.updateInstantReportView(true, eventModel.isInstantReport(), eventModel.isBeforeThatMoment());
         mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
         mCalendarEventDetailView.setUpEventCreated();
     }

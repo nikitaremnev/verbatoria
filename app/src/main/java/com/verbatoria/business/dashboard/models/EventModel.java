@@ -11,6 +11,7 @@ import com.remnev.verbatoriamini.R;
 import com.verbatoria.utils.DateUtils;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -119,6 +120,10 @@ public class EventModel implements Parcelable {
     public EventModel setReport(ReportModel report) {
         mReport = report;
         return this;
+    }
+
+    public boolean isBeforeThatMoment() {
+        return mStartAt != null && mStartAt.before(Calendar.getInstance().getTime());
     }
 
     @Override

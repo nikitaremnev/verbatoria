@@ -256,15 +256,16 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport) {
+    public void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport, boolean isBeforeNow) {
         if (showInstantReportField) {
             CheckBox instantReportCheckbox = mInstantReportFieldView.findViewById(R.id.checkbox);
             instantReportCheckbox.setChecked(isInstantReport);
-            if (isInstantReport) {
+            if (isInstantReport || isBeforeNow) {
                 instantReportCheckbox.setEnabled(false);
             }
             String instantReportSubtitle = isInstantReport ? getString(R.string.event_confirm_instant_report_subtitle_enabled): getString(R.string.event_confirm_instant_report_subtitle_disabled);
-            setUpFieldView(mInstantReportFieldView, R.drawable.ic_instant_report, instantReportSubtitle, getString(R.string.event_confirm_instant_report_title), v -> {
+            int imageResource = isInstantReport ? R.drawable.ic_instant_report : R.drawable.ic_instant_report_green;
+            setUpFieldView(mInstantReportFieldView, imageResource, instantReportSubtitle, getString(R.string.event_confirm_instant_report_title), v -> {
                 if (instantReportCheckbox.isEnabled()) {
                     instantReportCheckbox.setChecked(!instantReportCheckbox.isChecked());
                 }
@@ -504,7 +505,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateChildView(mEventDetailPresenter.getChildModel());
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
-        updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport());
+        updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport(), mEventDetailPresenter.getEvent().isBeforeThatMoment());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
     }

@@ -31,7 +31,7 @@ public interface IEventDetailView {
     void updateClientView(ClientModel clientModel);
     void updateChildView(ChildModel childModel);
     void updateReportView(ReportModel reportModel);
-    void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport);
+    void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport, boolean isBeforeNow);
     void updateEventTime(EventModel eventModel);
     void updateSendToLocationView(ReportModel reportModel, boolean isSent);
     void updateIncludeAttentionMemoryView(ReportModel reportModel, boolean isSent);
