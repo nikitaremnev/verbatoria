@@ -25,9 +25,9 @@ public interface IEventDetailPresenter {
     void startSession();
     void checkDatabaseClear();
 
-    void createEvent();
-    void editEvent();
-    void deleteEvent();
+    void onCreateEventClicked();
+    void onEditEventClicked();
+    void onDeleteEventClicked();
     void obtainEvent(Intent intent);
 
     EventModel getEvent();
@@ -48,6 +48,11 @@ public interface IEventDetailPresenter {
 
     void onIncludeAttentionMemoryClicked();
     void onIncludeAttentionMemoryConfirmed();
+
+    void onInstantReportConfirmed();
+    void onInstantReportDeclined();
+
+    void onInstantReportStateChanged(boolean isInstantReport);
 
     boolean isEditMode();
     boolean isDeleteEnabled();

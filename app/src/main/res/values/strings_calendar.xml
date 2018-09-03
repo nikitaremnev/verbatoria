@@ -86,6 +86,10 @@
     <string name="event_confirm_send_report_to_location">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
     <string name="event_confirm_send_report_to_location_send">Отправить</string>
     <string name="event_confirm_send_report_to_location_success">Копия отчета была отправлена в филиал</string>
+    <string name="event_confirm_instant_report_title">Срочный отчет</string>
+    <string name="event_confirm_instant_report">Получить отчет сразу после приема?</string>
+    <string name="event_confirm_instant_report_subtitle_enabled">Клиент получит отчет сразу после приема</string>
+    <string name="event_confirm_instant_report_subtitle_disabled">Клиент получит отчет как обычно</string>
 
     <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
     <string name="event_confirm_include_attention_memory_include">Включить</string>

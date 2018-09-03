@@ -103,17 +103,14 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
-    public void createEvent() {
+    public void onCreateEventClicked() {
         if (!hasError()) {
-            addSubscription(mCalendarInteractor.addEvent(mEventModel)
-                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                    .subscribe(this::handleEventEditedOrCreated, this::handleError));
+            mCalendarEventDetailView.showConfirmInstantReport();
         }
     }
 
     @Override
-    public void editEvent() {
+    public void onEditEventClicked() {
         if (!hasError()) {
             addSubscription(mCalendarInteractor.editEvent(mEventModel)
                     .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
@@ -123,7 +120,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
-    public void deleteEvent() {
+    public void onDeleteEventClicked() {
         addSubscription(mCalendarInteractor.deleteEvent(mEventModel)
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
@@ -222,6 +219,24 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
+    public void onInstantReportConfirmed() {
+        mEventModel.setIsInstantReport(true);
+        addSubscription(mCalendarInteractor.addEvent(mEventModel)
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+    }
+
+    @Override
+    public void onInstantReportDeclined() {
+        mEventModel.setIsInstantReport(false);
+        addSubscription(mCalendarInteractor.addEvent(mEventModel)
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+    }
+
+    @Override
     public boolean isEditMode() {
         return mIsEditMode;
     }
@@ -241,6 +256,15 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
                         .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                         .subscribe(this::handleTimeIntervalsReceived, this::handleError)
         );
+    }
+
+
+    @Override
+    public void onInstantReportStateChanged(boolean isInstantReport) {
+        mEventModel.setIsInstantReport(isInstantReport);
+        if (isInstantReport) {
+            mCalendarEventDetailView.setUpEventEdit();
+        }
     }
 
     private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
@@ -265,6 +289,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mIsEditMode = true;
         mEventModel = eventModel;
         mCalendarEventDetailView.updateReportView(eventModel.getReport());
+        mCalendarEventDetailView.updateInstantReportView(true, eventModel.isInstantReport());
         mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
         mCalendarEventDetailView.setUpEventCreated();
     }

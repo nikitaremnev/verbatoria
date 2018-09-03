@@ -86,6 +86,10 @@
     <string name="event_confirm_send_report_to_location">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
     <string name="event_confirm_send_report_to_location_send">Send</string>
     <string name="event_confirm_send_report_to_location_success">A copy of the report was sent to the branch office</string>
+    <string name="event_confirm_instant_report_title">Instant report</string>
+    <string name="event_confirm_instant_report">Do you want to get the report immediately after generating?</string>
+    <string name="event_confirm_instant_report_subtitle_enabled">Client will receive report immediately</string>
+    <string name="event_confirm_instant_report_subtitle_disabled">Client will receive report as usual</string>
 
     <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
     <string name="event_confirm_include_attention_memory_include">Include</string>

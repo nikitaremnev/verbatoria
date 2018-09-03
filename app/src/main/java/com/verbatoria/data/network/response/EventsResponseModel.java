@@ -18,9 +18,7 @@ import java.util.List;
 
 public class EventsResponseModel extends PagingResponseModel {
 
-
     private List<EventResponseModel> mEvents;
-
 
     public EventsResponseModel() {
 

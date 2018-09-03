@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -78,6 +79,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @BindView(R.id.include_attention_memory_field)
     public View mIncludeAttentionMemoryFieldView;
+
+    @BindView(R.id.instant_report_field)
+    public View mInstantReportFieldView;
 
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
@@ -252,6 +256,29 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport) {
+        if (showInstantReportField) {
+            CheckBox instantReportCheckbox = mInstantReportFieldView.findViewById(R.id.checkbox);
+            instantReportCheckbox.setChecked(isInstantReport);
+            if (isInstantReport) {
+                instantReportCheckbox.setEnabled(false);
+            }
+            String instantReportSubtitle = isInstantReport ? getString(R.string.event_confirm_instant_report_subtitle_enabled): getString(R.string.event_confirm_instant_report_subtitle_disabled);
+            setUpFieldView(mInstantReportFieldView, R.drawable.ic_instant_report, instantReportSubtitle, getString(R.string.event_confirm_instant_report_title), v -> {
+                if (instantReportCheckbox.isEnabled()) {
+                    instantReportCheckbox.setChecked(!instantReportCheckbox.isChecked());
+                }
+            });
+            instantReportCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                mEventDetailPresenter.onInstantReportStateChanged(isChecked);
+            });
+            mInstantReportFieldView.setVisibility(View.VISIBLE);
+        } else {
+            mInstantReportFieldView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void updateEventTime(EventModel eventModel) {
         if (eventModel == null) {
             ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
@@ -308,7 +335,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void setUpEventEdit() {
         mSubmitButton.setText(getString(R.string.save));
-        mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.editEvent());
+        mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.onEditEventClicked());
     }
 
     @Override
@@ -319,11 +346,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void showChildNotFullError() {
         Helper.showErrorSnackBar(mSubmitButton, getString(R.string.child_data_is_not_full));
-    }
-
-    @Override
-    public void showTimeNotSetError() {
-        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
     }
 
     @Override
@@ -359,6 +381,20 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             mEventDetailPresenter.clearDatabase();
         });
         builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+    @Override
+    public void showConfirmInstantReport() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.event_confirm_instant_report_title))
+                .setMessage(getString(R.string.event_confirm_instant_report));
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+            mEventDetailPresenter.onInstantReportConfirmed();
+        });
+        builder.setNegativeButton(getString(R.string.no), (dialog, which) -> {
+            mEventDetailPresenter.onInstantReportDeclined();
+        });
         builder.create().show();
     }
 
@@ -452,7 +488,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     private void setUpButton() {
         if (!mEventDetailPresenter.isEditMode()) {
             mSubmitButton.setText(getString(R.string.dashboard_add_event));
-            mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.createEvent());
+            mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.onCreateEventClicked());
         } else {
             mSubmitButton.setText(getString(R.string.dashboard_start_session));
             mSubmitButton.setOnClickListener(v -> {
@@ -468,6 +504,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateChildView(mEventDetailPresenter.getChildModel());
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
+        updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
     }
@@ -518,7 +555,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 .setTitle(getString(R.string.calendar_confirm_delete_title))
                 .setMessage(getString(R.string.calendar_confirm_delete_message));
         builder.setPositiveButton(getString(R.string.delete), (dialog, which) -> {
-            mEventDetailPresenter.deleteEvent();
+            mEventDetailPresenter.onDeleteEventClicked();
         });
         builder.setNegativeButton(getString(R.string.cancel), null);
         builder.create().show();

@@ -128,6 +128,7 @@ public class ModelsConverter {
         }
         eventModel.setChild(convertVerbatologChildResponseToEventModel(eventResponseModel.getChild()));
         eventModel.setReport(convertReportResponseModelToReportModel(eventResponseModel.getReport()));
+        eventModel.setIsInstantReport(eventResponseModel.getInstantReport());
         return eventModel;
     }
 

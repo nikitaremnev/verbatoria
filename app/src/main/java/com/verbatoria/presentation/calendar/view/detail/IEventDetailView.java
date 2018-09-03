@@ -31,6 +31,7 @@ public interface IEventDetailView {
     void updateClientView(ClientModel clientModel);
     void updateChildView(ChildModel childModel);
     void updateReportView(ReportModel reportModel);
+    void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport);
     void updateEventTime(EventModel eventModel);
     void updateSendToLocationView(ReportModel reportModel, boolean isSent);
     void updateIncludeAttentionMemoryView(ReportModel reportModel, boolean isSent);
@@ -40,12 +41,12 @@ public interface IEventDetailView {
 
     void showClientNotFullError();
     void showChildNotFullError();
-    void showTimeNotSetError();
 
     void showConfirmSendToLocation();
     void showConfirmIncludeAttentionMemory();
     void showConfirmClearDatabase();
 
+    void showConfirmInstantReport();
     void showSentToLocationSuccess();
     void showSentToLocationError(String error);
 

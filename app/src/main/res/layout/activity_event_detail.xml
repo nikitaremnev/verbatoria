@@ -38,6 +38,10 @@
                 android:visibility="visible"
                 layout="@layout/item_field"/>
 
+            <include android:id="@+id/instant_report_field"
+                android:visibility="gone"
+                layout="@layout/item_field_checkbox"/>
+
         </LinearLayout>
 
         <Button

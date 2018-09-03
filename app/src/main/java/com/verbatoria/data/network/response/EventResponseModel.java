@@ -21,7 +21,7 @@ public class EventResponseModel {
 
     private String mEndAt;
 
-    private boolean mIsInstantReport;
+    private boolean mInstantReport;
 
     private ChildResponseModel mChild;
 
@@ -63,12 +63,12 @@ public class EventResponseModel {
 
     @JsonGetter("instant_report")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public boolean isInstantReport() {
-        return mIsInstantReport;
+    public boolean getInstantReport() {
+        return mInstantReport;
     }
 
-    public void setIsInstantReport(boolean isInstantReport) {
-        mIsInstantReport = isInstantReport;
+    public void setInstantReport(boolean instantReport) {
+        mInstantReport = instantReport;
     }
 
     @JsonGetter("child")
@@ -105,12 +105,13 @@ public class EventResponseModel {
                 Objects.equal(mStartAt, that.mStartAt) &&
                 Objects.equal(mEndAt, that.mEndAt) &&
                 Objects.equal(mChild, that.mChild) &&
-                Objects.equal(mReport, that.mReport);
+                Objects.equal(mReport, that.mReport) &&
+                Objects.equal(mInstantReport, that.mInstantReport);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport);
+        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport, mInstantReport);
     }
 
     @Override
@@ -121,6 +122,7 @@ public class EventResponseModel {
                 .add("mEndAt", mEndAt)
                 .add("mChild", mChild)
                 .add("mReport", mReport)
+                .add("mIsInstantReport", mInstantReport)
                 .toString();
     }
 }

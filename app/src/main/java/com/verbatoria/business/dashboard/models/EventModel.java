@@ -166,6 +166,7 @@ public class EventModel implements Parcelable {
         dest.writeLong(this.mEndAt != null ? this.mEndAt.getTime() : -1);
         dest.writeParcelable(this.mChild, flags);
         dest.writeParcelable(this.mReport, flags);
+        dest.writeInt(this.mIsInstantReport ? 1 : 0);
     }
 
     protected EventModel(Parcel in) {
@@ -176,6 +177,7 @@ public class EventModel implements Parcelable {
         this.mEndAt = tmpMEndAt == -1 ? null : new Date(tmpMEndAt);
         this.mChild = in.readParcelable(ChildModel.class.getClassLoader());
         this.mReport = in.readParcelable(ReportModel.class.getClassLoader());
+        this.mIsInstantReport = in.readInt() == 1;
     }
 
     public static final Parcelable.Creator<EventModel> CREATOR = new Parcelable.Creator<EventModel>() {

@@ -147,10 +147,11 @@ public class CalendarInteractor implements ICalendarInteractor {
     private AddEventRequestModel getAddEventRequestModel(EventModel eventModel) throws ParseException {
         return new AddEventRequestModel()
                 .setEvent(new EventRequestModel()
-                    .setChildId(eventModel.getChild().getId())
-                    .setLocationId(mDashboardRepository.getLocationId())
-                    .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
-                    .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime())));
+                        .setChildId(eventModel.getChild().getId())
+                        .setLocationId(mDashboardRepository.getLocationId())
+                        .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
+                        .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime()))
+                        .setIsInstantReport(eventModel.isInstantReport()));
     }
 
     private EditEventRequestModel getEditEventRequestModel(EventModel eventModel) throws ParseException {
@@ -159,7 +160,8 @@ public class CalendarInteractor implements ICalendarInteractor {
                         .setChildId(eventModel.getChild().getId())
                         .setLocationId(mDashboardRepository.getLocationId())
                         .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
-                        .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime())));
+                        .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime()))
+                        .setIsInstantReport(eventModel.isInstantReport()));
     }
 
     private String getAccessToken() {

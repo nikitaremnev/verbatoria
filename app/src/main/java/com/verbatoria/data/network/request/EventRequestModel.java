@@ -21,6 +21,8 @@ public class EventRequestModel {
 
     private String mEndAt;
 
+    private boolean mIsInstantReport;
+
     public EventRequestModel() {
 
     }
@@ -68,6 +70,16 @@ public class EventRequestModel {
         mEndAt = endAt;
         return this;
     }
+    @JsonGetter("instant_report")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean isInstantReport() {
+        return mIsInstantReport;
+    }
+
+    public EventRequestModel setIsInstantReport(boolean isInstantReport) {
+        this.mIsInstantReport = isInstantReport;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -81,12 +93,13 @@ public class EventRequestModel {
         return Objects.equal(mChildId, that.mChildId) &&
                 Objects.equal(mLocationId, that.mLocationId) &&
                 Objects.equal(mStartAt, that.mStartAt) &&
-                Objects.equal(mEndAt, that.mEndAt);
+                Objects.equal(mEndAt, that.mEndAt) &&
+                Objects.equal(mIsInstantReport, that.mIsInstantReport);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mChildId, mLocationId, mStartAt, mEndAt);
+        return Objects.hashCode(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport);
     }
 
     @Override
@@ -96,6 +109,7 @@ public class EventRequestModel {
                 .add("mLocationId", mLocationId)
                 .add("mStartAt", mStartAt)
                 .add("mEndAt", mEndAt)
+                .add("mIsInstantReport", mIsInstantReport)
                 .toString();
     }
 }
