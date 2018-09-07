@@ -90,6 +90,10 @@
     <string name="event_confirm_instant_report">Получить отчет сразу после приема?</string>
     <string name="event_confirm_instant_report_subtitle_enabled">Клиент получит отчет сразу после приема</string>
     <string name="event_confirm_instant_report_subtitle_disabled">Клиент получит отчет как обычно</string>
+    <string name="event_confirm_archimed_title">АРХИМЕД</string>
+    <string name="event_confirm_archimed_subtitle_enabled">Панель АРХИМЕД включена</string>
+    <string name="event_confirm_archimed_subtitle_disabled">Панель АРХИМЕД не включена</string>
+    <string name="event_confirm_archimed">Включить панель АРХИМЕД?</string>
 
     <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
     <string name="event_confirm_include_attention_memory_include">Включить</string>

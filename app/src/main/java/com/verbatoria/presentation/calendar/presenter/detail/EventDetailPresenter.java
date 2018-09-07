@@ -221,19 +221,33 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void onInstantReportConfirmed() {
         mEventModel.setIsInstantReport(true);
-        addSubscription(mCalendarInteractor.addEvent(mEventModel)
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+        if (mEventModel.isArchimedAllowed() && !mEventModel.getArchimed()) {
+            mCalendarEventDetailView.showConfirmArchimed();
+        } else {
+            addEvent();
+        }
     }
 
     @Override
     public void onInstantReportDeclined() {
         mEventModel.setIsInstantReport(false);
-        addSubscription(mCalendarInteractor.addEvent(mEventModel)
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+        if (mEventModel.isArchimedAllowed() && !mEventModel.getArchimed()) {
+            mCalendarEventDetailView.showConfirmArchimed();
+        } else {
+            addEvent();
+        }
+    }
+
+    @Override
+    public void onArchimedConfirmed() {
+        mEventModel.setArchimed(true);
+        addEvent();
+    }
+
+    @Override
+    public void onArchimedDeclined() {
+        mEventModel.setArchimed(false);
+        addEvent();
     }
 
     @Override
@@ -267,6 +281,19 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         }
     }
 
+    @Override
+    public void onArchimedStateChanged(boolean isArchimed) {
+        mEventModel.setArchimed(isArchimed);
+        mCalendarEventDetailView.setUpEventEdit();
+    }
+
+    private void addEvent() {
+        addSubscription(mCalendarInteractor.addEvent(mEventModel)
+                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                .subscribe(this::handleEventEditedOrCreated, this::handleError));
+    }
+
     private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
         Logger.e(TAG, sessionResponseModel.toString());
         mSessionInteractor.saveSessionId(sessionResponseModel.getId());
@@ -290,6 +317,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mEventModel = eventModel;
         mCalendarEventDetailView.updateReportView(eventModel.getReport());
         mCalendarEventDetailView.updateInstantReportView(true, eventModel.isInstantReport(), eventModel.isBeforeThatMoment());
+        mCalendarEventDetailView.updateArchimedView(eventModel.isArchimedAllowed(), eventModel.getArchimed());
         mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
         mCalendarEventDetailView.setUpEventCreated();
     }

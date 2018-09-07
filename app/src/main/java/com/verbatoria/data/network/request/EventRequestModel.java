@@ -91,6 +91,7 @@ public class EventRequestModel {
 
     public EventRequestModel setArchimed(boolean archimed) {
         mArchimed = archimed;
+        return this;
     }
 
     @Override

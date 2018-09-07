@@ -83,6 +83,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @BindView(R.id.instant_report_field)
     public View mInstantReportFieldView;
 
+    @BindView(R.id.archimed_field)
+    public View mArchimedFieldView;
+
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
@@ -280,6 +283,24 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void updateArchimedView(boolean isArchimedFieldEnabled, boolean isArchimed) {
+        if (isArchimedFieldEnabled) {
+            CheckBox archimedCheckbox = mArchimedFieldView.findViewById(R.id.checkbox);
+            archimedCheckbox.setChecked(isArchimed);
+            String archimedSubtitle = isArchimed ? getString(R.string.event_confirm_archimed_subtitle_enabled): getString(R.string.event_confirm_archimed_subtitle_disabled);
+            setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, archimedSubtitle, getString(R.string.event_confirm_archimed_title), v -> {
+                archimedCheckbox.setChecked(!archimedCheckbox.isChecked());
+            });
+            archimedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                mEventDetailPresenter.onInstantReportStateChanged(isChecked);
+            });
+            mArchimedFieldView.setVisibility(View.VISIBLE);
+        } else {
+            mArchimedFieldView.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
     public void updateEventTime(EventModel eventModel) {
         if (eventModel == null) {
             ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
@@ -400,6 +421,20 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showConfirmArchimed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.event_confirm_archimed_title))
+                .setMessage(getString(R.string.event_confirm_archimed));
+        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+            mEventDetailPresenter.onInstantReportConfirmed();
+        });
+        builder.setNegativeButton(getString(R.string.no), (dialog, which) -> {
+            mEventDetailPresenter.onInstantReportDeclined();
+        });
+        builder.create().show();
+    }
+
+    @Override
     public void showSentToLocationSuccess() {
         Helper.showSnackBar(mSendToLocationFieldView, getString(R.string.event_confirm_send_report_to_location_success));
     }
@@ -506,6 +541,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
         updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport(), mEventDetailPresenter.getEvent().isBeforeThatMoment());
+        updateArchimedView(mEventDetailPresenter.getEvent().isArchimedAllowed(), mEventDetailPresenter.getEvent().getArchimed());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
     }

@@ -52,7 +52,11 @@ public interface IEventDetailPresenter {
     void onInstantReportConfirmed();
     void onInstantReportDeclined();
 
+    void onArchimedConfirmed();
+    void onArchimedDeclined();
+
     void onInstantReportStateChanged(boolean isInstantReport);
+    void onArchimedStateChanged(boolean isArchimed);
 
     boolean isEditMode();
     boolean isDeleteEnabled();

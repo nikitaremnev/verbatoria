@@ -65,12 +65,8 @@ public class EventModel implements Parcelable {
         mArchimed = archimed;
     }
 
-    public boolean getIsArchimedAllowed() {
+    public boolean isArchimedAllowed() {
         return mIsArchimedAllowed;
-    }
-
-    public void setIsArchimedAllowed(boolean isArchimedAllowed) {
-        mIsArchimedAllowed = isArchimedAllowed;
     }
 
     public Date getStartAt() {

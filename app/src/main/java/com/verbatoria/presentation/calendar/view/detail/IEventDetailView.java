@@ -32,6 +32,7 @@ public interface IEventDetailView {
     void updateChildView(ChildModel childModel);
     void updateReportView(ReportModel reportModel);
     void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport, boolean isBeforeNow);
+    void updateArchimedView(boolean isArchimedFieldEnabled, boolean isArchimed);
     void updateEventTime(EventModel eventModel);
     void updateSendToLocationView(ReportModel reportModel, boolean isSent);
     void updateIncludeAttentionMemoryView(ReportModel reportModel, boolean isSent);
@@ -47,6 +48,7 @@ public interface IEventDetailView {
     void showConfirmClearDatabase();
 
     void showConfirmInstantReport();
+    void showConfirmArchimed();
     void showSentToLocationSuccess();
     void showSentToLocationError(String error);
 
