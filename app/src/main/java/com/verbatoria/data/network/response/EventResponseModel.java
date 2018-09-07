@@ -23,6 +23,10 @@ public class EventResponseModel {
 
     private boolean mInstantReport;
 
+    private boolean mArchimed;
+
+    private boolean mIsArchimedAllowed;
+
     private ChildResponseModel mChild;
 
     private ReportResponseModel mReport;
@@ -71,6 +75,26 @@ public class EventResponseModel {
         mInstantReport = instantReport;
     }
 
+    @JsonGetter("archimed")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean getArchimed() {
+        return mArchimed;
+    }
+
+    public void setArchimed(boolean archimed) {
+        mArchimed = archimed;
+    }
+
+    @JsonGetter("is_archimed_allowed")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean getIsArchimedAllowed() {
+        return mIsArchimedAllowed;
+    }
+
+    public void setIsArchimedAllowed(boolean isArchimedAllowed) {
+        mIsArchimedAllowed = isArchimedAllowed;
+    }
+
     @JsonGetter("child")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public ChildResponseModel getChild() {
@@ -106,12 +130,14 @@ public class EventResponseModel {
                 Objects.equal(mEndAt, that.mEndAt) &&
                 Objects.equal(mChild, that.mChild) &&
                 Objects.equal(mReport, that.mReport) &&
-                Objects.equal(mInstantReport, that.mInstantReport);
+                Objects.equal(mInstantReport, that.mInstantReport) &&
+                Objects.equal(mArchimed, that.mArchimed) &&
+                Objects.equal(mIsArchimedAllowed, that.mIsArchimedAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport, mInstantReport);
+        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport, mInstantReport, mArchimed, mIsArchimedAllowed);
     }
 
     @Override
@@ -123,6 +149,8 @@ public class EventResponseModel {
                 .add("mChild", mChild)
                 .add("mReport", mReport)
                 .add("mIsInstantReport", mInstantReport)
+                .add("mArchimed", mArchimed)
+                .add("mIsArchimedAllowed", mIsArchimedAllowed)
                 .toString();
     }
 }

@@ -23,6 +23,8 @@ public class EventRequestModel {
 
     private boolean mIsInstantReport;
 
+    private boolean mArchimed;
+
     public EventRequestModel() {
 
     }
@@ -81,6 +83,16 @@ public class EventRequestModel {
         return this;
     }
 
+    @JsonGetter("archimed")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean getArchimed() {
+        return mArchimed;
+    }
+
+    public void setArchimed(boolean archimed) {
+        mArchimed = archimed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -94,12 +106,13 @@ public class EventRequestModel {
                 Objects.equal(mLocationId, that.mLocationId) &&
                 Objects.equal(mStartAt, that.mStartAt) &&
                 Objects.equal(mEndAt, that.mEndAt) &&
-                Objects.equal(mIsInstantReport, that.mIsInstantReport);
+                Objects.equal(mIsInstantReport, that.mIsInstantReport) &&
+                Objects.equal(mArchimed, that.mArchimed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport);
+        return Objects.hashCode(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport, mArchimed);
     }
 
     @Override
@@ -110,6 +123,7 @@ public class EventRequestModel {
                 .add("mStartAt", mStartAt)
                 .add("mEndAt", mEndAt)
                 .add("mIsInstantReport", mIsInstantReport)
+                .add("mArchimed", mArchimed)
                 .toString();
     }
 }

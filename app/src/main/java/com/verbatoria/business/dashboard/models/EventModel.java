@@ -33,6 +33,10 @@ public class EventModel implements Parcelable {
 
     private boolean mIsInstantReport;
 
+    private boolean mArchimed;
+
+    private boolean mIsArchimedAllowed;
+
     public EventModel() {
 
     }
@@ -51,6 +55,22 @@ public class EventModel implements Parcelable {
 
     public void setIsInstantReport(boolean isInstantReport) {
         mIsInstantReport = isInstantReport;
+    }
+
+    public boolean getArchimed() {
+        return mArchimed;
+    }
+
+    public void setArchimed(boolean archimed) {
+        mArchimed = archimed;
+    }
+
+    public boolean getIsArchimedAllowed() {
+        return mIsArchimedAllowed;
+    }
+
+    public void setIsArchimedAllowed(boolean isArchimedAllowed) {
+        mIsArchimedAllowed = isArchimedAllowed;
     }
 
     public Date getStartAt() {
@@ -139,12 +159,15 @@ public class EventModel implements Parcelable {
                 Objects.equal(mStartAt, that.mStartAt) &&
                 Objects.equal(mEndAt, that.mEndAt) &&
                 Objects.equal(mChild, that.mChild) &&
-                Objects.equal(mReport, that.mReport);
+                Objects.equal(mReport, that.mReport) &&
+                Objects.equal(mIsInstantReport, that.mIsInstantReport) &&
+                Objects.equal(mArchimed, that.mArchimed) &&
+                Objects.equal(mIsArchimedAllowed, that.mIsArchimedAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport);
+        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport, mIsInstantReport, mArchimed, mIsArchimedAllowed);
     }
 
     @Override
@@ -155,6 +178,9 @@ public class EventModel implements Parcelable {
                 .add("mEndAt", mEndAt)
                 .add("mChild", mChild)
                 .add("mReport", mReport)
+                .add("mIsInstantReport", mIsInstantReport)
+                .add("mArchimed", mArchimed)
+                .add("mIsArchimedAllowed", mIsArchimedAllowed)
                 .toString();
     }
 
@@ -172,6 +198,8 @@ public class EventModel implements Parcelable {
         dest.writeParcelable(this.mChild, flags);
         dest.writeParcelable(this.mReport, flags);
         dest.writeInt(this.mIsInstantReport ? 1 : 0);
+        dest.writeInt(this.mArchimed ? 1 : 0);
+        dest.writeInt(this.mIsArchimedAllowed ? 1 : 0);
     }
 
     protected EventModel(Parcel in) {
@@ -183,6 +211,8 @@ public class EventModel implements Parcelable {
         this.mChild = in.readParcelable(ChildModel.class.getClassLoader());
         this.mReport = in.readParcelable(ReportModel.class.getClassLoader());
         this.mIsInstantReport = in.readInt() == 1;
+        this.mArchimed = in.readInt() == 1;
+        this.mIsArchimedAllowed = in.readInt() == 1;
     }
 
     public static final Parcelable.Creator<EventModel> CREATOR = new Parcelable.Creator<EventModel>() {
