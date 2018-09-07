@@ -129,6 +129,8 @@ public class ModelsConverter {
         eventModel.setChild(convertVerbatologChildResponseToEventModel(eventResponseModel.getChild()));
         eventModel.setReport(convertReportResponseModelToReportModel(eventResponseModel.getReport()));
         eventModel.setIsInstantReport(eventResponseModel.getInstantReport());
+        eventModel.setArchimed(eventResponseModel.getArchimed());
+        eventModel.setIsArchimedAllowed(eventResponseModel.getIsArchimedAllowed());
         return eventModel;
     }
 

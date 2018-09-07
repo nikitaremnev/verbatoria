@@ -89,7 +89,7 @@ public class EventRequestModel {
         return mArchimed;
     }
 
-    public void setArchimed(boolean archimed) {
+    public EventRequestModel setArchimed(boolean archimed) {
         mArchimed = archimed;
     }
 

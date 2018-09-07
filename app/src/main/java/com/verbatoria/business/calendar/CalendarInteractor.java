@@ -151,7 +151,8 @@ public class CalendarInteractor implements ICalendarInteractor {
                         .setLocationId(mDashboardRepository.getLocationId())
                         .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
                         .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime()))
-                        .setIsInstantReport(eventModel.isInstantReport()));
+                        .setIsInstantReport(eventModel.isInstantReport())
+                        .setArchimed(eventModel.getArchimed()));
     }
 
     private EditEventRequestModel getEditEventRequestModel(EventModel eventModel) throws ParseException {
@@ -161,7 +162,8 @@ public class CalendarInteractor implements ICalendarInteractor {
                         .setLocationId(mDashboardRepository.getLocationId())
                         .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
                         .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime()))
-                        .setIsInstantReport(eventModel.isInstantReport()));
+                        .setIsInstantReport(eventModel.isInstantReport())
+                        .setArchimed(eventModel.getArchimed()));
     }
 
     private String getAccessToken() {
