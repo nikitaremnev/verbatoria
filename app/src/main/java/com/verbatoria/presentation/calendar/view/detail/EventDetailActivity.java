@@ -292,7 +292,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 archimedCheckbox.setChecked(!archimedCheckbox.isChecked());
             });
             archimedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                mEventDetailPresenter.onInstantReportStateChanged(isChecked);
+                mEventDetailPresenter.onArchimedStateChanged(isChecked);
             });
             mArchimedFieldView.setVisibility(View.VISIBLE);
         } else {
