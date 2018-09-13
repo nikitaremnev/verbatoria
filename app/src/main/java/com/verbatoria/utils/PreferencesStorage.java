@@ -3,15 +3,21 @@ package com.verbatoria.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.token.models.UserStatus;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -58,6 +64,8 @@ public class PreferencesStorage {
     private static final String LOCATION_LOCALE_KEY = "LOCATION_LOCALE_KEY";
     private static final String LOCATION_AVAILABLE_LOCALES_KEY = "LOCATION_AVAILABLE_LOCALES_KEY";
     private static final String LOCATION_ID_KEY = "LOCATION_ID_KEY";
+
+    private static final String AGE_GROUPS_KEY = "AGE_GROUPS_KEY";
 
     private SharedPreferences mTokenPreferences;
     private SharedPreferences mQuestionsPreferences;
@@ -252,6 +260,28 @@ public class PreferencesStorage {
 
     public String getCurrentLocale() {
         return mTokenPreferences.getString(CURRENT_LOCALE_KEY, null);
+    }
+
+    public void setAgeGroups(List<AgeGroupModel> ageGroupModels) {
+        ObjectMapper mapper = new ObjectMapper();
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        try {
+            editor.putString(AGE_GROUPS_KEY, mapper.writeValueAsString(ageGroupModels));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        editor.apply();
+    }
+
+    public List<AgeGroupModel> getAgeGroups() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            TypeReference<List<AgeGroupModel>> mapType = new TypeReference<List<AgeGroupModel>>() {};
+            return mapper.readValue(mTokenPreferences.getString(AGE_GROUPS_KEY, null), mapType);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void setShowSettings(boolean showSettings) {

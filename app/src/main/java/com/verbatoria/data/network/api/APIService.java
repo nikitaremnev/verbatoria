@@ -14,6 +14,7 @@ import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.request.ScheduleDeleteRequestModel;
 import com.verbatoria.data.network.request.ScheduleRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
+import com.verbatoria.data.network.response.AgeGroupResponseModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildrenResponseModel;
 import com.verbatoria.data.network.response.ClientsResponseModel;
@@ -95,6 +96,10 @@ public interface APIService {
     Completable setLocationLanguage(@Header(TOKEN_HEADER_KEY) String accessToken,
                                     @Path(value = LOCATION_ID_PATH_KEY) String locationId,
                                     @Body LocationLanguageRequestModel locationLanguageRequestModel);
+
+    @GET(APIConstants.AGE_GROUPS_URL)
+    Observable<List<AgeGroupResponseModel>> getAgeGroupsForArchimed(@Header(TOKEN_HEADER_KEY) String accessToken);
+
      /*
         Calendar
      */

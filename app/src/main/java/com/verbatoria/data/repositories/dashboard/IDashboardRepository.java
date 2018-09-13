@@ -1,8 +1,10 @@
 package com.verbatoria.data.repositories.dashboard;
 
+import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.request.LocationLanguageRequestModel;
+import com.verbatoria.data.network.response.AgeGroupResponseModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 
@@ -30,6 +32,10 @@ public interface IDashboardRepository {
 
     Observable<LocationModel> getLocationFromCache();
 
+    Observable<List<AgeGroupResponseModel>> getAgeGroupsForArchimed(String accessToken);
+
+    Observable<List<AgeGroupModel>> getAgeGroupsFromCache();
+
     LocationModel getLocationSyncFromCache();
 
     Completable updateCurrentLocale(String accessToken, String locationId, LocationLanguageRequestModel locationLanguageRequestModel);
@@ -45,6 +51,8 @@ public interface IDashboardRepository {
     String getCurrentLocale();
 
     void saveCurrentLocale(String newCurrentLocale);
+
+    void saveAgeGroups(List<AgeGroupModel> ageGroupModels);
 
     boolean isShowSettings();
 

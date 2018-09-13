@@ -61,4 +61,6 @@ class APIConstants {
     static final String FINISH_SESSION_URL = "reports/{" + SESSION_ID_PATH_KEY + "}/finalize" + JSON_PATH;
     static final String SEND_REPORT_TO_LOCATION_URL = "reports/{" + REPORT_ID_PATH_KEY + "}/send_to_location" + JSON_PATH;
 
+    static final String AGE_GROUPS_URL = "age_groups" + JSON_PATH;
+
 }

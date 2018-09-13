@@ -3,13 +3,13 @@ package com.verbatoria.business.dashboard;
 import android.util.Log;
 
 import com.verbatoria.VerbatoriaApplication;
+import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.LocationLanguageRequestModel;
-import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -80,6 +80,25 @@ public class DashboardInteractor implements IDashboardInteractor {
                         locationModel.setUpdateLocaleRequired(true);
                     }
                 })
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Completable loadAgeGroups() {
+        return mDashboardRepository.getAgeGroupsForArchimed(getAccessToken())
+                .map(ModelsConverter::convertAgeGroupsResponseModelToAgeGroupModels)
+                .doOnNext(ageGroups -> {
+                    mDashboardRepository.saveAgeGroups(ageGroups);
+                })
+                .toCompletable()
+                .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                .observeOn(RxSchedulers.getMainThreadScheduler());
+    }
+
+    @Override
+    public Observable<List<AgeGroupModel>> getAgeGroups() {
+        return mDashboardRepository.getAgeGroupsFromCache()
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

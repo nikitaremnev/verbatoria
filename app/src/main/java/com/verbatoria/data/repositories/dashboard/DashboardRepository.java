@@ -1,9 +1,11 @@
 package com.verbatoria.data.repositories.dashboard;
 
+import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.request.LocationLanguageRequestModel;
+import com.verbatoria.data.network.response.AgeGroupResponseModel;
 import com.verbatoria.data.network.response.LocationResponseModel;
 import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import com.verbatoria.utils.PreferencesStorage;
@@ -52,6 +54,16 @@ public class DashboardRepository implements IDashboardRepository {
     }
 
     @Override
+    public Observable<List<AgeGroupResponseModel>> getAgeGroupsForArchimed(String accessToken) {
+        return APIFactory.getAPIService().getAgeGroupsForArchimed(accessToken);
+    }
+
+    @Override
+    public Observable<List<AgeGroupModel>> getAgeGroupsFromCache() {
+        return Observable.fromCallable(() -> PreferencesStorage.getInstance().getAgeGroups());
+    }
+
+    @Override
     public LocationModel getLocationSyncFromCache() {
         return PreferencesStorage.getInstance().getLocationInfo();
     }
@@ -89,6 +101,11 @@ public class DashboardRepository implements IDashboardRepository {
     @Override
     public void saveCurrentLocale(String newCurrentLocale) {
         PreferencesStorage.getInstance().setCurrentLocale(newCurrentLocale);
+    }
+
+    @Override
+    public void saveAgeGroups(List<AgeGroupModel> ageGroupModels) {
+        PreferencesStorage.getInstance().setAgeGroups(ageGroupModels);
     }
 
     @Override

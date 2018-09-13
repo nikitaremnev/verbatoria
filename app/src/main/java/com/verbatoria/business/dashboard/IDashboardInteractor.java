@@ -1,12 +1,11 @@
 package com.verbatoria.business.dashboard;
 
+import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.data.network.response.LocationResponseModel;
 
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import rx.Completable;
 import rx.Observable;
 
@@ -24,6 +23,10 @@ public interface IDashboardInteractor {
     Observable<LocationModel> getLocationInfoFromCache();
 
     Observable<LocationModel> getLocation();
+
+    Completable loadAgeGroups();
+
+    Observable<List<AgeGroupModel>> getAgeGroups();
 
     Completable updateCurrentLocale(String locationId, String currentLocale);
 

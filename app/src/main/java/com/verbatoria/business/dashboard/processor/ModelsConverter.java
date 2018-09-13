@@ -1,12 +1,14 @@
 package com.verbatoria.business.dashboard.processor;
 
 import com.verbatoria.business.dashboard.DashboardInteractorException;
+import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.ReportModel;
 import com.verbatoria.business.dashboard.models.TimeIntervalModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
+import com.verbatoria.data.network.response.AgeGroupResponseModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.EventResponseModel;
 import com.verbatoria.data.network.response.EventsResponseModel;
@@ -54,6 +56,14 @@ public class ModelsConverter {
         locationModel.setAvailableLocales(locationResponseModel.getAvailableLocales());
         locationModel.setLocale(locationResponseModel.getLocale());
         return locationModel;
+    }
+
+    public static List<AgeGroupModel> convertAgeGroupsResponseModelToAgeGroupModels(List<AgeGroupResponseModel> ageGroupResponseModels) {
+        List<AgeGroupModel> ageGroupResponseModelList = new ArrayList<>();
+        for (int i = 0; i < ageGroupResponseModels.size(); i ++) {
+            ageGroupResponseModelList.add(convertAgeGroupResponseModelToAgeGroupModel(ageGroupResponseModels.get(i)));
+        }
+        return ageGroupResponseModelList;
     }
 
     public static ChildModel convertChildResponseModelToChildModel(ChildResponseModel childResponseModel) {
@@ -182,4 +192,13 @@ public class ModelsConverter {
         reportModel.setReportId(reportResponseModel.getReportId());
         return reportModel;
     }
+
+    private static AgeGroupModel convertAgeGroupResponseModelToAgeGroupModel(AgeGroupResponseModel ageGroupResponseModel) {
+        AgeGroupModel ageGroupModel = new AgeGroupModel();
+        ageGroupModel.setMaxAge(ageGroupResponseModel.getMaxAge());
+        ageGroupModel.setMinAge(ageGroupResponseModel.getMinAge());
+        ageGroupModel.setIsArchimedAllowed(ageGroupResponseModel.isIsArchimedAllowed());
+        return ageGroupModel;
+    }
+
 }

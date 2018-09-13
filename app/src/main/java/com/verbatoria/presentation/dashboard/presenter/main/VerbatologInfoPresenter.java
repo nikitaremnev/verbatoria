@@ -29,6 +29,7 @@ public class VerbatologInfoPresenter implements IVerbatologInfoPresenter {
     public void bindView(@NonNull IVerbatologInfoView verbatologInfoView) {
         mVerbatologInfoView = verbatologInfoView;
         mVerbatologModel = new VerbatologModel();
+        loadAgeGroups();
     }
 
     @Override
@@ -62,6 +63,10 @@ public class VerbatologInfoPresenter implements IVerbatologInfoPresenter {
                 mVerbatologInfoView.showBlockedStatus();
                 break;
         }
+    }
+
+    private void loadAgeGroups() {
+        mDashboardInteractor.loadAgeGroups().subscribe();
     }
 
     private void handleVerbatologInfoReceived(@NonNull VerbatologModel verbatologModel) {
