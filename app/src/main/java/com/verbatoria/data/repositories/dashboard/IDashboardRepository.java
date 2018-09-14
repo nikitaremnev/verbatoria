@@ -34,7 +34,7 @@ public interface IDashboardRepository {
 
     Observable<List<AgeGroupResponseModel>> getAgeGroupsForArchimed(String accessToken);
 
-    Observable<List<AgeGroupModel>> getAgeGroupsFromCache();
+    List<AgeGroupModel> getAgeGroupsFromCache();
 
     LocationModel getLocationSyncFromCache();
 
@@ -43,6 +43,10 @@ public interface IDashboardRepository {
     void saveVerbatologInfo(VerbatologModel verbatologModel);
 
     void saveLocationInfo(LocationModel locationModel);
+
+    void saveArchimedAllowedForVerbatolog(boolean isArchimedAllowed);
+
+    boolean isArchimedAllowedForVerbatolog();
 
     String getLocationId();
 

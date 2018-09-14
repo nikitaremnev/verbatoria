@@ -5,12 +5,15 @@ import com.verbatoria.business.children.ChildrenInteractor;
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.clients.ClientsInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
+import com.verbatoria.business.dashboard.DashboardInteractor;
+import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.data.repositories.children.ChildrenRepository;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
 import com.verbatoria.data.repositories.clients.ClientsRepository;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
+import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
@@ -74,8 +77,8 @@ public class SessionModule {
 
     @Provides
     @SessionScope
-    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, ICalendarInteractor calendarInteractor, IClientsInteractor clientsInteractor) {
-        return new EventDetailPresenter(sessionInteractor, calendarInteractor, clientsInteractor);
+    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, ICalendarInteractor calendarInteractor, IClientsInteractor clientsInteractor, IDashboardInteractor dashboardInteractor) {
+        return new EventDetailPresenter(sessionInteractor, calendarInteractor, clientsInteractor, dashboardInteractor);
     }
 
     @Provides
@@ -100,5 +103,13 @@ public class SessionModule {
     @SessionScope
     ISubmitPresenter provideSubmitPresenter(ISessionInteractor sessionInteractor) {
         return new SubmitPresenter(sessionInteractor);
+    }
+
+    @Provides
+    @SessionScope
+    IDashboardInteractor provideDashboardInteractor(IDashboardRepository dashboardRepository,
+                                                    ITokenRepository tokenRepository,
+                                                    ISessionRepository sessionRepository) {
+        return new DashboardInteractor(dashboardRepository, tokenRepository, sessionRepository);
     }
 }

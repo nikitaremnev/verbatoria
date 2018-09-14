@@ -38,6 +38,7 @@ public class PreferencesStorage {
     private static final String LAST_LOGIN_KEY = "LAST_LOGIN_KEY";
     private static final String COUNTRY_KEY = "COUNTRY_KEY";
     private static final String SHOW_SETTINGS_KEY = "SHOW_SETTINGS_KEY";
+    private static final String IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY = "IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY";
 
     private static final String QUESTIONS_PREFERENCES = "questions";
     private static final String ANSWERS_KEY = "ANSWERS_KEY";
@@ -292,5 +293,15 @@ public class PreferencesStorage {
 
     public boolean getShowSettings() {
         return mTokenPreferences.getBoolean(SHOW_SETTINGS_KEY, false);
+    }
+
+    public void setIsArchimedAllowedForVerbatolog(boolean isArchimedAllowedForVerbatolog) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putBoolean(IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY, isArchimedAllowedForVerbatolog);
+        editor.apply();
+    }
+
+    public boolean isArchimedAllowedForVerbatolog() {
+        return mTokenPreferences.getBoolean(IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY, false);
     }
 }

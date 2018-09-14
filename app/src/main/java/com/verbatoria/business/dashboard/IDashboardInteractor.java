@@ -26,7 +26,7 @@ public interface IDashboardInteractor {
 
     Completable loadAgeGroups();
 
-    Observable<List<AgeGroupModel>> getAgeGroups();
+    List<AgeGroupModel> getAgeGroupsFromCache();
 
     Completable updateCurrentLocale(String locationId, String currentLocale);
 
@@ -41,6 +41,8 @@ public interface IDashboardInteractor {
     LocationModel getCurrentLocation();
 
     boolean isShowSettings();
+
+    boolean isArchimedAllowedForVerbatolog();
 
     void setShowSettings(boolean showSettings);
 

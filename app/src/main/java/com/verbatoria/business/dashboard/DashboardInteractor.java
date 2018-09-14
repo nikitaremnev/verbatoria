@@ -46,6 +46,7 @@ public class DashboardInteractor implements IDashboardInteractor {
     @Override
     public Observable<VerbatologModel> getVerbatologInfo(VerbatologModel verbatolog) {
         return mDashboardRepository.getVerbatologInfo(getAccessToken())
+                .doOnNext(verbatologModel -> mDashboardRepository.saveArchimedAllowedForVerbatolog(verbatologModel.isArchimedAllowed()))
                 .map(item -> ModelsConverter.convertInfoResponseToVerbatologModel(verbatolog, item))
                 .doOnNext(verbatologModel -> mDashboardRepository.saveVerbatologInfo(verbatologModel))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
@@ -97,10 +98,8 @@ public class DashboardInteractor implements IDashboardInteractor {
     }
 
     @Override
-    public Observable<List<AgeGroupModel>> getAgeGroups() {
-        return mDashboardRepository.getAgeGroupsFromCache()
-                .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                .observeOn(RxSchedulers.getMainThreadScheduler());
+    public List<AgeGroupModel> getAgeGroupsFromCache() {
+        return mDashboardRepository.getAgeGroupsFromCache();
     }
 
     @Override
@@ -154,6 +153,11 @@ public class DashboardInteractor implements IDashboardInteractor {
     @Override
     public boolean isShowSettings() {
         return mDashboardRepository.isShowSettings();
+    }
+
+    @Override
+    public boolean isArchimedAllowedForVerbatolog() {
+        return mDashboardRepository.isArchimedAllowedForVerbatolog();
     }
 
     @Override

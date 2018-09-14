@@ -59,8 +59,8 @@ public class DashboardRepository implements IDashboardRepository {
     }
 
     @Override
-    public Observable<List<AgeGroupModel>> getAgeGroupsFromCache() {
-        return Observable.fromCallable(() -> PreferencesStorage.getInstance().getAgeGroups());
+    public List<AgeGroupModel> getAgeGroupsFromCache() {
+        return PreferencesStorage.getInstance().getAgeGroups();
     }
 
     @Override
@@ -81,6 +81,16 @@ public class DashboardRepository implements IDashboardRepository {
     @Override
     public void saveLocationInfo(LocationModel locationModel) {
         PreferencesStorage.getInstance().setLocationInfo(locationModel);
+    }
+
+    @Override
+    public void saveArchimedAllowedForVerbatolog(boolean isArchimedAllowed) {
+        PreferencesStorage.getInstance().setIsArchimedAllowedForVerbatolog(isArchimedAllowed);
+    }
+
+    @Override
+    public boolean isArchimedAllowedForVerbatolog() {
+        return PreferencesStorage.getInstance().isArchimedAllowedForVerbatolog();
     }
 
     @Override

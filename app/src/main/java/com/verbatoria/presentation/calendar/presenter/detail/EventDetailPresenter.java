@@ -7,6 +7,8 @@ import android.util.Log;
 
 import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
+import com.verbatoria.business.dashboard.IDashboardInteractor;
+import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.ReportModel;
@@ -39,6 +41,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     private IClientsInteractor mClientsInteractor;
     private ISessionInteractor mSessionInteractor;
     private ICalendarInteractor mCalendarInteractor;
+    private IDashboardInteractor mDashboardInteractor;
     private IEventDetailView mCalendarEventDetailView;
     private EventModel mEventModel;
     private ClientModel mClientModel;
@@ -46,10 +49,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     public EventDetailPresenter(ISessionInteractor sessionInteractor,
                                 ICalendarInteractor calendarInteractor,
-                                IClientsInteractor clientsInteractor) {
+                                IClientsInteractor clientsInteractor,
+                                IDashboardInteractor dashboardInteractor) {
         mSessionInteractor = sessionInteractor;
         mCalendarInteractor = calendarInteractor;
         mClientsInteractor = clientsInteractor;
+        mDashboardInteractor = dashboardInteractor;
     }
 
     @Override
@@ -221,7 +226,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void onInstantReportConfirmed() {
         mEventModel.setIsInstantReport(true);
-        if (mEventModel.isArchimedAllowed() && !mEventModel.getArchimed()) {
+        if (mDashboardInteractor.isArchimedAllowedForVerbatolog() && isAgeApprovedForArchimed()) {
             mCalendarEventDetailView.showConfirmArchimed();
         } else {
             addEvent();
@@ -231,7 +236,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void onInstantReportDeclined() {
         mEventModel.setIsInstantReport(false);
-        if (mEventModel.isArchimedAllowed() && !mEventModel.getArchimed()) {
+        if (mDashboardInteractor.isArchimedAllowedForVerbatolog() && isAgeApprovedForArchimed()) {
             mCalendarEventDetailView.showConfirmArchimed();
         } else {
             addEvent();
@@ -396,6 +401,17 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         if (mEventModel == null || !mEventModel.hasTime()) {
             mCalendarEventDetailView.showChildNotFullError();
             return true;
+        }
+        return false;
+    }
+
+    private boolean isAgeApprovedForArchimed() {
+        int childAge = mEventModel.getChild().getAge();
+        List<AgeGroupModel> ageGroupModels = mDashboardInteractor.getAgeGroupsFromCache();
+        for (AgeGroupModel ageGroup: ageGroupModels) {
+            if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
+                return ageGroup.isIsArchimedAllowed();
+            }
         }
         return false;
     }

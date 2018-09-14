@@ -426,10 +426,10 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 .setTitle(getString(R.string.event_confirm_archimed_title))
                 .setMessage(getString(R.string.event_confirm_archimed));
         builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
-            mEventDetailPresenter.onInstantReportConfirmed();
+            mEventDetailPresenter.onArchimedConfirmed();
         });
         builder.setNegativeButton(getString(R.string.no), (dialog, which) -> {
-            mEventDetailPresenter.onInstantReportDeclined();
+            mEventDetailPresenter.onArchimedDeclined();
         });
         builder.create().show();
     }

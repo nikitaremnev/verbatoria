@@ -27,6 +27,8 @@ public class VerbatologInfoResponseModel {
 
     private String mLocationId;
 
+    private boolean mIsArchimedAllowed;
+
     public VerbatologInfoResponseModel() {
 
     }
@@ -92,6 +94,16 @@ public class VerbatologInfoResponseModel {
         return this;
     }
 
+    @JsonGetter("is_archimed_allowed")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean isArchimedAllowed() {
+        return mIsArchimedAllowed;
+    }
+
+    public void setIsArchimedAllowed(boolean mIsArchimedAllowed) {
+        this.mIsArchimedAllowed = mIsArchimedAllowed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -106,12 +118,13 @@ public class VerbatologInfoResponseModel {
                 Objects.equal(mMiddleName, that.mMiddleName) &&
                 Objects.equal(mPhone, that.mPhone) &&
                 Objects.equal(mEmail, that.mEmail) &&
-                Objects.equal(mLocationId, that.mLocationId);
+                Objects.equal(mLocationId, that.mLocationId) &&
+                Objects.equal(mIsArchimedAllowed, that.mIsArchimedAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId);
+        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed);
     }
 
     @Override
@@ -123,6 +136,8 @@ public class VerbatologInfoResponseModel {
                 .add("mPhone", mPhone)
                 .add("mEmail", mEmail)
                 .add("mLocationId", mLocationId)
+                .add("mIsArchimedAllowed", mIsArchimedAllowed)
                 .toString();
     }
+
 }
