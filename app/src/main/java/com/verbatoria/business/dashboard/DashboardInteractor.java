@@ -1,7 +1,5 @@
 package com.verbatoria.business.dashboard;
 
-import android.util.Log;
-
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
@@ -46,7 +44,7 @@ public class DashboardInteractor implements IDashboardInteractor {
     @Override
     public Observable<VerbatologModel> getVerbatologInfo(VerbatologModel verbatolog) {
         return mDashboardRepository.getVerbatologInfo(getAccessToken())
-                .doOnNext(verbatologModel -> mDashboardRepository.saveArchimedAllowedForVerbatolog(verbatologModel.isArchimedAllowed()))
+                .doOnNext(verbatologModel -> mDashboardRepository.saveArchimedAllowedForVerbatolog(verbatologModel.getIsArchimedAllowed()))
                 .map(item -> ModelsConverter.convertInfoResponseToVerbatologModel(verbatolog, item))
                 .doOnNext(verbatologModel -> mDashboardRepository.saveVerbatologInfo(verbatologModel))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
@@ -74,8 +72,6 @@ public class DashboardInteractor implements IDashboardInteractor {
                 .doOnNext(locationModel -> mDashboardRepository.saveLocationInfo(locationModel))
                 .doOnNext(locationModel -> {
                     String currentLocale = mDashboardRepository.getCurrentLocale();
-                    Log.e("test", "currentLocale: " + currentLocale);
-                    Log.e("test", "locationModel.getLocale(): " + locationModel.getLocale());
                     if (currentLocale == null || !currentLocale.equals(locationModel.getLocale())) {
                         mDashboardRepository.saveCurrentLocale(locationModel.getLocale());
                         locationModel.setUpdateLocaleRequired(true);

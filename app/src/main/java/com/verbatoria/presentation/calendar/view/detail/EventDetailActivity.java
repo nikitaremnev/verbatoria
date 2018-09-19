@@ -371,6 +371,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showTimeNotSetError() {
+        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
+    }
+
+    @Override
     public void showConfirmSendToLocation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.confirmation))

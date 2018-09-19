@@ -42,6 +42,7 @@ public interface IEventDetailView {
 
     void showClientNotFullError();
     void showChildNotFullError();
+    void showTimeNotSetError();
 
     void showConfirmSendToLocation();
     void showConfirmIncludeAttentionMemory();

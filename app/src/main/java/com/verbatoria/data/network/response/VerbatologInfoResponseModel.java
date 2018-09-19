@@ -96,7 +96,7 @@ public class VerbatologInfoResponseModel {
 
     @JsonGetter("is_archimed_allowed")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    public boolean isArchimedAllowed() {
+    public boolean getIsArchimedAllowed() {
         return mIsArchimedAllowed;
     }
 
