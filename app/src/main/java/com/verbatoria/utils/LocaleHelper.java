@@ -2,6 +2,7 @@ package com.verbatoria.utils;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -36,6 +37,12 @@ public class LocaleHelper {
             return updateResourcesLegacy(context, language);
         }
         return context;
+    }
+
+    public static ContextWrapper getLocaleContextWrapper(Context context) {
+        String language = PreferencesStorage.getInstance().getCurrentLocale();
+        Locale locale = new Locale(language);
+        return UpdateLocaleContextWrapper.wrap(context, locale);
     }
 
     @TargetApi(Build.VERSION_CODES.N)
