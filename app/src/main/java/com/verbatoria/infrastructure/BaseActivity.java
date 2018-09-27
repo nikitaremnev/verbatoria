@@ -2,14 +2,13 @@ package com.verbatoria.infrastructure;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.utils.LocaleHelper;
 import com.verbatoria.utils.Logger;
-
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -35,7 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+        ContextWrapper localeContextWrapper  = LocaleHelper.getLocaleContextWrapper(newBase);
+        ContextWrapper calligraphyContextWrapper = CalligraphyContextWrapper.wrap(localeContextWrapper);
+        super.attachBaseContext(calligraphyContextWrapper);
     }
 
     @Override
