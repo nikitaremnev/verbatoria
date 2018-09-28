@@ -205,7 +205,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_russia));
             setUpPhoneFormatter(getString(R.string.login_russia_phone_mask));
         } else if (country.equals(getString(R.string.country_ukraine))) {
-            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_uk);
+            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_ukr);
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_ukraine));
             setUpPhoneFormatter(getString(R.string.login_ukraine_phone_mask));
         } else if (country.equals(getString(R.string.country_azerbaijan))) {
