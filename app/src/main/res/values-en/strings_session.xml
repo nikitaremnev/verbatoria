@@ -52,13 +52,13 @@
 
 
     <string-array name="session_questions">
-        <item>Speech</item>
-        <item>Logic</item>
-        <item>Music</item>
-        <item>Creativity</item>
-        <item>Kinesthetic</item>
-        <item>Empathy</item>
-        <item>Internal self</item>
+        <item>Linguistic</item>
+        <item>Logical and mathematical</item>
+        <item>Musical</item>
+        <item>Spatial</item>
+        <item>Body-Kinesthetic</item>
+        <item>Understanding people</item>
+        <item>Understanding yourself</item>
     </string-array>
 
     <string name="session_include_attention_question">Should I include the Attention/Memory report?</string>

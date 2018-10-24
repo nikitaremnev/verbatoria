@@ -52,13 +52,13 @@
 
 
     <string-array name="session_questions">
-        <item>Речь</item>
-        <item>Логика</item>
-        <item>Музыка</item>
-        <item>Творчество</item>
-        <item>Кинестетика</item>
-        <item>Эмпатия</item>
-        <item>Внутреннее Я</item>
+        <item>Лингвистический</item>
+        <item>Логико-математический</item>
+        <item>Музыкальный</item>
+        <item>Пространственный</item>
+        <item>Телесно-кинестетический</item>
+        <item>Понимание людей</item>
+        <item>Понимание себя</item>
     </string-array>
 
     <string name="session_include_attention_question">Включать ли отчет Внимание/Память?</string>
