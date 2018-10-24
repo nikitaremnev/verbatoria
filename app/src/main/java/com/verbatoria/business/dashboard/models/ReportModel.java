@@ -119,6 +119,10 @@ public class ReportModel implements Parcelable {
         return this;
     }
 
+    public boolean isNew() {
+        return mStatus.equals(STATUS.NEW);
+    }
+
     public boolean isCanceled() {
         return mStatus.equals(STATUS.CANCELED);
     }

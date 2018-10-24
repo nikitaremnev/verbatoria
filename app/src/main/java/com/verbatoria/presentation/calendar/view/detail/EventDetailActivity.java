@@ -259,11 +259,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport, boolean isBeforeNow) {
+    public void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport, boolean isInstantReportAvailable) {
         if (showInstantReportField) {
             CheckBox instantReportCheckbox = mInstantReportFieldView.findViewById(R.id.checkbox);
             instantReportCheckbox.setChecked(isInstantReport);
-            if (isInstantReport || isBeforeNow) {
+            if (isInstantReport || !isInstantReportAvailable) {
                 instantReportCheckbox.setEnabled(false);
             }
             String instantReportSubtitle = isInstantReport ? getString(R.string.event_confirm_instant_report_subtitle_enabled): getString(R.string.event_confirm_instant_report_subtitle_disabled);
@@ -545,7 +545,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateChildView(mEventDetailPresenter.getChildModel());
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
-        updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport(), mEventDetailPresenter.getEvent().isBeforeThatMoment());
+        updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport(), mEventDetailPresenter.getEvent().isInstantReportAvailable());
         updateArchimedView(mEventDetailPresenter.getEvent().isArchimedAllowed(), mEventDetailPresenter.getEvent().getArchimed());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);

@@ -142,8 +142,8 @@ public class EventModel implements Parcelable {
         return this;
     }
 
-    public boolean isBeforeThatMoment() {
-        return mStartAt != null && mStartAt.before(Calendar.getInstance().getTime());
+    public boolean isInstantReportAvailable() {
+        return getReport() != null && getReport().isSent();
     }
 
     @Override
