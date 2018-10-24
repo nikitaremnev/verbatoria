@@ -36,7 +36,7 @@ repositories {
     google()
 }
 
-def version_name = "9.1.12"
+def version_name = "9.1.14"
 def version_code = 18
 def target_sdk_version = 26
 def min_sdk_version = 21
