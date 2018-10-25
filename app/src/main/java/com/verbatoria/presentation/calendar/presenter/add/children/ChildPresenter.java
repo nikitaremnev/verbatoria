@@ -174,12 +174,12 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
 
     @Override
     public void saveState(Bundle outState) {
-
+        //empty
     }
 
     @Override
     public void restoreState(Bundle savedInstanceState) {
-
+        //empty
     }
 
     private boolean isChildValid() {
