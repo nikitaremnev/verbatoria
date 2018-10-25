@@ -53,6 +53,8 @@
     <string name="child_data_is_not_full">Данные о ребенке указаны не полностью</string>
     <string name="child_age_not_set">Укажите возраст!</string>
     <string name="child_name_not_set">Укажите имя!</string>
+    <string name="child_gender_not_set">Укажите пол ребенка!</string>
+
     <string name="time_is_not_set">Необходимо указать время записи</string>
 
     <string name="action_next_week">Следующая неделя</string>

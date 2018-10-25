@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -45,7 +46,7 @@ public class ChildrenInteractor implements IChildrenInteractor {
     }
 
     @Override
-    public Observable<ResponseBody> editChild(ChildModel child) {
+    public Completable editChild(ChildModel child) {
         return mChildrenRepository.editChild(child.getClientId(), child.getId(), getAccessToken(), getChildRequestModel(child))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());

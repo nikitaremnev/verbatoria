@@ -59,7 +59,7 @@
             android:screenOrientation="sensorLandscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity"
+            android:name="com.verbatoria.presentation.calendar.view.add.children.ChildActivity"
             android:screenOrientation="sensorLandscape"/>
 
         <activity

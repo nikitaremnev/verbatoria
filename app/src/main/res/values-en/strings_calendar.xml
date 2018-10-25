@@ -53,6 +53,8 @@
     <string name="child_data_is_not_full">Child data is incomplete</string>
     <string name="child_age_not_set">Specify the age!</string>
     <string name="child_name_not_set">Specify the name!</string>
+    <string name="child_gender_not_set">Specify the gender!</string>
+
     <string name="time_is_not_set">You must specify a recording time</string>
 
     <string name="action_next_week">Next week</string>

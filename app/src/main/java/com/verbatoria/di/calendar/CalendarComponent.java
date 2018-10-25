@@ -1,6 +1,6 @@
 package com.verbatoria.di.calendar;
 
-import com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity;
+import com.verbatoria.presentation.calendar.view.add.children.ChildActivity;
 import com.verbatoria.presentation.calendar.view.add.children.search.SearchChildrenActivity;
 import com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity;
 import com.verbatoria.presentation.calendar.view.add.clients.search.SearchClientsActivity;
@@ -17,7 +17,7 @@ import dagger.Subcomponent;
 @CalendarScope
 public interface CalendarComponent {
 
-    void inject(ChildrenActivity childrenActivity);
+    void inject(ChildActivity childActivity);
 
     void inject(ClientsActivity clientActivity);
 

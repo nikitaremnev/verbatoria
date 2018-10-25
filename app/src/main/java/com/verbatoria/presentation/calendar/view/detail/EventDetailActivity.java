@@ -29,7 +29,7 @@ import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.presenter.detail.EventDetailPresenter;
 import com.verbatoria.presentation.calendar.presenter.detail.IEventDetailPresenter;
-import com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity;
+import com.verbatoria.presentation.calendar.view.add.children.ChildActivity;
 import com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.utils.Helper;
@@ -42,7 +42,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-import static com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity.EXTRA_CHILD_MODEL;
+import static com.verbatoria.presentation.calendar.view.add.children.ChildActivity.EXTRA_CHILD_MODEL;
 import static com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity.EXTRA_CLIENT_MODEL;
 import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
@@ -180,8 +180,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             showError(getString(R.string.event_detail_add_client_first));
         } else {
             ChildModel childModel = mEventDetailPresenter.getChildModel();
-            Intent intent = childModel == null ? ChildrenActivity.newInstance(this, mEventDetailPresenter.getClientModel())
-                    : ChildrenActivity.newInstance(this, childModel, mEventDetailPresenter.getClientModel());
+            Intent intent = childModel == null ? ChildActivity.newInstance(this, mEventDetailPresenter.getClientModel())
+                    : ChildActivity.newInstance(this, childModel, mEventDetailPresenter.getClientModel());
             startActivityForResult(intent, ACTIVITY_CHILDREN_CODE);
         }
     }

@@ -122,6 +122,18 @@ public class ChildModel implements Parcelable {
         return mGender != null && mGender.equals(FEMALE_GENDER);
     }
 
+    public boolean isAgeValid() {
+        return getAge() >= START_AGE;
+    }
+
+    public boolean isNameValid() {
+        return !TextUtils.isEmpty(mName);
+    }
+
+    public boolean isGenderValid() {
+        return mGender != null && !TextUtils.isEmpty(mGender);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

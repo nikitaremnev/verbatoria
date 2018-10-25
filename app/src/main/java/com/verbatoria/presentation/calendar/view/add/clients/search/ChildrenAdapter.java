@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.ChildModel;
-import com.verbatoria.presentation.calendar.view.add.children.ChildrenActivity;
+import com.verbatoria.presentation.calendar.view.add.children.ChildActivity;
 
 import java.lang.ref.SoftReference;
 import java.util.List;
@@ -70,7 +70,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildViewHolder> {
             Activity activity = mActivitySoftReference.get();
             ChildModel childModel = mClientModelSoftReference.get();
             if (activity != null && childModel != null) {
-                activity.setResult(Activity.RESULT_OK, ChildrenActivity.createChildIntent(childModel));
+                activity.setResult(Activity.RESULT_OK, ChildActivity.createChildIntent(childModel));
                 activity.finish();
             }
         }

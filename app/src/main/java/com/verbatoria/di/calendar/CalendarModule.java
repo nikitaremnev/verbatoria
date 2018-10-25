@@ -23,8 +23,8 @@ import com.verbatoria.data.repositories.schedule.ScheduleRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.calendar.presenter.add.children.ChildrenPresenter;
-import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
+import com.verbatoria.presentation.calendar.presenter.add.children.ChildPresenter;
+import com.verbatoria.presentation.calendar.presenter.add.children.IChildPresenter;
 import com.verbatoria.presentation.calendar.presenter.add.clients.ClientsPresenter;
 import com.verbatoria.presentation.calendar.presenter.add.clients.IClientsPresenter;
 import com.verbatoria.presentation.calendar.presenter.detail.EventDetailPresenter;
@@ -94,8 +94,8 @@ public class CalendarModule {
 
     @Provides
     @CalendarScope
-    IChildrenPresenter provideChildrenPresenter(IChildrenInteractor childrenInteractor) {
-        return new ChildrenPresenter(childrenInteractor);
+    IChildPresenter provideChildrenPresenter(IChildrenInteractor childrenInteractor) {
+        return new ChildPresenter(childrenInteractor);
     }
 
     @Provides

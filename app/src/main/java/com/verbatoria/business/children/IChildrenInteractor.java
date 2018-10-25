@@ -6,6 +6,7 @@ import com.verbatoria.data.network.common.ClientModel;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -16,7 +17,7 @@ public interface IChildrenInteractor {
 
     Observable<ChildModel> addChild(ChildModel child);
 
-    Observable<ResponseBody> editChild(ChildModel child);
+    Completable editChild(ChildModel child);
 
     Observable<List<ChildModel>> searchChildren(String query);
 

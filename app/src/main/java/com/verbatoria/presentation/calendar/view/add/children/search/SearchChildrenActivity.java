@@ -17,7 +17,7 @@ import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.di.calendar.CalendarModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
-import com.verbatoria.presentation.calendar.presenter.add.children.IChildrenPresenter;
+import com.verbatoria.presentation.calendar.presenter.add.children.IChildPresenter;
 import com.verbatoria.presentation.calendar.view.add.clients.search.ChildrenAdapter;
 import com.verbatoria.utils.Helper;
 
@@ -37,7 +37,7 @@ public class SearchChildrenActivity extends BaseActivity implements ISearchChild
     private static final String TAG = SearchChildrenActivity.class.getSimpleName();
 
     @Inject
-    IChildrenPresenter mChildrenPresenter;
+    IChildPresenter mChildrenPresenter;
 
     @BindView(R.id.query_edit_text)
     public EditText mQueryEditText;

@@ -7,6 +7,7 @@ import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildrenResponseModel;
 
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -24,8 +25,8 @@ public class ChildrenRepository implements IChildrenRepository {
     }
 
     @Override
-    public Observable<ResponseBody> editChild(String clientId, String childId, String accessToken, ChildRequestModel childRequestModel) {
-        return APIFactory.getAPIService().editChildRequest(clientId, childId, accessToken, childRequestModel);
+    public Completable editChild(String clientId, String childId, String accessToken, ChildRequestModel childRequestModel) {
+        return APIFactory.getAPIService().editChildRequest(clientId, childId, accessToken, childRequestModel).toCompletable();
     }
 
     @Override
