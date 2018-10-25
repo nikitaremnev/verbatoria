@@ -23,10 +23,6 @@ public interface IEventDetailView {
     void startChild();
     void startClient();
     void startDatePicker();
-    void showError(String message);
-
-    void showEventAdded();
-    void showEventEdited();
 
     void updateClientView(ClientModel clientModel);
     void updateChildView(ChildModel childModel);
@@ -40,25 +36,25 @@ public interface IEventDetailView {
     void setUpEventCreated();
     void setUpEventEdit();
 
-    void showClientNotFullError();
-    void showChildNotFullError();
-    void showTimeNotSetError();
-
     void showConfirmSendToLocation();
     void showConfirmIncludeAttentionMemory();
     void showConfirmClearDatabase();
 
     void showConfirmInstantReport();
     void showConfirmArchimed();
-    void showSentToLocationSuccess();
-    void showSentToLocationError(String error);
-
-    void showIncludeAttentionMemorySuccess();
-    void showIncludeAttentionMemoryError(String error);
 
     void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals);
 
     void closeWhenDeleted();
 
     void showConfirmOverrideWriting();
+
+    void showError(String message);
+
+    void showHintMessage(int messageStringResource);
+
+    void showSuccessMessage(int messageStringResource);
+
+    void showError(int errorStringResource);
+
 }

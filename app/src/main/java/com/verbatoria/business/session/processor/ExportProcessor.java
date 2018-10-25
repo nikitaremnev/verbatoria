@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import rx.Observable;
+import rx.Completable;
 
 /**
  * Процессор для генерации отчета
@@ -50,13 +50,13 @@ public class ExportProcessor {
         mApplicationVersion = applicationVersion;
     }
 
-    public Observable<Void> getAllMeasurements(Map<String, String> answers) {
+    public Completable getAllMeasurements(Map<String, String> answers) {
         return mSessionRepository.getAllMeasurements()
-                .map(baseMeasurements -> {
+                .doOnNext(baseMeasurements -> {
                     Collections.sort(baseMeasurements, new BaseMeasurementComparator());
                     writeToJsonFile(baseMeasurements, answers);
-                    return null;
-                });
+                })
+                .toCompletable();
     }
 
     private void writeToJsonFile(List<? extends BaseMeasurement> baseMeasurements, Map<String, String> answers) {

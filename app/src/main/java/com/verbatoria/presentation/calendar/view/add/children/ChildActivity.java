@@ -332,16 +332,6 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
     }
 
     @Override
-    public void showError(String message) {
-        Helper.showErrorSnackBar(mSubmitButton, message);
-    }
-
-    @Override
-    public void showError(int errorStringResource) {
-        Helper.showErrorSnackBar(mSubmitButton, getString(errorStringResource));
-    }
-
-    @Override
     public void showPossibleChildren(List<ChildModel> children) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.calendar_possible_children));
@@ -416,4 +406,17 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
         return childrenNames;
     }
 
+    //region errors handling
+
+    @Override
+    public void showError(String message) {
+        Helper.showErrorSnackBar(mSubmitButton, message);
+    }
+
+    @Override
+    public void showError(int errorStringResource) {
+        Helper.showErrorSnackBar(mSubmitButton, getString(errorStringResource));
+    }
+
+    //endregion
 }

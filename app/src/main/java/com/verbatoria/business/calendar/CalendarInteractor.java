@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -123,15 +124,10 @@ public class CalendarInteractor implements ICalendarInteractor {
     }
 
     @Override
-    public Observable<ResponseBody> deleteEvent(EventModel eventModel) {
+    public Completable deleteEvent(EventModel eventModel) {
         return mCalendarRepository.deleteEvent(eventModel.getId(), getAccessToken())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
-    }
-
-    @Override
-    public Boolean isDeleteEnabled() {
-        return mCalendarRepository.getLocationId().equals(OSTOJENKA_LOCATION_ID);
     }
 
     @Override
@@ -176,13 +172,6 @@ public class CalendarInteractor implements ICalendarInteractor {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.SECOND, 0);
         return calendar.getTimeInMillis();
-    }
-
-    private Date getFromDate(Calendar calendar) {
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.SECOND, 0);
-        return calendar.getTime();
     }
 
     private long getToTimeInMillis(Calendar calendar) {

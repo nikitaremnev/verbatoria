@@ -59,7 +59,7 @@ public class SubmitPresenter implements ISubmitPresenter {
         mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
     }
 
-    private void handleMeasurementsReceived(Void object) {
+    private void handleMeasurementsReceived() {
         Log.e(TAG, "handleMeasurementsReceived");
         mSessionInteractor.submitResults()
                 .subscribe(this::handleResultsSubmitted, this::handleError);
@@ -77,7 +77,7 @@ public class SubmitPresenter implements ISubmitPresenter {
                 .subscribe(this::cleanUpFinished, this::handleError);
     }
 
-    private void cleanUpFinished(Object object) {
+    private void cleanUpFinished() {
         Log.e(TAG, "cleanUpFinished");
         mSubmitView.hideProgress();
         mSubmitView.finishSession();

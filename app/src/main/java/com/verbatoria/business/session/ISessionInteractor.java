@@ -6,7 +6,6 @@ import com.verbatoria.data.network.response.StartSessionResponseModel;
 
 import java.util.Map;
 
-import okhttp3.ResponseBody;
 import rx.Completable;
 import rx.Observable;
 
@@ -20,22 +19,22 @@ public interface ISessionInteractor {
     Observable<StartSessionResponseModel> startSession(String eventId);
     Completable finishSession(String eventId);
 
-    Observable<Void> getAllMeasurements(Map<String, String> answers);
+    Completable getAllMeasurements(Map<String, String> answers);
     Completable submitResults();
     Completable submitResults(String fileName);
 
     Observable<Boolean> isDatabasesClear();
     Completable clearDatabases();
 
-    Observable<Object> cleanUp();
+    Completable cleanUp();
 
-    Observable<ResponseBody> sendReportToLocation(String reportId);
+    Completable sendReportToLocation(String reportId);
 
     Completable backupReport(EventModel eventModel);
 
     void startConnection();
 
-    Observable<ResponseBody> includeAttentionMemory(String reportId);
+    Completable includeAttentionMemory(String reportId);
 
     /*
         ЖЦ коллбеков

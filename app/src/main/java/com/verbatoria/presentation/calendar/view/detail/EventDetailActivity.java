@@ -205,20 +205,29 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         datePickerDialog.show();
     }
 
+    //region notifications
+
     @Override
     public void showError(String message) {
         Helper.showErrorSnackBar(mSubmitButton, message);
     }
 
     @Override
-    public void showEventAdded() {
-        Helper.showHintSnackBar(mSubmitButton, getString(R.string.event_detail_event_added));
+    public void showHintMessage(int messageStringResource) {
+        Helper.showHintSnackBar(mSubmitButton, getString(messageStringResource));
     }
 
     @Override
-    public void showEventEdited() {
-        Helper.showHintSnackBar(mSubmitButton, getString(R.string.event_detail_event_edited));
+    public void showSuccessMessage(int messageStringResource) {
+        Helper.showSnackBar(mSubmitButton, getString(messageStringResource));
     }
+
+    @Override
+    public void showError(int errorStringResource) {
+        Helper.showErrorSnackBar(mSubmitButton, getString(errorStringResource));
+    }
+
+    //endregion
 
     @Override
     public void updateClientView(ClientModel clientModel) {
@@ -361,21 +370,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void showClientNotFullError() {
-        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.client_data_is_not_full));
-    }
-
-    @Override
-    public void showChildNotFullError() {
-        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.child_data_is_not_full));
-    }
-
-    @Override
-    public void showTimeNotSetError() {
-        Helper.showErrorSnackBar(mSubmitButton, getString(R.string.time_is_not_set));
-    }
-
-    @Override
     public void showConfirmSendToLocation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.confirmation))
@@ -437,26 +431,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             mEventDetailPresenter.onArchimedDeclined();
         });
         builder.create().show();
-    }
-
-    @Override
-    public void showSentToLocationSuccess() {
-        Helper.showSnackBar(mSendToLocationFieldView, getString(R.string.event_confirm_send_report_to_location_success));
-    }
-
-    @Override
-    public void showSentToLocationError(String error) {
-        Helper.showErrorSnackBar(mSendToLocationFieldView, error);
-    }
-
-    @Override
-    public void showIncludeAttentionMemorySuccess() {
-        Helper.showSnackBar(mIncludeAttentionMemoryFieldView, getString(R.string.event_confirm_attention_memory_include_success));
-    }
-
-    @Override
-    public void showIncludeAttentionMemoryError(String error) {
-        Helper.showErrorSnackBar(mIncludeAttentionMemoryFieldView, error);
     }
 
     @Override

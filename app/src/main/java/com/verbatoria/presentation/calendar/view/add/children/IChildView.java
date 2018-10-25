@@ -26,8 +26,6 @@ public interface IChildView {
 
     void finishWithResult(ChildModel childModel);
 
-    void showError(String message);
-
     void startAgePicker();
 
     void updateAge();
@@ -37,6 +35,8 @@ public interface IChildView {
     void showPossibleChildren(List<ChildModel> children);
 
     void showSuccessWithCloseAfter(int messageStringResource);
+
+    void showError(String message);
 
     void showError(int errorStringResource);
 

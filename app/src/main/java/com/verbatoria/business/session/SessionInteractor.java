@@ -28,7 +28,6 @@ import java.util.Timer;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import rx.Completable;
 import rx.Observable;
 
@@ -83,7 +82,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public Observable<Void> getAllMeasurements(Map<String, String> answers) {
+    public Completable getAllMeasurements(Map<String, String> answers) {
         return new ExportProcessor(mSessionRepository, DeveloperUtils.getApplicationVersion())
                 .getAllMeasurements(answers)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
@@ -125,9 +124,9 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public Observable<Object> cleanUp() {
+    public Completable cleanUp() {
         Logger.e(TAG, "cleanUp");
-        return Observable.fromCallable(() -> {
+        return Completable.fromAction(() -> {
                     mSessionRepository.cleanUp();
                     DoneActivitiesProcessor.clearDoneActivities();
                     DoneActivitiesProcessor.clearTimeDoneActivities();
@@ -136,14 +135,13 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
                     if (file.exists()) {
                         file.delete();
                     }
-                    return null;
                 })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
 
     @Override
-    public Observable<ResponseBody> sendReportToLocation(String reportId) {
+    public Completable sendReportToLocation(String reportId) {
         return mSessionRepository.sendReportToLocation(mTokenRepository.getToken().getAccessToken(), reportId)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
@@ -162,7 +160,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public Observable<ResponseBody> includeAttentionMemory(String reportId) {
+    public Completable includeAttentionMemory(String reportId) {
         return mSessionRepository.includeAttentionMemory(reportId, mTokenRepository.getToken().getAccessToken())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());

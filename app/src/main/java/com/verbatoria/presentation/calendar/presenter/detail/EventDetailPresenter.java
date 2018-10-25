@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.remnev.verbatoriamini.R;
 import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
@@ -126,7 +127,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void onDeleteEventClicked() {
         addSubscription(mCalendarInteractor.deleteEvent(mEventModel)
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
+                .doOnSubscribe((action) -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                 .subscribe(this::handleEventDeleted, this::handleError));
     }
@@ -200,7 +201,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void onSendReportToLocationConfirmed() {
         addSubscription(
                 mSessionInteractor.sendReportToLocation(mEventModel.getReport().getId())
-                        .doOnSubscribe(()-> mCalendarEventDetailView.showProgress())
+                        .doOnSubscribe((action)-> mCalendarEventDetailView.showProgress())
                         .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                         .subscribe(this::handleReportSentToLocation, this::handleReportSendToLocationError)
         );
@@ -215,7 +216,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void onIncludeAttentionMemoryConfirmed() {
         addSubscription(
                 mSessionInteractor.includeAttentionMemory(mEventModel.getReport().getId())
-                        .doOnSubscribe(()-> mCalendarEventDetailView.showProgress())
+                        .doOnSubscribe((action)-> mCalendarEventDetailView.showProgress())
                         .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
                         .subscribe(this::handleAttentionMemoryIncluded, this::handleAttentionMemoryIncludeError)
         );
@@ -312,9 +313,9 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     private void handleEventEditedOrCreated(@NonNull EventModel eventModel) {
         if (!mIsEditMode) {
-            mCalendarEventDetailView.showEventAdded();
+            mCalendarEventDetailView.showHintMessage(R.string.event_detail_event_added);
         } else {
-            mCalendarEventDetailView.showEventEdited();
+            mCalendarEventDetailView.showHintMessage(R.string.event_detail_event_edited);
         }
         mIsEditMode = true;
         mEventModel = eventModel;
@@ -325,7 +326,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mCalendarEventDetailView.setUpEventCreated();
     }
 
-    private void handleEventDeleted(@NonNull ResponseBody responseBody) {
+    private void handleEventDeleted() {
         mCalendarEventDetailView.closeWhenDeleted();
     }
 
@@ -339,9 +340,9 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mCalendarEventDetailView.showPossibleTimeIntervals(timeIntervals);
     }
 
-    private void handleReportSentToLocation(ResponseBody responseBody) {
+    private void handleReportSentToLocation() {
         mCalendarEventDetailView.updateSendToLocationView(mEventModel.getReport(), true);
-        mCalendarEventDetailView.showSentToLocationSuccess();
+        mCalendarEventDetailView.showSuccessMessage(R.string.event_confirm_send_report_to_location_success);
     }
 
     private void handleReportSendToLocationError(Throwable throwable) {
@@ -350,16 +351,16 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
             String errorBody = error.response().errorBody().string()
                     .replace("{\"error\":\"", "")
                     .replace("\"}", "");
-            mCalendarEventDetailView.showSentToLocationError(errorBody);
+            mCalendarEventDetailView.showError(errorBody);
         } catch (IOException e) {
             e.printStackTrace();
             mCalendarEventDetailView.showError(throwable.getMessage());
         }
     }
 
-    private void handleAttentionMemoryIncluded(ResponseBody responseBody) {
+    private void handleAttentionMemoryIncluded() {
         mCalendarEventDetailView.updateIncludeAttentionMemoryView(mEventModel.getReport(), true);
-        mCalendarEventDetailView.showIncludeAttentionMemorySuccess();
+        mCalendarEventDetailView.showSuccessMessage(R.string.event_confirm_attention_memory_include_success);
     }
 
     private void handleIsDatabaseClear(boolean isClear) {
@@ -380,7 +381,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
             String errorBody = error.response().errorBody().string()
                     .replace("{\"error\":\"", "")
                     .replace("\"}", "");
-            mCalendarEventDetailView.showIncludeAttentionMemoryError(errorBody);
+            mCalendarEventDetailView.showError(errorBody);
         } catch (IOException e) {
             e.printStackTrace();
             mCalendarEventDetailView.showError(throwable.getMessage());
@@ -389,15 +390,15 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     private boolean hasError() {
         if (mClientModel == null || !mClientModel.isFull()) {
-            mCalendarEventDetailView.showClientNotFullError();
+            mCalendarEventDetailView.showError(R.string.client_data_is_not_full);
             return true;
         }
         if (mEventModel == null || mEventModel.getChild() == null || !mEventModel.getChild().isFull()) {
-            mCalendarEventDetailView.showChildNotFullError();
+            mCalendarEventDetailView.showError(R.string.child_data_is_not_full);
             return true;
         }
         if (mEventModel == null || !mEventModel.hasTime()) {
-            mCalendarEventDetailView.showTimeNotSetError();
+            mCalendarEventDetailView.showError(R.string.time_is_not_set);
             return true;
         }
         return false;

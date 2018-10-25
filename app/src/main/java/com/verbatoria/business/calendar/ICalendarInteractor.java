@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -24,9 +24,7 @@ public interface ICalendarInteractor {
 
     Observable<EventModel> editEvent(EventModel eventModel);
 
-    Observable<ResponseBody> deleteEvent(EventModel eventModel);
-
-    Boolean isDeleteEnabled();
+    Completable deleteEvent(EventModel eventModel);
 
     Date getLastDate();
 

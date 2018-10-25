@@ -14,6 +14,7 @@ import java.util.List;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -28,7 +29,7 @@ public interface ISessionRepository {
 
     Observable<FinishSessionResponseModel> finishSession(String accessToken);
 
-    Observable<ResponseBody> includeAttentionMemory(String reportId, String accessToken);
+    Completable includeAttentionMemory(String reportId, String accessToken);
 
     Observable<List<AttentionMeasurement>> getAttentionMeasurements();
 
@@ -42,9 +43,7 @@ public interface ISessionRepository {
 
     Observable<ResponseBody> addResults(String accessToken, RequestBody requestBody);
 
-    Observable<ResponseBody> addResults(String accessToken, String sessionId, RequestBody requestBody);
-
-    Observable<ResponseBody> sendReportToLocation(String accessToken, String reportId);
+    Completable sendReportToLocation(String accessToken, String reportId);
 
     Observable<Boolean> hasMeasurements();
 

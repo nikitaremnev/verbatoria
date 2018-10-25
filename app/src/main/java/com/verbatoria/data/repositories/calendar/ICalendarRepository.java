@@ -7,7 +7,7 @@ import com.verbatoria.data.network.response.EventsResponseModel;
 
 import java.util.Date;
 
-import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -21,7 +21,7 @@ public interface ICalendarRepository {
 
     Observable<EventResponseModel> editEvent(String eventId, String accessToken, EditEventRequestModel editEventRequestModel);
 
-    Observable<ResponseBody> deleteEvent(String eventId, String accessToken);
+    Completable deleteEvent(String eventId, String accessToken);
 
     String getLocationId();
 

@@ -10,7 +10,7 @@ import com.verbatoria.utils.PreferencesStorage;
 
 import java.util.Date;
 
-import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -34,8 +34,8 @@ public class CalendarRepository implements ICalendarRepository {
     }
 
     @Override
-    public Observable<ResponseBody> deleteEvent(String eventId, String accessToken) {
-        return APIFactory.getAPIService().deleteEventRequest(eventId, accessToken);
+    public Completable deleteEvent(String eventId, String accessToken) {
+        return APIFactory.getAPIService().deleteEventRequest(eventId, accessToken).toCompletable();
     }
 
     @Override

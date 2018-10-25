@@ -25,6 +25,7 @@ import javax.inject.Inject;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import rx.Completable;
 import rx.Observable;
 
 /**
@@ -53,8 +54,8 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
-    public Observable<ResponseBody> includeAttentionMemory(String reportId, String accessToken) {
-        return APIFactory.getAPIService().includeAttentionMemoryRequest(reportId, accessToken);
+    public Completable includeAttentionMemory(String reportId, String accessToken) {
+        return APIFactory.getAPIService().includeAttentionMemoryRequest(reportId, accessToken).toCompletable();
     }
 
     @Override
@@ -95,13 +96,8 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
-    public Observable<ResponseBody> addResults(String accessToken, String sessionId, RequestBody requestBody) {
-        return APIFactory.getAPIService().addResultsToSessionRequest(sessionId, accessToken, requestBody);
-    }
-
-    @Override
-    public Observable<ResponseBody> sendReportToLocation(String accessToken, String reportId) {
-        return APIFactory.getAPIService().sendReportToLocation(accessToken, reportId);
+    public Completable sendReportToLocation(String accessToken, String reportId) {
+        return APIFactory.getAPIService().sendReportToLocation(accessToken, reportId).toCompletable();
     }
 
     @Override
