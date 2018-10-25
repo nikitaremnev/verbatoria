@@ -3,7 +3,6 @@ package com.verbatoria.presentation.calendar.presenter.add.children;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.remnev.verbatoriamini.R;
 import com.verbatoria.business.children.IChildrenInteractor;
@@ -12,15 +11,9 @@ import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.add.children.IChildView;
 import com.verbatoria.presentation.calendar.view.add.children.search.ISearchChildrenView;
-
 import java.util.Date;
-import java.util.List;
-
-import okhttp3.ResponseBody;
-
 import static com.verbatoria.presentation.calendar.view.add.children.ChildActivity.EXTRA_CHILD_MODEL;
 import static com.verbatoria.presentation.calendar.view.add.children.ChildActivity.EXTRA_CLIENT_MODEL;
-import static com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeDialogFragment.START_AGE;
 
 /**
  * Реализация презентера для экрана данных о детях
@@ -69,11 +62,6 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
     }
 
     @Override
-    public ChildModel getChildModel() {
-        return mChildModel;
-    }
-
-    @Override
     public boolean isEditMode() {
         return mIsEditMode;
     }
@@ -85,7 +73,14 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
             addSubscription(mChildrenInteractor.addChild(mChildModel)
                     .doOnSubscribe(() -> mChildrenView.showProgress())
                     .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                    .subscribe(this::handleChildAddSuccess, this::handleChildRequestError));
+                    .subscribe(
+                            (childModel) -> {
+                                mChildModel.setId(childModel.getId());
+                                mChildrenView.showSuccessWithCloseAfter(R.string.child_added);
+                            },
+                            (throwable) -> mChildrenView.showError(throwable.getMessage())
+                    )
+            );
         }
     }
 
@@ -96,7 +91,11 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
             addSubscription(mChildrenInteractor.editChild(mChildModel)
                     .doOnSubscribe((action) ->  mChildrenView.showProgress())
                     .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                    .subscribe(this::handleChildEditSuccess, this::handleChildRequestError));
+                    .subscribe(
+                            () -> mChildrenView.showSuccessWithCloseAfter(R.string.child_edited),
+                            (throwable) -> mChildrenView.showError(throwable.getMessage())
+                    )
+            );
         }
     }
 
@@ -105,7 +104,11 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
         addSubscription(mChildrenInteractor.searchChildren(mSearchChildrenView.getQuery())
                 .doOnSubscribe(() -> mSearchChildrenView.showProgress())
                 .doOnUnsubscribe(() -> mSearchChildrenView.hideProgress())
-                .subscribe(this::handleChildrenFound, this::handleChildrenSearchError));
+                .subscribe(
+                        (childrenList) -> mSearchChildrenView.showChildsFound(childrenList),
+                        (throwable) -> mSearchChildrenView.showError(throwable.getMessage())
+                )
+        );
     }
 
     @Override
@@ -114,7 +117,11 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
             addSubscription(mChildrenInteractor.getChild(mClientModel)
                     .doOnSubscribe(() -> mChildrenView.showProgress())
                     .doOnUnsubscribe(() -> mChildrenView.hideProgress())
-                    .subscribe(this::handleClientChildrenFound, this::handleClientChildrenSearchError));
+                    .subscribe(
+                            (childrenList) -> mChildrenView.showPossibleChildren(childrenList),
+                            Throwable::printStackTrace
+                    )
+            );
         }
     }
 
@@ -151,6 +158,21 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
     }
 
     @Override
+    public void onSuccessMessageDismissed() {
+        mChildrenView.finishWithResult(mChildModel);
+    }
+
+    @Override
+    public void onActivityResultChildFound() {
+        mChildrenView.finishWithResult(mChildModel);
+    }
+
+    @Override
+    public void onBackPressed() {
+        mChildrenView.finishWithResult(mChildModel);
+    }
+
+    @Override
     public void saveState(Bundle outState) {
 
     }
@@ -158,36 +180,6 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
     @Override
     public void restoreState(Bundle savedInstanceState) {
 
-    }
-
-    private void handleChildAddSuccess(ChildModel childModel) {
-        mChildModel.setId(childModel.getId());
-        mChildrenView.showSuccessWithCloseAfter(R.string.child_added);
-    }
-
-    private void handleChildEditSuccess() {
-        mChildrenView.showSuccessWithCloseAfter(R.string.child_edited);
-    }
-
-    private void handleChildRequestError(Throwable throwable) {
-        mChildrenView.showError(throwable.getMessage());
-    }
-
-    private void handleChildrenFound(List<ChildModel> childrenList) {
-        mSearchChildrenView.showChildsFound(childrenList);
-    }
-
-    private void handleChildrenSearchError(Throwable throwable) {
-        mSearchChildrenView.showError(throwable.getMessage());
-    }
-
-    private void handleClientChildrenFound(List<ChildModel> childrenList) {
-        mChildrenView.showPossibleChildren(childrenList);
-    }
-
-    private void handleClientChildrenSearchError(Throwable throwable) {
-        //ignore
-        throwable.printStackTrace();
     }
 
     private boolean isChildValid() {
@@ -206,7 +198,7 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
             return false;
         }
 
-
         return true;
     }
+
 }

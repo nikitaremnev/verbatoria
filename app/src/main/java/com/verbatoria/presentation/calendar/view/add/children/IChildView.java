@@ -24,7 +24,7 @@ public interface IChildView {
 
     String getChildName();
 
-    void finishWithResult();
+    void finishWithResult(ChildModel childModel);
 
     void showError(String message);
 

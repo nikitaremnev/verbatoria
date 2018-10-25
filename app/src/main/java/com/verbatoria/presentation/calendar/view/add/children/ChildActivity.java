@@ -138,7 +138,7 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
 
     @Override
     public void onBackPressed() {
-        finishWithResult();
+        mChildrenPresenter.onBackPressed();
     }
 
     @Override
@@ -146,7 +146,7 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ACTIVITY_SEARCH_CHILDREN_CODE && resultCode == RESULT_OK) {
             mChildrenPresenter.obtainChild(data);
-            finishWithResult();
+            mChildrenPresenter.onActivityResultChildFound();
         }
     }
 
@@ -274,8 +274,8 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
     }
 
     @Override
-    public void finishWithResult() {
-        setResult(RESULT_OK, createChildIntent(mChildrenPresenter.getChildModel()));
+    public void finishWithResult(ChildModel childModel) {
+        setResult(RESULT_OK, createChildIntent(childModel));
         finish();
     }
 
@@ -325,7 +325,7 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
             @Override
             public void onDismissed(Snackbar transientBottomBar, int event) {
                 super.onDismissed(transientBottomBar, event);
-                finishWithResult();
+                mChildrenPresenter.onSuccessMessageDismissed();
             }
         });
         snackbar.show();

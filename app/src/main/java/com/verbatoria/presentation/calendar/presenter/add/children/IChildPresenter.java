@@ -21,7 +21,10 @@ public interface IChildPresenter {
     void unbindView();
 
     void obtainChild(Intent intent);
-    ChildModel getChildModel();
+
+    void onSuccessMessageDismissed();
+    void onActivityResultChildFound();
+    void onBackPressed();
 
     boolean isEditMode();
 
