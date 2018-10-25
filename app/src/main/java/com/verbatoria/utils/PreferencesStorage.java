@@ -22,6 +22,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
+
 /**
  * Реализация SharedPreferences
  *
@@ -260,7 +262,7 @@ public class PreferencesStorage {
     }
 
     public String getCurrentLocale() {
-        return mTokenPreferences.getString(CURRENT_LOCALE_KEY, null);
+        return mTokenPreferences.getString(CURRENT_LOCALE_KEY, LOCALE_RU);
     }
 
     public void setAgeGroups(List<AgeGroupModel> ageGroupModels) {

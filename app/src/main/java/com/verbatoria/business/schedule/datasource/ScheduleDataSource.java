@@ -2,7 +2,6 @@ package com.verbatoria.business.schedule.datasource;
 
 import com.verbatoria.business.schedule.models.ScheduleItemModel;
 import com.verbatoria.utils.DateUtils;
-import com.verbatoria.utils.PreferencesStorage;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,8 +20,8 @@ import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 public class ScheduleDataSource implements IScheduleDataSource<String, Date, Date, ScheduleItemModel> {
 
     private static final int ROWS_COUNT = 8;
-    private static final int START_HOUR = 9;
-    private static final int END_HOUR = 20;
+    private static final int START_HOUR = 8;
+    private static final int END_HOUR = 19;
     private static final int WEEK_COUNT = 7;
     private static final int FIRST_DAY_OF_WEEK = 1;
     private static final int COLUMN_COUNT = END_HOUR - START_HOUR + 1;
@@ -33,11 +32,8 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
 
     private Calendar mOriginalCalendar;
 
-    private String currentLocale;
-
     public ScheduleDataSource() {
         mOriginalCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
-        currentLocale = PreferencesStorage.getInstance().getCurrentLocale();
     }
 
     public ScheduleDataSource(Calendar calendar) {
@@ -51,7 +47,6 @@ public class ScheduleDataSource implements IScheduleDataSource<String, Date, Dat
             mItems.put(dayOfWeekIndex, dayGenerated);
             dayOfWeekIndex ++;
         }
-        currentLocale = PreferencesStorage.getInstance().getCurrentLocale();
     }
 
     @Override
