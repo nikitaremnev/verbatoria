@@ -41,7 +41,6 @@ public interface IEventDetailView {
     void showConfirmClearDatabase();
 
     void showConfirmInstantReport();
-    void showConfirmArchimed();
 
     void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals);
 

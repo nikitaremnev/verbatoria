@@ -93,9 +93,8 @@
     <string name="event_confirm_instant_report_subtitle_enabled">Client will receive report immediately</string>
     <string name="event_confirm_instant_report_subtitle_disabled">Client will receive report as usual</string>
     <string name="event_confirm_archimed_title">ARCHIMEDES</string>
-    <string name="event_confirm_archimed_subtitle_enabled">Panel ARCHIMEDES is on</string>
-    <string name="event_confirm_archimed_subtitle_disabled">Panel ARCHIMEDES is off</string>
-    <string name="event_confirm_archimed">Do you want to include ARCHIMEDES panel?</string>
+    <string name="event_confirm_archimed_subtitle_enabled">The report will include the Archimedes panel if there is a suitable</string>
+    <string name="event_confirm_archimed_subtitle_disabled">CUSTOMER WILL NOT RECEIVE PANEL ARCHEMED - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
 
     <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
     <string name="event_confirm_include_attention_memory_include">Include</string>

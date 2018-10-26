@@ -44,7 +44,7 @@
 
             <include android:id="@+id/archimed_field"
                 android:visibility="gone"
-                layout="@layout/item_field_checkbox"/>
+                layout="@layout/item_field"/>
 
         </LinearLayout>
 

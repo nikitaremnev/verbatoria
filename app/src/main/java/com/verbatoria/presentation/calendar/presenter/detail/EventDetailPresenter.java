@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 /**
@@ -225,32 +224,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void onInstantReportConfirmed() {
         mEventModel.setIsInstantReport(true);
-        if (mDashboardInteractor.isArchimedAllowedForVerbatolog() && isAgeApprovedForArchimed()) {
-            mCalendarEventDetailView.showConfirmArchimed();
-        } else {
-            addEvent();
-        }
+        addEvent();
     }
 
     @Override
     public void onInstantReportDeclined() {
         mEventModel.setIsInstantReport(false);
-        if (mDashboardInteractor.isArchimedAllowedForVerbatolog() && isAgeApprovedForArchimed()) {
-            mCalendarEventDetailView.showConfirmArchimed();
-        } else {
-            addEvent();
-        }
-    }
-
-    @Override
-    public void onArchimedConfirmed() {
-        mEventModel.setArchimed(true);
-        addEvent();
-    }
-
-    @Override
-    public void onArchimedDeclined() {
-        mEventModel.setArchimed(false);
         addEvent();
     }
 
@@ -260,10 +239,20 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
-    public boolean isDeleteEnabled() {
-       // return mCalendarInteractor.isDeleteEnabled();
+    public boolean isArchimedesAllowedForVerbatolog() {
+        return mDashboardInteractor.isArchimedAllowedForVerbatolog();
+    }
 
-        return true;
+    @Override
+    public boolean isArchimedesAllowedForChildAge() {
+        int childAge = mEventModel.getChild().getAge();
+        List<AgeGroupModel> ageGroupModels = mDashboardInteractor.getAgeGroupsFromCache();
+        for (AgeGroupModel ageGroup: ageGroupModels) {
+            if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
+                return ageGroup.isIsArchimedAllowed();
+            }
+        }
+        return false;
     }
 
     @Override
@@ -285,13 +274,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         }
     }
 
-    @Override
-    public void onArchimedStateChanged(boolean isArchimed) {
-        mEventModel.setArchimed(isArchimed);
-        mCalendarEventDetailView.setUpEventEdit();
-    }
-
     private void addEvent() {
+        if (isArchimedesAllowedForVerbatolog() && isArchimedesAllowedForChildAge()) {
+            mEventModel.setArchimed(true);
+        } else {
+            mEventModel.setArchimed(false);
+        }
         addSubscription(mCalendarInteractor.addEvent(mEventModel)
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
@@ -321,7 +309,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mEventModel = eventModel;
         mCalendarEventDetailView.updateReportView(eventModel.getReport());
         mCalendarEventDetailView.updateInstantReportView(true, eventModel.isInstantReport(), eventModel.isInstantReportAvailable());
-        mCalendarEventDetailView.updateArchimedView(eventModel.isArchimedAllowed(), eventModel.getArchimed());
+        mCalendarEventDetailView.updateArchimedView(isArchimedesAllowedForVerbatolog(), isArchimedesAllowedForChildAge());
         mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
         mCalendarEventDetailView.setUpEventCreated();
     }
@@ -400,17 +388,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         if (mEventModel == null || !mEventModel.hasTime()) {
             mCalendarEventDetailView.showError(R.string.time_is_not_set);
             return true;
-        }
-        return false;
-    }
-
-    private boolean isAgeApprovedForArchimed() {
-        int childAge = mEventModel.getChild().getAge();
-        List<AgeGroupModel> ageGroupModels = mDashboardInteractor.getAgeGroupsFromCache();
-        for (AgeGroupModel ageGroup: ageGroupModels) {
-            if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
-                return ageGroup.isIsArchimedAllowed();
-            }
         }
         return false;
     }

@@ -121,7 +121,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_delete, menu);
         mDeleteMenuItem = menu.findItem(R.id.action_delete);
-        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode() && mEventDetailPresenter.isDeleteEnabled());
+        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -292,20 +292,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void updateArchimedView(boolean isArchimedFieldEnabled, boolean isArchimed) {
-        if (isArchimedFieldEnabled) {
-            CheckBox archimedCheckbox = mArchimedFieldView.findViewById(R.id.checkbox);
-            archimedCheckbox.setChecked(isArchimed);
-            String archimedSubtitle = isArchimed ? getString(R.string.event_confirm_archimed_subtitle_enabled): getString(R.string.event_confirm_archimed_subtitle_disabled);
-            setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, archimedSubtitle, getString(R.string.event_confirm_archimed_title), v -> {
-                archimedCheckbox.setChecked(!archimedCheckbox.isChecked());
-            });
-            archimedCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                mEventDetailPresenter.onArchimedStateChanged(isChecked);
-            });
-            mArchimedFieldView.setVisibility(View.VISIBLE);
-        } else {
+    public void updateArchimedView(boolean isArchimedFieldEnabledForVerbatolog, boolean isArchimedEnabledForAge) {
+        if (!isArchimedEnabledForAge) {
             mArchimedFieldView.setVisibility(View.GONE);
+        } else {
+            String archimedSubtitle;
+            if (isArchimedFieldEnabledForVerbatolog) {
+                archimedSubtitle = getString(R.string.event_confirm_archimed_subtitle_enabled);
+            } else {
+                archimedSubtitle = getString(R.string.event_confirm_archimed_subtitle_disabled);
+            }
+            setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.event_confirm_archimed_title), archimedSubtitle, v -> { });
+            mArchimedFieldView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -360,7 +358,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         mSubmitButton.setOnClickListener(v -> {
             mEventDetailPresenter.checkDatabaseClear();
         });
-        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode() && mEventDetailPresenter.isDeleteEnabled());
+        mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
     }
 
     @Override
@@ -415,20 +413,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         });
         builder.setNegativeButton(getString(R.string.no), (dialog, which) -> {
             mEventDetailPresenter.onInstantReportDeclined();
-        });
-        builder.create().show();
-    }
-
-    @Override
-    public void showConfirmArchimed() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.event_confirm_archimed_title))
-                .setMessage(getString(R.string.event_confirm_archimed));
-        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
-            mEventDetailPresenter.onArchimedConfirmed();
-        });
-        builder.setNegativeButton(getString(R.string.no), (dialog, which) -> {
-            mEventDetailPresenter.onArchimedDeclined();
         });
         builder.create().show();
     }
@@ -520,7 +504,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
         updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport(), mEventDetailPresenter.getEvent().isInstantReportAvailable());
-        updateArchimedView(mEventDetailPresenter.getEvent().isArchimedAllowed(), mEventDetailPresenter.getEvent().getArchimed());
+        updateArchimedView(mEventDetailPresenter.isArchimedesAllowedForVerbatolog(), mEventDetailPresenter.isArchimedesAllowedForChildAge());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
     }
