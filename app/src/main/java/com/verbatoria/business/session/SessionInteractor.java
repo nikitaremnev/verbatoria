@@ -160,6 +160,11 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
+    public void dropConnection() {
+        VerbatoriaApplication.dropConnection();
+    }
+
+    @Override
     public Completable includeAttentionMemory(String reportId) {
         return mSessionRepository.includeAttentionMemory(reportId, mTokenRepository.getToken().getAccessToken())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())

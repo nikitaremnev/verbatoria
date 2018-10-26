@@ -152,7 +152,7 @@ public class ConnectionService extends Service implements TgStreamHandler {
         mTgStreamReader.connect();
     }
 
-    private void dropConnection() {
+    public void dropConnection() {
         if (mTgStreamReader != null
                 && mTgStreamReader.isBTConnected()) {
             mTgStreamReader.stop();

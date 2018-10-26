@@ -79,6 +79,7 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     private void cleanUpFinished() {
         Log.e(TAG, "cleanUpFinished");
+        mSessionInteractor.dropConnection();
         mSubmitView.hideProgress();
         mSubmitView.finishSession();
     }

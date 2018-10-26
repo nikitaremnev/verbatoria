@@ -96,6 +96,13 @@ public class VerbatoriaApplication extends MultiDexApplication {
         }
     }
 
+    public static void dropConnection() {
+        if (sTgStreamReader != null && sTgStreamReader.isBTConnected()) {
+            sTgStreamReader.stop();
+            sTgStreamReader.close();
+        }
+    }
+
     private static void startConnection() {
         if (sTgStreamReader != null && sTgStreamReader.isBTConnected()) {
             sTgStreamReader.stop();

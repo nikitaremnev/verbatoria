@@ -34,6 +34,8 @@ public interface ISessionInteractor {
 
     void startConnection();
 
+    void dropConnection();
+
     Completable includeAttentionMemory(String reportId);
 
     /*
