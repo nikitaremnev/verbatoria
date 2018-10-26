@@ -281,6 +281,11 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         mActivitiesCallback.updateButtonsState(mCurrentCode);
     }
 
+    @Override
+    public boolean isActivityRunningNow() {
+        return mCurrentCode != NO_CODE;
+    }
+
     /*
         Player jobs
      */
@@ -307,16 +312,6 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     @Override
     public void backClick() {
         mPlayerManager.backClick();
-    }
-
-    @Override
-    public void showPlayer() {
-        mPlayerManager.showPlayer();
-    }
-
-    @Override
-    public void hidePlayer() {
-        mPlayerManager.hidePlayer();
     }
 
     @Override

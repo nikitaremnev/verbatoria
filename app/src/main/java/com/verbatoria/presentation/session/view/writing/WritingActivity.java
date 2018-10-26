@@ -212,6 +212,11 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     }
 
     @Override
+    public void showError(int errorStringResource) {
+        Helper.showErrorSnackBar(mPlayerContainer, getString(errorStringResource));
+    }
+
+    @Override
     public void setButtonState(ActivityButtonState state, String code) {
         View buttonByCode = foundButtonByCode(code);
         switch (state) {

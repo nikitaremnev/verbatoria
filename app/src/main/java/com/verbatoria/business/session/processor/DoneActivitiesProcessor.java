@@ -45,10 +45,6 @@ public class DoneActivitiesProcessor {
         sDoneActivitiesArray = new HashSet<>();
     }
 
-    public static Set<String> getDoneActivitiesArray() {
-        return sDoneActivitiesArray;
-    }
-
     public static void clearDoneActivities() {
         sDoneActivitiesArray.clear();
     }

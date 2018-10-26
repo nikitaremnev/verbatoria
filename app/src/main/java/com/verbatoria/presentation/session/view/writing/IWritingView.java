@@ -18,6 +18,7 @@ public interface IWritingView {
 
     void showPlayingFileName(String fileName);
     void showError(String error);
+    void showError(int errorStringResource);
 
     void setButtonState(ActivityButtonState state, String code);
 
@@ -28,6 +29,7 @@ public interface IWritingView {
     void hideProgress();
 
     void showSomeActivitiesNotFinished(String activities);
+
     void finishSession();
 
     void showConnectionError();

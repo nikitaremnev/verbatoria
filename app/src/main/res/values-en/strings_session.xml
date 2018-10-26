@@ -29,6 +29,8 @@
 
     <string name="session_player_error">No files found for playback!</string>
 
+    <string name="session_please_finish_load_error">It is necessary to turn off the load before ending the session!</string>
+
     <string name="session_submit_back">Back</string>
     <string name="session_submit_next">Next</string>
 

@@ -43,9 +43,7 @@ public class PreferencesStorage {
     private static final String IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY = "IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY";
 
     private static final String QUESTIONS_PREFERENCES = "questions";
-    private static final String ANSWERS_KEY = "ANSWERS_KEY";
 
-    private static final String SESSION_PREFERENCES = "questions";
     private static final String LAST_REPORT_NAME_KEY = "LAST_REPORT_NAME_KEY";
     private static final String CURRENT_SESSION_ID_KEY = "CURRENT_SESSION_ID_KEY";
     private static final String LAST_DATE_KEY = "LAST_DATE_KEY";

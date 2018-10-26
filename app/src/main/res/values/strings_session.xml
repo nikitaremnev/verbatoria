@@ -29,6 +29,8 @@
 
     <string name="session_player_error">Файлы для воспроизведения не найдены!</string>
 
+    <string name="session_please_finish_load_error">Необходимо выключить нагрузку перед завершением сеанса!</string>
+
     <string name="session_submit_back">Назад</string>
     <string name="session_submit_next">Далее</string>
 

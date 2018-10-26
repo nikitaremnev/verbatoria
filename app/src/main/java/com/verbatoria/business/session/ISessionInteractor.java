@@ -57,6 +57,7 @@ public interface ISessionInteractor {
     long getDoneActivitiesTime();
     long getDoneActivityTimeByCode(String code);
     void processCode(String code);
+    boolean isActivityRunningNow();
 
     /*
         Работа с музыкальным плеером
@@ -65,9 +66,6 @@ public interface ISessionInteractor {
     void pauseClick();
     void nextClick();
     void backClick();
-
-    void showPlayer();
-    void hidePlayer();
 
     void saveSessionId(String sessionId);
 

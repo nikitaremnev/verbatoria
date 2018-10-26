@@ -7,9 +7,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.neurosky.connection.ConnectionStates;
+import com.remnev.verbatoriamini.R;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
-import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.writing.ActivityButtonState;
 import com.verbatoria.presentation.session.view.writing.IWritingView;
 
@@ -90,22 +90,17 @@ public class WritingPresenter implements IWritingPresenter,
     }
 
     @Override
-    public void showPlayer() {
-        mSessionInteractor.showPlayer();
-    }
-
-    @Override
-    public void hidePlayer() {
-        mSessionInteractor.hidePlayer();
-    }
-
-    @Override
     public void checkFinishAllowed() {
-        String allNotEnoughTimeActivities = mSessionInteractor.getAllNotEnoughTimeActivities();
-        if (TextUtils.isEmpty(allNotEnoughTimeActivities)) {
-            mWritingView.finishSession();
+        boolean isActivityRunningNow = mSessionInteractor.isActivityRunningNow();
+        if (!isActivityRunningNow) {
+            String allNotEnoughTimeActivities = mSessionInteractor.getAllNotEnoughTimeActivities();
+            if (TextUtils.isEmpty(allNotEnoughTimeActivities)) {
+                mWritingView.finishSession();
+            } else {
+                mWritingView.showSomeActivitiesNotFinished(allNotEnoughTimeActivities);
+            }
         } else {
-            mWritingView.showSomeActivitiesNotFinished(allNotEnoughTimeActivities);
+            mWritingView.showError(R.string.session_please_finish_load_error);
         }
     }
 
