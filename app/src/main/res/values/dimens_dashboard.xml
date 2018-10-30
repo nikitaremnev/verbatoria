@@ -26,8 +26,6 @@
     <dimen name="calendar_fab_bottom_margin">16dp</dimen>
     <dimen name="calendar_fab_top_margin">16dp</dimen>
 
-    <dimen name="calendar_add_event_padding">16dp</dimen>
-
     <dimen name="calendar_selected_date_padding">16dp</dimen>
     <dimen name="calendar_selected_date_corner_radius">24dp</dimen>
     <dimen name="calendar_selected_date_width">130dp</dimen>

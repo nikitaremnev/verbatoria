@@ -12,11 +12,6 @@
     <string name="dashboard_start_session">Начать сессию</string>
     <string name="dashboard_event">Запись</string>
 
-    <string name="dashboard_child_id_hint">Идентификатор ребенка</string>
-    <string name="dashboard_location_id_hint">Идентификатор локации</string>
-    <string name="dashboard_start_date_hint">Дата начала записи</string>
-    <string name="dashboard_end_date_hint">Дата окончания записи</string>
-
     <string name="dashboard_unknown">Неизвестно</string>
 
     <string name="settings_item_developer">О приложении</string>

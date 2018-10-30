@@ -12,11 +12,6 @@
     <string name="dashboard_start_session">Start session</string>
     <string name="dashboard_event">Recording</string>
 
-    <string name="dashboard_child_id_hint">Child id</string>
-    <string name="dashboard_location_id_hint">Location id</string>
-    <string name="dashboard_start_date_hint">Recording start date</string>
-    <string name="dashboard_end_date_hint">Recording finish date</string>
-
     <string name="dashboard_unknown">Unknown</string>
 
     <string name="settings_item_developer">About app</string>
