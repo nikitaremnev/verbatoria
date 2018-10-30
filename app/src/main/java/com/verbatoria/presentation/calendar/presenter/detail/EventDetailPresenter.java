@@ -109,7 +109,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void onCreateEventClicked() {
         if (!hasError()) {
-            mCalendarEventDetailView.showConfirmInstantReport();
+            addEvent();
         }
     }
 
@@ -222,18 +222,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     }
 
     @Override
-    public void onInstantReportConfirmed() {
-        mEventModel.setIsInstantReport(true);
-        addEvent();
-    }
-
-    @Override
-    public void onInstantReportDeclined() {
-        mEventModel.setIsInstantReport(false);
-        addEvent();
-    }
-
-    @Override
     public boolean isEditMode() {
         return mIsEditMode;
     }
@@ -267,21 +255,13 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         );
     }
 
-
-    @Override
-    public void onInstantReportStateChanged(boolean isInstantReport) {
-        mEventModel.setIsInstantReport(isInstantReport);
-        if (isInstantReport) {
-            mCalendarEventDetailView.setUpEventEdit();
-        }
-    }
-
     private void addEvent() {
         if (isArchimedesAllowedForVerbatolog() && isArchimedesAllowedForChildAge()) {
             mEventModel.setArchimed(true);
         } else {
             mEventModel.setArchimed(false);
         }
+        mEventModel.setIsInstantReport(true);
         addSubscription(mCalendarInteractor.addEvent(mEventModel)
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
@@ -310,7 +290,6 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mIsEditMode = true;
         mEventModel = eventModel;
         mCalendarEventDetailView.updateReportView(eventModel.getReport());
-        mCalendarEventDetailView.updateInstantReportView(true, eventModel.isInstantReport(), eventModel.isInstantReportAvailable());
         mCalendarEventDetailView.updateArchimedView(isArchimedesAllowedForVerbatolog(), isArchimedesAllowedForChildAge());
         mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
         mCalendarEventDetailView.setUpEventCreated();

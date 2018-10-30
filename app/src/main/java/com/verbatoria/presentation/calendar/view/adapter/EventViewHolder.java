@@ -23,9 +23,6 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.report_status_image_view)
     public ImageView mStatusImageView;
 
-    @BindView(R.id.instant_report_image_view)
-    public ImageView mInstantReportImageView;
-
     @BindView(R.id.report_status_text_view)
     public TextView mStatusTextView;
 
@@ -86,14 +83,6 @@ public class EventViewHolder extends RecyclerView.ViewHolder {
     void showSentReport(Context context) {
         mStatusImageView.setImageResource(R.drawable.ic_report_sent_large);
         mStatusTextView.setText(context.getString(R.string.calendar_report_sent));
-    }
-
-    void showInstantReport() {
-        mInstantReportImageView.setVisibility(View.VISIBLE);
-    }
-
-    void hideInstantReport() {
-        mInstantReportImageView.setVisibility(View.GONE);
     }
 
     void setTimePeriod(String timePeriod) {

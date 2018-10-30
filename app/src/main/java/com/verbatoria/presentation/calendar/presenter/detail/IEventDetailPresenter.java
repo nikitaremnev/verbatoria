@@ -49,11 +49,6 @@ public interface IEventDetailPresenter {
     void onIncludeAttentionMemoryClicked();
     void onIncludeAttentionMemoryConfirmed();
 
-    void onInstantReportConfirmed();
-    void onInstantReportDeclined();
-
-    void onInstantReportStateChanged(boolean isInstantReport);
-
     boolean isEditMode();
     boolean isArchimedesAllowedForVerbatolog();
     boolean isArchimedesAllowedForChildAge();

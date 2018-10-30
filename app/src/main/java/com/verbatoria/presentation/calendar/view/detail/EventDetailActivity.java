@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,9 +78,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @BindView(R.id.include_attention_memory_field)
     public View mIncludeAttentionMemoryFieldView;
-
-    @BindView(R.id.instant_report_field)
-    public View mInstantReportFieldView;
 
     @BindView(R.id.archimed_field)
     public View mArchimedFieldView;
@@ -268,30 +264,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void updateInstantReportView(boolean showInstantReportField, boolean isInstantReport, boolean isInstantReportAvailable) {
-        if (showInstantReportField) {
-            CheckBox instantReportCheckbox = mInstantReportFieldView.findViewById(R.id.checkbox);
-            instantReportCheckbox.setChecked(isInstantReport);
-            if (isInstantReport || !isInstantReportAvailable) {
-                instantReportCheckbox.setEnabled(false);
-            }
-            String instantReportSubtitle = isInstantReport ? getString(R.string.event_confirm_instant_report_subtitle_enabled): getString(R.string.event_confirm_instant_report_subtitle_disabled);
-            int imageResource = isInstantReport ? R.drawable.ic_instant_report : R.drawable.ic_instant_report_green;
-            setUpFieldView(mInstantReportFieldView, imageResource, instantReportSubtitle, getString(R.string.event_confirm_instant_report_title), v -> {
-                if (instantReportCheckbox.isEnabled()) {
-                    instantReportCheckbox.setChecked(!instantReportCheckbox.isChecked());
-                }
-            });
-            instantReportCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                mEventDetailPresenter.onInstantReportStateChanged(isChecked);
-            });
-            mInstantReportFieldView.setVisibility(View.VISIBLE);
-        } else {
-            mInstantReportFieldView.setVisibility(View.GONE);
-        }
-    }
-
-    @Override
     public void updateArchimedView(boolean isArchimedFieldEnabledForVerbatolog, boolean isArchimedEnabledForAge) {
         if (!isArchimedEnabledForAge) {
             mArchimedFieldView.setVisibility(View.GONE);
@@ -405,20 +377,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
-    public void showConfirmInstantReport() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.event_confirm_instant_report_title))
-                .setMessage(getString(R.string.event_confirm_instant_report));
-        builder.setPositiveButton(getString(R.string.yes), (dialog, which) -> {
-            mEventDetailPresenter.onInstantReportConfirmed();
-        });
-        builder.setNegativeButton(getString(R.string.no), (dialog, which) -> {
-            mEventDetailPresenter.onInstantReportDeclined();
-        });
-        builder.create().show();
-    }
-
-    @Override
     public void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.event_detail_activity_available_time));
@@ -504,7 +462,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateChildView(mEventDetailPresenter.getChildModel());
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
-        updateInstantReportView(mEventDetailPresenter.getEvent().getReport() != null, mEventDetailPresenter.getEvent().isInstantReport(), mEventDetailPresenter.getEvent().isInstantReportAvailable());
         updateArchimedView(mEventDetailPresenter.isArchimedesAllowedForVerbatolog(), mEventDetailPresenter.isArchimedesAllowedForChildAge());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
