@@ -245,11 +245,13 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public boolean isArchimedesAllowedForChildAge() {
-        int childAge = mEventModel.getChild().getAge();
-        List<AgeGroupModel> ageGroupModels = mDashboardInteractor.getAgeGroupsFromCache();
-        for (AgeGroupModel ageGroup: ageGroupModels) {
-            if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
-                return ageGroup.isIsArchimedAllowed();
+        if (mEventModel.getChild() != null) {
+            int childAge = mEventModel.getChild().getAge();
+            List<AgeGroupModel> ageGroupModels = mDashboardInteractor.getAgeGroupsFromCache();
+            for (AgeGroupModel ageGroup : ageGroupModels) {
+                if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
+                    return ageGroup.isIsArchimedAllowed();
+                }
             }
         }
         return false;

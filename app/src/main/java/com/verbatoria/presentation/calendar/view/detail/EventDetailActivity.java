@@ -302,6 +302,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             } else {
                 archimedSubtitle = getString(R.string.event_confirm_archimed_subtitle_disabled);
             }
+            mArchimedFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
             setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.event_confirm_archimed_title), archimedSubtitle, v -> { });
             mArchimedFieldView.setVisibility(View.VISIBLE);
         }
