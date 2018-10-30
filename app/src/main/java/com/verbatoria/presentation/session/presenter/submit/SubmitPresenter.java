@@ -67,6 +67,7 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     private void handleResultsSubmitted() {
         Log.e(TAG, "handleResultsSubmitted");
+        mSessionInteractor.dropConnection();
         mSessionInteractor.finishSession(mEventModel.getId())
                 .subscribe(this::handleSessionFinished, this::handleError);
     }
@@ -79,7 +80,6 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     private void cleanUpFinished() {
         Log.e(TAG, "cleanUpFinished");
-        mSessionInteractor.dropConnection();
         mSubmitView.hideProgress();
         mSubmitView.finishSession();
     }
