@@ -9,12 +9,6 @@ import com.verbatoria.business.dashboard.models.LocationModel;
  */
 public interface IVerbatologInfoView {
 
-    void showVerbatologName(String verbatologName);
-
-    void showVerbatologEmail(String verbatologEmail);
-
-    void showVerbatologPhone(String verbatologPhone);
-
     void showLocationPartner(String partner);
 
     void showLocationCityCountry(String cityCountry);
@@ -25,7 +19,7 @@ public interface IVerbatologInfoView {
 
     void showLocationId(String locationId);
 
-    void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail);
+    void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail, boolean isArchimedAllowed);
 
     void showLocationInfo(LocationModel locationModel);
 

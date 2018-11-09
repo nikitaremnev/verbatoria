@@ -42,6 +42,7 @@ public class ModelsConverter {
         verbatologModel.setEmail(verbatologInfoResponseModel.getEmail());
         verbatologModel.setPhone(verbatologInfoResponseModel.getPhone());
         verbatologModel.setLocationId(verbatologInfoResponseModel.getLocationId());
+        verbatologModel.setIsArchimedAllowed(verbatologInfoResponseModel.getIsArchimedAllowed());
         return verbatologModel;
     }
 

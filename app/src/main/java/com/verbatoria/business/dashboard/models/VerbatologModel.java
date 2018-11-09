@@ -26,6 +26,8 @@ public class VerbatologModel {
 
     private String mLocationId;
 
+    private boolean mIsArchimedAllowed;
+
     private List<EventModel> mEvents;
 
     public VerbatologModel() {
@@ -100,6 +102,15 @@ public class VerbatologModel {
         return this;
     }
 
+    public boolean isArchimedAllowed() {
+        return mIsArchimedAllowed;
+    }
+
+    public VerbatologModel setIsArchimedAllowed(boolean mIsArchimedAllowed) {
+        this.mIsArchimedAllowed = mIsArchimedAllowed;
+        return this;
+    }
+
     public List<EventModel> getEvents() {
         return mEvents;
     }
@@ -124,12 +135,13 @@ public class VerbatologModel {
                 Objects.equal(mPhone, that.mPhone) &&
                 Objects.equal(mEmail, that.mEmail) &&
                 Objects.equal(mLocationId, that.mLocationId) &&
+                Objects.equal(mIsArchimedAllowed, that.mIsArchimedAllowed) &&
                 Objects.equal(mEvents, that.mEvents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mEvents);
+        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed, mEvents);
     }
 
     @Override
@@ -141,6 +153,7 @@ public class VerbatologModel {
                 .add("mPhone", mPhone)
                 .add("mEmail", mEmail)
                 .add("mLocationId", mLocationId)
+                .add("mIsArchimedAllowed", mIsArchimedAllowed)
                 .add("mEvents", mEvents)
                 .toString();
     }

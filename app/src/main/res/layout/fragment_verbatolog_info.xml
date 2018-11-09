@@ -78,6 +78,17 @@
                 android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
                 tools:text="test@test.ru"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/archimed_text_view"
+                android:textStyle="bold"
+                android:textSize="@dimen/verbatolog_small_text_size"
+                android:layout_marginLeft="@dimen/verbatolog_fields_left_margin"
+                android:layout_marginRight="@dimen/verbatolog_fields_right_margin"
+                android:layout_marginTop="@dimen/verbatolog_fields_top_margin"
+                tools:text="АРХИМЕД доступен"/>
+
             <View
                 android:background="@color/settings_divider_item_color"
                 android:layout_width="match_parent"

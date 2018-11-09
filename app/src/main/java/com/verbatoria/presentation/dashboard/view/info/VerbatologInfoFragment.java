@@ -54,6 +54,9 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     @BindView(R.id.location_id_text_view)
     public TextView mLocationIdTextView;
 
+    @BindView(R.id.archimed_text_view)
+    public TextView mArchimedesTextView;
+
     @BindView(R.id.verbatolog_status_view)
     public View mStatusView;
 
@@ -96,21 +99,6 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     }
 
     @Override
-    public void showVerbatologName(String verbatologName) {
-        mVerbatologNameTextView.setText(verbatologName);
-    }
-
-    @Override
-    public void showVerbatologEmail(String verbatologEmail) {
-        mVerbatologEmailTextView.setText(verbatologEmail);
-    }
-
-    @Override
-    public void showVerbatologPhone(String verbatologPhone) {
-        mVerbatologPhoneTextView.setText(verbatologPhone);
-    }
-
-    @Override
     public void showLocationPartner(String partner) {
         mPartnerNameTextView.setText(partner);
     }
@@ -136,10 +124,11 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
     }
 
     @Override
-    public void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail) {
-        showVerbatologName(verbatologFullName);
-        showVerbatologPhone(verbatologPhone);
-        showVerbatologEmail(verbatologEmail);
+    public void showVerbatologInfo(String verbatologFullName, String verbatologPhone, String verbatologEmail, boolean isArchimedAllowed) {
+        mVerbatologNameTextView.setText(verbatologFullName);
+        mVerbatologPhoneTextView.setText(verbatologPhone);
+        mVerbatologEmailTextView.setText(verbatologEmail);
+        mArchimedesTextView.setText(isArchimedAllowed ? getString(R.string.dashboard_archimedes_available) : getString(R.string.dashboard_archimedes_not_available));
     }
 
     @Override

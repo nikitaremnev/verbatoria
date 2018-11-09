@@ -56,6 +56,7 @@ public class PreferencesStorage {
     private static final String VERBATOLOG_PHONE_KEY = "VERBATOLOG_PHONE_KEY";
     private static final String VERBATOLOG_EMAIL_KEY = "VERBATOLOG_EMAIL_KEY";
     private static final String VERBATOLOG_LOCATION_ID_KEY = "VERBATOLOG_LOCATION_ID_KEY";
+    private static final String VERBATOLOG_IS_ARCHIMED_ALLOWED_KEY = "VERBATOLOG_IS_ARCHIMED_ALLOWED_KEY";
 
     private static final String LOCATION_ADDRESS_KEY = "LOCATION_ADDRESS_KEY";
     private static final String LOCATION_CITY_KEY = "LOCATION_CITY_KEY";
@@ -185,6 +186,7 @@ public class PreferencesStorage {
         editor.putString(VERBATOLOG_PHONE_KEY, verbatologModel.getPhone());
         editor.putString(VERBATOLOG_LOCATION_ID_KEY, verbatologModel.getLocationId());
         editor.putString(VERBATOLOG_EMAIL_KEY, verbatologModel.getEmail());
+        editor.putBoolean(VERBATOLOG_IS_ARCHIMED_ALLOWED_KEY, verbatologModel.isArchimedAllowed());
         editor.apply();
     }
 
@@ -208,7 +210,8 @@ public class PreferencesStorage {
                 .setFirstName(mCachePreferences.getString(VERBATOLOG_FIRST_NAME_KEY, null))
                 .setLastName(mCachePreferences.getString(VERBATOLOG_LAST_NAME_KEY, null))
                 .setMiddleName(mCachePreferences.getString(VERBATOLOG_MIDDLE_NAME_KEY, null))
-                .setPhone(mCachePreferences.getString(VERBATOLOG_PHONE_KEY, null));
+                .setPhone(mCachePreferences.getString(VERBATOLOG_PHONE_KEY, null))
+                .setIsArchimedAllowed(mCachePreferences.getBoolean(VERBATOLOG_IS_ARCHIMED_ALLOWED_KEY, false));
     }
 
     public LocationModel getLocationInfo() {

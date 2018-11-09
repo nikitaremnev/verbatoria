@@ -1,6 +1,7 @@
 package com.verbatoria.presentation.dashboard.presenter.main;
 
 import android.support.annotation.NonNull;
+
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
@@ -72,7 +73,7 @@ public class VerbatologInfoPresenter implements IVerbatologInfoPresenter {
     private void handleVerbatologInfoReceived(@NonNull VerbatologModel verbatologModel) {
         Logger.e(TAG, verbatologModel.toString());
         updateLocationInfo();
-        mVerbatologInfoView.showVerbatologInfo(verbatologModel.getFullName(), verbatologModel.getPhone(), verbatologModel.getEmail());
+        mVerbatologInfoView.showVerbatologInfo(verbatologModel.getFullName(), verbatologModel.getPhone(), verbatologModel.getEmail(), verbatologModel.isArchimedAllowed());
     }
 
     private void handleVerbatologInfoLoadingFailed(Throwable throwable) {
