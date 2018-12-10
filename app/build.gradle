@@ -1,12 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 apply plugin: 'me.tatarka.retrolambda'
-
-repositories {
-    flatDir {
-        dirs './../app/libs'
-    }
-}
 
 android {
 
@@ -52,7 +45,7 @@ android {
     }
 
     compileOptions {
-        incremental = false
+        incremental = true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -73,8 +66,8 @@ dependencies {
     compile "com.android.support:support-v4:${rootProject.supportLibraryVersion}"
     compile "com.android.support:gridlayout-v7:${rootProject.supportLibraryVersion}"
     compile "com.github.PhilJay:MPAndroidChart:${rootProject.mpAndroidChartVersion}"
-    compile "io.reactivex.rxjava2:rxjava:2.2.2"
-    compile 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    compile "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
+    compile "io.reactivex.rxjava2:rxandroid:${rootProject.rxJavaVersion}"
     compile "com.google.dagger:dagger:${rootProject.daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
     compile "com.jakewharton:butterknife:${rootProject.butterKnifeVersion}"

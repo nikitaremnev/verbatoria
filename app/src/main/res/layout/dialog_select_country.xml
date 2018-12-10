@@ -44,6 +44,11 @@
             android:layout_height="@dimen/field_height"
             layout="@layout/item_field_without_error_divider_subtitle"/>
 
+        <include android:id="@+id/uzbekistan_field"
+            android:layout_width="@dimen/activity_login_country_field_width"
+            android:layout_height="@dimen/field_height"
+            layout="@layout/item_field_without_error_divider_subtitle"/>
+
     </LinearLayout>
 
 </ScrollView>

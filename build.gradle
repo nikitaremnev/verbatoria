@@ -17,12 +17,10 @@ buildscript {
         jcenter()
         google()
         mavenCentral()
-        maven { url 'https://maven.fabric.io/public' }
     }
 
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleBuildToolsVersion"
-        classpath "io.fabric.tools:gradle:$fabricToolsVersion"
         classpath "me.tatarka:gradle-retrolambda:${rootProject.retrolambdaVersion}"
     }
 }

@@ -9,6 +9,7 @@
     <string name="login_thailand_phone_mask">+ [00] [00] [00000000]</string>
     <string name="login_belarus_phone_mask">+ [000] [00] [000] [00] [00]</string>
     <string name="login_israel_phone_mask">+ [000] [00] [0000000]</string>
+    <string name="login_uzbekistan_phone_mask">+ [000] [00] [0000000]</string>
 
     <string name="login_password_hint">Пароль</string>
 
@@ -29,6 +30,7 @@
     <string name="country_uae">ОАЭ</string>
     <string name="country_thailand">Таиланд</string>
     <string name="country_israel">Израиль</string>
+    <string name="country_uzbekistan">Узбекинстан</string>
 
     <string name="select_country">Выберите местоположение</string>
 
