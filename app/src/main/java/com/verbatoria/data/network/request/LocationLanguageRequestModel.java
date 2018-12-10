@@ -2,8 +2,8 @@ package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -39,7 +39,7 @@ public class LocationLanguageRequestModel {
             return false;
         }
         LocationLanguageRequestModel that = (LocationLanguageRequestModel) o;
-        return Objects.equal(mLocale, that.mLocale);
+        return Objects.equals(mLocale, that.mLocale);
     }
 
     @Override
@@ -49,8 +49,6 @@ public class LocationLanguageRequestModel {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mLocale", mLocale)
-                .toString();
+        return Objects.toString(this);
     }
 }

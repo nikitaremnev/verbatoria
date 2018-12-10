@@ -3,7 +3,7 @@ package com.verbatoria.business.token.processor;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.token.interactor.TokenInteractorException;
 import com.verbatoria.business.token.models.TokenModel;

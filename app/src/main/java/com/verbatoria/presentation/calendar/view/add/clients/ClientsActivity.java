@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.di.calendar.CalendarModule;

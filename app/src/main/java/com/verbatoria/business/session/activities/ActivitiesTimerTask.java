@@ -2,7 +2,7 @@ package com.verbatoria.business.session.activities;
 
 import android.content.Context;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.utils.DateUtils;

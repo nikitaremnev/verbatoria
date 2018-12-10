@@ -1,7 +1,6 @@
 package com.verbatoria.data.repositories.session.model;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 /**
  * Базовая сущность Measurement
@@ -44,8 +43,6 @@ public class BaseMeasurement {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mTimestamp", mTimestamp)
-                .toString();
+        return Objects.toString(this);
     }
 }

@@ -3,12 +3,8 @@ package com.verbatoria.business.dashboard.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Реализация модели для записи нейрометрии
@@ -132,33 +128,24 @@ public class LocationModel implements Parcelable {
             return false;
         }
         LocationModel that = (LocationModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mName, that.mName) &&
-                Objects.equal(mAddress, that.mAddress) &&
-                Objects.equal(mLocale, that.mLocale) &&
-                Objects.equal(mAvailableLocales, that.mAvailableLocales) &&
-                Objects.equal(mPartner, that.mPartner) &&
-                Objects.equal(mCity, that.mCity) &&
-                Objects.equal(mCountry, that.mCountry);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mName, that.mName) &&
+                Objects.equals(mAddress, that.mAddress) &&
+                Objects.equals(mLocale, that.mLocale) &&
+                Objects.equals(mAvailableLocales, that.mAvailableLocales) &&
+                Objects.equals(mPartner, that.mPartner) &&
+                Objects.equals(mCity, that.mCity) &&
+                Objects.equals(mCountry, that.mCountry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mAddress, mLocale, mAvailableLocales, mPartner, mCity, mCountry);
+        return Objects.hash(mId, mName, mAddress, mLocale, mAvailableLocales, mPartner, mCity, mCountry);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mName", mName)
-                .add("mAddress", mAddress)
-                .add("mLocale", mLocale)
-                .add("mAvailableLocales", mAvailableLocales)
-                .add("mPartner", mPartner)
-                .add("mCity", mCity)
-                .add("mCountry", mCountry)
-                .toString();
+        return Objects.toString(this);
     }
 
 

@@ -2,8 +2,8 @@ package com.verbatoria.business.dashboard.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  * Реализация модели для возрастной группы для Архимеда
@@ -65,16 +65,12 @@ public class AgeGroupModel implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mMinAge, mMaxAge, mIsArchimedAllowed);
+        return Objects.hash(mMinAge, mMaxAge, mIsArchimedAllowed);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mMinAge", mMinAge)
-                .add("mMaxAge", mMaxAge)
-                .add("mIsArchimedAllowed", mIsArchimedAllowed)
-                .toString();
+        return Objects.toString(this);
     }
 
     @Override

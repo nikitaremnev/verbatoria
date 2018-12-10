@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  * @author nikitaremnev
@@ -80,25 +80,20 @@ public class ClientRequestModel implements Parcelable {
             return false;
         }
         ClientRequestModel that = (ClientRequestModel) o;
-        return Objects.equal(mName, that.mName) &&
-                Objects.equal(mEmail, that.mEmail) &&
-                Objects.equal(mPhone, that.mPhone) &&
-                Objects.equal(mPhoneCountry, that.mPhoneCountry);
+        return Objects.equals(mName, that.mName) &&
+                Objects.equals(mEmail, that.mEmail) &&
+                Objects.equals(mPhone, that.mPhone) &&
+                Objects.equals(mPhoneCountry, that.mPhoneCountry);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mName, mEmail, mPhone, mPhoneCountry);
+        return Objects.hash(mName, mEmail, mPhone, mPhoneCountry);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mName", mName)
-                .add("mEmail", mEmail)
-                .add("mPhone", mPhone)
-                .add("mPhoneCountry", mPhoneCountry)
-                .toString();
+        return Objects.toString(this);
     }
 
     @Override

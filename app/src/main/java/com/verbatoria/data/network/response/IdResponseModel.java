@@ -6,8 +6,8 @@ import android.os.Parcelable;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -44,7 +44,7 @@ public class IdResponseModel implements Parcelable {
             return false;
         }
         IdResponseModel that = (IdResponseModel) o;
-        return Objects.equal(mId, that.mId);
+        return Objects.equals(mId, that.mId);
     }
 
     @Override
@@ -54,9 +54,7 @@ public class IdResponseModel implements Parcelable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .toString();
+        return Objects.toString(this);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.verbatoria.data.repositories.session.model;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 /**
  * Сущность ActivityEvent для получения событий активностей из репозитория
@@ -51,13 +50,11 @@ public class EventMeasurement extends BaseMeasurement {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(super.hashCode(), mActivityCode);
+        return Objects.hash(super.hashCode(), mActivityCode);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mActivityCode", mActivityCode)
-                .toString();
+        return Objects.toString(this);
     }
 }

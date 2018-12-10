@@ -7,8 +7,8 @@ import android.support.annotation.Nullable;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  * @author nikitaremnev
@@ -95,16 +95,16 @@ public class ChildModel implements Parcelable {
             return false;
         }
         ChildModel that = (ChildModel) o;
-        return Objects.equal(mName, that.mName) &&
-                Objects.equal(mBirthday, that.mBirthday) &&
-                Objects.equal(mId, that.mId) &&
-                Objects.equal(mClientId, that.mClientId) &&
-                Objects.equal(mGender, that.mGender);
+        return Objects.equals(mName, that.mName) &&
+                Objects.equals(mBirthday, that.mBirthday) &&
+                Objects.equals(mId, that.mId) &&
+                Objects.equals(mClientId, that.mClientId) &&
+                Objects.equals(mGender, that.mGender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mName, mBirthday, mId, mClientId, mGender);
+        return Objects.hash(mName, mBirthday, mId, mClientId, mGender);
     }
 
 
@@ -144,12 +144,7 @@ public class ChildModel implements Parcelable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mName", mName)
-                .add("mBirthday", mBirthday)
-                .add("mId", mId)
-                .add("mClientId", mClientId)
-                .add("mGender", mGender)
-                .toString();
+        return Objects.toString(this);
     }
+
 }

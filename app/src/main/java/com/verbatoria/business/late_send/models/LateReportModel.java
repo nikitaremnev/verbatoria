@@ -1,9 +1,7 @@
 package com.verbatoria.business.late_send.models;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Реализация модели для поздней отправки отчета
@@ -91,28 +89,21 @@ public class LateReportModel {
             return false;
         }
         LateReportModel that = (LateReportModel) o;
-        return Objects.equal(mSessionId, that.mSessionId) &&
-                Objects.equal(mStartAt, that.mStartAt) &&
-                Objects.equal(mEndAt, that.mEndAt) &&
-                Objects.equal(mChildName, that.mChildName) &&
-                Objects.equal(mReportId, that.mReportId) &&
-                Objects.equal(mReportFileName, that.mReportFileName);
+        return Objects.equals(mSessionId, that.mSessionId) &&
+                Objects.equals(mStartAt, that.mStartAt) &&
+                Objects.equals(mEndAt, that.mEndAt) &&
+                Objects.equals(mChildName, that.mChildName) &&
+                Objects.equals(mReportId, that.mReportId) &&
+                Objects.equals(mReportFileName, that.mReportFileName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mSessionId, mStartAt, mEndAt, mChildName, mReportId, mReportFileName);
+        return Objects.hash(mSessionId, mStartAt, mEndAt, mChildName, mReportId, mReportFileName);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mSessionId", mSessionId)
-                .add("mStartAt", mStartAt)
-                .add("mEndAt", mEndAt)
-                .add("mChildName", mChildName)
-                .add("mReportId", mReportId)
-                .add("mReportFileName", mReportFileName)
-                .toString();
+        return Objects.toString(this);
     }
 }

@@ -2,8 +2,8 @@ package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -39,7 +39,7 @@ public class StartSessionRequestModel {
             return false;
         }
         StartSessionRequestModel that = (StartSessionRequestModel) o;
-        return Objects.equal(mEventId, that.mEventId);
+        return Objects.equals(mEventId, that.mEventId);
     }
 
     @Override
@@ -49,8 +49,6 @@ public class StartSessionRequestModel {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mEventId", mEventId)
-                .toString();
+        return Objects.toString(this);
     }
 }

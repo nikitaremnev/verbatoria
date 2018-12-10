@@ -3,7 +3,7 @@ package com.verbatoria.presentation.schedule.view.adapter.viewholder;
 import android.view.View;
 
 import com.cleveroad.adaptivetablelayout.ViewHolderImpl;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 
 /**
  * View Holder для отображения ячейки события

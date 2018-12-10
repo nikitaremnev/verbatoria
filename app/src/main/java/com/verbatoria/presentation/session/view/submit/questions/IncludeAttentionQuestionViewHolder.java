@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 
 import javax.inject.Inject;
 

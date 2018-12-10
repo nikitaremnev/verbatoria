@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -77,24 +77,19 @@ public class LoginResponseModel {
             return false;
         }
         LoginResponseModel that = (LoginResponseModel) o;
-        return Objects.equal(mAccessToken, that.mAccessToken) &&
-                Objects.equal(mExpiresToken, that.mExpiresToken) &&
-                Objects.equal(mStatus, that.mStatus) &&
-                Objects.equal(mLocationId, that.mLocationId);
+        return Objects.equals(mAccessToken, that.mAccessToken) &&
+                Objects.equals(mExpiresToken, that.mExpiresToken) &&
+                Objects.equals(mStatus, that.mStatus) &&
+                Objects.equals(mLocationId, that.mLocationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mAccessToken, mExpiresToken, mStatus, mLocationId);
+        return Objects.hash(mAccessToken, mExpiresToken, mStatus, mLocationId);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mAccessToken", mAccessToken)
-                .add("mExpiresToken", mExpiresToken)
-                .add("mStatus", mStatus)
-                .add("mLocationId", mLocationId)
-                .toString();
+        return Objects.toString(this);
     }
 }

@@ -3,11 +3,10 @@ package com.verbatoria.business.dashboard.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.verbatoria.utils.DateUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 import static com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeDialogFragment.START_AGE;
 
@@ -143,27 +142,21 @@ public class ChildModel implements Parcelable {
             return false;
         }
         ChildModel that = (ChildModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mName, that.mName) &&
-                Objects.equal(mBirthday, that.mBirthday) &&
-                Objects.equal(mClientId, that.mClientId) &&
-                Objects.equal(mGender, that.mGender);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mName, that.mName) &&
+                Objects.equals(mBirthday, that.mBirthday) &&
+                Objects.equals(mClientId, that.mClientId) &&
+                Objects.equals(mGender, that.mGender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mBirthday, mClientId, mGender);
+        return Objects.hash(mId, mName, mBirthday, mClientId, mGender);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mName", mName)
-                .add("mBirthday", mBirthday)
-                .add("mClientId", mClientId)
-                .add("mGender", mGender)
-                .toString();
+        return Objects.toString(this);
     }
 
     @Override

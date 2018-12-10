@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -47,7 +47,7 @@ public class MessageResponseModel {
             return false;
         }
         MessageResponseModel that = (MessageResponseModel) o;
-        return Objects.equal(mMessage, that.mMessage);
+        return Objects.equals(mMessage, that.mMessage);
     }
 
     @Override
@@ -57,9 +57,7 @@ public class MessageResponseModel {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mMessage", mMessage)
-                .toString();
+        return Objects.toString(this);
     }
 
 }

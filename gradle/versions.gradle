@@ -1,0 +1,29 @@
+ext {
+
+    applicationId = "ru.verbatoria"
+    versionName = "10.0.2"
+    versionCode = 23
+
+    compileSdkVersion = 28
+    targetSdkVersion = 26
+    minimumSdkVersion = 21
+
+    buildToolsVersion = "28.0.3"
+    supportLibraryVersion = '28.0.0'
+    multidexVersion = "1.0.3"
+    gradleBuildToolsVersion = "3.2.1"
+
+    daggerVersion = "2.17"
+    retrofitVersion = "2.3.0"
+    butterKnifeVersion = "8.6.0"
+    crashlyticsVersion = "2.5.1@aar"
+    mpAndroidChartVersion = "v2.2.0"
+    okHttpVersion = "3.11.0"
+    rxBindingVersion = "0.4.0"
+    inputMaskVersion = "2.3.0"
+    calligraphyVersion = "2.3.0"
+    adaptiveTableLayoutVersion = "1.1.1"
+    retrolambdaVersion = "3.6.1"
+    fabricToolsVersion = "1.26.1"
+
+}

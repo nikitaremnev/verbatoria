@@ -13,8 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
-import com.remnev.verbatoriamini.BuildConfig;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.BuildConfig;
+import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.infrastructure.BaseActivity;

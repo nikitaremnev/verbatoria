@@ -1,11 +1,10 @@
 package com.verbatoria.business.token.models;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.verbatoria.utils.DateUtils;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Модель токена - возращается после регистрации
@@ -73,25 +72,20 @@ public class TokenModel {
             return false;
         }
         TokenModel that = (TokenModel) o;
-        return Objects.equal(mAccessToken, that.mAccessToken) &&
-                Objects.equal(mExpireDate, that.mExpireDate) &&
-                Objects.equal(mStatus, that.mStatus) &&
-                Objects.equal(mLocationId, that.mLocationId);
+        return Objects.equals(mAccessToken, that.mAccessToken) &&
+                Objects.equals(mExpireDate, that.mExpireDate) &&
+                Objects.equals(mStatus, that.mStatus) &&
+                Objects.equals(mLocationId, that.mLocationId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mAccessToken, mExpireDate, mStatus, mLocationId);
+        return Objects.hash(mAccessToken, mExpireDate, mStatus, mLocationId);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mAccessToken", mAccessToken)
-                .add("mExpireDate", mExpireDate)
-                .add("mStatus", mStatus)
-                .add("mLocationId", mLocationId)
-                .toString();
+        return Objects.toString(this);
     }
 
 }

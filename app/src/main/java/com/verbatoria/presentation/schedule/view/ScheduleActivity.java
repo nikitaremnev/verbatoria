@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 
 import com.cleveroad.adaptivetablelayout.AdaptiveTableLayout;
 import com.cleveroad.adaptivetablelayout.OnItemClickListener;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 import com.verbatoria.di.schedule.ScheduleModule;

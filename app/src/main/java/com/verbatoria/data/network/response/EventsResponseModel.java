@@ -3,10 +3,9 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -47,25 +46,18 @@ public class EventsResponseModel extends PagingResponseModel {
         return mTotalEntries == that.mTotalEntries &&
                 mPerPage == that.mPerPage &&
                 mCurrentPage == that.mCurrentPage &&
-                Objects.equal(mNextPage, that.mNextPage) &&
-                Objects.equal(mPreviousPage, that.mPreviousPage) &&
-                Objects.equal(mEvents, that.mEvents);
+                Objects.equals(mNextPage, that.mNextPage) &&
+                Objects.equals(mPreviousPage, that.mPreviousPage) &&
+                Objects.equals(mEvents, that.mEvents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage, mEvents);
+        return Objects.hash(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage, mEvents);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mTotalEntries", mTotalEntries)
-                .add("mPerPage", mPerPage)
-                .add("mCurrentPage", mCurrentPage)
-                .add("mNextPage", mNextPage)
-                .add("mPreviousPage", mPreviousPage)
-                .add("mEvents", mEvents)
-                .toString();
+        return Objects.toString(this);
     }
 }

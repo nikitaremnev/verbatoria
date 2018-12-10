@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -113,31 +113,23 @@ public class VerbatologInfoResponseModel {
             return false;
         }
         VerbatologInfoResponseModel that = (VerbatologInfoResponseModel) o;
-        return Objects.equal(mFirstName, that.mFirstName) &&
-                Objects.equal(mLastName, that.mLastName) &&
-                Objects.equal(mMiddleName, that.mMiddleName) &&
-                Objects.equal(mPhone, that.mPhone) &&
-                Objects.equal(mEmail, that.mEmail) &&
-                Objects.equal(mLocationId, that.mLocationId) &&
-                Objects.equal(mIsArchimedAllowed, that.mIsArchimedAllowed);
+        return Objects.equals(mFirstName, that.mFirstName) &&
+                Objects.equals(mLastName, that.mLastName) &&
+                Objects.equals(mMiddleName, that.mMiddleName) &&
+                Objects.equals(mPhone, that.mPhone) &&
+                Objects.equals(mEmail, that.mEmail) &&
+                Objects.equals(mLocationId, that.mLocationId) &&
+                Objects.equals(mIsArchimedAllowed, that.mIsArchimedAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed);
+        return Objects.hash(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mFirstName", mFirstName)
-                .add("mLastName", mLastName)
-                .add("mMiddleName", mMiddleName)
-                .add("mPhone", mPhone)
-                .add("mEmail", mEmail)
-                .add("mLocationId", mLocationId)
-                .add("mIsArchimedAllowed", mIsArchimedAllowed)
-                .toString();
+        return Objects.toString(this);
     }
 
 }

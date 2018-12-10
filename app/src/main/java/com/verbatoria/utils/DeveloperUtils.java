@@ -2,7 +2,7 @@ package com.verbatoria.utils;
 
 import android.os.Build;
 
-import com.remnev.verbatoriamini.BuildConfig;
+import com.remnev.verbatoria.BuildConfig;
 
 /**
  * Утилиты для разработчика

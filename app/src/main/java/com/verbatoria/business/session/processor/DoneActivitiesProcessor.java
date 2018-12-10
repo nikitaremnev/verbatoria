@@ -2,7 +2,7 @@ package com.verbatoria.business.session.processor;
 
 import android.text.TextUtils;
 
-import com.remnev.verbatoriamini.BuildConfig;
+import com.remnev.verbatoria.BuildConfig;
 import com.verbatoria.utils.Logger;
 
 import java.util.HashMap;

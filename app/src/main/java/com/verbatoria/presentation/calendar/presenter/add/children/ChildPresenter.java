@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.data.network.common.ClientModel;

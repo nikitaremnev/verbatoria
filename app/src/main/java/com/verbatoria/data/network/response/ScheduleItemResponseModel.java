@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -68,22 +68,18 @@ public class ScheduleItemResponseModel {
             return false;
         }
         ScheduleItemResponseModel that = (ScheduleItemResponseModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mFromTime, that.mFromTime) &&
-                Objects.equal(mToTime, that.mToTime);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mFromTime, that.mFromTime) &&
+                Objects.equals(mToTime, that.mToTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mFromTime, mToTime);
+        return Objects.hash(mId, mFromTime, mToTime);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mFromTime", mFromTime)
-                .add("mToTime", mToTime)
-                .toString();
+        return Objects.toString(this);
     }
 }

@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

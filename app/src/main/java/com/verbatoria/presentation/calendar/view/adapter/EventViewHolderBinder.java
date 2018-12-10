@@ -2,7 +2,7 @@ package com.verbatoria.presentation.calendar.view.adapter;
 
 import android.content.Context;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.ReportModel;
 

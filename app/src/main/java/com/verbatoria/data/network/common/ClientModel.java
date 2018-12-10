@@ -8,11 +8,10 @@ import android.text.TextUtils;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.verbatoria.data.network.response.IdResponseModel;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author nikitaremnev
@@ -100,29 +99,22 @@ public class ClientModel implements Parcelable {
             return false;
         }
         ClientModel that = (ClientModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mName, that.mName) &&
-                Objects.equal(mEmail, that.mEmail) &&
-                Objects.equal(mPhone, that.mPhone) &&
-                Objects.equal(mChildren, that.mChildren);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mName, that.mName) &&
+                Objects.equals(mEmail, that.mEmail) &&
+                Objects.equals(mPhone, that.mPhone) &&
+                Objects.equals(mChildren, that.mChildren);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName, mEmail, mPhone, mChildren);
+        return Objects.hash(mId, mName, mEmail, mPhone, mChildren);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mName", mName)
-                .add("mEmail", mEmail)
-                .add("mPhone", mPhone)
-                .add("mChildren", mChildren)
-                .toString();
+        return Objects.toString(this);
     }
-
 
     @Override
     public int describeContents() {

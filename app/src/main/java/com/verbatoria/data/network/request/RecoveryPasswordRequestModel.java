@@ -2,8 +2,8 @@ package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -43,18 +43,16 @@ public class RecoveryPasswordRequestModel {
             return false;
         }
         RecoveryPasswordRequestModel that = (RecoveryPasswordRequestModel) o;
-        return Objects.equal(mPhone, that.mPhone);
+        return Objects.equals(mPhone, that.mPhone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mPhone);
+        return Objects.hash(mPhone);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mPhone", mPhone)
-                .toString();
+        return Objects.toString(this);
     }
 }

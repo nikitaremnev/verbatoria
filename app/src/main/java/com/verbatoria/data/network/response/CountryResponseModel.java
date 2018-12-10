@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -52,21 +52,18 @@ public class CountryResponseModel {
             return false;
         }
         CountryResponseModel that = (CountryResponseModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mName, that.mName);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mName, that.mName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mName);
+        return Objects.hash(mId, mName);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mName", mName)
-                .toString();
+        return Objects.toString(this);
     }
 }
 

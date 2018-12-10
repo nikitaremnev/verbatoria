@@ -2,8 +2,7 @@ package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 /**
  *
@@ -103,28 +102,21 @@ public class EventRequestModel {
             return false;
         }
         EventRequestModel that = (EventRequestModel) o;
-        return Objects.equal(mChildId, that.mChildId) &&
-                Objects.equal(mLocationId, that.mLocationId) &&
-                Objects.equal(mStartAt, that.mStartAt) &&
-                Objects.equal(mEndAt, that.mEndAt) &&
-                Objects.equal(mIsInstantReport, that.mIsInstantReport) &&
-                Objects.equal(mArchimed, that.mArchimed);
+        return Objects.equals(mChildId, that.mChildId) &&
+                Objects.equals(mLocationId, that.mLocationId) &&
+                Objects.equals(mStartAt, that.mStartAt) &&
+                Objects.equals(mEndAt, that.mEndAt) &&
+                Objects.equals(mIsInstantReport, that.mIsInstantReport) &&
+                Objects.equals(mArchimed, that.mArchimed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport, mArchimed);
+        return Objects.hash(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport, mArchimed);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mChildId", mChildId)
-                .add("mLocationId", mLocationId)
-                .add("mStartAt", mStartAt)
-                .add("mEndAt", mEndAt)
-                .add("mIsInstantReport", mIsInstantReport)
-                .add("mArchimed", mArchimed)
-                .toString();
+        return Objects.toString(this);
     }
 }

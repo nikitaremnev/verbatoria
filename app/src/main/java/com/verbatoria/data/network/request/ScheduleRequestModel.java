@@ -3,10 +3,9 @@ package com.verbatoria.data.network.request;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -44,7 +43,7 @@ public class ScheduleRequestModel {
             return false;
         }
         ScheduleRequestModel that = (ScheduleRequestModel) o;
-        return Objects.equal(mScheduleItems, that.mScheduleItems);
+        return Objects.equals(mScheduleItems, that.mScheduleItems);
     }
 
     @Override
@@ -54,8 +53,6 @@ public class ScheduleRequestModel {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mScheduleItems", mScheduleItems)
-                .toString();
+        return Objects.toString(this);
     }
 }

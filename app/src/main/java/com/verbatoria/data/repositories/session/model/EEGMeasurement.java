@@ -1,7 +1,7 @@
 package com.verbatoria.data.repositories.session.model;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  * Сущность для получения eeg из репозитория
@@ -128,20 +128,11 @@ public class EEGMeasurement extends BaseMeasurement {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(super.hashCode(), mDeltaValue, mThetaValue, mLowAlphaValue, mHighAlphaValue, mLowBetaValue, mHighBetaValue, mLowGammaValue, mMidGammaValue);
+        return Objects.hash(super.hashCode(), mDeltaValue, mThetaValue, mLowAlphaValue, mHighAlphaValue, mLowBetaValue, mHighBetaValue, mLowGammaValue, mMidGammaValue);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mDeltaValue", mDeltaValue)
-                .add("mThetaValue", mThetaValue)
-                .add("mLowAlphaValue", mLowAlphaValue)
-                .add("mHighAlphaValue", mHighAlphaValue)
-                .add("mLowBetaValue", mLowBetaValue)
-                .add("mHighBetaValue", mHighBetaValue)
-                .add("mLowGammaValue", mLowGammaValue)
-                .add("mMidGammaValue", mMidGammaValue)
-                .toString();
+        return Objects.toString(this);
     }
 }

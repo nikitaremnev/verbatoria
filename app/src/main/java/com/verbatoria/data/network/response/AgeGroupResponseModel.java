@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -88,17 +88,12 @@ public class AgeGroupResponseModel {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mMinAge, mMaxAge, mFullName, mIsArchimedAllowed);
+        return Objects.hash(mMinAge, mMaxAge, mFullName, mIsArchimedAllowed);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mMinAge", mMinAge)
-                .add("mMaxAge", mMaxAge)
-                .add("mFullName", mFullName)
-                .add("mIsArchimedAllowed", mIsArchimedAllowed)
-                .toString();
+        return Objects.toString(this);
     }
 
 }

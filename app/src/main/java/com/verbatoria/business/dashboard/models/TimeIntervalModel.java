@@ -3,11 +3,10 @@ package com.verbatoria.business.dashboard.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.verbatoria.utils.DateUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Реализация модели для выбора времени записи нейрометрии
@@ -67,24 +66,19 @@ public class TimeIntervalModel implements Parcelable {
         }
         TimeIntervalModel that = (TimeIntervalModel) o;
         return mIsAvailable == that.mIsAvailable &&
-                Objects.equal(mStartAt, that.mStartAt) &&
-                Objects.equal(mEndAt, that.mEndAt);
+                Objects.equals(mStartAt, that.mStartAt) &&
+                Objects.equals(mEndAt, that.mEndAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mStartAt, mEndAt, mIsAvailable);
+        return Objects.hash(mStartAt, mEndAt, mIsAvailable);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mStartAt", mStartAt)
-                .add("mEndAt", mEndAt)
-                .add("mIsAvailable", mIsAvailable)
-                .toString();
+        return Objects.toString(this);
     }
-
 
     @Override
     public int describeContents() {

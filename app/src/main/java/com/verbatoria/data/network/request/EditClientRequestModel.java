@@ -5,8 +5,8 @@ import android.os.Parcelable;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  * @author nikitaremnev
@@ -40,7 +40,7 @@ public class EditClientRequestModel implements Parcelable {
             return false;
         }
         EditClientRequestModel that = (EditClientRequestModel) o;
-        return Objects.equal(mClient, that.mClient);
+        return Objects.equals(mClient, that.mClient);
     }
 
     @Override
@@ -50,11 +50,8 @@ public class EditClientRequestModel implements Parcelable {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mClient", mClient)
-                .toString();
+        return Objects.toString(this);
     }
-
 
     @Override
     public int describeContents() {

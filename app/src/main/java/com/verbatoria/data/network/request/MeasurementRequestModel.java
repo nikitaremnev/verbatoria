@@ -2,8 +2,8 @@ package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -337,51 +337,27 @@ public class MeasurementRequestModel {
                 mHighBetaValue == that.mHighBetaValue &&
                 mLowGammaValue == that.mLowGammaValue &&
                 mMidGammaValue == that.mMidGammaValue &&
-                Objects.equal(mDeviceId, that.mDeviceId) &&
-                Objects.equal(mBCIId, that.mBCIId) &&
-                Objects.equal(mEventId, that.mEventId) &&
-                Objects.equal(mLogopedModeId, that.mLogopedModeId) &&
-                Objects.equal(mWord, that.mWord) &&
-                Objects.equal(mBlock, that.mBlock) &&
-                Objects.equal(mMistake, that.mMistake) &&
-                Objects.equal(mReserveBlank1, that.mReserveBlank1) &&
-                Objects.equal(mReserveBlank2, that.mReserveBlank2) &&
-                Objects.equal(mCreatedAtDate, that.mCreatedAtDate) &&
-                Objects.equal(mUpdatedAtDate, that.mUpdatedAtDate);
+                Objects.equals(mDeviceId, that.mDeviceId) &&
+                Objects.equals(mBCIId, that.mBCIId) &&
+                Objects.equals(mEventId, that.mEventId) &&
+                Objects.equals(mLogopedModeId, that.mLogopedModeId) &&
+                Objects.equals(mWord, that.mWord) &&
+                Objects.equals(mBlock, that.mBlock) &&
+                Objects.equals(mMistake, that.mMistake) &&
+                Objects.equals(mReserveBlank1, that.mReserveBlank1) &&
+                Objects.equals(mReserveBlank2, that.mReserveBlank2) &&
+                Objects.equals(mCreatedAtDate, that.mCreatedAtDate) &&
+                Objects.equals(mUpdatedAtDate, that.mUpdatedAtDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mReportId, mActionId, mDeviceId, mBCIId, mEventId, mLogopedModeId, mWord, mBlock, mMistake, mReserveBlank1, mReserveBlank2, mAttentionValue, mMediationValue, mDeltaValue, mThetaValue, mLowAlphaValue, mHighAlphaValue, mLowBetaValue, mHighBetaValue, mLowGammaValue, mMidGammaValue, mCreatedAtDate, mUpdatedAtDate);
+        return Objects.hash(mReportId, mActionId, mDeviceId, mBCIId, mEventId, mLogopedModeId, mWord, mBlock, mMistake, mReserveBlank1, mReserveBlank2, mAttentionValue, mMediationValue, mDeltaValue, mThetaValue, mLowAlphaValue, mHighAlphaValue, mLowBetaValue, mHighBetaValue, mLowGammaValue, mMidGammaValue, mCreatedAtDate, mUpdatedAtDate);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mReportId", mReportId)
-                .add("mActionId", mActionId)
-                .add("mDeviceId", mDeviceId)
-                .add("mBCIId", mBCIId)
-                .add("mEventId", mEventId)
-                .add("mLogopedModeId", mLogopedModeId)
-                .add("mWord", mWord)
-                .add("mBlock", mBlock)
-                .add("mMistake", mMistake)
-                .add("mReserveBlank1", mReserveBlank1)
-                .add("mReserveBlank2", mReserveBlank2)
-                .add("mAttentionValue", mAttentionValue)
-                .add("mMediationValue", mMediationValue)
-                .add("mDeltaValue", mDeltaValue)
-                .add("mThetaValue", mThetaValue)
-                .add("mLowAlphaValue", mLowAlphaValue)
-                .add("mHighAlphaValue", mHighAlphaValue)
-                .add("mLowBetaValue", mLowBetaValue)
-                .add("mHighBetaValue", mHighBetaValue)
-                .add("mLowGammaValue", mLowGammaValue)
-                .add("mMidGammaValue", mMidGammaValue)
-                .add("mCreatedAtDate", mCreatedAtDate)
-                .add("mUpdatedAtDate", mUpdatedAtDate)
-                .toString();
+        return Objects.toString(this);
     }
 
 

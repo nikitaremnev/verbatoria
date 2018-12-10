@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import javax.inject.Inject;
 import butterknife.BindDrawable;
 import butterknife.BindView;

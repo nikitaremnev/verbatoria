@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -131,32 +131,23 @@ public class ReportResponseModel {
             return false;
         }
         ReportResponseModel that = (ReportResponseModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mChildId, that.mChildId) &&
-                Objects.equal(mLocationId, that.mLocationId) &&
-                Objects.equal(mVerbatologId, that.mVerbatologId) &&
-                Objects.equal(mReportId, that.mReportId) &&
-                Objects.equal(mStatus, that.mStatus) &&
-                Objects.equal(mCreatedAt, that.mCreatedAt) &&
-                Objects.equal(mUpdatedAt, that.mUpdatedAt);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mChildId, that.mChildId) &&
+                Objects.equals(mLocationId, that.mLocationId) &&
+                Objects.equals(mVerbatologId, that.mVerbatologId) &&
+                Objects.equals(mReportId, that.mReportId) &&
+                Objects.equals(mStatus, that.mStatus) &&
+                Objects.equals(mCreatedAt, that.mCreatedAt) &&
+                Objects.equals(mUpdatedAt, that.mUpdatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mChildId, mLocationId, mVerbatologId, mReportId, mStatus, mCreatedAt, mUpdatedAt);
+        return Objects.hash(mId, mChildId, mLocationId, mVerbatologId, mReportId, mStatus, mCreatedAt, mUpdatedAt);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mChildId", mChildId)
-                .add("mLocationId", mLocationId)
-                .add("mVerbatologId", mVerbatologId)
-                .add("mReportId", mReportId)
-                .add("mStatus", mStatus)
-                .add("mCreatedAt", mCreatedAt)
-                .add("mUpdatedAt", mUpdatedAt)
-                .toString();
+        return Objects.toString(this);
     }
 }

@@ -2,8 +2,7 @@ package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 /**
  *
@@ -39,7 +38,7 @@ public class EditEventRequestModel {
             return false;
         }
         EditEventRequestModel that = (EditEventRequestModel) o;
-        return Objects.equal(mEvent, that.mEvent);
+        return Objects.equals(mEvent, that.mEvent);
     }
 
     @Override
@@ -49,8 +48,6 @@ public class EditEventRequestModel {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mEvent", mEvent)
-                .toString();
+        return Objects.toString(this);
     }
 }

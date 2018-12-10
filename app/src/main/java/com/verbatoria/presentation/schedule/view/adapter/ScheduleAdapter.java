@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.cleveroad.adaptivetablelayout.LinkedAdaptiveTableAdapter;
 import com.cleveroad.adaptivetablelayout.ViewHolderImpl;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 import com.verbatoria.business.schedule.models.ScheduleItemModel;
 import com.verbatoria.presentation.schedule.view.adapter.viewholder.ColumnHeaderViewHolder;

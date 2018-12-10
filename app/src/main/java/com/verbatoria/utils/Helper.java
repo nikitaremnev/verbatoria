@@ -3,7 +3,7 @@ package com.verbatoria.utils;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 
 /**
  *

@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.presentation.late_send.view.ILateSendView;
 

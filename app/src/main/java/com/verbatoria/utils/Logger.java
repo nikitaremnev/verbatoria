@@ -1,7 +1,8 @@
 package com.verbatoria.utils;
 
-import android.support.compat.BuildConfig;
 import android.util.Log;
+
+import com.remnev.verbatoria.BuildConfig;
 
 /**
  * Класс для логирования

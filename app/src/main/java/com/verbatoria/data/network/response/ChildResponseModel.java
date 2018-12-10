@@ -3,8 +3,8 @@ package com.verbatoria.data.network.response;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+
+import java.util.Objects;
 
 /**
  *
@@ -88,27 +88,22 @@ public class ChildResponseModel {
             return false;
         }
         ChildResponseModel that = (ChildResponseModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mClientId, that.mClientId) &&
-                Objects.equal(mName, that.mName) &&
-                Objects.equal(mBirthday, that.mBirthday) &&
-                Objects.equal(mGender, that.mGender);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mClientId, that.mClientId) &&
+                Objects.equals(mName, that.mName) &&
+                Objects.equals(mBirthday, that.mBirthday) &&
+                Objects.equals(mGender, that.mGender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mClientId, mName, mBirthday, mGender);
+        return Objects.hash(mId, mClientId, mName, mBirthday, mGender);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mClientId", mClientId)
-                .add("mName", mName)
-                .add("mBirthday", mBirthday)
-                .add("mGender", mGender)
-                .toString();
+        return Objects.toString(this);
     }
+
 }
 

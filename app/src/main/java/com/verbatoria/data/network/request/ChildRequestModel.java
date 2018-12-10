@@ -2,9 +2,9 @@ package com.verbatoria.data.network.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.verbatoria.data.network.common.ChildModel;
+
+import java.util.Objects;
 
 /**
  * @author nikitaremnev
@@ -38,7 +38,7 @@ public class ChildRequestModel {
             return false;
         }
         ChildRequestModel that = (ChildRequestModel) o;
-        return Objects.equal(mChild, that.mChild);
+        return Objects.equals(mChild, that.mChild);
     }
 
     @Override
@@ -48,8 +48,7 @@ public class ChildRequestModel {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mChild", mChild)
-                .toString();
+        return Objects.toString(this);
     }
+
 }

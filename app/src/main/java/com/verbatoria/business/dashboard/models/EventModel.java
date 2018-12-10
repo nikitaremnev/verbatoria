@@ -5,14 +5,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.utils.DateUtils;
 
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Реализация модели для записи нейрометрии
@@ -155,35 +153,25 @@ public class EventModel implements Parcelable {
             return false;
         }
         EventModel that = (EventModel) o;
-        return Objects.equal(mId, that.mId) &&
-                Objects.equal(mStartAt, that.mStartAt) &&
-                Objects.equal(mEndAt, that.mEndAt) &&
-                Objects.equal(mChild, that.mChild) &&
-                Objects.equal(mReport, that.mReport) &&
-                Objects.equal(mIsInstantReport, that.mIsInstantReport) &&
-                Objects.equal(mArchimed, that.mArchimed) &&
-                Objects.equal(mIsArchimedAllowed, that.mIsArchimedAllowed);
+        return Objects.equals(mId, that.mId) &&
+                Objects.equals(mStartAt, that.mStartAt) &&
+                Objects.equals(mEndAt, that.mEndAt) &&
+                Objects.equals(mChild, that.mChild) &&
+                Objects.equals(mReport, that.mReport) &&
+                Objects.equals(mIsInstantReport, that.mIsInstantReport) &&
+                Objects.equals(mArchimed, that.mArchimed) &&
+                Objects.equals(mIsArchimedAllowed, that.mIsArchimedAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mId, mStartAt, mEndAt, mChild, mReport, mIsInstantReport, mArchimed, mIsArchimedAllowed);
+        return Objects.hash(mId, mStartAt, mEndAt, mChild, mReport, mIsInstantReport, mArchimed, mIsArchimedAllowed);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mId", mId)
-                .add("mStartAt", mStartAt)
-                .add("mEndAt", mEndAt)
-                .add("mChild", mChild)
-                .add("mReport", mReport)
-                .add("mIsInstantReport", mIsInstantReport)
-                .add("mArchimed", mArchimed)
-                .add("mIsArchimedAllowed", mIsArchimedAllowed)
-                .toString();
+        return Objects.toString(this);
     }
-
 
     @Override
     public int describeContents() {

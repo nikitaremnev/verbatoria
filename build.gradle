@@ -1,20 +1,29 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    repositories {
-        jcenter()
-        google()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
+apply from: 'gradle/versions.gradle'
 
 allprojects {
     repositories {
         jcenter()
+        google()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+buildscript {
+
+    apply from: 'gradle/versions.gradle'
+
+    repositories {
+        jcenter()
+        google()
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:$gradleBuildToolsVersion"
+        classpath "io.fabric.tools:gradle:$fabricToolsVersion"
+        classpath "me.tatarka:gradle-retrolambda:${rootProject.retrolambdaVersion}"
     }
 }
 

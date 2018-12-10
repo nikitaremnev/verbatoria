@@ -11,7 +11,7 @@ import com.neurosky.connection.DataType.MindDataType;
 import com.neurosky.connection.EEGPower;
 import com.neurosky.connection.TgStreamHandler;
 import com.neurosky.connection.TgStreamReader;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.di.application.ApplicationComponent;

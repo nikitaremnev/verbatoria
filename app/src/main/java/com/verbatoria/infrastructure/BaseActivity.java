@@ -6,7 +6,7 @@ import android.content.ContextWrapper;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.utils.LocaleHelper;
 import com.verbatoria.utils.Logger;
 import butterknife.ButterKnife;

@@ -1,11 +1,8 @@
 package com.verbatoria.business.dashboard.models;
 
 import android.text.TextUtils;
-
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Реализация модели для Вербатолога
@@ -129,32 +126,23 @@ public class VerbatologModel {
             return false;
         }
         VerbatologModel that = (VerbatologModel) o;
-        return Objects.equal(mFirstName, that.mFirstName) &&
-                Objects.equal(mLastName, that.mLastName) &&
-                Objects.equal(mMiddleName, that.mMiddleName) &&
-                Objects.equal(mPhone, that.mPhone) &&
-                Objects.equal(mEmail, that.mEmail) &&
-                Objects.equal(mLocationId, that.mLocationId) &&
-                Objects.equal(mIsArchimedAllowed, that.mIsArchimedAllowed) &&
-                Objects.equal(mEvents, that.mEvents);
+        return Objects.equals(mFirstName, that.mFirstName) &&
+                Objects.equals(mLastName, that.mLastName) &&
+                Objects.equals(mMiddleName, that.mMiddleName) &&
+                Objects.equals(mPhone, that.mPhone) &&
+                Objects.equals(mEmail, that.mEmail) &&
+                Objects.equals(mLocationId, that.mLocationId) &&
+                Objects.equals(mIsArchimedAllowed, that.mIsArchimedAllowed) &&
+                Objects.equals(mEvents, that.mEvents);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed, mEvents);
+        return Objects.hash(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed, mEvents);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mFirstName", mFirstName)
-                .add("mLastName", mLastName)
-                .add("mMiddleName", mMiddleName)
-                .add("mPhone", mPhone)
-                .add("mEmail", mEmail)
-                .add("mLocationId", mLocationId)
-                .add("mIsArchimedAllowed", mIsArchimedAllowed)
-                .add("mEvents", mEvents)
-                .toString();
+        return Objects.toString(this);
     }
 }

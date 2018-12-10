@@ -6,19 +6,17 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import com.crashlytics.android.Crashlytics;
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.FileUtils;
-
-import io.fabric.sdk.android.Fabric;
 
 /**
  * Splash-экран
  *
  * @author nikitaremnev
  */
+
 public class SplashActivity extends BaseActivity {
 
     private final static int START_LOGIN_ACTIVITY_DELAY = 2000;
@@ -28,7 +26,6 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        Fabric.with(this, new Crashlytics());
 
         FileUtils.createApplicationDirectory();
         askPermissions();

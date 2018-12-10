@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.remnev.verbatoriamini.R;
+import com.remnev.verbatoria.R;
 
 import java.util.ArrayList;
 

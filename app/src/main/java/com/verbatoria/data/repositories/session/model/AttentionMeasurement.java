@@ -1,7 +1,6 @@
 package com.verbatoria.data.repositories.session.model;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
+import java.util.Objects;
 
 /**
  * Сущность для получения attention из репозитория
@@ -51,13 +50,11 @@ public class AttentionMeasurement extends BaseMeasurement {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(super.hashCode(), mAttentionValue);
+        return Objects.hashCode(mAttentionValue);
     }
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("mAttentionValue", mAttentionValue)
-                .toString();
+        return Objects.toString(this);
     }
 }
