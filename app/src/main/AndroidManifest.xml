@@ -19,7 +19,7 @@
 
         <activity
             android:name="com.verbatoria.presentation.splash.SplashActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,65 +29,65 @@
 
         <activity
             android:name="com.verbatoria.presentation.login.view.login.LoginActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
         </activity>
 
         <activity
             android:name="com.verbatoria.presentation.dashboard.view.DashboardActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:configChanges="locale"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
             android:name="com.verbatoria.presentation.calendar.view.detail.EventDetailActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.session.view.connection.ConnectionActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.calendar.view.add.children.ChildActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.calendar.view.add.clients.search.SearchClientsActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.calendar.view.add.children.search.SearchChildrenActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.schedule.view.ScheduleActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.late_send.view.LateSendActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="landscape"/>
 
         <activity
             android:name="com.verbatoria.presentation.session.view.writing.WritingActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
             android:name="com.verbatoria.presentation.session.view.submit.SubmitActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
             android:name="com.verbatoria.presentation.login.view.recovery.RecoveryActivity"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
     </application>
