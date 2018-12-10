@@ -124,7 +124,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     protected void onStart() {
         super.onStart();
-        mEventDetailPresenter.loadClient();
+        if (mEventDetailPresenter.getClientModel() == null) {
+            mEventDetailPresenter.loadClient();
+        }
     }
 
     @Override

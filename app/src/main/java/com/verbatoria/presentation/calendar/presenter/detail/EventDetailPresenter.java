@@ -185,6 +185,9 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         if (!mEventModel.getArchimed() && isArchimedesAllowedForVerbatolog() && isArchimedesAllowedForChildAge()) {
             mEventModel.setArchimed(true);
             onEditEventClicked();
+        } else if (mEventModel.getArchimed() && (!isArchimedesAllowedForVerbatolog() || !isArchimedesAllowedForChildAge())) {
+            mEventModel.setArchimed(false);
+            onEditEventClicked();
         }
     }
 
