@@ -83,9 +83,6 @@ public class TokenModel {
         return Objects.hash(mAccessToken, mExpireDate, mStatus, mLocationId);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 }

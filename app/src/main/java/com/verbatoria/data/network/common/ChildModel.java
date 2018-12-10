@@ -142,9 +142,6 @@ public class ChildModel implements Parcelable {
         }
     };
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 }

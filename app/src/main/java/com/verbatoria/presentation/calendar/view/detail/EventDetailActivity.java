@@ -233,7 +233,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
         } else {
             ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(clientModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
-            String clientString = TextUtils.isEmpty(clientModel.getName()) ? getString(R.string.event_detail_activity_field_empty): clientModel.getName();
+            String clientString = TextUtils.isEmpty(clientModel.getName()) ? getString(R.string.event_detail_activity_field_empty) : clientModel.getName();
             setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
         }
     }
@@ -246,7 +246,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
         } else {
             ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(childModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
-            String childString = TextUtils.isEmpty(childModel.getName()) ? getString(R.string.event_detail_activity_field_empty): childModel.getName();
+            String childString = TextUtils.isEmpty(childModel.getName()) ? getString(R.string.event_detail_activity_field_empty) : childModel.getName();
             setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
         }
     }
@@ -256,7 +256,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         if (reportModel == null) {
             mReportFieldView.setVisibility(View.GONE);
         } else {
-            setUpFieldView(mReportFieldView, R.drawable.ic_report, reportModel.getReportId(), getString(R.string.event_detail_activity_report), v -> { showStatusHint(reportModel); });
+            setUpFieldView(mReportFieldView, R.drawable.ic_report, reportModel.getReportId(), getString(R.string.event_detail_activity_report), v -> {
+                showStatusHint(reportModel);
+            });
             mReportFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
             setUpReportStatus(reportModel);
             mReportFieldView.setVisibility(View.VISIBLE);
@@ -275,7 +277,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 archimedSubtitle = getString(R.string.event_confirm_archimed_subtitle_disabled);
             }
             mArchimedFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
-            setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.event_confirm_archimed_title), archimedSubtitle, v -> { });
+            setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.event_confirm_archimed_title), archimedSubtitle, v -> {
+            });
             mArchimedFieldView.setVisibility(View.VISIBLE);
         }
     }
@@ -284,11 +287,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void updateEventTime(EventModel eventModel) {
         if (eventModel == null) {
             ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
-            String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getTime();
+            String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty) : mEventDetailPresenter.getTime();
             setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
         } else {
             ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(eventModel.hasTime() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
-            String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty): mEventDetailPresenter.getTime();
+            String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty) : mEventDetailPresenter.getTime();
             setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
         }
     }
@@ -524,7 +527,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         int index = 0;
         for (TimeIntervalModel timeIntervalModel : timeIntervalModels) {
             intervalsStrings[index] = timeIntervalModel.getIntervalString();
-            index ++;
+            index++;
         }
         return intervalsStrings;
     }

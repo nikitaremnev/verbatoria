@@ -78,8 +78,5 @@ public class ScheduleItemResponseModel {
         return Objects.hash(mId, mFromTime, mToTime);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

@@ -88,8 +88,5 @@ public class LoginResponseModel {
         return Objects.hash(mAccessToken, mExpiresToken, mStatus, mLocationId);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

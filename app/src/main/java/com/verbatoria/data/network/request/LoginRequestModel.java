@@ -66,8 +66,5 @@ public class LoginRequestModel {
         return Objects.hash(mPhone, mPassword);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

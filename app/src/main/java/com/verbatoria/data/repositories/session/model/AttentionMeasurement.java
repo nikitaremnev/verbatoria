@@ -53,8 +53,5 @@ public class AttentionMeasurement extends BaseMeasurement {
         return Objects.hashCode(mAttentionValue);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

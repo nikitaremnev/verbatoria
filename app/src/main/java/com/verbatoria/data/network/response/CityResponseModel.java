@@ -76,9 +76,6 @@ public class CityResponseModel {
         return Objects.hash(mId, mName, mCountry);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }
 

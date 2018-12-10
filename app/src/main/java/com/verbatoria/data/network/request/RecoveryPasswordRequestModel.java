@@ -51,8 +51,5 @@ public class RecoveryPasswordRequestModel {
         return Objects.hash(mPhone);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

@@ -127,9 +127,6 @@ public class VerbatologInfoResponseModel {
         return Objects.hash(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 }

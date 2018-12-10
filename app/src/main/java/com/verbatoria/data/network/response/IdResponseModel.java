@@ -52,10 +52,7 @@ public class IdResponseModel implements Parcelable {
         return Objects.hashCode(mId);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

@@ -143,10 +143,7 @@ public class LocationModel implements Parcelable {
         return Objects.hash(mId, mName, mAddress, mLocale, mAvailableLocales, mPartner, mCity, mCountry);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 
     @Override

@@ -48,10 +48,7 @@ public class EditClientRequestModel implements Parcelable {
         return Objects.hashCode(mClient);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

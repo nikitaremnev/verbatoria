@@ -106,9 +106,6 @@ public class PagingResponseModel {
         return Objects.hash(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }
 

@@ -56,8 +56,5 @@ public class EventsResponseModel extends PagingResponseModel {
         return Objects.hash(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage, mEvents);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

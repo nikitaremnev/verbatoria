@@ -181,6 +181,11 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public void setChildModel(ChildModel childModel) {
         mEventModel.setChild(childModel);
         mCalendarEventDetailView.updateChildView(childModel);
+
+        if (!mEventModel.getArchimed() && isArchimedesAllowedForVerbatolog() && isArchimedesAllowedForChildAge()) {
+            mEventModel.setArchimed(true);
+            onEditEventClicked();
+        }
     }
 
     @Override

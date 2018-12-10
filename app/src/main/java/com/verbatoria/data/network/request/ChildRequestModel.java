@@ -46,9 +46,6 @@ public class ChildRequestModel {
         return Objects.hashCode(mChild);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 }

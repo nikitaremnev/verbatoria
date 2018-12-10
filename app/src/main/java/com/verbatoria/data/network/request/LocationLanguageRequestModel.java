@@ -47,8 +47,5 @@ public class LocationLanguageRequestModel {
         return Objects.hashCode(mLocale);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

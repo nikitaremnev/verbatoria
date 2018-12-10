@@ -56,8 +56,5 @@ public class ClientsResponseModel extends PagingResponseModel {
         return Objects.hash(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage, mData);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

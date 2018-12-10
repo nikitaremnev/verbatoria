@@ -75,10 +75,7 @@ public class TimeIntervalModel implements Parcelable {
         return Objects.hash(mStartAt, mEndAt, mIsAvailable);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

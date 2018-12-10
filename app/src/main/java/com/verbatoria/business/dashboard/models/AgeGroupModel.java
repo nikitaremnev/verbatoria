@@ -68,10 +68,7 @@ public class AgeGroupModel implements Parcelable {
         return Objects.hash(mMinAge, mMaxAge, mIsArchimedAllowed);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

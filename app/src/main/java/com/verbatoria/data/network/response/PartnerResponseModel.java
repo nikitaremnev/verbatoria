@@ -61,9 +61,6 @@ public class PartnerResponseModel {
         return Objects.hash(mId, mName);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }
 

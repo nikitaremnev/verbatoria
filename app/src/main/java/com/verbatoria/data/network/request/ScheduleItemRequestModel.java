@@ -64,8 +64,5 @@ public class ScheduleItemRequestModel {
         return Objects.hash(mFromTime, mToTime);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

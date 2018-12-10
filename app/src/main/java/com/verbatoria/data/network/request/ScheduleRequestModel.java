@@ -51,8 +51,5 @@ public class ScheduleRequestModel {
         return Objects.hashCode(mScheduleItems);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

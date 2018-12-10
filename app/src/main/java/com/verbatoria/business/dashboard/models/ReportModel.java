@@ -157,10 +157,7 @@ public class ReportModel implements Parcelable {
         return Objects.hash(mId, mChildId, mLocationId, mVerbatologId, mReportId, mStatus, mCreatedAt, mUpdatedAt);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

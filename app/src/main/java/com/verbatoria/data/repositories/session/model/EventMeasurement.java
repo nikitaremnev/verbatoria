@@ -53,8 +53,5 @@ public class EventMeasurement extends BaseMeasurement {
         return Objects.hash(super.hashCode(), mActivityCode);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

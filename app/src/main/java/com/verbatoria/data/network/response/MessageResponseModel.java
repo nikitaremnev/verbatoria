@@ -55,9 +55,6 @@ public class MessageResponseModel {
         return Objects.hashCode(mMessage);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 }

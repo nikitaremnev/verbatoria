@@ -115,8 +115,5 @@ public class EventRequestModel {
         return Objects.hash(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport, mArchimed);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

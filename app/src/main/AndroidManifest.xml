@@ -7,18 +7,15 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:name="com.verbatoria.VerbatoriaApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/MainTheme">
-
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="67e8efcbe2e007c55247aa119f19c530687ccdab" />
 
         <activity
             android:name="com.verbatoria.presentation.splash.SplashActivity"
@@ -92,10 +89,6 @@
             android:name="com.verbatoria.presentation.login.view.recovery.RecoveryActivity"
             android:screenOrientation="sensorLandscape"
             android:theme="@style/FullScreenTheme"/>
-
-        <service
-            android:name="com.verbatoria.infrastructure.connection.ConnectionService"
-            android:exported="false"/>
 
     </application>
 

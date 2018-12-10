@@ -141,8 +141,5 @@ public class VerbatologModel {
         return Objects.hash(mFirstName, mLastName, mMiddleName, mPhone, mEmail, mLocationId, mIsArchimedAllowed, mEvents);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

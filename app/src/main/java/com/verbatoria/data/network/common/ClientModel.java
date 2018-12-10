@@ -111,10 +111,7 @@ public class ClientModel implements Parcelable {
         return Objects.hash(mId, mName, mEmail, mPhone, mChildren);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

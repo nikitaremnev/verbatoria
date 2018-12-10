@@ -134,8 +134,5 @@ public class StartSessionResponseModel {
         return Objects.hash(mId, mChildId, mVerbatologId, mLocationId, mCreatedAt, mUpdatedAt);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

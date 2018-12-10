@@ -131,8 +131,5 @@ public class EEGMeasurement extends BaseMeasurement {
         return Objects.hash(super.hashCode(), mDeltaValue, mThetaValue, mLowAlphaValue, mHighAlphaValue, mLowBetaValue, mHighBetaValue, mLowGammaValue, mMidGammaValue);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

@@ -154,10 +154,7 @@ public class ChildModel implements Parcelable {
         return Objects.hash(mId, mName, mBirthday, mClientId, mGender);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

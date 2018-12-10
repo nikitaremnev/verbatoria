@@ -77,8 +77,5 @@ public class ResetPasswordRequestModel {
         return Objects.hash(mPhone, mRecoveryHash, mPassword);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

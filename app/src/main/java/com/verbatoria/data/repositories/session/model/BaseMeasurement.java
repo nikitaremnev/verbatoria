@@ -41,8 +41,5 @@ public class BaseMeasurement {
         return Objects.hashCode(mTimestamp);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

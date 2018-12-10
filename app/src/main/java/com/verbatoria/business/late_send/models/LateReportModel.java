@@ -102,8 +102,5 @@ public class LateReportModel {
         return Objects.hash(mSessionId, mStartAt, mEndAt, mChildName, mReportId, mReportFileName);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

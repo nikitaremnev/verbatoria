@@ -56,8 +56,5 @@ public class ScheduleResponseModel extends PagingResponseModel {
         return Objects.hash(mTotalEntries, mPerPage, mCurrentPage, mNextPage, mPreviousPage, mScheduleItems);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

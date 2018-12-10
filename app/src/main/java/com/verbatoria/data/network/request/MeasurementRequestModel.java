@@ -355,10 +355,7 @@ public class MeasurementRequestModel {
         return Objects.hash(mReportId, mActionId, mDeviceId, mBCIId, mEventId, mLogopedModeId, mWord, mBlock, mMistake, mReserveBlank1, mReserveBlank2, mAttentionValue, mMediationValue, mDeltaValue, mThetaValue, mLowAlphaValue, mHighAlphaValue, mLowBetaValue, mHighBetaValue, mLowGammaValue, mMidGammaValue, mCreatedAtDate, mUpdatedAtDate);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 
 }

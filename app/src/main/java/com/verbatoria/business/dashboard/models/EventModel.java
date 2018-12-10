@@ -168,10 +168,7 @@ public class EventModel implements Parcelable {
         return Objects.hash(mId, mStartAt, mEndAt, mChild, mReport, mIsInstantReport, mArchimed, mIsArchimedAllowed);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
     @Override
     public int describeContents() {

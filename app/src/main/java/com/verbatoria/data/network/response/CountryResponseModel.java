@@ -61,9 +61,6 @@ public class CountryResponseModel {
         return Objects.hash(mId, mName);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }
 

@@ -53,8 +53,5 @@ public class MediationMeasurement extends BaseMeasurement {
         return Objects.hashCode(mMediationValue);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

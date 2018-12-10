@@ -47,8 +47,5 @@ public class StartSessionRequestModel {
         return Objects.hashCode(mEventId);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

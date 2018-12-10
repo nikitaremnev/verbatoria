@@ -91,9 +91,6 @@ public class AgeGroupResponseModel {
         return Objects.hash(mMinAge, mMaxAge, mFullName, mIsArchimedAllowed);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 }

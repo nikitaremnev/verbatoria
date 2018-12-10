@@ -100,10 +100,7 @@ public class ChildResponseModel {
         return Objects.hash(mId, mClientId, mName, mBirthday, mGender);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 
 }
 

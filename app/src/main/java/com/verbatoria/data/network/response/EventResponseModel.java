@@ -140,8 +140,5 @@ public class EventResponseModel {
         return Objects.hash(mId, mStartAt, mEndAt, mChild, mReport, mInstantReport, mArchimed, mIsArchimedAllowed);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }

@@ -47,8 +47,5 @@ public class AddEventRequestModel {
         return Objects.hashCode(mEvent);
     }
 
-    @Override
-    public String toString() {
-        return Objects.toString(this);
-    }
+
 }
