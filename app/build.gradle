@@ -83,5 +83,4 @@ dependencies {
     compile "uk.co.chrisjenx:calligraphy:${rootProject.calligraphyVersion}"
     compile "com.cleveroad:adaptivetablelayout:${rootProject.adaptiveTableLayoutVersion}"
 
-
 }
