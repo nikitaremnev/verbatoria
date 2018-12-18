@@ -3,7 +3,6 @@ package com.verbatoria.presentation.login.view.recovery;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.login.LoginModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
-import com.verbatoria.infrastructure.receivers.SMSReceiver;
 import com.verbatoria.presentation.login.presenter.recovery.IRecoveryPresenter;
 import com.verbatoria.presentation.login.view.login.LoginActivity;
 import com.verbatoria.utils.Helper;
@@ -38,7 +36,7 @@ import butterknife.BindView;
  *
  * @author nikitaremnev
  */
-public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRecoveryView.SMSCallback {
+public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
     private static final String TAG = RecoveryActivity.class.getSimpleName();
     public static final String EXTRA_PHONE = "com.verbatoria.presentation.login.view.recovery.EXTRA_PHONE";
@@ -72,8 +70,6 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
     @BindView(R.id.progress_layout)
     public View mLoadingView;
 
-    private SMSReceiver mSMSReceiver;
-
     public static Intent newInstance(Context mContext, String phone) {
         Intent intent = new Intent(mContext, RecoveryActivity.class);
         intent.putExtra(EXTRA_PHONE, phone);
@@ -98,23 +94,6 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
 
         mRecoveryPresenter.obtainPhone(getIntent());
         showPhoneInput();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mSMSReceiver = new SMSReceiver();
-        mSMSReceiver.setSMSCallback(this);
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(SMSReceiver.TELEPHONE_ACTION);
-        registerReceiver(mSMSReceiver, intentFilter);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mSMSReceiver.setSMSCallback(null);
-        unregisterReceiver(mSMSReceiver);
     }
 
     @Override
@@ -149,11 +128,6 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
     }
 
     @Override
-    public String confirmPasswords(String password, String confirmPassword) {
-        return mRecoveryPresenter.toString();
-    }
-
-    @Override
     public void showProgress() {
         mLoadingView.setVisibility(View.VISIBLE);
     }
@@ -161,16 +135,6 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
     @Override
     public void hideProgress() {
         mLoadingView.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void sendCodeToPhone() {
-
-    }
-
-    @Override
-    public void sendNewPassword() {
-
     }
 
     @Override
@@ -306,11 +270,4 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView, IRe
         mNewPasswordConfirmEditText.addTextChangedListener(newPasswordConfirmWatcher);
     }
 
-    @Override
-    public void showConfirmationCode(String code) {
-        Log.e(TAG, "showConfirmationCode: " + code);
-        mCodeEditText.setText(mCodeEditText.getText().append(code));
-        mCodeEditText.setEnabled(false);
-        mSubmitButton.performClick();
-    }
 }
