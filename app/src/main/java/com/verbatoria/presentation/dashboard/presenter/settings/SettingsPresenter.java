@@ -128,7 +128,7 @@ public class SettingsPresenter implements ISettingsPresenter {
 
     private void handleHongKongLanguageUpdated() {
         mDashboardInteractor.setShowSettings(true);
-        mSettingsView.setLanguage(HONG_KONG_LOCALE);
+        mSettingsView.setLanguage(ENGLISH_LOCALE);
     }
 
     private void handleLanguageUpdateError(Throwable throwable) {
