@@ -159,7 +159,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
                     mLoginPresenter.onCountrySelected(getString(R.string.country_uzbekistan));
                     alertDialog.dismiss();
                 });
-        setUpFieldView(dialogRootView.findViewById(R.id.hong_kong_field), R.drawable.ic_flag_ho,
+        setUpFieldView(dialogRootView.findViewById(R.id.hong_kong_field), R.drawable.ic_flag_hk,
                 getString(R.string.country_hong_kong), view -> {
                     mLoginPresenter.onCountrySelected(getString(R.string.country_hong_kong));
                     alertDialog.dismiss();
@@ -243,7 +243,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_uzbekistan));
             setUpPhoneFormatter(getString(R.string.login_uzbekistan_phone_mask));
         } else if (country.equals(getString(R.string.country_hong_kong))) {
-            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_ho);
+            ((ImageView) mCountryView.findViewById(R.id.image_view_flag)).setImageResource(R.drawable.ic_flag_hk);
             ((TextView) mCountryView.findViewById(R.id.text_view_country)).setText(getString(R.string.country_hong_kong));
             setUpPhoneFormatter(getString(R.string.login_hong_kong_phone_mask));
         }
