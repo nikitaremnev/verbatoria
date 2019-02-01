@@ -128,13 +128,15 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         Logger.e(TAG, "cleanUp");
         return Completable.fromAction(() -> {
                     mSessionRepository.cleanUp();
-                    DoneActivitiesProcessor.clearDoneActivities();
-                    DoneActivitiesProcessor.clearTimeDoneActivities();
-                    VerbatoriaApplication.dropActivitiesTimer();
                     File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
                     if (file.exists()) {
                         file.delete();
                     }
+                })
+                .doAfterTerminate(() -> {
+                    DoneActivitiesProcessor.clearDoneActivities();
+                    DoneActivitiesProcessor.clearTimeDoneActivities();
+                    VerbatoriaApplication.dropActivitiesTimer();
                 })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
