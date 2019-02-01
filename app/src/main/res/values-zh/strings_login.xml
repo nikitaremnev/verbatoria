@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_submit">Login</string>
+    <string name="login_phone_hint">Phone</string>
+    <string name="login_russia_phone_mask">+ [0] [000] [000] [00] [00]</string>
+    <string name="login_ukraine_phone_mask">+ [000] [00] [000] [00] [00]</string>
+    <string name="login_azerbaijan_phone_mask">+ [000] [00] [000] [00] [00]</string>
+    <string name="login_uae_phone_mask">+ [000] [00] [0000000]</string>
+    <string name="login_thailand_phone_mask">+ [00] [00] [00000000]</string>
+    <string name="login_belarus_phone_mask">+ [000] [00] [000] [00] [00]</string>
+    <string name="login_israel_phone_mask">+ [000] [00] [0000000]</string>
+    <string name="login_uzbekistan_phone_mask">+ [000] [00] [0000000]</string>
+    <string name="login_hong_kong_phone_mask">+ [000] [0000] [0000]</string>
+
+    <string name="login_password_hint">Password</string>
+
+    <string name="login_forgot_password">Forgot password</string>
+
+    <string name="recovery_password_confirm_code">Confirmation code</string>
+    <string name="recovery_new_password">New password</string>
+    <string name="recovery_new_password_confirm">Confirm new password</string>
+
+    <string name="recovery_send_code">Send code</string>
+    <string name="recovery_send_new_password">Set new password</string>
+    <string name="recovery_remember_password">I remembered password!</string>
+
+    <string name="country_russia">Russia</string>
+    <string name="country_belarus">Belarus</string>
+    <string name="country_ukraine">Ukraine</string>
+    <string name="country_azerbaijan">Azerbaijan</string>
+    <string name="country_uae">UAE</string>
+    <string name="country_thailand">Thailand</string>
+    <string name="country_israel">Israel</string>
+    <string name="country_uzbekistan">Uzbekistan</string>
+    <string name="country_hong_kong">Hong Kong</string>
+
+    <string name="select_country">Choose location</string>
+
+</resources>

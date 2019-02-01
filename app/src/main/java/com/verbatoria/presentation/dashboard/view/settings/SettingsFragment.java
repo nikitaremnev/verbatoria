@@ -137,10 +137,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     }
 
     @Override
-    public void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable) {
+    public void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable, boolean isHongKongAvailable) {
         View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_languages, null);
         View russianLanguageView = dialogRootView.findViewById(R.id.russian_language_field);
         View englishLanguageView = dialogRootView.findViewById(R.id.english_language_field);
+        View hongKongLanguageView = dialogRootView.findViewById(R.id.hong_kong_language_field);
+
         if (isRussianAvailable) {
             setUpLanguageFieldView(russianLanguageView, R.drawable.ic_flag_ru,
                     getString(R.string.language_russian), v -> mSettingsPresenter.onRussianLanguageSelected());
@@ -152,6 +154,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
                     getString(R.string.language_english), v -> mSettingsPresenter.onEnglishLanguageSelected());
         } else {
             englishLanguageView.setVisibility(View.GONE);
+        }
+        if (isHongKongAvailable) {
+            setUpLanguageFieldView(hongKongLanguageView, R.drawable.ic_flag_hk,
+                    getString(R.string.language_hong_kong), v -> mSettingsPresenter.onHongKongLanguageSelected());
+        } else {
+            hongKongLanguageView.setVisibility(View.GONE);
         }
         mLanguageDialog = new AlertDialog.Builder(getActivity())
                 .setView(dialogRootView)

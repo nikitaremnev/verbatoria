@@ -20,6 +20,7 @@ public class SettingsPresenter implements ISettingsPresenter {
 
     private static final String RUSSIAN_LOCALE = "ru";
     private static final String ENGLISH_LOCALE = "en";
+    private static final String HONG_KONG_LOCALE = "zh-CN";
 
     private IDashboardInteractor mDashboardInteractor;
     private ISettingsView mSettingsView;
@@ -81,9 +82,9 @@ public class SettingsPresenter implements ISettingsPresenter {
         mCurrentModel = mDashboardInteractor.getCurrentLocation();
         List<String> availableLanguages = mCurrentModel.getAvailableLocales();
         if (availableLanguages != null && !availableLanguages.isEmpty()) {
-            mSettingsView.showLanguagesDialog(availableLanguages.contains(RUSSIAN_LOCALE), availableLanguages.contains(ENGLISH_LOCALE));
+            mSettingsView.showLanguagesDialog(availableLanguages.contains(RUSSIAN_LOCALE), availableLanguages.contains(ENGLISH_LOCALE), availableLanguages.contains(HONG_KONG_LOCALE));
         } else {
-            mSettingsView.showLanguagesDialog(true, false);
+            mSettingsView.showLanguagesDialog(true, false, false);
         }
     }
 
@@ -103,6 +104,14 @@ public class SettingsPresenter implements ISettingsPresenter {
                 .subscribe(this::handleEnglishLanguageUpdated, this::handleLanguageUpdateError);
     }
 
+    @Override
+    public void onHongKongLanguageSelected() {
+        mSettingsView.startProgress();
+        mDashboardInteractor.updateCurrentLocale(mCurrentModel.getId(), HONG_KONG_LOCALE)
+                .doOnUnsubscribe(() -> mSettingsView.stopProgress())
+                .subscribe(this::handleHongKongLanguageUpdated, this::handleLanguageUpdateError);
+    }
+
     private void handleDatabaseCleared() {
         mSettingsView.showDatabaseCleared();
     }
@@ -117,8 +126,12 @@ public class SettingsPresenter implements ISettingsPresenter {
         mSettingsView.setLanguage(ENGLISH_LOCALE);
     }
 
+    private void handleHongKongLanguageUpdated() {
+        mDashboardInteractor.setShowSettings(true);
+        mSettingsView.setLanguage(HONG_KONG_LOCALE);
+    }
+
     private void handleLanguageUpdateError(Throwable throwable) {
-//        mSettingsView.showUpdateLanguageError();
         mDashboardInteractor.setShowSettings(true);
         mSettingsView.setLanguage(ENGLISH_LOCALE);
     }

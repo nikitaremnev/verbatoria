@@ -33,4 +33,6 @@ public interface ISettingsPresenter {
 
     void onEnglishLanguageSelected();
 
+    void onHongKongLanguageSelected();
+
 }

@@ -15,7 +15,8 @@ public interface ISettingsView {
 
     void showClearDatabaseConfirmation();
     void showDatabaseCleared();
-    void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable);
+
+    void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable, boolean isHongKongAvailable);
 
     void setLanguage(String language);
 

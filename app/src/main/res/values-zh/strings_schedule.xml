@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="rows_names">
+        <item>MON, %s</item>
+        <item>TUE, %s</item>
+        <item>WED, %s</item>
+        <item>THU, %s</item>
+        <item>FRI, %s</item>
+        <item>SAT, %s</item>
+        <item>SUN, %s</item>
+    </string-array>
+
+    <string name="schedule_clear_confirm_message">Are you sure you want to clear the schedule?</string>
+
+    <string name="schedule_saved">Schedule saved successfully!</string>
+    <string name="schedule_loaded_by_period" formatted="false">Showing the schedule for the period %s</string>
+    <string name="schedule_cleared">Schedule was cleared!</string>
+
+    <string name="schedule_saving">Saving the schedule</string>
+
+    <string name="schedule_only_this_week">only this week</string>
+    <string name="schedule_save_1_week">1 week</string>
+    <string name="schedule_save_2_weeks">2 weeks</string>
+    <string name="schedule_save_3_weeks">3 weeks</string>
+    <string name="schedule_save_4_weeks">4 weeks</string>
+    <string name="schedule_save_5_weeks">5 weeks</string>
+
+</resources>
