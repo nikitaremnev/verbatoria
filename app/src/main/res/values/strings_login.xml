@@ -11,6 +11,7 @@
     <string name="login_israel_phone_mask">+ [000] [00] [0000000]</string>
     <string name="login_uzbekistan_phone_mask">+ [000] [00] [0000000]</string>
     <string name="login_hong_kong_phone_mask">+ [000] [0000] [0000]</string>
+    <string name="login_swiss_phone_mask">+ [00] [00] [000] [00] [00]</string>
 
     <string name="login_password_hint">Пароль</string>
 
@@ -33,6 +34,7 @@
     <string name="country_israel">Израиль</string>
     <string name="country_uzbekistan">Узбекинстан</string>
     <string name="country_hong_kong">Гонконг</string>
+    <string name="country_swiss">Швейцария</string>
 
     <string name="select_country">Выберите местоположение</string>
 
