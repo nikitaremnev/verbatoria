@@ -29,6 +29,8 @@ import java.util.Map;
 
 import rx.Completable;
 
+import static com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter.HOBBY_ANSWER_POSITION;
+
 /**
  * Процессор для генерации отчета
  *
@@ -38,7 +40,8 @@ public class ExportProcessor {
 
     private static final String TAG = ExportProcessor.class.getSimpleName();
 
-    public static final int LANGUAGE_LABEL_INDEX = 10;
+    public static final int HOBBY_LABEL_INDEX = 10;
+    public static final int LANGUAGE_LABEL_INDEX = 11;
 
     private ISessionRepository mSessionRepository;
 
@@ -82,6 +85,13 @@ public class ExportProcessor {
                 setMeasurementRequestModelFields(measurementRequestModel, currentMeasurement);
                 if (answersIndex < QuestionsAdapter.QUESTIONARY_SIZE) {
                     measurementRequestModel.setReserveBlank2(answers.get(Integer.toString(answersIndex)));
+                } else if (answersIndex == HOBBY_LABEL_INDEX) {
+                    String valueHobby = answers.get(Integer.toString(HOBBY_ANSWER_POSITION));
+                    if (valueHobby == null) {
+                        measurementRequestModel.setReserveBlank2("0");
+                    } else {
+                        measurementRequestModel.setReserveBlank2(valueHobby);
+                    }
                 } else if (answersIndex == LANGUAGE_LABEL_INDEX) {
                     measurementRequestModel.setReserveBlank2(PreferencesStorage.getInstance().getCurrentLocale());
                 }

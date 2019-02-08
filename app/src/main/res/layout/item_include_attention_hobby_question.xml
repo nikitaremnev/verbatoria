@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/attention_question_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/submit_question_title_top_margin"
+        android:layout_marginStart="@dimen/submit_question_title_horizontal_margin"
+        android:layout_marginEnd="@dimen/submit_question_title_horizontal_margin"
+        android:gravity="center"
+        android:text="@string/session_include_attention_question"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+    <LinearLayout
+        android:id="@+id/attention_buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/submit_question_answers_horizontal_margin"
+        android:layout_marginTop="@dimen/submit_question_answers_top_margin"
+        android:layout_marginRight="@dimen/submit_question_answers_horizontal_margin"
+        android:layout_marginBottom="@dimen/submit_question_has_answer_vertical_margin"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/attention_answer_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginRight="@dimen/submit_last_question_answer_margin"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_unselected"
+            android:text="@string/yes"
+            android:textColor="@color/white"
+            android:textSize="@dimen/submit_question_answer_text_size" />
+
+        <Button
+            android:id="@+id/attention_answer_no"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginLeft="@dimen/submit_last_question_answer_margin"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_unselected"
+            android:text="@string/no"
+            android:textColor="@color/white"
+            android:textSize="@dimen/submit_question_answer_text_size" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/hobby_question_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="@dimen/submit_question_title_horizontal_margin"
+        android:layout_marginEnd="@dimen/submit_question_title_horizontal_margin"
+        android:layout_marginTop="@dimen/submit_question_title_top_margin"
+        android:gravity="center"
+        android:text="@string/session_include_hobby_question"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+    <LinearLayout
+        android:id="@+id/hobby_buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/submit_question_answers_horizontal_margin"
+        android:layout_marginTop="@dimen/submit_question_answers_top_margin"
+        android:layout_marginRight="@dimen/submit_question_answers_horizontal_margin"
+        android:layout_marginBottom="@dimen/submit_question_has_answer_vertical_margin"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/hobby_answer_yes"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginRight="@dimen/submit_last_question_answer_margin"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_unselected"
+            android:text="@string/yes"
+            android:textColor="@color/white"
+            android:textSize="@dimen/submit_question_answer_text_size" />
+
+        <Button
+            android:id="@+id/hobby_answer_no"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginLeft="@dimen/submit_last_question_answer_margin"
+            android:layout_weight="1"
+            android:background="@drawable/background_button_unselected"
+            android:text="@string/no"
+            android:textColor="@color/white"
+            android:textSize="@dimen/submit_question_answer_text_size" />
+
+    </LinearLayout>
+
+</LinearLayout>

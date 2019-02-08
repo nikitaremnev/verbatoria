@@ -64,6 +64,7 @@
     </string-array>
 
     <string name="session_include_attention_question">Should I include the Attention/Memory report?</string>
+    <string name="session_include_hobby_question">Should I include the Hobby module?</string>
     <string name="session_report_type_question">Choose report type:</string>
     <string name="session_report_type_0">Type 0</string>
     <string name="session_report_type_1">1: AnM only</string>

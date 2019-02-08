@@ -64,6 +64,7 @@
     </string-array>
 
     <string name="session_include_attention_question">Включать ли отчет Внимание/Память?</string>
+    <string name="session_include_hobby_question">Включить модуль Хобби в отчет?</string>
     <string name="session_report_type_question">Выберите тип отчета:</string>
     <string name="session_report_type_0">Тип 0</string>
     <string name="session_report_type_1">1: только ВнП</string>

@@ -23,6 +23,7 @@ public class QuestionsAdapter extends PagerAdapter {
 
     public static final int OFFSCREEN_PAGE_LIMIT = 2;
     public static final int NO_ANSWERS_SIZE = 7;
+    public static final int HOBBY_ANSWER_POSITION = 99;
     public static final int QUESTIONARY_SIZE = 9;
 
     @Inject
@@ -60,17 +61,23 @@ public class QuestionsAdapter extends PagerAdapter {
             }
             return rootView;
         } else if (position == QUESTIONARY_SIZE - 2) {
-            View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_include_attention_question, null);
+            View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_include_attention_hobby_question, null);
             rootView.setTag(position);
 
-            IncludeAttentionQuestionViewHolder includeAttentionQuestionViewHolder = new IncludeAttentionQuestionViewHolder(this, mAnswerClickCallback, rootView);
-            includeAttentionQuestionViewHolder.bind();
+            IncludeAttentionHobbyQuestionViewHolder includeAttentionHobbyQuestionViewHolder = new IncludeAttentionHobbyQuestionViewHolder(this, mAnswerClickCallback, rootView);
+            includeAttentionHobbyQuestionViewHolder.bind();
             container.addView(rootView);
 
-            String value = mAnswersMap.get(Integer.toString(position));
-            if (value != null) {
-                includeAttentionQuestionViewHolder.selectAnswer(Integer.parseInt(value));
+            String valueAttention = mAnswersMap.get(Integer.toString(position));
+            if (valueAttention != null) {
+                includeAttentionHobbyQuestionViewHolder.selectAttentionAnswer(Integer.parseInt(valueAttention));
             }
+
+            String valueHobby = mAnswersMap.get(Integer.toString(HOBBY_ANSWER_POSITION));
+            if (valueHobby != null) {
+                includeAttentionHobbyQuestionViewHolder.selectHobbyAnswer(Integer.parseInt(valueHobby));
+            }
+
             return rootView;
         } else {
             View rootView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_question, null);
