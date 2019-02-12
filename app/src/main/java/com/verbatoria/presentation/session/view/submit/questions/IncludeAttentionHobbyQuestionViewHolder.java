@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.remnev.verbatoria.R;
 import com.verbatoria.utils.PreferencesStorage;
@@ -37,10 +38,10 @@ public class IncludeAttentionHobbyQuestionViewHolder {
     public Button mAttentionAnswerNoButton;
 
     @BindView(R.id.hobby_question_text_view)
-    public Button mHobbyTitle;
+    public TextView mHobbyTitle;
 
     @BindView(R.id.hobby_buttons_layout)
-    public Button mHobbyButtonsLayout;
+    public View mHobbyButtonsLayout;
 
     @BindView(R.id.hobby_answer_yes)
     public Button mHobbyAnswerYesButton;
@@ -60,6 +61,10 @@ public class IncludeAttentionHobbyQuestionViewHolder {
 
     private QuestionsAdapter mQuestionsAdapter;
 
+    private boolean isAttentionSelected = false;
+
+    private boolean isHobbySelected = false;
+
     IncludeAttentionHobbyQuestionViewHolder(QuestionsAdapter questionsAdapter, IAnswerClickCallback answerClickCallback, View rootView) {
         ButterKnife.bind(this, rootView);
         mRootView = rootView;
@@ -68,11 +73,12 @@ public class IncludeAttentionHobbyQuestionViewHolder {
         if (PreferencesStorage.getInstance().getCurrentAge() >= MINIMUM_HOBBY_AGE) {
             mHobbyButtonsLayout.setVisibility(View.VISIBLE);
             mHobbyTitle.setVisibility(View.VISIBLE);
+            isHobbySelected = false;
         } else {
             mHobbyButtonsLayout.setVisibility(View.GONE);
             mHobbyTitle.setVisibility(View.GONE);
             mQuestionsAdapter.addAnswer(HOBBY_ANSWER_POSITION, 0);
-
+            isHobbySelected = true;
         }
     }
 
@@ -87,6 +93,9 @@ public class IncludeAttentionHobbyQuestionViewHolder {
         } else {
             mAttentionAnswerNoButton.setBackground(mSelectedButtonDrawable);
         }
+        if (isHobbySelected) {
+            mAnswerClickCallback.onAnswerClicked();
+        }
     }
 
     public void selectHobbyAnswer(int value) {
@@ -95,6 +104,9 @@ public class IncludeAttentionHobbyQuestionViewHolder {
             mHobbyAnswerYesButton.setBackground(mSelectedButtonDrawable);
         } else {
             mHobbyAnswerNoButton.setBackground(mSelectedButtonDrawable);
+        }
+        if (isAttentionSelected) {
+            mAnswerClickCallback.onAnswerClicked();
         }
     }
 
@@ -106,12 +118,14 @@ public class IncludeAttentionHobbyQuestionViewHolder {
     }
 
     private void buttonAttentionClick(boolean yes) {
+        isAttentionSelected = true;
         int value = yes ? 1 : 2;
         mQuestionsAdapter.addAnswer((int) mRootView.getTag(), value);
         selectAttentionAnswer(value);
     }
 
     private void buttonHobbyClick(boolean yes) {
+        isHobbySelected = true;
         int value = yes ? 1 : 0;
         mQuestionsAdapter.addAnswer(HOBBY_ANSWER_POSITION, value);
         selectHobbyAnswer(value);
