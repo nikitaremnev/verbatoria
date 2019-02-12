@@ -48,6 +48,8 @@ public interface ISessionInteractor {
 
     void dropCallbacks();
 
+    void closeDatabases();
+
     /*
         Activity методы
      */

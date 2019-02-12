@@ -14,6 +14,7 @@ import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
+import com.verbatoria.data.repositories.session.database.NeurodataDatabase;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.DeveloperUtils;
@@ -207,6 +208,11 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         dropActivitiesTimer();
     }
 
+    @Override
+    public void closeDatabases() {
+       mSessionRepository.closeDatabases();
+    }
+
     /*
         Работа с процессором активностей
      */
@@ -278,7 +284,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
             addActivityToDoneArray(code);
 
             mCurrentCode = code;
-            //TODO: possible export - false
+
             //start timer
             mActivitiesTimerTask.setStartActivityTime(System.currentTimeMillis());
             mActivitiesTimerTask.setFullActivitySeconds(getDoneActivityTimeByCode(mCurrentCode));

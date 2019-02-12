@@ -137,4 +137,15 @@ public class ActivitiesDatabase extends SQLiteOpenHelper implements BaseColumns 
         }
     }
 
+    public static void close(Context context) {
+        ActivitiesDatabase sqh = ActivitiesDatabase.getInstance(context);
+        SQLiteDatabase sqdb = getMyWritableDatabase(context);
+        try {
+            sqh.close();
+            sqdb.close();
+        } catch (SQLiteException exception) {
+            exception.printStackTrace();
+        }
+    }
+
 }

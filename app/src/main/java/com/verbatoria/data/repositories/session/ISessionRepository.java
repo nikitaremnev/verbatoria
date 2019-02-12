@@ -31,14 +31,6 @@ public interface ISessionRepository {
 
     Completable includeAttentionMemory(String reportId, String accessToken);
 
-    Observable<List<AttentionMeasurement>> getAttentionMeasurements();
-
-    Observable<List<MediationMeasurement>> getMediationMeasurements();
-
-    Observable<List<EEGMeasurement>> getEEGMeasurements();
-
-    Observable<List<EventMeasurement>> getEventMeasurements();
-
     Observable<List<BaseMeasurement>> getAllMeasurements();
 
     Observable<ResponseBody> addResults(String accessToken, RequestBody requestBody);
@@ -59,6 +51,8 @@ public interface ISessionRepository {
     void saveSessionId(String sessionId);
 
     void cleanUp();
+
+    void closeDatabases();
 
     void backupReport(LateReportModel lateReportModel);
 

@@ -255,4 +255,15 @@ public class NeurodataDatabase extends SQLiteOpenHelper implements BaseColumns {
         }
     }
 
+    public static void close(Context context) {
+        NeurodataDatabase sqh = NeurodataDatabase.getInstance(context);
+        SQLiteDatabase sqdb = getMyWritableDatabase(context);
+        try {
+            sqh.close();
+            sqdb.close();
+        } catch (SQLiteException exception) {
+            exception.printStackTrace();
+        }
+    }
+
 }

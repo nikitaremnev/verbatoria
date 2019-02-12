@@ -59,26 +59,6 @@ public class SessionRepository implements ISessionRepository {
     }
 
     @Override
-    public Observable<List<AttentionMeasurement>> getAttentionMeasurements() {
-        return Observable.fromCallable(() -> NeurodataDatabase.getAttentionValues(mContext));
-    }
-
-    @Override
-    public Observable<List<MediationMeasurement>> getMediationMeasurements() {
-        return Observable.fromCallable(() -> NeurodataDatabase.getMediationValues(mContext));
-    }
-
-    @Override
-    public Observable<List<EEGMeasurement>> getEEGMeasurements() {
-        return Observable.fromCallable(() -> NeurodataDatabase.getEEGValues(mContext));
-    }
-
-    @Override
-    public Observable<List<EventMeasurement>> getEventMeasurements() {
-        return Observable.fromCallable(() -> ActivitiesDatabase.getEvents(mContext));
-    }
-
-    @Override
     public Observable<List<BaseMeasurement>> getAllMeasurements() {
         return Observable.fromCallable(() -> {
             List<BaseMeasurement> measurements = new ArrayList<>();
@@ -136,6 +116,12 @@ public class SessionRepository implements ISessionRepository {
     public void cleanUp() {
         ActivitiesDatabase.clear(mContext);
         NeurodataDatabase.clear(mContext);
+    }
+
+    @Override
+    public void closeDatabases() {
+        ActivitiesDatabase.close(mContext);
+        NeurodataDatabase.close(mContext);
     }
 
     @Override
