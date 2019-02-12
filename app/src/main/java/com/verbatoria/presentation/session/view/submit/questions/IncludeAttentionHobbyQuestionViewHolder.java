@@ -63,7 +63,7 @@ public class IncludeAttentionHobbyQuestionViewHolder {
 
     private boolean isAttentionSelected = false;
 
-    private boolean isHobbySelected = false;
+    private boolean isHobbySelected;
 
     IncludeAttentionHobbyQuestionViewHolder(QuestionsAdapter questionsAdapter, IAnswerClickCallback answerClickCallback, View rootView) {
         ButterKnife.bind(this, rootView);

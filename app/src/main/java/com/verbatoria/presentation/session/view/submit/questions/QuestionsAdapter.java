@@ -117,7 +117,7 @@ public class QuestionsAdapter extends PagerAdapter {
                 return false;
             }
         }
-        return mAnswersMap.containsKey(HOBBY_ANSWER_POSITION);
+        return mAnswersMap.containsKey(String.valueOf(HOBBY_ANSWER_POSITION));
     }
 
     public Map<String, String> getAnswers() {
