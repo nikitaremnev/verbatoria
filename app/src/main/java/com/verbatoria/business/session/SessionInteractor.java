@@ -14,7 +14,6 @@ import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.ISessionRepository;
-import com.verbatoria.data.repositories.session.database.NeurodataDatabase;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.DeveloperUtils;
@@ -111,7 +110,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
-    public Observable<Boolean> isDatabasesClear() {
+    public Observable<Boolean> hasMeasurements() {
         return mSessionRepository.hasMeasurements()
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
@@ -330,6 +329,11 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     @Override
     public void saveSessionId(String sessionId) {
         mSessionRepository.saveSessionId(sessionId);
+    }
+
+    @Override
+    public void saveAge(int age) {
+        mSessionRepository.saveCurrentAge(age);
     }
 
     /*

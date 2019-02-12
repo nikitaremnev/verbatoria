@@ -23,7 +23,7 @@ public interface ISessionInteractor {
     Completable submitResults();
     Completable submitResults(String fileName);
 
-    Observable<Boolean> isDatabasesClear();
+    Observable<Boolean> hasMeasurements();
     Completable clearDatabases();
 
     Completable cleanUp();
@@ -72,6 +72,7 @@ public interface ISessionInteractor {
     void backClick();
 
     void saveSessionId(String sessionId);
+    void saveAge(int age);
 
     /*
         Коллбеки

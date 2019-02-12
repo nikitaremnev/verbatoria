@@ -4,11 +4,7 @@ import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
-import com.verbatoria.data.repositories.session.model.AttentionMeasurement;
 import com.verbatoria.data.repositories.session.model.BaseMeasurement;
-import com.verbatoria.data.repositories.session.model.EEGMeasurement;
-import com.verbatoria.data.repositories.session.model.EventMeasurement;
-import com.verbatoria.data.repositories.session.model.MediationMeasurement;
 
 import java.util.List;
 
@@ -49,6 +45,8 @@ public interface ISessionRepository {
                      int lowBeta, int highBeta, int lowGamma, int midGamma);
 
     void saveSessionId(String sessionId);
+
+    void saveCurrentAge(int age);
 
     void cleanUp();
 

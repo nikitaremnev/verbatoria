@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.remnev.verbatoria.R;
+import com.verbatoria.utils.PreferencesStorage;
 
 import javax.inject.Inject;
 
@@ -20,7 +21,11 @@ import static com.verbatoria.presentation.session.view.submit.questions.Question
  *
  * @author nikitaremnev
  */
+
+
 public class IncludeAttentionHobbyQuestionViewHolder {
+
+    private static final int MINIMUM_HOBBY_AGE = 18;
 
     @Inject
     public Context mContext;
@@ -30,6 +35,12 @@ public class IncludeAttentionHobbyQuestionViewHolder {
 
     @BindView(R.id.attention_answer_no)
     public Button mAttentionAnswerNoButton;
+
+    @BindView(R.id.hobby_question_text_view)
+    public Button mHobbyTitle;
+
+    @BindView(R.id.hobby_buttons_layout)
+    public Button mHobbyButtonsLayout;
 
     @BindView(R.id.hobby_answer_yes)
     public Button mHobbyAnswerYesButton;
@@ -54,6 +65,15 @@ public class IncludeAttentionHobbyQuestionViewHolder {
         mRootView = rootView;
         mAnswerClickCallback = answerClickCallback;
         mQuestionsAdapter = questionsAdapter;
+        if (PreferencesStorage.getInstance().getCurrentAge() >= MINIMUM_HOBBY_AGE) {
+            mHobbyButtonsLayout.setVisibility(View.VISIBLE);
+            mHobbyTitle.setVisibility(View.VISIBLE);
+        } else {
+            mHobbyButtonsLayout.setVisibility(View.GONE);
+            mHobbyTitle.setVisibility(View.GONE);
+            mQuestionsAdapter.addAnswer(HOBBY_ANSWER_POSITION, 0);
+
+        }
     }
 
     public void bind() {
@@ -72,9 +92,9 @@ public class IncludeAttentionHobbyQuestionViewHolder {
     public void selectHobbyAnswer(int value) {
         clearHobbyAnswers();
         if (value == 1) {
-            mAttentionAnswerYesButton.setBackground(mSelectedButtonDrawable);
+            mHobbyAnswerYesButton.setBackground(mSelectedButtonDrawable);
         } else {
-            mAttentionAnswerNoButton.setBackground(mSelectedButtonDrawable);
+            mHobbyAnswerNoButton.setBackground(mSelectedButtonDrawable);
         }
     }
 

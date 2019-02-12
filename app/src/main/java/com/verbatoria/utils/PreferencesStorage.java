@@ -39,6 +39,7 @@ public class PreferencesStorage {
     private static final String STATUS_TOKEN_KEY = "STATUS_TOKEN_KEY";
     private static final String LAST_LOGIN_KEY = "LAST_LOGIN_KEY";
     private static final String COUNTRY_KEY = "COUNTRY_KEY";
+    private static final String CURRENT_AGE_KEY = "CURRENT_AGE_KEY";
     private static final String SHOW_SETTINGS_KEY = "SHOW_SETTINGS_KEY";
     private static final String IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY = "IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY";
 
@@ -115,6 +116,16 @@ public class PreferencesStorage {
 
     public String getCountry() {
         return mTokenPreferences.getString(COUNTRY_KEY, mContext.getString(R.string.country_russia));
+    }
+
+    public void setCurrentAge(int age) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putInt(CURRENT_AGE_KEY, age);
+        editor.apply();
+    }
+
+    public int getCurrentAge() {
+        return mTokenPreferences.getInt(CURRENT_AGE_KEY, 0);
     }
 
     public void setExpiresToken(String expiresToken) {

@@ -1,6 +1,7 @@
 package com.verbatoria.data.repositories.session;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.late_send.models.LateReportModel;
@@ -11,11 +12,7 @@ import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.session.database.ActivitiesDatabase;
 import com.verbatoria.data.repositories.session.database.LateReportsDatabase;
 import com.verbatoria.data.repositories.session.database.NeurodataDatabase;
-import com.verbatoria.data.repositories.session.model.AttentionMeasurement;
 import com.verbatoria.data.repositories.session.model.BaseMeasurement;
-import com.verbatoria.data.repositories.session.model.EEGMeasurement;
-import com.verbatoria.data.repositories.session.model.EventMeasurement;
-import com.verbatoria.data.repositories.session.model.MediationMeasurement;
 import com.verbatoria.utils.PreferencesStorage;
 
 import java.util.ArrayList;
@@ -82,7 +79,13 @@ public class SessionRepository implements ISessionRepository {
 
     @Override
     public Observable<Boolean> hasMeasurements() {
-        return Observable.fromCallable(() -> !NeurodataDatabase.getAttentionValues(mContext).isEmpty() || !ActivitiesDatabase.getEvents(mContext).isEmpty());
+        return Observable.fromCallable(() -> {
+            Log.e("test", "SessionRepository NeurodataDatabase.getAttentionValues(mContext).isEmpty(): " + NeurodataDatabase.getAttentionValues(mContext).isEmpty());
+                    Log.e("test", "SessionRepository ActivitiesDatabase.getEvents(mContext).isEmpty(): " + ActivitiesDatabase.getEvents(mContext).isEmpty());
+
+            return !NeurodataDatabase.getAttentionValues(mContext).isEmpty() || !ActivitiesDatabase.getEvents(mContext).isEmpty();
+        }
+        );
     }
 
     @Override
@@ -110,6 +113,11 @@ public class SessionRepository implements ISessionRepository {
     @Override
     public void saveSessionId(String sessionId) {
         PreferencesStorage.getInstance().setCurrentSessionId(sessionId);
+    }
+
+    @Override
+    public void saveCurrentAge(int age) {
+        PreferencesStorage.getInstance().setCurrentAge(age);
     }
 
     @Override

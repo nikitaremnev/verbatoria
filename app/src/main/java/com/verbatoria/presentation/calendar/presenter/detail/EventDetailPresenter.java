@@ -3,6 +3,7 @@ package com.verbatoria.presentation.calendar.presenter.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.remnev.verbatoria.R;
 import com.verbatoria.business.calendar.ICalendarInteractor;
@@ -100,10 +101,10 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void checkDatabaseClear() {
-        addSubscription(mSessionInteractor.isDatabasesClear()
+        addSubscription(mSessionInteractor.hasMeasurements()
                 .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
                 .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
-                .subscribe(this::handleIsDatabaseClear, this::handleError));
+                .subscribe(this::handleHasMeasurements, this::handleError));
     }
 
     @Override
@@ -280,6 +281,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
         Logger.e(TAG, sessionResponseModel.toString());
         mSessionInteractor.saveSessionId(sessionResponseModel.getId());
+        mSessionInteractor.saveAge(mEventModel.getChild().getAge());
         mCalendarEventDetailView.hideProgress();
         mCalendarEventDetailView.startConnection();
     }
@@ -341,11 +343,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mCalendarEventDetailView.showSuccessMessage(R.string.event_confirm_attention_memory_include_success);
     }
 
-    private void handleIsDatabaseClear(boolean isClear) {
-        if (isClear) {
-            startSession();
-        } else {
+    private void handleHasMeasurements(boolean hasMeasurements) {
+        Log.e("test", "EventDetailPresenter: hasMeasurements = " + hasMeasurements);
+        if (hasMeasurements) {
             mCalendarEventDetailView.showConfirmClearDatabase();
+        } else {
+            startSession();
         }
     }
 
