@@ -297,10 +297,10 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             if (isHobby) {
                 hobbySubtitle = getString(R.string.event_confirm_hobby_subtitle_enabled);
             } else {
-                hobbySubtitle = getString(R.string.event_confirm_archimed_subtitle_disabled);
+                hobbySubtitle = getString(R.string.event_confirm_hobby_subtitle_disabled);
             }
             mHobbyFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
-            setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.event_confirm_archimed_title), hobbySubtitle, v -> { });
+            setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.event_confirm_hobby_title), hobbySubtitle, v -> { });
             mHobbyFieldView.setVisibility(View.VISIBLE);
         }
     }

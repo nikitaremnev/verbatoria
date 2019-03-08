@@ -94,7 +94,7 @@
 
     <string name="event_confirm_hobby_title">HOBBY</string>
     <string name="event_confirm_hobby_subtitle_enabled">The report will include the Hobby panel if there is a suitable</string>
-    <string name="event_confirm_hobby_subtitle_enabled">The report will NOT include the Hobby panel</string>
+    <string name="event_confirm_hobby_subtitle_disabled">The report will NOT include the Hobby panel</string>
 
     <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
     <string name="event_confirm_include_attention_memory_include">Include</string>

@@ -94,7 +94,7 @@
 
     <string name="event_confirm_hobby_title">ХОББИ</string>
     <string name="event_confirm_hobby_subtitle_enabled">В отчет будет включена панель Хобби при наличии подходящей</string>
-    <string name="event_confirm_hobby_subtitle_enabled">В отчет НЕ будет включена панель Хобби</string>
+    <string name="event_confirm_hobby_subtitle_disabled">В отчет НЕ будет включена панель Хобби</string>
 
     <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
     <string name="event_confirm_include_attention_memory_include">Включить</string>
