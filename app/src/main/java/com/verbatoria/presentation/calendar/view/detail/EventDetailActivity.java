@@ -82,6 +82,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @BindView(R.id.archimed_field)
     public View mArchimedFieldView;
 
+    @BindView(R.id.hobby_field)
+    public View mHobbyFieldView;
+
     @BindView(R.id.submit_button)
     public Button mSubmitButton;
 
@@ -282,6 +285,23 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.event_confirm_archimed_title), archimedSubtitle, v -> {
             });
             mArchimedFieldView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void updateHobbyView(boolean isHobbyEnabledForAge, boolean isHobby) {
+        if (!isHobbyEnabledForAge) {
+            mHobbyFieldView.setVisibility(View.GONE);
+        } else {
+            String hobbySubtitle;
+            if (isHobby) {
+                hobbySubtitle = getString(R.string.event_confirm_hobby_subtitle_enabled);
+            } else {
+                hobbySubtitle = getString(R.string.event_confirm_archimed_subtitle_disabled);
+            }
+            mHobbyFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
+            setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.event_confirm_archimed_title), hobbySubtitle, v -> { });
+            mHobbyFieldView.setVisibility(View.VISIBLE);
         }
     }
 

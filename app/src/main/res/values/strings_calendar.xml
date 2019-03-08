@@ -92,6 +92,10 @@
     <string name="event_confirm_archimed_subtitle_enabled">В отчет будет включена панель Архимед при наличии подходящей</string>
     <string name="event_confirm_archimed_subtitle_disabled">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>
 
+    <string name="event_confirm_hobby_title">ХОББИ</string>
+    <string name="event_confirm_hobby_subtitle_enabled">В отчет будет включена панель Хобби при наличии подходящей</string>
+    <string name="event_confirm_hobby_subtitle_enabled">В отчет НЕ будет включена панель Хобби</string>
+
     <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
     <string name="event_confirm_include_attention_memory_include">Включить</string>
     <string name="event_confirm_attention_memory_include_success">Модуль Внимание/Память добавлен в отчет</string>

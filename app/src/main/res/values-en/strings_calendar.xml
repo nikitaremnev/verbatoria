@@ -92,6 +92,10 @@
     <string name="event_confirm_archimed_subtitle_enabled">The report will include the Archimedes panel if there is a suitable</string>
     <string name="event_confirm_archimed_subtitle_disabled">CUSTOMER WILL NOT RECEIVE PANEL ARCHEMED - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
 
+    <string name="event_confirm_hobby_title">HOBBY</string>
+    <string name="event_confirm_hobby_subtitle_enabled">The report will include the Hobby panel if there is a suitable</string>
+    <string name="event_confirm_hobby_subtitle_enabled">The report will NOT include the Hobby panel</string>
+
     <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
     <string name="event_confirm_include_attention_memory_include">Include</string>
     <string name="event_confirm_attention_memory_include_success">The Attention/Memory module has been added in the report</string>

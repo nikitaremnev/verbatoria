@@ -42,6 +42,10 @@
                 android:visibility="gone"
                 layout="@layout/item_field"/>
 
+            <include android:id="@+id/hobby_field"
+                android:visibility="gone"
+                layout="@layout/item_field"/>
+
         </LinearLayout>
 
         <Button

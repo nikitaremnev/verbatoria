@@ -28,6 +28,8 @@ public interface IEventDetailView {
     void updateChildView(ChildModel childModel);
     void updateReportView(ReportModel reportModel);
     void updateArchimedView(boolean isArchimedFieldEnabled, boolean isArchimed);
+    void updateHobbyView(boolean isHobbyEnabledForAge, boolean isHobby);
+
     void updateEventTime(EventModel eventModel);
     void updateSendToLocationView(ReportModel reportModel, boolean isSent);
     void updateIncludeAttentionMemoryView(ReportModel reportModel, boolean isSent);
