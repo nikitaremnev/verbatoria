@@ -93,7 +93,7 @@
     <string name="event_confirm_archimed_subtitle_disabled">CUSTOMER WILL NOT RECEIVE PANEL ARCHEMED - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
 
     <string name="event_confirm_hobby_title">HOBBY</string>
-    <string name="event_confirm_hobby_subtitle_enabled">The report will include the Hobby panel if there is a suitable</string>
+    <string name="event_confirm_hobby_subtitle_enabled">The report will include the Hobby panel</string>
     <string name="event_confirm_hobby_subtitle_disabled">The report will NOT include the Hobby panel</string>
 
     <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
@@ -103,5 +103,9 @@
     <string name="event_confirm_clear_database">Database contains some data. Clear it before the writing new data?</string>
     <string name="event_confirm_clear">Clear</string>
     <string name="event_confirm_clear_database_title">Data found</string>
+
+    <string name="event_confirm_hobby_dialog_title">Hobby Module</string>
+    <string name="event_confirm_hobby_message">Do you want to include the Hobby module in the report?</string>
+    <string name="event_confirm_hobby_include">Include</string>
 
 </resources>

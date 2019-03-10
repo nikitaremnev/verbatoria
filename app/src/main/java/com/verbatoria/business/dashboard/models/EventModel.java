@@ -33,6 +33,8 @@ public class EventModel implements Parcelable {
 
     private boolean mArchimed;
 
+    private boolean mHobby;
+
     private boolean mIsArchimedAllowed;
 
     public EventModel() {
@@ -61,6 +63,14 @@ public class EventModel implements Parcelable {
 
     public void setArchimed(boolean archimed) {
         mArchimed = archimed;
+    }
+
+    public boolean getHobby() {
+        return mHobby;
+    }
+
+    public void setHobby(boolean hobby) {
+        mHobby = hobby;
     }
 
     public void setIsArchimedAllowed(boolean isArchimedAllowed) {
@@ -122,7 +132,6 @@ public class EventModel implements Parcelable {
         }
     }
 
-
     public String getEventTime() {
         return DateUtils.toDDMMString(getStartAt()) + " " + DateUtils.timeHHmmToString(getStartAt());
     }
@@ -160,15 +169,14 @@ public class EventModel implements Parcelable {
                 Objects.equals(mReport, that.mReport) &&
                 Objects.equals(mIsInstantReport, that.mIsInstantReport) &&
                 Objects.equals(mArchimed, that.mArchimed) &&
+                Objects.equals(mHobby, that.mHobby) &&
                 Objects.equals(mIsArchimedAllowed, that.mIsArchimedAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mStartAt, mEndAt, mChild, mReport, mIsInstantReport, mArchimed, mIsArchimedAllowed);
+        return Objects.hash(mId, mStartAt, mEndAt, mChild, mReport, mIsInstantReport, mArchimed, mHobby, mIsArchimedAllowed);
     }
-
-
 
     @Override
     public int describeContents() {
@@ -184,6 +192,7 @@ public class EventModel implements Parcelable {
         dest.writeParcelable(this.mReport, flags);
         dest.writeInt(this.mIsInstantReport ? 1 : 0);
         dest.writeInt(this.mArchimed ? 1 : 0);
+        dest.writeInt(this.mHobby ? 1 : 0);
         dest.writeInt(this.mIsArchimedAllowed ? 1 : 0);
     }
 
@@ -197,6 +206,7 @@ public class EventModel implements Parcelable {
         this.mReport = in.readParcelable(ReportModel.class.getClassLoader());
         this.mIsInstantReport = in.readInt() == 1;
         this.mArchimed = in.readInt() == 1;
+        this.mHobby = in.readInt() == 1;
         this.mIsArchimedAllowed = in.readInt() == 1;
     }
 

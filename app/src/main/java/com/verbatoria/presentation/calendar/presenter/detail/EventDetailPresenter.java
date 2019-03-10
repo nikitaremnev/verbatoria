@@ -38,6 +38,8 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public static final String EXTRA_EVENT_MODEL = "com.verbatoria.presentation.dashboard.presenter.calendar.EXTRA_EVENT_MODEL";
     public static final int EVENT_LENGTH_MINUTES = 60;
 
+    private static final int MINIMUM_HOBBY_AGE = 17;
+
     private IClientsInteractor mClientsInteractor;
     private ISessionInteractor mSessionInteractor;
     private ICalendarInteractor mCalendarInteractor;
@@ -231,6 +233,21 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         );
     }
 
+    //region hobby
+
+    @Override
+    public void onHobbyClicked() {
+        mCalendarEventDetailView.showConfirmHobby();
+    }
+
+    @Override
+    public void onHobbyConfirmed() {
+        mEventModel.setHobby(true);
+        onEditEventClicked();
+    }
+
+    //endregion
+
     @Override
     public boolean isEditMode() {
         return mIsEditMode;
@@ -251,6 +268,15 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
                     return ageGroup.isIsArchimedAllowed();
                 }
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isHobbyAllowedForChildAge() {
+        if (mEventModel.getChild() != null) {
+            int childAge = mEventModel.getChild().getAge();
+            return childAge >= MINIMUM_HOBBY_AGE;
         }
         return false;
     }
@@ -302,6 +328,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
         mEventModel = eventModel;
         mCalendarEventDetailView.updateReportView(eventModel.getReport());
         mCalendarEventDetailView.updateArchimedView(isArchimedesAllowedForVerbatolog(), isArchimedesAllowedForChildAge());
+        mCalendarEventDetailView.updateHobbyView(isHobbyAllowedForChildAge(), eventModel.getHobby());
         mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
         mCalendarEventDetailView.setUpEventCreated();
     }

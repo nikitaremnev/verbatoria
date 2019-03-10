@@ -24,6 +24,8 @@ public class EventRequestModel {
 
     private boolean mArchimed;
 
+    private boolean mHobby;
+
     public EventRequestModel() {
 
     }
@@ -93,6 +95,17 @@ public class EventRequestModel {
         return this;
     }
 
+    @JsonGetter("hobby")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean getHobby() {
+        return mHobby;
+    }
+
+    public EventRequestModel setHobby(boolean hobby) {
+        mHobby = hobby;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -107,12 +120,13 @@ public class EventRequestModel {
                 Objects.equals(mStartAt, that.mStartAt) &&
                 Objects.equals(mEndAt, that.mEndAt) &&
                 Objects.equals(mIsInstantReport, that.mIsInstantReport) &&
-                Objects.equals(mArchimed, that.mArchimed);
+                Objects.equals(mArchimed, that.mArchimed) &&
+                Objects.equals(mHobby, that.mHobby);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport, mArchimed);
+        return Objects.hash(mChildId, mLocationId, mStartAt, mEndAt, mIsInstantReport, mArchimed, mHobby);
     }
 
 

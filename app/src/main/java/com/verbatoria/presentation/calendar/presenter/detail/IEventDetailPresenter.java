@@ -49,9 +49,14 @@ public interface IEventDetailPresenter {
     void onIncludeAttentionMemoryClicked();
     void onIncludeAttentionMemoryConfirmed();
 
+    void onHobbyClicked();
+    void onHobbyConfirmed();
+
     boolean isEditMode();
     boolean isArchimedesAllowedForVerbatolog();
     boolean isArchimedesAllowedForChildAge();
+
+    boolean isHobbyAllowedForChildAge();
 
     void pickTime(Calendar calendar);
 

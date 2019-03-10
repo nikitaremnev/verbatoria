@@ -159,7 +159,8 @@ public class CalendarInteractor implements ICalendarInteractor {
                         .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
                         .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime()))
                         .setIsInstantReport(eventModel.isInstantReport())
-                        .setArchimed(eventModel.getArchimed()));
+                        .setArchimed(eventModel.getArchimed())
+                        .setHobby(eventModel.getHobby()));
     }
 
     private String getAccessToken() {

@@ -93,7 +93,7 @@
     <string name="event_confirm_archimed_subtitle_disabled">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>
 
     <string name="event_confirm_hobby_title">ХОББИ</string>
-    <string name="event_confirm_hobby_subtitle_enabled">В отчет будет включена панель Хобби при наличии подходящей</string>
+    <string name="event_confirm_hobby_subtitle_enabled">В отчет будет включена панель Хобби</string>
     <string name="event_confirm_hobby_subtitle_disabled">В отчет НЕ будет включена панель Хобби</string>
 
     <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
@@ -103,5 +103,9 @@
     <string name="event_confirm_clear_database">База данных содержит записи, очистить ее перед проведением приема?</string>
     <string name="event_confirm_clear">Очистить</string>
     <string name="event_confirm_clear_database_title">Обнаружены данные</string>
+
+    <string name="event_confirm_hobby_dialog_title">Модуль Хобби</string>
+    <string name="event_confirm_hobby_message">Включить модуль Хобби в отчет?</string>
+    <string name="event_confirm_hobby_include">Включить</string>
 
 </resources>

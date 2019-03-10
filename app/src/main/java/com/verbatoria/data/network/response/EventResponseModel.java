@@ -25,6 +25,8 @@ public class EventResponseModel {
 
     private boolean mArchimed;
 
+    private boolean mHobby;
+
     private boolean mIsArchimedAllowed;
 
     private ChildResponseModel mChild;
@@ -85,6 +87,16 @@ public class EventResponseModel {
         mArchimed = archimed;
     }
 
+    @JsonGetter("hobby")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public boolean getHobby() {
+        return mHobby;
+    }
+
+    public void setHobby(boolean hobby) {
+        mHobby = hobby;
+    }
+
     @JsonGetter("is_archimed_allowed")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public boolean getIsArchimedAllowed() {
@@ -132,12 +144,13 @@ public class EventResponseModel {
                 Objects.equals(mReport, that.mReport) &&
                 Objects.equals(mInstantReport, that.mInstantReport) &&
                 Objects.equals(mArchimed, that.mArchimed) &&
+                Objects.equals(mHobby, that.mHobby) &&
                 Objects.equals(mIsArchimedAllowed, that.mIsArchimedAllowed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mStartAt, mEndAt, mChild, mReport, mInstantReport, mArchimed, mIsArchimedAllowed);
+        return Objects.hash(mId, mStartAt, mEndAt, mChild, mReport, mInstantReport, mArchimed, mHobby, mIsArchimedAllowed);
     }
 
 

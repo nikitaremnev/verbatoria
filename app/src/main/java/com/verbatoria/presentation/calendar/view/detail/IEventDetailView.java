@@ -40,6 +40,7 @@ public interface IEventDetailView {
     void showConfirmSendToLocation();
     void showConfirmIncludeAttentionMemory();
     void showConfirmClearDatabase();
+    void showConfirmHobby();
 
     void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals);
 

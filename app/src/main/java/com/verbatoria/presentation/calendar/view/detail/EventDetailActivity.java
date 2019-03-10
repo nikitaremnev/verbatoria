@@ -300,7 +300,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 hobbySubtitle = getString(R.string.event_confirm_hobby_subtitle_disabled);
             }
             mHobbyFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
-            setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.event_confirm_hobby_title), hobbySubtitle, v -> { });
+            setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.event_confirm_hobby_title), hobbySubtitle, v -> {
+                if (!isHobby) {
+                    mEventDetailPresenter.onHobbyClicked();
+                }
+            });
             mHobbyFieldView.setVisibility(View.VISIBLE);
         }
     }
@@ -402,6 +406,18 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showConfirmHobby() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.event_confirm_hobby_dialog_title))
+                .setMessage(getString(R.string.event_confirm_hobby_message));
+        builder.setPositiveButton(getString(R.string.event_confirm_hobby_include), (dialog, which) -> {
+            mEventDetailPresenter.onHobbyConfirmed();
+        });
+        builder.setNegativeButton(getString(R.string.cancel), null);
+        builder.create().show();
+    }
+
+    @Override
     public void showPossibleTimeIntervals(List<TimeIntervalModel> timeIntervals) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.event_detail_activity_available_time));
@@ -488,6 +504,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateEventTime(mEventDetailPresenter.getEvent());
         updateReportView(mEventDetailPresenter.getEvent().getReport());
         updateArchimedView(mEventDetailPresenter.isArchimedesAllowedForVerbatolog(), mEventDetailPresenter.isArchimedesAllowedForChildAge());
+        updateHobbyView(mEventDetailPresenter.isHobbyAllowedForChildAge(), mEventDetailPresenter.getEvent().getHobby());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
     }

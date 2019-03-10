@@ -141,6 +141,7 @@ public class ModelsConverter {
         eventModel.setReport(convertReportResponseModelToReportModel(eventResponseModel.getReport()));
         eventModel.setIsInstantReport(eventResponseModel.getInstantReport());
         eventModel.setArchimed(eventResponseModel.getArchimed());
+        eventModel.setHobby(eventResponseModel.getHobby());
         eventModel.setIsArchimedAllowed(eventResponseModel.getIsArchimedAllowed());
         return eventModel;
     }
