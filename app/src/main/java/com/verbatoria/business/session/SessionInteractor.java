@@ -127,17 +127,16 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     public Completable cleanUp() {
         Logger.e(TAG, "cleanUp");
         return Completable.fromAction(() -> {
-                    mSessionRepository.cleanUp();
-                    File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
-                    if (file.exists()) {
-                        file.delete();
-                    }
-                })
-                .doAfterTerminate(() -> {
-                    DoneActivitiesProcessor.clearDoneActivities();
-                    DoneActivitiesProcessor.clearTimeDoneActivities();
-                    VerbatoriaApplication.dropActivitiesTimer();
-                })
+            mSessionRepository.cleanUp();
+            DoneActivitiesProcessor.clearDoneActivities();
+            DoneActivitiesProcessor.clearTimeDoneActivities();
+            VerbatoriaApplication.dropActivitiesTimer();
+
+            File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
+            if (file.exists()) {
+                file.delete();
+            }
+        })
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

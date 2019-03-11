@@ -38,7 +38,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public static final String EXTRA_EVENT_MODEL = "com.verbatoria.presentation.dashboard.presenter.calendar.EXTRA_EVENT_MODEL";
     public static final int EVENT_LENGTH_MINUTES = 60;
 
-    private static final int MINIMUM_HOBBY_AGE = 17;
+    private static final int MINIMUM_HOBBY_AGE = 18;
 
     private IClientsInteractor mClientsInteractor;
     private ISessionInteractor mSessionInteractor;

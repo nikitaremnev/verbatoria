@@ -158,9 +158,7 @@ public class DoneActivitiesProcessor {
     }
 
     public static boolean removeActivityFromDoneArray(String string) {
-        if (sDoneActivitiesTimeArray.containsKey(string)) {
-            sDoneActivitiesTimeArray.remove(string);
-        }
+        sDoneActivitiesTimeArray.remove(string);
         return sDoneActivitiesArray.remove(string);
     }
 

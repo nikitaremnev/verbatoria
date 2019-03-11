@@ -2,7 +2,7 @@ ext {
 
     applicationId = "ru.verbatoria"
     versionName = "10.0.7"
-    versionCode = 29
+    versionCode = 30
 
     compileSdkVersion = 28
     targetSdkVersion = 26
