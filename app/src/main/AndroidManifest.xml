@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.remnev.verbatoria"
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    package="com.remnev.verbatoria"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.NFC" />
@@ -14,20 +15,25 @@
         android:name="com.verbatoria.VerbatoriaApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MainTheme">
+        android:theme="@style/MainTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name="com.verbatoria.presentation.splash.SplashActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
 
         <activity
             android:name="com.verbatoria.presentation.login.view.login.LoginActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme">
-        </activity>
+            android:theme="@style/FullScreenTheme"/>
 
         <activity
             android:name="com.verbatoria.presentation.dashboard.view.DashboardActivity"
@@ -89,14 +95,7 @@
         <activity
             android:name="com.verbatoria.presentation.login.view.sms.SMSConfirmationActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+            android:theme="@style/FullScreenTheme"/>
 
     </application>
 

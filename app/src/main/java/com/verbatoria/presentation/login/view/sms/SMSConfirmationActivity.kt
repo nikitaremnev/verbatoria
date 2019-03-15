@@ -14,6 +14,7 @@ import com.verbatoria.VerbatoriaApplication
 import com.verbatoria.di.login.LoginModule
 import com.verbatoria.infrastructure.BaseActivity
 import com.verbatoria.infrastructure.BasePresenter
+import com.verbatoria.presentation.dashboard.view.DashboardActivity
 import com.verbatoria.presentation.login.presenter.sms.SMSConfirmationPresenter
 import com.verbatoria.utils.Helper
 import javax.inject.Inject
@@ -44,7 +45,7 @@ interface SMSConfirmationView {
 
     fun showPhoneNotFullError()
 
-    fun close()
+    fun startDashboard()
 
     interface Callback {
 
@@ -172,7 +173,8 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
         Helper.showErrorSnackBar(submitButton, getString(R.string.sms_confirmation_code_phone_not_full))
     }
 
-    override fun close() {
+    override fun startDashboard() {
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 

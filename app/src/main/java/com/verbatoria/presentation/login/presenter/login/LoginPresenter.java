@@ -91,7 +91,8 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
     private void handleSuccessLogin(TokenModel tokenModel) {
         Logger.e(TAG, tokenModel.toString());
         mLoginView.hideProgress();
-        mLoginView.loginSuccess();
+//        mLoginView.loginSuccess();
+        mLoginView.startSMSConfirmation();
     }
 
     private void handleErrorLogin(Throwable throwable) {

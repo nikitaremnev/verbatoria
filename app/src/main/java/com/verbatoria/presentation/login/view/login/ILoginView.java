@@ -22,10 +22,11 @@ public interface ILoginView {
     String getPassword();
 
     //отображение результатов запроса
-    void loginSuccess();
+//    void loginSuccess();
     void showError(String message);
 
     void startRecoveryPassword();
+    void startSMSConfirmation();
 
     void setUpCountry(String country);
 

@@ -63,7 +63,7 @@ public class LoginInteractor implements ILoginInteractor {
 
     @Override
     public Observable<SMSConfirmationResponseModel> sendSMSConfirmation(String phone, String text) {
-        return mLoginRepository.sendSMSConfirmation(phone, text)
+        return mLoginRepository.sendSMSConfirmation(processPhone(phone), text)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

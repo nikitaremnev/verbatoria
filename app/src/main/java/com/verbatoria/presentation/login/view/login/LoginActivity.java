@@ -22,6 +22,7 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.dashboard.view.DashboardActivity;
 import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
 import com.verbatoria.presentation.login.view.recovery.RecoveryActivity;
+import com.verbatoria.presentation.login.view.sms.SMSConfirmationActivity;
 import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;
@@ -85,12 +86,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
         if (BuildConfig.DEBUG) {
             //maria
-            mLoginEditText.setText("79268932040");
-            mPasswordEditText.setText("89268932040");
+//            mLoginEditText.setText("79268932040");
+//            mPasswordEditText.setText("89268932040");
 
             //my account
-//            mLoginEditText.setText("79153974689");
-//            mPasswordEditText.setText("123474858");
+            mLoginEditText.setText("79153974689");
+            mPasswordEditText.setText("123474858");
         }
     }
 
@@ -193,12 +194,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     //отображение результатов запроса
-    @Override
-    public void loginSuccess() {
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-        finish();
-    }
+//    @Override
+//    public void loginSuccess() {
+//        Intent intent = new Intent(this, DashboardActivity.class);
+//        startActivity(intent);
+//        finish();
+//    }
 
     @Override
     public void showError(String message) {
@@ -208,6 +209,14 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     public void startRecoveryPassword() {
         Intent intent = RecoveryActivity.newInstance(this, getPhone());
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void startSMSConfirmation() {
+        Intent intent = SMSConfirmationActivity.Companion.newInstance(this, getPhone());
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

@@ -31,11 +31,15 @@ class SMSConfirmationPresenterImpl(
     override fun bindView(smsConfirmationView: SMSConfirmationView) {
         mSmsConfirmationView = smsConfirmationView
         phone = smsConfirmationView.getPhone()
+    }
+
+    override fun onStart() {
+        super.onStart()
         if (phone != null) {
-            smsConfirmationView.showPhoneInput()
             isPhoneFilled = true
+            onSendSMSCodeClicked()
         } else {
-            smsConfirmationView.showPhoneInput()
+            mSmsConfirmationView?.showPhoneInput()
         }
     }
 
@@ -57,7 +61,7 @@ class SMSConfirmationPresenterImpl(
 
     override fun onConfirmationCodeTextChanged(confirmationCode: String) {
         if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
-            mSmsConfirmationView?.close()
+            mSmsConfirmationView?.startDashboard()
         }
     }
 
@@ -89,7 +93,7 @@ class SMSConfirmationPresenterImpl(
 
     override fun onCheckSMSCodeClicked(confirmationCode: String) {
         if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
-            mSmsConfirmationView?.close()
+            mSmsConfirmationView?.startDashboard()
         }
     }
 
