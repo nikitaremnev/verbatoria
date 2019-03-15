@@ -73,6 +73,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
 
         fun newInstance(context: Context): Intent =
             Intent(context, SMSConfirmationActivity::class.java)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
     }
 

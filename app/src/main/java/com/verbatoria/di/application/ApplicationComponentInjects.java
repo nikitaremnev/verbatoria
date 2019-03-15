@@ -1,5 +1,6 @@
 package com.verbatoria.di.application;
 
+import com.verbatoria.business.session.activities.UserInteractionTimerTask;
 import com.verbatoria.business.session.manager.AudioPlayerManager;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.token.processor.TokenProcessor;
@@ -37,4 +38,7 @@ public interface ApplicationComponentInjects {
     void inject(QuestionsAdapter questionsAdapter);
 
     void inject(QuestionViewHolder questionViewHolder);
+
+    void inject(UserInteractionTimerTask userInteractionTimerTask);
+
 }

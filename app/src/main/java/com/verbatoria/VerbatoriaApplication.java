@@ -14,10 +14,13 @@ import com.neurosky.connection.TgStreamReader;
 import com.remnev.verbatoria.R;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
+import com.verbatoria.business.session.activities.UserInteractionTimerTask;
 import com.verbatoria.di.application.ApplicationComponent;
 import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
 import com.verbatoria.utils.Logger;
+
+import java.util.Timer;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -41,6 +44,8 @@ public class VerbatoriaApplication extends MultiDexApplication {
     private static ISessionInteractor.ISessionCallback sSessionInteractorCallback;
 
     private static ActivitiesTimerTask mActivitiesTimerTask;
+
+    private static UserInteractionTimerTask mUserInteractionTimerTask;
 
     @NonNull
     private static ApplicationComponent mApplicationComponent;
@@ -85,6 +90,13 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
     public static void dropActivitiesTimer() {
         mActivitiesTimerTask = null;
+    }
+
+    public static void onUserInteraction() {
+        if (mUserInteractionTimerTask == null) {
+            mUserInteractionTimerTask = new UserInteractionTimerTask();
+        }
+        mUserInteractionTimerTask.updateLastInteractionTime();
     }
 
     public static void tryToConnect() {
