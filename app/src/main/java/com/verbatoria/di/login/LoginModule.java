@@ -9,6 +9,8 @@ import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
 import com.verbatoria.presentation.login.presenter.login.LoginPresenter;
 import com.verbatoria.presentation.login.presenter.recovery.IRecoveryPresenter;
 import com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter;
+import com.verbatoria.presentation.login.presenter.sms.SMSConfirmationPresenter;
+import com.verbatoria.presentation.login.presenter.sms.SMSConfirmationPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -43,6 +45,12 @@ public class LoginModule {
     @LoginScope
     IRecoveryPresenter provideRecoveryPresenter(ILoginInteractor loginInteractor) {
         return new RecoveryPresenter(loginInteractor);
+    }
+
+    @Provides
+    @LoginScope
+    SMSConfirmationPresenter provideSMSConfirmationPresenter() {
+        return new SMSConfirmationPresenterImpl();
     }
 
 }

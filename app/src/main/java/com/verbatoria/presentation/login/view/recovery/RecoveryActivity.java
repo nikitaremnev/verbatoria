@@ -79,6 +79,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
     public static Intent newInstance(Context mContext) {
         return new Intent(mContext, RecoveryActivity.class);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
