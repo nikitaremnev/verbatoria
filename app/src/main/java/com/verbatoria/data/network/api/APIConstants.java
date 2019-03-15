@@ -11,6 +11,8 @@ class APIConstants {
     private static final int API_VERSION = 1;
     static final String API_BASE_URL = "https://verbatoria.ru/api/v" + API_VERSION + "/";
 
+    static final String API_PANEL_BASE_URL = "https://panel.verbatoria.ru/api/";
+
     static final String VERBATOLOG_ID_PATH_KEY = "verbatolog";
     static final String TOKEN_HEADER_KEY = "token";
     static final String LOCATION_ID_PATH_KEY = "location_id";
@@ -62,5 +64,8 @@ class APIConstants {
     static final String SEND_REPORT_TO_LOCATION_URL = "reports/{" + REPORT_ID_PATH_KEY + "}/send_to_location" + JSON_PATH;
 
     static final String AGE_GROUPS_URL = "age_groups" + JSON_PATH;
+
+    static final String SMS_CONFIRMATION_CODE_URL = "sendsmscode";
+
 
 }

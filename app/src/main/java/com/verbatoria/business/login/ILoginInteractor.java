@@ -2,6 +2,7 @@ package com.verbatoria.business.login;
 
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
+import com.verbatoria.data.network.response.SMSConfirmationResponseModel;
 
 import rx.Observable;
 
@@ -17,6 +18,8 @@ public interface ILoginInteractor {
     Observable<MessageResponseModel> recoveryPassword(String phone);
 
     Observable<MessageResponseModel> resetPassword(String phone, String code, String password);
+
+    Observable<SMSConfirmationResponseModel> sendSMSConfirmation(String phone, String text);
 
     Void tryRecoveryCode(String phone, String code);
 

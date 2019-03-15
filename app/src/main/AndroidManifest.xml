@@ -20,10 +20,7 @@
             android:name="com.verbatoria.presentation.splash.SplashActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <activity
@@ -92,7 +89,14 @@
         <activity
             android:name="com.verbatoria.presentation.login.view.sms.SMSConfirmationActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"/>
+            android:theme="@style/FullScreenTheme">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
 
     </application>
 

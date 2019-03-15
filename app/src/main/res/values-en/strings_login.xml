@@ -38,4 +38,13 @@
 
     <string name="select_country">Choose location</string>
 
+    <string name="sms_confirmation_text">Confirmation code</string>
+
+    <string name="sms_confirmation_confirm">Confirm</string>
+
+    <string name="sms_confirmation_code_sent">Code sent successfully</string>
+    <string name="sms_confirmation_code_incorrect">Incorrect code</string>
+    <string name="sms_confirmation_code_sent_error">Error occurred while sending SMS code</string>
+    <string name="sms_confirmation_code_phone_not_full">Phone is not fully specified</string>
+
 </resources>

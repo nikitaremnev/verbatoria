@@ -49,8 +49,8 @@ public class LoginModule {
 
     @Provides
     @LoginScope
-    SMSConfirmationPresenter provideSMSConfirmationPresenter() {
-        return new SMSConfirmationPresenterImpl();
+    SMSConfirmationPresenter provideSMSConfirmationPresenter(ILoginInteractor loginInteractor) {
+        return new SMSConfirmationPresenterImpl(loginInteractor);
     }
 
 }

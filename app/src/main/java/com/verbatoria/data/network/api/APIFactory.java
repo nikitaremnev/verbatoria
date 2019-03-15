@@ -21,6 +21,8 @@ public class APIFactory {
 
     private static final OkHttpClient OK_HTTP_CLIENT;
 
+    private static final Retrofit VERBATORIA_RETROFIT;
+
     static {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -31,6 +33,13 @@ public class APIFactory {
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .addInterceptor(interceptor)
                 .build();
+
+        VERBATORIA_RETROFIT = new Retrofit.Builder()
+                .baseUrl(APIConstants.API_BASE_URL)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(JacksonConverterFactory.create())
+                .client(OK_HTTP_CLIENT)
+                .build();
     }
 
     @NonNull
@@ -40,8 +49,18 @@ public class APIFactory {
 
     @NonNull
     private static Retrofit getRetrofit() {
+        return VERBATORIA_RETROFIT;
+    }
+
+    @NonNull
+    public static APIPanelService getPanelAPIService() {
+        return getPanelRetrofit().create(APIPanelService.class);
+    }
+
+    @NonNull
+    private static Retrofit getPanelRetrofit() {
         return new Retrofit.Builder()
-                .baseUrl(APIConstants.API_BASE_URL)
+                .baseUrl(APIConstants.API_PANEL_BASE_URL)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .client(OK_HTTP_CLIENT)

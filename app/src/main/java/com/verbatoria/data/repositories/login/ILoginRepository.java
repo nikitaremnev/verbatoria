@@ -5,6 +5,7 @@ import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
 import com.verbatoria.data.network.request.ResetPasswordRequestModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
+import com.verbatoria.data.network.response.SMSConfirmationResponseModel;
 
 import rx.Observable;
 
@@ -17,6 +18,8 @@ import rx.Observable;
 public interface ILoginRepository {
 
     Observable<LoginResponseModel> getLogin(LoginRequestModel loginRequestModel);
+
+    Observable<SMSConfirmationResponseModel> sendSMSConfirmation(String phone, String text);
 
     Observable<MessageResponseModel> recoveryPassword(RecoveryPasswordRequestModel recoveryPasswordRequestModel);
 
