@@ -18,6 +18,7 @@ public class UserInteractionTimerTask {
     public Context mContext;
 
     private long lastInteractionTime = System.currentTimeMillis();
+    private boolean isSmsConfirmationStarted = false;
 
     public UserInteractionTimerTask() {
         VerbatoriaApplication.getApplicationComponent().inject(this);
@@ -31,8 +32,16 @@ public class UserInteractionTimerTask {
         }
     }
 
+    public void dropTimerTaskState() {
+        isSmsConfirmationStarted = false;
+        lastInteractionTime = System.currentTimeMillis();
+    }
+
     private void startSMSConfirmation() {
-        mContext.startActivity(SMSConfirmationActivity.Companion.newInstance(mContext));
+        if (!isSmsConfirmationStarted) {
+            mContext.startActivity(SMSConfirmationActivity.Companion.newInstance(mContext));
+        }
+        isSmsConfirmationStarted = true;
     }
 
 }

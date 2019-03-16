@@ -96,6 +96,11 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     @Override
+    public void onUserInteraction() {
+        //empty
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mLoginPresenter.unbindView();

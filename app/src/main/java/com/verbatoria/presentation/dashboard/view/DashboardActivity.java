@@ -57,6 +57,11 @@ public class DashboardActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        //empty
+    }
+
+    @Override
     protected void setUpViews() {
         setUpBottomNavigation();
         if (mDashboardPresenter.isShowSettings()) {

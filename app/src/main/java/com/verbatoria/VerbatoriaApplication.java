@@ -20,8 +20,6 @@ import com.verbatoria.di.application.ApplicationModule;
 import com.verbatoria.di.application.DaggerApplicationComponent;
 import com.verbatoria.utils.Logger;
 
-import java.util.Timer;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -43,12 +41,12 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
     private static ISessionInteractor.ISessionCallback sSessionInteractorCallback;
 
-    private static ActivitiesTimerTask mActivitiesTimerTask;
+    private static ActivitiesTimerTask activitiesTimerTask;
 
-    private static UserInteractionTimerTask mUserInteractionTimerTask;
+    private static UserInteractionTimerTask userInteractionTimerTask;
 
     @NonNull
-    private static ApplicationComponent mApplicationComponent;
+    private static ApplicationComponent applicationComponent;
 
     static {
         sStreamHandler = new DefaultTgStreamHandler();
@@ -62,7 +60,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        mApplicationComponent = DaggerApplicationComponent.builder()
+        applicationComponent = DaggerApplicationComponent.builder()
             .applicationModule(new ApplicationModule(getApplicationContext()))
             .build();
         MultiDex.install(this);
@@ -71,7 +69,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
     @NonNull
     public static ApplicationComponent getApplicationComponent() {
-        return mApplicationComponent;
+        return applicationComponent;
     }
 
     public static void setSessionInteractorCallback(ISessionInteractor.ISessionCallback sessionInteractorCallback) {
@@ -79,24 +77,33 @@ public class VerbatoriaApplication extends MultiDexApplication {
     }
 
     public static ActivitiesTimerTask getActivitiesTimer(ISessionInteractor.IActivitiesCallback activitiesCallback) {
-        if (mActivitiesTimerTask == null) {
-            mActivitiesTimerTask = new ActivitiesTimerTask(activitiesCallback);
+        if (activitiesTimerTask == null) {
+            activitiesTimerTask = new ActivitiesTimerTask(activitiesCallback);
         } else {
-            mActivitiesTimerTask.cancel();
-            mActivitiesTimerTask = mActivitiesTimerTask.copy(activitiesCallback);
+            activitiesTimerTask.cancel();
+            activitiesTimerTask = activitiesTimerTask.copy(activitiesCallback);
         }
-        return mActivitiesTimerTask;
+        return activitiesTimerTask;
     }
 
     public static void dropActivitiesTimer() {
-        mActivitiesTimerTask = null;
+        activitiesTimerTask = null;
     }
 
     public static void onUserInteraction() {
-        if (mUserInteractionTimerTask == null) {
-            mUserInteractionTimerTask = new UserInteractionTimerTask();
+        if (userInteractionTimerTask == null) {
+            userInteractionTimerTask = new UserInteractionTimerTask();
+        } else {
+            userInteractionTimerTask.updateLastInteractionTime();
         }
-        mUserInteractionTimerTask.updateLastInteractionTime();
+    }
+
+    public static void onSmsConfirmationPassed() {
+        if (userInteractionTimerTask == null) {
+            userInteractionTimerTask = new UserInteractionTimerTask();
+        } else {
+            userInteractionTimerTask.dropTimerTaskState();
+        }
     }
 
     public static void tryToConnect() {

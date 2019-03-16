@@ -6,13 +6,16 @@ import com.verbatoria.data.network.response.SMSConfirmationResponseModel
 import com.verbatoria.infrastructure.BasePresenter
 import com.verbatoria.presentation.login.view.sms.SMSConfirmationView
 
+/**
+ * @author n.remnev
+ */
+
 interface SMSConfirmationPresenter {
 
     fun bindView(smsConfirmationView: SMSConfirmationView)
     fun unbindView()
 
     fun getCountry(): String
-
 
 }
 
@@ -28,6 +31,8 @@ class SMSConfirmationPresenterImpl(
 
     private var confirmCode: Long? = null
 
+    private var isFromLogin: Boolean = false
+
     override fun bindView(smsConfirmationView: SMSConfirmationView) {
         mSmsConfirmationView = smsConfirmationView
         phone = smsConfirmationView.getPhone()
@@ -37,8 +42,10 @@ class SMSConfirmationPresenterImpl(
         super.onStart()
         if (phone != null) {
             isPhoneFilled = true
+            isFromLogin = true
             onSendSMSCodeClicked()
         } else {
+            isFromLogin = false
             mSmsConfirmationView?.showPhoneInput()
         }
     }
@@ -61,7 +68,11 @@ class SMSConfirmationPresenterImpl(
 
     override fun onConfirmationCodeTextChanged(confirmationCode: String) {
         if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
-            mSmsConfirmationView?.startDashboard()
+            if (isFromLogin) {
+                mSmsConfirmationView?.startDashboard()
+            } else {
+                mSmsConfirmationView?.close()
+            }
         }
     }
 
@@ -93,7 +104,13 @@ class SMSConfirmationPresenterImpl(
 
     override fun onCheckSMSCodeClicked(confirmationCode: String) {
         if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
-            mSmsConfirmationView?.startDashboard()
+            if (isFromLogin) {
+                mSmsConfirmationView?.startDashboard()
+            } else {
+                mSmsConfirmationView?.close()
+            }
+        } else {
+            mSmsConfirmationView?.showCodeConfirmationError()
         }
     }
 

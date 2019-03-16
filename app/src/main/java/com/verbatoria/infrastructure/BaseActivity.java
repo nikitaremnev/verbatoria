@@ -92,7 +92,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         VerbatoriaApplication.onUserInteraction();
     }
 
-
     protected void startProgress() {
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage(getString(R.string.loading_please_wait));

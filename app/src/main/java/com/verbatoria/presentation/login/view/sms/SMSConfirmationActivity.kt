@@ -47,6 +47,8 @@ interface SMSConfirmationView {
 
     fun startDashboard()
 
+    fun close()
+
     interface Callback {
 
         fun onConfirmationCodeTextChanged(confirmationCode: String)
@@ -73,7 +75,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
 
         fun newInstance(context: Context): Intent =
             Intent(context, SMSConfirmationActivity::class.java)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
     }
 
@@ -100,6 +102,14 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
         super.onCreate(savedInstanceState)
 
         presenter.bindView(this)
+    }
+
+    override fun onBackPressed() {
+        //empty
+    }
+
+    override fun onUserInteraction() {
+        //empty
     }
 
     override fun setUpViews() {
@@ -175,7 +185,13 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
     }
 
     override fun startDashboard() {
+        VerbatoriaApplication.onSmsConfirmationPassed()
         startActivity(Intent(this, DashboardActivity::class.java))
+        finish()
+    }
+
+    override fun close() {
+        VerbatoriaApplication.onSmsConfirmationPassed()
         finish()
     }
 

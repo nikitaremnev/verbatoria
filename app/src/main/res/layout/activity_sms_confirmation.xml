@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:background="@color/background"
     android:gravity="center">
 
@@ -27,7 +26,6 @@
         android:layout_below="@+id/logo_image_view"
         android:layout_marginLeft="@dimen/activity_login_text_view_horizontal_margin"
         android:layout_marginRight="@dimen/activity_login_text_view_horizontal_margin"
-        android:animateLayoutChanges="true"
         android:gravity="center"
         android:orientation="vertical">
 

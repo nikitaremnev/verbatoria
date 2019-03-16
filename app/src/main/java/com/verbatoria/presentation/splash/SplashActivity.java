@@ -32,6 +32,16 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        //empty
+    }
+
+    @Override
+    public void onUserInteraction() {
+        //empty
+    }
+
+    @Override
     protected void setUpViews() {
         //empty
     }

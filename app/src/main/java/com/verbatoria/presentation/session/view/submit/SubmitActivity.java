@@ -19,6 +19,7 @@ import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.presentation.session.view.submit.questions.QuestionsViewPagerContainer;
 import com.verbatoria.utils.Helper;
+import com.verbatoria.utils.Logger;
 
 import java.util.ArrayList;
 
@@ -86,6 +87,14 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         mSubmitPresenter.bindView(this);
         mSubmitPresenter.obtainEvent(getIntent());
     }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        Logger.e(TAG, "onUserInteraction");
+        VerbatoriaApplication.onUserInteraction();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
