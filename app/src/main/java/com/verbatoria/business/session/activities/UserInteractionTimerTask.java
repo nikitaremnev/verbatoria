@@ -12,7 +12,8 @@ import javax.inject.Inject;
  */
 public class UserInteractionTimerTask {
 
-    private static final long USER_INTERACTION_INTERVAL = 1000 * 60 * 1;
+    //60-minutes, 1 hour
+    private static final long USER_INTERACTION_INTERVAL = 1000 * 60 * 60;
 
     @Inject
     public Context mContext;

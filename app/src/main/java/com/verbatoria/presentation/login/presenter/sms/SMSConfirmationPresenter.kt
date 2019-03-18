@@ -45,8 +45,16 @@ class SMSConfirmationPresenterImpl(
             isFromLogin = true
             onSendSMSCodeClicked()
         } else {
-            isFromLogin = false
-            mSmsConfirmationView?.showPhoneInput()
+            val lastLogin = loginInteractor.lastLogin
+            if (lastLogin.isNullOrEmpty()) {
+                isFromLogin = false
+                mSmsConfirmationView?.showPhoneInput()
+            } else {
+                phone = lastLogin
+                isPhoneFilled = true
+                isFromLogin = true
+                onSendSMSCodeClicked()
+            }
         }
     }
 
