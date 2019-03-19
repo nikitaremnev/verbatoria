@@ -97,6 +97,10 @@ class SMSConfirmationPresenterImpl(
             updateTimeTimer = null
             mSmsConfirmationView?.stopTimer()
 
+            loginInteractor.updateLastSmsConfirmationTime(0L)
+            loginInteractor.saveSMSConfirmationCode(0L)
+
+
             if (isFromLogin) {
                 mSmsConfirmationView?.startDashboard()
             } else {
@@ -190,6 +194,7 @@ class SMSConfirmationPresenterImpl(
         updateTimeTimer?.cancel()
         updateTimeTimer = null
         updateTimeTimer = Timer()
+
         repeatSMSTimerTask.cancel()
         repeatSMSTimerTask = createTimerTask()
         updateTimeTimer?.schedule(repeatSMSTimerTask, 0L, 1000L)
