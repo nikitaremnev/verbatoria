@@ -47,4 +47,7 @@
     <string name="sms_confirmation_code_sent_error">Error occurred while sending SMS code</string>
     <string name="sms_confirmation_code_phone_not_full">Phone is not fully specified</string>
 
+    <string name="sms_confirmation_repeat">Send SMS again</string>
+    <string name="sms_confirmation_time_before_repeat">Send SMS again will be available in %s</string>
+
 </resources>

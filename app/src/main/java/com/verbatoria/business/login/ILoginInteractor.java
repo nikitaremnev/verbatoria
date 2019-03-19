@@ -29,8 +29,16 @@ public interface ILoginInteractor {
 
     String getLastLogin();
 
+    Long getLastSmsConfirmationTimeInMillis();
+
+    void updateLastSmsConfirmationTime(long time);
+
     void saveCountrySelection(String country);
 
     String getCountry();
+
+    void saveSMSConfirmationCode(Long code);
+
+    Long getSMSConfirmationCode();
 
 }

@@ -47,8 +47,18 @@ public class LoginRepository implements ILoginRepository {
     }
 
     @Override
+    public Long lastSmsConfirmationTime() {
+        return PreferencesStorage.getInstance().getLastSmsConfirmation();
+    }
+
+    @Override
     public void updateLastLogin(String login) {
         PreferencesStorage.getInstance().setLastLogin(login);
+    }
+
+    @Override
+    public void updateLastSmsConfirmationTime(Long time) {
+        PreferencesStorage.getInstance().setLastSmsConfirmation(time);
     }
 
     @Override

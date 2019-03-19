@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaApplication
@@ -31,8 +32,6 @@ interface SMSConfirmationView {
 
     fun getPhone(): String?
 
-    fun getSMSText(): String
-
     fun showPhoneInput()
 
     fun showCodeInput()
@@ -47,6 +46,16 @@ interface SMSConfirmationView {
 
     fun startDashboard()
 
+    fun updateTimer(time: String)
+
+    fun stopTimer()
+
+    fun hideTimer()
+
+    fun showRepeatButton()
+
+    fun hideRepeatButton()
+
     fun close()
 
     interface Callback {
@@ -58,6 +67,8 @@ interface SMSConfirmationView {
         fun onSendSMSCodeClicked()
 
         fun onCheckSMSCodeClicked(confirmationCode: String)
+
+        fun onRepeatSMSClicked()
 
     }
 
@@ -84,6 +95,8 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
 
     private lateinit var phoneEditText: EditText
     private lateinit var codeEditText: EditText
+    private lateinit var timerTextView: TextView
+    private lateinit var repeatTextView: TextView
     private lateinit var submitButton: Button
     private lateinit var progressView: View
 
@@ -117,6 +130,8 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
         codeEditText = findViewById(R.id.code_edit_text)
         submitButton = findViewById(R.id.submit_button)
         progressView = findViewById(R.id.progress_layout)
+        timerTextView = findViewById(R.id.timer_text_view)
+        repeatTextView = findViewById(R.id.repeat_button)
 
         setUpPhoneFormatter()
         codeEditText.addTextChangedListener(object : TextWatcher {
@@ -134,11 +149,12 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
             }
 
         })
+        repeatTextView.setOnClickListener {
+            (presenter as SMSConfirmationView.Callback).onRepeatSMSClicked()
+        }
     }
 
     override fun getPhone(): String? = intent.getStringExtra(PHONE_EXTRA)
-
-    override fun getSMSText(): String = getString(R.string.sms_confirmation_text)
 
     override fun showProgress() {
         submitButton.visibility = View.GONE
@@ -188,6 +204,32 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
         VerbatoriaApplication.onSmsConfirmationPassed()
         startActivity(Intent(this, DashboardActivity::class.java))
         finish()
+    }
+
+    override fun updateTimer(time: String) {
+        runOnUiThread {
+            timerTextView.text = getString(R.string.sms_confirmation_time_before_repeat, time)
+            timerTextView.visibility = View.VISIBLE
+        }
+    }
+
+    override fun stopTimer() {
+        runOnUiThread {
+            timerTextView.visibility = View.GONE
+            repeatTextView.visibility = View.VISIBLE
+        }
+    }
+
+    override fun hideTimer() {
+        timerTextView.visibility = View.GONE
+    }
+
+    override fun showRepeatButton() {
+        repeatTextView.visibility = View.VISIBLE
+    }
+
+    override fun hideRepeatButton() {
+        repeatTextView.visibility = View.GONE
     }
 
     override fun close() {

@@ -27,7 +27,11 @@ public interface ILoginRepository {
 
     String lastLogin();
 
+    Long lastSmsConfirmationTime();
+
     void updateLastLogin(String login);
+
+    void updateLastSmsConfirmationTime(Long time);
 
     void updateLocationId(String locationId);
 

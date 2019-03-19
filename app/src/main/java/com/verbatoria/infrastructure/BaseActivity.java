@@ -33,6 +33,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         Logger.e(TAG, "onCreate");
 
         LocaleHelper.updateLocaleToSaved(this);
+
+        if (mBasePresenter != null) {
+            mBasePresenter.onRestoreInstanceState(savedInstanceState);
+        }
     }
 
     @Override

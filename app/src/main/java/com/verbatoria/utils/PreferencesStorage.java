@@ -37,6 +37,8 @@ public class PreferencesStorage {
     private static final String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
     private static final String EXPIRES_TOKEN_KEY = "EXPIRES_TOKEN_KEY";
     private static final String STATUS_TOKEN_KEY = "STATUS_TOKEN_KEY";
+    private static final String LAST_SMS_CONFIRMATION_KEY = "LAST_SMS_CONFIRMATION_KEY";
+    private static final String LAST_SMS_CODE_KEY = "LAST_SMS_CODE_KEY";
     private static final String LAST_LOGIN_KEY = "LAST_LOGIN_KEY";
     private static final String COUNTRY_KEY = "COUNTRY_KEY";
     private static final String CURRENT_AGE_KEY = "CURRENT_AGE_KEY";
@@ -146,6 +148,26 @@ public class PreferencesStorage {
 
     public String getLastLogin() {
         return mTokenPreferences.getString(LAST_LOGIN_KEY, "");
+    }
+
+    public void setLastSMSCode(Long smscode) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putLong(LAST_SMS_CODE_KEY, smscode);
+        editor.apply();
+    }
+
+    public Long getLastSMSCode() {
+        return mTokenPreferences.getLong(LAST_SMS_CODE_KEY, 0L);
+    }
+
+    public void setLastSmsConfirmation(Long time) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putLong(LAST_SMS_CONFIRMATION_KEY, time);
+        editor.apply();
+    }
+
+    public Long getLastSmsConfirmation() {
+        return mTokenPreferences.getLong(LAST_SMS_CONFIRMATION_KEY, 0L);
     }
 
     public void setUserStatus(String status) {

@@ -5,10 +5,14 @@ import com.verbatoria.business.login.ILoginInteractor
 import com.verbatoria.data.network.response.SMSConfirmationResponseModel
 import com.verbatoria.infrastructure.BasePresenter
 import com.verbatoria.presentation.login.view.sms.SMSConfirmationView
+import com.verbatoria.utils.DateUtils
+import java.util.*
 
 /**
  * @author n.remnev
  */
+
+private const val WAS_REPEAT_BUTTON_SHOWED_EXTRA = "repeatButton"
 
 interface SMSConfirmationPresenter {
 
@@ -23,6 +27,9 @@ class SMSConfirmationPresenterImpl(
     private val loginInteractor: ILoginInteractor
 ) : BasePresenter(), SMSConfirmationPresenter, SMSConfirmationView.Callback {
 
+    //3 minutes
+    private val SMS_AGAIN_INTERVAL = (1000 * 60 * 3).toLong()
+
     private var mSmsConfirmationView: SMSConfirmationView? = null
 
     private var phone: String? = null
@@ -33,6 +40,14 @@ class SMSConfirmationPresenterImpl(
 
     private var isFromLogin: Boolean = false
 
+    private var wasRepeatButtonShowed: Boolean = false
+
+    private var updateTimeTimer: Timer? = null
+
+    private var lastSMSSendTime: Long = 0L
+
+    private var repeatSMSTimerTask: TimerTask = createTimerTask()
+
     override fun bindView(smsConfirmationView: SMSConfirmationView) {
         mSmsConfirmationView = smsConfirmationView
         phone = smsConfirmationView.getPhone()
@@ -40,10 +55,11 @@ class SMSConfirmationPresenterImpl(
 
     override fun onStart() {
         super.onStart()
+        lastSMSSendTime = loginInteractor.lastSmsConfirmationTimeInMillis
         if (phone != null) {
             isPhoneFilled = true
             isFromLogin = true
-            onSendSMSCodeClicked()
+            checkSmsConfirmationLastTimeIsOk()
         } else {
             val lastLogin = loginInteractor.lastLogin
             if (lastLogin.isNullOrEmpty()) {
@@ -53,7 +69,7 @@ class SMSConfirmationPresenterImpl(
                 phone = lastLogin
                 isPhoneFilled = true
                 isFromLogin = true
-                onSendSMSCodeClicked()
+                checkSmsConfirmationLastTimeIsOk()
             }
         }
     }
@@ -65,17 +81,22 @@ class SMSConfirmationPresenterImpl(
     override fun getCountry(): String = loginInteractor.country
 
     override fun saveState(outState: Bundle?) {
-        //empty
+        outState?.putBoolean(WAS_REPEAT_BUTTON_SHOWED_EXTRA, wasRepeatButtonShowed)
     }
 
     override fun restoreState(savedInstanceState: Bundle?) {
-        //empty
+        wasRepeatButtonShowed = savedInstanceState?.getBoolean(WAS_REPEAT_BUTTON_SHOWED_EXTRA, false) ?: false
     }
 
     //region SMSConfirmationView.Callback
 
     override fun onConfirmationCodeTextChanged(confirmationCode: String) {
         if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
+            repeatSMSTimerTask.cancel()
+            updateTimeTimer?.cancel()
+            updateTimeTimer = null
+            mSmsConfirmationView?.stopTimer()
+
             if (isFromLogin) {
                 mSmsConfirmationView?.startDashboard()
             } else {
@@ -96,7 +117,7 @@ class SMSConfirmationPresenterImpl(
             mSmsConfirmationView?.showPhoneNotFullError()
         } else {
             addSubscription(
-                loginInteractor.sendSMSConfirmation(phone, mSmsConfirmationView?.getSMSText())
+                loginInteractor.sendSMSConfirmation(phone, "")
                     .doOnSubscribe {
                         mSmsConfirmationView?.showProgress()
                     }
@@ -108,6 +129,10 @@ class SMSConfirmationPresenterImpl(
                     )
             )
         }
+    }
+
+    override fun onRepeatSMSClicked() {
+        onSendSMSCodeClicked()
     }
 
     override fun onCheckSMSCodeClicked(confirmationCode: String) {
@@ -124,14 +149,67 @@ class SMSConfirmationPresenterImpl(
 
     //endregion
 
+    private fun checkSmsConfirmationLastTimeIsOk() {
+        if (System.currentTimeMillis() - lastSMSSendTime < SMS_AGAIN_INTERVAL) {
+            restartTimer()
+
+            confirmCode = loginInteractor.smsConfirmationCode
+            mSmsConfirmationView?.showCodeInput()
+            mSmsConfirmationView?.hideRepeatButton()
+        } else {
+            if (!wasRepeatButtonShowed) {
+                onSendSMSCodeClicked()
+            } else {
+                mSmsConfirmationView?.showCodeInput()
+                mSmsConfirmationView?.showRepeatButton()
+            }
+        }
+    }
+
     private fun handleSMSCodeSent(response: SMSConfirmationResponseModel) {
+        lastSMSSendTime = System.currentTimeMillis()
+
+        loginInteractor.updateLastSmsConfirmationTime(lastSMSSendTime)
+        loginInteractor.saveSMSConfirmationCode(response.code)
+
         confirmCode = response.code
         mSmsConfirmationView?.showCodeInput()
         mSmsConfirmationView?.showCodeSent()
+        mSmsConfirmationView?.hideRepeatButton()
+        wasRepeatButtonShowed = false
+
+        restartTimer()
     }
 
     private fun handleSMSCodeSendingError(throwable: Throwable) {
+        throwable.printStackTrace()
         mSmsConfirmationView?.showCodeSentError()
     }
+
+    private fun restartTimer() {
+        updateTimeTimer?.cancel()
+        updateTimeTimer = null
+        updateTimeTimer = Timer()
+        repeatSMSTimerTask.cancel()
+        repeatSMSTimerTask = createTimerTask()
+        updateTimeTimer?.schedule(repeatSMSTimerTask, 0L, 1000L)
+    }
+
+    private fun createTimerTask() =
+            object : TimerTask() {
+                override fun run() {
+                    val timeDifference = System.currentTimeMillis() - lastSMSSendTime
+                    val date = Date(SMS_AGAIN_INTERVAL - timeDifference)
+                    if (timeDifference < SMS_AGAIN_INTERVAL) {
+                        mSmsConfirmationView?.updateTimer(DateUtils.timeToString(date))
+                    } else {
+                        cancel()
+                        updateTimeTimer?.cancel()
+                        updateTimeTimer = null
+                        mSmsConfirmationView?.stopTimer()
+                        wasRepeatButtonShowed = true
+                    }
+                }
+            }
 
 }

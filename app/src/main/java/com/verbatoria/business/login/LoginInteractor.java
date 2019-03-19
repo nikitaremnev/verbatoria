@@ -19,6 +19,7 @@ import rx.Observable;
  *
  * @author nikitaremnev
  */
+
 public class LoginInteractor implements ILoginInteractor {
 
     private static final String TAG = LoginInteractor.class.getSimpleName();
@@ -89,6 +90,16 @@ public class LoginInteractor implements ILoginInteractor {
     }
 
     @Override
+    public Long getLastSmsConfirmationTimeInMillis() {
+        return mLoginRepository.lastSmsConfirmationTime();
+    }
+
+    @Override
+    public void updateLastSmsConfirmationTime(long time) {
+        mLoginRepository.updateLastSmsConfirmationTime(time);
+    }
+
+    @Override
     public void saveCountrySelection(String country) {
         PreferencesStorage.getInstance().setCountry(country);
     }
@@ -96,6 +107,16 @@ public class LoginInteractor implements ILoginInteractor {
     @Override
     public String getCountry() {
         return PreferencesStorage.getInstance().getCountry();
+    }
+
+    @Override
+    public void saveSMSConfirmationCode(Long code) {
+        PreferencesStorage.getInstance().setLastSMSCode(code);
+    }
+
+    @Override
+    public Long getSMSConfirmationCode() {
+        return PreferencesStorage.getInstance().getLastSMSCode();
     }
 
     private LoginRequestModel getLoginRequestModel(String phone, String password) {
