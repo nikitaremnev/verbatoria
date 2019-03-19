@@ -118,7 +118,8 @@ public class RecoveryPresenter extends BasePresenter implements IRecoveryPresent
         String password = mRecoveryView.getNewPassword();
         if (TextUtils.isEmpty(password)) return PasswordRequirements.EMPTY;
         if (password.length() < 7) return PasswordRequirements.TOO_SHORT;
-        if (password.equals("1234567") || password.equals("7654321")) return PasswordRequirements.TOO_EASY;
+        if (password.equals("1234567") || password.equals("7654321"))
+            return PasswordRequirements.TOO_EASY;
         return PasswordRequirements.OK;
     }
 
