@@ -19,6 +19,8 @@ public interface ISessionInteractor {
     Observable<StartSessionResponseModel> startSession(String eventId);
     Completable finishSession(String eventId);
 
+    Completable updateHobbyValue(EventModel eventModel);
+
     Completable getAllMeasurements(Map<String, String> answers);
     Completable submitResults();
     Completable submitResults(String fileName);

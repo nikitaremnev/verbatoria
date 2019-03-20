@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import static com.verbatoria.presentation.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
+import static com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter.HOBBY_ANSWER_POSITION;
 
 /**
  * Реализация презентера для экрана отправки результатов
@@ -31,6 +32,8 @@ public class SubmitPresenter implements ISubmitPresenter {
     private ISessionInteractor mSessionInteractor;
     private ISubmitView mSubmitView;
     private EventModel mEventModel;
+
+    private boolean isHobbyUpdateRequired;
 
     public SubmitPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
@@ -50,6 +53,13 @@ public class SubmitPresenter implements ISubmitPresenter {
     @Override
     public void sendResults(Map<String, String> answers) {
         mSubmitView.showProgress();
+
+        String hobbyValue = answers.get(Integer.toString(HOBBY_ANSWER_POSITION));
+        if (hobbyValue != null && !mEventModel.getHobby() && hobbyValue.equals("1")) {
+            mEventModel.setHobby(true);
+            isHobbyUpdateRequired = true;
+        }
+
         mSessionInteractor.getAllMeasurements(answers)
                 .subscribe(this::handleMeasurementsReceived, this::handleError);
     }
@@ -68,6 +78,17 @@ public class SubmitPresenter implements ISubmitPresenter {
     private void handleResultsSubmitted() {
         Log.e(TAG, "handleResultsSubmitted");
         mSessionInteractor.dropConnection();
+        if (isHobbyUpdateRequired) {
+            mSessionInteractor.updateHobbyValue(mEventModel)
+                    .subscribe(this::handleHobbyUpdatedReceived, this::handleError);
+        } else {
+            mSessionInteractor.finishSession(mEventModel.getId())
+                    .subscribe(this::handleSessionFinished, this::handleError);
+        }
+    }
+
+    private void handleHobbyUpdatedReceived() {
+        Log.e(TAG, "handleHobbyUpdatedReceived");
         mSessionInteractor.finishSession(mEventModel.getId())
                 .subscribe(this::handleSessionFinished, this::handleError);
     }

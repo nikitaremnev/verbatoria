@@ -4,6 +4,7 @@ import com.neurosky.connection.DataType.MindDataType;
 import com.neurosky.connection.EEGPower;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.processor.ModelsConverter;
 import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.manager.AudioPlayerManager;
@@ -11,8 +12,11 @@ import com.verbatoria.business.session.processor.AttentionValueProcessor;
 import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.session.processor.ExportProcessor;
 import com.verbatoria.business.token.models.TokenModel;
+import com.verbatoria.data.network.request.EditEventRequestModel;
+import com.verbatoria.data.network.request.EventRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
+import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
@@ -23,6 +27,7 @@ import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
 import java.io.File;
+import java.text.ParseException;
 import java.util.Map;
 import java.util.Timer;
 
@@ -44,6 +49,8 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     private ISessionRepository mSessionRepository;
     private ITokenRepository mTokenRepository;
+    private ICalendarRepository mCalendarRepository;
+
     private IConnectionCallback mConnectionCallback;
     private IDataReceivedCallback mDataReceivedCallback;
     private IActivitiesCallback mActivitiesCallback;
@@ -56,15 +63,29 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     private String mCurrentCode = NO_CODE;
 
-    public SessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
+    public SessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository, ICalendarRepository calendarRepository) {
         mSessionRepository = sessionRepository;
         mTokenRepository = tokenRepository;
+        mCalendarRepository = calendarRepository;
         VerbatoriaApplication.setSessionInteractorCallback(this);
     }
 
     /*
         Session interactor
      */
+
+    @Override
+    public Completable updateHobbyValue(EventModel eventModel) {
+        try {
+            return mCalendarRepository.editEvent(eventModel.getId(), getAccessToken(), getEditEventRequestModel(eventModel))
+                    .toCompletable()
+                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+                    .observeOn(RxSchedulers.getMainThreadScheduler());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @Override
     public Observable<StartSessionResponseModel> startSession(String eventId) {
@@ -417,6 +438,18 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
                 .setReportFileName(PreferencesStorage.getInstance().getLastReportName())
                 .setStartAt(eventModel.getStartAt())
                 .setEndAt(eventModel.getEndAt());
+    }
+
+    private EditEventRequestModel getEditEventRequestModel(EventModel eventModel) throws ParseException {
+        return new EditEventRequestModel()
+                .setEvent(new EventRequestModel()
+                        .setChildId(eventModel.getChild().getId())
+                        .setLocationId(PreferencesStorage.getInstance().getLocationId())
+                        .setStartAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getStartAt().getTime()))
+                        .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime()))
+                        .setIsInstantReport(eventModel.isInstantReport())
+                        .setArchimed(eventModel.getArchimed())
+                        .setHobby(eventModel.getHobby()));
     }
 
 }

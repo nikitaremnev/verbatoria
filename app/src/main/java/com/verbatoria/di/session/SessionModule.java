@@ -9,6 +9,8 @@ import com.verbatoria.business.dashboard.DashboardInteractor;
 import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.SessionInteractor;
+import com.verbatoria.data.repositories.calendar.CalendarRepository;
+import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.children.ChildrenRepository;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
 import com.verbatoria.data.repositories.clients.ClientsRepository;
@@ -17,6 +19,7 @@ import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
+import com.verbatoria.di.calendar.CalendarScope;
 import com.verbatoria.presentation.calendar.presenter.detail.EventDetailPresenter;
 import com.verbatoria.presentation.calendar.presenter.detail.IEventDetailPresenter;
 import com.verbatoria.presentation.session.presenter.connection.ConnectionPresenter;
@@ -65,14 +68,20 @@ public class SessionModule {
 
     @Provides
     @SessionScope
+    ICalendarRepository provideCalendarRepository() {
+        return new CalendarRepository();
+    }
+
+    @Provides
+    @SessionScope
     ISessionRepository provideSessionRepository() {
         return new SessionRepository();
     }
 
     @Provides
     @SessionScope
-    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
-        return new SessionInteractor(sessionRepository, tokenRepository);
+    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository, ICalendarRepository calendarRepository) {
+        return new SessionInteractor(sessionRepository, tokenRepository, calendarRepository);
     }
 
     @Provides
