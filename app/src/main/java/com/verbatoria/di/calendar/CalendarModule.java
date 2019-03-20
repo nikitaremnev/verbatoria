@@ -120,8 +120,8 @@ public class CalendarModule {
 
     @Provides
     @CalendarScope
-    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository) {
-        return new SessionInteractor(sessionRepository, tokenRepository);
+    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository, ICalendarRepository calendarRepository) {
+        return new SessionInteractor(sessionRepository, tokenRepository, calendarRepository);
     }
 
     @Provides
