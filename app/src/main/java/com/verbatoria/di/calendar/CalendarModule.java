@@ -94,8 +94,8 @@ public class CalendarModule {
 
     @Provides
     @CalendarScope
-    IChildPresenter provideChildrenPresenter(IChildrenInteractor childrenInteractor) {
-        return new ChildPresenter(childrenInteractor);
+    IChildPresenter provideChildrenPresenter(IChildrenInteractor childrenInteractor, ISessionRepository sessionRepository) {
+        return new ChildPresenter(childrenInteractor, sessionRepository.isSchoolAccount());
     }
 
     @Provides

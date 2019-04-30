@@ -51,7 +51,7 @@ import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
  */
 public class ChildActivity extends BaseActivity implements IChildView, ChildAgeClickListener {
 
-    private static final String TAG = ChildActivity.class.getSimpleName();
+    private static final String TAG = "ChildActivity";
     public static final String EXTRA_CHILD_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CHILD_MODEL";
     public static final String EXTRA_CLIENT_MODEL = "com.verbatoria.presentation.calendar.view.add.children.EXTRA_CLIENT_MODEL";
 
@@ -286,10 +286,10 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
     }
 
     @Override
-    public void startAgePicker() {
+    public void startAgePicker(boolean isSchoolMode) {
         mBirthday = null;
         ChildAgeDialogFragment
-                .newInstance()
+                .newInstance(isSchoolMode)
                 .show(getSupportFragmentManager(), TAG);
     }
 
@@ -298,7 +298,7 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
         String childAgeString = TextUtils.isEmpty(mChildrenPresenter.getChildAge()) ? getString(R.string.event_detail_activity_field_empty): mChildrenPresenter.getChildAge();
         setUpFieldView(mChildBirthdayField, R.drawable.ic_child_birthday, childAgeString, getString(R.string.event_detail_activity_child_age), v -> {
             if (mSubmitButton.getVisibility() == View.VISIBLE) {
-                startAgePicker();
+                mChildrenPresenter.onAgeFieldClicked();
             }
         });
     }

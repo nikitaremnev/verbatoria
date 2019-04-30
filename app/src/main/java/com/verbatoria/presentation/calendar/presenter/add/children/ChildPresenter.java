@@ -22,63 +22,69 @@ import static com.verbatoria.presentation.calendar.view.add.children.ChildActivi
  */
 public class ChildPresenter extends BasePresenter implements IChildPresenter {
 
-    private IChildrenInteractor mChildrenInteractor;
-    private IChildView mChildrenView;
-    private ISearchChildrenView mSearchChildrenView;
-    private ChildModel mChildModel;
-    private ClientModel mClientModel;
-    private boolean mIsEditMode;
+    private IChildrenInteractor childrenInteractor;
 
-    public ChildPresenter(IChildrenInteractor childrenInteractor) {
-        mChildrenInteractor = childrenInteractor;
+    private IChildView childView;
+    private ISearchChildrenView searchChildView;
+
+    private ChildModel childModel;
+    private ClientModel clientModel;
+
+    private boolean isEditMode;
+    private boolean isSchoolAccount;
+
+    public ChildPresenter(IChildrenInteractor childrenInteractor,
+                          boolean isSchoolAccount) {
+        this.childrenInteractor = childrenInteractor;
+        this.isSchoolAccount = isSchoolAccount;
     }
 
     @Override
     public void bindView(@NonNull ISearchChildrenView searchChildrenView) {
-        mSearchChildrenView = searchChildrenView;
+        searchChildView = searchChildrenView;
     }
 
     @Override
     public void bindView(@NonNull IChildView childrenView) {
-        mChildrenView = childrenView;
+        childView = childrenView;
     }
 
     @Override
     public void unbindView() {
-        mSearchChildrenView = null;
-        mChildrenView = null;
+        searchChildView = null;
+        childView = null;
     }
 
     @Override
     public void obtainChild(Intent intent) {
-        mClientModel = intent.getParcelableExtra(EXTRA_CLIENT_MODEL);
-        mChildModel = intent.getParcelableExtra(EXTRA_CHILD_MODEL);
-        if (mChildModel != null) {
-            mIsEditMode = true;
+        clientModel = intent.getParcelableExtra(EXTRA_CLIENT_MODEL);
+        childModel = intent.getParcelableExtra(EXTRA_CHILD_MODEL);
+        if (childModel != null) {
+            isEditMode = true;
         } else {
-            mChildModel = new ChildModel();
-            mChildModel.setClientId(mClientModel.getId());
+            childModel = new ChildModel();
+            childModel.setClientId(clientModel.getId());
         }
     }
 
     @Override
     public boolean isEditMode() {
-        return mIsEditMode;
+        return isEditMode;
     }
 
     @Override
     public void createChild() {
-        mChildModel.setName(mChildrenView.getChildName());
+        childModel.setName(childView.getChildName());
         if (isChildValid()) {
-            addSubscription(mChildrenInteractor.addChild(mChildModel)
-                    .doOnSubscribe(() -> mChildrenView.showProgress())
-                    .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+            addSubscription(childrenInteractor.addChild(childModel)
+                    .doOnSubscribe(() -> childView.showProgress())
+                    .doOnUnsubscribe(() -> childView.hideProgress())
                     .subscribe(
                             (childModel) -> {
-                                mChildModel.setId(childModel.getId());
-                                mChildrenView.showSuccessWithCloseAfter(R.string.child_added);
+                                this.childModel.setId(childModel.getId());
+                                childView.showSuccessWithCloseAfter(R.string.child_added);
                             },
-                            (throwable) -> mChildrenView.showError(throwable.getMessage())
+                            (throwable) -> childView.showError(throwable.getMessage())
                     )
             );
         }
@@ -86,14 +92,14 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
 
     @Override
     public void editChild() {
-        mChildModel.setName(mChildrenView.getChildName());
+        childModel.setName(childView.getChildName());
         if (isChildValid()) {
-            addSubscription(mChildrenInteractor.editChild(mChildModel)
-                    .doOnSubscribe((action) ->  mChildrenView.showProgress())
-                    .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+            addSubscription(childrenInteractor.editChild(childModel)
+                    .doOnSubscribe((action) ->  childView.showProgress())
+                    .doOnUnsubscribe(() -> childView.hideProgress())
                     .subscribe(
-                            () -> mChildrenView.showSuccessWithCloseAfter(R.string.child_edited),
-                            (throwable) -> mChildrenView.showError(throwable.getMessage())
+                            () -> childView.showSuccessWithCloseAfter(R.string.child_edited),
+                            (throwable) -> childView.showError(throwable.getMessage())
                     )
             );
         }
@@ -101,24 +107,24 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
 
     @Override
     public void searchChildren() {
-        addSubscription(mChildrenInteractor.searchChildren(mSearchChildrenView.getQuery())
-                .doOnSubscribe(() -> mSearchChildrenView.showProgress())
-                .doOnUnsubscribe(() -> mSearchChildrenView.hideProgress())
+        addSubscription(childrenInteractor.searchChildren(searchChildView.getQuery())
+                .doOnSubscribe(() -> searchChildView.showProgress())
+                .doOnUnsubscribe(() -> searchChildView.hideProgress())
                 .subscribe(
-                        (childrenList) -> mSearchChildrenView.showChildsFound(childrenList),
-                        (throwable) -> mSearchChildrenView.showError(throwable.getMessage())
+                        (childrenList) -> searchChildView.showChildsFound(childrenList),
+                        (throwable) -> searchChildView.showError(throwable.getMessage())
                 )
         );
     }
 
     @Override
     public void searchClientChildren() {
-        if (mClientModel.getChildren() != null && !mClientModel.getChildren().isEmpty()) {
-            addSubscription(mChildrenInteractor.getChild(mClientModel)
-                    .doOnSubscribe(() -> mChildrenView.showProgress())
-                    .doOnUnsubscribe(() -> mChildrenView.hideProgress())
+        if (clientModel.getChildren() != null && !clientModel.getChildren().isEmpty()) {
+            addSubscription(childrenInteractor.getChild(clientModel)
+                    .doOnSubscribe(() -> childView.showProgress())
+                    .doOnUnsubscribe(() -> childView.hideProgress())
                     .subscribe(
-                            (childrenList) -> mChildrenView.showPossibleChildren(childrenList),
+                            (childrenList) -> childView.showPossibleChildren(childrenList),
                             Throwable::printStackTrace
                     )
             );
@@ -127,49 +133,54 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
 
     @Override
     public String getChildName() {
-        return mChildModel != null ? mChildModel.getName() != null ? mChildModel.getName() : "" : "";
+        return childModel != null ? childModel.getName() != null ? childModel.getName() : "" : "";
     }
 
     @Override
     public String getChildAge() {
-        return mChildModel != null ? mChildModel.getBirthday() != null ? mChildModel.getBirthdayDateString() : "" : "";
+        return childModel != null ? childModel.getBirthday() != null ? childModel.getBirthdayDateString() : "" : "";
     }
 
     @Override
     public String getChildGender() {
-        return mChildModel != null ? mChildModel.getGender() : null;
+        return childModel != null ? childModel.getGender() : null;
     }
 
     @Override
     public void setChildBirthday(Date birthday) {
-        mChildModel.setBirthday(birthday);
-        mChildrenView.updateAge();
+        childModel.setBirthday(birthday);
+        childView.updateAge();
     }
 
     @Override
     public void setChildGender(String gender) {
-        mChildModel.setGender(gender);
-        mChildrenView.updateGender();
+        childModel.setGender(gender);
+        childView.updateGender();
     }
 
     @Override
     public boolean isGenderSet() {
-        return mChildModel.isFemale() || mChildModel.isMale();
+        return childModel.isFemale() || childModel.isMale();
     }
 
     @Override
     public void onSuccessMessageDismissed() {
-        mChildrenView.finishWithResult(mChildModel);
+        childView.finishWithResult(childModel);
     }
 
     @Override
     public void onActivityResultChildFound() {
-        mChildrenView.finishWithResult(mChildModel);
+        childView.finishWithResult(childModel);
+    }
+
+    @Override
+    public void onAgeFieldClicked() {
+        childView.startAgePicker(isSchoolAccount);
     }
 
     @Override
     public void onBackPressed() {
-        mChildrenView.finishWithResult(mChildModel);
+        childView.finishWithResult(childModel);
     }
 
     @Override
@@ -183,18 +194,18 @@ public class ChildPresenter extends BasePresenter implements IChildPresenter {
     }
 
     private boolean isChildValid() {
-        if (!mChildModel.isNameValid()) {
-            mChildrenView.showError(R.string.child_name_not_set);
+        if (!childModel.isNameValid()) {
+            childView.showError(R.string.child_name_not_set);
             return false;
         }
 
-        if (!mChildModel.isAgeValid()) {
-            mChildrenView.showError(R.string.child_age_not_set);
+        if (!childModel.isAgeValid()) {
+            childView.showError(R.string.child_age_not_set);
             return false;
         }
 
-        if (!mChildModel.isGenderValid()) {
-            mChildrenView.showError(R.string.child_gender_not_set);
+        if (!childModel.isGenderValid()) {
+            childView.showError(R.string.child_gender_not_set);
             return false;
         }
 

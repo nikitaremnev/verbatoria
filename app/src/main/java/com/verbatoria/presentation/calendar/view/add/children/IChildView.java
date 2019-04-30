@@ -26,7 +26,7 @@ public interface IChildView {
 
     void finishWithResult(ChildModel childModel);
 
-    void startAgePicker();
+    void startAgePicker(boolean isSchoolMode);
 
     void updateAge();
 

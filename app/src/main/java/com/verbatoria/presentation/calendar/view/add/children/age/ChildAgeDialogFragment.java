@@ -22,14 +22,31 @@ import com.remnev.verbatoria.R;
 public class ChildAgeDialogFragment extends BottomSheetDialogFragment {
 
     public static final int START_AGE = 4;
+    public static final int SCHOOL_MODE_END_AGE = 17;
     private static final int END_AGE = 65;
 
     private static final int COLUMN_COUNT = 4;
 
+    private static final String SCHOOL_ACCOUNT_EXTRA = "SCHOOL_ACCOUNT_EXTRA";
+
     private ChildAgeClickListener mChildAgeClickListener;
 
-    public static ChildAgeDialogFragment newInstance() {
-        return new ChildAgeDialogFragment();
+    private boolean isSchoolAccount;
+
+    public static ChildAgeDialogFragment newInstance(boolean isSchoolAccount) {
+        ChildAgeDialogFragment fragment = new ChildAgeDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(SCHOOL_ACCOUNT_EXTRA, isSchoolAccount);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            isSchoolAccount = getArguments().getBoolean(SCHOOL_ACCOUNT_EXTRA);
+        }
     }
 
     @Nullable
@@ -43,7 +60,7 @@ public class ChildAgeDialogFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         final RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), COLUMN_COUNT));
-        recyclerView.setAdapter(new ChildAgeAdapter(END_AGE - START_AGE + 1));
+        recyclerView.setAdapter(new ChildAgeAdapter((isSchoolAccount ? SCHOOL_MODE_END_AGE : END_AGE) - START_AGE + 1));
     }
 
     @Override

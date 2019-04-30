@@ -24,6 +24,7 @@ public interface IChildPresenter {
 
     void onSuccessMessageDismissed();
     void onActivityResultChildFound();
+    void onAgeFieldClicked();
     void onBackPressed();
 
     boolean isEditMode();
