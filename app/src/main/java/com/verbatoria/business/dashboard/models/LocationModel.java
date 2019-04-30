@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import java.util.List;
 import java.util.Objects;
 
+import static com.verbatoria.data.network.response.LocationResponseModel.IS_SCHOOL_VALUE;
+
 /**
  * Реализация модели для записи нейрометрии
  *
@@ -16,6 +18,8 @@ public class LocationModel implements Parcelable {
     private String mId;
 
     private String mName;
+
+    private boolean isSchool;
 
     private String mAddress;
 
@@ -41,6 +45,15 @@ public class LocationModel implements Parcelable {
 
     public LocationModel setId(String id) {
         mId = id;
+        return this;
+    }
+
+    public boolean isSchool() {
+        return isSchool;
+    }
+
+    public LocationModel setIsSchool(boolean isSchool) {
+        this.isSchool = isSchool;
         return this;
     }
 
@@ -130,6 +143,7 @@ public class LocationModel implements Parcelable {
         LocationModel that = (LocationModel) o;
         return Objects.equals(mId, that.mId) &&
                 Objects.equals(mName, that.mName) &&
+                Objects.equals(isSchool, that.isSchool) &&
                 Objects.equals(mAddress, that.mAddress) &&
                 Objects.equals(mLocale, that.mLocale) &&
                 Objects.equals(mAvailableLocales, that.mAvailableLocales) &&
@@ -140,11 +154,8 @@ public class LocationModel implements Parcelable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mName, mAddress, mLocale, mAvailableLocales, mPartner, mCity, mCountry);
+        return Objects.hash(mId, mName, isSchool, mAddress, mLocale, mAvailableLocales, mPartner, mCity, mCountry);
     }
-
-
-
 
     @Override
     public int describeContents() {
@@ -155,6 +166,7 @@ public class LocationModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.mId);
         dest.writeString(this.mName);
+        dest.writeInt(this.isSchool ? IS_SCHOOL_VALUE : 0);
         dest.writeString(this.mAddress);
         dest.writeString(this.mLocale);
         dest.writeList(this.mAvailableLocales);
@@ -166,6 +178,7 @@ public class LocationModel implements Parcelable {
     protected LocationModel(Parcel in) {
         this.mId = in.readString();
         this.mName = in.readString();
+        this.isSchool = in.readInt() == IS_SCHOOL_VALUE;
         this.mAddress = in.readString();
         this.mLocale = in.readString();
         in.readStringList(this.mAvailableLocales);

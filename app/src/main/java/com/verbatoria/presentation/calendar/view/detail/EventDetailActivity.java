@@ -433,6 +433,14 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     }
 
     @Override
+    public void showSchoolMode() {
+        mSendToLocationFieldView.setVisibility(View.GONE);
+        mArchimedFieldView.setVisibility(View.GONE);
+        mHobbyFieldView.setVisibility(View.GONE);
+        mIncludeAttentionMemoryFieldView.setVisibility(View.GONE);
+    }
+
+    @Override
     public void closeWhenDeleted() {
         Snackbar snackbar = Snackbar.make(mSubmitButton, getString(R.string.event_deleted), Snackbar.LENGTH_SHORT);
         snackbar.getView().setBackgroundResource(R.color.hint_color);

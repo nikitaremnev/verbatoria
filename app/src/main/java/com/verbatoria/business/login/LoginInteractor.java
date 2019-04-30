@@ -138,7 +138,7 @@ public class LoginInteractor implements ILoginInteractor {
     }
 
     private String processPhone(String phone) {
-        return phone.replaceAll("[-,. )(]", "");
+        return phone.replaceAll("[-,. )(+]", "");
     }
 
 }

@@ -90,8 +90,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 //            mPasswordEditText.setText("89268932040");
 
             //my account
-            mLoginEditText.setText("79153974689");
-            mPasswordEditText.setText("123474858");
+//            mLoginEditText.setText("79153974689");
+//            mPasswordEditText.setText("123474858");
+
+            //school testing
+            mLoginEditText.setText("81234567895");
+            mPasswordEditText.setText("1234748a");
         }
     }
 
@@ -199,12 +203,12 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     }
 
     //отображение результатов запроса
-//    @Override
-//    public void loginSuccess() {
-//        Intent intent = new Intent(this, DashboardActivity.class);
-//        startActivity(intent);
-//        finish();
-//    }
+    @Override
+    public void loginSuccess() {
+        Intent intent = new Intent(this, DashboardActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public void showError(String message) {

@@ -25,6 +25,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import static com.verbatoria.data.network.response.LocationResponseModel.IS_SCHOOL_VALUE;
 import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
@@ -50,6 +51,7 @@ public class ModelsConverter {
         LocationModel locationModel = new LocationModel();
         locationModel.setId(locationResponseModel.getId());
         locationModel.setName(locationResponseModel.getName());
+        locationModel.setIsSchool(locationResponseModel.isSchool() == IS_SCHOOL_VALUE);
         locationModel.setAddress(locationResponseModel.getAddress());
         locationModel.setCity(locationResponseModel.getCity().getName());
         locationModel.setCountry(locationResponseModel.getCity().getCountry().getName());

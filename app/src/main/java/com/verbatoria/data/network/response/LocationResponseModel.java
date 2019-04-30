@@ -9,12 +9,16 @@ import java.util.Objects;
 
 /**
  *
- * Модель ответа от сервера на запрос событий нейрометриста - сущность ребенка
+ * Модель ответа от сервера на запрос событий нейрометриста - сущность локации
  *
  * @author nikitaremnev
  */
+
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LocationResponseModel {
+
+    public static final int IS_SCHOOL_VALUE = 1;
 
     private String mId;
 
@@ -23,6 +27,8 @@ public class LocationResponseModel {
     private String mAddress;
 
     private String mLocale;
+
+    private Integer isSchool;
 
     private List<String> mAvailableLocales;
 
@@ -52,6 +58,16 @@ public class LocationResponseModel {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    @JsonGetter("school")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public int isSchool() {
+        return isSchool;
+    }
+
+    public void setIsSchool(int isSchool) {
+        this.isSchool = isSchool;
     }
 
     @JsonGetter("address")
@@ -118,6 +134,7 @@ public class LocationResponseModel {
         LocationResponseModel that = (LocationResponseModel) o;
         return Objects.equals(mId, that.mId) &&
                 Objects.equals(mName, that.mName) &&
+                Objects.equals(isSchool, that.isSchool) &&
                 Objects.equals(mAddress, that.mAddress) &&
                 Objects.equals(mLocale, that.mLocale) &&
                 Objects.equals(mAvailableLocales, that.mAvailableLocales) &&
@@ -127,7 +144,7 @@ public class LocationResponseModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mName, mAddress, mLocale, mAvailableLocales, mPartner, mCity);
+        return Objects.hash(mId, mName, isSchool, mAddress, mLocale, mAvailableLocales, mPartner, mCity);
     }
 
 

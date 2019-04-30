@@ -3,6 +3,7 @@ package com.verbatoria.presentation.login.presenter.login;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.remnev.verbatoria.BuildConfig;
 import com.verbatoria.business.login.ILoginInteractor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.infrastructure.BasePresenter;
@@ -91,8 +92,11 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
     private void handleSuccessLogin(TokenModel tokenModel) {
         Logger.e(TAG, tokenModel.toString());
         mLoginView.hideProgress();
-//        mLoginView.loginSuccess();
-        mLoginView.startSMSConfirmation();
+        if (BuildConfig.DEBUG) {
+            mLoginView.loginSuccess();
+        } else {
+            mLoginView.startSMSConfirmation();
+        }
     }
 
     private void handleErrorLogin(Throwable throwable) {

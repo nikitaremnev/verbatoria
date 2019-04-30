@@ -136,4 +136,14 @@ public class SessionRepository implements ISessionRepository {
     public void backupReport(LateReportModel lateReportModel) {
         LateReportsDatabase.addReportBackup(mContext, lateReportModel);
     }
+
+    @Override
+    public void saveIsSchoolAccount(boolean isSchoolAccount) {
+        PreferencesStorage.getInstance().setIsSchoolAccount(isSchoolAccount);
+    }
+
+    @Override
+    public boolean isSchoolAccount() {
+        return PreferencesStorage.getInstance().isSchoolAccount();
+    }
 }

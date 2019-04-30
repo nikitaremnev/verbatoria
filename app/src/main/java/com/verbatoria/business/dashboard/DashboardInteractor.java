@@ -73,6 +73,8 @@ public class DashboardInteractor implements IDashboardInteractor {
                 .doOnNext(locationModel -> {
                     String currentLocale = mDashboardRepository.getCurrentLocale();
 
+                    mSessionRepository.saveIsSchoolAccount(locationModel.isSchool());
+
                     if (locationModel.getLocale().equals("zh-CN")) {
                         locationModel.setLocale("en");
                     }

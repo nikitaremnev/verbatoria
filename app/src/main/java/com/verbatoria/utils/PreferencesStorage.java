@@ -31,8 +31,6 @@ import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
  */
 public class PreferencesStorage {
 
-    private static final String TAG = PreferencesStorage.class.getSimpleName();
-
     private static final String TOKEN_PREFERENCES = "token";
     private static final String ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY";
     private static final String EXPIRES_TOKEN_KEY = "EXPIRES_TOKEN_KEY";
@@ -44,6 +42,7 @@ public class PreferencesStorage {
     private static final String CURRENT_AGE_KEY = "CURRENT_AGE_KEY";
     private static final String SHOW_SETTINGS_KEY = "SHOW_SETTINGS_KEY";
     private static final String IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY = "IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY";
+    private static final String IS_SCHOOL_ACCOUNT_KEY = "IS_SCHOOL_ACCOUNT_KEY";
 
     private static final String QUESTIONS_PREFERENCES = "questions";
 
@@ -339,5 +338,15 @@ public class PreferencesStorage {
 
     public boolean isArchimedAllowedForVerbatolog() {
         return mTokenPreferences.getBoolean(IS_ARCHIMED_ALLOWED_FOR_VERBATOLOG_KEY, false);
+    }
+
+    public void setIsSchoolAccount(boolean isSchoolAccount) {
+        SharedPreferences.Editor editor = mTokenPreferences.edit();
+        editor.putBoolean(IS_SCHOOL_ACCOUNT_KEY, isSchoolAccount);
+        editor.apply();
+    }
+
+    public boolean isSchoolAccount() {
+        return mTokenPreferences.getBoolean(IS_SCHOOL_ACCOUNT_KEY, false);
     }
 }

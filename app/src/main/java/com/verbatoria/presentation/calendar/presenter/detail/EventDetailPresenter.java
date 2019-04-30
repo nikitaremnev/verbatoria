@@ -49,6 +49,8 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     private ClientModel mClientModel;
     private boolean mIsEditMode;
 
+    private boolean isSchoolAccount;
+
     public EventDetailPresenter(ISessionInteractor sessionInteractor,
                                 ICalendarInteractor calendarInteractor,
                                 IClientsInteractor clientsInteractor,

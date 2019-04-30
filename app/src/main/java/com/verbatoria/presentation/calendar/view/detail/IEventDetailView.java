@@ -56,4 +56,6 @@ public interface IEventDetailView {
 
     void showError(int errorStringResource);
 
+    void showSchoolMode();
+
 }

@@ -54,4 +54,8 @@ public interface ISessionRepository {
 
     void backupReport(LateReportModel lateReportModel);
 
+    void saveIsSchoolAccount(boolean isSchoolAccount);
+
+    boolean isSchoolAccount();
+
 }
