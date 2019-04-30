@@ -515,6 +515,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         updateHobbyView(mEventDetailPresenter.isHobbyAllowedForChildAge(), mEventDetailPresenter.getEvent().getHobby());
         updateSendToLocationView(mEventDetailPresenter.getEvent().getReport(), false);
         updateIncludeAttentionMemoryView(mEventDetailPresenter.getEvent().getReport(), false);
+        mEventDetailPresenter.onViewsAreSet();
     }
 
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {

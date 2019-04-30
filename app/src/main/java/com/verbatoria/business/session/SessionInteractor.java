@@ -194,6 +194,11 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     }
 
     @Override
+    public boolean isSchoolAccount() {
+        return mSessionRepository.isSchoolAccount();
+    }
+
+    @Override
     public void setConnectionCallback(IConnectionCallback connectionCallback) {
         mConnectionCallback = connectionCallback;
     }

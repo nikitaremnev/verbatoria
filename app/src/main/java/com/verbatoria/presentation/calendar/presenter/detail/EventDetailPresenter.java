@@ -3,8 +3,6 @@ package com.verbatoria.presentation.calendar.presenter.detail;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
-
 import com.remnev.verbatoria.R;
 import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
@@ -20,11 +18,9 @@ import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.calendar.view.detail.IEventDetailView;
 import com.verbatoria.utils.Logger;
-
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
-
 import retrofit2.HttpException;
 
 /**
@@ -34,51 +30,62 @@ import retrofit2.HttpException;
  */
 public class EventDetailPresenter extends BasePresenter implements IEventDetailPresenter {
 
-    private static final String TAG = EventDetailPresenter.class.getSimpleName();
-    public static final String EXTRA_EVENT_MODEL = "com.verbatoria.presentation.dashboard.presenter.calendar.EXTRA_EVENT_MODEL";
-    public static final int EVENT_LENGTH_MINUTES = 60;
-
+    private static final String TAG = "EventDetailPresenter";
     private static final int MINIMUM_HOBBY_AGE = 18;
 
-    private IClientsInteractor mClientsInteractor;
-    private ISessionInteractor mSessionInteractor;
-    private ICalendarInteractor mCalendarInteractor;
-    private IDashboardInteractor mDashboardInteractor;
-    private IEventDetailView mCalendarEventDetailView;
-    private EventModel mEventModel;
-    private ClientModel mClientModel;
-    private boolean mIsEditMode;
+    public static final int EVENT_LENGTH_MINUTES = 60;
+    public static final String EXTRA_EVENT_MODEL = "com.verbatoria.presentation.dashboard.presenter.calendar.EXTRA_EVENT_MODEL";
 
+    private IClientsInteractor clientsInteractor;
+    private ISessionInteractor sessionInteractor;
+    private ICalendarInteractor calendarInteractor;
+    private IDashboardInteractor dashboardInteractor;
+
+    private EventModel eventModel;
+    private ClientModel clientModel;
+
+    private IEventDetailView eventDetailView;
+
+    private boolean isEditMode;
     private boolean isSchoolAccount;
 
     public EventDetailPresenter(ISessionInteractor sessionInteractor,
                                 ICalendarInteractor calendarInteractor,
                                 IClientsInteractor clientsInteractor,
-                                IDashboardInteractor dashboardInteractor) {
-        mSessionInteractor = sessionInteractor;
-        mCalendarInteractor = calendarInteractor;
-        mClientsInteractor = clientsInteractor;
-        mDashboardInteractor = dashboardInteractor;
+                                IDashboardInteractor dashboardInteractor,
+                                boolean isSchoolAccount) {
+        this.sessionInteractor = sessionInteractor;
+        this.calendarInteractor = calendarInteractor;
+        this.clientsInteractor = clientsInteractor;
+        this.dashboardInteractor = dashboardInteractor;
+        this.isSchoolAccount = isSchoolAccount;
     }
 
     @Override
-    public void bindView(@NonNull IEventDetailView calendarEventDetailView) {
-        mCalendarEventDetailView = calendarEventDetailView;
+    public void bindView(@NonNull IEventDetailView eventDetailView) {
+        this.eventDetailView = eventDetailView;
+    }
+
+    @Override
+    public void onViewsAreSet() {
+        if (isSchoolAccount) {
+            eventDetailView.showSchoolMode();
+        }
     }
 
     @Override
     public void unbindView() {
-        mCalendarEventDetailView = null;
+        eventDetailView = null;
     }
 
     @Override
     public boolean checkStartSession() {
-        if (mEventModel != null && mEventModel.getReport() != null) {
-            switch (mEventModel.getReport().getStatus()) {
+        if (eventModel != null && eventModel.getReport() != null) {
+            switch (eventModel.getReport().getStatus()) {
                 case ReportModel.STATUS.READY:
                 case ReportModel.STATUS.SENT:
                 case ReportModel.STATUS.UPLOADED:
-                    mCalendarEventDetailView.showConfirmOverrideWriting();
+                    eventDetailView.showConfirmOverrideWriting();
                     return true;
             }
         }
@@ -87,27 +94,27 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void clearDatabase() {
-        mCalendarEventDetailView.showProgress();
-        addSubscription(mSessionInteractor.clearDatabases()
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+        eventDetailView.showProgress();
+        addSubscription(sessionInteractor.clearDatabases()
+                .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                 .subscribe(this::handleDatabaseCleared, this::handleError));
     }
 
     @Override
     public void startSession() {
         if (!hasError()) {
-            addSubscription(mSessionInteractor.startSession(mEventModel.getId())
-                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+            addSubscription(sessionInteractor.startSession(eventModel.getId())
+                    .doOnSubscribe(() -> eventDetailView.showProgress())
+                    .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                     .subscribe(this::handleSessionStarted, this::handleError));
         }
     }
 
     @Override
     public void checkDatabaseClear() {
-        addSubscription(mSessionInteractor.hasMeasurements()
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+        addSubscription(sessionInteractor.hasMeasurements()
+                .doOnSubscribe(() -> eventDetailView.showProgress())
+                .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                 .subscribe(this::handleHasMeasurements, this::handleError));
     }
 
@@ -121,77 +128,77 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void onEditEventClicked() {
         if (!hasError()) {
-            addSubscription(mCalendarInteractor.editEvent(mEventModel)
-                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+            addSubscription(calendarInteractor.editEvent(eventModel)
+                    .doOnSubscribe(() -> eventDetailView.showProgress())
+                    .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                     .subscribe(this::handleEventEditedOrCreated, this::handleError));
         }
     }
 
     @Override
     public void onDeleteEventClicked() {
-        addSubscription(mCalendarInteractor.deleteEvent(mEventModel)
-                .doOnSubscribe((action) -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+        addSubscription(calendarInteractor.deleteEvent(eventModel)
+                .doOnSubscribe((action) -> eventDetailView.showProgress())
+                .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                 .subscribe(this::handleEventDeleted, this::handleError));
     }
 
     @Override
     public void obtainEvent(Intent intent) {
-        mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
-        if (mEventModel != null) {
-            mIsEditMode = true;
+        eventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
+        if (eventModel != null) {
+            isEditMode = true;
         } else {
-            mEventModel = new EventModel();
+            eventModel = new EventModel();
         }
     }
 
     @Override
     public EventModel getEvent() {
-        return mEventModel;
+        return eventModel;
     }
 
     @Override
     public String getTime() {
-        return mEventModel != null && mEventModel.getEndAt() != null && mEventModel.getStartAt() != null ? mEventModel.getEventTime() : "";
+        return eventModel != null && eventModel.getEndAt() != null && eventModel.getStartAt() != null ? eventModel.getEventTime() : "";
     }
 
     @Override
     public ChildModel getChildModel() {
-        return mEventModel != null ? mEventModel.getChild() : null;
+        return eventModel != null ? eventModel.getChild() : null;
     }
 
     @Override
     public ClientModel getClientModel() {
-        return mClientModel;
+        return clientModel;
     }
 
     @Override
     public void loadClient() {
-        if (mEventModel != null && mEventModel.getChild() != null) {
-            addSubscription(mClientsInteractor.getClient(mEventModel.getChild().getClientId())
-                    .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                    .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+        if (eventModel != null && eventModel.getChild() != null) {
+            addSubscription(clientsInteractor.getClient(eventModel.getChild().getClientId())
+                    .doOnSubscribe(() -> eventDetailView.showProgress())
+                    .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                     .subscribe(this::handleClientLoaded, this::handleError));
         }
     }
 
     @Override
     public void setClientModel(ClientModel clientModel) {
-        mClientModel = clientModel;
-        mCalendarEventDetailView.updateClientView(mClientModel);
+        this.clientModel = clientModel;
+        eventDetailView.updateClientView(this.clientModel);
     }
 
     @Override
     public void setChildModel(ChildModel childModel) {
-        mEventModel.setChild(childModel);
-        mCalendarEventDetailView.updateChildView(childModel);
-        if (mIsEditMode) {
-            if (!mEventModel.getArchimed() && isArchimedesAllowedForVerbatolog() && isArchimedesAllowedForChildAge()) {
-                mEventModel.setArchimed(true);
+        eventModel.setChild(childModel);
+        eventDetailView.updateChildView(childModel);
+        if (isEditMode) {
+            if (!eventModel.getArchimed() && isArchimedesAllowedForVerbatolog() && isArchimedesAllowedForChildAge()) {
+                eventModel.setArchimed(true);
                 onEditEventClicked();
-            } else if (mEventModel.getArchimed() && (!isArchimedesAllowedForVerbatolog() || !isArchimedesAllowedForChildAge())) {
-                mEventModel.setArchimed(false);
+            } else if (eventModel.getArchimed() && (!isArchimedesAllowedForVerbatolog() || !isArchimedesAllowedForChildAge())) {
+                eventModel.setArchimed(false);
                 onEditEventClicked();
             }
         }
@@ -199,38 +206,38 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void setEventDate(Calendar calendar) {
-        mEventModel.setStartAt(calendar.getTime());
+        eventModel.setStartAt(calendar.getTime());
         calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + EVENT_LENGTH_MINUTES);
-        mEventModel.setEndAt(calendar.getTime());
-        mCalendarEventDetailView.updateEventTime(mEventModel);
+        eventModel.setEndAt(calendar.getTime());
+        eventDetailView.updateEventTime(eventModel);
     }
 
     @Override
     public void onSendReportToLocationClicked() {
-        mCalendarEventDetailView.showConfirmSendToLocation();
+        eventDetailView.showConfirmSendToLocation();
     }
 
     @Override
     public void onSendReportToLocationConfirmed() {
         addSubscription(
-                mSessionInteractor.sendReportToLocation(mEventModel.getReport().getId())
-                        .doOnSubscribe((action)-> mCalendarEventDetailView.showProgress())
-                        .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                sessionInteractor.sendReportToLocation(eventModel.getReport().getId())
+                        .doOnSubscribe((action)-> eventDetailView.showProgress())
+                        .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                         .subscribe(this::handleReportSentToLocation, this::handleReportSendToLocationError)
         );
     }
 
     @Override
     public void onIncludeAttentionMemoryClicked() {
-        mCalendarEventDetailView.showConfirmIncludeAttentionMemory();
+        eventDetailView.showConfirmIncludeAttentionMemory();
     }
 
     @Override
     public void onIncludeAttentionMemoryConfirmed() {
         addSubscription(
-                mSessionInteractor.includeAttentionMemory(mEventModel.getReport().getId())
-                        .doOnSubscribe((action)-> mCalendarEventDetailView.showProgress())
-                        .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                sessionInteractor.includeAttentionMemory(eventModel.getReport().getId())
+                        .doOnSubscribe((action)-> eventDetailView.showProgress())
+                        .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                         .subscribe(this::handleAttentionMemoryIncluded, this::handleAttentionMemoryIncludeError)
         );
     }
@@ -239,12 +246,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void onHobbyClicked() {
-        mCalendarEventDetailView.showConfirmHobby();
+        eventDetailView.showConfirmHobby();
     }
 
     @Override
     public void onHobbyConfirmed() {
-        mEventModel.setHobby(true);
+        eventModel.setHobby(true);
         onEditEventClicked();
     }
 
@@ -252,19 +259,19 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public boolean isEditMode() {
-        return mIsEditMode;
+        return isEditMode;
     }
 
     @Override
     public boolean isArchimedesAllowedForVerbatolog() {
-        return mDashboardInteractor.isArchimedAllowedForVerbatolog();
+        return dashboardInteractor.isArchimedAllowedForVerbatolog();
     }
 
     @Override
     public boolean isArchimedesAllowedForChildAge() {
-        if (mEventModel.getChild() != null) {
-            int childAge = mEventModel.getChild().getAge();
-            List<AgeGroupModel> ageGroupModels = mDashboardInteractor.getAgeGroupsFromCache();
+        if (eventModel.getChild() != null) {
+            int childAge = eventModel.getChild().getAge();
+            List<AgeGroupModel> ageGroupModels = dashboardInteractor.getAgeGroupsFromCache();
             for (AgeGroupModel ageGroup : ageGroupModels) {
                 if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
                     return ageGroup.isIsArchimedAllowed();
@@ -276,8 +283,8 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public boolean isHobbyAllowedForChildAge() {
-        if (mEventModel.getChild() != null) {
-            int childAge = mEventModel.getChild().getAge();
+        if (eventModel.getChild() != null) {
+            int childAge = eventModel.getChild().getAge();
             return childAge >= MINIMUM_HOBBY_AGE;
         }
         return false;
@@ -286,72 +293,76 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void pickTime(Calendar calendar) {
         addSubscription(
-                mCalendarInteractor.getAvailableTimeIntervals(calendar)
-                        .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                        .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+                calendarInteractor.getAvailableTimeIntervals(calendar)
+                        .doOnSubscribe(() -> eventDetailView.showProgress())
+                        .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                         .subscribe(this::handleTimeIntervalsReceived, this::handleError)
         );
     }
 
     private void addEvent() {
         if (isArchimedesAllowedForVerbatolog() && isArchimedesAllowedForChildAge()) {
-            mEventModel.setArchimed(true);
+            eventModel.setArchimed(true);
         } else {
-            mEventModel.setArchimed(false);
+            eventModel.setArchimed(false);
         }
-        mEventModel.setIsInstantReport(true);
-        addSubscription(mCalendarInteractor.addEvent(mEventModel)
-                .doOnSubscribe(() -> mCalendarEventDetailView.showProgress())
-                .doOnUnsubscribe(() -> mCalendarEventDetailView.hideProgress())
+        eventModel.setIsInstantReport(true);
+        addSubscription(calendarInteractor.addEvent(eventModel)
+                .doOnSubscribe(() -> eventDetailView.showProgress())
+                .doOnUnsubscribe(() -> eventDetailView.hideProgress())
                 .subscribe(this::handleEventEditedOrCreated, this::handleError));
     }
 
     private void handleSessionStarted(@NonNull StartSessionResponseModel sessionResponseModel) {
         Logger.e(TAG, sessionResponseModel.toString());
-        mSessionInteractor.saveSessionId(sessionResponseModel.getId());
-        mSessionInteractor.saveAge(mEventModel.getChild().getAge());
-        mCalendarEventDetailView.hideProgress();
-        mCalendarEventDetailView.startConnection();
+        sessionInteractor.saveSessionId(sessionResponseModel.getId());
+        sessionInteractor.saveAge(eventModel.getChild().getAge());
+        eventDetailView.hideProgress();
+        eventDetailView.startConnection();
     }
 
     private void handleClientLoaded(@NonNull ClientModel clientModel) {
         Logger.e(TAG, clientModel.toString());
-        this.mClientModel = clientModel;
-        mCalendarEventDetailView.updateClientView(mClientModel);
+        this.clientModel = clientModel;
+        eventDetailView.updateClientView(this.clientModel);
     }
 
     private void handleEventEditedOrCreated(@NonNull EventModel eventModel) {
-        if (!mIsEditMode) {
-            mCalendarEventDetailView.showHintMessage(R.string.event_detail_event_added);
+        if (!isEditMode) {
+            eventDetailView.showHintMessage(R.string.event_detail_event_added);
         } else {
-            mCalendarEventDetailView.showHintMessage(R.string.event_detail_event_edited);
+            eventDetailView.showHintMessage(R.string.event_detail_event_edited);
         }
-        mIsEditMode = true;
-        mEventModel = eventModel;
-        mCalendarEventDetailView.updateReportView(eventModel.getReport());
-        mCalendarEventDetailView.updateArchimedView(isArchimedesAllowedForVerbatolog(), isArchimedesAllowedForChildAge());
-        mCalendarEventDetailView.updateHobbyView(isHobbyAllowedForChildAge(), eventModel.getHobby());
-        mCalendarInteractor.saveLastDate(mEventModel.getStartAt());
-        mCalendarEventDetailView.setUpEventCreated();
+        isEditMode = true;
+        this.eventModel = eventModel;
+        eventDetailView.updateReportView(eventModel.getReport());
+        if (isSchoolAccount) {
+            eventDetailView.showSchoolMode();
+        } else {
+            eventDetailView.updateArchimedView(isArchimedesAllowedForVerbatolog(), isArchimedesAllowedForChildAge());
+            eventDetailView.updateHobbyView(isHobbyAllowedForChildAge(), eventModel.getHobby());
+        }
+        calendarInteractor.saveLastDate(this.eventModel.getStartAt());
+        eventDetailView.setUpEventCreated();
     }
 
     private void handleEventDeleted() {
-        mCalendarEventDetailView.closeWhenDeleted();
+        eventDetailView.closeWhenDeleted();
     }
 
     private void handleError(Throwable throwable) {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable);
-        mCalendarEventDetailView.showError(throwable.getMessage());
+        eventDetailView.showError(throwable.getMessage());
     }
 
     private void handleTimeIntervalsReceived(List<TimeIntervalModel> timeIntervals) {
-        mCalendarEventDetailView.showPossibleTimeIntervals(timeIntervals);
+        eventDetailView.showPossibleTimeIntervals(timeIntervals);
     }
 
     private void handleReportSentToLocation() {
-        mCalendarEventDetailView.updateSendToLocationView(mEventModel.getReport(), true);
-        mCalendarEventDetailView.showSuccessMessage(R.string.event_confirm_send_report_to_location_success);
+        eventDetailView.updateSendToLocationView(eventModel.getReport(), true);
+        eventDetailView.showSuccessMessage(R.string.event_confirm_send_report_to_location_success);
     }
 
     private void handleReportSendToLocationError(Throwable throwable) {
@@ -360,22 +371,21 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
             String errorBody = error.response().errorBody().string()
                     .replace("{\"error\":\"", "")
                     .replace("\"}", "");
-            mCalendarEventDetailView.showError(errorBody);
+            eventDetailView.showError(errorBody);
         } catch (IOException e) {
             e.printStackTrace();
-            mCalendarEventDetailView.showError(throwable.getMessage());
+            eventDetailView.showError(throwable.getMessage());
         }
     }
 
     private void handleAttentionMemoryIncluded() {
-        mCalendarEventDetailView.updateIncludeAttentionMemoryView(mEventModel.getReport(), true);
-        mCalendarEventDetailView.showSuccessMessage(R.string.event_confirm_attention_memory_include_success);
+        eventDetailView.updateIncludeAttentionMemoryView(eventModel.getReport(), true);
+        eventDetailView.showSuccessMessage(R.string.event_confirm_attention_memory_include_success);
     }
 
     private void handleHasMeasurements(boolean hasMeasurements) {
-        Log.e("test", "EventDetailPresenter: hasMeasurements = " + hasMeasurements);
         if (hasMeasurements) {
-            mCalendarEventDetailView.showConfirmClearDatabase();
+            eventDetailView.showConfirmClearDatabase();
         } else {
             startSession();
         }
@@ -391,24 +401,24 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
             String errorBody = error.response().errorBody().string()
                     .replace("{\"error\":\"", "")
                     .replace("\"}", "");
-            mCalendarEventDetailView.showError(errorBody);
+            eventDetailView.showError(errorBody);
         } catch (IOException e) {
             e.printStackTrace();
-            mCalendarEventDetailView.showError(throwable.getMessage());
+            eventDetailView.showError(throwable.getMessage());
         }
     }
 
     private boolean hasError() {
-        if (mClientModel == null || !mClientModel.isFull()) {
-            mCalendarEventDetailView.showError(R.string.client_data_is_not_full);
+        if (clientModel == null || !clientModel.isFull()) {
+            eventDetailView.showError(R.string.client_data_is_not_full);
             return true;
         }
-        if (mEventModel == null || mEventModel.getChild() == null || !mEventModel.getChild().isFull()) {
-            mCalendarEventDetailView.showError(R.string.child_data_is_not_full);
+        if (eventModel == null || eventModel.getChild() == null || !eventModel.getChild().isFull()) {
+            eventDetailView.showError(R.string.child_data_is_not_full);
             return true;
         }
-        if (mEventModel == null || !mEventModel.hasTime()) {
-            mCalendarEventDetailView.showError(R.string.time_is_not_set);
+        if (eventModel == null || !eventModel.hasTime()) {
+            eventDetailView.showError(R.string.time_is_not_set);
             return true;
         }
         return false;
@@ -416,11 +426,11 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public void saveState(Bundle outState) {
-        //TODO: do all
+        //empty
     }
 
     @Override
     public void restoreState(Bundle savedInstanceState) {
-        //TODO: do all
+        //empty
     }
 }

@@ -87,7 +87,7 @@ public class SessionModule {
     @Provides
     @SessionScope
     IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, ICalendarInteractor calendarInteractor, IClientsInteractor clientsInteractor, IDashboardInteractor dashboardInteractor) {
-        return new EventDetailPresenter(sessionInteractor, calendarInteractor, clientsInteractor, dashboardInteractor);
+        return new EventDetailPresenter(sessionInteractor, calendarInteractor, clientsInteractor, dashboardInteractor, sessionInteractor.isSchoolAccount());
     }
 
     @Provides

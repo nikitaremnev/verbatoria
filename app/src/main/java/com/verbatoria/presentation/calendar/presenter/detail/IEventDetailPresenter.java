@@ -18,6 +18,7 @@ import java.util.Calendar;
 public interface IEventDetailPresenter {
 
     void bindView(@NonNull IEventDetailView calendarEventDetailView);
+    void onViewsAreSet();
     void unbindView();
 
     boolean checkStartSession();

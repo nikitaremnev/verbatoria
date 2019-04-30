@@ -40,6 +40,8 @@ public interface ISessionInteractor {
 
     Completable includeAttentionMemory(String reportId);
 
+    boolean isSchoolAccount();
+
     /*
         ЖЦ коллбеков
      */
