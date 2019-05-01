@@ -43,10 +43,10 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
     ISubmitPresenter mSubmitPresenter;
 
     @BindView(R.id.next_button)
-    public Button mNextButton;
+    public Button nextButton;
 
     @BindView(R.id.back_button)
-    public Button mBackButton;
+    public Button backButton;
 
     @BindView(R.id.navigation_layout)
     public LinearLayout mNavigationLayout;
@@ -113,9 +113,9 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
     private void setUpViews() {
         setUpQuestionaryNavigation();
         setUpQuestionaryAdapter();
-        mNextButton.setOnClickListener(v -> mViewPager.postDelayed(()
+        nextButton.setOnClickListener(v -> mViewPager.postDelayed(()
                 -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true), 100));
-        mBackButton.setOnClickListener(v -> mViewPager.postDelayed(()
+        backButton.setOnClickListener(v -> mViewPager.postDelayed(()
                 -> mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true), 100));
         mSubmitButton.setOnClickListener(v -> mSubmitPresenter.sendResults(mQuestionsAdapter.getAnswers()));
         mSubmitButton.setEnabled(mQuestionsAdapter.isAllQuestionsAnswered());
@@ -157,13 +157,13 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
             @Override
             public void onPageSelected(int position) {
                 mQuestionsPagerContainer.onPageSelected(position);
-                mBackButton.setVisibility(View.VISIBLE);
-                mNextButton.setVisibility(View.VISIBLE);
+                backButton.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.VISIBLE);
                 if (position == 0) {
-                    mBackButton.setVisibility(View.GONE);
+                    backButton.setVisibility(View.GONE);
                 }
                 if (position == QuestionsAdapter.QUESTIONARY_SIZE - 1) {
-                    mNextButton.setVisibility(View.GONE);
+                    nextButton.setVisibility(View.GONE);
                 }
             }
 
@@ -176,7 +176,7 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
     @Override
     public void onAnswerClicked() {
-        mNextButton.performClick();
+        nextButton.performClick();
         mSubmitButton.setEnabled(mQuestionsAdapter.isAllQuestionsAnswered());
     }
 

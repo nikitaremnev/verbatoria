@@ -2,7 +2,6 @@ package com.verbatoria.presentation.session.view.submit.questions;
 
 import android.content.Context;
 import android.graphics.Point;
-import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -39,9 +38,6 @@ public class QuestionsViewPagerContainer extends FrameLayout implements ViewPage
 
     private void init() {
         setClipChildren(false);
-        if (Build.VERSION.SDK_INT < 19) {
-            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        }
     }
 
     @Override
