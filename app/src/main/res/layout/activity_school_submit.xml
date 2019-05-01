@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/submit_padding"
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/hint_text_view"
+        android:padding="@dimen/submit_padding"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="@string/school_mode_submit_hint"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/school_submit_height"
+        android:layout_alignParentBottom="true"
+        android:text="@string/session_submit"
+        style="@style/ButtonStyle" />
+
+    <include layout="@layout/view_loading"
+        android:visibility="gone"/>
+
+</RelativeLayout>

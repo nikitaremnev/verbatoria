@@ -4,6 +4,7 @@ import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.presentation.session.view.connection.ConnectionActivity;
 import com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;
+import com.verbatoria.presentation.session.view.submit.school.SchoolSubmitActivity;
 import com.verbatoria.presentation.session.view.writing.WritingActivity;
 
 import dagger.Subcomponent;
@@ -24,6 +25,8 @@ public interface SessionComponent {
     void inject(SessionRepository sessionRepository);
 
     void inject(SubmitActivity submitActivity);
+
+    void inject(SchoolSubmitActivity schoolSubmitActivity);
 
     void inject(ReconnectionActivity reconnectionActivity);
 }

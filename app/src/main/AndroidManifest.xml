@@ -97,6 +97,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
+        <activity
+            android:name="com.verbatoria.presentation.session.view.submit.school.SchoolSubmitActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme"/>
+
     </application>
 
 </manifest>

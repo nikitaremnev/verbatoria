@@ -108,4 +108,6 @@
     <string name="event_confirm_hobby_message">Включить модуль Хобби в отчет?</string>
     <string name="event_confirm_hobby_include">Включить</string>
 
+    <string name="school_mode_submit_hint">Все данные были записаны. Теперь вы можете завершить сессию.</string>
+
 </resources>

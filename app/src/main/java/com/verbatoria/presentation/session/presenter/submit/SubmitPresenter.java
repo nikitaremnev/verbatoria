@@ -24,10 +24,7 @@ import static com.verbatoria.presentation.session.view.submit.questions.Question
  */
 public class SubmitPresenter implements ISubmitPresenter {
 
-    private static final String TAG = SubmitPresenter.class.getSimpleName();
-
-    @Inject
-    public Context mContext;
+    private static final String TAG = "SubmitPresenter";
 
     private ISessionInteractor mSessionInteractor;
     private ISubmitView mSubmitView;

@@ -28,6 +28,8 @@ import com.verbatoria.presentation.session.presenter.reconnect.IReconnectionPres
 import com.verbatoria.presentation.session.presenter.reconnect.ReconnectionPresenter;
 import com.verbatoria.presentation.session.presenter.submit.ISubmitPresenter;
 import com.verbatoria.presentation.session.presenter.submit.SubmitPresenter;
+import com.verbatoria.presentation.session.presenter.submit.school.ISchoolSubmitPresenter;
+import com.verbatoria.presentation.session.presenter.submit.school.SchoolSubmitPresenter;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.presentation.session.presenter.writing.WritingPresenter;
 
@@ -112,6 +114,12 @@ public class SessionModule {
     @SessionScope
     ISubmitPresenter provideSubmitPresenter(ISessionInteractor sessionInteractor) {
         return new SubmitPresenter(sessionInteractor);
+    }
+
+    @Provides
+    @SessionScope
+    ISchoolSubmitPresenter provideSchoolSubmitPresenter(ISessionInteractor sessionInteractor) {
+        return new SchoolSubmitPresenter(sessionInteractor);
     }
 
     @Provides
