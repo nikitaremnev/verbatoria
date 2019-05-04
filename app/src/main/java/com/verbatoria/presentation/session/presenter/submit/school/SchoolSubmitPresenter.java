@@ -22,6 +22,8 @@ public class SchoolSubmitPresenter implements ISchoolSubmitPresenter {
 
     private static final String TAG = "SchoolSubmitPresenter";
 
+    private static final Map<String, String> answers = new HashMap<>();
+
     private ISessionInteractor sessionInteractor;
     private ISchoolSubmitView view;
     private EventModel eventModel;
@@ -44,7 +46,6 @@ public class SchoolSubmitPresenter implements ISchoolSubmitPresenter {
     @Override
     public void sendResults() {
         view.showProgress();
-        Map<String, String> answers = new HashMap<>();
         sessionInteractor.getAllMeasurements(answers)
                 .subscribe(this::handleMeasurementsReceived, this::handleError);
     }

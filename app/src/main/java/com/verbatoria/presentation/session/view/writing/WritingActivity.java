@@ -26,6 +26,7 @@ import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.presentation.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity;
 import com.verbatoria.presentation.session.view.submit.SubmitActivity;
+import com.verbatoria.presentation.session.view.submit.school.SchoolSubmitActivity;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
 
@@ -279,6 +280,13 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     @Override
     public void finishSession() {
         Intent intent = SubmitActivity.newInstance(this, mWritingPresenter.getEvent());
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void finishSessionSchoolMode() {
+        Intent intent = SchoolSubmitActivity.newInstance(this, mWritingPresenter.getEvent());
         startActivity(intent);
         finish();
     }

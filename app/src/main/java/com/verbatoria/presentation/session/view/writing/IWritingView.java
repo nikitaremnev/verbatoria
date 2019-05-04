@@ -32,5 +32,7 @@ public interface IWritingView {
 
     void finishSession();
 
+    void finishSessionSchoolMode();
+
     void showConnectionError();
 }
