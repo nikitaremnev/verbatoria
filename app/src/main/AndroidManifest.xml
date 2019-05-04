@@ -23,6 +23,10 @@
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -97,11 +101,6 @@
             android:name="com.verbatoria.presentation.session.view.submit.school.SchoolSubmitActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
     </application>
