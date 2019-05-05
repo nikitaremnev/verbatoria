@@ -103,8 +103,8 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     private void handleReportBackUp() {
-        mSubmitView.hideProgress();
-        mSubmitView.finishSessionWithError();
+        mSessionInteractor.cleanUp()
+                .subscribe(this::handleCleanupAfterBackupFinished, this::handleCleanupAfterBackupError);
     }
 
     private void handleReportBackUpError(Throwable throwable) {
@@ -120,6 +120,17 @@ public class SubmitPresenter implements ISubmitPresenter {
         mSubmitView.showError(throwable.getLocalizedMessage());
         mSessionInteractor.backupReport(mEventModel)
                 .subscribe(this::handleReportBackUp, this::handleReportBackUpError);
+    }
+
+    private void handleCleanupAfterBackupFinished() {
+        mSubmitView.hideProgress();
+        mSubmitView.finishSessionWithError();
+    }
+
+    private void handleCleanupAfterBackupError(Throwable throwable) {
+        Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
+        mSubmitView.hideProgress();
+        mSubmitView.finishSessionWithError();
     }
 
 }

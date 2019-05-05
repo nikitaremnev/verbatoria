@@ -80,8 +80,8 @@ public class SessionRepository implements ISessionRepository {
     @Override
     public Observable<Boolean> hasMeasurements() {
         return Observable.fromCallable(() -> {
-            Log.e("test", "SessionRepository NeurodataDatabase.getAttentionValues(mContext).isEmpty(): " + NeurodataDatabase.getAttentionValues(mContext).isEmpty());
-                    Log.e("test", "SessionRepository ActivitiesDatabase.getEvents(mContext).isEmpty(): " + ActivitiesDatabase.getEvents(mContext).isEmpty());
+            Log.e("test", "SessionRepository NeurodataDatabase.getAttentionValues(context).isEmpty(): " + NeurodataDatabase.getAttentionValues(mContext).isEmpty());
+                    Log.e("test", "SessionRepository ActivitiesDatabase.getEvents(context).isEmpty(): " + ActivitiesDatabase.getEvents(mContext).isEmpty());
 
             return !NeurodataDatabase.getAttentionValues(mContext).isEmpty() || !ActivitiesDatabase.getEvents(mContext).isEmpty();
         }

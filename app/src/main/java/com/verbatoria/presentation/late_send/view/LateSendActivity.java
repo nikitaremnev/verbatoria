@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.late_send.models.LateReportModel;
@@ -19,11 +18,8 @@ import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.presentation.late_send.presenter.ILateSendPresenter;
 import com.verbatoria.presentation.late_send.view.adapter.LateReportAdapter;
 import com.verbatoria.utils.Helper;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 
 /**
@@ -33,22 +29,21 @@ import butterknife.BindView;
  */
 public class LateSendActivity extends BaseActivity implements ILateSendView, ILateSendView.Callback {
 
-    private static final String TAG = LateSendActivity.class.getSimpleName();
+    private static final String TAG = "LateSendActivity";
 
     @Inject
-    ILateSendPresenter mLateSendPresenter;
+    ILateSendPresenter presenter;
 
     @BindView(R.id.late_send_reports_recycler_view)
-    public RecyclerView mLateSendReportsRecyclerView;
+    public RecyclerView recyclerView;
 
     @BindView(R.id.no_reports_text_view)
-    public TextView mNoReportsTextView;
+    public TextView noReportsTextView;
 
     private LateReportAdapter mLateReportAdapter;
 
     public static Intent newInstance(Context mContext) {
-        Intent intent = new Intent(mContext, LateSendActivity.class);
-        return intent;
+        return new Intent(mContext, LateSendActivity.class);
     }
 
     @Override
@@ -58,8 +53,8 @@ public class LateSendActivity extends BaseActivity implements ILateSendView, ILa
 
         setContentView(R.layout.activity_late_send);
 
-        mLateSendPresenter.bindView(this);
-        setPresenter((BasePresenter) mLateSendPresenter);
+        presenter.bindView(this);
+        setPresenter((BasePresenter) presenter);
 
         super.onCreate(savedInstanceState);
     }
@@ -77,7 +72,7 @@ public class LateSendActivity extends BaseActivity implements ILateSendView, ILa
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLateSendPresenter.unbindView();
+        presenter.unbindView();
     }
 
     @Override
@@ -96,19 +91,19 @@ public class LateSendActivity extends BaseActivity implements ILateSendView, ILa
     }
 
     public void showError(String error) {
-        Helper.showErrorSnackBar(mLateSendReportsRecyclerView, error);
+        Helper.showErrorSnackBar(recyclerView, error);
     }
 
     @Override
     public void showNoReportsToSend() {
-        mLateSendReportsRecyclerView.setVisibility(View.GONE);
-        mNoReportsTextView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        noReportsTextView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showLateReports(List<LateReportModel> lateReportModels) {
         mLateReportAdapter = new LateReportAdapter(lateReportModels, this);
-        mLateSendReportsRecyclerView.setAdapter(mLateReportAdapter);
+        recyclerView.setAdapter(mLateReportAdapter);
     }
 
     @Override
@@ -125,12 +120,12 @@ public class LateSendActivity extends BaseActivity implements ILateSendView, ILa
     }
 
     private void setUpRecyclerView() {
-        mLateSendReportsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mLateSendReportsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     @Override
     public void onItemClicked(int position) {
-        mLateSendPresenter.sendReport(position);
+        presenter.sendReport(position);
     }
 }

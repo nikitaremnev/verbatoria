@@ -16,17 +16,17 @@ import rx.Observable;
  */
 public class LateSendInteractor implements ILateSendInteractor {
 
-    private static final String TAG = LateSendInteractor.class.getSimpleName();
+    private static final String TAG = "LateSendInteractor";
 
-    private ILateSendRepository mLateSendRepository;
+    private ILateSendRepository lateSendRepository;
 
     public LateSendInteractor(ILateSendRepository lateSendRepository) {
-        mLateSendRepository = lateSendRepository;
+        this.lateSendRepository = lateSendRepository;
     }
 
     @Override
     public Observable<List<LateReportModel>> getLateReports() {
-        return Observable.fromCallable(() -> mLateSendRepository.getBackUpReports())
+        return Observable.fromCallable(() -> lateSendRepository.getBackUpReports())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -34,7 +34,7 @@ public class LateSendInteractor implements ILateSendInteractor {
     @Override
     public Completable cleanUp(LateReportModel lateReportModel) {
         return Completable.fromAction(() -> {
-            mLateSendRepository.removeReport(lateReportModel);
+            lateSendRepository.removeReport(lateReportModel);
             File file = new File(FileUtils.getApplicationDirectory(), lateReportModel.getReportFileName());
             if (file.exists()) {
                 file.delete();

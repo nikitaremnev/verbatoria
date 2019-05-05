@@ -1,13 +1,10 @@
 package com.verbatoria.data.repositories.late_send;
 
 import android.content.Context;
-
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.data.repositories.session.database.LateReportsDatabase;
-
 import java.util.List;
-
 import javax.inject.Inject;
 
 /**
@@ -16,10 +13,11 @@ import javax.inject.Inject;
  *
  * @author nikitaremnev
  */
+
 public class LateSendRepository implements ILateSendRepository {
 
     @Inject
-    public Context mContext;
+    public Context context;
 
     public LateSendRepository() {
         VerbatoriaApplication.getApplicationComponent().inject(this);
@@ -27,11 +25,12 @@ public class LateSendRepository implements ILateSendRepository {
 
     @Override
     public List<LateReportModel> getBackUpReports() {
-        return LateReportsDatabase.getLateReportModels(mContext);
+        return LateReportsDatabase.getLateReportModels(context);
     }
 
     @Override
     public void removeReport(LateReportModel lateReportModel) {
-        LateReportsDatabase.removeReport(mContext, lateReportModel);
+        LateReportsDatabase.removeReport(context, lateReportModel);
     }
+
 }
