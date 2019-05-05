@@ -1,8 +1,6 @@
 package com.verbatoria.data.repositories.session;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.late_send.models.LateReportModel;
 import com.verbatoria.data.network.api.APIFactory;
@@ -79,13 +77,7 @@ public class SessionRepository implements ISessionRepository {
 
     @Override
     public Observable<Boolean> hasMeasurements() {
-        return Observable.fromCallable(() -> {
-            Log.e("test", "SessionRepository NeurodataDatabase.getAttentionValues(context).isEmpty(): " + NeurodataDatabase.getAttentionValues(mContext).isEmpty());
-                    Log.e("test", "SessionRepository ActivitiesDatabase.getEvents(context).isEmpty(): " + ActivitiesDatabase.getEvents(mContext).isEmpty());
-
-            return !NeurodataDatabase.getAttentionValues(mContext).isEmpty() || !ActivitiesDatabase.getEvents(mContext).isEmpty();
-        }
-        );
+        return Observable.fromCallable(() -> !NeurodataDatabase.getAttentionValues(mContext).isEmpty() || !ActivitiesDatabase.getEvents(mContext).isEmpty());
     }
 
     @Override
