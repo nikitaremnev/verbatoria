@@ -103,12 +103,9 @@ public class SubmitPresenter implements ISubmitPresenter {
     }
 
     private void handleReportBackUp() {
-        mSubmitView.hideProgress();
-        mSubmitView.finishSessionWithError();
-
-//        mSessionInteractor.dropConnection();
-//        mSessionInteractor.cleanUp()
-//                .subscribe(this::handleCleanupAfterBackupFinished, this::handleCleanupAfterBackupError);
+        mSessionInteractor.dropConnection();
+        mSessionInteractor.cleanUp()
+                .subscribe(this::handleCleanupAfterBackupFinished, this::handleCleanupAfterBackupError);
     }
 
     private void handleReportBackUpError(Throwable throwable) {
@@ -126,15 +123,15 @@ public class SubmitPresenter implements ISubmitPresenter {
                 .subscribe(this::handleReportBackUp, this::handleReportBackUpError);
     }
 
-//    private void handleCleanupAfterBackupFinished() {
-//        mSubmitView.hideProgress();
-//        mSubmitView.finishSessionWithError();
-//    }
-//
-//    private void handleCleanupAfterBackupError(Throwable throwable) {
-//        Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
-//        mSubmitView.hideProgress();
-//        mSubmitView.finishSessionWithError();
-//    }
+    private void handleCleanupAfterBackupFinished() {
+        mSubmitView.hideProgress();
+        mSubmitView.finishSessionWithError();
+    }
+
+    private void handleCleanupAfterBackupError(Throwable throwable) {
+        Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
+        mSubmitView.hideProgress();
+        mSubmitView.finishSessionWithError();
+    }
 
 }
