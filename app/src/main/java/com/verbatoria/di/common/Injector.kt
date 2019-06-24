@@ -19,6 +19,7 @@ import com.verbatoria.di.schedule.ScheduleComponent
 import com.verbatoria.di.schedule.ScheduleModule
 import com.verbatoria.di.session.SessionComponent
 import com.verbatoria.di.session.SessionModule
+import com.verbatoria.di.splash.SplashComponent
 import com.verbatoria.di.token.TokenComponentInjects
 import com.verbatoria.di.token.TokenModule
 import com.verbatoria.presentation.calendar.view.adapter.EventsAdapter
@@ -74,6 +75,8 @@ interface Injector : TokenComponentInjects {
     fun addModule(scheduleModule: ScheduleModule): ScheduleComponent
 
     fun addModule(lateSendModule: LateSendModule): LateSendComponent
+
+    fun plusSplashComponent(): SplashComponent.Builder
 
     @Component.Builder
     interface Builder {

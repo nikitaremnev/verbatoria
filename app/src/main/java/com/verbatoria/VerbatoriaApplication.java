@@ -15,10 +15,16 @@ import com.remnev.verbatoria.R;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.activities.UserInteractionTimerTask;
+import com.verbatoria.di.DependencyHolder;
 import com.verbatoria.di.common.Injector;
 import com.verbatoria.di.common.DaggerInjector;
 
 import com.verbatoria.utils.Logger;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -28,7 +34,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  * @author nikitaremnev
  */
 
-public class VerbatoriaApplication extends MultiDexApplication {
+public class VerbatoriaApplication extends MultiDexApplication implements DependencyHolder<Object> {
 
     private static final String TAG = VerbatoriaApplication.class.getSimpleName();
 
@@ -62,6 +68,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
         injector = DaggerInjector.builder()
             .context(this)
             .build();
+        dependenciesContainer = new ConcurrentHashMap<>();
         MultiDex.install(this);
         overrideFonts();
     }
@@ -143,6 +150,28 @@ public class VerbatoriaApplication extends MultiDexApplication {
                 .build()
         );
     }
+
+    //region DependencyHolder
+
+    private static ConcurrentHashMap<String, Object> dependenciesContainer;
+
+    @Override
+    public void put(@NotNull String key, @NotNull Object dependency) {
+        dependenciesContainer.put(key, dependency);
+    }
+
+    @Nullable
+    @Override
+    public <D> D pop(@NotNull String key) {
+        return (D) dependenciesContainer.remove(key);
+    }
+
+    @Override
+    public Void getComponent() {
+        return null;
+    }
+
+    //endregion
 
     private static class DefaultTgStreamHandler implements TgStreamHandler {
 
