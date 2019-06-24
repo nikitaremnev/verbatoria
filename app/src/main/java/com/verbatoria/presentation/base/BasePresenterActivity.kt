@@ -2,7 +2,9 @@ package com.verbatoria.presentation.base
 
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaApplication
 import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.base.BaseInjector
@@ -91,6 +93,44 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
     protected abstract fun buildComponent(injector: Injector, savedState: Bundle?): Component
 
     protected abstract fun initViews(savedState: Bundle?)
+
+    //endregion
+
+    //region BaseView
+
+    override fun showSnackbar(text: String) {
+        Snackbar
+            .make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+            .show()
+    }
+
+    override fun showHintSnackbar(hintString: String) {
+        Snackbar.make(findViewById(android.R.id.content), hintString, Snackbar.LENGTH_LONG).apply {
+            view.setBackgroundResource(R.color.verbatolog_status_green)
+            show()
+        }
+    }
+
+    override fun showShortHintSnackbar(shortHintString: String) {
+        Snackbar.make(findViewById(android.R.id.content), shortHintString, Snackbar.LENGTH_SHORT).apply {
+            view.setBackgroundResource(R.color.verbatolog_status_green)
+            show()
+        }
+    }
+
+    override fun showWarningSnackbar(warningString: String) {
+        Snackbar.make(findViewById(android.R.id.content), warningString, Snackbar.LENGTH_LONG).apply {
+            view.setBackgroundResource(R.color.verbatolog_status_yellow)
+            show()
+        }
+    }
+
+    override fun showErrorSnackbar(errorString: String) {
+        Snackbar.make(findViewById(android.R.id.content), errorString, Snackbar.LENGTH_LONG).apply {
+            view.setBackgroundResource(R.color.verbatolog_status_red)
+            show()
+        }
+    }
 
     //endregion
 

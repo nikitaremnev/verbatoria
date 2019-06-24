@@ -78,6 +78,8 @@ interface Injector : TokenComponentInjects {
 
     fun plusSplashComponent(): SplashComponent.Builder
 
+    fun plusLateSendComponent(): LateSendComponent.Builder
+
     @Component.Builder
     interface Builder {
 

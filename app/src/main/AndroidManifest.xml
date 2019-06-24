@@ -74,7 +74,7 @@
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.late_send.view.LateSendActivity"
+            android:name="com.verbatoria.presentation.late_send.LateSendActivity"
             android:screenOrientation="landscape"/>
 
         <activity

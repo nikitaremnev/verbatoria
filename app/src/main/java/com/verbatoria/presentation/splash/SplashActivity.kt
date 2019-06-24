@@ -52,11 +52,6 @@ class SplashActivity : BasePresenterActivity<SplashView, SplashPresenter, Splash
 
     //region AppCompatActivity
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
