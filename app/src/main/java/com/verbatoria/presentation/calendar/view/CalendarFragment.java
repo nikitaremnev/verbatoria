@@ -80,7 +80,7 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         ButterKnife.bind(this, rootView);
-        VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
 
         setUpViews();
 

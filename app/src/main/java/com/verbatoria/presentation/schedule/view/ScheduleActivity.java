@@ -50,7 +50,7 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        VerbatoriaApplication.getApplicationComponent().addModule(new ScheduleModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new ScheduleModule()).inject(this);
 
         setContentView(R.layout.activity_schedule);
 

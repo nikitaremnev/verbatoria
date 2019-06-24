@@ -107,7 +107,7 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getApplicationComponent().addModule(new CalendarModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new CalendarModule()).inject(this);
         mChildrenPresenter.obtainChild(getIntent());
 
         setContentView(R.layout.activity_child);

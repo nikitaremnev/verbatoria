@@ -36,7 +36,7 @@ public class ActivitiesTimerTask extends TimerTask {
     public ActivitiesTimerTask(ISessionInteractor.IActivitiesCallback activitiesTimerCallback) {
         mActivitiesTimerCallback = activitiesTimerCallback;
         mAllActivitiesSeconds = mActivitiesTimerCallback.getDoneActivitiesTime();
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
     }
 
     @Override

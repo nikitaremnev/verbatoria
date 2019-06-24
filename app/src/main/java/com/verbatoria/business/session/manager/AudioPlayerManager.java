@@ -46,7 +46,7 @@ public class AudioPlayerManager implements IAudioPlayerManager {
 
     public AudioPlayerManager(ISessionInteractor.IPlayerCallback playerCallback) {
         mPlayerCallback = playerCallback;
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
     }
 
     @Override

@@ -20,7 +20,7 @@ public class LateSendRepository implements ILateSendRepository {
     public Context context;
 
     public LateSendRepository() {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
     }
 
     @Override

@@ -91,7 +91,7 @@ public class PreferencesStorage {
     }
 
     private PreferencesStorage() {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
         if (mContext != null) {
             mTokenPreferences = mContext.getSharedPreferences(TOKEN_PREFERENCES, Context.MODE_PRIVATE);
             mQuestionsPreferences = mContext.getSharedPreferences(QUESTIONS_PREFERENCES, Context.MODE_PRIVATE);

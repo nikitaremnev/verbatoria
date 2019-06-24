@@ -83,7 +83,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getApplicationComponent().addModule(new CalendarModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new CalendarModule()).inject(this);
         mClientsPresenter.obtainClient(getIntent());
 
         setContentView(R.layout.activity_client);

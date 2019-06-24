@@ -96,7 +96,7 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
         setUpNavigation();
         setUpHandler();
         //bind views
-        VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         mReconnectionPresenter.bindView(this);
         mReconnectionPresenter.obtainEvent(getIntent());
         showDisconnectedState();

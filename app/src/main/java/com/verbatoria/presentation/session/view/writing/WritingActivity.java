@@ -123,7 +123,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         setUpChart();
         setUpHandler();
         //bind views
-        VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         mWritingPresenter.bindView(this);
         mWritingPresenter.obtainEvent(getIntent());
     }

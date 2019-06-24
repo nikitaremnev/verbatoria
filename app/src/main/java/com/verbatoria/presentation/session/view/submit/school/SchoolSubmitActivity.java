@@ -58,7 +58,7 @@ public class SchoolSubmitActivity extends AppCompatActivity implements ISchoolSu
         ButterKnife.bind(this);
         mSubmitButton.setOnClickListener(v -> presenter.sendResults());
         //bind views
-        VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         presenter.bindView(this);
         presenter.obtainEvent(getIntent());
     }

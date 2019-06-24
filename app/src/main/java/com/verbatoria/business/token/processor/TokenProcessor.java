@@ -28,7 +28,7 @@ public class TokenProcessor {
     public Context mContext;
 
     public TokenProcessor() {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
     }
 
     public TokenModel obtainToken(LoginResponseModel loginResponseModel) {

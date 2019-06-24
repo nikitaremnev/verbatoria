@@ -83,7 +83,7 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         ButterKnife.bind(this);
         setUpViews();
         //bind views
-        VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         mSubmitPresenter.bindView(this);
         mSubmitPresenter.obtainEvent(getIntent());
     }

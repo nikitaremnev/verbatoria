@@ -102,7 +102,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         VerbatoriaApplication
-            .getApplicationComponent()
+            .getInjector()
             .addModule(LoginModule())
             .inject(this)
 

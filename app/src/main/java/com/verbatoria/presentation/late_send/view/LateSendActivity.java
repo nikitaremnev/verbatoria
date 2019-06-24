@@ -49,7 +49,7 @@ public class LateSendActivity extends BaseActivity implements ILateSendView, ILa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        VerbatoriaApplication.getApplicationComponent().addModule(new LateSendModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new LateSendModule()).inject(this);
 
         setContentView(R.layout.activity_late_send);
 

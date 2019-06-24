@@ -82,7 +82,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new LoginModule()).inject(this);
 
         //initialize views
         setContentView(R.layout.activity_recovery);

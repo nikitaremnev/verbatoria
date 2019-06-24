@@ -33,7 +33,7 @@ public class ClientsAdapter extends RecyclerView.Adapter<ClientViewHolder> {
     private SoftReference<Activity> mActivitySoftReference;
 
     public ClientsAdapter(@NonNull List<ClientModel> clientModels, Activity activity) {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
         mClientModelList = clientModels;
         mActivitySoftReference = new SoftReference<>(activity);
     }

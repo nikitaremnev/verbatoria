@@ -86,7 +86,7 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
         super.onViewCreated(view, savedInstanceState);
 
         //bind views
-        VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
         mVerbatologInfoPresenter.bindView(this);
         mVerbatologInfoPresenter.updateVerbatologInfo();
         mVerbatologInfoPresenter.updateVerbatologStatus();

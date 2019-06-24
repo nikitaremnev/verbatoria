@@ -35,7 +35,7 @@ public class SessionRepository implements ISessionRepository {
     public Context mContext;
 
     public SessionRepository() {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
     }
 
     @Override

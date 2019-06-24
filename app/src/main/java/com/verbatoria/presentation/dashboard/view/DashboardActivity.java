@@ -49,7 +49,7 @@ public class DashboardActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
 
         setContentView(R.layout.activity_dashboard);
 

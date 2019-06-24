@@ -38,7 +38,7 @@ public class QuestionsAdapter extends PagerAdapter {
     public QuestionsAdapter(IAnswerClickCallback answerClickCallback) {
         mAnswersMap = new HashMap<>();
         mAnswerClickCallback = answerClickCallback;
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
         mQuestionsArray = mContext.getResources().getStringArray(R.array.session_questions);
     }
 

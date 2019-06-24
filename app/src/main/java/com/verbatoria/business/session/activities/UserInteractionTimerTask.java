@@ -22,7 +22,7 @@ public class UserInteractionTimerTask {
     private boolean isSmsConfirmationStarted = false;
 
     public UserInteractionTimerTask() {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
     }
 
     public void updateLastInteractionTime() {

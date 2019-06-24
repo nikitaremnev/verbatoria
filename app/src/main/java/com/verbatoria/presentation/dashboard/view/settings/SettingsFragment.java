@@ -79,7 +79,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        VerbatoriaApplication.getApplicationComponent().addModule(new DashboardModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
         setUpQuitView();
         setUpScheduleView();
         setUpLateSendView();

@@ -33,7 +33,7 @@ public class ChildrenAdapter extends RecyclerView.Adapter<ChildViewHolder> {
     private SoftReference<Activity> mActivitySoftReference;
 
     public ChildrenAdapter(@NonNull List<ChildModel> childModels, Activity activity) {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
         mChildModelList = childModels;
         mActivitySoftReference = new SoftReference<>(activity);
     }

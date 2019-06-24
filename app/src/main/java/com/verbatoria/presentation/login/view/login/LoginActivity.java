@@ -71,7 +71,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getApplicationComponent().addModule(new LoginModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new LoginModule()).inject(this);
 
         //initialize views
         setContentView(R.layout.activity_login);

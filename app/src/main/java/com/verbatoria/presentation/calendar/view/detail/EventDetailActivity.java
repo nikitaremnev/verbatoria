@@ -104,7 +104,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getApplicationComponent().addModule(new CalendarModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new CalendarModule()).inject(this);
 
         setContentView(R.layout.activity_event_detail);
 

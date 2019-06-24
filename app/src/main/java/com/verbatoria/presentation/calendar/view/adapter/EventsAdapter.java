@@ -33,7 +33,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> {
     private SoftReference<Activity> mActivitySoftReference;
 
     public EventsAdapter(@NonNull List<EventModel> eventsList, Activity activity) {
-        VerbatoriaApplication.getApplicationComponent().inject(this);
+        VerbatoriaApplication.getInjector().inject(this);
         mEventsList = eventsList;
         mActivitySoftReference = new SoftReference<>(activity);
     }

@@ -89,7 +89,7 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        VerbatoriaApplication.getApplicationComponent().addModule(new SessionModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
 
         setContentView(R.layout.activity_connection);
 

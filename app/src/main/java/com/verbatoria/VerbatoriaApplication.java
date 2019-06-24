@@ -15,9 +15,9 @@ import com.remnev.verbatoria.R;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.activities.UserInteractionTimerTask;
-import com.verbatoria.di.application.ApplicationComponent;
-import com.verbatoria.di.application.ApplicationModule;
-import com.verbatoria.di.application.DaggerApplicationComponent;
+import com.verbatoria.di.common.Injector;
+import com.verbatoria.di.common.DaggerInjector;
+
 import com.verbatoria.utils.Logger;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -45,8 +45,7 @@ public class VerbatoriaApplication extends MultiDexApplication {
 
     private static UserInteractionTimerTask userInteractionTimerTask;
 
-    @NonNull
-    private static ApplicationComponent applicationComponent;
+    private static Injector injector;
 
     static {
         sStreamHandler = new DefaultTgStreamHandler();
@@ -60,16 +59,16 @@ public class VerbatoriaApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        applicationComponent = DaggerApplicationComponent.builder()
-            .applicationModule(new ApplicationModule(getApplicationContext()))
+        injector = DaggerInjector.builder()
+            .context(this)
             .build();
         MultiDex.install(this);
         overrideFonts();
     }
 
     @NonNull
-    public static ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
+    public static Injector getInjector() {
+        return injector;
     }
 
     public static void setSessionInteractorCallback(ISessionInteractor.ISessionCallback sessionInteractorCallback) {

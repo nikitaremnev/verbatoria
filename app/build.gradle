@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -69,8 +70,10 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
     compile "io.reactivex.rxjava2:rxandroid:${rootProject.rxJavaVersion}"
     compile "com.google.dagger:dagger:${rootProject.daggerVersion}"
-    annotationProcessor "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
+
+    kapt "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
     compile "com.jakewharton:butterknife:${rootProject.butterKnifeVersion}"
+
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.butterKnifeVersion}"
     compile "com.jakewharton.rxbinding:rxbinding:${rootProject.rxBindingVersion}"
     compile "com.squareup.retrofit2:retrofit:${rootProject.retrofitVersion}"
