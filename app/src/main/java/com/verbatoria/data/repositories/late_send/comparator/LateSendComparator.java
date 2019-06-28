@@ -1,6 +1,6 @@
 package com.verbatoria.data.repositories.late_send.comparator;
 
-import com.verbatoria.business.late_send.models.LateReportModel;
+import com.verbatoria.business.late_send.LateReportModel;
 
 import java.util.Comparator;
 

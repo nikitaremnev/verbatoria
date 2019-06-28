@@ -16,6 +16,7 @@ android {
         project.ext.set("archivesBaseName", "verbatoria-" + defaultConfig.versionName)
         multiDexEnabled true
         vectorDrawables.useSupportLibrary true
+        buildConfigField "int", "DATABASE_VERSION", "$rootProject.databaseVersion"
     }
 
     buildTypes {
@@ -60,25 +61,40 @@ dependencies {
     implementation "com.android.support:support-v4:${rootProject.supportLibraryVersion}"
     implementation "com.android.support:design:${rootProject.supportLibraryVersion}"
     implementation "com.android.support:recyclerview-v7:${rootProject.supportLibraryVersion}"
+
     compile "com.android.support:cardview-v7:${rootProject.supportLibraryVersion}"
     compile "com.android.support:recyclerview-v7:${rootProject.supportLibraryVersion}"
     compile "com.android.support:appcompat-v7:${rootProject.supportLibraryVersion}"
-    compile "com.android.support:design:${rootProject.supportLibraryVersion}"
-    compile "com.android.support:support-v4:${rootProject.supportLibraryVersion}"
     compile "com.android.support:gridlayout-v7:${rootProject.supportLibraryVersion}"
+
     compile "com.github.PhilJay:MPAndroidChart:${rootProject.mpAndroidChartVersion}"
-    compile "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
-    compile "io.reactivex.rxjava2:rxandroid:${rootProject.rxJavaVersion}"
+
     compile "com.google.dagger:dagger:${rootProject.daggerVersion}"
 
     kapt "com.google.dagger:dagger-compiler:${rootProject.daggerVersion}"
     compile "com.jakewharton:butterknife:${rootProject.butterKnifeVersion}"
 
+    //room
+    implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
+    kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
+
+    //rx
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
+    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${rootProject.rxPermissions}@aar"
+
+    //logging
+    implementation "org.slf4j:slf4j-api:${rootProject.slf4jVersion}"
+
+    //retrofit
+    api "com.squareup.retrofit2:retrofit:${rootProject.retrofitVersion}"
+    api "com.squareup.retrofit2:converter-gson:${rootProject.retrofitVersion}"
+    api "com.squareup.retrofit2:adapter-rxjava2:${rootProject.retrofitVersion}"
+    api "com.squareup.retrofit2:converter-scalars:${rootProject.retrofitVersion}"
+    api "com.squareup.retrofit2:converter-jackson:${rootProject.retrofitVersion}"
+
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.butterKnifeVersion}"
     compile "com.jakewharton.rxbinding:rxbinding:${rootProject.rxBindingVersion}"
-    compile "com.squareup.retrofit2:retrofit:${rootProject.retrofitVersion}"
-    compile "com.squareup.retrofit2:converter-jackson:${rootProject.retrofitVersion}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${rootProject.retrofitVersion}"
     compile "com.squareup.okhttp3:okhttp:${rootProject.okHttpVersion}"
     compile "com.squareup.okhttp3:logging-interceptor:${rootProject.okHttpVersion}"
     compile "com.android.support:multidex:${rootProject.multidexVersion}"

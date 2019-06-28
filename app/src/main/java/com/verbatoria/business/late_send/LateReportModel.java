@@ -1,4 +1,4 @@
-package com.verbatoria.business.late_send.models;
+package com.verbatoria.business.late_send;
 
 import java.util.Date;
 import java.util.Objects;

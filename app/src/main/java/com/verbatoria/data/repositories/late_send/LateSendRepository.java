@@ -2,7 +2,7 @@ package com.verbatoria.data.repositories.late_send;
 
 import android.content.Context;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.late_send.models.LateReportModel;
+import com.verbatoria.business.late_send.LateReportModel;
 import com.verbatoria.data.repositories.session.database.LateReportsDatabase;
 import java.util.List;
 import javax.inject.Inject;

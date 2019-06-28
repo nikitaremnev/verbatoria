@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.provider.BaseColumns;
 
-import com.verbatoria.business.late_send.models.LateReportModel;
+import com.verbatoria.business.late_send.LateReportModel;
 import com.verbatoria.data.repositories.late_send.comparator.LateSendComparator;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.FileUtils;

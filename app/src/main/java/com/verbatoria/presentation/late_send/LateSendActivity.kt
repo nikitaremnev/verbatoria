@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.remnev.verbatoria.R
-import com.verbatoria.business.late_send.models.LateReportModel
+import com.verbatoria.business.late_send.LateReportModel
 import com.verbatoria.di.common.Injector
 import com.verbatoria.di.late_send.LateSendComponent
 import com.verbatoria.presentation.base.BasePresenterActivity

@@ -27,6 +27,15 @@ ext {
     adaptiveTableLayoutVersion = "1.1.1"
     retrolambdaVersion = "3.6.1"
     fabricToolsVersion = "1.26.1"
-    rxJavaVersion = "2.1.0"
+
+    rxJavaVersion = "2.2.2"
+    rxAndroidVersion = "2.1.1"
+    rxPermissions = "0.9.5"
+
+    roomVersion = '1.1.1'
+
+    slf4jVersion = "1.7.25"
+
+    databaseVersion = 1
 
 }

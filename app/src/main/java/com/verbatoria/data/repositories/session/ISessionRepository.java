@@ -1,6 +1,6 @@
 package com.verbatoria.data.repositories.session;
 
-import com.verbatoria.business.late_send.models.LateReportModel;
+import com.verbatoria.business.late_send.LateReportModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;

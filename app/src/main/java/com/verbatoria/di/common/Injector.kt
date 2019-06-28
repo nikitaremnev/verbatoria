@@ -74,8 +74,6 @@ interface Injector : TokenComponentInjects {
 
     fun addModule(scheduleModule: ScheduleModule): ScheduleComponent
 
-    fun addModule(lateSendModule: LateSendModule): LateSendComponent
-
     fun plusSplashComponent(): SplashComponent.Builder
 
     fun plusLateSendComponent(): LateSendComponent.Builder

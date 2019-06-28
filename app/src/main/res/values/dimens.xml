@@ -29,4 +29,11 @@
     <dimen name="developer_info_field_width">350dp</dimen>
 
 
+
+    <!-- Loading Progress Dialog -->
+
+    <dimen name="dialog_progress_loading_padding">16dp</dimen>
+    <dimen name="dialog_progress_space">16dp</dimen>
+
+
 </resources>

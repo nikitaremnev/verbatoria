@@ -2,7 +2,7 @@ package com.verbatoria.data.repositories.session;
 
 import android.content.Context;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.late_send.models.LateReportModel;
+import com.verbatoria.business.late_send.LateReportModel;
 import com.verbatoria.data.network.api.APIFactory;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.FinishSessionResponseModel;

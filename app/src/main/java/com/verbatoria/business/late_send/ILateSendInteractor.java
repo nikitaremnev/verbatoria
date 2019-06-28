@@ -1,7 +1,5 @@
 package com.verbatoria.business.late_send;
 
-import com.verbatoria.business.late_send.models.LateReportModel;
-
 import java.util.List;
 
 import rx.Completable;
