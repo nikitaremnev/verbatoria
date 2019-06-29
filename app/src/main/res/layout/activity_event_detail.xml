@@ -9,7 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context="com.verbatoria.presentation.calendar.view.add.AddCalendarEventActivity">
+        tools:context="com.verbatoria.ui.calendar.view.add.AddCalendarEventActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

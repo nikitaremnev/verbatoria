@@ -12,9 +12,9 @@ import com.verbatoria.utils.PreferencesStorage;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
 
 /**
  *

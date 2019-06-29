@@ -10,7 +10,7 @@ import com.verbatoria.data.repositories.session.model.BaseMeasurement;
 import com.verbatoria.data.repositories.session.model.EEGMeasurement;
 import com.verbatoria.data.repositories.session.model.EventMeasurement;
 import com.verbatoria.data.repositories.session.model.MediationMeasurement;
-import com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter;
+import com.verbatoria.ui.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.FileUtils;
 import com.verbatoria.utils.Logger;
@@ -27,9 +27,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import rx.Completable;
+import io.reactivex.Completable;
 
-import static com.verbatoria.presentation.session.view.submit.questions.QuestionsAdapter.HOBBY_ANSWER_POSITION;
+import static com.verbatoria.ui.session.view.submit.questions.QuestionsAdapter.HOBBY_ANSWER_POSITION;
 
 /**
  * Процессор для генерации отчета
@@ -54,12 +54,11 @@ public class ExportProcessor {
     }
 
     public Completable getAllMeasurements(Map<String, String> answers) {
-        return mSessionRepository.getAllMeasurements()
+        return Completable.fromObservable(mSessionRepository.getAllMeasurements()
                 .doOnNext(baseMeasurements -> {
                     Collections.sort(baseMeasurements, new BaseMeasurementComparator());
                     writeToJsonFile(baseMeasurements, answers);
-                })
-                .toCompletable();
+                }));
     }
 
     private void writeToJsonFile(List<? extends BaseMeasurement> baseMeasurements, Map<String, String> answers) {

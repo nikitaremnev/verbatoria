@@ -1,10 +1,10 @@
 package com.verbatoria.di.calendar;
 
-import com.verbatoria.presentation.calendar.view.add.children.ChildActivity;
-import com.verbatoria.presentation.calendar.view.add.children.search.SearchChildrenActivity;
-import com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity;
-import com.verbatoria.presentation.calendar.view.add.clients.search.SearchClientsActivity;
-import com.verbatoria.presentation.calendar.view.detail.EventDetailActivity;
+import com.verbatoria.ui.calendar.view.add.children.ChildActivity;
+import com.verbatoria.ui.calendar.view.add.children.search.SearchChildrenActivity;
+import com.verbatoria.ui.calendar.view.add.clients.ClientsActivity;
+import com.verbatoria.ui.calendar.view.add.clients.search.SearchClientsActivity;
+import com.verbatoria.ui.calendar.view.detail.EventDetailActivity;
 
 import dagger.Subcomponent;
 

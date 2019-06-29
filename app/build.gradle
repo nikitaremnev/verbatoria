@@ -81,7 +81,6 @@ dependencies {
     //rx
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
-    implementation "com.tbruyelle.rxpermissions2:rxpermissions:${rootProject.rxPermissions}@aar"
 
     //logging
     implementation "org.slf4j:slf4j-api:${rootProject.slf4jVersion}"

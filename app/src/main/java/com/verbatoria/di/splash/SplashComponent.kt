@@ -1,7 +1,7 @@
 package com.verbatoria.di.splash
 
 import com.verbatoria.di.base.BaseInjector
-import com.verbatoria.presentation.splash.SplashActivity
+import com.verbatoria.ui.splash.SplashActivity
 import dagger.Subcomponent
 
 /**

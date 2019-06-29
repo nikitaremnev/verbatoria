@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 

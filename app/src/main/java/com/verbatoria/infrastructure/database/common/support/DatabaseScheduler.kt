@@ -16,15 +16,15 @@ private const val THREAD_COUNT = 8
 private const val THREAD_KEEP_ALIVE_TIME = 5L
 
 class DatabaseScheduler(
-        threadFactory: ThreadFactory,
-        private val workerFactory: WorkerFactory,
-        coreThreadCount: Int = CORE_THREAD_COUNT,
-        threadCount: Int = THREAD_COUNT
+    threadFactory: ThreadFactory,
+    private val workerFactory: WorkerFactory,
+    coreThreadCount: Int = CORE_THREAD_COUNT,
+    threadCount: Int = THREAD_COUNT
 ) : Scheduler() {
 
     val executor = ThreadPoolExecutor(
-            coreThreadCount, threadCount, THREAD_KEEP_ALIVE_TIME,
-            TimeUnit.MINUTES, LinkedBlockingQueue<Runnable>(), threadFactory
+        coreThreadCount, threadCount, THREAD_KEEP_ALIVE_TIME,
+        TimeUnit.MINUTES, LinkedBlockingQueue<Runnable>(), threadFactory
     )
 
     val scheduler: ExecutorScheduler = ExecutorScheduler(executor, true)

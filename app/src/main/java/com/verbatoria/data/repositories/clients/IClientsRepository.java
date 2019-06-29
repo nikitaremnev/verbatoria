@@ -5,7 +5,7 @@ import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.network.response.ClientsResponseModel;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev

@@ -19,7 +19,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.verbatoria.presentation.splash.SplashActivity"
+            android:name="com.verbatoria.ui.splash.SplashActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
 
@@ -31,74 +31,74 @@
         </activity>
 
         <activity
-            android:name="com.verbatoria.presentation.login.view.login.LoginActivity"
+            android:name="com.verbatoria.ui.login.view.login.LoginActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.presentation.dashboard.view.DashboardActivity"
+            android:name="com.verbatoria.ui.dashboard.view.DashboardActivity"
             android:screenOrientation="landscape"
             android:configChanges="locale"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.detail.EventDetailActivity"
+            android:name="com.verbatoria.ui.calendar.view.detail.EventDetailActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.session.view.connection.ConnectionActivity"
+            android:name="com.verbatoria.ui.session.view.connection.ConnectionActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.session.view.reconnect.ReconnectionActivity"
+            android:name="com.verbatoria.ui.session.view.reconnect.ReconnectionActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.add.clients.ClientsActivity"
+            android:name="com.verbatoria.ui.calendar.view.add.clients.ClientsActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.add.children.ChildActivity"
+            android:name="com.verbatoria.ui.calendar.view.add.children.ChildActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.add.clients.search.SearchClientsActivity"
+            android:name="com.verbatoria.ui.calendar.view.add.clients.search.SearchClientsActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.calendar.view.add.children.search.SearchChildrenActivity"
+            android:name="com.verbatoria.ui.calendar.view.add.children.search.SearchChildrenActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.schedule.view.ScheduleActivity"
+            android:name="com.verbatoria.ui.schedule.view.ScheduleActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.late_send.LateSendActivity"
+            android:name="com.verbatoria.ui.late_send.LateSendActivity"
             android:screenOrientation="landscape"/>
 
         <activity
-            android:name="com.verbatoria.presentation.session.view.writing.WritingActivity"
+            android:name="com.verbatoria.ui.session.view.writing.WritingActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.presentation.session.view.submit.SubmitActivity"
+            android:name="com.verbatoria.ui.session.view.submit.SubmitActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.presentation.login.view.recovery.RecoveryActivity"
+            android:name="com.verbatoria.ui.login.view.recovery.RecoveryActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.presentation.login.view.sms.SMSConfirmationActivity"
+            android:name="com.verbatoria.ui.login.view.sms.SMSConfirmationActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.presentation.session.view.submit.school.SchoolSubmitActivity"
+            android:name="com.verbatoria.ui.session.view.submit.school.SchoolSubmitActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme">
         </activity>

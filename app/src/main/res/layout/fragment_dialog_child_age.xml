@@ -23,7 +23,7 @@
         android:clipToPadding="false"
         android:paddingBottom="@dimen/list_item_spacing_half"
         android:paddingTop="@dimen/list_item_spacing_half"
-        tools:context="com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeDialogFragment"
+        tools:context="com.verbatoria.ui.calendar.view.add.children.age.ChildAgeDialogFragment"
         tools:listitem="@layout/item_child_age" />
 
 </LinearLayout>

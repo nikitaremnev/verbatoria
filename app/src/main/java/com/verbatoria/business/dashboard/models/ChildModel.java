@@ -8,7 +8,7 @@ import com.verbatoria.utils.DateUtils;
 import java.util.Date;
 import java.util.Objects;
 
-import static com.verbatoria.presentation.calendar.view.add.children.age.ChildAgeDialogFragment.START_AGE;
+import static com.verbatoria.ui.calendar.view.add.children.age.ChildAgeDialogFragment.START_AGE;
 
 /**
  * Реализация модели для ребенка, записанного на сеанс нейрометрии

@@ -7,7 +7,7 @@ import com.verbatoria.data.network.response.ScheduleResponseModel;
 
 import java.util.List;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev

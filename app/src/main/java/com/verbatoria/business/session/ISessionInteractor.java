@@ -6,8 +6,8 @@ import com.verbatoria.data.network.response.StartSessionResponseModel;
 
 import java.util.Map;
 
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * Интерфейс интерактора для сессии

@@ -5,12 +5,12 @@ import com.verbatoria.business.login.LoginInteractor;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.login.presenter.login.ILoginPresenter;
-import com.verbatoria.presentation.login.presenter.login.LoginPresenter;
-import com.verbatoria.presentation.login.presenter.recovery.IRecoveryPresenter;
-import com.verbatoria.presentation.login.presenter.recovery.RecoveryPresenter;
-import com.verbatoria.presentation.login.presenter.sms.SMSConfirmationPresenter;
-import com.verbatoria.presentation.login.presenter.sms.SMSConfirmationPresenterImpl;
+import com.verbatoria.ui.login.presenter.login.ILoginPresenter;
+import com.verbatoria.ui.login.presenter.login.LoginPresenter;
+import com.verbatoria.ui.login.presenter.recovery.IRecoveryPresenter;
+import com.verbatoria.ui.login.presenter.recovery.RecoveryPresenter;
+import com.verbatoria.ui.login.presenter.sms.SMSConfirmationPresenter;
+import com.verbatoria.ui.login.presenter.sms.SMSConfirmationPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;

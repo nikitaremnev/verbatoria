@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dashboard_background"
-    tools:context="com.verbatoria.presentation.dashboard.view.DashboardActivity">
+    tools:context="com.verbatoria.ui.dashboard.view.DashboardActivity">
 
     <FrameLayout
         android:layout_width="match_parent"

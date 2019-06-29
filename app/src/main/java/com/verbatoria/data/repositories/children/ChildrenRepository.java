@@ -6,9 +6,9 @@ import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildrenResponseModel;
 
-import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
+
 
 /**
  * @author nikitaremnev
@@ -26,7 +26,7 @@ public class ChildrenRepository implements IChildrenRepository {
 
     @Override
     public Completable editChild(String clientId, String childId, String accessToken, ChildRequestModel childRequestModel) {
-        return APIFactory.getAPIService().editChildRequest(clientId, childId, accessToken, childRequestModel).toCompletable();
+        return Completable.fromObservable(APIFactory.getAPIService().editChildRequest(clientId, childId, accessToken, childRequestModel));
     }
 
     @Override

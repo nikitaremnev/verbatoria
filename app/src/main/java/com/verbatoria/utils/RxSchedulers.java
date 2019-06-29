@@ -1,8 +1,9 @@
 package com.verbatoria.utils;
 
-import rx.Scheduler;
-import rx.schedulers.Schedulers;
-import rx.android.schedulers.AndroidSchedulers;
+
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Utils class that provide Rx Schedulers and appropriate Rx Transformers

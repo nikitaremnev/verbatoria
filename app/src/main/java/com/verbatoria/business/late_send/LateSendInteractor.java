@@ -7,8 +7,8 @@ import com.verbatoria.utils.RxSchedulers;
 import java.io.File;
 import java.util.List;
 
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev

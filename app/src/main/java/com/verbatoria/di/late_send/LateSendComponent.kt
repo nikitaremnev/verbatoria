@@ -1,7 +1,7 @@
 package com.verbatoria.di.late_send;
 
 import com.verbatoria.di.base.BaseInjector
-import com.verbatoria.presentation.late_send.LateSendActivity
+import com.verbatoria.ui.late_send.LateSendActivity
 import dagger.Subcomponent
 
 /**

@@ -3,7 +3,7 @@ package com.verbatoria.business.token.interactor;
 import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.response.LoginResponseModel;
 
-import rx.Observable;
+import io.reactivex.Observable;
 import rx.Single;
 
 /**

@@ -32,8 +32,8 @@ import java.util.Timer;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 import static com.verbatoria.business.session.activities.ActivitiesCodes.NO_CODE;
 
@@ -76,8 +76,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     @Override
     public Completable updateHobbyValue(EventModel eventModel) {
         try {
-            return mCalendarRepository.editEvent(eventModel.getId(), getAccessToken(), getEditEventRequestModel(eventModel))
-                    .toCompletable()
+            return Completable.fromObservable(mCalendarRepository.editEvent(eventModel.getId(), getAccessToken(), getEditEventRequestModel(eventModel)))
                     .subscribeOn(RxSchedulers.getNewThreadScheduler())
                     .observeOn(RxSchedulers.getMainThreadScheduler());
         } catch (ParseException e) {
@@ -95,8 +94,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     @Override
     public Completable finishSession(String eventId) {
-        return mSessionRepository.finishSession(getAccessToken())
-                .toCompletable()
+        return Completable.fromObservable(mSessionRepository.finishSession(getAccessToken()))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -113,8 +111,9 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     public Completable submitResults() {
         File file = new File(FileUtils.getApplicationDirectory(), PreferencesStorage.getInstance().getLastReportName());
         RequestBody fileBody = RequestBody.create(MediaType.parse("application/json"), file);
-        return mSessionRepository.addResults(getAccessToken(), fileBody)
-                .toCompletable()
+        return Completable.fromObservable(
+                mSessionRepository.addResults(getAccessToken(), fileBody)
+                )
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -123,8 +122,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     public Completable submitResults(String fileName) {
         File file = new File(FileUtils.getApplicationDirectory(), fileName);
         RequestBody fileBody = RequestBody.create(MediaType.parse("application/json"), file);
-        return mSessionRepository.addResults(getAccessToken(), fileBody)
-                .toCompletable()
+        return Completable.fromObservable(mSessionRepository.addResults(getAccessToken(), fileBody))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

@@ -17,9 +17,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev
@@ -68,7 +67,7 @@ public class ChildrenInteractor implements IChildrenInteractor {
     }
 
     @Override
-    public Observable<List<ChildModel>> getChild(ClientModel clientModel) {
+    public Observable<ArrayList<ChildModel>> getChild(ClientModel clientModel) {
         Log.e("test", "clientModel: " + clientModel.toString());
         List<Observable<ChildModel>> childObservables = new ArrayList<>();
         for (int i = 0; i < clientModel.getChildren().size(); i++) {
@@ -80,9 +79,7 @@ public class ChildrenInteractor implements IChildrenInteractor {
                             .observeOn(RxSchedulers.getMainThreadScheduler())
             );
         }
-        return Observable.from(childObservables)
-                .flatMap(childModel -> childModel.observeOn(RxSchedulers.getMainThreadScheduler()))
-                .toList()
+        return Observable.just(new ArrayList<ChildModel>())
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

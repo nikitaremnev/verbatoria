@@ -23,12 +23,12 @@ import com.verbatoria.data.repositories.schedule.ScheduleRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.calendar.presenter.add.children.ChildPresenter;
-import com.verbatoria.presentation.calendar.presenter.add.children.IChildPresenter;
-import com.verbatoria.presentation.calendar.presenter.add.clients.ClientsPresenter;
-import com.verbatoria.presentation.calendar.presenter.add.clients.IClientsPresenter;
-import com.verbatoria.presentation.calendar.presenter.detail.EventDetailPresenter;
-import com.verbatoria.presentation.calendar.presenter.detail.IEventDetailPresenter;
+import com.verbatoria.ui.calendar.presenter.add.children.ChildPresenter;
+import com.verbatoria.ui.calendar.presenter.add.children.IChildPresenter;
+import com.verbatoria.ui.calendar.presenter.add.clients.ClientsPresenter;
+import com.verbatoria.ui.calendar.presenter.add.clients.IClientsPresenter;
+import com.verbatoria.ui.calendar.presenter.detail.EventDetailPresenter;
+import com.verbatoria.ui.calendar.presenter.detail.IEventDetailPresenter;
 
 import dagger.Module;
 import dagger.Provides;

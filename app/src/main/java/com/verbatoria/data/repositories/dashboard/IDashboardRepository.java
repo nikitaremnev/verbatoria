@@ -11,8 +11,8 @@ import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 import java.util.List;
 
 import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  *

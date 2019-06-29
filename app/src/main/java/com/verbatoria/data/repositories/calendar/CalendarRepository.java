@@ -10,8 +10,8 @@ import com.verbatoria.utils.PreferencesStorage;
 
 import java.util.Date;
 
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev
@@ -35,7 +35,7 @@ public class CalendarRepository implements ICalendarRepository {
 
     @Override
     public Completable deleteEvent(String eventId, String accessToken) {
-        return APIFactory.getAPIService().deleteEventRequest(eventId, accessToken).toCompletable();
+        return Completable.fromObservable(APIFactory.getAPIService().deleteEventRequest(eventId, accessToken));
     }
 
     @Override

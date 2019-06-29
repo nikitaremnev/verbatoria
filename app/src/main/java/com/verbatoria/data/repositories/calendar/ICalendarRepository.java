@@ -7,8 +7,8 @@ import com.verbatoria.data.network.response.EventsResponseModel;
 
 import java.util.Date;
 
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev

@@ -1,8 +1,9 @@
 package com.verbatoria.infrastructure;
 
 import android.os.Bundle;
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 /**
  * @author nikitaremnev
@@ -10,14 +11,14 @@ import rx.subscriptions.CompositeSubscription;
 
 public abstract class BasePresenter {
 
-    private CompositeSubscription mSubscriptions;
+    private CompositeDisposable compositeDisposable;
 
     protected void onStart() {
-        mSubscriptions = new CompositeSubscription();
+        compositeDisposable = new CompositeDisposable();
     }
 
     protected void onStop() {
-        mSubscriptions.clear();
+        compositeDisposable.clear();
     }
 
     protected void onSaveInstanceState(Bundle outState) {
@@ -28,8 +29,8 @@ public abstract class BasePresenter {
         restoreState(savedInstanceState);
     }
 
-    protected void addSubscription(Subscription subscription) {
-        mSubscriptions.add(subscription);
+    protected void addSubscription(Disposable disposable) {
+        compositeDisposable.add(disposable);
     }
 
     abstract public void saveState(Bundle outState);

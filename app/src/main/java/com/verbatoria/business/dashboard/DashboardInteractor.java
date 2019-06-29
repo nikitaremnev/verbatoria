@@ -17,8 +17,8 @@ import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 import java.io.File;
 import java.util.List;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * Реализация интерактора для dashboard
@@ -90,12 +90,14 @@ public class DashboardInteractor implements IDashboardInteractor {
 
     @Override
     public Completable loadAgeGroups() {
-        return mDashboardRepository.getAgeGroupsForArchimed(getAccessToken())
-                .map(ModelsConverter::convertAgeGroupsResponseModelToAgeGroupModels)
-                .doOnNext(ageGroups -> {
-                    mDashboardRepository.saveAgeGroups(ageGroups);
-                })
-                .toCompletable()
+        return Completable.fromObservable(
+                mDashboardRepository.getAgeGroupsForArchimed(getAccessToken())
+                        .map(ModelsConverter::convertAgeGroupsResponseModelToAgeGroupModels)
+                        .doOnNext(ageGroups -> {
+                            mDashboardRepository.saveAgeGroups(ageGroups);
+                            }
+                        )
+        )
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -128,7 +130,7 @@ public class DashboardInteractor implements IDashboardInteractor {
     @Override
     public Completable updateCurrentLocale(String locationId, String currentLocale) {
         return mDashboardRepository.updateCurrentLocale(getAccessToken(), locationId, createLocationLanguageRequestModel(currentLocale))
-                .doOnCompleted(() -> mDashboardRepository.saveCurrentLocale(currentLocale))
+                .doOnTerminate(() -> mDashboardRepository.saveCurrentLocale(currentLocale))
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }

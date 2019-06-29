@@ -20,8 +20,8 @@ import javax.inject.Inject;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  *
@@ -50,7 +50,7 @@ public class SessionRepository implements ISessionRepository {
 
     @Override
     public Completable includeAttentionMemory(String reportId, String accessToken) {
-        return APIFactory.getAPIService().includeAttentionMemoryRequest(reportId, accessToken).toCompletable();
+        return Completable.fromObservable(APIFactory.getAPIService().includeAttentionMemoryRequest(reportId, accessToken));
     }
 
     @Override
@@ -72,7 +72,7 @@ public class SessionRepository implements ISessionRepository {
 
     @Override
     public Completable sendReportToLocation(String accessToken, String reportId) {
-        return APIFactory.getAPIService().sendReportToLocation(accessToken, reportId).toCompletable();
+        return Completable.fromObservable(APIFactory.getAPIService().sendReportToLocation(accessToken, reportId));
     }
 
     @Override

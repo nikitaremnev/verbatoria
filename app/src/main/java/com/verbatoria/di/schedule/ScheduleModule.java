@@ -5,8 +5,8 @@ import com.verbatoria.business.schedule.ScheduleInteractor;
 import com.verbatoria.data.repositories.schedule.IScheduleRepository;
 import com.verbatoria.data.repositories.schedule.ScheduleRepository;
 import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.presentation.schedule.presenter.ISchedulePresenter;
-import com.verbatoria.presentation.schedule.presenter.SchedulePresenter;
+import com.verbatoria.ui.schedule.presenter.ISchedulePresenter;
+import com.verbatoria.ui.schedule.presenter.SchedulePresenter;
 
 import dagger.Module;
 import dagger.Provides;

@@ -9,7 +9,7 @@ import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.network.response.SMSConfirmationResponseModel;
 import com.verbatoria.utils.PreferencesStorage;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  *

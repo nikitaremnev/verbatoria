@@ -1,8 +1,8 @@
 package com.verbatoria.di.login;
 
-import com.verbatoria.presentation.login.view.login.LoginActivity;
-import com.verbatoria.presentation.login.view.recovery.RecoveryActivity;
-import com.verbatoria.presentation.login.view.sms.SMSConfirmationActivity;
+import com.verbatoria.ui.login.view.login.LoginActivity;
+import com.verbatoria.ui.login.view.recovery.RecoveryActivity;
+import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity;
 
 import dagger.Subcomponent;
 

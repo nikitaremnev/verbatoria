@@ -12,7 +12,7 @@ import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Реализация интерактора для логина

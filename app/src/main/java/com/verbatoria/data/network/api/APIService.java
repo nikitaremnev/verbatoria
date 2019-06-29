@@ -31,6 +31,8 @@ import com.verbatoria.data.network.response.VerbatologInfoResponseModel;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
@@ -42,8 +44,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Completable;
-import rx.Observable;
 
 import static com.verbatoria.data.network.api.APIConstants.CHILD_ID_PATH_KEY;
 import static com.verbatoria.data.network.api.APIConstants.CLIENT_ID_PATH_KEY;

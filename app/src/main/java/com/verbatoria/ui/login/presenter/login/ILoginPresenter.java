@@ -1,0 +1,27 @@
+package com.verbatoria.ui.login.presenter.login;
+
+import android.support.annotation.NonNull;
+
+import com.verbatoria.ui.login.view.login.ILoginView;
+
+/**
+ * Презентер для логина
+ *
+ * @author nikitaremnev
+ */
+public interface ILoginPresenter {
+
+    void bindView(@NonNull ILoginView loginView);
+    void unbindView();
+
+    void login();
+    void startRecoveryPassword();
+
+    void onCountrySelectionClicked();
+
+    void onCountrySelected(String country);
+
+    void setUpLastLogin();
+
+    String[] getCountryCodesArray();
+}

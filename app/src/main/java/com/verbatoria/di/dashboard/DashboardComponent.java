@@ -1,9 +1,9 @@
 package com.verbatoria.di.dashboard;
 
-import com.verbatoria.presentation.calendar.view.CalendarFragment;
-import com.verbatoria.presentation.dashboard.view.DashboardActivity;
-import com.verbatoria.presentation.dashboard.view.info.VerbatologInfoFragment;
-import com.verbatoria.presentation.dashboard.view.settings.SettingsFragment;
+import com.verbatoria.ui.calendar.view.CalendarFragment;
+import com.verbatoria.ui.dashboard.view.DashboardActivity;
+import com.verbatoria.ui.dashboard.view.info.VerbatologInfoFragment;
+import com.verbatoria.ui.dashboard.view.settings.SettingsFragment;
 
 import dagger.Subcomponent;
 

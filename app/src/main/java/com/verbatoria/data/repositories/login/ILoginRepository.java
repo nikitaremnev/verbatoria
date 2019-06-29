@@ -7,7 +7,7 @@ import com.verbatoria.data.network.response.LoginResponseModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.network.response.SMSConfirmationResponseModel;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  *

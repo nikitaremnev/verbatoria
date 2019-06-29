@@ -2,7 +2,7 @@ package com.verbatoria.business.schedule;
 
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Интерфейс интерактора для расписания

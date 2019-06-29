@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
@@ -36,7 +36,7 @@ public class APIFactory {
 
         VERBATORIA_RETROFIT = new Retrofit.Builder()
                 .baseUrl(APIConstants.API_BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .client(OK_HTTP_CLIENT)
                 .build();
@@ -61,7 +61,7 @@ public class APIFactory {
     private static Retrofit getPanelRetrofit() {
         return new Retrofit.Builder()
                 .baseUrl(APIConstants.API_PANEL_BASE_URL)
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(JacksonConverterFactory.create())
                 .client(OK_HTTP_CLIENT)
                 .build();

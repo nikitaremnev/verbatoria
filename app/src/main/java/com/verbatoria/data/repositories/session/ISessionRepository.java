@@ -10,8 +10,8 @@ import java.util.List;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  *

@@ -1,6 +1,6 @@
 package com.verbatoria.di.schedule;
 
-import com.verbatoria.presentation.schedule.view.ScheduleActivity;
+import com.verbatoria.ui.schedule.view.ScheduleActivity;
 
 import dagger.Subcomponent;
 

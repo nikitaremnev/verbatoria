@@ -6,8 +6,8 @@ import com.verbatoria.business.dashboard.models.VerbatologModel;
 
 import java.util.List;
 
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * Интерфейс интерактора для dashboard

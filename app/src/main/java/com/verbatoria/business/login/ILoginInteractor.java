@@ -4,7 +4,7 @@ import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.data.network.response.SMSConfirmationResponseModel;
 
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Интерфейс интерактора для логина

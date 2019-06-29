@@ -1,6 +1,6 @@
 package com.verbatoria.di.splash
 
-import com.verbatoria.presentation.splash.SplashPresenter
+import com.verbatoria.ui.splash.SplashPresenter
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable

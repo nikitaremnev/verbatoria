@@ -7,8 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev

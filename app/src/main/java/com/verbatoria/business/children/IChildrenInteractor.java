@@ -3,11 +3,11 @@ package com.verbatoria.business.children;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.data.network.common.ClientModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev
@@ -21,6 +21,6 @@ public interface IChildrenInteractor {
 
     Observable<List<ChildModel>> searchChildren(String query);
 
-    Observable<List<ChildModel>> getChild(ClientModel clientModel);
+    Observable<ArrayList<ChildModel>> getChild(ClientModel clientModel);
 
 }

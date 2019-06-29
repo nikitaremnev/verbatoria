@@ -2,7 +2,7 @@ package com.verbatoria.business.session.activities;
 
 import android.content.Context;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.presentation.login.view.sms.SMSConfirmationActivity;
+import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity;
 import javax.inject.Inject;
 
 /**

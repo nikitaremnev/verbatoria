@@ -5,9 +5,8 @@ import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
 import com.verbatoria.data.network.response.ChildrenResponseModel;
 
-import okhttp3.ResponseBody;
-import rx.Completable;
-import rx.Observable;
+import io.reactivex.Completable;
+import io.reactivex.Observable;
 
 /**
  * @author nikitaremnev
