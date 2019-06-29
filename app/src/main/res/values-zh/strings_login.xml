@@ -38,8 +38,6 @@
 
     <string name="select_country">Choose location</string>
 
-    <string name="sms_confirmation_text">Confirmation code</string>
-
     <string name="sms_confirmation_confirm">Confirm</string>
 
     <string name="sms_confirmation_code_sent">Code sent successfully</string>

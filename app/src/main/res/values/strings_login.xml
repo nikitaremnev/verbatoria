@@ -38,8 +38,6 @@
 
     <string name="select_country">Выберите местоположение</string>
 
-    <string name="sms_confirmation_text">Код подтверждения</string>
-
     <string name="sms_confirmation_confirm">Подтвердить</string>
 
     <string name="sms_confirmation_code_sent">Код подтверждения успешно отправлен</string>
