@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.verbatoria.business.login.ILoginInteractor;
+import com.verbatoria.business.login.AuthorizationInteractor;
 import com.verbatoria.data.network.response.MessageResponseModel;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.ui.login.view.recovery.IRecoveryView;
@@ -28,11 +28,11 @@ public class RecoveryPresenter extends BasePresenter implements IRecoveryPresent
 
     private static final String TAG = RecoveryPresenter.class.getSimpleName();
 
-    private ILoginInteractor mLoginInteractor;
+    private AuthorizationInteractor mLoginInteractor;
     private RecoveryPresenterState mPresenterState;
     private IRecoveryView mRecoveryView;
 
-    public RecoveryPresenter(ILoginInteractor loginInteractor) {
+    public RecoveryPresenter(AuthorizationInteractor loginInteractor) {
         this.mLoginInteractor = loginInteractor;
         mPresenterState = new RecoveryPresenterState();
     }

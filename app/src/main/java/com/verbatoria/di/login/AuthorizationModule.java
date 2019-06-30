@@ -1,12 +1,9 @@
 package com.verbatoria.di.login;
 
-import com.verbatoria.business.login.ILoginInteractor;
-import com.verbatoria.business.login.LoginInteractor;
+import com.verbatoria.business.login.AuthorizationInteractor;
+import com.verbatoria.business.login.AuthorizationInteractorImpl;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
-import com.verbatoria.ui.login.presenter.login.ILoginPresenter;
-import com.verbatoria.ui.login.presenter.login.LoginPresenter;
 import com.verbatoria.ui.login.presenter.recovery.IRecoveryPresenter;
 import com.verbatoria.ui.login.presenter.recovery.RecoveryPresenter;
 import com.verbatoria.ui.login.presenter.sms.SMSConfirmationPresenter;
@@ -21,7 +18,7 @@ import dagger.Provides;
  * @author nikitaremnev
  */
 @Module
-public class LoginModule {
+public class AuthorizationModule {
 
     @Provides
     @LoginScope
@@ -31,25 +28,19 @@ public class LoginModule {
 
     @Provides
     @LoginScope
-    ILoginInteractor provideLoginInteractor(ILoginRepository loginRepository, ITokenRepository tokenRepository) {
-        return new LoginInteractor(loginRepository, tokenRepository);
+    AuthorizationInteractor provideAuthorizationInteractor(ILoginRepository loginRepository) {
+        return new AuthorizationInteractorImpl(loginRepository);
     }
 
     @Provides
     @LoginScope
-    ILoginPresenter provideLoginPresenter(ILoginInteractor loginInteractor) {
-        return new LoginPresenter(loginInteractor);
-    }
-
-    @Provides
-    @LoginScope
-    IRecoveryPresenter provideRecoveryPresenter(ILoginInteractor loginInteractor) {
+    IRecoveryPresenter provideRecoveryPresenter(AuthorizationInteractor loginInteractor) {
         return new RecoveryPresenter(loginInteractor);
     }
 
     @Provides
     @LoginScope
-    SMSConfirmationPresenter provideSMSConfirmationPresenter(ILoginInteractor loginInteractor) {
+    SMSConfirmationPresenter provideSMSConfirmationPresenter(AuthorizationInteractor loginInteractor) {
         return new SMSConfirmationPresenterImpl(loginInteractor);
     }
 

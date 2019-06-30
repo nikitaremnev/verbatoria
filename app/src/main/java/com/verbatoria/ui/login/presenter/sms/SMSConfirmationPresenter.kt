@@ -1,7 +1,7 @@
 package com.verbatoria.ui.login.presenter.sms
 
 import android.os.Bundle
-import com.verbatoria.business.login.ILoginInteractor
+import com.verbatoria.business.login.AuthorizationInteractor
 import com.verbatoria.data.network.response.SMSConfirmationResponseModel
 import com.verbatoria.infrastructure.BasePresenter
 import com.verbatoria.ui.login.view.sms.SMSConfirmationView
@@ -24,7 +24,7 @@ interface SMSConfirmationPresenter {
 }
 
 class SMSConfirmationPresenterImpl(
-    private val loginInteractor: ILoginInteractor
+    private val loginInteractor: AuthorizationInteractor
 ) : BasePresenter(), SMSConfirmationPresenter, SMSConfirmationView.Callback {
 
     //3 minutes

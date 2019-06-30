@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaApplication
-import com.verbatoria.di.login.LoginModule
+import com.verbatoria.di.login.AuthorizationModule
 import com.verbatoria.infrastructure.BaseActivity
 import com.verbatoria.infrastructure.BasePresenter
 import com.verbatoria.ui.dashboard.view.DashboardActivity
@@ -103,7 +103,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
     override fun onCreate(savedInstanceState: Bundle?) {
         VerbatoriaApplication
             .getInjector()
-            .addModule(LoginModule())
+            .addModule(AuthorizationModule())
             .inject(this)
 
         //initialize views

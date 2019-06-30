@@ -18,7 +18,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.ui.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.ui.late_send.LateSendActivity;
-import com.verbatoria.ui.login.view.login.LoginActivity;
+import com.verbatoria.ui.login.LoginActivity;
 import com.verbatoria.ui.schedule.view.ScheduleActivity;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.LocaleHelper;
@@ -29,10 +29,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Фрагмент для отображения настроек приложения
- *
- * @author nikitaremnev
+ * @author n.remnev
  */
+
 public class SettingsFragment extends Fragment implements ISettingsView {
 
     @Inject
@@ -106,7 +105,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
     @Override
     public void showLogin() {
-        startActivity(LoginActivity.newInstance(getActivity()));
+        startActivity(LoginActivity.Companion.createIntent(getActivity()));
     }
 
     @Override

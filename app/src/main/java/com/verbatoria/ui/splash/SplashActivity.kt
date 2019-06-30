@@ -10,7 +10,7 @@ import com.verbatoria.di.common.Injector
 import com.verbatoria.di.splash.SplashComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
-import com.verbatoria.ui.login.view.login.LoginActivity
+import com.verbatoria.ui.login.LoginActivity
 
 /**
  * @author nikitaremnev
@@ -92,7 +92,7 @@ class SplashActivity : BasePresenterActivity<SplashView, SplashPresenter, Splash
     }
 
     override fun openLogin() {
-        startActivity(LoginActivity.newInstance(this))
+        startActivity(LoginActivity.createIntent(this))
         finish()
     }
 

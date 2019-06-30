@@ -9,6 +9,7 @@
     <color name="font">#FFFFC5</color>
     <color name="blue">#2222aa</color>
 
+
     <color name="yellow">#f9d616</color>
 
     <color name="red">#BF0036</color>
@@ -34,5 +35,7 @@
 
     <color name="background_schedule">#aaFFFFaa</color>
 
+    <!-- Login -->
+    <color name="login_field_text_color">#333333</color>
 
 </resources>

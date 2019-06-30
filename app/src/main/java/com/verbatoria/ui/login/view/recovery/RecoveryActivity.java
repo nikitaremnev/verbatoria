@@ -18,11 +18,11 @@ import android.widget.TextView;
 import com.redmadrobot.inputmask.MaskedTextChangedListener;
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.di.login.LoginModule;
+import com.verbatoria.di.login.AuthorizationModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.ui.login.presenter.recovery.IRecoveryPresenter;
-import com.verbatoria.ui.login.view.login.LoginActivity;
+import com.verbatoria.ui.login.LoginActivity;
 import com.verbatoria.utils.Helper;
 
 import javax.inject.Inject;
@@ -81,7 +81,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getInjector().addModule(new LoginModule()).inject(this);
+        VerbatoriaApplication.getInjector().addModule(new AuthorizationModule()).inject(this);
 
         //initialize views
         setContentView(R.layout.activity_recovery);
@@ -177,7 +177,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
 
     @Override
     public void rememberPassword() {
-        startActivity(LoginActivity.newInstance(this));
+        startActivity(LoginActivity.Companion.createIntent(this));
         finish();
     }
 

@@ -3,6 +3,22 @@
 
     <dimen name="activity_splash_logo_width">300dp</dimen>
 
+
+
+    <dimen name="login_field_width">290dp</dimen>
+    <dimen name="login_field_height">56dp</dimen>
+    <dimen name="login_field_padding">16dp</dimen>
+    <dimen name="login_fields_between_margin">8dp</dimen>
+    <dimen name="login_fields_top_margin">16dp</dimen>
+
+    <dimen name="login_button_top_margin">16dp</dimen>
+
+    <dimen name="login_button_corner_radius">4dp</dimen>
+    <dimen name="login_field_corner_radius">4dp</dimen>
+    <dimen name="login_field_text_size">16sp</dimen>
+
+
+
     <dimen name="activity_login_logo_height">30dp</dimen>
     <dimen name="activity_login_logo_horizontal_margin">48dp</dimen>
     <dimen name="activity_login_logo_vertical_margin">16dp</dimen>
@@ -10,19 +26,11 @@
     <dimen name="activity_login_text_view_horizontal_margin">48dp</dimen>
     <dimen name="activity_login_button_vertical_margin">16dp</dimen>
     <dimen name="activity_login_button_horizontal_margin">48dp</dimen>
-    <dimen name="activity_login_button_width">200dp</dimen>
     <dimen name="activity_login_edit_text_width">300dp</dimen>
 
     <dimen name="activity_login_recovery_password_padding">8dp</dimen>
-    <dimen name="activity_login_spinner_width">50dp</dimen>
 
     <dimen name="activity_recovery_button_width">250dp</dimen>
-
-    <dimen name="activity_login_country_padding">8dp</dimen>
-    <dimen name="activity_login_country_flag_width">36dp</dimen>
-    <dimen name="activity_login_country_flag_height">24dp</dimen>
-
-    <dimen name="activity_login_country_field_width">350dp</dimen>
 
 
 </resources>

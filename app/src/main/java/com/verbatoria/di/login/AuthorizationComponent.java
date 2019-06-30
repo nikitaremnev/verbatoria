@@ -1,6 +1,5 @@
 package com.verbatoria.di.login;
 
-import com.verbatoria.ui.login.view.login.LoginActivity;
 import com.verbatoria.ui.login.view.recovery.RecoveryActivity;
 import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity;
 
@@ -11,11 +10,9 @@ import dagger.Subcomponent;
  *
  * @author nikitaremnev
  */
-@Subcomponent(modules = {LoginModule.class})
+@Subcomponent(modules = {AuthorizationModule.class})
 @LoginScope
-public interface LoginComponent {
-
-    void inject(LoginActivity loginActivity);
+public interface AuthorizationComponent {
 
     void inject(RecoveryActivity recoveryActivity);
 
