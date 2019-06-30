@@ -6,6 +6,6 @@
 
     <corners android:radius="@dimen/login_field_corner_radius"/>
 
-    <stroke android:width="2dp" android:color="@color/main"/>
+    <stroke android:width="@dimen/login_field_border_size" android:color="@color/main"/>
 
 </shape>
