@@ -18,11 +18,6 @@ class LoginPresenter(
     private var login: String = ""
     private var password: String = ""
 
-    init {
-
-
-    }
-
     override fun onAttachView(view: LoginView) {
         super.onAttachView(view)
         val lastLogin = loginInteractor.getLastLogin()

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="activity_splash_logo_width">300dp</dimen>
-
-
+    <dimen name="splash_logo_width">300dp</dimen>
 
     <dimen name="login_field_width">290dp</dimen>
     <dimen name="login_field_height">56dp</dimen>
@@ -13,17 +11,24 @@
     <dimen name="login_fields_top_margin">32dp</dimen>
     <dimen name="login_fields_clear_button_padding_horizontal">16dp</dimen>
 
-    <dimen name="login_recovery_password_padding">8dp</dimen>
-    <dimen name="login_recovery_password_top_margin">8dp</dimen>
-
-
-
-    <dimen name="login_button_top_margin">16dp</dimen>
-
-    <dimen name="login_button_corner_radius">4dp</dimen>
     <dimen name="login_field_corner_radius">4dp</dimen>
     <dimen name="login_field_text_size">16sp</dimen>
     <dimen name="login_field_border_size">2dp</dimen>
+
+    <dimen name="login_forgot_password_padding">8dp</dimen>
+    <dimen name="login_forgot_password_top_margin">8dp</dimen>
+
+    <dimen name="login_button_top_margin">16dp</dimen>
+    <dimen name="login_button_corner_radius">4dp</dimen>
+
+    <dimen name="login_country_flag_width">30dp</dimen>
+    <dimen name="login_country_flag_height">20dp</dimen>
+
+    <dimen name="login_country_container_margin">16dp</dimen>
+    <dimen name="login_country_container_padding">16dp</dimen>
+
+    <dimen name="login_country_text_margin_horizontal">16dp</dimen>
+
 
 
 

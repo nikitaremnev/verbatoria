@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -98,6 +99,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     private lateinit var loginClearButton: ImageView
     private lateinit var passwordClearButton: ImageView
     private lateinit var forgotPasswordTextView: TextView
+    private lateinit var countryContainerView: View
+    private lateinit var countryTextView: TextView
+    private lateinit var countryFlagImageView: ImageView
     private lateinit var loginButton: Button
 
     //region BasePresenterActivity
@@ -113,7 +117,10 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         passwordEditText = findViewById(R.id.password_edit_text)
         loginClearButton = findViewById(R.id.login_clear_button)
         passwordClearButton = findViewById(R.id.password_clear_button)
-        forgotPasswordTextView = findViewById(R.id.recovery_password_text_view)
+        forgotPasswordTextView = findViewById(R.id.forgot_password_text_view)
+        countryContainerView = findViewById(R.id.country_container_layout)
+        countryFlagImageView = findViewById(R.id.country_flag_image_view)
+        countryTextView = findViewById(R.id.country_text_view)
         loginButton = findViewById(R.id.login_button)
 
         loginEditText.addTextChangedListener(
@@ -208,7 +215,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun setLastCountry(country: String) {
-
+        countryTextView.text = country
     }
 
     override fun showCountrySelectionDialog() {

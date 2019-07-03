@@ -5,7 +5,7 @@
     android:background="@color/background">
 
     <android.support.v7.widget.AppCompatImageView
-        android:layout_width="@dimen/activity_splash_logo_width"
+        android:layout_width="@dimen/splash_logo_width"
         android:layout_height="wrap_content"
         android:scaleType="centerInside"
         android:src="@mipmap/logo_splash"

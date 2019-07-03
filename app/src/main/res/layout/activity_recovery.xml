@@ -86,7 +86,7 @@
         android:id="@+id/remember_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/login_recovery_password_padding"
+        android:padding="@dimen/login_forgot_password_padding"
         android:textColor="@color/main_dark"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
