@@ -37,5 +37,10 @@
 
     <!-- Login -->
     <color name="login_field_text_color">#333333</color>
+    <color name="login_field_clear_button_color">#C1C1C1</color>
+    <color name="login_button_disabled_color">#3356C869</color>
+    <color name="login_button_enabled_color">@color/main</color>
+    <color name="login_button_text_disabled_color">#6656C869</color>
+    <color name="login_button_text_enabled_color">@color/white</color>
 
 </resources>

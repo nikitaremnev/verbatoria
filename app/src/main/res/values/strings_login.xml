@@ -12,6 +12,7 @@
     <string name="login_uzbekistan_phone_mask">+ [000] [00] [0000000]</string>
 
     <string name="login_password_hint">Пароль</string>
+    <string name="login_forgot_password">Забыли пароль?</string>
 
     <string name="recovery_password_confirm_code">Код подтверждения</string>
     <string name="recovery_new_password">Новый пароль</string>

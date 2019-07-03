@@ -7,17 +7,29 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
 import com.verbatoria.di.common.Injector
 import com.verbatoria.di.login.LoginComponent
+import com.verbatoria.infrastructure.extensions.hide
+import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.dashboard.view.DashboardActivity
+import com.verbatoria.ui.login.view.recovery.RecoveryActivity
+import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity
 
 /**
  * @author n.remnev
  */
 
 interface LoginView : BaseView {
+
+    fun setLogin(login: String)
+
+    fun setPassword(password: String)
 
     fun setLastLogin(lastLogin: String)
 
@@ -27,9 +39,23 @@ interface LoginView : BaseView {
 
     fun showLoginError(error: String)
 
+    fun setLoginButtonEnabled()
+
+    fun setLoginButtonDisabled()
+
+    fun showClearLoginButton()
+
+    fun hideClearLoginButton()
+
+    fun showClearPasswordButton()
+
+    fun hideClearPasswordButton()
+
     fun showProgress()
 
     fun hideProgress()
+
+    fun openDashboard()
 
     fun openRecoveryPassword()
 
@@ -37,11 +63,17 @@ interface LoginView : BaseView {
 
     interface Callback {
 
+        fun onLoginClearClicked()
+
+        fun onPasswordClearClicked()
+
         fun onLoginTextChanged(login: String)
 
         fun onPasswordTextChanged(password: String)
 
         fun onLoginButtonClicked()
+
+        fun onForgotPasswordClicked()
 
         fun onSelectCountryClicked()
 
@@ -63,6 +95,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     private lateinit var loginEditText: EditText
     private lateinit var passwordEditText: EditText
+    private lateinit var loginClearButton: ImageView
+    private lateinit var passwordClearButton: ImageView
+    private lateinit var forgotPasswordTextView: TextView
     private lateinit var loginButton: Button
 
     //region BasePresenterActivity
@@ -76,6 +111,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     override fun initViews(savedState: Bundle?) {
         loginEditText = findViewById(R.id.login_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)
+        loginClearButton = findViewById(R.id.login_clear_button)
+        passwordClearButton = findViewById(R.id.password_clear_button)
+        forgotPasswordTextView = findViewById(R.id.recovery_password_text_view)
         loginButton = findViewById(R.id.login_button)
 
         loginEditText.addTextChangedListener(
@@ -124,14 +162,49 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
             }
         )
+        loginClearButton.setOnClickListener {
+            presenter.onLoginClearClicked()
+        }
+        passwordClearButton.setOnClickListener {
+            presenter.onPasswordClearClicked()
+        }
+        forgotPasswordTextView.setOnClickListener {
+            presenter.onForgotPasswordClicked()
+        }
+
+        if (BuildConfig.DEBUG) {
+            loginEditText.setOnLongClickListener {
+                //maria
+                loginEditText.setText("79268932040")
+                passwordEditText.setText("89268932040")
+
+                return@setOnLongClickListener true
+
+                //my account
+//                loginEditText.setText("79153974689")
+//                passwordEditText.setText("123474858")
+
+                //school testing
+//                loginEditText.setText("81234567895")
+//                passwordEditText.setText("1234748a")
+            }
+        }
     }
 
     //endregion
 
     //region LoginView
 
-    override fun setLastLogin(lastLogin: String) {
+    override fun setLogin(login: String) {
+        loginEditText.setText(login)
+    }
 
+    override fun setPassword(password: String) {
+        passwordEditText.setText(password)
+    }
+
+    override fun setLastLogin(lastLogin: String) {
+        loginEditText.setText(lastLogin)
     }
 
     override fun setLastCountry(country: String) {
@@ -143,7 +216,31 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun showLoginError(error: String) {
+        showErrorSnackbar(error)
+    }
 
+    override fun setLoginButtonEnabled() {
+        loginButton.isEnabled = true
+    }
+
+    override fun setLoginButtonDisabled() {
+        loginButton.isEnabled = false
+    }
+
+    override fun showClearLoginButton() {
+        loginClearButton.show()
+    }
+
+    override fun hideClearLoginButton() {
+        loginClearButton.hide()
+    }
+
+    override fun showClearPasswordButton() {
+        passwordClearButton.show()
+    }
+
+    override fun hideClearPasswordButton() {
+        passwordClearButton.hide()
     }
 
     override fun showProgress() {
@@ -154,12 +251,19 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     }
 
-    override fun openRecoveryPassword() {
+    override fun openDashboard() {
+        startActivity(DashboardActivity.newInstance(this))
+        finish()
+    }
 
+    override fun openRecoveryPassword() {
+        startActivity(RecoveryActivity.newInstance(this))
+        finish()
     }
 
     override fun openSMSConfirmation() {
-
+        startActivity(SMSConfirmationActivity.newInstance(this))
+        finish()
     }
 
     //endregion

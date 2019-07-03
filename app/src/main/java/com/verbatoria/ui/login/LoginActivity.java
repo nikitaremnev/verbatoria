@@ -80,17 +80,7 @@ import butterknife.BindView;
 //        mLoginPresenter.setUpLastLogin();
 //
 //        if (BuildConfig.DEBUG) {
-//            //maria
-////            mLoginEditText.setText("79268932040");
-////            mPasswordEditText.setText("89268932040");
-//
-//            //my account
-////            mLoginEditText.setText("79153974689");
-////            mPasswordEditText.setText("123474858");
-//
-//            //school testing
-//            mLoginEditText.setText("81234567895");
-//            mPasswordEditText.setText("1234748a");
+
 //        }
 //    }
 //

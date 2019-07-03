@@ -35,14 +35,48 @@ class LoginPresenter(
 
     override fun onLoginTextChanged(login: String) {
         this.login = login
+        if (login.isBlank()) {
+            view?.setLoginButtonDisabled()
+        } else if (!password.isBlank()) {
+            view?.setLoginButtonEnabled()
+            view?.showClearLoginButton()
+        } else {
+            view?.showClearLoginButton()
+        }
     }
 
     override fun onPasswordTextChanged(password: String) {
         this.password = password
+        if (password.isBlank()) {
+            view?.setLoginButtonDisabled()
+        } else if (!login.isBlank()) {
+            view?.setLoginButtonEnabled()
+            view?.showClearPasswordButton()
+        } else {
+            view?.showClearPasswordButton()
+        }
+    }
+
+    override fun onLoginClearClicked() {
+        login = ""
+        view?.setLogin(login)
+        view?.setLoginButtonDisabled()
+        view?.hideClearLoginButton()
+    }
+
+    override fun onPasswordClearClicked() {
+        password = ""
+        view?.setPassword(password)
+        view?.setLoginButtonDisabled()
+        view?.hideClearPasswordButton()
     }
 
     override fun onLoginButtonClicked() {
         login()
+    }
+
+    override fun onForgotPasswordClicked() {
+        view?.openRecoveryPassword()
     }
 
     override fun onSelectCountryClicked() {
@@ -63,7 +97,7 @@ class LoginPresenter(
             }
             .subscribe({ tokenModel ->
                 if (BuildConfig.DEBUG) {
-//                    view?.open()
+                    view?.openDashboard()
                 } else {
                     view?.openSMSConfirmation()
                 }
