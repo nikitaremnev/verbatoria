@@ -14,7 +14,7 @@
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
 
-    <string name="login_country_selection_title">Choose language</string>
+    <string name="login_country_selection_title">Select the country of the branch</string>
 
     <string name="recovery_password_confirm_code">Confirmation code</string>
     <string name="recovery_new_password">New password</string>

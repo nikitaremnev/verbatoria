@@ -1,4 +1,4 @@
-package com.verbatoria.ui.common.dialog
+package com.verbatoria.ui.login
 
 import android.content.Context
 import android.os.Bundle
@@ -46,35 +46,35 @@ class LanguageSelectionBottomSheetDialog : BottomSheetDialogFragment() {
         titleView.text = title
 
         view.findViewById<View>(R.id.russian_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_russia)
         }
         view.findViewById<View>(R.id.ukraine_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_ukraine)
         }
         view.findViewById<View>(R.id.azerbaijan_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_azerbaijan)
         }
         view.findViewById<View>(R.id.uae_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_uae)
         }
         view.findViewById<View>(R.id.thailand_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_thailand)
         }
         view.findViewById<View>(R.id.israel_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_israel)
         }
         view.findViewById<View>(R.id.belarus_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_b)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_belarus)
         }
         view.findViewById<View>(R.id.uzbekistan_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_uzbekistan)
         }
         view.findViewById<View>(R.id.hong_kong_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_hong_kong)
         }
-        view.findViewById<View>(R.id.swiss_language_item_container).setOnClickListener {
-            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
-        }
+//        view.findViewById<View>(R.id.swiss_language_item_container).setOnClickListener {
+//            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.country_swiss)
+//        }
 
         return view
     }

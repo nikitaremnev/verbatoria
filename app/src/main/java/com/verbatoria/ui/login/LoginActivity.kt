@@ -16,7 +16,6 @@ import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
-import com.verbatoria.ui.common.dialog.LanguageSelectionBottomSheetDialog
 import com.verbatoria.ui.dashboard.view.DashboardActivity
 import com.verbatoria.ui.login.view.recovery.RecoveryActivity
 import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity
@@ -90,7 +89,7 @@ interface LoginView : BaseView {
 }
 
 class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActivity, LoginComponent>(),
-    LoginView {
+    LoginView, LanguageSelectionBottomSheetDialog.LanguageSelectedListener {
 
     companion object {
 
@@ -299,6 +298,16 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     override fun openSMSConfirmation() {
         startActivity(SMSConfirmationActivity.newInstance(this))
         finish()
+    }
+
+    //endregion
+
+    //region LanguageSelectionBottomSheetDialog.LanguageSelectedListener
+
+    override fun onLanguageSelected(tag: String?, languageStringResource: Int) {
+        if (tag == LANGUAGE_SELECTION_DIALOG_TAG) {
+            presenter.onCountrySelected(getString(languageStringResource))
+        }
     }
 
     //endregion
