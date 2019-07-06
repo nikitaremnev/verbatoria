@@ -48,6 +48,33 @@ class LanguageSelectionBottomSheetDialog : BottomSheetDialogFragment() {
         view.findViewById<View>(R.id.russian_language_item_container).setOnClickListener {
             onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
         }
+        view.findViewById<View>(R.id.ukraine_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
+        view.findViewById<View>(R.id.azerbaijan_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
+        view.findViewById<View>(R.id.uae_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
+        view.findViewById<View>(R.id.thailand_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
+        view.findViewById<View>(R.id.israel_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
+        view.findViewById<View>(R.id.belarus_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_b)
+        }
+        view.findViewById<View>(R.id.uzbekistan_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
+        view.findViewById<View>(R.id.hong_kong_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
+        view.findViewById<View>(R.id.swiss_language_item_container).setOnClickListener {
+            onLanguageSelectedListener?.onLanguageSelected(tag, R.string.language_russian)
+        }
 
         return view
     }

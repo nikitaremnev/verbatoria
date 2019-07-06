@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -15,8 +14,7 @@
         android:paddingRight="@dimen/dialog_title_padding_horizontal"
         android:paddingBottom="@dimen/dialog_title_padding_bottom"
         android:textColor="@color/dialog_title_text_color"
-        android:textSize="@dimen/dialog_title_text_size"
-        tools:text="Hello, World!" />
+        android:textSize="@dimen/dialog_title_text_size" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -65,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_ukr" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -90,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_az" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -115,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_ae" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_th" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -165,7 +163,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_isr" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -190,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_by" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -215,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_uz" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -240,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_hk" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -265,7 +263,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uk" />
+                    android:src="@drawable/ic_flag_ch" />
 
                 <TextView
                     android:layout_width="wrap_content"
