@@ -18,8 +18,6 @@ interface LoginInteractor {
 
     fun login(phone: String, password: String): Observable<TokenModel>
 
-    fun getCountryCodes(): Array<String>
-
     fun getLastLogin(): String
 
     fun saveCountrySelection(country: String)
@@ -47,9 +45,6 @@ class LoginInteractorImpl(
         }
             .subscribeOn(RxSchedulers.getNewThreadScheduler())
             .observeOn(RxSchedulers.getMainThreadScheduler())
-
-    override fun getCountryCodes(): Array<String> =
-        arrayOf("+7")
 
     override fun getLastLogin(): String =
         loginRepository.lastLogin()

@@ -35,6 +35,10 @@
 
     <color name="background_schedule">#aaFFFFaa</color>
 
+    <!-- Dialogs -->
+    <color name="dialog_title_text_color">#8a000000</color>
+    <color name="dialog_selectable_item_text_color">#8a000000</color>
+
     <!-- Login -->
     <color name="login_field_text_color">#333333</color>
     <color name="login_field_clear_button_color">#C1C1C1</color>

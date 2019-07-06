@@ -108,63 +108,7 @@ import butterknife.BindView;
 //
 //    @Override
 //    public void showCountrySelection() {
-//        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_select_country, null);
-//        AlertDialog alertDialog = new AlertDialog.Builder(this)
-//                .setView(dialogRootView)
-//                .setTitle(R.string.select_country)
-//                .setNegativeButton(R.string.cancel, null)
-//                .create();
-//        setUpFieldView(dialogRootView.findViewById(R.id.russia_field), R.drawable.ic_flag_ru,
-//                getString(R.string.country_russia), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_russia));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.ukraine_field), R.drawable.ic_flag_uk,
-//                getString(R.string.country_ukraine), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_ukraine));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.belarus_field), R.drawable.ic_flag_by,
-//                getString(R.string.country_belarus), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_belarus));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.azerbaijan_field), R.drawable.ic_flag_az,
-//                getString(R.string.country_azerbaijan), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_azerbaijan));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.uae_field), R.drawable.ic_flag_ae,
-//                getString(R.string.country_uae), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_uae));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.thailand_field), R.drawable.ic_flag_th,
-//                getString(R.string.country_thailand), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_thailand));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.israel_field), R.drawable.ic_flag_isr,
-//                getString(R.string.country_israel), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_israel));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.uzbekistan_field), R.drawable.ic_flag_uz,
-//                getString(R.string.country_uzbekistan), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_uzbekistan));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.hong_kong_field), R.drawable.ic_flag_hk,
-//                getString(R.string.country_hong_kong), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_hong_kong));
-//                    alertDialog.dismiss();
-//                });
-//        setUpFieldView(dialogRootView.findViewById(R.id.swiss_field), R.drawable.ic_flag_ch,
-//                getString(R.string.country_swiss), view -> {
-//                    mLoginPresenter.onCountrySelected(getString(R.string.country_swiss));
-//                    alertDialog.dismiss();
-//                });
-//        alertDialog.show();
+
 //    }
 //
 //    @Override

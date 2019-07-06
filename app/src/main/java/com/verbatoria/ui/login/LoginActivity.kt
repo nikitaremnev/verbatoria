@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
@@ -19,6 +16,7 @@ import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.common.dialog.LanguageSelectionBottomSheetDialog
 import com.verbatoria.ui.dashboard.view.DashboardActivity
 import com.verbatoria.ui.login.view.recovery.RecoveryActivity
 import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity
@@ -26,6 +24,8 @@ import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity
 /**
  * @author n.remnev
  */
+
+private const val LANGUAGE_SELECTION_DIALOG_TAG = "LANGUAGE_SELECTION_DIALOG_TAG"
 
 interface LoginView : BaseView {
 
@@ -57,7 +57,9 @@ interface LoginView : BaseView {
 
     fun showProgress()
 
-    fun hideProgress()
+    fun hideProgressWithSuccess()
+
+    fun hideProgressWithError()
 
     fun openDashboard()
 
@@ -105,6 +107,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     private lateinit var countryContainerView: View
     private lateinit var countryTextView: TextView
     private lateinit var countryFlagImageView: ImageView
+    private lateinit var progressBar: ProgressBar
     private lateinit var loginButton: Button
 
     //region BasePresenterActivity
@@ -124,6 +127,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         countryContainerView = findViewById(R.id.country_container_layout)
         countryFlagImageView = findViewById(R.id.country_flag_image_view)
         countryTextView = findViewById(R.id.country_text_view)
+        progressBar = findViewById(R.id.progress_bar)
         loginButton = findViewById(R.id.login_button)
 
         passwordEditText.addTextChangedListener(
@@ -161,22 +165,25 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         loginButton.setOnClickListener {
             presenter.onLoginButtonClicked()
         }
+        countryContainerView.setOnClickListener {
+            presenter.onSelectCountryClicked()
+        }
 
         if (BuildConfig.DEBUG) {
             loginEditText.setOnLongClickListener {
                 //maria
-                loginEditText.setText("79268932040")
-                passwordEditText.setText("89268932040")
-
-                return@setOnLongClickListener true
+//                loginEditText.setText("79268932040")
+//                passwordEditText.setText("89268932040")
 
                 //my account
-//                loginEditText.setText("79153974689")
-//                passwordEditText.setText("123474858")
+                loginEditText.setText("79153974689")
+                passwordEditText.setText("123474858")
 
                 //school testing
 //                loginEditText.setText("81234567895")
 //                passwordEditText.setText("1234748a")
+
+                return@setOnLongClickListener true
             }
         }
     }
@@ -220,7 +227,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun showCountrySelectionDialog() {
-
+        LanguageSelectionBottomSheetDialog.build {
+            titleText = getString(R.string.login_country_selection_title)
+        }.show(supportFragmentManager, LANGUAGE_SELECTION_DIALOG_TAG)
     }
 
     override fun showLoginError(error: String) {
@@ -252,11 +261,29 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun showProgress() {
-
+        loginEditText.isEnabled = false
+        passwordEditText.isEnabled = false
+        forgotPasswordTextView.isEnabled = false
+        countryContainerView.isEnabled = false
+        loginButton.isEnabled = false
+        loginClearButton.hide()
+        passwordClearButton.hide()
+        progressBar.show()
     }
 
-    override fun hideProgress() {
+    override fun hideProgressWithSuccess() {
+        progressBar.hide()
+    }
 
+    override fun hideProgressWithError() {
+        loginEditText.isEnabled = true
+        passwordEditText.isEnabled = true
+        forgotPasswordTextView.isEnabled = true
+        countryContainerView.isEnabled = true
+        loginButton.isEnabled = true
+        loginClearButton.show()
+        passwordClearButton.show()
+        progressBar.hide()
     }
 
     override fun openDashboard() {

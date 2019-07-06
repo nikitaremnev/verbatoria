@@ -34,11 +34,15 @@ class LoginPresenter(
         if (login.isBlank()) {
             view?.setLoginButtonDisabled()
         } else if (!password.isBlank()) {
-            view?.setLoginButtonEnabled()
-            view?.showClearLoginButton()
+            view?.apply {
+                setLoginButtonEnabled()
+                showClearLoginButton()
+            }
         } else {
-            view?.setLoginButtonDisabled()
-            view?.showClearLoginButton()
+            view?.apply {
+                setLoginButtonDisabled()
+                showClearLoginButton()
+            }
         }
     }
 
@@ -47,19 +51,25 @@ class LoginPresenter(
         if (password.isBlank()) {
             view?.setLoginButtonDisabled()
         } else if (!login.isBlank()) {
-            view?.setLoginButtonEnabled()
-            view?.showClearPasswordButton()
+            view?.apply {
+                setLoginButtonEnabled()
+                showClearPasswordButton()
+            }
         } else {
-            view?.setLoginButtonDisabled()
-            view?.showClearPasswordButton()
+            view?.apply {
+                setLoginButtonDisabled()
+                showClearPasswordButton()
+            }
         }
     }
 
     override fun onLoginClearClicked() {
         login = ""
-        view?.setLogin(login)
-        view?.setLoginButtonDisabled()
-        view?.hideClearLoginButton()
+        view?.apply {
+            setLogin(login)
+            setLoginButtonDisabled()
+            hideClearLoginButton()
+        }
     }
 
     override fun onPasswordClearClicked() {
@@ -78,7 +88,7 @@ class LoginPresenter(
     }
 
     override fun onSelectCountryClicked() {
-
+        view?.showCountrySelectionDialog()
     }
 
     override fun onCountrySelected(country: String) {
@@ -90,10 +100,8 @@ class LoginPresenter(
     private fun login() {
         view?.showProgress()
         loginInteractor.login(login, password)
-            .doOnComplete {
-                view?.hideProgress()
-            }
             .subscribe({ tokenModel ->
+                view?.hideProgressWithSuccess()
                 if (BuildConfig.DEBUG) {
                     view?.openDashboard()
                 } else {
@@ -101,8 +109,10 @@ class LoginPresenter(
                 }
             }, { error ->
                 logger.error("login error occurred", error)
-                view?.hideProgress()
-                view?.showLoginError(error.message ?: "Login error occurred")
+                view?.apply {
+                    hideProgressWithError()
+                    showLoginError(error.message ?: "Login error occurred")
+                }
             })
             .let(::addDisposable)
     }

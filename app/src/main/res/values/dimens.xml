@@ -36,4 +36,16 @@
     <dimen name="dialog_progress_space">16dp</dimen>
 
 
+    <!-- Bottom Sheet Dialog -->
+
+    <dimen name="dialog_title_padding_horizontal">16dp</dimen>
+    <dimen name="dialog_title_padding_bottom">16dp</dimen>
+    <dimen name="dialog_title_padding_top">21dp</dimen>
+    <dimen name="dialog_title_text_size">14sp</dimen>
+
+    <dimen name="dialog_selectable_item_height">56dp</dimen>
+    <dimen name="dialog_selectable_item_text_size">14sp</dimen>
+    <dimen name="dialog_selectable_item_text_margin_left">16dp</dimen>
+    <dimen name="dialog_selectable_item_logo_margin_left">16dp</dimen>
+
 </resources>
