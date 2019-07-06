@@ -51,6 +51,7 @@
         android:paddingLeft="@dimen/login_fields_clear_button_padding_horizontal"
         android:paddingRight="@dimen/login_fields_clear_button_padding_horizontal"
         android:src="@drawable/ic_login_clear_24dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/login_edit_text"
         app:layout_constraintRight_toRightOf="@+id/login_edit_text"
         app:layout_constraintTop_toTopOf="@+id/login_edit_text" />
@@ -85,6 +86,7 @@
         android:paddingLeft="@dimen/login_fields_clear_button_padding_horizontal"
         android:paddingRight="@dimen/login_fields_clear_button_padding_horizontal"
         android:src="@drawable/ic_login_clear_24dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/password_edit_text"
         app:layout_constraintRight_toRightOf="@+id/password_edit_text"
         app:layout_constraintTop_toTopOf="@+id/password_edit_text" />

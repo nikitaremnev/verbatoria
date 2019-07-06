@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
 import com.verbatoria.di.common.Injector
@@ -27,6 +28,8 @@ import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity
  */
 
 interface LoginView : BaseView {
+
+    fun setLoginFormatter(formatter: String)
 
     fun setLogin(login: String)
 
@@ -123,29 +126,6 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         countryTextView = findViewById(R.id.country_text_view)
         loginButton = findViewById(R.id.login_button)
 
-        loginEditText.addTextChangedListener(
-
-            object : TextWatcher {
-
-                override fun afterTextChanged(s: Editable?) {
-                    //empty
-                }
-
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                    //empty
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    presenter.onLoginTextChanged(s.toString())
-                }
-
-            }
-        )
         passwordEditText.addTextChangedListener(
 
             object : TextWatcher {
@@ -178,6 +158,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         forgotPasswordTextView.setOnClickListener {
             presenter.onForgotPasswordClicked()
         }
+        loginButton.setOnClickListener {
+            presenter.onLoginButtonClicked()
+        }
 
         if (BuildConfig.DEBUG) {
             loginEditText.setOnLongClickListener {
@@ -201,6 +184,24 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     //endregion
 
     //region LoginView
+
+    override fun setLoginFormatter(formatter: String) {
+        loginEditText.addTextChangedListener(
+            MaskedTextChangedListener(
+                formatter,
+                true,
+                loginEditText,
+                null,
+                object : MaskedTextChangedListener.ValueListener {
+
+                    override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
+                        presenter.onLoginTextChanged(extractedValue)
+                    }
+
+                }
+            )
+        )
+    }
 
     override fun setLogin(login: String) {
         loginEditText.setText(login)

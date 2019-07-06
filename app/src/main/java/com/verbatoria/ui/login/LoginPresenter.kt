@@ -24,6 +24,7 @@ class LoginPresenter(
         view.setLastLogin(lastLogin)
         val lastCountry = loginInteractor.getCountry()
         view.setLastCountry(lastCountry)
+        view.setLoginFormatter("+ [0] [000] [000] [00] [00]")
     }
 
     //region LoginView.Callback
@@ -36,6 +37,7 @@ class LoginPresenter(
             view?.setLoginButtonEnabled()
             view?.showClearLoginButton()
         } else {
+            view?.setLoginButtonDisabled()
             view?.showClearLoginButton()
         }
     }
@@ -48,6 +50,7 @@ class LoginPresenter(
             view?.setLoginButtonEnabled()
             view?.showClearPasswordButton()
         } else {
+            view?.setLoginButtonDisabled()
             view?.showClearPasswordButton()
         }
     }
