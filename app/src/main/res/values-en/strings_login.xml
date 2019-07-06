@@ -31,6 +31,9 @@
     <string name="country_uae">UAE</string>
     <string name="country_thailand">Thailand</string>
     <string name="country_israel">Israel</string>
+    <string name="country_uzbekistan">Uzbekistan</string>
+    <string name="country_hong_kong">Hong Kong</string>
+    <string name="country_swiss">Switzerland</string>
 
     <string name="sms_confirmation_confirm">Confirm</string>
 
