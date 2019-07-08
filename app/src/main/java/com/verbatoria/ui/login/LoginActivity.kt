@@ -89,7 +89,7 @@ interface LoginView : BaseView {
 }
 
 class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActivity, LoginComponent>(),
-    LoginView, LanguageSelectionBottomSheetDialog.LanguageSelectedListener {
+    LoginView, CountrySelectionBottomSheetDialog.CountrySelectionListener {
 
     companion object {
 
@@ -226,7 +226,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun showCountrySelectionDialog() {
-        LanguageSelectionBottomSheetDialog.build {
+        CountrySelectionBottomSheetDialog.build {
             titleText = getString(R.string.login_country_selection_title)
         }.show(supportFragmentManager, LANGUAGE_SELECTION_DIALOG_TAG)
     }
@@ -302,9 +302,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     //endregion
 
-    //region LanguageSelectionBottomSheetDialog.LanguageSelectedListener
+    //region CountrySelectionBottomSheetDialog.CountrySelectionListener
 
-    override fun onLanguageSelected(tag: String?, languageStringResource: Int) {
+    override fun onCountrySelected(tag: String?, languageStringResource: Int) {
         if (tag == LANGUAGE_SELECTION_DIALOG_TAG) {
             presenter.onCountrySelected(getString(languageStringResource))
         }

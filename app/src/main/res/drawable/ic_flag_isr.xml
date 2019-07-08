@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:name="vector"
-    android:width="36dp"
-    android:height="24dp"
+    android:width="@dimen/login_country_selection_icon_width"
+    android:height="@dimen/login_country_selection_icon_height"
     android:viewportWidth="220"
     android:viewportHeight="160">
     <path
         android:name="path"
+        android:fillColor="@color/white"
         android:pathData="M 0 0 L 220 0 L 220 160 L 0 160 Z"
-        android:fillColor="#ffffff"
-        android:strokeWidth="1"/>
+        android:strokeWidth="1" />
     <path
         android:name="path_1"
+        android:fillColor="@color/flag_isr_blue"
         android:pathData="M 0 15 L 220 15 L 220 40 L 0 40 Z M 0 120 L 220 120 L 220 145 L 0 145 Z"
-        android:fillColor="#0038b8"
-        android:strokeWidth="1"/>
+        android:strokeWidth="1" />
     <group android:name="group">
         <path
             android:name="triangle"
-            android:pathData="M 110 50.859 L 84.763 94.571 L 135.237 94.571 Z"
-            android:fillColor="#000"
             android:fillAlpha="0"
-            android:strokeColor="#0038b8"
-            android:strokeWidth="5.5"/>
+            android:fillColor="@color/black"
+            android:pathData="M 110 50.859 L 84.763 94.571 L 135.237 94.571 Z"
+            android:strokeWidth="5.5"
+            android:strokeColor="@color/flag_isr_blue" />
     </group>
     <group android:name="group_1">
         <path
             android:name="triangle_1"
-            android:pathData="M 110 109.141 L 135.237 65.429 L 84.763 65.429 Z"
-            android:fillColor="#000"
             android:fillAlpha="0"
-            android:strokeColor="#0038b8"
-            android:strokeWidth="5.5"/>
+            android:fillColor="@color/black"
+            android:pathData="M 110 109.141 L 135.237 65.429 L 84.763 65.429 Z"
+            android:strokeWidth="5.5"
+            android:strokeColor="@color/flag_isr_blue" />
     </group>
 </vector>

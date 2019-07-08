@@ -27,7 +27,7 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/russian_language_item_container"
+                android:id="@+id/russia_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -52,7 +52,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ukraine_language_item_container"
+                android:id="@+id/ukraine_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -77,7 +77,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/azerbaijan_language_item_container"
+                android:id="@+id/azerbaijan_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -102,7 +102,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/uae_language_item_container"
+                android:id="@+id/uae_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -127,7 +127,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/thailand_language_item_container"
+                android:id="@+id/thailand_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -152,7 +152,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/israel_language_item_container"
+                android:id="@+id/israel_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -177,7 +177,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/belarus_language_item_container"
+                android:id="@+id/belarus_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -202,7 +202,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/uzbekistan_language_item_container"
+                android:id="@+id/uzbekistan_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -227,7 +227,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/hong_kong_language_item_container"
+                android:id="@+id/hong_kong_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -251,30 +251,30 @@
 
             </LinearLayout>
 
-            <!--<LinearLayout-->
-                <!--android:id="@+id/swiss_language_item_container"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/dialog_selectable_item_height"-->
-                <!--android:background="?attr/selectableItemBackground"-->
-                <!--android:orientation="horizontal">-->
+            <LinearLayout
+                android:id="@+id/swiss_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
 
-                <!--<ImageView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"-->
-                    <!--android:src="@drawable/ic_flag_ch" />-->
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_ch" />
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center_vertical"-->
-                    <!--android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"-->
-                    <!--android:textColor="@color/dialog_selectable_item_text_color"-->
-                    <!--android:textSize="@dimen/dialog_selectable_item_text_size"-->
-                    <!--android:text="@string/country_swiss" />-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_swiss" />
 
-            <!--</LinearLayout>-->
+            </LinearLayout>
 
         </LinearLayout>
 

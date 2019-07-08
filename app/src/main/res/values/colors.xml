@@ -47,4 +47,33 @@
     <color name="login_button_text_disabled_color">#6656C869</color>
     <color name="login_button_text_enabled_color">@color/white</color>
 
+    <!-- Countries -->
+    <color name="flag_ae_red">#f00</color>
+    <color name="flag_ae_green">#00732f</color>
+
+    <color name="flag_az_blue">#00b9e4</color>
+    <color name="flag_az_green">#3f9c35</color>
+    <color name="flag_az_red">#ed2939</color>
+
+    <color name="flag_ukr_blue">#3a75c4</color>
+    <color name="flag_ukr_yellow">#f9dd16</color>
+
+    <color name="flag_by_red">#c8313e</color>
+    <color name="flag_by_green">#4aa657</color>
+
+    <color name="flag_ch_red">#D52B1E</color>
+
+    <color name="flag_hk_red">#de2910</color>
+
+    <color name="flag_isr_blue">#0038b8</color>
+
+    <color name="flag_ru_blue">#0039A6</color>
+    <color name="flag_ru_red">#D52B1E</color>
+
+    <color name="flag_th_dark_red">#a6122e</color>
+    <color name="flag_th_dark_blue">#292648</color>
+
+    <color name="flag_uk_blue">#00247D</color>
+    <color name="flag_uk_red">#CF142B</color>
+
 </resources>

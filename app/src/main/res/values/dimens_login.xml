@@ -44,5 +44,9 @@
 
     <dimen name="activity_recovery_button_width">250dp</dimen>
 
+    <!-- Country selection -->
+    <dimen name="login_country_selection_icon_width">36dp</dimen>
+    <dimen name="login_country_selection_icon_height">24dp</dimen>
+
 
 </resources>
