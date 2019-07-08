@@ -7,7 +7,9 @@ import com.verbatoria.data.repositories.login.ILoginRepository
 import com.verbatoria.data.repositories.token.ITokenRepository
 import com.verbatoria.utils.PreferencesStorage
 import com.verbatoria.utils.RxSchedulers
+import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import org.slf4j.LoggerFactory
 
 /**
@@ -18,11 +20,11 @@ interface LoginInteractor {
 
     fun login(phone: String, password: String): Observable<TokenModel>
 
-    fun getLastLogin(): String
+    fun getLastLogin(): Single<String>
 
-    fun saveCountrySelection(country: String)
+    fun getCurrentCountry(): Single<String>
 
-    fun getCountry(): String
+    fun saveCurrentCountry(country: String): Completable
 
 }
 
@@ -37,24 +39,39 @@ class LoginInteractorImpl(
         loginRepository.getLogin(getLoginRequestModel(phone, password)).map { item ->
             val tokenProcessor = TokenProcessor()
             val tokenModel = tokenProcessor.obtainToken(item)
-            tokenRepository.updateToken(tokenModel)
-            tokenRepository.setStatus(tokenModel.status)
-            loginRepository.updateLastLogin(phone)
-            loginRepository.updateLocationId(tokenModel.locationId)
+            tokenRepository.apply {
+                updateToken(tokenModel)
+                setStatus(tokenModel.status)
+            }
+            loginRepository.apply {
+                updateLastLogin(phone)
+                updateLocationId(tokenModel.locationId)
+            }
             tokenModel
         }
             .subscribeOn(RxSchedulers.getNewThreadScheduler())
             .observeOn(RxSchedulers.getMainThreadScheduler())
 
-    override fun getLastLogin(): String =
-        loginRepository.lastLogin()
+    override fun getLastLogin(): Single<String> =
+        Single.fromCallable {
+            loginRepository.lastLogin()
+        }
+            .subscribeOn(RxSchedulers.getNewThreadScheduler())
+            .observeOn(RxSchedulers.getMainThreadScheduler())
 
-    override fun saveCountrySelection(country: String) {
-        PreferencesStorage.getInstance().country = country
-    }
+    override fun getCurrentCountry(): Single<String> =
+        Single.fromCallable {
+            PreferencesStorage.getInstance().country
+        }
+            .subscribeOn(RxSchedulers.getNewThreadScheduler())
+            .observeOn(RxSchedulers.getMainThreadScheduler())
 
-    override fun getCountry(): String =
-        PreferencesStorage.getInstance().country
+    override fun saveCurrentCountry(country: String): Completable =
+        Completable.fromCallable {
+            PreferencesStorage.getInstance().setCountry(country)
+        }
+            .subscribeOn(RxSchedulers.getNewThreadScheduler())
+            .observeOn(RxSchedulers.getMainThreadScheduler())
 
     private fun getLoginRequestModel(phone: String, password: String): LoginRequestModel =
         LoginRequestModel()

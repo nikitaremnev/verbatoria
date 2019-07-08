@@ -18,12 +18,21 @@ class LoginPresenter(
     private var login: String = ""
     private var password: String = ""
 
+    private var currentCountry: String = ""
+
+    init {
+        getLastLogin()
+        getCurrentCountry()
+    }
+
     override fun onAttachView(view: LoginView) {
         super.onAttachView(view)
-        val lastLogin = loginInteractor.getLastLogin()
-        view.setLastLogin(lastLogin)
-        val lastCountry = loginInteractor.getCountry()
-        view.setLastCountry(lastCountry)
+        if (login.isNotEmpty()) {
+            view.setLogin(login)
+        }
+        if (currentCountry.isNotEmpty()) {
+            view.setCurrentCountry(currentCountry)
+        }
         view.setLoginFormatter("+ [0] [000] [000] [00] [00]")
     }
 
@@ -92,16 +101,16 @@ class LoginPresenter(
     }
 
     override fun onCountrySelected(country: String) {
-
+        saveCurrentCountry(country)
     }
 
     //endregion
 
     private fun login() {
-        view?.showProgress()
+        view?.showProgressForLogin()
         loginInteractor.login(login, password)
             .subscribe({ tokenModel ->
-                view?.hideProgressWithSuccess()
+                view?.hideProgressForLoginWithSuccess()
                 if (BuildConfig.DEBUG) {
                     view?.openDashboard()
                 } else {
@@ -110,9 +119,48 @@ class LoginPresenter(
             }, { error ->
                 logger.error("login error occurred", error)
                 view?.apply {
-                    hideProgressWithError()
-                    showLoginError(error.message ?: "Login error occurred")
+                    hideProgressForLoginWithError()
+                    showError(error.message ?: "Login error occurred")
                 }
+            })
+            .let(::addDisposable)
+    }
+
+    private fun getLastLogin() {
+        loginInteractor.getLastLogin()
+            .subscribe({ lastLogin ->
+                login = lastLogin
+                view?. setLogin(login)
+            }, { error ->
+                logger.error("get last login error occurred", error)
+                view?.apply {
+                    hideProgressForLoginWithError()
+                    showError(error.message ?: "Get last login error occurred")
+                }
+            })
+            .let(::addDisposable)
+    }
+
+    private fun getCurrentCountry() {
+        loginInteractor.getCurrentCountry()
+            .subscribe({ country ->
+                currentCountry = country
+                view?.setCurrentCountry(currentCountry)
+            }, { error ->
+                logger.error("get last login error occurred", error)
+                view?.showError(error.message ?: "Get last login error occurred")
+            })
+            .let(::addDisposable)
+    }
+
+    private fun saveCurrentCountry(country: String) {
+        loginInteractor.saveCurrentCountry(country)
+            .subscribe({
+                currentCountry = country
+                view?.setCurrentCountry(currentCountry)
+            }, { error ->
+                logger.error("get last login error occurred", error)
+                view?.showError(error.message ?: "Get last login error occurred")
             })
             .let(::addDisposable)
     }

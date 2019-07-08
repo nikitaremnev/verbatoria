@@ -1,6 +1,5 @@
 package com.verbatoria.utils;
 
-
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -10,6 +9,7 @@ import io.reactivex.schedulers.Schedulers;
  *
  * @author nikitaremnev
  */
+
 public class RxSchedulers {
 
     public static Scheduler getMainThreadScheduler() {

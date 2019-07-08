@@ -123,7 +123,7 @@ class SMSConfirmationPresenterImpl(
 //            addSubscription(
 //                loginInteractor.sendSMSConfirmation(phone, "")
 //                    .doOnSubscribe {
-//                        mSmsConfirmationView?.showProgress()
+//                        mSmsConfirmationView?.showProgressForLogin()
 //                    }
 //                    .doOnTerminate {
 //                        mSmsConfirmationView?.hideProgress()

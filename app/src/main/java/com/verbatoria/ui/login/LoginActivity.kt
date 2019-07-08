@@ -19,6 +19,7 @@ import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.view.DashboardActivity
 import com.verbatoria.ui.login.view.recovery.RecoveryActivity
 import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity
+import com.verbatoria.utils.CountryHelper
 
 /**
  * @author n.remnev
@@ -34,13 +35,11 @@ interface LoginView : BaseView {
 
     fun setPassword(password: String)
 
-    fun setLastLogin(lastLogin: String)
-
-    fun setLastCountry(country: String)
+    fun setCurrentCountry(country: String)
 
     fun showCountrySelectionDialog()
 
-    fun showLoginError(error: String)
+    fun showError(error: String)
 
     fun setLoginButtonEnabled()
 
@@ -54,11 +53,11 @@ interface LoginView : BaseView {
 
     fun hideClearPasswordButton()
 
-    fun showProgress()
+    fun showProgressForLogin()
 
-    fun hideProgressWithSuccess()
+    fun hideProgressForLoginWithSuccess()
 
-    fun hideProgressWithError()
+    fun hideProgressForLoginWithError()
 
     fun openDashboard()
 
@@ -217,12 +216,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         passwordEditText.setText(password)
     }
 
-    override fun setLastLogin(lastLogin: String) {
-        loginEditText.setText(lastLogin)
-    }
-
-    override fun setLastCountry(country: String) {
+    override fun setCurrentCountry(country: String) {
         countryTextView.text = country
+        countryFlagImageView.setImageResource(CountryHelper.getFlagResourceByCountry(this, country))
     }
 
     override fun showCountrySelectionDialog() {
@@ -231,7 +227,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         }.show(supportFragmentManager, LANGUAGE_SELECTION_DIALOG_TAG)
     }
 
-    override fun showLoginError(error: String) {
+    override fun showError(error: String) {
         showErrorSnackbar(error)
     }
 
@@ -259,7 +255,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         passwordClearButton.hide()
     }
 
-    override fun showProgress() {
+    override fun showProgressForLogin() {
         loginEditText.isEnabled = false
         passwordEditText.isEnabled = false
         forgotPasswordTextView.isEnabled = false
@@ -270,11 +266,11 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         progressBar.show()
     }
 
-    override fun hideProgressWithSuccess() {
+    override fun hideProgressForLoginWithSuccess() {
         progressBar.hide()
     }
 
-    override fun hideProgressWithError() {
+    override fun hideProgressForLoginWithError() {
         loginEditText.isEnabled = true
         passwordEditText.isEnabled = true
         forgotPasswordTextView.isEnabled = true

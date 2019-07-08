@@ -147,6 +147,7 @@
         android:background="?selectableItemBackground"
         android:orientation="horizontal"
         android:padding="@dimen/login_country_container_padding"
+        android:animateLayoutChanges="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -21,8 +21,8 @@
     <dimen name="login_button_top_margin">16dp</dimen>
     <dimen name="login_button_corner_radius">4dp</dimen>
 
-    <dimen name="login_country_flag_width">30dp</dimen>
-    <dimen name="login_country_flag_height">20dp</dimen>
+    <dimen name="login_country_flag_width">36dp</dimen>
+    <dimen name="login_country_flag_height">24dp</dimen>
 
     <dimen name="login_country_container_margin">8dp</dimen>
     <dimen name="login_country_container_padding">16dp</dimen>

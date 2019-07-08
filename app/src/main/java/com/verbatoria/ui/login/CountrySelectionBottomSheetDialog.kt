@@ -46,33 +46,43 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
         titleView.text = title
 
         view.findViewById<View>(R.id.russia_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_russia)
         }
         view.findViewById<View>(R.id.ukraine_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_ukraine)
         }
         view.findViewById<View>(R.id.azerbaijan_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_azerbaijan)
         }
         view.findViewById<View>(R.id.uae_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_uae)
         }
         view.findViewById<View>(R.id.thailand_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_thailand)
         }
         view.findViewById<View>(R.id.israel_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_israel)
         }
         view.findViewById<View>(R.id.belarus_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_belarus)
         }
         view.findViewById<View>(R.id.uzbekistan_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_uzbekistan)
         }
         view.findViewById<View>(R.id.hong_kong_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_hong_kong)
         }
         view.findViewById<View>(R.id.swiss_country_item_container).setOnClickListener {
+            dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_swiss)
         }
 
