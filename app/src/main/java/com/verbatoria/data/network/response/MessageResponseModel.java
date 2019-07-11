@@ -12,6 +12,7 @@ import java.util.Objects;
  *
  * @author nikitaremnev
  */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MessageResponseModel {
 

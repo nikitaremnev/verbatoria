@@ -4,6 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
 import com.verbatoria.component.session.SessionServiceControllerImpl
+import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.authorization.AuthorizationManagerImpl
+import com.verbatoria.domain.authorization.AuthorizationRepository
 import com.verbatoria.domain.session.PreferencesSessionProvider
 import com.verbatoria.domain.session.SessionManager
 import com.verbatoria.domain.session.SessionManagerImpl
@@ -49,6 +52,8 @@ class CommonModule {
     fun provideSessionProvider(sharedPreferences: SharedPreferences): SessionProvider =
         PreferencesSessionProvider(sharedPreferences)
 
+    //region Managers
+
     @Provides
     @Singleton
     fun provideSessionManager(
@@ -59,6 +64,19 @@ class CommonModule {
             SessionServiceControllerImpl(context),
             sessionProvider
         )
+
+    @Provides
+    @Singleton
+    fun provideAuthorizationManager(
+        endpointsRegister: EndpointsRegister,
+        authorizationRepository: AuthorizationRepository
+    ): AuthorizationManager =
+        AuthorizationManagerImpl(
+            endpointsRegister.authorizationEndpoint,
+            authorizationRepository
+        )
+
+    //endregion
 
     //region FileUtil
 

@@ -3,6 +3,8 @@ package com.verbatoria.di.common
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.verbatoria.domain.authorization.AuthorizationRepository
+import com.verbatoria.domain.authorization.AuthorizationRepositoryImpl
 import com.verbatoria.infrastructure.database.common.room.MainRoomDatabase
 import dagger.Module
 import dagger.Provides
@@ -13,6 +15,8 @@ import javax.inject.Singleton
  */
 
 private const val ROOM_DATABASE_NAME = "verbatoria.db"
+
+private const val AUTHORIZATION_SHARED_PREFERENCES = "authorization"
 
 @Module
 class DatabaseModule {
@@ -41,11 +45,11 @@ class DatabaseModule {
 //            ArticleConverter()
 //        )
 //
-//    @Provides
-//    @Singleton
-//    fun provideAuthorizationRepository(context: Context): AuthorizationRepository =
-//        AuthorizationRepositoryImpl(
-//            context.getSharedPreferences(AUTHORIZATION_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-//        )
+    @Provides
+    @Singleton
+    fun provideAuthorizationRepository(context: Context): AuthorizationRepository =
+        AuthorizationRepositoryImpl(
+            context.getSharedPreferences(AUTHORIZATION_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        )
 
 }
