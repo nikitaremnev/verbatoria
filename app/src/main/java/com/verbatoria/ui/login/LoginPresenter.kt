@@ -147,7 +147,7 @@ class LoginPresenter(
                 currentCountry = country
                 view?.setCurrentCountry(currentCountry)
             }, { error ->
-                logger.error("get last login error occurred", error)
+                logger.error("get current country error occurred", error)
                 view?.showError(error.message ?: "Get last login error occurred")
             })
             .let(::addDisposable)
@@ -159,7 +159,7 @@ class LoginPresenter(
                 currentCountry = country
                 view?.setCurrentCountry(currentCountry)
             }, { error ->
-                logger.error("get last login error occurred", error)
+                logger.error("save current country error occurred", error)
                 view?.showError(error.message ?: "Get last login error occurred")
             })
             .let(::addDisposable)

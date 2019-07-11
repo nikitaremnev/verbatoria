@@ -29,8 +29,6 @@ private const val LANGUAGE_SELECTION_DIALOG_TAG = "LANGUAGE_SELECTION_DIALOG_TAG
 
 interface LoginView : BaseView {
 
-    fun setLoginFormatter(formatter: String)
-
     fun setLogin(login: String)
 
     fun setPassword(password: String)
@@ -190,7 +188,15 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     //region LoginView
 
-    override fun setLoginFormatter(formatter: String) {
+    override fun setLogin(login: String) {
+        loginEditText.setText(login)
+    }
+
+    override fun setPassword(password: String) {
+        passwordEditText.setText(password)
+    }
+
+    override fun setCurrentCountry(country: String) {
         loginEditText.addTextChangedListener(
             MaskedTextChangedListener(
                 formatter,
@@ -206,17 +212,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
                 }
             )
         )
-    }
 
-    override fun setLogin(login: String) {
-        loginEditText.setText(login)
-    }
-
-    override fun setPassword(password: String) {
-        passwordEditText.setText(password)
-    }
-
-    override fun setCurrentCountry(country: String) {
         countryTextView.text = country
         countryFlagImageView.setImageResource(CountryHelper.getFlagResourceByCountry(this, country))
     }
