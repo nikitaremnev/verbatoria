@@ -2,9 +2,7 @@ package com.verbatoria.di.login
 
 import com.verbatoria.business.login.LoginInteractor
 import com.verbatoria.business.login.LoginInteractorImpl
-import com.verbatoria.data.repositories.login.ILoginRepository
-import com.verbatoria.data.repositories.login.LoginRepository
-import com.verbatoria.data.repositories.token.ITokenRepository
+import com.verbatoria.domain.authorization.AuthorizationManager
 import com.verbatoria.ui.login.LoginPresenter
 import dagger.Module
 import dagger.Provides
@@ -18,15 +16,10 @@ import dagger.Reusable
 class LoginModule {
 
     @Provides
-    fun provideLoginRepository(): ILoginRepository =
-        LoginRepository()
-
-    @Provides
     fun provideLoginInteractor(
-        loginRepository: ILoginRepository,
-        tokenRepository: ITokenRepository
+        authorizationManager: AuthorizationManager
     ): LoginInteractor =
-        LoginInteractorImpl(tokenRepository, loginRepository)
+        LoginInteractorImpl(authorizationManager)
 
     @Provides
     @Reusable

@@ -18,7 +18,7 @@ class LoginPresenter(
     private var login: String = ""
     private var password: String = ""
 
-    private var currentCountry: String = ""
+    private var country: String = ""
 
     init {
         getLastLogin()
@@ -30,8 +30,8 @@ class LoginPresenter(
         if (login.isNotBlank()) {
             view.setLogin(login)
         }
-        if (currentCountry.isNotBlank()) {
-            view.setCurrentCountry(currentCountry)
+        if (country.isNotBlank()) {
+            view.setCurrentCountry(country)
         }
     }
 
@@ -106,12 +106,19 @@ class LoginPresenter(
     private fun login() {
         view?.showProgressForLogin()
         loginInteractor.login(login, password)
-            .subscribe({ tokenModel ->
-                view?.hideProgressForLoginWithSuccess()
-                if (BuildConfig.DEBUG) {
-                    view?.openDashboard()
+            .subscribe({ isSuccessful ->
+                if (isSuccessful) {
+                    view?.hideProgressForLoginWithSuccess()
+                    if (BuildConfig.DEBUG) {
+                        view?.openDashboard()
+                    } else {
+                        view?.openSMSConfirmation()
+                    }
                 } else {
-                    view?.openSMSConfirmation()
+                    view?.apply {
+                        hideProgressForLoginWithError()
+                        showError("Login error occurred")
+                    }
                 }
             }, { error ->
                 logger.error("login error occurred", error)
@@ -141,8 +148,8 @@ class LoginPresenter(
     private fun getCurrentCountry() {
         loginInteractor.getCurrentCountry()
             .subscribe({ country ->
-                currentCountry = country
-                view?.setCurrentCountry(currentCountry)
+                this.country = country
+                view?.setCurrentCountry(this.country)
             }, { error ->
                 logger.error("get current country error occurred", error)
                 view?.showError(error.message ?: "Get last login error occurred")
@@ -153,8 +160,8 @@ class LoginPresenter(
     private fun saveCurrentCountry(country: String) {
         loginInteractor.saveCurrentCountry(country)
             .subscribe({
-                currentCountry = country
-                view?.setCurrentCountry(currentCountry)
+                this.country = country
+                view?.setCurrentCountry(this.country)
             }, { error ->
                 logger.error("save current country error occurred", error)
                 view?.showError(error.message ?: "Get last login error occurred")

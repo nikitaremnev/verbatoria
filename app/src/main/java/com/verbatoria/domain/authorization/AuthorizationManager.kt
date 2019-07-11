@@ -11,6 +11,12 @@ interface AuthorizationManager {
 
     fun login(phone: String, password: String): Boolean
 
+    fun getLastLogin(): String
+
+    fun getCurrentCountry(): String
+
+    fun saveCurrentCountry(country: String)
+
 }
 
 class AuthorizationManagerImpl(
@@ -21,13 +27,24 @@ class AuthorizationManagerImpl(
     override fun login(phone: String, password: String): Boolean {
         val response = authorizationEndpoint.login(
             LoginParamsDto(
-                phone = phone,
+                phone = processPhone(phone),
                 password = password
             )
         )
         return true
     }
 
+    override fun getLastLogin(): String =
+        authorizationRepository.getLastLogin()
 
+    override fun getCurrentCountry(): String =
+        authorizationRepository.getCurrentCountry()
+
+    override fun saveCurrentCountry(country: String) {
+        authorizationRepository.putCurrentCountry(country)
+    }
+
+    private fun processPhone(phone: String): String =
+        phone.replace("[-,. )(]".toRegex(), "")
 
 }

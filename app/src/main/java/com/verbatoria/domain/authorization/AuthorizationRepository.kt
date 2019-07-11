@@ -3,16 +3,21 @@ package com.verbatoria.domain.authorization
 import android.content.SharedPreferences
 
 /**
-* @author p.o.drozdov
+* @author n.remnev
 */
 
-private const val FIELD_HASPIN = "has_pin"
+private const val LAST_LOGIN_KEY = "last_login"
+private const val CURRENT_COUNTRY_KEY = "current_country"
 
 interface AuthorizationRepository {
 
-    fun putHasPin(hasPin: Boolean)
+    fun putLastLogin(phone: String)
 
-    fun hasPin(): Boolean
+    fun getLastLogin(): String
+
+    fun putCurrentCountry(country: String)
+
+    fun getCurrentCountry(): String
 
 }
 
@@ -20,13 +25,24 @@ class AuthorizationRepositoryImpl(
     private val sharedPreferences: SharedPreferences
 ) : AuthorizationRepository {
 
-    override fun putHasPin(hasPin: Boolean) {
-        val editor = sharedPreferences.edit()
-        editor.putBoolean(FIELD_HASPIN, hasPin)
-        editor.apply()
+    override fun putLastLogin(phone: String) {
+        sharedPreferences.edit().apply {
+            putString(LAST_LOGIN_KEY, phone)
+            apply()
+        }
     }
 
-    override fun hasPin(): Boolean =
-        sharedPreferences.getBoolean(FIELD_HASPIN, false)
+    override fun getLastLogin(): String =
+        sharedPreferences.getString(LAST_LOGIN_KEY, "")
+
+    override fun putCurrentCountry(country: String) {
+        sharedPreferences.edit().apply {
+            putString(CURRENT_COUNTRY_KEY, country)
+            apply()
+        }
+    }
+
+    override fun getCurrentCountry(): String =
+        sharedPreferences.getString(CURRENT_COUNTRY_KEY, "")
 
 }
