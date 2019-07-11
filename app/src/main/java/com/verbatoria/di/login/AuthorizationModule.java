@@ -11,6 +11,7 @@ import com.verbatoria.ui.sms_login.SMSConfirmationPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.Reusable;
 
 /**
  * Модуль даггера для логина
@@ -21,25 +22,23 @@ import dagger.Provides;
 public class AuthorizationModule {
 
     @Provides
-    @LoginScope
     ILoginRepository provideLoginRepository() {
         return new LoginRepository();
     }
 
     @Provides
-    @LoginScope
     AuthorizationInteractor provideAuthorizationInteractor(ILoginRepository loginRepository) {
         return new AuthorizationInteractorImpl(loginRepository);
     }
 
     @Provides
-    @LoginScope
+    @Reusable
     IRecoveryPresenter provideRecoveryPresenter(AuthorizationInteractor loginInteractor) {
         return new RecoveryPresenter(loginInteractor);
     }
 
     @Provides
-    @LoginScope
+    @Reusable
     SMSConfirmationPresenter provideSMSConfirmationPresenter(AuthorizationInteractor loginInteractor) {
         return new SMSConfirmationPresenterImpl(loginInteractor);
     }

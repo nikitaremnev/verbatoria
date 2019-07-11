@@ -103,6 +103,12 @@
             android:theme="@style/FullScreenTheme">
         </activity>
 
+        <activity
+            android:name="com.verbatoria.ui.recovery_password.RecoveryPasswordActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme"/>
+
+
         <service android:name="com.verbatoria.component.session.SessionService"/>
 
     </application>

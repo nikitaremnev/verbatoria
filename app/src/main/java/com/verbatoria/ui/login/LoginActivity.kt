@@ -95,7 +95,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     }
 
-    private lateinit var loginEditText: EditText
+    private lateinit var phoneEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginClearButton: ImageView
     private lateinit var passwordClearButton: ImageView
@@ -115,16 +115,16 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
             .build()
 
     override fun initViews(savedState: Bundle?) {
-        loginEditText = findViewById(R.id.login_edit_text)
+        phoneEditText = findViewById(R.id.phone_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)
         loginClearButton = findViewById(R.id.login_clear_button)
         passwordClearButton = findViewById(R.id.password_clear_button)
-        forgotPasswordTextView = findViewById(R.id.forgot_password_text_view)
+        forgotPasswordTextView = findViewById(R.id.remember_password_text_view)
         countryContainerView = findViewById(R.id.country_container_layout)
         countryFlagImageView = findViewById(R.id.country_flag_image_view)
         countryTextView = findViewById(R.id.country_text_view)
         progressBar = findViewById(R.id.progress_bar)
-        loginButton = findViewById(R.id.login_button)
+        loginButton = findViewById(R.id.submit_button)
 
         passwordEditText.addTextChangedListener(
 
@@ -166,13 +166,13 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         }
 
         if (BuildConfig.DEBUG) {
-            loginEditText.setOnLongClickListener {
+            phoneEditText.setOnLongClickListener {
                 //maria
 //                loginEditText.setText("79268932040")
 //                passwordEditText.setText("89268932040")
 
                 //my account
-                loginEditText.setText("79153974689")
+                phoneEditText.setText("79153974689")
                 passwordEditText.setText("123474858")
 
                 //school testing
@@ -189,7 +189,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     //region LoginView
 
     override fun setLogin(login: String) {
-        loginEditText.setText(login)
+        phoneEditText.setText(login)
     }
 
     override fun setPassword(password: String) {
@@ -197,11 +197,11 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun setCurrentCountry(country: String) {
-        loginEditText.addTextChangedListener(
+        phoneEditText.addTextChangedListener(
             MaskedTextChangedListener(
                 CountryHelper.getPhoneFormatterByCountry(this, country),
                 true,
-                loginEditText,
+                phoneEditText,
                 null,
                 object : MaskedTextChangedListener.ValueListener {
 
@@ -252,7 +252,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun showProgressForLogin() {
-        loginEditText.isEnabled = false
+        phoneEditText.isEnabled = false
         passwordEditText.isEnabled = false
         forgotPasswordTextView.isEnabled = false
         countryContainerView.isEnabled = false
@@ -267,7 +267,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun hideProgressForLoginWithError() {
-        loginEditText.isEnabled = true
+        phoneEditText.isEnabled = true
         passwordEditText.isEnabled = true
         forgotPasswordTextView.isEnabled = true
         countryContainerView.isEnabled = true

@@ -47,7 +47,7 @@
             android:imeOptions="flagNoExtractUi"
             android:id="@+id/code_edit_text"
             android:visibility="gone"
-            android:hint="@string/recovery_password_confirm_code"/>
+            android:hint="@string/recovery_password_confirmation_code"/>
 
         <EditText
             android:layout_width="@dimen/activity_login_edit_text_width"
@@ -56,7 +56,7 @@
             android:id="@+id/new_password_edit_text"
             android:visibility="gone"
             android:inputType="textPassword"
-            android:hint="@string/recovery_new_password"
+            android:hint="@string/recovery_password_new_password"
             />
 
         <EditText
@@ -66,7 +66,7 @@
             android:visibility="gone"
             android:id="@+id/new_password_confirm_edit_text"
             android:inputType="textPassword"
-            android:hint="@string/recovery_new_password_confirm"/>
+            android:hint="@string/recovery_password_new_password_repeat"/>
 
     </LinearLayout>
 
@@ -74,7 +74,7 @@
         android:layout_width="@dimen/activity_recovery_button_width"
         android:layout_height="@dimen/button_height"
         android:id="@+id/submit_button"
-        android:text="@string/recovery_send_code"
+        android:text="@string/recovery_password_send_code"
         android:layout_below="@+id/fields_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_login_button_vertical_margin"
@@ -90,7 +90,7 @@
         android:textColor="@color/main_dark"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
-        android:text="@string/recovery_remember_password"
+        android:text="@string/recovery_password_remember_password"
         android:layout_below="@+id/submit_button"
         android:layout_centerHorizontal="true" />
 

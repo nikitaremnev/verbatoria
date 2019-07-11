@@ -168,7 +168,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
     override fun showPhoneInput() {
         codeEditText.visibility = View.GONE
         phoneEditText.visibility = View.VISIBLE
-        submitButton.text = getString(R.string.recovery_send_code)
+        submitButton.text = getString(R.string.recovery_password_send_code)
         submitButton.setOnClickListener {
             (presenter as SMSConfirmationView.Callback).onSendSMSCodeClicked()
         }

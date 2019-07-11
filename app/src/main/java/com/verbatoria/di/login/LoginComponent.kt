@@ -9,7 +9,6 @@ import dagger.Subcomponent
  */
 
 @Subcomponent(modules = [LoginModule::class])
-@LoginScope
 interface LoginComponent : BaseInjector<LoginActivity> {
 
     @Subcomponent.Builder

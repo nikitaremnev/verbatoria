@@ -42,7 +42,7 @@
             android:id="@+id/code_edit_text"
             android:layout_width="@dimen/activity_login_edit_text_width"
             android:layout_height="@dimen/edit_text_height"
-            android:hint="@string/recovery_password_confirm_code"
+            android:hint="@string/recovery_password_confirmation_code"
             android:imeOptions="flagNoExtractUi"
             android:visibility="gone" />
 
@@ -58,7 +58,7 @@
         android:layout_marginLeft="@dimen/activity_login_button_horizontal_margin"
         android:layout_marginTop="@dimen/activity_login_button_vertical_margin"
         android:layout_marginRight="@dimen/activity_login_button_horizontal_margin"
-        android:text="@string/recovery_send_code" />
+        android:text="@string/recovery_password_send_code" />
 
     <TextView
         android:id="@+id/timer_text_view"

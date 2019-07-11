@@ -1,7 +1,7 @@
 package com.verbatoria.business.login
 
 import com.verbatoria.domain.authorization.AuthorizationManager
-import com.verbatoria.utils.RxSchedulers
+import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single
 import org.slf4j.LoggerFactory
@@ -23,7 +23,8 @@ interface LoginInteractor {
 }
 
 class LoginInteractorImpl(
-    private val authorizationManager: AuthorizationManager
+    private val authorizationManager: AuthorizationManager,
+    private val schedulersFactory: RxSchedulersFactory
 ) : LoginInteractor {
 
     private val logger = LoggerFactory.getLogger("LoginInteractor")
@@ -32,43 +33,28 @@ class LoginInteractorImpl(
         Single.fromCallable {
             authorizationManager.login(phone, password)
         }
-//        loginRepository.getLogin(getLoginRequestModel(phone, password)).map { item ->
-//            val tokenProcessor = TokenProcessor()
-//            val tokenModel = tokenProcessor.obtainToken(item)
-//            tokenRepository.apply {
-//                updateToken(tokenModel)
-//                setStatus(tokenModel.status)
-//            }
-//            loginRepository.apply {
-//                updateLastLogin(phone)
-//                updateLocationId(tokenModel.locationId)
-//            }
-//            tokenModel
-//        }
-            .subscribeOn(RxSchedulers.getNewThreadScheduler())
-            .observeOn(RxSchedulers.getMainThreadScheduler())
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
     override fun getLastLogin(): Single<String> =
         Single.fromCallable {
             authorizationManager.getLastLogin()
         }
-            .subscribeOn(RxSchedulers.getNewThreadScheduler())
-            .observeOn(RxSchedulers.getMainThreadScheduler())
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
     override fun getCurrentCountry(): Single<String> =
         Single.fromCallable {
             authorizationManager.getCurrentCountry()
         }
-            .subscribeOn(RxSchedulers.getNewThreadScheduler())
-            .observeOn(RxSchedulers.getMainThreadScheduler())
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
     override fun saveCurrentCountry(country: String): Completable =
         Completable.fromCallable {
             authorizationManager.saveCurrentCountry(country)
         }
-            .subscribeOn(RxSchedulers.getNewThreadScheduler())
-            .observeOn(RxSchedulers.getMainThreadScheduler())
-
-
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
 }

@@ -143,7 +143,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
         mCodeEditText.setVisibility(View.GONE);
         mNewPasswordEditText.setVisibility(View.GONE);
         mNewPasswordConfirmEditText.setVisibility(View.GONE);
-        mSubmitButton.setText(getString(R.string.recovery_send_code));
+        mSubmitButton.setText(getString(R.string.recovery_password_send_code));
         mSubmitButton.setOnClickListener(v -> mRecoveryPresenter.recoveryPassword());
     }
 
@@ -155,7 +155,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
         mCodeEditText.setVisibility(View.VISIBLE);
         mNewPasswordEditText.setVisibility(View.GONE);
         mNewPasswordConfirmEditText.setVisibility(View.GONE);
-        mSubmitButton.setText(getString(R.string.recovery_send_code));
+        mSubmitButton.setText(getString(R.string.recovery_password_send_code));
         mSubmitButton.setOnClickListener(v -> showNewPasswordInput());
     }
 
@@ -165,7 +165,7 @@ public class RecoveryActivity extends BaseActivity implements IRecoveryView {
         mCodeEditText.setVisibility(View.GONE);
         mNewPasswordEditText.setVisibility(View.VISIBLE);
 //        mNewPasswordConfirmEditText.setVisibility(View.VISIBLE);
-        mSubmitButton.setText(getString(R.string.recovery_send_new_password));
+        mSubmitButton.setText(getString(R.string.recovery_password_send_new_password));
         mSubmitButton.setOnClickListener(v -> mRecoveryPresenter.sendNewPassword());
     }
 

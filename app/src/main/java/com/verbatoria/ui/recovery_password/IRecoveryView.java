@@ -6,6 +6,7 @@ package com.verbatoria.ui.recovery_password;
  *
  * @author nikitaremnev
  */
+
 public interface IRecoveryView {
 
     String getPhone();
