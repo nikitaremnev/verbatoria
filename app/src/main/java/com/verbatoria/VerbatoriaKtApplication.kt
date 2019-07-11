@@ -1,9 +1,5 @@
 package com.verbatoria
 
-import android.app.Application
-import com.verbatoria.di.DependencyHolder
-import com.verbatoria.di.common.Injector
-import java.util.concurrent.ConcurrentHashMap
 //import com.verbatoria.di.common.DaggerInjector
 
 

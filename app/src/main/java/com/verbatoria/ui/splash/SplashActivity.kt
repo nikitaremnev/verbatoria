@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import com.remnev.verbatoria.R
-import com.verbatoria.di.common.Injector
+import com.verbatoria.di.Injector
 import com.verbatoria.di.splash.SplashComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView

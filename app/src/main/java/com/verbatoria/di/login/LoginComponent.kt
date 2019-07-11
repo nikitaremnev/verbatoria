@@ -1,6 +1,6 @@
 package com.verbatoria.di.login
 
-import com.verbatoria.di.base.BaseInjector
+import com.verbatoria.di.BaseInjector
 import com.verbatoria.ui.login.LoginActivity
 import dagger.Subcomponent
 

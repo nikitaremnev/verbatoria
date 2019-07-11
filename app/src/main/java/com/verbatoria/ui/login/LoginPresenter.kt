@@ -27,28 +27,25 @@ class LoginPresenter(
 
     override fun onAttachView(view: LoginView) {
         super.onAttachView(view)
-        if (login.isNotEmpty()) {
+        if (login.isNotBlank()) {
             view.setLogin(login)
         }
-        if (currentCountry.isNotEmpty()) {
+        if (currentCountry.isNotBlank()) {
             view.setCurrentCountry(currentCountry)
         }
-        view.setLoginFormatter("+ [0] [000] [000] [00] [00]")
     }
 
     //region LoginView.Callback
 
     override fun onLoginTextChanged(login: String) {
         this.login = login
-        if (login.isBlank()) {
-            view?.setLoginButtonDisabled()
-        } else if (!password.isBlank()) {
-            view?.apply {
+        when {
+            login.isBlank() -> view?.setLoginButtonDisabled()
+            password.isNotBlank() -> view?.apply {
                 setLoginButtonEnabled()
                 showClearLoginButton()
             }
-        } else {
-            view?.apply {
+            else -> view?.apply {
                 setLoginButtonDisabled()
                 showClearLoginButton()
             }
@@ -57,15 +54,13 @@ class LoginPresenter(
 
     override fun onPasswordTextChanged(password: String) {
         this.password = password
-        if (password.isBlank()) {
-            view?.setLoginButtonDisabled()
-        } else if (!login.isBlank()) {
-            view?.apply {
+        when {
+            password.isBlank() -> view?.setLoginButtonDisabled()
+            login.isNotBlank() -> view?.apply {
                 setLoginButtonEnabled()
                 showClearPasswordButton()
             }
-        } else {
-            view?.apply {
+            else -> view?.apply {
                 setLoginButtonDisabled()
                 showClearPasswordButton()
             }
@@ -83,9 +78,11 @@ class LoginPresenter(
 
     override fun onPasswordClearClicked() {
         password = ""
-        view?.setPassword(password)
-        view?.setLoginButtonDisabled()
-        view?.hideClearPasswordButton()
+        view?.apply {
+            setPassword(password)
+            setLoginButtonDisabled()
+            hideClearPasswordButton()
+        }
     }
 
     override fun onLoginButtonClicked() {

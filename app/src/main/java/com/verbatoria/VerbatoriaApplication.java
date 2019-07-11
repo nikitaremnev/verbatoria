@@ -15,9 +15,9 @@ import com.remnev.verbatoria.R;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.activities.ActivitiesTimerTask;
 import com.verbatoria.business.session.activities.UserInteractionTimerTask;
+import com.verbatoria.di.DaggerInjector;
 import com.verbatoria.di.DependencyHolder;
-import com.verbatoria.di.common.Injector;
-import com.verbatoria.di.common.DaggerInjector;
+import com.verbatoria.di.Injector;
 
 import com.verbatoria.utils.Logger;
 

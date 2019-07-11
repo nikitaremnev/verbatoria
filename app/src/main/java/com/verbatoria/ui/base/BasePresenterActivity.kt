@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaApplication
 import com.verbatoria.di.DependencyHolder
-import com.verbatoria.di.base.BaseInjector
-import com.verbatoria.di.common.Injector
+import com.verbatoria.di.BaseInjector
+import com.verbatoria.di.Injector
 import javax.inject.Inject
 
 /**

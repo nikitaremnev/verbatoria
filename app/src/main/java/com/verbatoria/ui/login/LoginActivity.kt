@@ -10,15 +10,15 @@ import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
-import com.verbatoria.di.common.Injector
+import com.verbatoria.di.Injector
 import com.verbatoria.di.login.LoginComponent
 import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.view.DashboardActivity
-import com.verbatoria.ui.login.view.recovery.RecoveryActivity
-import com.verbatoria.ui.login.view.sms.SMSConfirmationActivity
+import com.verbatoria.ui.recovery_password.RecoveryActivity
+import com.verbatoria.ui.sms_login.SMSConfirmationActivity
 import com.verbatoria.utils.CountryHelper
 
 /**
@@ -199,7 +199,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     override fun setCurrentCountry(country: String) {
         loginEditText.addTextChangedListener(
             MaskedTextChangedListener(
-                formatter,
+                CountryHelper.getPhoneFormatterByCountry(this, country),
                 true,
                 loginEditText,
                 null,

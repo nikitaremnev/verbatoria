@@ -5,7 +5,7 @@ import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.infrastructure.database.common.converter.DateRoomConverter
-import com.verbatoria.infrastructure.database.entity.late_send.LateSendEntity
+import com.verbatoria.infrastructure.database.entity.LateSendEntity
 
 /**
  * @author n.remnev

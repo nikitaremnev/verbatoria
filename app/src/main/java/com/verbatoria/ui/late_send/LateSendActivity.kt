@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.TextView
 import com.remnev.verbatoria.R
 import com.verbatoria.business.late_send.LateReportModel
-import com.verbatoria.di.common.Injector
+import com.verbatoria.di.Injector
 import com.verbatoria.di.late_send.LateSendComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView

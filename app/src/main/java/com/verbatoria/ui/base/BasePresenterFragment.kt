@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
 import com.verbatoria.di.DependencyHolder
-import com.verbatoria.di.base.BaseInjector
+import com.verbatoria.di.BaseInjector
 import javax.inject.Inject
 
 /**

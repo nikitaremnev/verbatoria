@@ -4,10 +4,10 @@ import com.verbatoria.business.login.AuthorizationInteractor;
 import com.verbatoria.business.login.AuthorizationInteractorImpl;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
-import com.verbatoria.ui.login.presenter.recovery.IRecoveryPresenter;
-import com.verbatoria.ui.login.presenter.recovery.RecoveryPresenter;
-import com.verbatoria.ui.login.presenter.sms.SMSConfirmationPresenter;
-import com.verbatoria.ui.login.presenter.sms.SMSConfirmationPresenterImpl;
+import com.verbatoria.ui.recovery_password.IRecoveryPresenter;
+import com.verbatoria.ui.recovery_password.RecoveryPresenter;
+import com.verbatoria.ui.sms_login.SMSConfirmationPresenter;
+import com.verbatoria.ui.sms_login.SMSConfirmationPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
