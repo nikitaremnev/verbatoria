@@ -217,6 +217,19 @@ class RecoveryPasswordActivity :
             }
         )
 
+        clearPhoneImageView.setOnClickListener {
+            presenter.onPhoneClearClicked()
+        }
+        clearConfirmationCodeImageView.setOnClickListener {
+            presenter.onConfirmationCodeClearClicked()
+        }
+        clearNewPasswordImageView.setOnClickListener {
+            presenter.onNewPasswordClearClicked()
+        }
+        clearRepeatNewPasswordImageView.setOnClickListener {
+            presenter.onRepeatNewPasswordClearClicked()
+        }
+
         rememberPasswordTextView.setOnClickListener {
             presenter.onRememberPasswordClicked()
         }

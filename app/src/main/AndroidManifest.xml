@@ -88,11 +88,6 @@
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.ui.recovery_password.RecoveryActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"/>
-
-        <activity
             android:name="com.verbatoria.ui.sms_login.SMSConfirmationActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>

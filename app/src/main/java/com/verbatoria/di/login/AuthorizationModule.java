@@ -4,8 +4,6 @@ import com.verbatoria.business.login.AuthorizationInteractor;
 import com.verbatoria.business.login.AuthorizationInteractorImpl;
 import com.verbatoria.data.repositories.login.ILoginRepository;
 import com.verbatoria.data.repositories.login.LoginRepository;
-import com.verbatoria.ui.recovery_password.IRecoveryPresenter;
-import com.verbatoria.ui.recovery_password.RecoveryPresenter;
 import com.verbatoria.ui.sms_login.SMSConfirmationPresenter;
 import com.verbatoria.ui.sms_login.SMSConfirmationPresenterImpl;
 
@@ -29,12 +27,6 @@ public class AuthorizationModule {
     @Provides
     AuthorizationInteractor provideAuthorizationInteractor(ILoginRepository loginRepository) {
         return new AuthorizationInteractorImpl(loginRepository);
-    }
-
-    @Provides
-    @Reusable
-    IRecoveryPresenter provideRecoveryPresenter(AuthorizationInteractor loginInteractor) {
-        return new RecoveryPresenter(loginInteractor);
     }
 
     @Provides
