@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 
@@ -31,8 +30,6 @@ import io.reactivex.Observable;
  */
 
 public class CalendarInteractor implements ICalendarInteractor {
-
-    private static final String OSTOJENKA_LOCATION_ID = "32";
 
     private ICalendarRepository mCalendarRepository;
     private IScheduleRepository mScheduleRepository;

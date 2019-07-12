@@ -1,18 +1,11 @@
 package com.verbatoria.business.login;
 
-import com.verbatoria.data.network.response.MessageResponseModel;
-import io.reactivex.Observable;
-
 /**
  * Интерфейс интерактора для логина
  *
  * @author nikitaremnev
  */
 public interface AuthorizationInteractor {
-
-    Observable<MessageResponseModel> recoveryPassword(String phone);
-
-    Observable<MessageResponseModel> resetPassword(String phone, String code, String password);
 
     String getLastLogin();
 
