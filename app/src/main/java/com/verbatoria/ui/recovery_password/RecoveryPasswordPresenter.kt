@@ -36,11 +36,8 @@ class RecoveryPasswordPresenter(
 
     override fun onAttachView(view: RecoveryPasswordView) {
         super.onAttachView(view)
-        if (country.isNotBlank()) {
-            view.setPhoneFormatterBasedOnCountry(country)
-        }
+        view.setPhoneFormatterBasedOnCountry(country)
         view.setPhone(phone)
-
         when (recoveryPasswordState) {
             RecoveryPasswordState.PHONE -> setPhoneRecoveryPasswordState()
             RecoveryPasswordState.CONFIRMATION_CODE -> setConfirmationCodeRecoveryPasswordState()
@@ -51,6 +48,7 @@ class RecoveryPasswordPresenter(
     //region RecoveryPasswordView.Callback
 
     override fun onPhoneTextChanged(phone: String) {
+        if (phone == this.phone) return
         this.phone = phone
         when {
             this.phone.isBlank() -> view?.apply {
@@ -65,6 +63,7 @@ class RecoveryPasswordPresenter(
     }
 
     override fun onConfirmationCodeTextChanged(confirmationCode: String) {
+        if (confirmationCode == this.confirmationCode) return
         this.confirmationCode = confirmationCode
         when {
             this.confirmationCode.isBlank() -> view?.apply {
@@ -79,6 +78,7 @@ class RecoveryPasswordPresenter(
     }
 
     override fun onNewPasswordTextChanged(newPassword: String) {
+        if (newPassword == this.newPassword) return
         this.newPassword = newPassword
         when {
             this.newPassword.isBlank() -> view?.apply {
@@ -97,6 +97,7 @@ class RecoveryPasswordPresenter(
     }
 
     override fun onRepeatNewPasswordTextChanged(repeatNewPassword: String) {
+        if (repeatNewPassword == this.repeatNewPassword) return
         this.repeatNewPassword = repeatNewPassword
         when {
             this.repeatNewPassword.isBlank() -> view?.apply {
@@ -190,9 +191,9 @@ class RecoveryPasswordPresenter(
                 view?.hideProgressForRecoveryPassword()
                 setConfirmationCodeRecoveryPasswordState()
             }, { error ->
-                logger.error("get current country error occurred", error)
+                logger.error("Recovery password error occurred", error.message)
                 view?.apply {
-                    showError(error.message ?: "Send confirmation code error occurred")
+                    showError(error.message ?: "Recovery password error occurred")
                     hideProgressForRecoveryPassword()
                 }
             })
@@ -208,10 +209,10 @@ class RecoveryPasswordPresenter(
                     openLoginWithTimeout()
                 }
             }, { error ->
-                logger.error("get current country error occurred", error)
+                logger.error("Reset password error occurred", error)
                 confirmationCode = ""
                 view?.apply {
-                    showError(error.message ?: "Send confirmation code error occurred")
+                    showError(error.message ?: "Reset password error occurred")
                     hideProgressForResetPassword()
                     hideClearConfirmationCodeButton()
                     setConfirmationCode(confirmationCode)
@@ -227,6 +228,11 @@ class RecoveryPasswordPresenter(
             hideNewPasswordFields()
             showPhoneField()
             setSendCodeTitleToSubmitButton()
+            if (phone.isNotBlank()) {
+                setSubmitButtonEnabled()
+            } else {
+                setSubmitButtonDisabled()
+            }
         }
     }
 
@@ -236,7 +242,11 @@ class RecoveryPasswordPresenter(
             hideNewPasswordFields()
             showConfirmationCodeField()
             setCheckCodeTitleToSubmitButton()
-            setSubmitButtonDisabled()
+            if (confirmationCode.isNotBlank()) {
+                setSubmitButtonEnabled()
+            } else {
+                setSubmitButtonDisabled()
+            }
         }
     }
 
@@ -246,7 +256,11 @@ class RecoveryPasswordPresenter(
             hideConfirmationCodeField()
             showNewPasswordFields()
             setSetNewPasswordTitleToSubmitButton()
-            setSubmitButtonDisabled()
+            if (newPassword.isNotBlank() && newPassword == repeatNewPassword) {
+                setSubmitButtonEnabled()
+            } else {
+                setSubmitButtonDisabled()
+            }
         }
     }
 

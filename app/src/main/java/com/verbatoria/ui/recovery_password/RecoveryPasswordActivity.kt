@@ -19,7 +19,6 @@ import com.verbatoria.utils.CountryHelper
 import android.os.Handler
 import com.remnev.verbatoria.R
 
-
 /**
  * @author n.remnev
  */
@@ -151,7 +150,10 @@ class RecoveryPasswordActivity :
 
     override fun getLayoutResourceId(): Int = R.layout.activity_recovery_password
 
-    override fun buildComponent(injector: Injector, savedState: Bundle?): RecoveryPasswordComponent =
+    override fun buildComponent(
+        injector: Injector,
+        savedState: Bundle?
+    ): RecoveryPasswordComponent =
         injector.plusRecoveryPasswordComponent()
             .phoneFromLogin(intent.getStringExtra(PHONE_FROM_LOGIN_EXTRA) ?: "")
             .build()
@@ -357,10 +359,12 @@ class RecoveryPasswordActivity :
     }
 
     override fun setSubmitButtonEnabled() {
+        Log.e("test", "RecoveryPasswordActivity setSubmitButtonEnabled")
         submitButton.isEnabled = true
     }
 
     override fun setSubmitButtonDisabled() {
+        Log.e("test", "RecoveryPasswordActivity setSubmitButtonDisabled")
         submitButton.isEnabled = false
     }
 
@@ -413,11 +417,11 @@ class RecoveryPasswordActivity :
     }
 
     override fun showResetPasswordSuccess() {
-        showSnackbar(getString(R.string.recovery_password_reset_success))
+        showShortHintSnackbar(getString(R.string.recovery_password_reset_success))
     }
 
     override fun showError(error: String) {
-        showShortHintSnackbar(error)
+        showErrorSnackbar(error)
     }
 
     override fun openLogin() {

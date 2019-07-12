@@ -114,7 +114,7 @@ class LoginPresenter(
                     view?.openSMSConfirmation()
                 }
             }, { error ->
-                logger.error("login error occurred", error)
+                logger.error("Login error occurred", error)
                 view?.apply {
                     hideProgressForLoginWithError()
                     showError(error.message ?: "Login error occurred")
@@ -129,7 +129,7 @@ class LoginPresenter(
                 phone = lastLogin
                 view?.setPhone(phone)
             }, { error ->
-                logger.error("get last login error occurred", error)
+                logger.error("Get last login error occurred", error)
                 view?.apply {
                     hideProgressForLoginWithError()
                     showError(error.message ?: "Get last login error occurred")
@@ -144,8 +144,8 @@ class LoginPresenter(
                 this.country = country
                 view?.setCurrentCountry(this.country)
             }, { error ->
-                logger.error("get current country error occurred", error)
-                view?.showError(error.message ?: "Get last login error occurred")
+                logger.error("Get current country error occurred", error)
+                view?.showError(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
     }
@@ -156,8 +156,8 @@ class LoginPresenter(
                 this.country = country
                 view?.setCurrentCountry(this.country)
             }, { error ->
-                logger.error("save current country error occurred", error)
-                view?.showError(error.message ?: "Get last login error occurred")
+                logger.error("Save current country error occurred", error)
+                view?.showError(error.message ?: "Save current country error occurred")
             })
             .let(::addDisposable)
     }
