@@ -106,19 +106,12 @@ class LoginPresenter(
     private fun login() {
         view?.showProgressForLogin()
         loginInteractor.login(phone, password)
-            .subscribe({ (isLoginSuccessful, error) ->
-                if (isLoginSuccessful) {
-                    view?.hideProgressForLoginWithSuccess()
-                    if (BuildConfig.DEBUG) {
-                        view?.openDashboard()
-                    } else {
-                        view?.openSMSConfirmation()
-                    }
+            .subscribe({
+                view?.hideProgressForLoginWithSuccess()
+                if (BuildConfig.DEBUG) {
+                    view?.openDashboard()
                 } else {
-                    view?.apply {
-                        hideProgressForLoginWithError()
-                        showError(error ?: "Login error occurred")
-                    }
+                    view?.openSMSConfirmation()
                 }
             }, { error ->
                 logger.error("login error occurred", error)

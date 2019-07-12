@@ -5,12 +5,5 @@ package com.verbatoria.infrastructure.retrofit.error
  */
 
 class APIError(
-    private val description: String?,
-    private val message: String?,
-    private val msg: String
-) {
-
-    fun getDescription(): String =
-        description ?: (message ?: msg)
-
-}
+    val error: String?
+)

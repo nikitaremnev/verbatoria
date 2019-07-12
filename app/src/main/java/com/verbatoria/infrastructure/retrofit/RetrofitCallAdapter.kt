@@ -65,7 +65,7 @@ class RetrofitCallAdapter<R>(
                             APIError::class.java,
                             arrayOfNulls(0)
                         )
-                            .convert(errorBody)?.getDescription()
+                            .convert(errorBody)?.error
                     }
                 }
             } catch (exception: IOException) {

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory
 
 interface LoginInteractor {
 
-    fun login(phone: String, password: String): Single<Pair<Boolean, String?>>
+    fun login(phone: String, password: String): Completable
 
     fun getLastLogin(): Single<String>
 
@@ -29,8 +29,8 @@ class LoginInteractorImpl(
 
     private val logger = LoggerFactory.getLogger("LoginInteractor")
 
-    override fun login(phone: String, password: String): Single<Pair<Boolean, String?>> =
-        Single.fromCallable {
+    override fun login(phone: String, password: String): Completable =
+        Completable.fromCallable {
             authorizationManager.login(phone, password)
         }
             .subscribeOn(schedulersFactory.io)

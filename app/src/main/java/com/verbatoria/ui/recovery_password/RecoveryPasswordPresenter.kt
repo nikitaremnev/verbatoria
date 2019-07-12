@@ -163,12 +163,8 @@ class RecoveryPasswordPresenter(
 
     private fun recoveryPassword() {
         recoveryPasswordInteractor.recoveryPassword(phone)
-            .subscribe({ (isRecoveryPasswordSuccessful, error)  ->
-                if (isRecoveryPasswordSuccessful) {
+            .subscribe({
 
-                } else {
-                    view?.showError(error ?: "Send confirmation code error occurred")
-                }
             }, { error ->
                 logger.error("get current country error occurred", error)
                 view?.showError(error.message ?: "Send confirmation code error occurred")
