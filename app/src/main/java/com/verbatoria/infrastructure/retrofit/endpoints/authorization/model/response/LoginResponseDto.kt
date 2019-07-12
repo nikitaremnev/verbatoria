@@ -8,5 +8,6 @@ data class LoginResponseDto(
     val accessToken: String,
     val expiresToken: String,
     val status: String,
-    val locationId: String
+    val locationId: String,
+    val error: String?
 )

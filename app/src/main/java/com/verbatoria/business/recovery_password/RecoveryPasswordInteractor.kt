@@ -13,7 +13,7 @@ interface RecoveryPasswordInteractor {
 
     fun getCurrentCountry(): Single<String>
 
-    fun recoveryPassword(phone: String): Single<Boolean>
+    fun recoveryPassword(phone: String): Single<Pair<Boolean, String?>>
 
 }
 
@@ -31,10 +31,9 @@ class RecoveryPasswordInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun recoveryPassword(phone: String): Single<Boolean> =
+    override fun recoveryPassword(phone: String): Single<Pair<Boolean, String?>> =
         Single.fromCallable {
             authorizationManager.recoveryPassword(phone)
-            return@fromCallable true
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

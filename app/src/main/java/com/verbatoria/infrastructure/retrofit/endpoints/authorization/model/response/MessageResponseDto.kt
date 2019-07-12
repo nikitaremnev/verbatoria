@@ -5,5 +5,6 @@ package com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.res
  */
 
 data class MessageResponseDto(
-    val message: String
+    val message: String,
+    val error: String?
 )

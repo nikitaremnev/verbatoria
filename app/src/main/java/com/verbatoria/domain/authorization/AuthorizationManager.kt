@@ -11,9 +11,9 @@ import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.para
 
 interface AuthorizationManager {
 
-    fun login(phone: String, password: String): Boolean
+    fun login(phone: String, password: String): Pair<Boolean, String?>
 
-    fun recoveryPassword(phone: String)
+    fun recoveryPassword(phone: String): Pair<Boolean, String?>
 
     fun resetPassword(phone: String, recoveryHash: String, password: String)
 
@@ -30,22 +30,23 @@ class AuthorizationManagerImpl(
     private val authorizationRepository: AuthorizationRepository
 ) : AuthorizationManager {
 
-    override fun login(phone: String, password: String): Boolean {
+    override fun login(phone: String, password: String): Pair<Boolean, String?> {
         val response = authorizationEndpoint.login(
             LoginParamsDto(
                 phone = processPhone(phone),
                 password = password
             )
         )
-        return true
+        return Pair(response.error == null, response.error)
     }
 
-    override fun recoveryPassword(phone: String) {
-        authorizationEndpoint.recoveryPassword(
+    override fun recoveryPassword(phone: String): Pair<Boolean, String?> {
+        val response = authorizationEndpoint.recoveryPassword(
             RecoveryPasswordParamsDto(
                 phone = phone
             )
         )
+        return Pair(response.error == null, response.error)
     }
 
     override fun resetPassword(phone: String, recoveryHash: String, password: String) {

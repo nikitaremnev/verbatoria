@@ -106,8 +106,8 @@ class LoginPresenter(
     private fun login() {
         view?.showProgressForLogin()
         loginInteractor.login(phone, password)
-            .subscribe({ isSuccessful ->
-                if (isSuccessful) {
+            .subscribe({ (isLoginSuccessful, error) ->
+                if (isLoginSuccessful) {
                     view?.hideProgressForLoginWithSuccess()
                     if (BuildConfig.DEBUG) {
                         view?.openDashboard()
@@ -117,7 +117,7 @@ class LoginPresenter(
                 } else {
                     view?.apply {
                         hideProgressForLoginWithError()
-                        showError("Login error occurred")
+                        showError(error ?: "Login error occurred")
                     }
                 }
             }, { error ->

@@ -144,7 +144,7 @@ class RecoveryPasswordPresenter(
     }
 
     override fun onSubmitButtonClicked() {
-        sendConfirmationCode()
+        recoveryPassword()
     }
 
     //endregion
@@ -155,20 +155,23 @@ class RecoveryPasswordPresenter(
                 this.country = country
                 view?.setPhoneFormatterBasedOnCountry(this.country)
             }, { error ->
-                logger.error("get current country error occurred", error)
-                view?.showError(error.message ?: "Get last login error occurred")
+                logger.error("Get current country error occurred", error)
+                view?.showError(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
     }
 
-    private fun sendConfirmationCode() {
+    private fun recoveryPassword() {
         recoveryPasswordInteractor.recoveryPassword(phone)
-            .subscribe({ isConfirmationCodeSent ->
+            .subscribe({ (isRecoveryPasswordSuccessful, error)  ->
+                if (isRecoveryPasswordSuccessful) {
 
-
+                } else {
+                    view?.showError(error ?: "Send confirmation code error occurred")
+                }
             }, { error ->
                 logger.error("get current country error occurred", error)
-                view?.showError(error.message ?: "Get last login error occurred")
+                view?.showError(error.message ?: "Send confirmation code error occurred")
             })
             .let(::addDisposable)
     }

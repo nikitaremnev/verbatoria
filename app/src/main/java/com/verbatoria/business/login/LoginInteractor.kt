@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory
 
 interface LoginInteractor {
 
-    fun login(phone: String, password: String): Single<Boolean>
+    fun login(phone: String, password: String): Single<Pair<Boolean, String?>>
 
     fun getLastLogin(): Single<String>
 
@@ -29,7 +29,7 @@ class LoginInteractorImpl(
 
     private val logger = LoggerFactory.getLogger("LoginInteractor")
 
-    override fun login(phone: String, password: String): Single<Boolean> =
+    override fun login(phone: String, password: String): Single<Pair<Boolean, String?>> =
         Single.fromCallable {
             authorizationManager.login(phone, password)
         }
