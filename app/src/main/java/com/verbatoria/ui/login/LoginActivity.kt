@@ -17,7 +17,7 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.view.DashboardActivity
-import com.verbatoria.ui.recovery_password.RecoveryActivity
+import com.verbatoria.ui.recovery_password.RecoveryPasswordActivity
 import com.verbatoria.ui.sms_login.SMSConfirmationActivity
 import com.verbatoria.utils.CountryHelper
 
@@ -29,7 +29,7 @@ private const val LANGUAGE_SELECTION_DIALOG_TAG = "LANGUAGE_SELECTION_DIALOG_TAG
 
 interface LoginView : BaseView {
 
-    fun setLogin(login: String)
+    fun setPhone(phone: String)
 
     fun setPassword(password: String)
 
@@ -43,9 +43,9 @@ interface LoginView : BaseView {
 
     fun setLoginButtonDisabled()
 
-    fun showClearLoginButton()
+    fun showClearPhoneButton()
 
-    fun hideClearLoginButton()
+    fun hideClearPhoneButton()
 
     fun showClearPasswordButton()
 
@@ -59,17 +59,17 @@ interface LoginView : BaseView {
 
     fun openDashboard()
 
-    fun openRecoveryPassword()
+    fun openRecoveryPassword(phone: String)
 
     fun openSMSConfirmation()
 
     interface Callback {
 
-        fun onLoginClearClicked()
+        fun onPhoneClearClicked()
 
         fun onPasswordClearClicked()
 
-        fun onLoginTextChanged(login: String)
+        fun onPhoneTextChanged(phone: String)
 
         fun onPasswordTextChanged(password: String)
 
@@ -97,7 +97,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     private lateinit var phoneEditText: EditText
     private lateinit var passwordEditText: EditText
-    private lateinit var loginClearButton: ImageView
+    private lateinit var phoneClearButton: ImageView
     private lateinit var passwordClearButton: ImageView
     private lateinit var forgotPasswordTextView: TextView
     private lateinit var countryContainerView: View
@@ -117,14 +117,14 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     override fun initViews(savedState: Bundle?) {
         phoneEditText = findViewById(R.id.phone_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)
-        loginClearButton = findViewById(R.id.login_clear_button)
+        phoneClearButton = findViewById(R.id.phone_clear_button)
         passwordClearButton = findViewById(R.id.password_clear_button)
-        forgotPasswordTextView = findViewById(R.id.remember_password_text_view)
+        forgotPasswordTextView = findViewById(R.id.forgot_password_text_view)
         countryContainerView = findViewById(R.id.country_container_layout)
         countryFlagImageView = findViewById(R.id.country_flag_image_view)
         countryTextView = findViewById(R.id.country_text_view)
         progressBar = findViewById(R.id.progress_bar)
-        loginButton = findViewById(R.id.submit_button)
+        loginButton = findViewById(R.id.login_button)
 
         passwordEditText.addTextChangedListener(
 
@@ -149,8 +149,8 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
             }
         )
-        loginClearButton.setOnClickListener {
-            presenter.onLoginClearClicked()
+        phoneClearButton.setOnClickListener {
+            presenter.onPhoneClearClicked()
         }
         passwordClearButton.setOnClickListener {
             presenter.onPasswordClearClicked()
@@ -188,8 +188,8 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     //region LoginView
 
-    override fun setLogin(login: String) {
-        phoneEditText.setText(login)
+    override fun setPhone(phone: String) {
+        phoneEditText.setText(phone)
     }
 
     override fun setPassword(password: String) {
@@ -206,14 +206,18 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
                 object : MaskedTextChangedListener.ValueListener {
 
                     override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
-                        presenter.onLoginTextChanged(extractedValue)
+                        presenter.onPhoneTextChanged(extractedValue)
                     }
 
                 }
             )
         )
 
-        countryTextView.text = country
+        countryTextView.text = if (country.isEmpty()) {
+            getString(R.string.country_russia)
+        } else {
+            country
+        }
         countryFlagImageView.setImageResource(CountryHelper.getFlagResourceByCountry(this, country))
     }
 
@@ -235,12 +239,12 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         loginButton.isEnabled = false
     }
 
-    override fun showClearLoginButton() {
-        loginClearButton.show()
+    override fun showClearPhoneButton() {
+        phoneClearButton.show()
     }
 
-    override fun hideClearLoginButton() {
-        loginClearButton.hide()
+    override fun hideClearPhoneButton() {
+        phoneClearButton.hide()
     }
 
     override fun showClearPasswordButton() {
@@ -257,7 +261,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         forgotPasswordTextView.isEnabled = false
         countryContainerView.isEnabled = false
         loginButton.isEnabled = false
-        loginClearButton.hide()
+        phoneClearButton.hide()
         passwordClearButton.hide()
         progressBar.show()
     }
@@ -272,7 +276,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         forgotPasswordTextView.isEnabled = true
         countryContainerView.isEnabled = true
         loginButton.isEnabled = true
-        loginClearButton.show()
+        phoneClearButton.show()
         passwordClearButton.show()
         progressBar.hide()
     }
@@ -282,8 +286,8 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         finish()
     }
 
-    override fun openRecoveryPassword() {
-        startActivity(RecoveryActivity.newInstance(this))
+    override fun openRecoveryPassword(phone: String) {
+        startActivity(RecoveryPasswordActivity.createIntent(this, phone))
         finish()
     }
 

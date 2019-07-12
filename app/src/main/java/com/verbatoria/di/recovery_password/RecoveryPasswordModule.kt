@@ -26,8 +26,9 @@ class RecoveryPasswordModule {
     @Provides
     @Reusable
     fun provideRecoveryPasswordPresenter(
+        phoneFromLogin: String,
         recoveryPasswordInteractor: RecoveryPasswordInteractor
     ): RecoveryPasswordPresenter =
-        RecoveryPasswordPresenter(recoveryPasswordInteractor)
+        RecoveryPasswordPresenter(phoneFromLogin, recoveryPasswordInteractor)
 
 }

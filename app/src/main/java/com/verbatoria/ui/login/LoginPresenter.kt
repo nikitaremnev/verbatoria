@@ -15,7 +15,7 @@ class LoginPresenter(
 
     private val logger = LoggerFactory.getLogger("LoginPresenter")
 
-    private var login: String = ""
+    private var phone: String = ""
     private var password: String = ""
 
     private var country: String = ""
@@ -27,8 +27,8 @@ class LoginPresenter(
 
     override fun onAttachView(view: LoginView) {
         super.onAttachView(view)
-        if (login.isNotBlank()) {
-            view.setLogin(login)
+        if (phone.isNotBlank()) {
+            view.setPhone(phone)
         }
         if (country.isNotBlank()) {
             view.setCurrentCountry(country)
@@ -37,17 +37,17 @@ class LoginPresenter(
 
     //region LoginView.Callback
 
-    override fun onLoginTextChanged(login: String) {
-        this.login = login
+    override fun onPhoneTextChanged(phone: String) {
+        this.phone = phone
         when {
-            login.isBlank() -> view?.setLoginButtonDisabled()
+            this.phone.isBlank() -> view?.setLoginButtonDisabled()
             password.isNotBlank() -> view?.apply {
                 setLoginButtonEnabled()
-                showClearLoginButton()
+                showClearPhoneButton()
             }
             else -> view?.apply {
                 setLoginButtonDisabled()
-                showClearLoginButton()
+                showClearPhoneButton()
             }
         }
     }
@@ -56,7 +56,7 @@ class LoginPresenter(
         this.password = password
         when {
             password.isBlank() -> view?.setLoginButtonDisabled()
-            login.isNotBlank() -> view?.apply {
+            phone.isNotBlank() -> view?.apply {
                 setLoginButtonEnabled()
                 showClearPasswordButton()
             }
@@ -67,12 +67,12 @@ class LoginPresenter(
         }
     }
 
-    override fun onLoginClearClicked() {
-        login = ""
+    override fun onPhoneClearClicked() {
+        phone = ""
         view?.apply {
-            setLogin(login)
+            setPhone(phone)
             setLoginButtonDisabled()
-            hideClearLoginButton()
+            hideClearPhoneButton()
         }
     }
 
@@ -90,7 +90,7 @@ class LoginPresenter(
     }
 
     override fun onForgotPasswordClicked() {
-        view?.openRecoveryPassword()
+        view?.openRecoveryPassword(phone)
     }
 
     override fun onSelectCountryClicked() {
@@ -105,7 +105,7 @@ class LoginPresenter(
 
     private fun login() {
         view?.showProgressForLogin()
-        loginInteractor.login(login, password)
+        loginInteractor.login(phone, password)
             .subscribe({ isSuccessful ->
                 if (isSuccessful) {
                     view?.hideProgressForLoginWithSuccess()
@@ -133,8 +133,8 @@ class LoginPresenter(
     private fun getLastLogin() {
         loginInteractor.getLastLogin()
             .subscribe({ lastLogin ->
-                login = lastLogin
-                view?. setLogin(login)
+                phone = lastLogin
+                view?.setPhone(phone)
             }, { error ->
                 logger.error("get last login error occurred", error)
                 view?.apply {

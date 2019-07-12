@@ -44,7 +44,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView
-        android:id="@+id/login_clear_button"
+        android:id="@+id/phone_clear_button"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:background="?selectableItemBackgroundBorderless"

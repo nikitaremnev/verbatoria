@@ -2,6 +2,8 @@ package com.verbatoria.domain.authorization
 
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.AuthorizationEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.params.LoginParamsDto
+import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.params.RecoveryPasswordParamsDto
+import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.params.ResetPasswordParamsDto
 
 /**
  * @author n.remnev
@@ -10,6 +12,10 @@ import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.para
 interface AuthorizationManager {
 
     fun login(phone: String, password: String): Boolean
+
+    fun recoveryPassword(phone: String)
+
+    fun resetPassword(phone: String, recoveryHash: String, password: String)
 
     fun getLastLogin(): String
 
@@ -32,6 +38,24 @@ class AuthorizationManagerImpl(
             )
         )
         return true
+    }
+
+    override fun recoveryPassword(phone: String) {
+        authorizationEndpoint.recoveryPassword(
+            RecoveryPasswordParamsDto(
+                phone = phone
+            )
+        )
+    }
+
+    override fun resetPassword(phone: String, recoveryHash: String, password: String) {
+        authorizationEndpoint.resetPassword(
+            ResetPasswordParamsDto(
+                phone = phone,
+                recoveryHash = recoveryHash,
+                password = password
+            )
+        )
     }
 
     override fun getLastLogin(): String =
