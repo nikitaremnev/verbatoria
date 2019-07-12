@@ -16,6 +16,8 @@ interface RecoveryPasswordInteractor {
 
     fun recoveryPassword(phone: String): Completable
 
+    fun resetPassword(phone: String, confirmationCode: String, newPassword: String): Completable
+
 }
 
 class RecoveryPasswordInteractorImpl(
@@ -38,5 +40,17 @@ class RecoveryPasswordInteractorImpl(
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
+
+    override fun resetPassword(
+        phone: String,
+        confirmationCode: String,
+        newPassword: String
+    ): Completable =
+        Completable.fromCallable {
+            authorizationManager.resetPassword(phone, confirmationCode, newPassword)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
 
 }

@@ -5,9 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
-import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.recovery_password.RecoveryPasswordComponent
 import com.verbatoria.infrastructure.extensions.hide
@@ -16,12 +16,16 @@ import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.login.LoginActivity
 import com.verbatoria.utils.CountryHelper
+import android.os.Handler
+import com.remnev.verbatoria.R
+
 
 /**
  * @author n.remnev
  */
 
 private const val PHONE_FROM_LOGIN_EXTRA = "PHONE_FROM_LOGIN_EXTRA"
+private const val START_LOGIN_DELAY = 1500L
 
 interface RecoveryPasswordView : BaseView {
 
@@ -67,9 +71,27 @@ interface RecoveryPasswordView : BaseView {
 
     fun setSubmitButtonDisabled()
 
+    fun showProgressForRecoveryPassword()
+
+    fun hideProgressForRecoveryPassword()
+
+    fun showProgressForResetPassword()
+
+    fun hideProgressForResetPassword()
+
+    fun setSendCodeTitleToSubmitButton()
+
+    fun setCheckCodeTitleToSubmitButton()
+
+    fun setSetNewPasswordTitleToSubmitButton()
+
+    fun showResetPasswordSuccess()
+
     fun showError(error: String)
 
     fun openLogin()
+
+    fun openLoginWithTimeout()
 
     interface Callback {
 
@@ -267,6 +289,7 @@ class RecoveryPasswordActivity :
                 object : MaskedTextChangedListener.ValueListener {
 
                     override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
+                        Log.e("test", "RecoveryPasswordActivity extractedValue $extractedValue")
                         presenter.onPhoneTextChanged(extractedValue)
                     }
 
@@ -341,13 +364,71 @@ class RecoveryPasswordActivity :
         submitButton.isEnabled = false
     }
 
+    override fun showProgressForRecoveryPassword() {
+        phoneEditText.isEnabled = false
+        clearPhoneImageView.isEnabled = false
+        submitButton.isEnabled = false
+        rememberPasswordTextView.isEnabled = false
+        progressBar.show()
+    }
+
+    override fun hideProgressForRecoveryPassword() {
+        phoneEditText.isEnabled = true
+        clearPhoneImageView.isEnabled = true
+        submitButton.isEnabled = true
+        rememberPasswordTextView.isEnabled = true
+        progressBar.hide()
+    }
+
+    override fun showProgressForResetPassword() {
+        newPasswordEditText.isEnabled = false
+        repeatNewPasswordEditText.isEnabled = false
+        clearNewPasswordImageView.isEnabled = false
+        clearRepeatNewPasswordImageView.isEnabled = false
+        submitButton.isEnabled = false
+        rememberPasswordTextView.isEnabled = false
+        progressBar.show()
+    }
+
+    override fun hideProgressForResetPassword() {
+        newPasswordEditText.isEnabled = true
+        repeatNewPasswordEditText.isEnabled = true
+        clearNewPasswordImageView.isEnabled = true
+        clearRepeatNewPasswordImageView.isEnabled = true
+        submitButton.isEnabled = true
+        rememberPasswordTextView.isEnabled = true
+        progressBar.hide()
+    }
+
+    override fun setSendCodeTitleToSubmitButton() {
+        submitButton.text = getString(R.string.recovery_password_check_code)
+    }
+
+    override fun setCheckCodeTitleToSubmitButton() {
+        submitButton.text = getString(R.string.recovery_password_next)
+    }
+
+    override fun setSetNewPasswordTitleToSubmitButton() {
+        submitButton.text = getString(R.string.recovery_password_send_new_password)
+    }
+
+    override fun showResetPasswordSuccess() {
+        showSnackbar(getString(R.string.recovery_password_reset_success))
+    }
+
     override fun showError(error: String) {
-        showErrorSnackbar(error)
+        showShortHintSnackbar(error)
     }
 
     override fun openLogin() {
         startActivity(LoginActivity.createIntent(this))
         finish()
+    }
+
+    override fun openLoginWithTimeout() {
+        Handler().postDelayed({
+            openLogin()
+        }, START_LOGIN_DELAY)
     }
 
     //endregion

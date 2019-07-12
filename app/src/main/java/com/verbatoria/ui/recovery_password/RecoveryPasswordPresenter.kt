@@ -13,6 +13,12 @@ class RecoveryPasswordPresenter(
     private val recoveryPasswordInteractor: RecoveryPasswordInteractor
 ) : BasePresenter<RecoveryPasswordView>(), RecoveryPasswordView.Callback {
 
+    enum class RecoveryPasswordState {
+
+        PHONE, CONFIRMATION_CODE, NEW_PASSWORD
+
+    }
+
     private val logger = LoggerFactory.getLogger("RecoveryPasswordPresenter")
 
     private var phone: String = phoneFromLogin
@@ -21,6 +27,8 @@ class RecoveryPasswordPresenter(
     private var repeatNewPassword: String = ""
 
     private var country: String = ""
+
+    private var recoveryPasswordState = RecoveryPasswordState.PHONE
 
     init {
         getCurrentCountry()
@@ -32,6 +40,12 @@ class RecoveryPasswordPresenter(
             view.setPhoneFormatterBasedOnCountry(country)
         }
         view.setPhone(phone)
+
+        when (recoveryPasswordState) {
+            RecoveryPasswordState.PHONE -> setPhoneRecoveryPasswordState()
+            RecoveryPasswordState.CONFIRMATION_CODE -> setConfirmationCodeRecoveryPasswordState()
+            RecoveryPasswordState.NEW_PASSWORD -> setNewPasswordRecoveryPasswordState()
+        }
     }
 
     //region RecoveryPasswordView.Callback
@@ -144,7 +158,14 @@ class RecoveryPasswordPresenter(
     }
 
     override fun onSubmitButtonClicked() {
-        recoveryPassword()
+        when (recoveryPasswordState) {
+            RecoveryPasswordState.PHONE -> recoveryPassword()
+            RecoveryPasswordState.CONFIRMATION_CODE -> {
+                recoveryPasswordState = RecoveryPasswordState.NEW_PASSWORD
+                setNewPasswordRecoveryPasswordState()
+            }
+            RecoveryPasswordState.NEW_PASSWORD -> resetPassword()
+        }
     }
 
     //endregion
@@ -162,14 +183,71 @@ class RecoveryPasswordPresenter(
     }
 
     private fun recoveryPassword() {
+        view?.showProgressForRecoveryPassword()
         recoveryPasswordInteractor.recoveryPassword(phone)
             .subscribe({
-
+                recoveryPasswordState = RecoveryPasswordState.CONFIRMATION_CODE
+                view?.hideProgressForRecoveryPassword()
+                setConfirmationCodeRecoveryPasswordState()
             }, { error ->
                 logger.error("get current country error occurred", error)
-                view?.showError(error.message ?: "Send confirmation code error occurred")
+                view?.apply {
+                    showError(error.message ?: "Send confirmation code error occurred")
+                    hideProgressForRecoveryPassword()
+                }
             })
             .let(::addDisposable)
+    }
+
+    private fun resetPassword() {
+        view?.showProgressForResetPassword()
+        recoveryPasswordInteractor.resetPassword(phone, confirmationCode, newPassword)
+            .subscribe({
+                view?.apply {
+                    showResetPasswordSuccess()
+                    openLoginWithTimeout()
+                }
+            }, { error ->
+                logger.error("get current country error occurred", error)
+                confirmationCode = ""
+                view?.apply {
+                    showError(error.message ?: "Send confirmation code error occurred")
+                    hideProgressForResetPassword()
+                    hideClearConfirmationCodeButton()
+                    setConfirmationCode(confirmationCode)
+                }
+                setConfirmationCodeRecoveryPasswordState()
+            })
+            .let(::addDisposable)
+    }
+
+    private fun setPhoneRecoveryPasswordState() {
+        view?.apply {
+            hideConfirmationCodeField()
+            hideNewPasswordFields()
+            showPhoneField()
+            setSendCodeTitleToSubmitButton()
+        }
+    }
+
+    private fun setConfirmationCodeRecoveryPasswordState() {
+        view?.apply {
+            hidePhoneField()
+            hideNewPasswordFields()
+            showConfirmationCodeField()
+            setCheckCodeTitleToSubmitButton()
+            setSubmitButtonDisabled()
+        }
+    }
+
+    private fun setNewPasswordRecoveryPasswordState() {
+        view?.apply {
+            hidePhoneField()
+            hideConfirmationCodeField()
+            showNewPasswordFields()
+            setSetNewPasswordTitleToSubmitButton()
+            setSubmitButtonDisabled()
+        }
     }
 
 }

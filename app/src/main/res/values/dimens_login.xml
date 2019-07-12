@@ -8,8 +8,9 @@
     <dimen name="login_field_padding">16dp</dimen>
     <dimen name="login_field_padding_right">56dp</dimen>
     <dimen name="login_fields_between_margin">8dp</dimen>
-    <dimen name="login_fields_top_margin">32dp</dimen>
     <dimen name="login_fields_clear_button_padding_horizontal">16dp</dimen>
+
+    <dimen name="login_logo_bottom_margin">32dp</dimen>
 
     <dimen name="login_field_corner_radius">4dp</dimen>
     <dimen name="login_field_text_size">16sp</dimen>

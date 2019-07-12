@@ -22,9 +22,11 @@
     <string name="recovery_password_confirmation_code">Код подтверждения</string>
     <string name="recovery_password_new_password">Новый пароль</string>
     <string name="recovery_password_new_password_repeat">Повторите пароль</string>
-    <string name="recovery_password_send_code">Отправить код</string>
+    <string name="recovery_password_check_code">Отправить код</string>
+    <string name="recovery_password_next">Далее</string>
     <string name="recovery_password_send_new_password">Задать новый пароль</string>
     <string name="recovery_password_remember_password">Я вспомнил пароль!</string>
+    <string name="recovery_password_reset_success">Пароль успешно изменен</string>
 
     <string name="country_russia">Россия</string>
     <string name="country_belarus">Беларусь</string>

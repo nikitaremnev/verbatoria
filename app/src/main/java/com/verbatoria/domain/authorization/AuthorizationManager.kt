@@ -15,7 +15,7 @@ interface AuthorizationManager {
 
     fun recoveryPassword(phone: String)
 
-    fun resetPassword(phone: String, recoveryHash: String, password: String)
+    fun resetPassword(phone: String, confirmationCode: String, password: String)
 
     fun getLastLogin(): String
 
@@ -42,16 +42,16 @@ class AuthorizationManagerImpl(
     override fun recoveryPassword(phone: String) {
         authorizationEndpoint.recoveryPassword(
             RecoveryPasswordParamsDto(
-                phone = phone
+                phone = processPhone(phone)
             )
         )
     }
 
-    override fun resetPassword(phone: String, recoveryHash: String, password: String) {
+    override fun resetPassword(phone: String, confirmationCode: String, password: String) {
         authorizationEndpoint.resetPassword(
             ResetPasswordParamsDto(
-                phone = phone,
-                recoveryHash = recoveryHash,
+                phone = processPhone(phone),
+                recoveryHash = confirmationCode,
                 password = password
             )
         )
@@ -68,6 +68,6 @@ class AuthorizationManagerImpl(
     }
 
     private fun processPhone(phone: String): String =
-        phone.replace("[-,. )(]".toRegex(), "")
+        "+" + phone.replace("[-,. )(]".toRegex(), "")
 
 }
