@@ -230,7 +230,9 @@ class RecoveryPasswordPresenter(
             setSendCodeTitleToSubmitButton()
             if (phone.isNotBlank()) {
                 setSubmitButtonEnabled()
+                showClearPhoneButton()
             } else {
+                hideClearPhoneButton()
                 setSubmitButtonDisabled()
             }
         }
@@ -244,7 +246,9 @@ class RecoveryPasswordPresenter(
             setCheckCodeTitleToSubmitButton()
             if (confirmationCode.isNotBlank()) {
                 setSubmitButtonEnabled()
+                showClearConfirmationCodeButton()
             } else {
+                hideClearConfirmationCodeButton()
                 setSubmitButtonDisabled()
             }
         }
@@ -258,7 +262,19 @@ class RecoveryPasswordPresenter(
             setSetNewPasswordTitleToSubmitButton()
             if (newPassword.isNotBlank() && newPassword == repeatNewPassword) {
                 setSubmitButtonEnabled()
+                showClearNewPasswordButton()
+                showClearRepeatNewPasswordButton()
             } else {
+                if (newPassword.isNotBlank()) {
+                    showClearNewPasswordButton()
+                } else {
+                    hideClearNewPasswordButton()
+                }
+                if (repeatNewPassword.isNotBlank()) {
+                    showClearRepeatNewPasswordButton()
+                } else {
+                    hideClearRepeatNewPasswordButton()
+                }
                 setSubmitButtonDisabled()
             }
         }

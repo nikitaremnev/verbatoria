@@ -33,11 +33,32 @@ class LoginPresenter(
         if (country.isNotBlank()) {
             view.setCurrentCountry(country)
         }
+
+        if (phone.isNotBlank() && password.isNotBlank()) {
+            view.apply {
+                showClearPhoneButton()
+                showClearPasswordButton()
+                setLoginButtonEnabled()
+            }
+        } else {
+            view.setLoginButtonDisabled()
+            if (phone.isNotBlank()) {
+                view.showClearPhoneButton()
+            } else {
+                view.hideClearPhoneButton()
+            }
+            if (password.isNotBlank()) {
+                view.showClearPasswordButton()
+            } else {
+                view.hideClearPasswordButton()
+            }
+        }
     }
 
     //region LoginView.Callback
 
     override fun onPhoneTextChanged(phone: String) {
+        if (phone == this.phone) return
         this.phone = phone
         when {
             this.phone.isBlank() -> view?.setLoginButtonDisabled()
@@ -53,6 +74,7 @@ class LoginPresenter(
     }
 
     override fun onPasswordTextChanged(password: String) {
+        if (password == this.password) return
         this.password = password
         when {
             password.isBlank() -> view?.setLoginButtonDisabled()
