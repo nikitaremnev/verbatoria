@@ -32,6 +32,7 @@ class LoginInteractorImpl(
     override fun login(phone: String, password: String): Completable =
         Completable.fromCallable {
             authorizationManager.login(phone, password)
+            authorizationManager.saveLastLogin(phone)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

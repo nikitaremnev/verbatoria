@@ -19,6 +19,8 @@ interface AuthorizationManager {
 
     fun getLastLogin(): String
 
+    fun saveLastLogin(phone: String)
+
     fun getCurrentCountry(): String
 
     fun saveCurrentCountry(country: String)
@@ -59,6 +61,10 @@ class AuthorizationManagerImpl(
 
     override fun getLastLogin(): String =
         authorizationRepository.getLastLogin()
+
+    override fun saveLastLogin(phone: String) {
+        authorizationRepository.putLastLogin(phone)
+    }
 
     override fun getCurrentCountry(): String =
         authorizationRepository.getCurrentCountry()

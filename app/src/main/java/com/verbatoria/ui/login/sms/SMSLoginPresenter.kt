@@ -1,9 +1,8 @@
-package com.verbatoria.ui.sms_login
+package com.verbatoria.ui.login.sms
 
-import android.os.Bundle
-import com.verbatoria.business.login.AuthorizationInteractor
+import com.verbatoria.business.login.sms.SMSLoginInteractor
 import com.verbatoria.data.network.response.SMSConfirmationResponseModel
-import com.verbatoria.infrastructure.BasePresenter
+import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.utils.DateUtils
 import java.util.*
 
@@ -13,24 +12,12 @@ import java.util.*
 
 private const val WAS_REPEAT_BUTTON_SHOWED_EXTRA = "repeatButton"
 
-interface SMSConfirmationPresenter {
-
-    fun bindView(smsConfirmationView: SMSConfirmationView)
-    fun unbindView()
-
-    fun getCountry(): String
-
-}
-
-class SMSConfirmationPresenterImpl(
-    private val loginInteractor: AuthorizationInteractor
-) : BasePresenter(),
-    SMSConfirmationPresenter, SMSConfirmationView.Callback {
+class SMSLoginPresenter(
+    private val smsLoginInteractor: SMSLoginInteractor
+) : BasePresenter<SMSLoginView>(), SMSLoginView.Callback {
 
     //3 minutes
     private val SMS_AGAIN_INTERVAL = (1000 * 60 * 3).toLong()
-
-    private var mSmsConfirmationView: SMSConfirmationView? = null
 
     private var phone: String? = null
 
@@ -48,45 +35,28 @@ class SMSConfirmationPresenterImpl(
 
     private var repeatSMSTimerTask: TimerTask = createTimerTask()
 
-    override fun bindView(smsConfirmationView: SMSConfirmationView) {
-        mSmsConfirmationView = smsConfirmationView
-        phone = smsConfirmationView.getPhone()
+    override fun onAttachView(view: SMSLoginView) {
+        super.onAttachView(view)
+//        lastSMSSendTime = smsLoginInteractor.lastSmsConfirmationTimeInMillis
+//        if (phone != null) {
+//            isPhoneFilled = true
+//            isFromLogin = true
+//            checkSmsConfirmationLastTimeIsOk()
+//        } else {
+//            val lastLogin = smsLoginInteractor.lastLogin
+//            if (lastLogin.isNullOrEmpty()) {
+//                isFromLogin = false
+//                view.showPhoneInput()
+//            } else {
+//                phone = lastLogin
+//                isPhoneFilled = true
+//                isFromLogin = true
+//                checkSmsConfirmationLastTimeIsOk()
+//            }
+//        }
     }
 
-    override fun onStart() {
-        super.onStart()
-        lastSMSSendTime = loginInteractor.lastSmsConfirmationTimeInMillis
-        if (phone != null) {
-            isPhoneFilled = true
-            isFromLogin = true
-            checkSmsConfirmationLastTimeIsOk()
-        } else {
-            val lastLogin = loginInteractor.lastLogin
-            if (lastLogin.isNullOrEmpty()) {
-                isFromLogin = false
-                mSmsConfirmationView?.showPhoneInput()
-            } else {
-                phone = lastLogin
-                isPhoneFilled = true
-                isFromLogin = true
-                checkSmsConfirmationLastTimeIsOk()
-            }
-        }
-    }
-
-    override fun unbindView() {
-        mSmsConfirmationView = null
-    }
-
-    override fun getCountry(): String = loginInteractor.country
-
-    override fun saveState(outState: Bundle?) {
-        outState?.putBoolean(WAS_REPEAT_BUTTON_SHOWED_EXTRA, wasRepeatButtonShowed)
-    }
-
-    override fun restoreState(savedInstanceState: Bundle?) {
-        wasRepeatButtonShowed = savedInstanceState?.getBoolean(WAS_REPEAT_BUTTON_SHOWED_EXTRA, false) ?: false
-    }
+//    fun getCountry(): String = smsLoginInteractor.country
 
     //region SMSConfirmationView.Callback
 
@@ -95,16 +65,15 @@ class SMSConfirmationPresenterImpl(
             repeatSMSTimerTask.cancel()
             updateTimeTimer?.cancel()
             updateTimeTimer = null
-            mSmsConfirmationView?.stopTimer()
-
-            loginInteractor.updateLastSmsConfirmationTime(0L)
-            loginInteractor.saveSMSConfirmationCode(0L)
-
+            view?.stopTimer()
+//
+//            smsLoginInteractor.updateLastSmsConfirmationTime(0L)
+//            smsLoginInteractor.saveSMSConfirmationCode(0L)
 
             if (isFromLogin) {
-                mSmsConfirmationView?.startDashboard()
+                view?.startDashboard()
             } else {
-                mSmsConfirmationView?.close()
+                view?.close()
             }
         }
     }
@@ -118,7 +87,7 @@ class SMSConfirmationPresenterImpl(
 
     override fun onSendSMSCodeClicked() {
         if (phone == null || !isPhoneFilled) {
-            mSmsConfirmationView?.showPhoneNotFullError()
+            view?.showPhoneNotFullError()
         } else {
 //            addSubscription(
 //                loginInteractor.sendSMSConfirmation(phone, "")
@@ -142,12 +111,12 @@ class SMSConfirmationPresenterImpl(
     override fun onCheckSMSCodeClicked(confirmationCode: String) {
         if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
             if (isFromLogin) {
-                mSmsConfirmationView?.startDashboard()
+                view?.startDashboard()
             } else {
-                mSmsConfirmationView?.close()
+                view?.close()
             }
         } else {
-            mSmsConfirmationView?.showCodeConfirmationError()
+            view?.showCodeConfirmationError()
         }
     }
 
@@ -157,15 +126,15 @@ class SMSConfirmationPresenterImpl(
         if (System.currentTimeMillis() - lastSMSSendTime < SMS_AGAIN_INTERVAL) {
             restartTimer()
 
-            confirmCode = loginInteractor.smsConfirmationCode
-            mSmsConfirmationView?.showCodeInput()
-            mSmsConfirmationView?.hideRepeatButton()
+//            confirmCode = smsLoginInteractor.smsConfirmationCode
+            view?.showCodeInput()
+            view?.hideRepeatButton()
         } else {
             if (!wasRepeatButtonShowed) {
                 onSendSMSCodeClicked()
             } else {
-                mSmsConfirmationView?.showCodeInput()
-                mSmsConfirmationView?.showRepeatButton()
+                view?.showCodeInput()
+                view?.showRepeatButton()
             }
         }
     }
@@ -173,13 +142,13 @@ class SMSConfirmationPresenterImpl(
     private fun handleSMSCodeSent(response: SMSConfirmationResponseModel) {
         lastSMSSendTime = System.currentTimeMillis()
 
-        loginInteractor.updateLastSmsConfirmationTime(lastSMSSendTime)
-        loginInteractor.saveSMSConfirmationCode(response.code)
+//        smsLoginInteractor.updateLastSmsConfirmationTime(lastSMSSendTime)
+//        smsLoginInteractor.saveSMSConfirmationCode(response.code)
 
         confirmCode = response.code
-        mSmsConfirmationView?.showCodeInput()
-        mSmsConfirmationView?.showCodeSent()
-        mSmsConfirmationView?.hideRepeatButton()
+        view?.showCodeInput()
+        view?.showCodeSent()
+        view?.hideRepeatButton()
         wasRepeatButtonShowed = false
 
         restartTimer()
@@ -187,7 +156,7 @@ class SMSConfirmationPresenterImpl(
 
     private fun handleSMSCodeSendingError(throwable: Throwable) {
         throwable.printStackTrace()
-        mSmsConfirmationView?.showCodeSentError()
+        view?.showCodeSentError()
     }
 
     private fun restartTimer() {
@@ -206,12 +175,12 @@ class SMSConfirmationPresenterImpl(
                     val timeDifference = System.currentTimeMillis() - lastSMSSendTime
                     val date = Date(SMS_AGAIN_INTERVAL - timeDifference)
                     if (timeDifference < SMS_AGAIN_INTERVAL) {
-                        mSmsConfirmationView?.updateTimer(DateUtils.timeToString(date))
+                        view?.updateTimer(DateUtils.timeToString(date))
                     } else {
                         cancel()
                         updateTimeTimer?.cancel()
                         updateTimeTimer = null
-                        mSmsConfirmationView?.stopTimer()
+                        view?.stopTimer()
                         wasRepeatButtonShowed = true
                     }
                 }

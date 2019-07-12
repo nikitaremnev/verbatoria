@@ -18,7 +18,7 @@ import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.view.DashboardActivity
 import com.verbatoria.ui.recovery_password.RecoveryPasswordActivity
-import com.verbatoria.ui.sms_login.SMSConfirmationActivity
+import com.verbatoria.ui.login.sms.SMSLoginActivity
 import com.verbatoria.utils.CountryHelper
 
 /**
@@ -173,7 +173,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
                 //my account
                 phoneEditText.setText("79153974689")
-                passwordEditText.setText("123474858")
+                passwordEditText.setText("12345")
 
                 //school testing
 //                loginEditText.setText("81234567895")
@@ -292,7 +292,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun openSMSConfirmation() {
-        startActivity(SMSConfirmationActivity.newInstance(this))
+        startActivity(SMSLoginActivity.newInstance(this))
         finish()
     }
 

@@ -2,7 +2,7 @@ package com.verbatoria.business.session.activities;
 
 import android.content.Context;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.ui.sms_login.SMSConfirmationActivity;
+import com.verbatoria.ui.login.sms.SMSLoginActivity;
 import javax.inject.Inject;
 
 /**
@@ -40,7 +40,7 @@ public class UserInteractionTimerTask {
 
     private void startSMSConfirmation() {
         if (!isSmsConfirmationStarted) {
-            mContext.startActivity(SMSConfirmationActivity.Companion.newInstance(mContext));
+            mContext.startActivity(SMSLoginActivity.Companion.newInstance(mContext));
         }
         isSmsConfirmationStarted = true;
     }

@@ -88,7 +88,7 @@
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.ui.sms_login.SMSConfirmationActivity"
+            android:name="com.verbatoria.ui.login.sms.SMSLoginActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 

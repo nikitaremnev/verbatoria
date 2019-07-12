@@ -1,4 +1,4 @@
-package com.verbatoria.ui.sms_login
+package com.verbatoria.ui.login.sms
 
 import android.content.Context
 import android.content.Intent
@@ -12,18 +12,19 @@ import android.widget.TextView
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaApplication
-import com.verbatoria.di.login.AuthorizationModule
-import com.verbatoria.infrastructure.BaseActivity
-import com.verbatoria.infrastructure.BasePresenter
+import com.verbatoria.di.Injector
+import com.verbatoria.di.login.sms.SMSLoginComponent
+import com.verbatoria.ui.base.BasePresenterActivity
+import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.view.DashboardActivity
+import com.verbatoria.utils.CountryHelper
 import com.verbatoria.utils.Helper
-import javax.inject.Inject
 
 /**
  * @author n.remnev
  */
 
-interface SMSConfirmationView {
+interface SMSLoginView : BaseView {
 
     fun showProgress()
 
@@ -73,24 +74,22 @@ interface SMSConfirmationView {
 
 }
 
-class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextChangedListener.ValueListener {
+class SMSLoginActivity : BasePresenterActivity<SMSLoginView, SMSLoginPresenter, SMSLoginActivity, SMSLoginComponent>(),
+    SMSLoginView {
 
     companion object {
 
         private const val PHONE_EXTRA = "phone_extra"
 
         fun newInstance(context: Context, phone: String): Intent =
-            Intent(context, SMSConfirmationActivity::class.java)
+            Intent(context, SMSLoginActivity::class.java)
                 .putExtra(PHONE_EXTRA, phone)
 
         fun newInstance(context: Context): Intent =
-            Intent(context, SMSConfirmationActivity::class.java)
+            Intent(context, SMSLoginActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
     }
-
-    @Inject
-    lateinit var presenter: SMSConfirmationPresenter
 
     private lateinit var phoneEditText: EditText
     private lateinit var codeEditText: EditText
@@ -99,32 +98,15 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
     private lateinit var submitButton: Button
     private lateinit var progressView: View
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        VerbatoriaApplication
-            .getInjector()
-            .addModule(AuthorizationModule())
-            .inject(this)
+    //region BasePresenterActivity
 
-        //initialize views
-        setContentView(R.layout.activity_sms_confirmation)
+    override fun getLayoutResourceId(): Int = R.layout.activity_sms_login
 
-        //bind views
-        setPresenter(presenter as BasePresenter)
+    override fun buildComponent(injector: Injector, savedState: Bundle?): SMSLoginComponent =
+        injector.plusSMSLoginComponent()
+            .build()
 
-        super.onCreate(savedInstanceState)
-
-        presenter.bindView(this)
-    }
-
-    override fun onBackPressed() {
-        //empty
-    }
-
-    override fun onUserInteraction() {
-        //empty
-    }
-
-    override fun setUpViews() {
+    override fun initViews(savedState: Bundle?) {
         phoneEditText = findViewById(R.id.phone_edit_text)
         codeEditText = findViewById(R.id.code_edit_text)
         submitButton = findViewById(R.id.submit_button)
@@ -136,7 +118,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
         codeEditText.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable?) {
-                (presenter as SMSConfirmationView.Callback).onConfirmationCodeTextChanged(s.toString())
+                presenter.onConfirmationCodeTextChanged(s.toString())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -149,9 +131,19 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
 
         })
         repeatTextView.setOnClickListener {
-            (presenter as SMSConfirmationView.Callback).onRepeatSMSClicked()
+            presenter.onRepeatSMSClicked()
         }
     }
+
+    override fun onBackPressed() {
+        //empty
+    }
+
+    override fun onUserInteraction() {
+        //empty
+    }
+
+    //endregion
 
     override fun getPhone(): String? = intent.getStringExtra(PHONE_EXTRA)
 
@@ -170,7 +162,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
         phoneEditText.visibility = View.VISIBLE
         submitButton.text = getString(R.string.recovery_password_check_code)
         submitButton.setOnClickListener {
-            (presenter as SMSConfirmationView.Callback).onSendSMSCodeClicked()
+            presenter.onSendSMSCodeClicked()
         }
     }
 
@@ -179,7 +171,7 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
         codeEditText.visibility = View.VISIBLE
         submitButton.text = getString(R.string.sms_confirmation_confirm)
         submitButton.setOnClickListener {
-            (presenter as SMSConfirmationView.Callback).onCheckSMSCodeClicked(codeEditText.text.toString())
+            presenter.onCheckSMSCodeClicked(codeEditText.text.toString())
         }
     }
 
@@ -237,38 +229,21 @@ class SMSConfirmationActivity : BaseActivity(), SMSConfirmationView, MaskedTextC
     }
 
     private fun setUpPhoneFormatter() {
-        val country = presenter.getCountry()
-        val formatterResource: Int
-
-        formatterResource = when (country) {
-            getString(R.string.country_russia) -> R.string.login_russia_phone_mask
-            getString(R.string.country_ukraine) -> R.string.login_ukraine_phone_mask
-            getString(R.string.country_azerbaijan) -> R.string.login_azerbaijan_phone_mask
-            getString(R.string.country_thailand) -> R.string.login_thailand_phone_mask
-            getString(R.string.country_belarus) -> R.string.login_belarus_phone_mask
-            getString(R.string.country_israel) -> R.string.login_israel_phone_mask
-            getString(R.string.country_uae) -> R.string.login_uae_phone_mask
-            else -> R.string.login_uzbekistan_phone_mask
-        }
-
+        val country = ""
         val listener = MaskedTextChangedListener(
-            getString(formatterResource),
+            CountryHelper.getPhoneFormatterByCountry(this, country),
             true,
             phoneEditText,
             null,
-            this
+            object : MaskedTextChangedListener.ValueListener {
+                override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
+                    presenter.onPhoneTextChanged(maskFilled, extractedValue)
+                }
+            }
         )
 
         phoneEditText.addTextChangedListener(listener)
         phoneEditText.onFocusChangeListener = listener
     }
-
-    //region MaskedTextChangedListener.ValueListener
-
-    override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
-        (presenter as SMSConfirmationView.Callback).onPhoneTextChanged(maskFilled, extractedValue)
-    }
-
-    //endregion
 
 }

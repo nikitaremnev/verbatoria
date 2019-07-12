@@ -14,9 +14,8 @@ import com.verbatoria.di.common.CommonModule
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.DashboardModule
 import com.verbatoria.di.late_send.LateSendComponent
-import com.verbatoria.di.login.AuthorizationComponent
-import com.verbatoria.di.login.AuthorizationModule
 import com.verbatoria.di.login.LoginComponent
+import com.verbatoria.di.login.sms.SMSLoginComponent
 import com.verbatoria.di.recovery_password.RecoveryPasswordComponent
 import com.verbatoria.di.schedule.ScheduleComponent
 import com.verbatoria.di.schedule.ScheduleModule
@@ -66,8 +65,6 @@ interface Injector : TokenComponentInjects {
 
     fun inject(sessionService: SessionService)
 
-    fun addModule(loginModule: AuthorizationModule): AuthorizationComponent
-
     fun addModule(dashboardModule: DashboardModule): DashboardComponent
 
     fun addModule(sessionModule: SessionModule): SessionComponent
@@ -81,6 +78,8 @@ interface Injector : TokenComponentInjects {
     fun plusLateSendComponent(): LateSendComponent.Builder
 
     fun plusLoginComponent(): LoginComponent.Builder
+
+    fun plusSMSLoginComponent(): SMSLoginComponent.Builder
 
     fun plusRecoveryPasswordComponent(): RecoveryPasswordComponent.Builder
 
