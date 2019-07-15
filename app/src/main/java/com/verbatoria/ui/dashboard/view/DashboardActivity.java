@@ -8,8 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import com.remnev.verbatoria.R;
-import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.ui.blocked.BlockedFragment;
 import com.verbatoria.ui.calendar.view.CalendarFragment;
@@ -49,7 +47,6 @@ public class DashboardActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
 
         setContentView(R.layout.activity_dashboard);
 

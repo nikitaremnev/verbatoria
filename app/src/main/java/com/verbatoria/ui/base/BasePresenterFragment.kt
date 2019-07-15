@@ -1,8 +1,10 @@
 package com.verbatoria.ui.base
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.View
+import com.remnev.verbatoria.R
 import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.BaseInjector
 import javax.inject.Inject
@@ -69,5 +71,72 @@ abstract class BasePresenterFragment<PresenterView : BaseView, in ParentComponen
         parentComponent: ParentComponent,
         savedState: Bundle?
     ): ChildComponent
+
+    //region BaseView
+
+    override fun showSnackbar(text: String) {
+        activity?.let { activity ->
+            Snackbar
+                .make(activity.findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+                .show()
+        }
+    }
+
+    override fun showHintSnackbar(hintString: String) {
+        activity?.let { activity ->
+            Snackbar.make(
+                activity.findViewById(android.R.id.content),
+                hintString,
+                Snackbar.LENGTH_LONG
+            )
+                .apply {
+                    view.setBackgroundResource(R.color.verbatolog_status_green)
+                    show()
+                }
+        }
+    }
+
+    override fun showShortHintSnackbar(shortHintString: String) {
+        activity?.let { activity ->
+            Snackbar.make(
+                activity.findViewById(android.R.id.content),
+                shortHintString,
+                Snackbar.LENGTH_SHORT
+            ).apply {
+                view.setBackgroundResource(R.color.verbatolog_status_green)
+                show()
+            }
+        }
+    }
+
+    override fun showWarningSnackbar(warningString: String) {
+        activity?.let { activity ->
+            Snackbar.make(
+                activity.findViewById(android.R.id.content),
+                warningString,
+                Snackbar.LENGTH_LONG
+            )
+                .apply {
+                    view.setBackgroundResource(R.color.verbatolog_status_yellow)
+                    show()
+                }
+        }
+    }
+
+    override fun showErrorSnackbar(errorString: String) {
+        activity?.let { activity ->
+            Snackbar.make(
+                activity.findViewById(android.R.id.content),
+                errorString,
+                Snackbar.LENGTH_LONG
+            )
+                .apply {
+                    view.setBackgroundResource(R.color.verbatolog_status_red)
+                    show()
+                }
+        }
+    }
+
+    //endregion
 
 }

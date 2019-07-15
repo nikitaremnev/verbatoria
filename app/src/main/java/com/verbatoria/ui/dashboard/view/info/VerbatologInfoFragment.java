@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.remnev.verbatoria.R;
-import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.LocationModel;
-import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.ui.dashboard.presenter.main.IVerbatologInfoPresenter;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.LocaleHelper;
@@ -86,7 +84,6 @@ public class VerbatologInfoFragment extends Fragment implements IVerbatologInfoV
         super.onViewCreated(view, savedInstanceState);
 
         //bind views
-        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
         mVerbatologInfoPresenter.bindView(this);
         mVerbatologInfoPresenter.updateVerbatologInfo();
         mVerbatologInfoPresenter.updateVerbatologStatus();

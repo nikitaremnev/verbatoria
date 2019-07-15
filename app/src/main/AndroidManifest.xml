@@ -103,6 +103,11 @@
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
 
+        <activity
+            android:name="com.verbatoria.ui.dashboard.DashboardActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="locale"
+            android:theme="@style/FullScreenTheme"/>
 
         <service android:name="com.verbatoria.component.session.SessionService"/>
 

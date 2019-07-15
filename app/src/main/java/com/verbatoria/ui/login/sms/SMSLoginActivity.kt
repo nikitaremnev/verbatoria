@@ -15,7 +15,7 @@ import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
-import com.verbatoria.ui.dashboard.view.DashboardActivity
+import com.verbatoria.ui.dashboard.DashboardActivity
 import com.verbatoria.utils.CountryHelper
 import com.verbatoria.utils.Helper
 

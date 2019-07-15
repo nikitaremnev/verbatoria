@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
-import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.ui.calendar.presenter.ICalendarPresenter;
 import com.verbatoria.ui.calendar.view.detail.EventDetailActivity;
 import com.verbatoria.ui.calendar.view.adapter.EventsAdapter;
@@ -80,7 +79,6 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_calendar, container, false);
         ButterKnife.bind(this, rootView);
-        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
 
         setUpViews();
 

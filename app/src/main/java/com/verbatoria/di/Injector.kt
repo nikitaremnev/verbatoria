@@ -65,8 +65,6 @@ interface Injector : TokenComponentInjects {
 
     fun inject(sessionService: SessionService)
 
-    fun addModule(dashboardModule: DashboardModule): DashboardComponent
-
     fun addModule(sessionModule: SessionModule): SessionComponent
 
     fun addModule(calendarModule: CalendarModule): CalendarComponent
@@ -82,6 +80,8 @@ interface Injector : TokenComponentInjects {
     fun plusSMSLoginComponent(): SMSLoginComponent.Builder
 
     fun plusRecoveryPasswordComponent(): RecoveryPasswordComponent.Builder
+
+    fun plusDashboardComponent(): DashboardComponent.Builder
 
     @Component.Builder
     interface Builder {

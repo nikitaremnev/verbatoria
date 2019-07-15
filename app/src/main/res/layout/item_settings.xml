@@ -1,45 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/settings_item_height"
-    android:background="@color/white">
+    android:background="?selectableItemBackground">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground">
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/logo_image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/image_view_right_margin"
+        android:layout_marginRight="@dimen/image_view_right_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_exit" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_divider_height"
-            android:layout_alignParentBottom="true"
-            android:background="@color/settings_divider_item_color">
-        </View>
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/settings_item_left_padding"
+        android:paddingEnd="@dimen/settings_item_right_padding"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="@color/settings_text_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/logo_image_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Привет" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@android:style/TextAppearance.Small"
-            android:id="@+id/settings_item_text_view"
-            android:textColor="@color/settings_text_color"
-            android:paddingLeft="@dimen/settings_item_left_padding"
-            android:paddingRight="@dimen/settings_item_right_padding"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/settings_item_image_view"
-            tools:text="Привет привет это тестовая херотень" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settings_item_divider_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/settings_divider_item_color"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/settings_item_image_view"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginRight="@dimen/image_view_right_margin"
-            android:layout_marginLeft="@dimen/image_view_right_margin"
-            tools:srcCompat="@drawable/ic_exit"
-            tools:ignore="ContentDescription" />
-
-    </RelativeLayout>
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.di.dashboard.DashboardModule;
 import com.verbatoria.ui.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.ui.late_send.LateSendActivity;
 import com.verbatoria.ui.login.LoginActivity;
@@ -34,26 +33,26 @@ import butterknife.ButterKnife;
 
 public class SettingsFragment extends Fragment implements ISettingsView {
 
-    @Inject
+//    @Inject
     ISettingsPresenter mSettingsPresenter;
 
-    @BindView(R.id.item_settings_schedule)
-    public View mScheduleView;
-
-    @BindView(R.id.item_settings_late_send)
-    public View mLateSendView;
-
-    @BindView(R.id.item_settings_developer)
-    public View mDeveloperView;
-
-    @BindView(R.id.item_settings_clear)
-    public View mClearView;
-
-    @BindView(R.id.item_settings_locale)
-    public View mLocaleView;
-
-    @BindView(R.id.item_settings_quit)
-    public View mQuitView;
+//    @BindView(R.id.item_settings_schedule)
+//    public View mScheduleView;
+//
+//    @BindView(R.id.item_settings_late_send)
+//    public View mLateSendView;
+//
+//    @BindView(R.id.item_settings_developer)
+//    public View mDeveloperView;
+//
+//    @BindView(R.id.item_settings_clear)
+//    public View mClearView;
+//
+//    @BindView(R.id.item_settings_locale)
+//    public View mLocaleView;
+//
+//    @BindView(R.id.item_settings_quit)
+//    public View mQuitView;
 
     private AlertDialog mLanguageDialog;
 
@@ -78,13 +77,12 @@ public class SettingsFragment extends Fragment implements ISettingsView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        VerbatoriaApplication.getInjector().addModule(new DashboardModule()).inject(this);
-        setUpQuitView();
-        setUpScheduleView();
-        setUpLateSendView();
-        setUpDeveloperView();
-        setUpClearView();
-        setUpLocaleView();
+//        setUpQuitView();
+//        setUpScheduleView();
+//        setUpLateSendView();
+//        setUpDeveloperView();
+//        setUpClearView();
+//        setUpLocaleView();
         mSettingsPresenter.bindView(this);
     }
 
@@ -132,7 +130,7 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
     @Override
     public void showDatabaseCleared() {
-        Helper.showHintSnackBar(mClearView, getString(R.string.settings_database_cleared));
+//        Helper.showHintSnackBar(mClearView, getString(R.string.settings_database_cleared));
     }
 
     @Override
@@ -196,54 +194,18 @@ public class SettingsFragment extends Fragment implements ISettingsView {
         Helper.showErrorSnackBar(getView(), getString(R.string.dashboard_update_language_error));
     }
 
-    private void setUpLateSendView() {
-        setUpSettingsItemText(mLateSendView, R.string.late_send_title);
-        setUpSettingsImageView(mLateSendView, R.drawable.ic_report);
-        mLateSendView.setOnClickListener(v -> mSettingsPresenter.onLateSendClicked());
-    }
-
-    private void setUpDeveloperView() {
-        setUpSettingsItemText(mDeveloperView, R.string.settings_item_developer);
-        setUpSettingsImageView(mDeveloperView, R.drawable.ic_developer_info);
-        mDeveloperView.setOnClickListener(v -> mSettingsPresenter.onDeveloperInfoClicked());
-    }
-
-    private void setUpQuitView() {
-        setUpSettingsItemText(mQuitView, R.string.settings_item_quit);
-        setUpSettingsImageView(mQuitView, R.drawable.ic_exit);
-        mQuitView.setOnClickListener(v -> mSettingsPresenter.onQuitClicked());
-    }
-
-    private void setUpScheduleView() {
-        setUpSettingsItemText(mScheduleView, R.string.schedule_title);
-        setUpSettingsImageView(mScheduleView, R.drawable.ic_schedule);
-        mScheduleView.setOnClickListener(v -> mSettingsPresenter.onScheduleClicked());
-    }
-
-    private void setUpClearView() {
-        setUpSettingsItemText(mClearView, R.string.settings_item_clear);
-        setUpSettingsImageView(mClearView, R.drawable.ic_clear);
-        mClearView.setOnClickListener(v -> mSettingsPresenter.onClearDatabaseClicked());
-    }
-
-    private void setUpLocaleView() {
-        setUpSettingsItemText(mLocaleView, R.string.settings_item_locale);
-        setUpSettingsImageView(mLocaleView, R.drawable.ic_location);
-        mLocaleView.setOnClickListener(v -> mSettingsPresenter.onLanguageClicked());
-    }
-
     /*
         Задание текста для итема настроек
      */
     private void setUpSettingsItemText(View settingsView, @StringRes int textResource) {
-        ((TextView) settingsView.findViewById(R.id.settings_item_text_view)).setText(getString(textResource));
+//        ((TextView) settingsView.findViewById(R.id.settings_item_text_view)).setText(getString(textResource));
     }
 
     /*
         Задание картинки для итема настроек
      */
     private void setUpSettingsImageView(View settingsView, @DrawableRes int imageResource) {
-        ((ImageView) settingsView.findViewById(R.id.settings_item_image_view)).setImageResource(imageResource);
+//        ((ImageView) settingsView.findViewById(R.id.settings_item_image_view)).setImageResource(imageResource);
     }
 
     private void setUpFieldView(View fieldView, int imageResource, String title, String subtitle, View.OnClickListener onClickListener) {

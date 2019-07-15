@@ -1,34 +1,5 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context="com.verbatoria.ui.dashboard.view.settings.SettingsFragment">
-
-        <include layout="@layout/item_settings"
-            android:id="@+id/item_settings_schedule"/>
-
-        <include layout="@layout/item_settings"
-            android:id="@+id/item_settings_late_send"/>
-
-        <include layout="@layout/item_settings"
-            android:id="@+id/item_settings_developer"/>
-
-        <include layout="@layout/item_settings"
-            android:id="@+id/item_settings_clear"/>
-
-        <include layout="@layout/item_settings"
-            android:id="@+id/item_settings_locale"/>
-
-        <include layout="@layout/item_settings"
-            android:id="@+id/item_settings_quit"/>
-
-    </LinearLayout>
-
-</ScrollView>
+    android:orientation="vertical" />

@@ -130,7 +130,7 @@ class LoginPresenter(
             .subscribe({
                 view?.hideProgressForLoginWithSuccess()
                 if (BuildConfig.DEBUG) {
-                    view?.openSMSConfirmation(phone)
+                    view?.openDashboard()
                 } else {
                     view?.openSMSConfirmation(phone)
                 }

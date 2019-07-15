@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -17,7 +16,7 @@ import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
-import com.verbatoria.ui.dashboard.view.DashboardActivity
+import com.verbatoria.ui.dashboard.DashboardActivity
 import com.verbatoria.ui.recovery_password.RecoveryPasswordActivity
 import com.verbatoria.ui.login.sms.SMSLoginActivity
 import com.verbatoria.utils.CountryHelper
@@ -241,14 +240,10 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun showClearPhoneButton() {
-        Log.e("test", "LoginPresenter showClearPhoneButton")
-
         phoneClearButton.show()
     }
 
     override fun hideClearPhoneButton() {
-        Log.e("test", "LoginPresenter hideClearPhoneButton")
-
         phoneClearButton.hide()
     }
 
@@ -287,7 +282,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun openDashboard() {
-        startActivity(DashboardActivity.newInstance(this))
+        startActivity(DashboardActivity.createIntent(this))
         finish()
     }
 
