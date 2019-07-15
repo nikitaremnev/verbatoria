@@ -26,8 +26,9 @@ class SMSLoginModule {
     @Provides
     @Reusable
     fun provideSMSLoginPresenter(
+        phoneFromLogin: String,
         smsLoginInteractor: SMSLoginInteractor
     ): SMSLoginPresenter =
-        SMSLoginPresenter(smsLoginInteractor)
+        SMSLoginPresenter(phoneFromLogin, smsLoginInteractor)
 
 }

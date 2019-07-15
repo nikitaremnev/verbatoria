@@ -130,9 +130,9 @@ class LoginPresenter(
             .subscribe({
                 view?.hideProgressForLoginWithSuccess()
                 if (BuildConfig.DEBUG) {
-                    view?.openSMSConfirmation()
+                    view?.openSMSConfirmation(phone)
                 } else {
-                    view?.openSMSConfirmation()
+                    view?.openSMSConfirmation(phone)
                 }
             }, { error ->
                 logger.error("Login error occurred", error)

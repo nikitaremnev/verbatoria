@@ -291,7 +291,6 @@ class RecoveryPasswordActivity :
                 object : MaskedTextChangedListener.ValueListener {
 
                     override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
-                        Log.e("test", "RecoveryPasswordActivity extractedValue $extractedValue")
                         presenter.onPhoneTextChanged(extractedValue)
                     }
 

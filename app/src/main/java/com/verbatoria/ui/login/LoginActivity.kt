@@ -61,7 +61,7 @@ interface LoginView : BaseView {
 
     fun openRecoveryPassword(phone: String)
 
-    fun openSMSConfirmation()
+    fun openSMSConfirmation(phone: String)
 
     interface Callback {
 
@@ -291,8 +291,8 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         finish()
     }
 
-    override fun openSMSConfirmation() {
-        startActivity(SMSLoginActivity.newInstance(this))
+    override fun openSMSConfirmation(phone: String) {
+        startActivity(SMSLoginActivity.createIntent(this, phone))
         finish()
     }
 
