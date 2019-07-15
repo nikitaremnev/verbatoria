@@ -1,6 +1,7 @@
 package com.verbatoria.domain.authorization
 
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.AuthorizationEndpoint
+import com.verbatoria.infrastructure.retrofit.endpoints.authorization.SMSLoginEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.params.LoginParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.params.RecoveryPasswordParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.params.ResetPasswordParamsDto
@@ -17,6 +18,8 @@ interface AuthorizationManager {
 
     fun resetPassword(phone: String, confirmationCode: String, password: String)
 
+    fun sendSMSCode(phone: String, smsText: String): String
+
     fun getLastLogin(): String
 
     fun saveLastLogin(phone: String)
@@ -29,6 +32,7 @@ interface AuthorizationManager {
 
 class AuthorizationManagerImpl(
     private val authorizationEndpoint: AuthorizationEndpoint,
+    private val smsLoginEndpoint: SMSLoginEndpoint,
     private val authorizationRepository: AuthorizationRepository
 ) : AuthorizationManager {
 
@@ -57,6 +61,11 @@ class AuthorizationManagerImpl(
                 password = password
             )
         )
+    }
+
+    override fun sendSMSCode(phone: String, smsText: String): String {
+        val response = smsLoginEndpoint.sendSmsLogin(phone, smsText)
+        return response.code
     }
 
     override fun getLastLogin(): String =

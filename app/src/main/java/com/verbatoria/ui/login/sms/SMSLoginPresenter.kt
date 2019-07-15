@@ -206,23 +206,55 @@ class SMSLoginPresenter(
     //region SMSLoginView.Callback
 
     override fun onPhoneTextChanged(phone: String) {
-
+        if (phone == this.phone) return
+        this.phone = phone
+        when {
+            this.phone.isBlank() -> view?.apply {
+                hideClearPhoneButton()
+                setSendCodeButtonDisabled()
+            }
+            this.phone.isNotBlank() -> view?.apply {
+                showClearPhoneButton()
+                setSendCodeButtonEnabled()
+            }
+        }
     }
 
     override fun onCodeTextChanged(code: String) {
-
+        if (code == this.code) return
+        this.code = code
+        when {
+            this.code.isBlank() -> view?.apply {
+                hideClearCodeButton()
+                setSendCodeButtonDisabled()
+            }
+            this.code.isNotBlank() -> view?.apply {
+                showClearCodeButton()
+                setSendCodeButtonEnabled()
+            }
+        }
     }
 
     override fun onPhoneClearClicked() {
-
+        phone = ""
+        view?.apply {
+            setPhone(phone)
+            setSendCodeButtonDisabled()
+            hideClearPhoneButton()
+        }
     }
 
     override fun onCodeClearClicked() {
-
+        code = ""
+        view?.apply {
+            setCode(code)
+            setSendCodeButtonDisabled()
+            hideClearCodeButton()
+        }
     }
 
     override fun onSendCodeButtonClicked() {
-
+        sendSMSCode()
     }
 
     override fun onRepeatButtonClicked() {
@@ -234,6 +266,20 @@ class SMSLoginPresenter(
     }
 
     //endregion
+
+    private fun sendSMSCode() {
+        view?.showProgressForSendCode()
+        smsLoginInteractor.sendSMSCode(phone, "test")
+            .subscribe({ checkingCode ->
+                view?.hideProgressForSendCode()
+
+            }, { error ->
+                logger.error("Send sms code error occurred", error)
+                view?.showError(error.message ?: "Send sms code error occurred")
+                view?.hideProgressForSendCode()
+            })
+            .let(::addDisposable)
+    }
 
     private fun getCurrentCountry() {
         smsLoginInteractor.getCurrentCountry()

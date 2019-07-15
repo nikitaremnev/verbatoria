@@ -15,9 +15,9 @@ class RetrofitFactory(
     private val authorizationContext: AuthorizationContext?
 ) {
 
-    fun createRetrofit(): Retrofit =
+    fun createRetrofit(baseUrl: String): Retrofit =
         Retrofit.Builder()
-            .baseUrl(APIConstants.BASE_URL)
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RetrofitCallAdapterFactory(authorizationContext))
             .client(createOkHttpClient())

@@ -24,4 +24,8 @@ interface AuthorizationEndpoint {
     @POST(APIConstants.RESET_PASSWORD_URL)
     fun resetPassword(@Body params: ResetPasswordParamsDto): MessageResponseDto
 
+    @POST(APIConstants.LOGIN_URL)
+    fun sendSmsLogin(@Body params: LoginParamsDto): LoginResponseDto
+
+
 }

@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory
 
 interface SMSLoginInteractor {
 
+    fun sendSMSCode(phone: String, smsText: String): Single<String>
+
     fun getCurrentCountry(): Single<String>
 
 }
@@ -21,6 +23,13 @@ class SMSLoginInteractorImpl(
 ) : SMSLoginInteractor {
 
     private val logger = LoggerFactory.getLogger("SMSLoginInteractor")
+
+    override fun sendSMSCode(phone: String, smsText: String): Single<String> =
+        Single.fromCallable {
+            authorizationManager.sendSMSCode(phone, smsText)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
     override fun getCurrentCountry(): Single<String> =
         Single.fromCallable {

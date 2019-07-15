@@ -13,12 +13,14 @@ import com.verbatoria.domain.session.SessionManagerImpl
 import com.verbatoria.domain.session.SessionProvider
 import com.verbatoria.infrastructure.file.FileUtil
 import com.verbatoria.infrastructure.file.FileUtilImpl
+import com.verbatoria.infrastructure.retrofit.APIConstants
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister
 import com.verbatoria.infrastructure.retrofit.EndpointsRegisterImpl
 import com.verbatoria.infrastructure.retrofit.RetrofitFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
+import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -27,18 +29,31 @@ import javax.inject.Singleton
 
 private const val DEFAULT_PREFERENCES_SUFFIX = "_preferences"
 
+private const val BASE_RETROFIT = "BASE_RETROFIT"
+private const val PANEL_RETROFIT = "PANEL_RETROFIT"
+
 @Module(includes = [RxSchedulersModule::class, DatabaseModule::class])
 class CommonModule {
 
     @Provides
     @Singleton
+    @Named(BASE_RETROFIT)
     fun provideRetrofit(sessionManager: SessionManager) =
-        RetrofitFactory(sessionManager).createRetrofit()
+        RetrofitFactory(sessionManager).createRetrofit(APIConstants.BASE_URL)
 
     @Provides
     @Singleton
-    fun provideEndpointRegistry(retrofit: Retrofit): EndpointsRegister =
-        EndpointsRegisterImpl(retrofit)
+    @Named(PANEL_RETROFIT)
+    fun providePanelRetrofit(sessionManager: SessionManager) =
+        RetrofitFactory(sessionManager).createRetrofit(APIConstants.API_PANEL_BASE_URL)
+
+    @Provides
+    @Singleton
+    fun provideEndpointRegistry(
+        @Named(BASE_RETROFIT) retrofit: Retrofit,
+        @Named(PANEL_RETROFIT) panelRetrofit: Retrofit
+    ): EndpointsRegister =
+        EndpointsRegisterImpl(retrofit, panelRetrofit)
 
     @Provides
     fun provideSharedPreferences(context: Context): SharedPreferences =
@@ -73,6 +88,7 @@ class CommonModule {
     ): AuthorizationManager =
         AuthorizationManagerImpl(
             endpointsRegister.authorizationEndpoint,
+            endpointsRegister.smsLoginEndpoint,
             authorizationRepository
         )
 

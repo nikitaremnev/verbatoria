@@ -29,6 +29,8 @@ interface SMSLoginView : BaseView {
 
     fun setPhone(phone: String)
 
+    fun setCode(code: String)
+
     fun setPhoneFormatterBasedOnCountry(country: String)
 
     fun showPhoneField()
@@ -54,6 +56,10 @@ interface SMSLoginView : BaseView {
     fun showRepeatButton()
 
     fun hideRepeatButton()
+
+    fun showProgressForSendCode()
+
+    fun hideProgressForSendCode()
 
     fun setTimerText(timer: String)
 
@@ -151,6 +157,9 @@ class SMSLoginActivity :
             }
 
         })
+        sendCodeButton.setOnClickListener {
+            presenter.onSendCodeButtonClicked()
+        }
         clearPhoneImageView.setOnClickListener {
             presenter.onPhoneClearClicked()
         }
@@ -176,6 +185,10 @@ class SMSLoginActivity :
 
     override fun setPhone(phone: String) {
         phoneEditText.setText(phone)
+    }
+
+    override fun setCode(code: String) {
+        codeEditText.setText(code)
     }
 
     override fun setPhoneFormatterBasedOnCountry(country: String) {
@@ -242,6 +255,18 @@ class SMSLoginActivity :
 
     override fun hideRepeatButton() {
         repeatTextView.hide()
+    }
+
+    override fun showProgressForSendCode() {
+        phoneEditText.isEnabled = false
+        sendCodeButton.isEnabled = false
+        progressBar.show()
+    }
+
+    override fun hideProgressForSendCode() {
+        phoneEditText.isEnabled = true
+        sendCodeButton.isEnabled = true
+        progressBar.hide()
     }
 
     override fun setTimerText(timer: String) {
