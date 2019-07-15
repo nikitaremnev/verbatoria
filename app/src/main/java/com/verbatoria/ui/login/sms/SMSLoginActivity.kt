@@ -57,9 +57,17 @@ interface SMSLoginView : BaseView {
 
     fun hideRepeatButton()
 
+    fun showTimerText()
+
+    fun hideTimerText()
+
     fun showProgressForSendCode()
 
     fun hideProgressForSendCode()
+
+    fun showSendCodeButton()
+
+    fun hideSendCodeButton()
 
     fun setTimerText(timer: String)
 
@@ -82,11 +90,6 @@ interface SMSLoginView : BaseView {
         fun onSendCodeButtonClicked()
 
         fun onRepeatButtonClicked()
-
-//
-//        fun onCheckSMSCodeClicked(confirmationCode: String)
-//
-        fun onRepeatSMSClicked()
 
     }
 
@@ -167,7 +170,7 @@ class SMSLoginActivity :
             presenter.onCodeClearClicked()
         }
         repeatTextView.setOnClickListener {
-            presenter.onRepeatSMSClicked()
+            presenter.onRepeatButtonClicked()
         }
     }
 
@@ -250,11 +253,23 @@ class SMSLoginActivity :
     }
 
     override fun showRepeatButton() {
-        repeatTextView.show()
+        runOnUiThread {
+            repeatTextView.show()
+        }
     }
 
     override fun hideRepeatButton() {
         repeatTextView.hide()
+    }
+
+    override fun showTimerText() {
+        timerTextView.show()
+    }
+
+    override fun hideTimerText() {
+        runOnUiThread {
+            timerTextView.hide()
+        }
     }
 
     override fun showProgressForSendCode() {
@@ -269,8 +284,18 @@ class SMSLoginActivity :
         progressBar.hide()
     }
 
+    override fun showSendCodeButton() {
+        sendCodeButton.show()
+    }
+
+    override fun hideSendCodeButton() {
+        sendCodeButton.hide()
+    }
+
     override fun setTimerText(timer: String) {
-        timerTextView.text = timer
+        runOnUiThread {
+            timerTextView.text = getString(R.string.sms_login_time_before_repeat, timer)
+        }
     }
 
     override fun openDashboard() {
@@ -289,64 +314,5 @@ class SMSLoginActivity :
     }
 
     //endregion
-
-
-
-//    override fun showProgress() {
-//        submitButton.visibility = View.GONE
-//        progressView.visibility = View.VISIBLE
-//    }
-//
-//    override fun hideProgress() {
-//        submitButton.visibility = View.VISIBLE
-//        progressView.visibility = View.GONE
-//    }
-//
-//    override fun showPhoneInput() {
-//        codeEditText.visibility = View.GONE
-//        phoneEditText.visibility = View.VISIBLE
-//        submitButton.text = getString(R.string.recovery_password_check_code)
-//        submitButton.setOnClickListener {
-//            presenter.onSendSMSCodeClicked()
-//        }
-//    }
-//
-//    override fun showCodeInput() {
-//        phoneEditText.visibility = View.GONE
-//        codeEditText.visibility = View.VISIBLE
-//        submitButton.text = getString(R.string.sms_confirmation_confirm)
-//        submitButton.setOnClickListener {
-//            presenter.onCheckSMSCodeClicked(codeEditText.text.toString())
-//        }
-//    }
-//
-//    override fun showCodeSent() {
-//        Helper.showHintSnackBar(submitButton, getString(R.string.sms_confirmation_code_sent))
-//    }
-//
-//    override fun showCodeConfirmationError() {
-//        Helper.showErrorSnackBar(submitButton, getString(R.string.sms_confirmation_code_incorrect))
-//    }
-//
-//    override fun showCodeSentError() {
-//        Helper.showErrorSnackBar(submitButton, getString(R.string.sms_confirmation_code_sent_error))
-//    }
-//
-//    override fun showPhoneNotFullError() {
-//        Helper.showErrorSnackBar(submitButton, getString(R.string.sms_confirmation_code_phone_not_full))
-//    }
-//    override fun updateTimer(time: String) {
-//        runOnUiThread {
-//            timerTextView.text = getString(R.string.sms_confirmation_time_before_repeat, time)
-//            timerTextView.visibility = View.VISIBLE
-//        }
-//    }
-//
-//    override fun stopTimer() {
-//        runOnUiThread {
-//            timerTextView.visibility = View.GONE
-//            repeatTextView.visibility = View.VISIBLE
-//        }
-//    }
 
 }

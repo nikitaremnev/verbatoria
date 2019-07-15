@@ -45,7 +45,7 @@
     <string name="sms_confirmation_code_incorrect">Код потверждения введен некорректно</string>
     <string name="sms_confirmation_code_sent_error">При отправке кода подтверждения произошла ошибка</string>
     <string name="sms_confirmation_code_phone_not_full">Номер телефона указан не полностью</string>
-    <string name="sms_confirmation_repeat">Повторно отправить СМС</string>
-    <string name="sms_confirmation_time_before_repeat">Повторная отправка СМС станет доступна через %s</string>
+    <string name="sms_login_repeat">Повторно отправить СМС</string>
+    <string name="sms_login_time_before_repeat">Повторная отправка СМС станет доступна через %s</string>
 
 </resources>

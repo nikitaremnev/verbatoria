@@ -2,13 +2,16 @@ package com.verbatoria.ui.login.sms
 
 import com.verbatoria.business.login.sms.SMSLoginInteractor
 import com.verbatoria.ui.base.BasePresenter
+import com.verbatoria.utils.DateUtils
 import org.slf4j.LoggerFactory
+import java.util.*
 
 /**
  * @author n.remnev
  */
 
-private const val WAS_REPEAT_BUTTON_SHOWED_EXTRA = "repeatButton"
+private const val TRY_AGAIN_SEND_CODE_INTERVAL = 180000L
+private const val TRY_AGAIN_SEND_CODE_UPDATE_TEXT_INTERVAL = 1000L
 
 class SMSLoginPresenter(
     val phoneFromLogin: String,
@@ -17,29 +20,18 @@ class SMSLoginPresenter(
 
     private val logger = LoggerFactory.getLogger("SMSLoginPresenter")
 
-    //3 minutes
-//    private val SMS_AGAIN_INTERVAL = (1000 * 60 * 3).toLong()
-//
-//    private var phone: String? = null
-//
-//    private var isPhoneFilled: Boolean = false
-//
-//    private var confirmCode: Long? = null
-//
-//    private var isFromLogin: Boolean = false
-//
-//    private var wasRepeatButtonShowed: Boolean = false
-//
-//    private var updateTimeTimer: Timer? = null
-//
-//    private var lastSMSSendTime: Long = 0L
-//
-//    private var repeatSMSTimerTask: TimerTask = createTimerTask()
-
     private var phone: String = phoneFromLogin
     private var code: String = ""
 
+    private var checkingCode: String = ""
+
     private var country: String = ""
+
+    private var tryAgainSendCodeTimer: Timer? = null
+
+    private var tryAgainSendCodeTimerTask: TimerTask = createTryAgainSendCodeTimerTask()
+
+    private var tryAgainSendCodeTimerStartTime: Long = System.currentTimeMillis()
 
     init {
         getCurrentCountry()
@@ -47,161 +39,26 @@ class SMSLoginPresenter(
 
     override fun onAttachView(view: SMSLoginView) {
         super.onAttachView(view)
-        view.setPhoneFormatterBasedOnCountry(country)
-        view.setPhone(phone)
+        view.apply {
+            setPhoneFormatterBasedOnCountry(country)
+            setPhone(phone)
+        }
+        if (phone.isNotBlank()) {
+            view.apply {
+                setSendCodeButtonEnabled()
+                showClearPhoneButton()
+            }
+        }
+        if (tryAgainSendCodeTimer != null) {
+            view.apply {
+                hidePhoneField()
+                hideSendCodeButton()
+                showCodeField()
+                updateTimerText()
+                showTimerText()
+            }
+        }
     }
-
-
-//    override fun onAttachView(view: SMSLoginView) {
-//        super.onAttachView(view)
-//        lastSMSSendTime = smsLoginInteractor.lastSmsConfirmationTimeInMillis
-//        if (phone != null) {
-//            isPhoneFilled = true
-//            isFromLogin = true
-//            checkSmsConfirmationLastTimeIsOk()
-//        } else {
-//            val lastLogin = smsLoginInteractor.lastLogin
-//            if (lastLogin.isNullOrEmpty()) {
-//                isFromLogin = false
-//                view.showPhoneInput()
-//            } else {
-//                phone = lastLogin
-//                isPhoneFilled = true
-//                isFromLogin = true
-//                checkSmsConfirmationLastTimeIsOk()
-//            }
-//        }
-//    }
-
-//    fun getCountry(): String = smsLoginInteractor.country
-
-    //region SMSConfirmationView.Callback
-
-//    override fun onConfirmationCodeTextChanged(confirmationCode: String) {
-//        if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
-//            repeatSMSTimerTask.cancel()
-//            updateTimeTimer?.cancel()
-//            updateTimeTimer = null
-//            view?.stopTimer()
-////
-////            smsLoginInteractor.updateLastSmsConfirmationTime(0L)
-////            smsLoginInteractor.saveSMSConfirmationCode(0L)
-//
-//            if (isFromLogin) {
-//                view?.startDashboard()
-//            } else {
-//                view?.close()
-//            }
-//        }
-//    }
-
-//    override fun onPhoneTextChanged(isFull: Boolean, phone: String) {
-//        if (isFull) {
-//            isPhoneFilled = isFull
-//            this.phone = phone
-//        }
-//    }
-
-//    override fun onSendSMSCodeClicked() {
-//        if (phone == null || !isPhoneFilled) {
-//            view?.showPhoneNotFullError()
-//        } else {
-////            addSubscription(
-////                loginInteractor.sendSMSConfirmation(phone, "")
-////                    .doOnSubscribe {
-////                        mSmsConfirmationView?.showProgressForLogin()
-////                    }
-////                    .doOnTerminate {
-////                        mSmsConfirmationView?.hideProgress()
-////                    }
-////                    .subscribe(
-////                        this::handleSMSCodeSent, this::handleSMSCodeSendingError
-////                    )
-////            )
-//        }
-//    }
-
-//    override fun onRepeatSMSClicked() {
-//        onSendSMSCodeClicked()
-//    }
-//
-//    override fun onCheckSMSCodeClicked(confirmationCode: String) {
-//        if (confirmCode != null && confirmCode == confirmationCode.toLongOrNull()) {
-//            if (isFromLogin) {
-//                view?.startDashboard()
-//            } else {
-//                view?.close()
-//            }
-//        } else {
-//            view?.showCodeConfirmationError()
-//        }
-//    }
-
-    //endregion
-
-//    private fun checkSmsConfirmationLastTimeIsOk() {
-//        if (System.currentTimeMillis() - lastSMSSendTime < SMS_AGAIN_INTERVAL) {
-//            restartTimer()
-//
-////            confirmCode = smsLoginInteractor.smsConfirmationCode
-//            view?.showCodeInput()
-//            view?.hideRepeatButton()
-//        } else {
-//            if (!wasRepeatButtonShowed) {
-//                onSendSMSCodeClicked()
-//            } else {
-//                view?.showCodeInput()
-//                view?.showRepeatButton()
-//            }
-//        }
-//    }
-
-//    private fun handleSMSCodeSent(response: SMSConfirmationResponseModel) {
-//        lastSMSSendTime = System.currentTimeMillis()
-
-//        smsLoginInteractor.updateLastSmsConfirmationTime(lastSMSSendTime)
-//        smsLoginInteractor.saveSMSConfirmationCode(response.code)
-
-//        confirmCode = response.code
-//        view?.showCodeInput()
-//        view?.showCodeSent()
-//        view?.hideRepeatButton()
-//        wasRepeatButtonShowed = false
-//
-//        restartTimer()
-//    }
-//
-//    private fun handleSMSCodeSendingError(throwable: Throwable) {
-//        throwable.printStackTrace()
-//        view?.showCodeSentError()
-//    }
-//
-//    private fun restartTimer() {
-//        updateTimeTimer?.cancel()
-//        updateTimeTimer = null
-//        updateTimeTimer = Timer()
-//
-//        repeatSMSTimerTask.cancel()
-//        repeatSMSTimerTask = createTimerTask()
-//        updateTimeTimer?.schedule(repeatSMSTimerTask, 0L, 1000L)
-//    }
-
-//    private fun createTimerTask() =
-//            object : TimerTask() {
-//                override fun run() {
-//                    val timeDifference = System.currentTimeMillis() - lastSMSSendTime
-//                    val date = Date(SMS_AGAIN_INTERVAL - timeDifference)
-//                    if (timeDifference < SMS_AGAIN_INTERVAL) {
-//                        view?.updateTimer(DateUtils.timeToString(date))
-//                    } else {
-//                        cancel()
-//                        updateTimeTimer?.cancel()
-//                        updateTimeTimer = null
-//                        view?.stopTimer()
-//                        wasRepeatButtonShowed = true
-//                    }
-//                }
-//            }
 
     //region SMSLoginView.Callback
 
@@ -224,10 +81,7 @@ class SMSLoginPresenter(
         if (code == this.code) return
         this.code = code
         when {
-            this.code.isBlank() -> view?.apply {
-                hideClearCodeButton()
-                setSendCodeButtonDisabled()
-            }
+            this.code == checkingCode -> view?.openDashboard()
             this.code.isNotBlank() -> view?.apply {
                 showClearCodeButton()
                 setSendCodeButtonEnabled()
@@ -258,11 +112,14 @@ class SMSLoginPresenter(
     }
 
     override fun onRepeatButtonClicked() {
-
-    }
-
-    override fun onRepeatSMSClicked() {
-
+        view?.apply {
+            hideCodeField()
+            hideTimerText()
+            hideRepeatButton()
+            showPhoneField()
+            showSendCodeButton()
+        }
+        sendSMSCode()
     }
 
     //endregion
@@ -271,8 +128,16 @@ class SMSLoginPresenter(
         view?.showProgressForSendCode()
         smsLoginInteractor.sendSMSCode(phone, "test")
             .subscribe({ checkingCode ->
-                view?.hideProgressForSendCode()
-
+                tryAgainSendCodeTimerStartTime = System.currentTimeMillis()
+                this.checkingCode = checkingCode
+                view?.apply {
+                    hideProgressForSendCode()
+                    hidePhoneField()
+                    hideSendCodeButton()
+                    showCodeField()
+                    showTimerText()
+                }
+                restartTryAgainSendCodeTimer()
             }, { error ->
                 logger.error("Send sms code error occurred", error)
                 view?.showError(error.message ?: "Send sms code error occurred")
@@ -291,6 +156,41 @@ class SMSLoginPresenter(
                 view?.showError(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
+    }
+
+    private fun createTryAgainSendCodeTimerTask(): TimerTask =
+        object : TimerTask() {
+            override fun run() {
+                updateTimerText()
+            }
+        }
+
+    private fun restartTryAgainSendCodeTimer() {
+        tryAgainSendCodeTimer?.cancel()
+        tryAgainSendCodeTimer = null
+        tryAgainSendCodeTimer = Timer()
+
+        tryAgainSendCodeTimerTask.cancel()
+        tryAgainSendCodeTimerTask = createTryAgainSendCodeTimerTask()
+        tryAgainSendCodeTimer?.schedule(
+            tryAgainSendCodeTimerTask,
+            0L,
+            TRY_AGAIN_SEND_CODE_UPDATE_TEXT_INTERVAL
+        )
+    }
+
+    private fun updateTimerText() {
+        val timeFromStartTimer = System.currentTimeMillis() - tryAgainSendCodeTimerStartTime
+        if (timeFromStartTimer < TRY_AGAIN_SEND_CODE_INTERVAL) {
+            view?.setTimerText(DateUtils.timeToString(Date(TRY_AGAIN_SEND_CODE_INTERVAL - timeFromStartTimer)))
+        } else {
+            tryAgainSendCodeTimer?.cancel()
+            tryAgainSendCodeTimer = null
+            view?.apply {
+                hideTimerText()
+                showRepeatButton()
+            }
+        }
     }
 
 }

@@ -148,7 +148,12 @@ class LoginPresenter(
         loginInteractor.getLastLogin()
             .subscribe({ lastLogin ->
                 phone = lastLogin
-                view?.setPhone(phone)
+                if (lastLogin.isNotBlank()) {
+                    view?.apply {
+                        setPhone(phone)
+                        showClearPhoneButton()
+                    }
+                }
             }, { error ->
                 logger.error("Get last login error occurred", error)
                 view?.apply {
