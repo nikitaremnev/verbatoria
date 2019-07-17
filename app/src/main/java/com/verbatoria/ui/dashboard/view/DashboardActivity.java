@@ -13,7 +13,6 @@ import com.verbatoria.ui.blocked.BlockedFragment;
 import com.verbatoria.ui.calendar.view.CalendarFragment;
 import com.verbatoria.ui.dashboard.presenter.IDashboardPresenter;
 import com.verbatoria.ui.dashboard.view.info.VerbatologInfoFragment;
-import com.verbatoria.ui.dashboard.view.settings.SettingsFragment;
 import javax.inject.Inject;
 import butterknife.BindView;
 
@@ -63,7 +62,6 @@ public class DashboardActivity extends BaseActivity {
         setUpBottomNavigation();
         if (mDashboardPresenter.isShowSettings()) {
             mDashboardPresenter.setShowSettings(false);
-            setUpFragment(SettingsFragment.newInstance());
         } else {
             if (mDashboardPresenter.isBlocked()) {
                 setUpFragment(BlockedFragment.newInstance());
@@ -98,7 +96,7 @@ public class DashboardActivity extends BaseActivity {
                     }
                     return true;
                 case R.id.navigation_settings:
-                    setUpFragment(SettingsFragment.newInstance());
+
                     return true;
             }
             return false;

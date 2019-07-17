@@ -13,10 +13,12 @@ import com.verbatoria.di.dashboard.settings.SettingsComponent
 import com.verbatoria.ui.base.BasePresenterFragment
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
+import com.verbatoria.ui.common.dialog.ProgressDialog
 import com.verbatoria.ui.common.dialog.SuggestDialog
 import com.verbatoria.ui.late_send.LateSendActivity
 import com.verbatoria.ui.login.LoginActivity
 import com.verbatoria.ui.schedule.view.ScheduleActivity
+import com.verbatoria.utils.LocaleHelper
 import javax.inject.Inject
 
 /**
@@ -26,6 +28,7 @@ import javax.inject.Inject
 private const val APP_LANGUAGES_DIALOG_TAG = "APP_LANGUAGES_DIALOG_TAG"
 private const val ABOUT_APP_DIALOG_TAG = "ABOUT_APP_DIALOG_TAG"
 private const val CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG = "CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG"
+private const val PROGRESS_DIALOG_TAG = "PROGRESS_DIALOG_TAG"
 
 interface SettingsView : BaseView {
 
@@ -33,9 +36,19 @@ interface SettingsView : BaseView {
 
     fun showClearDatabaseConfirmationDialog()
 
-    fun showAppLanguagesDialog()
+    fun showAppLanguagesDialog(
+        isRussianLanguageAvailable: Boolean,
+        isEnglishLanguageAvailable: Boolean,
+        isHongKongLanguageAvailable: Boolean
+    )
 
     fun setSettingsItems(settingsItemModels: List<SettingsItemModel>)
+
+    fun setLanguage(locale: String)
+
+    fun showProgress()
+
+    fun hideProgress()
 
     fun openLogin()
 
@@ -72,6 +85,8 @@ class SettingsFragment :
 
     private lateinit var recyclerView: RecyclerView
 
+    private var progressDialog: ProgressDialog? = null
+
     override fun buildComponent(
         parentComponent: DashboardComponent,
         savedState: Bundle?
@@ -107,13 +122,34 @@ class SettingsFragment :
         }.show(activity?.supportFragmentManager, CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG)
     }
 
-    override fun showAppLanguagesDialog() {
+    override fun showAppLanguagesDialog(
+        isRussianLanguageAvailable: Boolean,
+        isEnglishLanguageAvailable: Boolean,
+        isHongKongLanguageAvailable: Boolean
+    ) {
         AppLanguagesDialog.build {
+            this.isRussianLanguageAvailable = isRussianLanguageAvailable
+            this.isEnglishLanguageAvailable = isEnglishLanguageAvailable
+            this.isHongKongLanguageAvailable = isHongKongLanguageAvailable
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
 
     override fun setSettingsItems(settingsItemModels: List<SettingsItemModel>) {
         adapter.update(settingsItemModels)
+    }
+
+    override fun setLanguage(locale: String) {
+        LocaleHelper.setLocale(activity, locale)
+        activity?.recreate()
+    }
+
+    override fun showProgress() {
+        progressDialog = ProgressDialog()
+        progressDialog?.show(activity?.supportFragmentManager, PROGRESS_DIALOG_TAG)
+    }
+
+    override fun hideProgress() {
+        progressDialog?.dismiss()
     }
 
     override fun openLogin() {

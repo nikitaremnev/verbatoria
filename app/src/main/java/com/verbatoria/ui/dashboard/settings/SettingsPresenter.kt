@@ -1,5 +1,6 @@
 package com.verbatoria.ui.dashboard.settings
 
+import android.util.Log
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_ABOUT_APP_ID
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_APP_LANGUAGE_ID
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_CLEAR_DATABASE_ID
@@ -40,7 +41,8 @@ class SettingsPresenter(
     //region SettingsView.Callback
 
     override fun onDatabaseClearConfirmed() {
-
+        Log.e("test", "SettingsPresenter onDatabaseClearConfirmed")
+        clearDatabase()
     }
 
     //endregion
@@ -52,7 +54,7 @@ class SettingsPresenter(
             SETTINGS_SCHEDULE_ID -> view?.openSchedule()
             SETTINGS_LATE_SEND_ID -> view?.openLateSend()
             SETTINGS_CLEAR_DATABASE_ID -> view?.showClearDatabaseConfirmationDialog()
-            SETTINGS_APP_LANGUAGE_ID -> view?.showAppLanguagesDialog()
+            SETTINGS_APP_LANGUAGE_ID -> getAppLanguagesAvailability()
             SETTINGS_ABOUT_APP_ID -> getAppAndAndroidVersions()
             SETTINGS_EXIT_ID -> view?.openLogin()
         }
@@ -92,6 +94,30 @@ class SettingsPresenter(
                 view?.showAboutAppDialog(appVersion, androidVersion)
             }, { error ->
                 logger.error("get app android versions error occurred", error)
+            })
+            .let(::addDisposable)
+    }
+
+    private fun getAppLanguagesAvailability() {
+        settingsInteractor.getAppLanguagesAvailability()
+            .subscribe({ (isRussianAvailable, isEnglishAvailable, isHongKongAvailable) ->
+                view?.showAppLanguagesDialog(isRussianAvailable, isEnglishAvailable, isHongKongAvailable)
+            }, { error ->
+                logger.error("get app languages availability error occurred", error)
+            })
+            .let(::addDisposable)
+    }
+
+    private fun clearDatabase() {
+        Log.e("test", "SettingsPresenter clearDatabase")
+
+        view?.showProgress()
+        settingsInteractor.clearDatabase()
+            .subscribe({
+                view?.hideProgress()
+            }, { error ->
+                logger.error("clear database error occurred", error)
+                view?.hideProgress()
             })
             .let(::addDisposable)
     }

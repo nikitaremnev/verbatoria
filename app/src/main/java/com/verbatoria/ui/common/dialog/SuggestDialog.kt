@@ -30,8 +30,8 @@ class SuggestDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         AlertDialog.Builder(activity)
             .apply {
-                clickListener = (parentFragment ?: activity) as? OnClickSuggestDialogListener
-                cancelListener = (parentFragment ?: activity) as? OnCancelSuggestDialogListener
+                clickListener = (activity?.supportFragmentManager?.fragments?.firstOrNull() ?: activity) as? OnClickSuggestDialogListener
+                cancelListener = (activity?.supportFragmentManager?.fragments?.firstOrNull() ?: activity) as? OnCancelSuggestDialogListener
                 if (arguments?.containsKey(TITLE_EXTRA) == true) setTitle(
                     arguments?.getString(
                         TITLE_EXTRA
@@ -43,6 +43,7 @@ class SuggestDialog : DialogFragment() {
                     )
                 )
                 if (arguments?.containsKey(POSITIVE_TITLE_BUTTON_EXTRA) == true) {
+
                     setPositiveButton(arguments?.getString(POSITIVE_TITLE_BUTTON_EXTRA)) { _, _ ->
                         clickListener?.onPositiveClicked(tag)
                         dismiss()
