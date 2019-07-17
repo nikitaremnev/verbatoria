@@ -28,9 +28,9 @@ class AboutAppDialog : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val rootView = LayoutInflater.from(context).inflate(R.layout.dialog_about_app, null)
-        val appVersionTextView = rootView.findViewById<TextView>(R.id.app_version_title_text_view)
-        val androidVersionTextView =
-            rootView.findViewById<TextView>(R.id.android_version_title_text_view)
+        val appVersionTextView: TextView = rootView.findViewById(R.id.app_version_title_text_view)
+        val androidVersionTextView: TextView =
+            rootView.findViewById(R.id.android_version_title_text_view)
 
         if (arguments?.containsKey(APP_VERSION_EXTRA) == true) {
             appVersionTextView.text = arguments?.getString(APP_VERSION_EXTRA)
