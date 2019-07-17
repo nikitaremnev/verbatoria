@@ -49,7 +49,6 @@ class DashboardActivity :
 
     override fun initViews(savedState: Bundle?) {
         bottomNavigationView = findViewById(R.id.bottom_navigation_view)
-        openSettings()
     }
 
     //region DashboardView

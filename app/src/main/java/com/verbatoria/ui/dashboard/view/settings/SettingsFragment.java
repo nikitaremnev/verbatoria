@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.remnev.verbatoria.R;
-import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.ui.dashboard.presenter.settings.ISettingsPresenter;
 import com.verbatoria.ui.late_send.LateSendActivity;
 import com.verbatoria.ui.login.LoginActivity;
@@ -22,9 +21,6 @@ import com.verbatoria.ui.schedule.view.ScheduleActivity;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.LocaleHelper;
 
-import javax.inject.Inject;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -88,17 +84,17 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
     @Override
     public void showDeveloperInfo(String version, String androidVersion) {
-        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_developer_info, null);
-        setUpFieldView(dialogRootView.findViewById(R.id.application_version_field), R.drawable.ic_application_version,
-                version, getString(R.string.developer_info_application_version), null);
-        setUpFieldView(dialogRootView.findViewById(R.id.android_version_field), R.drawable.ic_android_version,
-                androidVersion, getString(R.string.developer_info_android_version), null);
-        new AlertDialog.Builder(getActivity())
-                .setView(dialogRootView)
-                .setTitle(R.string.settings_item_developer)
-                .setNegativeButton(getString(R.string.ok), null)
-                .create()
-                .show();
+//        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_about_app, null);
+//        setUpFieldView(dialogRootView.findViewById(R.id.application_version_field), R.drawable.ic_application_version,
+//                version, getString(R.string.developer_info_application_version), null);
+//        setUpFieldView(dialogRootView.findViewById(R.id.android_version_field), R.drawable.ic_android_version,
+//                androidVersion, getString(R.string.developer_info_android_version), null);
+//        new AlertDialog.Builder(getActivity())
+//                .setView(dialogRootView)
+//                .setTitle(R.string.settings_item_developer)
+//                .setNegativeButton(getString(R.string.ok), null)
+//                .create()
+//                .show();
     }
 
     @Override
@@ -135,35 +131,35 @@ public class SettingsFragment extends Fragment implements ISettingsView {
 
     @Override
     public void showLanguagesDialog(boolean isRussianAvailable, boolean isEnglishAvailable, boolean isHongKongAvailable) {
-        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_languages, null);
-        View russianLanguageView = dialogRootView.findViewById(R.id.russian_language_field);
-        View englishLanguageView = dialogRootView.findViewById(R.id.english_language_field);
-        View hongKongLanguageView = dialogRootView.findViewById(R.id.hong_kong_language_field);
-
-        if (isRussianAvailable) {
-            setUpLanguageFieldView(russianLanguageView, R.drawable.ic_flag_ru,
-                    getString(R.string.language_russian), v -> mSettingsPresenter.onRussianLanguageSelected());
-        } else {
-            russianLanguageView.setVisibility(View.GONE);
-        }
-        if (isEnglishAvailable) {
-            setUpLanguageFieldView(englishLanguageView, R.drawable.ic_flag_uk,
-                    getString(R.string.language_english), v -> mSettingsPresenter.onEnglishLanguageSelected());
-        } else {
-            englishLanguageView.setVisibility(View.GONE);
-        }
-        if (isHongKongAvailable) {
-            setUpLanguageFieldView(hongKongLanguageView, R.drawable.ic_flag_hk,
-                    getString(R.string.language_hong_kong), v -> mSettingsPresenter.onHongKongLanguageSelected());
-        } else {
-            hongKongLanguageView.setVisibility(View.GONE);
-        }
-        mLanguageDialog = new AlertDialog.Builder(getActivity())
-                .setView(dialogRootView)
-                .setTitle(R.string.settings_item_locale)
-                .setNegativeButton(getString(R.string.ok), null)
-                .create();
-        mLanguageDialog.show();
+//        View dialogRootView = getLayoutInflater().inflate(R.layout.dialog_app_languages, null);
+////        View russianLanguageView = dialogRootView.findViewById(R.id.russian_language_field);
+////        View englishLanguageView = dialogRootView.findViewById(R.id.english_language_field);
+////        View hongKongLanguageView = dialogRootView.findViewById(R.id.hong_kong_language_field);
+////
+////        if (isRussianAvailable) {
+////            setUpLanguageFieldView(russianLanguageView, R.drawable.ic_flag_ru,
+////                    getString(R.string.language_russian), v -> mSettingsPresenter.onRussianLanguageSelected());
+////        } else {
+////            russianLanguageView.setVisibility(View.GONE);
+////        }
+////        if (isEnglishAvailable) {
+////            setUpLanguageFieldView(englishLanguageView, R.drawable.ic_flag_uk,
+////                    getString(R.string.language_english), v -> mSettingsPresenter.onEnglishLanguageSelected());
+////        } else {
+////            englishLanguageView.setVisibility(View.GONE);
+////        }
+////        if (isHongKongAvailable) {
+////            setUpLanguageFieldView(hongKongLanguageView, R.drawable.ic_flag_hk,
+////                    getString(R.string.language_hong_kong), v -> mSettingsPresenter.onHongKongLanguageSelected());
+////        } else {
+////            hongKongLanguageView.setVisibility(View.GONE);
+////        }
+////        mLanguageDialog = new AlertDialog.Builder(getActivity())
+////                .setView(dialogRootView)
+////                .setTitle(R.string.settings_item_locale)
+////                .setNegativeButton(getString(R.string.ok), null)
+////                .create();
+////        mLanguageDialog.show();
     }
 
     @Override

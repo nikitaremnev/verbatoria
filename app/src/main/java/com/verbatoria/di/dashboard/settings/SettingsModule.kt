@@ -4,6 +4,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.settings.SettingsConfiguratorImpl
 import com.verbatoria.business.dashboard.settings.SettingsInteractorImpl
 import com.verbatoria.business.dashboard.settings.model.SettingsItemModel
+import com.verbatoria.di.FragmentScope
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.infrastructure.utils.ViewInflater
 import com.verbatoria.ui.common.Adapter
@@ -13,7 +14,7 @@ import com.verbatoria.ui.dashboard.settings.item.SettingsItemBinder
 import com.verbatoria.ui.dashboard.settings.item.SettingsItemViewHolderImpl
 import dagger.Module
 import dagger.Provides
-import dagger.Reusable
+
 
 /**
  * @author n.remnev
@@ -23,14 +24,14 @@ import dagger.Reusable
 class SettingsModule {
 
     @Provides
-    @Reusable
+    @FragmentScope
     fun provideSettingsPresenter(schedulersFactory: RxSchedulersFactory): SettingsPresenter =
         SettingsPresenter(
             SettingsInteractorImpl(SettingsConfiguratorImpl(), schedulersFactory)
         )
 
     @Provides
-    @Reusable
+    @FragmentScope
     fun provideAdapter(
         settingsPresenter: SettingsPresenter
     ): Adapter =

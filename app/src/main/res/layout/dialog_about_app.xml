@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/dialog_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="@string/settings_item_developer"
+        android:textColor="@color/settings_dialog_title_text_color"
+        android:textSize="@dimen/settings_dialog_title_text_size"
+        android:layout_marginTop="@dimen/settings_dialog_title_margin_top"
+        android:layout_marginStart="@dimen/settings_dialog_margin_start"
+        app:layout_constraintBottom_toTopOf="@+id/app_version_logo_image_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/app_version_logo_image_view"
+        android:layout_width="@dimen/settings_dialog_logo_size"
+        android:layout_height="@dimen/settings_dialog_logo_size"
+        android:layout_marginStart="@dimen/settings_dialog_margin_start"
+        android:layout_marginTop="@dimen/settings_dialog_margin_between"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_title_text_view"
+        app:srcCompat="@drawable/ic_application_version" />
+
+    <TextView
+        android:id="@+id/app_version_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_dialog_margin_between_logo_and_text"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="@color/settings_dialog_text_title_text_color"
+        android:textSize="@dimen/settings_dialog_text_title_text_size"
+        app:layout_constraintLeft_toRightOf="@+id/app_version_logo_image_view"
+        app:layout_constraintTop_toTopOf="@+id/app_version_logo_image_view"
+        tools:text="Привет привет это тестовая херотень" />
+
+    <TextView
+        android:id="@+id/app_version_subtitle_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_dialog_margin_between_logo_and_text"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="@string/developer_info_application_version"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="@color/settings_dialog_text_subtitle_text_color"
+        android:textSize="@dimen/settings_dialog_text_subtitle_text_size"
+        app:layout_constraintLeft_toRightOf="@+id/app_version_logo_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/app_version_title_text_view" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/android_version_logo_image_view"
+        android:layout_width="@dimen/settings_dialog_logo_size"
+        android:layout_height="@dimen/settings_dialog_logo_size"
+        android:layout_marginStart="@dimen/settings_dialog_margin_start"
+        android:layout_marginTop="@dimen/settings_dialog_margin_between"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_version_subtitle_text_view"
+        app:srcCompat="@drawable/ic_android_version" />
+
+    <TextView
+        android:id="@+id/android_version_title_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_dialog_margin_between_logo_and_text"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textColor="@color/settings_dialog_text_title_text_color"
+        android:textSize="@dimen/settings_dialog_text_title_text_size"
+        app:layout_constraintLeft_toRightOf="@+id/android_version_logo_image_view"
+        app:layout_constraintTop_toTopOf="@+id/android_version_logo_image_view"
+        tools:text="Привет привет это тестовая херотень" />
+
+    <TextView
+        android:id="@+id/android_version_subtitle_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/settings_dialog_margin_between_logo_and_text"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="@string/developer_info_android_version"
+        android:textColor="@color/settings_dialog_text_subtitle_text_color"
+        android:textSize="@dimen/settings_dialog_text_subtitle_text_size"
+        app:layout_constraintLeft_toRightOf="@+id/android_version_logo_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/android_version_title_text_view" />
+
+</android.support.constraint.ConstraintLayout>

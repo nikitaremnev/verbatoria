@@ -47,4 +47,18 @@
     <dimen name="verbatolog_location_info_left_margin">24dp</dimen>
 
     <dimen name="location_id_text_size">40sp</dimen>
+
+
+    <!-- Settings -->
+
+    <dimen name="settings_dialog_title_text_size">20sp</dimen>
+    <dimen name="settings_dialog_title_margin_top">21dp</dimen>
+    <dimen name="settings_dialog_title_margin_bottom">16dp</dimen>
+    <dimen name="settings_dialog_margin_start">24dp</dimen>
+    <dimen name="settings_dialog_margin_between">16dp</dimen>
+    <dimen name="settings_dialog_margin_between_logo_and_text">16dp</dimen>
+    <dimen name="settings_dialog_text_title_text_size">16sp</dimen>
+    <dimen name="settings_dialog_text_subtitle_text_size">12sp</dimen>
+    <dimen name="settings_dialog_logo_size">24dp</dimen>
+
 </resources>

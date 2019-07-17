@@ -8,6 +8,9 @@ import com.verbatoria.ui.base.BasePresenter
 
 class DashboardPresenter : BasePresenter<DashboardView>(), DashboardView.Callback {
 
-
+    override fun onAttachView(view: DashboardView) {
+        super.onAttachView(view)
+        view.openSettings()
+    }
 
 }

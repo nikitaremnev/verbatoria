@@ -37,7 +37,9 @@ class SettingsItemViewHolderImpl(
     private val logoImageView: AppCompatImageView = view.findViewById(R.id.logo_image_view)
 
     init {
-        callback.onSettingsItemClicked(adapterPosition)
+        view.setOnClickListener {
+            callback.onSettingsItemClicked(adapterPosition)
+        }
     }
 
     override fun setTitle(titleResourceId: Int) {

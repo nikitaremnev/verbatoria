@@ -5,6 +5,7 @@ package com.verbatoria.business.dashboard.settings.model
  */
 
 data class SettingsItemModel(
+    val id: Int,
     val titleResourceId: Int,
     val logoResourceId: Int
 )
