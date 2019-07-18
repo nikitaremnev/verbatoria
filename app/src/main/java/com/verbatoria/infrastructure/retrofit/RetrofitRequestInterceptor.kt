@@ -9,8 +9,7 @@ import okhttp3.Response
  * @author n.remnev
  */
 
-private const val COOKIE_HEADER = "Cookie"
-private const val FLAGS = "; httponly; secure"
+private const val TOKEN_HEADER = "token"
 
 class RetrofitRequestInterceptor(
     private val authorizationContext: AuthorizationContext
@@ -21,7 +20,7 @@ class RetrofitRequestInterceptor(
         val original = chain.request()
         val requestBuilder = original.newBuilder()
         if (authorization is OnlineAuthorization) {
-            requestBuilder.addHeader(COOKIE_HEADER, authorization.cookieToken + FLAGS)
+            requestBuilder.addHeader(TOKEN_HEADER, authorization.token)
         }
         val request = requestBuilder.build()
         val response = chain.proceed(request)

@@ -14,7 +14,6 @@ import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.ui.dashboard.view.DashboardActivity;
 import com.verbatoria.ui.session.presenter.submit.ISubmitPresenter;
 import com.verbatoria.ui.session.view.submit.questions.QuestionsAdapter;
 import com.verbatoria.ui.session.view.submit.questions.QuestionsViewPagerContainer;
@@ -199,13 +198,13 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
 
     @Override
     public void finishSession() {
-        startActivity(DashboardActivity.newInstance(this, true));
+//        startActivity(DashboardActivity.newInstance(this, true));
         finish();
     }
 
     @Override
     public void finishSessionWithError() {
-        startActivity(DashboardActivity.newInstance(this, false));
+//        startActivity(DashboardActivity.newInstance(this, false));
         finish();
     }
 

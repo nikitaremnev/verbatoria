@@ -56,7 +56,7 @@ class SettingsPresenter(
             SETTINGS_CLEAR_DATABASE_ID -> view?.showClearDatabaseConfirmationDialog()
             SETTINGS_APP_LANGUAGE_ID -> getAppLanguagesAvailability()
             SETTINGS_ABOUT_APP_ID -> getAppAndAndroidVersions()
-            SETTINGS_EXIT_ID -> view?.openLogin()
+            SETTINGS_EXIT_ID -> logout()
         }
     }
 
@@ -115,6 +115,20 @@ class SettingsPresenter(
         settingsInteractor.clearDatabase()
             .subscribe({
                 view?.hideProgress()
+            }, { error ->
+                logger.error("clear database error occurred", error)
+                view?.hideProgress()
+            })
+            .let(::addDisposable)
+    }
+
+    private fun logout() {
+        Log.e("test", "SettingsPresenter clearDatabase")
+        view?.showProgress()
+        settingsInteractor.logout()
+            .subscribe({
+                view?.hideProgress()
+                view?.openLogin()
             }, { error ->
                 logger.error("clear database error occurred", error)
                 view?.hideProgress()

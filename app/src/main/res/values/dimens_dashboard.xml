@@ -37,17 +37,6 @@
     <dimen name="settings_item_left_padding">16dp</dimen>
     <dimen name="settings_item_right_padding">32dp</dimen>
 
-    <dimen name="verbatolog_info_subtitle_other_padding">16dp</dimen>
-    <dimen name="verbatolog_info_subtitle_bottom_padding">8dp</dimen>
-    <dimen name="verbatolog_info_subtitle_top_padding">8dp</dimen>
-
-    <dimen name="verbatolog_big_text_size">15sp</dimen>
-    <dimen name="verbatolog_small_text_size">13sp</dimen>
-
-    <dimen name="verbatolog_location_info_left_margin">24dp</dimen>
-
-    <dimen name="location_id_text_size">40sp</dimen>
-
     <!-- Info -->
 
     <dimen name="info_section_title_text_size">14sp</dimen>
@@ -56,6 +45,37 @@
 
     <dimen name="info_status_margin_start">16dp</dimen>
     <dimen name="info_status_margin_top">16dp</dimen>
+
+    <dimen name="info_name_margin_horizontal">16dp</dimen>
+
+    <dimen name="info_name_text_size">15sp</dimen>
+    <dimen name="info_phone_text_size">13sp</dimen>
+    <dimen name="info_archimedes_text_size">13sp</dimen>
+    <dimen name="info_email_text_size">13sp</dimen>
+    <dimen name="info_text_between_margin">8dp</dimen>
+
+    <dimen name="info_bottom_divider_margin_top">16dp</dimen>
+
+    <dimen name="info_location_id_margin_top">16dp</dimen>
+    <dimen name="info_location_id_margin_start">16dp</dimen>
+    <dimen name="info_location_id_text_size">40sp</dimen>
+
+    <dimen name="info_location_name_margin_start">16dp</dimen>
+    <dimen name="info_location_name_text_size">15sp</dimen>
+    <dimen name="info_location_address_text_size">13sp</dimen>
+    <dimen name="info_location_point_text_size">13sp</dimen>
+
+    <dimen name="info_partner_name_margin_top">16dp</dimen>
+    <dimen name="info_partner_name_margin_start">16dp</dimen>
+    <dimen name="info_partner_name_text_size">15sp</dimen>
+
+    <dimen name="info_progress_bar_margin_start">16dp</dimen>
+    <dimen name="info_progress_bar_margin_vertical">16dp</dimen>
+
+    <dimen name="info_progress_bar_1_size">50dp</dimen>
+    <dimen name="info_progress_bar_2_size">40dp</dimen>
+    <dimen name="info_progress_bar_3_size">30dp</dimen>
+
 
     <!-- Settings -->
 

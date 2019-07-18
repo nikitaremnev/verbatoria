@@ -7,6 +7,10 @@ import com.verbatoria.component.session.SessionServiceControllerImpl
 import com.verbatoria.domain.authorization.AuthorizationManager
 import com.verbatoria.domain.authorization.AuthorizationManagerImpl
 import com.verbatoria.domain.authorization.AuthorizationRepository
+import com.verbatoria.domain.dashboard.info.InfoManager
+import com.verbatoria.domain.dashboard.info.InfoManagerImpl
+import com.verbatoria.domain.dashboard.info.InfoRepository
+import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.session.PreferencesSessionProvider
 import com.verbatoria.domain.session.SessionManager
 import com.verbatoria.domain.session.SessionManagerImpl
@@ -83,13 +87,32 @@ class CommonModule {
     @Provides
     @Singleton
     fun provideAuthorizationManager(
+        sessionManager: SessionManager,
         endpointsRegister: EndpointsRegister,
-        authorizationRepository: AuthorizationRepository
+        authorizationRepository: AuthorizationRepository,
+        infoRepository: InfoRepository,
+        settingsRepository: SettingsRepository
     ): AuthorizationManager =
         AuthorizationManagerImpl(
+            sessionManager,
             endpointsRegister.authorizationEndpoint,
             endpointsRegister.smsLoginEndpoint,
-            authorizationRepository
+            authorizationRepository,
+            infoRepository,
+            settingsRepository
+        )
+
+    @Provides
+    @Singleton
+    fun provideInfoManager(
+        infoRepository: InfoRepository,
+        settingsRepository: SettingsRepository,
+        endpointsRegister: EndpointsRegister
+    ): InfoManager =
+        InfoManagerImpl(
+            infoRepository,
+            settingsRepository,
+            endpointsRegister.infoEndpoint
         )
 
     //endregion

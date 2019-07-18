@@ -93,6 +93,11 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         fun createIntent(context: Context): Intent =
             Intent(context, LoginActivity::class.java)
 
+        fun createIntentWithClearStack(context: Context): Intent =
+            Intent(context, LoginActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+
     }
 
     private lateinit var phoneEditText: EditText

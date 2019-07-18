@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v7.app.AlertDialog
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.dashboard.DashboardComponent
@@ -82,5 +83,22 @@ class DashboardActivity :
     }
 
     //endregion
+
+//    if (getIntent().hasExtra(EXTRA_FINISH_SESSION))
+//    {
+//        if (intent.getBooleanExtra(EXTRA_FINISH_SESSION, false)) {
+//            val builder = AlertDialog.Builder(this)
+//                .setMessage(getString(R.string.dashboard_session_finish))
+//            builder.setNegativeButton(getString(R.string.ok), null)
+//            builder.create().show()
+//        } else {
+//            val builder = AlertDialog.Builder(this)
+//                .setTitle(getString(R.string.dashboard_session_finish_error_title))
+//                .setIcon(R.drawable.ic_neurointerface_error)
+//                .setMessage(getString(R.string.dashboard_session_finish_error_message))
+//            builder.setNegativeButton(getString(R.string.all_understand), null)
+//            builder.create().show()
+//        }
+//    }
 
 }

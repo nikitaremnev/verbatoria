@@ -9,15 +9,24 @@ import com.verbatoria.ui.base.BasePresenter
 
 class DashboardPresenter : BasePresenter<DashboardView>(), DashboardView.Callback {
 
+    private var selectedNavigationItemId = R.id.navigation_info
+
     override fun onAttachView(view: DashboardView) {
         super.onAttachView(view)
-        view.openSettings()
+        openFragmentByItemId()
     }
 
     //region DashboardView.Callback
 
     override fun onBottomNavigationItemSelected(itemId: Int) {
-        when (itemId) {
+        selectedNavigationItemId = itemId
+        openFragmentByItemId()
+    }
+
+    //endregion
+
+    private fun openFragmentByItemId() {
+        when (selectedNavigationItemId) {
             R.id.navigation_info -> {
                 view?.openInfo()
             }
@@ -29,7 +38,5 @@ class DashboardPresenter : BasePresenter<DashboardView>(), DashboardView.Callbac
             }
         }
     }
-
-    //endregion
 
 }

@@ -12,9 +12,7 @@ import com.verbatoria.domain.authorization.model.Authorization
 
 interface SessionServiceController {
 
-    fun startSession(authorization: Authorization, lifetime: Long? = null)
-
-    fun extendSession()
+    fun startSession(authorization: Authorization)
 
     fun closeSession()
 
@@ -24,27 +22,14 @@ class SessionServiceControllerImpl(
     val context: Context
 ) : SessionServiceController {
 
-    override fun startSession(authorization: Authorization, lifetime: Long?) {
+    override fun startSession(authorization: Authorization) {
         Log.e("test", "SessionServiceController startSession")
         runOnMainThread {
             context.startService(
                 SessionService.createIntent(
                     context,
                     SessionService.ACTION_START_SESSION,
-                    authorization,
-                    lifetime
-                )
-            )
-        }
-    }
-
-    override fun extendSession() {
-        Log.e("test", "SessionServiceController extendSession")
-        runOnMainThread {
-            context.startService(
-                SessionService.createIntent(
-                    context,
-                    SessionService.ACTION_EXTEND_SESSION
+                    authorization
                 )
             )
         }

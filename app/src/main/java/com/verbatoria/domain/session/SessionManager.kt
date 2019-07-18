@@ -15,9 +15,7 @@ interface SessionManager : AuthorizationContext {
 
     fun getSession(): Session?
 
-    fun startSession(authorization: Authorization, lifetime: Long? = null)
-
-    fun extendSession()
+    fun startSession(authorization: Authorization)
 
     fun closeSession(cause: String)
 
@@ -36,9 +34,9 @@ class SessionManagerImpl(
 
     private val logger = LoggerFactory.getLogger("SessionManager")
 
-    override fun startSession(authorization: Authorization, lifetime: Long?) {
+    override fun startSession(authorization: Authorization) {
         logger.info("Dispatch start session")
-        sessionServiceController.startSession(authorization, 10000)
+        sessionServiceController.startSession(authorization)
     }
 
     override fun hasActiveSession() =
@@ -55,14 +53,9 @@ class SessionManagerImpl(
         sessionServiceController.closeSession()
     }
 
-    override fun extendSession() {
-        logger.info("Dispatch extend session")
-        sessionServiceController.extendSession()
-    }
-
     override fun invalidate() {
         if (hasActiveSession()) {
-            extendSession()
+            //extendSession()
         }
     }
 

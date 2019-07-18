@@ -11,7 +11,7 @@ import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.ui.dashboard.view.DashboardActivity;
+import com.verbatoria.ui.dashboard.DashboardActivity;
 import com.verbatoria.ui.session.presenter.submit.school.ISchoolSubmitPresenter;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
@@ -103,13 +103,13 @@ public class SchoolSubmitActivity extends AppCompatActivity implements ISchoolSu
 
     @Override
     public void finishSession() {
-        startActivity(DashboardActivity.newInstance(this, true));
+//        startActivity(DashboardActivity.creat(this, true));
         finish();
     }
 
     @Override
     public void finishSessionWithError() {
-        startActivity(DashboardActivity.newInstance(this, false));
+//        startActivity(DashboardActivity.newInstance(this, false));
         finish();
     }
 

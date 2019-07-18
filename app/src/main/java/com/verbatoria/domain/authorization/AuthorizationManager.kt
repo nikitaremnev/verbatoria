@@ -1,5 +1,9 @@
 package com.verbatoria.domain.authorization
 
+import com.verbatoria.domain.authorization.model.OnlineAuthorization
+import com.verbatoria.domain.dashboard.info.InfoRepository
+import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import com.verbatoria.domain.session.SessionManager
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.AuthorizationEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.SMSLoginEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.model.params.LoginParamsDto
@@ -22,7 +26,7 @@ interface AuthorizationManager {
 
     fun getLastLogin(): String
 
-    fun saveLastLogin(phone: String)
+    fun saveLastLogin(login: String)
 
     fun getCurrentCountry(): String
 
@@ -31,9 +35,12 @@ interface AuthorizationManager {
 }
 
 class AuthorizationManagerImpl(
+    private val sessionManager: SessionManager,
     private val authorizationEndpoint: AuthorizationEndpoint,
     private val smsLoginEndpoint: SMSLoginEndpoint,
-    private val authorizationRepository: AuthorizationRepository
+    private val authorizationRepository: AuthorizationRepository,
+    private val infoRepository: InfoRepository,
+    private val settingsRepository: SettingsRepository
 ) : AuthorizationManager {
 
     override fun login(phone: String, password: String) {
@@ -43,6 +50,10 @@ class AuthorizationManagerImpl(
                 password = password
             )
         )
+        infoRepository.deleteAll()
+        settingsRepository.deleteAll()
+        infoRepository.putLocationId(response.locationId)
+        sessionManager.startSession(OnlineAuthorization(response.accessToken))
     }
 
     override fun recoveryPassword(phone: String) {
@@ -71,8 +82,13 @@ class AuthorizationManagerImpl(
     override fun getLastLogin(): String =
         authorizationRepository.getLastLogin()
 
-    override fun saveLastLogin(phone: String) {
-        authorizationRepository.putLastLogin(phone)
+    override fun saveLastLogin(login: String) {
+        val currentLastLogin = getLastLogin()
+        if (currentLastLogin != login) {
+            infoRepository.deleteAll()
+            settingsRepository.deleteAll()
+            authorizationRepository.putLastLogin(login)
+        }
     }
 
     override fun getCurrentCountry(): String =

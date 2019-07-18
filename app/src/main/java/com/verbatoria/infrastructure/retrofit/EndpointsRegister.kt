@@ -2,6 +2,7 @@ package com.verbatoria.infrastructure.retrofit
 
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.AuthorizationEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.SMSLoginEndpoint
+import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.InfoEndpoint
 import retrofit2.Retrofit
 
 /**
@@ -13,6 +14,8 @@ interface EndpointsRegister {
     val authorizationEndpoint: AuthorizationEndpoint
 
     val smsLoginEndpoint: SMSLoginEndpoint
+
+    val infoEndpoint: InfoEndpoint
 
 }
 
@@ -26,5 +29,8 @@ class EndpointsRegisterImpl(
 
     override val smsLoginEndpoint: SMSLoginEndpoint =
         panelRetrofit.create(SMSLoginEndpoint::class.java)
+
+    override val infoEndpoint: InfoEndpoint =
+        retrofit.create(InfoEndpoint::class.java)
 
 }

@@ -154,7 +154,7 @@ class SettingsFragment :
 
     override fun openLogin() {
         activity?.let { activity ->
-            startActivity(LoginActivity.createIntent(activity))
+            startActivity(LoginActivity.createIntentWithClearStack(activity))
         }
     }
 
