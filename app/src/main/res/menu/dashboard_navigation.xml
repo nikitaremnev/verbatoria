@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_main"
+        android:id="@+id/navigation_info"
         android:icon="@drawable/ic_dashboard_main"
         android:title="@string/dashboard_bottom_item_main" />
 

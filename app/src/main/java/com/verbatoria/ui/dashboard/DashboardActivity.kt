@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.widget.EditText
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.blocked.BlockedFragment
+import com.verbatoria.ui.dashboard.info.InfoFragment
 import com.verbatoria.ui.dashboard.settings.SettingsFragment
 
 /**
@@ -18,10 +19,15 @@ import com.verbatoria.ui.dashboard.settings.SettingsFragment
 
 interface DashboardView : BaseView {
 
+    fun openInfo()
+
+    fun openCalendar()
+
     fun openSettings()
 
     interface Callback {
 
+        fun onBottomNavigationItemSelected(itemId: Int)
 
     }
 
@@ -49,13 +55,29 @@ class DashboardActivity :
 
     override fun initViews(savedState: Bundle?) {
         bottomNavigationView = findViewById(R.id.bottom_navigation_view)
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
+            presenter.onBottomNavigationItemSelected(item.itemId)
+            true
+        }
     }
 
     //region DashboardView
 
+    override fun openInfo() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragments_container, InfoFragment.createFragment())
+        transaction.commit()
+    }
+
+    override fun openCalendar() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragments_container, BlockedFragment.createFragment())
+        transaction.commit()
+    }
+
     override fun openSettings() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fragments_container, SettingsFragment.createFragment())
+        transaction.replace(R.id.fragments_container, SettingsFragment.createFragment())
         transaction.commit()
     }
 

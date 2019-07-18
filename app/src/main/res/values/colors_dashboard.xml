@@ -15,6 +15,10 @@
     <color name="report_uploaded_color">#40B469</color>
     <color name="report_ready_color">#40B469</color>
 
+    <!-- Info -->
+
+    <color name="info_section_title_text_color">#de000000</color>
+
     <!-- Settings -->
 
     <color name="settings_dialog_title_text_color">#de000000</color>

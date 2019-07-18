@@ -9,10 +9,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import com.remnev.verbatoria.R;
 import com.verbatoria.infrastructure.BaseActivity;
-import com.verbatoria.ui.blocked.BlockedFragment;
 import com.verbatoria.ui.calendar.view.CalendarFragment;
 import com.verbatoria.ui.dashboard.presenter.IDashboardPresenter;
-import com.verbatoria.ui.dashboard.view.info.VerbatologInfoFragment;
 import javax.inject.Inject;
 import butterknife.BindView;
 
@@ -64,9 +62,9 @@ public class DashboardActivity extends BaseActivity {
             mDashboardPresenter.setShowSettings(false);
         } else {
             if (mDashboardPresenter.isBlocked()) {
-                setUpFragment(BlockedFragment.newInstance());
+//                setUpFragment(BlockedFragment.newInstance());
             } else {
-                setUpFragment(VerbatologInfoFragment.newInstance());
+//                setUpFragment(VerbatologInfoFragment.newInstance());
             }
         }
         showSessionFinish();
@@ -81,16 +79,16 @@ public class DashboardActivity extends BaseActivity {
     private void setUpBottomNavigation() {
         mBottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.navigation_main:
+                case R.id.navigation_info:
                     if (mDashboardPresenter.isBlocked()) {
-                        setUpFragment(BlockedFragment.newInstance());
+//                        setUpFragment(BlockedFragment.newInstance());
                     } else {
-                        setUpFragment(VerbatologInfoFragment.newInstance());
+//                        setUpFragment(VerbatologInfoFragment.newInstance());
                     }
                     return true;
                 case R.id.navigation_calendar:
                     if (mDashboardPresenter.isBlocked()) {
-                        setUpFragment(BlockedFragment.newInstance());
+//                        setUpFragment(BlockedFragment.newInstance());
                     } else {
                         setUpFragment(CalendarFragment.newInstance());
                     }

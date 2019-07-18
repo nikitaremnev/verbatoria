@@ -1,6 +1,7 @@
 package com.verbatoria.di.dashboard
 
 import com.verbatoria.di.BaseInjector
+import com.verbatoria.di.dashboard.info.InfoComponent
 import com.verbatoria.di.dashboard.settings.SettingsComponent
 import com.verbatoria.ui.dashboard.DashboardActivity
 import dagger.Subcomponent
@@ -11,6 +12,8 @@ import dagger.Subcomponent
 
 @Subcomponent(modules = [DashboardModule::class])
 interface DashboardComponent : BaseInjector<DashboardActivity> {
+
+    fun plusInfoComponent(): InfoComponent.Builder
 
     fun plusSettingsComponent(): SettingsComponent.Builder
 
