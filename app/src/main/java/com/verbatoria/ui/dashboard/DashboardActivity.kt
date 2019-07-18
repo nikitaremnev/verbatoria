@@ -11,6 +11,7 @@ import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.blocked.BlockedFragment
+import com.verbatoria.ui.dashboard.calendar.CalendarFragment
 import com.verbatoria.ui.dashboard.info.InfoFragment
 import com.verbatoria.ui.dashboard.settings.SettingsFragment
 
@@ -72,7 +73,7 @@ class DashboardActivity :
 
     override fun openCalendar() {
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragments_container, BlockedFragment.createFragment())
+        transaction.replace(R.id.fragments_container, CalendarFragment.createFragment())
         transaction.commit()
     }
 

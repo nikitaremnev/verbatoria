@@ -46,23 +46,23 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     @Inject
     ICalendarPresenter mCalendarPresenter;
 
-    @BindView(R.id.add_event_button)
-    public TextView mAddEventButton;
-
-    @BindView(R.id.tomorrow_date_button)
-    public FloatingActionButton mTomorrowDateButton;
-
-    @BindView(R.id.yesterday_date_button)
-    public FloatingActionButton mYesterdayDateButton;
-
-    @BindView(R.id.current_date_text_view)
-    public TextView mCalendarButton;
-
-    @BindView(R.id.events_recycler_view)
-    public RecyclerView mEventsRecyclerView;
-
-    @BindView(R.id.no_events_text_view)
-    public TextView mNoEventsTextView;
+//    @BindView(R.id.add_event_button)
+//    public TextView mAddEventButton;
+//
+//    @BindView(R.id.tomorrow_date_button)
+//    public FloatingActionButton mTomorrowDateButton;
+//
+//    @BindView(R.id.yesterday_date_button)
+//    public FloatingActionButton mYesterdayDateButton;
+//
+//    @BindView(R.id.current_date_text_view)
+//    public TextView mCalendarButton;
+//
+//    @BindView(R.id.events_recycler_view)
+//    public RecyclerView mEventsRecyclerView;
+//
+//    @BindView(R.id.no_events_text_view)
+//    public TextView mNoEventsTextView;
 
     private Calendar mCalendar;
 
@@ -90,12 +90,12 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
 
     @Override
     public void showVerbatologEvents(List<EventModel> verbatologEvents) {
-        mNoEventsTextView.setVisibility(verbatologEvents.size() == 0 ? View.VISIBLE : View.GONE);
-        mEventsRecyclerView.setAdapter(new EventsAdapter(verbatologEvents, getActivity()));
+//        mNoEventsTextView.setVisibility(verbatologEvents.size() == 0 ? View.VISIBLE : View.GONE);
+//        mEventsRecyclerView.setAdapter(new EventsAdapter(verbatologEvents, getActivity()));
     }
 
     private void setUpCurrentDate() {
-        mCalendarButton.setText(DateUtils.toUIDateString(mCalendar.getTime()));
+//        mCalendarButton.setText(DateUtils.toUIDateString(mCalendar.getTime()));
     }
 
     @Override
@@ -114,20 +114,20 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
     }
 
     private void setUpAddEventButton() {
-        mAddEventButton.setOnClickListener(v -> startActivityForResult(EventDetailActivity.newInstance(getContext()), ACTIVITY_EVENT_CODE));
+//        mAddEventButton.setOnClickListener(v -> startActivityForResult(EventDetailActivity.newInstance(getContext()), ACTIVITY_EVENT_CODE));
     }
 
     private void setUpCalendarButtons() {
-        mCalendarButton.setOnClickListener(v -> showCalendar());
-        mTomorrowDateButton.setOnClickListener(v -> showTomorrowCalendar());
-        mYesterdayDateButton.setOnClickListener(v -> showYesterdayCalendar());
-        mTomorrowDateButton.show();
-        mYesterdayDateButton.show();
+//        mCalendarButton.setOnClickListener(v -> showCalendar());
+//        mTomorrowDateButton.setOnClickListener(v -> showTomorrowCalendar());
+//        mYesterdayDateButton.setOnClickListener(v -> showYesterdayCalendar());
+//        mTomorrowDateButton.show();
+//        mYesterdayDateButton.show();
     }
 
     private void setUpRecyclerView() {
-        mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mEventsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+//        mEventsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mEventsRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
     }
 
     private void showCalendar() {
@@ -144,14 +144,14 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
         mCalendar.set(Calendar.DAY_OF_MONTH, mCalendar.get(Calendar.DAY_OF_MONTH) + 1);
         setUpCurrentDate();
         mCalendarPresenter.updateVerbatologEvents(mCalendar);
-        Helper.showShortHintSnackBar(mEventsRecyclerView, String.format(getString(R.string.event_detail_activity_choose_date_hint), DateUtils.toUIDateString(mCalendar.getTime())));
+//        Helper.showShortHintSnackBar(mEventsRecyclerView, String.format(getString(R.string.event_detail_activity_choose_date_hint), DateUtils.toUIDateString(mCalendar.getTime())));
     }
 
     private void showYesterdayCalendar() {
         mCalendar.set(Calendar.DAY_OF_MONTH, mCalendar.get(Calendar.DAY_OF_MONTH) - 1);
         setUpCurrentDate();
         mCalendarPresenter.updateVerbatologEvents(mCalendar);
-        Helper.showShortHintSnackBar(mEventsRecyclerView, String.format(getString(R.string.event_detail_activity_choose_date_hint), DateUtils.toUIDateString(mCalendar.getTime())));
+//        Helper.showShortHintSnackBar(mEventsRecyclerView, String.format(getString(R.string.event_detail_activity_choose_date_hint), DateUtils.toUIDateString(mCalendar.getTime())));
     }
 
     @Override
@@ -161,6 +161,6 @@ public class CalendarFragment extends Fragment implements ICalendarView, DatePic
         mCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         setUpCurrentDate();
         mCalendarPresenter.updateVerbatologEvents(mCalendar);
-        Helper.showShortHintSnackBar(mEventsRecyclerView, String.format(getString(R.string.event_detail_activity_choose_date_hint), DateUtils.toUIDateString(mCalendar.getTime())));
+//        Helper.showShortHintSnackBar(mEventsRecyclerView, String.format(getString(R.string.event_detail_activity_choose_date_hint), DateUtils.toUIDateString(mCalendar.getTime())));
     }
 }

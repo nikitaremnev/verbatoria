@@ -1,6 +1,7 @@
 package com.verbatoria.di.dashboard
 
 import com.verbatoria.di.BaseInjector
+import com.verbatoria.di.dashboard.calendar.CalendarComponent
 import com.verbatoria.di.dashboard.info.InfoComponent
 import com.verbatoria.di.dashboard.settings.SettingsComponent
 import com.verbatoria.ui.dashboard.DashboardActivity
@@ -14,6 +15,8 @@ import dagger.Subcomponent
 interface DashboardComponent : BaseInjector<DashboardActivity> {
 
     fun plusInfoComponent(): InfoComponent.Builder
+
+    fun plusCalendarComponent(): CalendarComponent.Builder
 
     fun plusSettingsComponent(): SettingsComponent.Builder
 

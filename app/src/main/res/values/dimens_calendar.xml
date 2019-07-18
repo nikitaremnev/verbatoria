@@ -7,4 +7,7 @@
     <dimen name="calendar_report_status_size">40dp</dimen>
 
 
+    <dimen name="calendar_empty_text_size">20sp</dimen>
+    <dimen name="calendar_empty_margin">32dp</dimen>
+
 </resources>
