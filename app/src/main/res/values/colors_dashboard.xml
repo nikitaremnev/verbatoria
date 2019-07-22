@@ -8,7 +8,6 @@
 
     <color name="settings_text_color">#000</color>
 
-    <color name="settings_divider_item_color">#CCCCCC</color>
 
     <color name="report_new_color">#E59700</color>
     <color name="report_sent_color">#2F8D4F</color>
@@ -17,7 +16,7 @@
 
     <!-- Info -->
 
-    <color name="info_section_title_text_color">#de000000</color>
+    <color name="info_section_title_text_color">#ffffff</color>
 
     <!-- Settings -->
 

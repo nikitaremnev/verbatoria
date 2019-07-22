@@ -20,9 +20,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/settings_item_divider_height"
+                android:layout_height="@dimen/divider_height"
                 android:layout_alignParentBottom="true"
-                android:background="@color/settings_divider_item_color">
+                android:background="@color/divider_item_color">
             </View>
 
             <EditText
@@ -75,12 +75,12 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_item_divider_height"
+        android:layout_height="@dimen/divider_height"
         android:id="@+id/divider"
         android:visibility="invisible"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_below="@+id/search_button"
-        android:background="@color/settings_divider_item_color">
+        android:background="@color/divider_item_color">
     </View>
 
     <android.support.v7.widget.RecyclerView

@@ -8,8 +8,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_item_divider_height"
-        android:background="@color/settings_divider_item_color"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/divider_item_color"
         android:layout_below="@+id/gender_radio_group">
     </View>
 

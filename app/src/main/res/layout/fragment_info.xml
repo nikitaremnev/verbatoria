@@ -15,8 +15,9 @@
             android:id="@+id/section_1_title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/font"
+            android:background="@color/main"
             android:padding="@dimen/info_section_title_padding"
+            android:textStyle="bold"
             android:text="@string/dashboard_neurometrist"
             android:textColor="@color/info_section_title_text_color"
             android:textSize="@dimen/info_section_title_text_size"
@@ -26,8 +27,8 @@
         <View
             android:id="@+id/border_top_1_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_divider_height"
-            android:background="@color/settings_divider_item_color"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/section_1_title_text_view" />
 
@@ -100,9 +101,9 @@
         <View
             android:id="@+id/border_bottom_1_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_divider_height"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginTop="@dimen/info_bottom_divider_margin_top"
-            android:background="@color/settings_divider_item_color"
+            android:background="@color/divider_item_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/archimedes_text_view" />
 
@@ -110,9 +111,10 @@
             android:id="@+id/section_2_title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/font"
+            android:background="@color/main"
             android:padding="@dimen/info_section_title_padding"
             android:text="@string/dashboard_cabinet"
+            android:textStyle="bold"
             android:textColor="@color/info_section_title_text_color"
             android:textSize="@dimen/info_section_title_text_size"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -121,8 +123,8 @@
         <View
             android:id="@+id/border_top_2_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_divider_height"
-            android:background="@color/settings_divider_item_color"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/section_2_title_text_view" />
 
@@ -186,9 +188,9 @@
         <View
             android:id="@+id/border_bottom_2_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_divider_height"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginTop="@dimen/info_bottom_divider_margin_top"
-            android:background="@color/settings_divider_item_color"
+            android:background="@color/divider_item_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/location_point_text_view" />
 
@@ -196,9 +198,10 @@
             android:id="@+id/section_3_title_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/font"
+            android:background="@color/main"
             android:padding="@dimen/info_section_title_padding"
             android:text="@string/dashboard_partner"
+            android:textStyle="bold"
             android:textColor="@color/info_section_title_text_color"
             android:textSize="@dimen/info_section_title_text_size"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -207,8 +210,8 @@
         <View
             android:id="@+id/border_top_3_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_divider_height"
-            android:background="@color/settings_divider_item_color"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/section_3_title_text_view" />
 
@@ -239,9 +242,9 @@
         <View
             android:id="@+id/border_bottom_3_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/settings_item_divider_height"
+            android:layout_height="@dimen/divider_height"
             android:layout_marginTop="@dimen/info_bottom_divider_margin_top"
-            android:background="@color/settings_divider_item_color"
+            android:background="@color/divider_item_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/partner_name_text_view" />
 

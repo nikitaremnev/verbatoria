@@ -32,8 +32,6 @@
 
     <dimen name="settings_item_height">60dp</dimen>
 
-    <dimen name="settings_item_divider_height">1dp</dimen>
-
     <dimen name="settings_item_left_padding">16dp</dimen>
     <dimen name="settings_item_right_padding">32dp</dimen>
 

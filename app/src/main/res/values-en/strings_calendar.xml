@@ -110,4 +110,8 @@
 
     <string name="school_mode_submit_hint">All data has been recorded. Now you can finish the session.</string>
 
+    <string name="calendar_report_yesterday">Yesterday</string>
+    <string name="calendar_report_today">Today</string>
+    <string name="calendar_report_tomorrow">Tomorrow</string>
+
 </resources>

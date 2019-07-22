@@ -14,6 +14,9 @@
     <color name="red">#BF0036</color>
     <color name="next">#D24B1B</color>
     <color name="back">#E59700</color>
+
+    <color name="divider_item_color">#CCCCCC</color>
+
     <!-- statuses colors -->
 
     <color name="lowest_color">#E59700</color>

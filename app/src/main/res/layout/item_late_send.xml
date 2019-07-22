@@ -8,9 +8,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/settings_item_divider_height"
+        android:layout_height="@dimen/divider_height"
         android:layout_alignParentBottom="true"
-        android:background="@color/settings_divider_item_color" />
+        android:background="@color/divider_item_color" />
 
     <TextView
         android:id="@+id/field_title"
