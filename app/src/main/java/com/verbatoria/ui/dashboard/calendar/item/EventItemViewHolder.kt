@@ -12,9 +12,9 @@ import com.remnev.verbatoria.R
 
 interface EventItemViewHolder {
 
-    fun setStatusLogo(statusLogoResourceId: Int)
+    fun setStatusLogoFromResourceId(statusLogoResourceId: Int)
 
-    fun setStatus(status: String)
+    fun setStatusFromResourceId(statusTextResource: Int)
 
     fun setClient(client: String)
 
@@ -48,12 +48,12 @@ class EventItemViewHolderImpl(
         }
     }
 
-    override fun setStatusLogo(statusLogoResourceId: Int) {
+    override fun setStatusLogoFromResourceId(statusLogoResourceId: Int) {
         statusImageView.setImageResource(statusLogoResourceId)
     }
 
-    override fun setStatus(status: String) {
-        statusTextView.text = status
+    override fun setStatusFromResourceId(statusTextResource: Int) {
+        statusTextView.text = context.getString(statusTextResource)
     }
 
     override fun setClient(client: String) {

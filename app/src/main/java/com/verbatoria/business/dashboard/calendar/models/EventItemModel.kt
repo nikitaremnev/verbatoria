@@ -1,5 +1,6 @@
 package com.verbatoria.business.dashboard.calendar.models
 
+import com.verbatoria.business.report.ReportStatus
 import java.util.*
 
 /**
@@ -10,7 +11,7 @@ class EventItemModel(
     val clientName: String,
     val clientBirhtday: Date,
     val reportId: String,
-    val status: String,
+    val status: ReportStatus,
     val startDate: Date,
     val endDate: Date
-) : CalendarItemModel
+)

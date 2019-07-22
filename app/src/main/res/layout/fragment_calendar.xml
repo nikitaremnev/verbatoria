@@ -12,6 +12,32 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/border_top_view" />
 
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        android:layout_width="@dimen/calendar_progress_bar_size"
+        android:layout_height="@dimen/calendar_progress_bar_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/border_top_view" />
+
+    <TextView
+        android:id="@+id/empty_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:textSize="@dimen/calendar_empty_text_size"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:visibility="gone"
+        android:layout_margin="@dimen/calendar_empty_margin"
+        android:text="@string/dashboard_no_events_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/border_top_view"/>
+
     <ImageView
         android:id="@+id/previous_date_image_view"
         android:layout_width="@dimen/calendar_previous_date_width"

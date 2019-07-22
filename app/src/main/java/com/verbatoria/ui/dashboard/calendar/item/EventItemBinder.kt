@@ -1,8 +1,8 @@
 package com.verbatoria.ui.dashboard.calendar.item
 
-import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.calendar.models.EventItemModel
-import com.verbatoria.infrastructure.date.formatWithMillisecondsAndZeroOffset
+import com.verbatoria.business.report.ReportStatusHelper
+import com.verbatoria.infrastructure.date.formatToTime
 import com.verbatoria.ui.common.ViewBinder
 
 /**
@@ -12,11 +12,12 @@ import com.verbatoria.ui.common.ViewBinder
 class EventItemBinder: ViewBinder<EventItemViewHolder, EventItemModel>() {
 
     override fun bind(view: EventItemViewHolder, data: EventItemModel, position: Int) {
-        view.setStatusLogo(R.drawable.ic_report)
-        view.setStatus(data.status)
+        val statusLogoAndText = ReportStatusHelper.getStatusLogoAndStringByEnum(data.status)
+        view.setStatusLogoFromResourceId(statusLogoAndText.first)
+        view.setStatusFromResourceId(statusLogoAndText.second)
         view.setClient(data.clientName)
         view.setReportId(data.reportId)
-        view.setPeriod(data.startDate.formatWithMillisecondsAndZeroOffset())
+        view.setPeriod(data.startDate.formatToTime() + " - " + data.endDate.formatToTime())
     }
 
 }

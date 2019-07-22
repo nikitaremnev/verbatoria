@@ -7,11 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
-import com.verbatoria.business.dashboard.calendar.models.CalendarItemModel
+import com.verbatoria.business.dashboard.calendar.models.EventItemModel
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.calendar.CalendarComponent
+import com.verbatoria.infrastructure.extensions.hide
+import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterFragment
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
@@ -32,7 +35,19 @@ interface CalendarView : BaseView {
 
     fun setTomorrowCurrentDate()
 
-    fun setCalendarItems(calendarItemModels: List<CalendarItemModel>)
+    fun setCalendarItems(eventsList: List<EventItemModel>)
+
+    fun showEmptyEvents()
+
+    fun hideEmptyEvents()
+
+    fun showEventsList()
+
+    fun hideEventsList()
+
+    fun showProgress()
+
+    fun hideProgress()
 
     interface Callback {
 
@@ -63,6 +78,8 @@ class CalendarFragment :
     private lateinit var currentDateTextView: TextView
     private lateinit var previousDateImageView: ImageView
     private lateinit var nextDateImageView: ImageView
+    private lateinit var loadingProgressBar: ProgressBar
+    private lateinit var emptyTextView: TextView
 
     private var progressDialog: ProgressDialog? = null
 
@@ -80,6 +97,8 @@ class CalendarFragment :
             previousDateImageView = findViewById(R.id.previous_date_image_view)
             currentDateTextView = findViewById(R.id.current_date_text_view)
             nextDateImageView = findViewById(R.id.next_date_image_view)
+            loadingProgressBar = findViewById(R.id.loading_progress_bar)
+            emptyTextView = findViewById(R.id.empty_text_view)
         }
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
@@ -115,8 +134,32 @@ class CalendarFragment :
         currentDateTextView.text = getString(R.string.calendar_report_tomorrow)
     }
 
-    override fun setCalendarItems(calendarItemModels: List<CalendarItemModel>) {
-        adapter.update(calendarItemModels)
+    override fun setCalendarItems(eventsList: List<EventItemModel>) {
+        adapter.update(eventsList)
+    }
+
+    override fun showEmptyEvents() {
+        emptyTextView.show()
+    }
+
+    override fun hideEmptyEvents() {
+        emptyTextView.hide()
+    }
+
+    override fun showEventsList() {
+        recyclerView.show()
+    }
+
+    override fun hideEventsList() {
+        recyclerView.hide()
+    }
+
+    override fun showProgress() {
+        loadingProgressBar.show()
+    }
+
+    override fun hideProgress() {
+        loadingProgressBar.hide()
     }
 
     //endregion

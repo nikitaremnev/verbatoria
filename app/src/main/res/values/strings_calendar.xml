@@ -76,6 +76,7 @@
     <string name="client_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
 
     <string name="calendar_report_new">Новый</string>
+    <string name="calendar_report_cancelled">Отменен</string>
     <string name="calendar_report_uploaded">Загружен</string>
     <string name="calendar_report_ready">Готов</string>
     <string name="calendar_report_sent">Отправлен</string>

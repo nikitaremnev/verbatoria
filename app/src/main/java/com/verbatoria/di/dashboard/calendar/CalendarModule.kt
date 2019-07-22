@@ -2,7 +2,6 @@ package com.verbatoria.di.dashboard.calendar
 
 import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.calendar.CalendarInteractorImpl
-import com.verbatoria.business.dashboard.calendar.models.EmptyItemModel
 import com.verbatoria.business.dashboard.calendar.models.EventItemModel
 import com.verbatoria.di.FragmentScope
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister
@@ -11,8 +10,6 @@ import com.verbatoria.infrastructure.utils.ViewInflater
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.ItemAdapter
 import com.verbatoria.ui.dashboard.calendar.CalendarPresenter
-import com.verbatoria.ui.dashboard.calendar.item.EmptyItemBinder
-import com.verbatoria.ui.dashboard.calendar.item.EmptyItemViewHolder
 import com.verbatoria.ui.dashboard.calendar.item.EventItemBinder
 import com.verbatoria.ui.dashboard.calendar.item.EventItemViewHolderImpl
 import dagger.Module
@@ -45,15 +42,6 @@ class CalendarModule {
     ): Adapter =
         Adapter(
             listOf(
-                ItemAdapter(
-                    { it is EmptyItemModel },
-                    {
-                        EmptyItemViewHolder(
-                            ViewInflater.inflate(R.layout.item_empty, it)
-                        )
-                    },
-                    EmptyItemBinder()
-                ),
                 ItemAdapter(
                     { it is EventItemModel },
                     {

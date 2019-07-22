@@ -1,7 +1,6 @@
 package com.verbatoria.ui.dashboard.calendar
 
 import com.verbatoria.business.dashboard.calendar.CalendarInteractor
-import com.verbatoria.business.dashboard.calendar.models.CalendarItemModel
 import com.verbatoria.business.dashboard.calendar.models.EventItemModel
 import com.verbatoria.infrastructure.date.*
 import com.verbatoria.ui.base.BasePresenter
@@ -21,16 +20,21 @@ class CalendarPresenter(
 
     private val currentDate: Date = Date()
 
-    private val calendarItems: MutableList<CalendarItemModel> = mutableListOf()
+    private val eventsList: MutableList<EventItemModel> = mutableListOf()
+
+    private var isLoadingEventsInProgress: Boolean = false
 
     init {
-        getEvents(currentDate)
+        getEvents()
     }
 
     override fun onAttachView(view: CalendarView) {
         super.onAttachView(view)
         setCurrentDate()
-        view.setCalendarItems(calendarItems)
+        if (isLoadingEventsInProgress)
+            view.showProgress()
+        else
+            setCalendarItems()
     }
 
     //region CalendarView.Callback
@@ -38,6 +42,7 @@ class CalendarPresenter(
     override fun onPreviousDateClicked() {
         currentDate.minusDay()
         setCurrentDate()
+        getEvents()
     }
 
     override fun onCurrentDateClicked() {
@@ -47,6 +52,7 @@ class CalendarPresenter(
     override fun onNextDateClicked() {
         currentDate.plusDay()
         setCurrentDate()
+        getEvents()
     }
 
     //endregion
@@ -59,14 +65,29 @@ class CalendarPresenter(
 
     //endregion
 
-    private fun getEvents(date: Date) {
-        calendarInteractor.getEventsForDate(date)
+    private fun getEvents() {
+        isLoadingEventsInProgress = true
+        eventsList.clear()
+        view?.apply {
+            hideEmptyEvents()
+            hideEventsList()
+            showProgress()
+        }
+        calendarInteractor.getEventsForDate(currentDate)
             .subscribe({ calendarItemModels ->
-                calendarItems.clear()
-                calendarItems.addAll(calendarItemModels)
-                view?.setCalendarItems(calendarItemModels)
+                eventsList.addAll(calendarItemModels)
+                view?.apply {
+                    hideProgress()
+                    setCalendarItems()
+                }
+                isLoadingEventsInProgress = false
             }, { error ->
                 error.printStackTrace()
+                view?.apply {
+                    hideProgress()
+                    showEmptyEvents()
+                }
+                isLoadingEventsInProgress = false
             })
             .let(::addDisposable)
     }
@@ -81,6 +102,20 @@ class CalendarPresenter(
                 view?.setTomorrowCurrentDate()
             else ->
                 view?.setCurrentDate(currentDate.formatToDateWithFullMonth())
+        }
+    }
+
+    private fun setCalendarItems() {
+        if (eventsList.isEmpty()) {
+            view?.apply {
+                hideEventsList()
+                showEmptyEvents()
+            }
+        } else {
+            view?.apply {
+                setCalendarItems(eventsList)
+                showEventsList()
+            }
         }
     }
 

@@ -76,6 +76,7 @@
     <string name="client_activity_cancel_edit_hint">You canceled editing the recording</string>
 
     <string name="calendar_report_new">New</string>
+    <string name="calendar_report_cancelled">Cancelled</string>
     <string name="calendar_report_uploaded">Uploaded</string>
     <string name="calendar_report_ready">Ready</string>
     <string name="calendar_report_sent">Sent</string>
