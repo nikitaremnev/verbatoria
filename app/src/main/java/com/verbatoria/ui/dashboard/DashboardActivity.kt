@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.AlertDialog
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.dashboard.DashboardComponent
@@ -21,11 +20,15 @@ import com.verbatoria.ui.dashboard.settings.SettingsFragment
 
 interface DashboardView : BaseView {
 
+    fun setInfoItemSelected()
+
     fun openInfo()
 
     fun openCalendar()
 
     fun openSettings()
+
+    fun openBlocked()
 
     interface Callback {
 
@@ -65,6 +68,10 @@ class DashboardActivity :
 
     //region DashboardView
 
+    override fun setInfoItemSelected() {
+        bottomNavigationView.selectedItemId = R.id.navigation_info
+    }
+
     override fun openInfo() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragments_container, InfoFragment.createFragment())
@@ -80,6 +87,12 @@ class DashboardActivity :
     override fun openSettings() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fragments_container, SettingsFragment.createFragment())
+        transaction.commit()
+    }
+
+    override fun openBlocked() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragments_container, BlockedFragment.createFragment())
         transaction.commit()
     }
 

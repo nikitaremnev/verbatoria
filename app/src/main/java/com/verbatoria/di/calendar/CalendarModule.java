@@ -103,14 +103,14 @@ public class CalendarModule {
     IClientsPresenter provideClientsPresenter(IClientsInteractor clientsInteractor) {
         return new ClientsPresenter(clientsInteractor);
     }
-
-    @Provides
-    @CalendarScope
-    IDashboardInteractor provideDashboardInteractor(IDashboardRepository dashboardRepository,
-                                                    ITokenRepository tokenRepository,
-                                                    ISessionRepository sessionRepository) {
-        return new DashboardInteractor(dashboardRepository, tokenRepository, sessionRepository);
-    }
+//
+//    @Provides
+//    @CalendarScope
+//    IDashboardInteractor provideDashboardInteractor(IDashboardRepository dashboardRepository,
+//                                                    ITokenRepository tokenRepository,
+//                                                    ISessionRepository sessionRepository) {
+//        return new DashboardInteractor(dashboardRepository, tokenRepository, sessionRepository);
+//    }
 
     @Provides
     @CalendarScope
@@ -126,7 +126,7 @@ public class CalendarModule {
 
     @Provides
     @CalendarScope
-    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, ICalendarInteractor calendarInteractor, IClientsInteractor clientsInteractor, IDashboardInteractor dashboardInteractor) {
-        return new EventDetailPresenter(sessionInteractor, calendarInteractor, clientsInteractor, dashboardInteractor, sessionInteractor.isSchoolAccount());
+    IEventDetailPresenter provideCalendarEventDetailPresenter(ISessionInteractor sessionInteractor, ICalendarInteractor calendarInteractor, IClientsInteractor clientsInteractor) {
+        return new EventDetailPresenter(sessionInteractor, calendarInteractor, clientsInteractor, sessionInteractor.isSchoolAccount());
     }
 }

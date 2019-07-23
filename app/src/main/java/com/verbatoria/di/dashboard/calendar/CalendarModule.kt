@@ -4,6 +4,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.calendar.CalendarInteractorImpl
 import com.verbatoria.business.dashboard.calendar.models.EventItemModel
 import com.verbatoria.di.FragmentScope
+import com.verbatoria.domain.dashboard.calendar.CalendarRepository
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.infrastructure.utils.ViewInflater
@@ -26,11 +27,13 @@ class CalendarModule {
     @FragmentScope
     fun provideCalendarPresenter(
         endpointsRegister: EndpointsRegister,
+        calendarRepository: CalendarRepository,
         schedulersFactory: RxSchedulersFactory
     ): CalendarPresenter =
         CalendarPresenter(
             CalendarInteractorImpl(
                 endpointsRegister.calendarEndpoint,
+                calendarRepository,
                 schedulersFactory
             )
         )

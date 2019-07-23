@@ -1,4 +1,4 @@
-package com.verbatoria.infrastructure.date
+package com.verbatoria.infrastructure.extensions
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -36,13 +36,22 @@ fun Date.formatWithMillisecondsAndZeroOffset(): String {
 }
 
 fun Date.formatToDateWithFullMonth(): String =
-    format(this, DATE_WITH_FULL_MONTH_FORMAT)
+    format(
+        this,
+        DATE_WITH_FULL_MONTH_FORMAT
+    )
 
 fun Date.formatToServerTime(): String =
-    format(this, SERVER_DATETIME_FORMAT)
+    format(
+        this,
+        SERVER_DATETIME_FORMAT
+    )
 
 fun Date.formatToTime(): String =
-    format(this, FORMAT_TIME_SHORT)
+    format(
+        this,
+        FORMAT_TIME_SHORT
+    )
 
 fun Date.plusDay() {
     time += MILLISECONDS_IN_DAY
@@ -58,7 +67,6 @@ fun Date.getYearsForCurrentMoment(): Int =
 fun Date.toStartDay(): Date {
     val calendar = toCalendar()
         .apply {
-            set(Calendar.MONTH, 4)
             set(Calendar.HOUR_OF_DAY, 0)
             set(Calendar.MINUTE, 0)
             set(Calendar.SECOND, 0)

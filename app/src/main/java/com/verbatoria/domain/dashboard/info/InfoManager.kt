@@ -3,6 +3,7 @@ package com.verbatoria.domain.dashboard.info
 import com.verbatoria.business.dashboard.info.models.InfoModel
 import com.verbatoria.business.dashboard.info.models.LocationInfoModel
 import com.verbatoria.business.dashboard.info.models.PartnerInfoModel
+import com.verbatoria.business.user.UserStatus
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.InfoEndpoint
 import java.lang.Exception
@@ -20,6 +21,10 @@ interface InfoManager {
 
     fun getLocationAndPartnerInfo(): Pair<LocationInfoModel, PartnerInfoModel>
 
+    fun getStatus(): UserStatus
+
+    fun updateInfo(): UserStatus
+
 }
 
 class InfoManagerImpl(
@@ -34,9 +39,10 @@ class InfoManagerImpl(
             lastUpdateInfoTime == NOT_LOADED_TIME -> {
                 val response = infoEndpoint.getInfo()
                 val responseConverted = InfoModel(
-                    name = response.middleName + " " + response.firstName + " " + response.lastName,
+                    name = response.lastName + " " + response.firstName + " " + response.middleName,
                     phone = response.phone,
                     email = response.email,
+                    status = UserStatus.valueOfWithDefault(response.status),
                     isArchimedesAllowed = response.isArchimedesAllowed,
                     locationId = response.locationId
                 )
@@ -49,9 +55,10 @@ class InfoManagerImpl(
                 try {
                     val response = infoEndpoint.getInfo()
                     val responseConverted = InfoModel(
-                        name = response.middleName + " " + response.firstName + " " + response.lastName,
+                        name = response.lastName + " " + response.firstName + " " + response.middleName,
                         phone = response.phone,
                         email = response.email,
+                        status = UserStatus.valueOfWithDefault(response.status),
                         isArchimedesAllowed = response.isArchimedesAllowed,
                         locationId = response.locationId
                     )
@@ -102,7 +109,7 @@ class InfoManagerImpl(
                         id = response.id,
                         name = response.name,
                         address = response.address,
-                        point = response.city.country.name + " " + response.city.name
+                        point = response.city.country.name + ", " + response.city.name
                     )
                     val responsePartnerInfoConverted = PartnerInfoModel(
                         name = response.partner.name
@@ -124,6 +131,24 @@ class InfoManagerImpl(
                 }
             }
         }
+    }
+
+    override fun getStatus(): UserStatus =
+        infoRepository.getStatus()
+
+    override fun updateInfo(): UserStatus {
+        val response = infoEndpoint.getInfo()
+        val responseConverted = InfoModel(
+            name = response.lastName + " " + response.firstName + " " + response.middleName,
+            phone = response.phone,
+            email = response.email,
+            status = UserStatus.valueOfWithDefault(response.status),
+            isArchimedesAllowed = response.isArchimedesAllowed,
+            locationId = response.locationId
+        )
+        infoRepository.saveInfo(responseConverted)
+        infoRepository.putLastInfoUpdateTime(System.currentTimeMillis())
+        return responseConverted.status
     }
 
 }

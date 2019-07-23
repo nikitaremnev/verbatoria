@@ -115,4 +115,6 @@
     <string name="calendar_report_today">Сегодня</string>
     <string name="calendar_report_tomorrow">Завтра</string>
 
+    <string name="calendar_event_age_format">%s, %s</string>
+
 </resources>

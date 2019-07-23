@@ -4,11 +4,13 @@ import android.content.SharedPreferences
 import com.verbatoria.business.dashboard.info.models.InfoModel
 import com.verbatoria.business.dashboard.info.models.LocationInfoModel
 import com.verbatoria.business.dashboard.info.models.PartnerInfoModel
+import com.verbatoria.business.user.UserStatus
 
 /**
  * @author n.remnev
  */
 
+private const val STATUS_KEY = "status"
 private const val NAME_KEY = "name"
 private const val PHONE_KEY = "phone"
 private const val EMAIL_KEY = "email"
@@ -25,6 +27,8 @@ private const val PARTNER_NAME_KEY = "partner_name"
 private const val LAST_LOCATION_INFO_UPDATE_TIME = "last_location_info_update_time"
 
 interface InfoRepository {
+
+    fun putStatus(status: String)
 
     fun putName(name: String)
 
@@ -47,6 +51,8 @@ interface InfoRepository {
     fun putLastInfoUpdateTime(time: Long)
 
     fun putLastLocationInfoUpdateTime(time: Long)
+
+    fun getStatus(): UserStatus
 
     fun getName(): String
 
@@ -89,6 +95,13 @@ interface InfoRepository {
 class InfoRepositoryImpl(
     private val sharedPreferences: SharedPreferences
 ) : InfoRepository {
+
+    override fun putStatus(status: String) {
+        sharedPreferences.edit().apply {
+            putString(STATUS_KEY, status)
+            apply()
+        }
+    }
 
     override fun putName(name: String) {
         sharedPreferences.edit().apply {
@@ -167,6 +180,9 @@ class InfoRepositoryImpl(
         }
     }
 
+    override fun getStatus(): UserStatus =
+        UserStatus.valueOfWithDefault(sharedPreferences.getString(STATUS_KEY, ""))
+
     override fun getName(): String =
         sharedPreferences.getString(NAME_KEY, "")
 
@@ -202,6 +218,7 @@ class InfoRepositoryImpl(
 
     override fun saveInfo(info: InfoModel) {
         sharedPreferences.edit().apply {
+            putString(STATUS_KEY, info.status.userStatus)
             putString(NAME_KEY, info.name)
             putString(PHONE_KEY, info.phone)
             putString(EMAIL_KEY, info.email)
@@ -230,6 +247,7 @@ class InfoRepositoryImpl(
             name = getName(),
             phone = getPhone(),
             email = getEmail(),
+            status = getStatus(),
             isArchimedesAllowed = getIsArchimedesAllowed(),
             locationId = getLocationId()
         )

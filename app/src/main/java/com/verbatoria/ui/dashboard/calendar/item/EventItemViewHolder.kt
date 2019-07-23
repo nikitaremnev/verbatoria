@@ -1,10 +1,12 @@
 package com.verbatoria.ui.dashboard.calendar.item
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import com.remnev.verbatoria.R
+import com.verbatoria.infrastructure.extensions.capitalizeFirstLetter
 
 /**
  * @author n.remnev
@@ -16,7 +18,7 @@ interface EventItemViewHolder {
 
     fun setStatusFromResourceId(statusTextResource: Int)
 
-    fun setClient(client: String)
+    fun setClientNameAndAge(name: String, age: Int)
 
     fun setReportId(reportId: String)
 
@@ -56,8 +58,12 @@ class EventItemViewHolderImpl(
         statusTextView.text = context.getString(statusTextResource)
     }
 
-    override fun setClient(client: String) {
-        clientTextView.text = client
+    override fun setClientNameAndAge(name: String, age: Int) {
+        clientTextView.text = context.getString(
+            R.string.calendar_event_age_format,
+            name.capitalizeFirstLetter(),
+            age.toString()
+        )
     }
 
     override fun setReportId(reportId: String) {

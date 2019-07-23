@@ -2,7 +2,7 @@ package com.verbatoria.ui.dashboard.calendar
 
 import com.verbatoria.business.dashboard.calendar.CalendarInteractor
 import com.verbatoria.business.dashboard.calendar.models.EventItemModel
-import com.verbatoria.infrastructure.date.*
+import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.dashboard.calendar.item.EventItemViewHolder
 import org.slf4j.LoggerFactory
@@ -18,23 +18,27 @@ class CalendarPresenter(
 
     private val logger = LoggerFactory.getLogger("CalendarPresenter")
 
-    private val currentDate: Date = Date()
+    private var currentDate: Date = Date()
 
     private val eventsList: MutableList<EventItemModel> = mutableListOf()
 
     private var isLoadingEventsInProgress: Boolean = false
 
     init {
-        getEvents()
+        getLastSelectedDate()
     }
 
     override fun onAttachView(view: CalendarView) {
         super.onAttachView(view)
-        setCurrentDate()
         if (isLoadingEventsInProgress)
             view.showProgress()
         else
             setCalendarItems()
+    }
+
+    override fun onDetachView() {
+        super.onDetachView()
+        saveLastSelectedDate()
     }
 
     //region CalendarView.Callback
@@ -65,9 +69,32 @@ class CalendarPresenter(
 
     //endregion
 
+    private fun getLastSelectedDate() {
+        calendarInteractor.getLastSelectedDate()
+            .subscribe({ lastSelectedDate ->
+                currentDate = lastSelectedDate
+                setCurrentDate()
+                getEvents()
+            }, { error ->
+                logger.error("error while get last selected event occurred", error)
+            })
+            .let(::addDisposable)
+    }
+
+    private fun saveLastSelectedDate() {
+        calendarInteractor.saveLastSelectedDate(currentDate)
+            .subscribe({
+                //empty
+            }, { error ->
+                logger.error("error while saving last selected event occurred", error)
+            })
+            .let(::addDisposable)
+    }
+
     private fun getEvents() {
         isLoadingEventsInProgress = true
         eventsList.clear()
+        clearDisposables()
         view?.apply {
             hideEmptyEvents()
             hideEventsList()
@@ -82,7 +109,7 @@ class CalendarPresenter(
                 }
                 isLoadingEventsInProgress = false
             }, { error ->
-                error.printStackTrace()
+                logger.error("error while get events occurred", error)
                 view?.apply {
                     hideProgress()
                     showEmptyEvents()

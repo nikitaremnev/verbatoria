@@ -9,7 +9,7 @@ import java.util.*
 
 class EventItemModel(
     val clientName: String,
-    val clientBirhtday: Date,
+    val clientAge: Int,
     val reportId: String,
     val status: ReportStatus,
     val startDate: Date,

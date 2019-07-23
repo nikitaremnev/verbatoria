@@ -30,11 +30,15 @@ open class BasePresenter<View : BaseView> {
 
     @CallSuper
     open fun onDestroy() {
-        compositeDisposable.clear()
+        clearDisposables()
     }
 
     protected fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)
+    }
+
+    protected fun clearDisposables() {
+        compositeDisposable.clear()
     }
 
 }

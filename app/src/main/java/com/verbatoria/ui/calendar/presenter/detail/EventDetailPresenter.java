@@ -39,7 +39,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     private IClientsInteractor clientsInteractor;
     private ISessionInteractor sessionInteractor;
     private ICalendarInteractor calendarInteractor;
-    private IDashboardInteractor dashboardInteractor;
+//    private IDashboardInteractor dashboardInteractor;
 
     private EventModel eventModel;
     private ClientModel clientModel;
@@ -52,12 +52,12 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     public EventDetailPresenter(ISessionInteractor sessionInteractor,
                                 ICalendarInteractor calendarInteractor,
                                 IClientsInteractor clientsInteractor,
-                                IDashboardInteractor dashboardInteractor,
+//                                IDashboardInteractor dashboardInteractor,
                                 boolean isSchoolAccount) {
         this.sessionInteractor = sessionInteractor;
         this.calendarInteractor = calendarInteractor;
         this.clientsInteractor = clientsInteractor;
-        this.dashboardInteractor = dashboardInteractor;
+//        this.dashboardInteractor = dashboardInteractor;
         this.isSchoolAccount = isSchoolAccount;
     }
 
@@ -264,19 +264,19 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     @Override
     public boolean isArchimedesAllowedForVerbatolog() {
-        return dashboardInteractor.isArchimedAllowedForVerbatolog();
+        return true;//dashboardInteractor.isArchimedAllowedForVerbatolog();
     }
 
     @Override
     public boolean isArchimedesAllowedForChildAge() {
         if (eventModel.getChild() != null) {
             int childAge = eventModel.getChild().getAge();
-            List<AgeGroupModel> ageGroupModels = dashboardInteractor.getAgeGroupsFromCache();
-            for (AgeGroupModel ageGroup : ageGroupModels) {
-                if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
-                    return ageGroup.isIsArchimedAllowed();
-                }
-            }
+//            List<AgeGroupModel> ageGroupModels = dashboardInteractor.getAgeGroupsFromCache();
+//            for (AgeGroupModel ageGroup : ageGroupModels) {
+//                if (childAge >= ageGroup.getMinAge() && childAge <= ageGroup.getMaxAge()) {
+//                    return ageGroup.isIsArchimedAllowed();
+//                }
+//            }
         }
         return false;
     }

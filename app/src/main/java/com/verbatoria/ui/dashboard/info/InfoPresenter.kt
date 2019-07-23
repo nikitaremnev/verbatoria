@@ -1,6 +1,7 @@
 package com.verbatoria.ui.dashboard.info
 
 import com.verbatoria.business.dashboard.info.InfoInteractor
+import com.verbatoria.business.user.UserStatus
 import com.verbatoria.ui.base.BasePresenter
 import org.slf4j.LoggerFactory
 
@@ -18,10 +19,6 @@ class InfoPresenter(
         getInfo()
     }
 
-//    override fun onAttachView(view: InfoView) {
-//        super.onAttachView(view)
-//    }
-
     private fun getInfo() {
         infoInteractor.getInfo()
             .subscribe({ infoModel ->
@@ -31,6 +28,11 @@ class InfoPresenter(
                     setPhone(infoModel.phone)
                     setEmailPhone(infoModel.email)
                     setIsArchimedesAllowed(infoModel.isArchimedesAllowed)
+                    when (infoModel.status) {
+                        UserStatus.ACTIVE -> setActiveStatus()
+                        UserStatus.WARNING -> setWarningStatus()
+                        UserStatus.BLOCKED -> setBlockedStatus()
+                    }
                 }
                 getLocationAndPartnerInfo(infoModel.locationId)
             }, { error ->

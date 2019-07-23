@@ -1,8 +1,8 @@
 package com.verbatoria.infrastructure.database.common.converter
 
 import android.arch.persistence.room.TypeConverter
-import com.verbatoria.infrastructure.date.formatWithMillisecondsAndZeroOffset
-import com.verbatoria.infrastructure.date.parseWithMillisecondsAndZeroOffset
+import com.verbatoria.infrastructure.extensions.formatWithMillisecondsAndZeroOffset
+import com.verbatoria.infrastructure.extensions.parseWithMillisecondsAndZeroOffset
 import java.util.*
 
 /**

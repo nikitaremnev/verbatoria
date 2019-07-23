@@ -1,11 +1,12 @@
 package com.verbatoria.business.dashboard.calendar
 
-import android.util.Log
 import com.verbatoria.business.dashboard.calendar.models.EventItemModel
 import com.verbatoria.business.report.ReportStatus
-import com.verbatoria.infrastructure.date.*
+import com.verbatoria.domain.dashboard.calendar.CalendarRepository
+import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.CalendarEndpoint
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
+import io.reactivex.Completable
 import io.reactivex.Single
 import java.util.*
 
@@ -15,14 +16,33 @@ import java.util.*
 
 interface CalendarInteractor {
 
+    fun getLastSelectedDate(): Single<Date>
+
+    fun saveLastSelectedDate(selectedDate: Date): Completable
+
     fun getEventsForDate(date: Date): Single<List<EventItemModel>>
 
 }
 
 class CalendarInteractorImpl(
     private val calendarEndpoint: CalendarEndpoint,
+    private val calendarRepository: CalendarRepository,
     private val schedulersFactory: RxSchedulersFactory
 ) : CalendarInteractor {
+
+    override fun getLastSelectedDate(): Single<Date> =
+        Single.fromCallable {
+            calendarRepository.getSelectedDate()
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+    override fun saveLastSelectedDate(selectedDate: Date): Completable =
+        Completable.fromCallable {
+            calendarRepository.putSelectedDate(selectedDate)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
     override fun getEventsForDate(date: Date): Single<List<EventItemModel>> =
         Single.fromCallable {
@@ -31,13 +51,10 @@ class CalendarInteractorImpl(
                 toTime = date.toEndDay().formatToServerTime()
             )
             eventsListDto.data.map { eventDto ->
-                Log.e("test", "CalendarInteractor ${eventDto.report.status}")
-                Log.e("test", "CalendarInteractor ${ReportStatus.valueOfWithDefault(eventDto.report.status)}")
-
                 ReportStatus.valueOfWithDefault(eventDto.report.status)
                 EventItemModel(
-                    clientName = eventDto.child.name + ", " + eventDto.child.birthday.parseBirthdayFormat().getYearsForCurrentMoment(),
-                    clientBirhtday = eventDto.child.birthday.parseBirthdayFormat(),
+                    clientName = eventDto.child.name,
+                    clientAge = eventDto.child.birthday.parseBirthdayFormat().getYearsForCurrentMoment(),
                     reportId = eventDto.report.reportId,
                     status = ReportStatus.valueOfWithDefault(eventDto.report.status),
                     startDate = eventDto.startAt.parseServerFormat(),

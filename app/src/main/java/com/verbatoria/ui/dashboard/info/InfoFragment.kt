@@ -23,6 +23,12 @@ private const val PROGRESS_DIALOG_TAG = "PROGRESS_DIALOG_TAG"
 
 interface InfoView : BaseView {
 
+    fun setActiveStatus()
+
+    fun setWarningStatus()
+
+    fun setBlockedStatus()
+
     fun setName(name: String)
 
     fun setPhone(phone: String)
@@ -79,8 +85,6 @@ class InfoFragment :
     private lateinit var locationInfoProgressBar: ProgressBar
     private lateinit var partnerInfoProgressBar: ProgressBar
 
-    private var progressDialog: ProgressDialog? = null
-
     override fun buildComponent(
         parentComponent: DashboardComponent,
         savedState: Bundle?
@@ -109,6 +113,18 @@ class InfoFragment :
     }
 
     //region SettingsView
+
+    override fun setActiveStatus() {
+        statusView.background = context?.getDrawable(R.drawable.verbatolog_status_green)
+    }
+
+    override fun setWarningStatus() {
+        statusView.background = context?.getDrawable(R.drawable.verbatolog_status_yellow)
+    }
+
+    override fun setBlockedStatus() {
+        statusView.background = context?.getDrawable(R.drawable.verbatolog_status_red)
+    }
 
     override fun setName(name: String) {
         nameTextView.text = name

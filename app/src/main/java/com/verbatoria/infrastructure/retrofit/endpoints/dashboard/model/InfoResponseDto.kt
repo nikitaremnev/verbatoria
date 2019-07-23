@@ -18,5 +18,6 @@ data class InfoResponseDto(
     @SerializedName("location_id")
     val locationId: String,
     @SerializedName("is_archimed_allowed")
-    val isArchimedesAllowed: Boolean
+    val isArchimedesAllowed: Boolean,
+    val status: String
 )
