@@ -57,4 +57,262 @@
     <!-- Dividers -->
     <dimen name="divider_height">1dp</dimen>
 
+    <!-- Calendar -->
+
+    <dimen name="activity_save_button_width">200dp</dimen>
+
+    <dimen name="calendar_report_id_text_size">12sp</dimen>
+    <dimen name="calendar_report_status_size">40dp</dimen>
+
+    <dimen name="calendar_empty_text_size">20sp</dimen>
+    <dimen name="calendar_empty_margin">32dp</dimen>
+
+    <dimen name="calendar_previous_date_width">80dp</dimen>
+    <dimen name="calendar_next_date_width">80dp</dimen>
+    <dimen name="calendar_date_buttons_height">50dp</dimen>
+    <dimen name="calendar_date_text_size">16sp</dimen>
+    <dimen name="calendar_progress_bar_size">50dp</dimen>
+
+    <dimen name="event_status_logo_height">40dp</dimen>
+    <dimen name="event_status_logo_width">80dp</dimen>
+
+    <dimen name="event_status_logo_margin_top">8dp</dimen>
+    <dimen name="event_status_text_margin_top">4dp</dimen>
+
+    <dimen name="event_status_text_size">12sp</dimen>
+    <dimen name="event_item_height">90dp</dimen>
+    <dimen name="event_period_logo_padding">8dp</dimen>
+    <dimen name="event_period_text_size">12sp</dimen>
+    <dimen name="event_report_id_text_size">14sp</dimen>
+    <dimen name="event_client_text_size">16sp</dimen>
+    <dimen name="event_period_margin_bottom">8dp</dimen>
+    <dimen name="event_report_id_margin_bottom">4dp</dimen>
+    <dimen name="event_client_margin_top">8dp</dimen>
+    <dimen name="event_fields_margin_left">8dp</dimen>
+
+    <dimen name="event_add_button_margin_end">16dp</dimen>
+    <dimen name="event_add_button_margin_bottom">16dp</dimen>
+
+    <!-- Dashboard -->
+
+    <dimen name="dashboard_horizontal_padding">16dp</dimen>
+    <dimen name="dashboard_padding">16dp</dimen>
+    <dimen name="verbatolog_status_diameter">15dp</dimen>
+    <dimen name="verbatolog_status_margin">16dp</dimen>
+    <dimen name="verbatolog_status_right_margin">21dp</dimen>
+
+    <dimen name="verbatolog_status_vertical_margin">16dp</dimen>
+
+    <dimen name="verbatolog_fields_left_margin">52dp</dimen>
+    <dimen name="verbatolog_fields_right_margin">16dp</dimen>
+    <dimen name="verbatolog_fields_top_margin">4dp</dimen>
+
+    <dimen name="verbatolog_event_name_horizontal_padding">12dp</dimen>
+    <dimen name="verbatolog_event_between_vertical_padding">2dp</dimen>
+    <dimen name="verbatolog_event_between_horizontal_padding">8dp</dimen>
+    <dimen name="verbatolog_event_top_vertical_padding">12dp</dimen>
+    <dimen name="verbatolog_event_bottom_vertical_padding">6dp</dimen>
+    <dimen name="verbatolog_event_time_top_vertical_padding">4dp</dimen>
+
+    <dimen name="calendar_fab_between_margin">8dp</dimen>
+    <dimen name="calendar_fab_margin">8dp</dimen>
+    <dimen name="calendar_fab_right_margin">16dp</dimen>
+    <dimen name="calendar_current_date_elevation">4dp</dimen>
+    <dimen name="calendar_fab_bottom_margin">16dp</dimen>
+    <dimen name="calendar_fab_top_margin">16dp</dimen>
+
+    <dimen name="calendar_selected_date_padding">16dp</dimen>
+    <dimen name="calendar_selected_date_corner_radius">24dp</dimen>
+    <dimen name="calendar_selected_date_width">130dp</dimen>
+
+    <dimen name="settings_item_height">60dp</dimen>
+
+    <dimen name="settings_item_left_padding">16dp</dimen>
+    <dimen name="settings_item_right_padding">32dp</dimen>
+
+    <!-- Info -->
+
+    <dimen name="info_section_title_text_size">14sp</dimen>
+
+    <dimen name="info_section_title_padding_vertical">8dp</dimen>
+    <dimen name="info_section_title_padding_horizontal">16dp</dimen>
+
+    <dimen name="info_status_margin_start">16dp</dimen>
+    <dimen name="info_status_margin_top">16dp</dimen>
+
+    <dimen name="info_name_margin_top">16dp</dimen>
+
+    <dimen name="info_name_margin_horizontal">24dp</dimen>
+
+    <dimen name="info_name_text_size">15sp</dimen>
+    <dimen name="info_phone_text_size">13sp</dimen>
+    <dimen name="info_archimedes_text_size">13sp</dimen>
+    <dimen name="info_email_text_size">13sp</dimen>
+    <dimen name="info_text_between_margin">8dp</dimen>
+
+    <dimen name="info_bottom_divider_margin_top">16dp</dimen>
+
+    <dimen name="info_location_id_margin_top">16dp</dimen>
+    <dimen name="info_location_id_margin_start">16dp</dimen>
+    <dimen name="info_location_id_text_size">40sp</dimen>
+
+    <dimen name="info_location_name_margin_start">24dp</dimen>
+    <dimen name="info_location_name_text_size">15sp</dimen>
+    <dimen name="info_location_address_text_size">13sp</dimen>
+    <dimen name="info_location_point_text_size">13sp</dimen>
+
+    <dimen name="info_partner_name_margin_top">16dp</dimen>
+    <dimen name="info_partner_name_margin_start">16dp</dimen>
+    <dimen name="info_partner_name_text_size">15sp</dimen>
+
+    <dimen name="info_progress_bar_margin_start">16dp</dimen>
+    <dimen name="info_progress_bar_margin_vertical">16dp</dimen>
+
+    <dimen name="info_progress_bar_1_size">50dp</dimen>
+    <dimen name="info_progress_bar_2_size">40dp</dimen>
+    <dimen name="info_progress_bar_3_size">30dp</dimen>
+
+
+    <!-- Settings -->
+
+    <dimen name="settings_dialog_title_text_size">20sp</dimen>
+    <dimen name="settings_dialog_title_margin_top">21dp</dimen>
+    <dimen name="settings_dialog_title_margin_bottom">16dp</dimen>
+    <dimen name="settings_dialog_margin_start">24dp</dimen>
+    <dimen name="settings_dialog_margin_between">16dp</dimen>
+    <dimen name="settings_dialog_margin_between_logo_and_text">16dp</dimen>
+    <dimen name="settings_dialog_text_title_text_size">16sp</dimen>
+    <dimen name="settings_dialog_text_subtitle_text_size">12sp</dimen>
+    <dimen name="settings_dialog_logo_size">24dp</dimen>
+
+    <!-- Event -->
+
+    <dimen name="event_detail_submit_button_width">240dp</dimen>
+    <dimen name="event_detail_submit_button_height">56dp</dimen>
+
+    <dimen name="event_detail_submit_button_margin">16dp</dimen>
+
+    <dimen name="event_detail_client_name_text_size">14sp</dimen>
+    <dimen name="event_detail_client_phone_text_size">12sp</dimen>
+    <dimen name="event_detail_client_phone_margin_top">4dp</dimen>
+    <dimen name="event_detail_client_name_margin_horizontal">24dp</dimen>
+    <dimen name="event_detail_client_name_margin_top">16dp</dimen>
+    <dimen name="event_detail_client_bottom_border_margin_top">16dp</dimen>
+
+    <dimen name="event_detail_child_name_text_size">14sp</dimen>
+    <dimen name="event_detail_child_phone_text_size">12sp</dimen>
+    <dimen name="event_detail_child_phone_margin_top">4dp</dimen>
+    <dimen name="event_detail_child_name_margin_horizontal">24dp</dimen>
+    <dimen name="event_detail_child_name_margin_top">16dp</dimen>
+    <dimen name="event_detail_child_bottom_border_margin_top">16dp</dimen>
+
+    <dimen name="event_detail_date_margin_horizontal">24dp</dimen>
+    <dimen name="event_detail_date_margin_top">16dp</dimen>
+    <dimen name="event_detail_date_text_size">14sp</dimen>
+
+    <dimen name="event_detail_header_text_size">12sp</dimen>
+    <dimen name="event_detail_header_padding_vertical">8dp</dimen>
+    <dimen name="event_detail_header_padding_horizontal">16dp</dimen>
+
+    <!-- Loading -->
+
+    <dimen name="view_loading_height">50dp</dimen>
+    <dimen name="view_loading_width">50dp</dimen>
+
+    <!-- Login -->
+
+    <dimen name="splash_logo_width">300dp</dimen>
+
+    <dimen name="login_field_width">290dp</dimen>
+    <dimen name="login_field_height">56dp</dimen>
+    <dimen name="login_field_padding">16dp</dimen>
+    <dimen name="login_field_padding_right">56dp</dimen>
+    <dimen name="login_fields_between_margin">8dp</dimen>
+    <dimen name="login_fields_clear_button_padding_horizontal">16dp</dimen>
+
+    <dimen name="login_logo_bottom_margin">32dp</dimen>
+
+    <dimen name="login_field_corner_radius">4dp</dimen>
+    <dimen name="login_field_text_size">16sp</dimen>
+    <dimen name="login_field_border_size">2dp</dimen>
+
+    <dimen name="login_forgot_password_padding">8dp</dimen>
+    <dimen name="login_forgot_password_top_margin">8dp</dimen>
+
+    <dimen name="login_button_top_margin">16dp</dimen>
+    <dimen name="login_button_corner_radius">4dp</dimen>
+
+    <dimen name="login_country_flag_width">36dp</dimen>
+    <dimen name="login_country_flag_height">24dp</dimen>
+
+    <dimen name="login_country_container_margin">8dp</dimen>
+    <dimen name="login_country_container_padding">16dp</dimen>
+
+    <dimen name="login_country_text_margin_horizontal">16dp</dimen>
+
+    <dimen name="login_logo_height">30dp</dimen>
+
+    <dimen name="login_country_selection_icon_width">36dp</dimen>
+    <dimen name="login_country_selection_icon_height">24dp</dimen>
+
+    <!-- Schedule -->
+
+    <dimen name="column_header_height">50dp</dimen>
+    <dimen name="row_header_width">100dp</dimen>
+
+    <dimen name="save_dialog_padding">24dp</dimen>
+    <dimen name="save_dialog_option_padding">8dp</dimen>
+
+    <!-- Session -->
+
+    <dimen name="connection_padding">16dp</dimen>
+    <dimen name="connection_instruction_padding">32dp</dimen>
+    <dimen name="connection_status_text_left_margin">32dp</dimen>
+    <dimen name="connection_status_text_top_margin">32dp</dimen>
+    <dimen name="connection_status_image_left_margin">32dp</dimen>
+    <dimen name="connection_status_image_top_margin">32dp</dimen>
+
+    <dimen name="writing_activities_button_height">60dp</dimen>
+    <dimen name="writing_activities_buttons_top_margin">8dp</dimen>
+    <dimen name="writing_timer_bottom_padding">24dp</dimen>
+
+    <dimen name="writing_timer_text_size">18sp</dimen>
+    <dimen name="writing_load_text_size">20sp</dimen>
+    <dimen name="writing_load_right_margin">8dp</dimen>
+    <dimen name="writing_graph_top_margin">8dp</dimen>
+
+    <dimen name="writing_horizontal_padding">12dp</dimen>
+    <dimen name="writing_vertical_padding">4dp</dimen>
+
+    <dimen name="writing_player_button_size">60dp</dimen>
+
+    <dimen name="writing_player_file_name_text_size">25sp</dimen>
+    <dimen name="writing_player_file_name_margin">16dp</dimen>
+    <dimen name="writing_player_button_margin">8dp</dimen>
+    <dimen name="writing_finish_button_margin">16dp</dimen>
+    <dimen name="writing_finish_button_size">70dp</dimen>
+
+    <dimen name="submit_padding">16dp</dimen>
+
+    <dimen name="submit_questionary_buttons_vertical_padding">8dp</dimen>
+
+    <dimen name="submit_questionary_navigation_item_size">10dp</dimen>
+    <dimen name="submit_questionary_navigation_item_horizonal_padding">5dp</dimen>
+
+    <dimen name="submit_question_title_top_margin">16dp</dimen>
+    <dimen name="submit_question_title_horizontal_margin">16dp</dimen>
+
+    <dimen name="submit_question_answer_text_size">22sp</dimen>
+    <dimen name="submit_question_answer_right_margin">12dp</dimen>
+    <dimen name="submit_last_question_answer_margin">24dp</dimen>
+
+    <dimen name="submit_question_answers_horizontal_margin">16dp</dimen>
+    <dimen name="submit_question_answers_top_margin">24dp</dimen>
+
+    <dimen name="submit_question_has_answer_vertical_margin">16dp</dimen>
+
+    <dimen name="submit_question_has_answer_padding">6dp</dimen>
+    <dimen name="submit_question_has_answer_text_size">18sp</dimen>
+    <dimen name="submit_question_report_type_padding">12dp</dimen>
+
 </resources>

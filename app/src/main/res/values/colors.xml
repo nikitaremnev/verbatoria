@@ -82,4 +82,39 @@
     <color name="flag_uk_blue">#00247D</color>
     <color name="flag_uk_red">#CF142B</color>
 
+    <color name="verbatolog_status_green">#2F8D4F</color>
+    <color name="verbatolog_status_yellow">#FFCC00</color>
+    <color name="verbatolog_status_red">#AF0036</color>
+
+    <color name="dashboard_background">#FFFFC5</color>
+
+    <color name="settings_text_color">#000</color>
+
+
+    <color name="report_new_color">#E59700</color>
+    <color name="report_sent_color">#2F8D4F</color>
+    <color name="report_uploaded_color">#40B469</color>
+    <color name="report_ready_color">#40B469</color>
+
+    <!-- Info -->
+
+    <color name="info_section_title_text_color">#ffffff</color>
+
+    <!-- Settings -->
+
+    <color name="settings_dialog_title_text_color">#de000000</color>
+    <color name="settings_dialog_text_title_text_color">#de000000</color>
+    <color name="settings_dialog_text_subtitle_text_color">#8a8a8f</color>
+
+    <!-- Event -->
+
+    <color name="event_detail_header_text_color">#ffffff</color>
+
+    <!-- Connection -->
+
+    <color name="connection_status_text_color">#000</color>
+    <color name="connection_error">#BF0036</color>
+    <color name="connection_disconnected">#2222aa</color>
+    <color name="connection_connected">#2F8D4F</color>
+
 </resources>

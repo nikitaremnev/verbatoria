@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common -->
+
+    <string name="app_name">Вербатория v10.2.0</string>
+
+    <string name="loading_please_wait">Пожалуйста, подождите…</string>
+
+    <string name="ok">OK</string>
+    <string name="all_understand">Все понятно</string>
+    <string name="delete">Удалить</string>
+    <string name="find">Найти</string>
+
+    <string name="no_data">Нет данных</string>
+
+    <string name="save">Сохранить</string>
+    <string name="cancel">Отмена</string>
+    <string name="confirmation">Подтверждение</string>
+
+    <string name="search">Поиск</string>
+    <string name="edit">Редактировать</string>
+    <string name="clear">Очистить</string>
+
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+
+    <string name="token_empty_error">Токен не найден!</string>
+
+    <string name="email_incorrect_error">Вы указали некорректный email-адрес!</string>
+    <string name="name_or_phone_empty_error">Пожалуйста, заполните поля имя и номер телефона</string>
+
+    <!-- Calendar -->
+
+    <string name="event_detail_create_new_event">Создать запись</string>
+    <string name="calendar_activity_child_title">Запись ребенка</string>
+    <string name="calendar_possible_children">Возможные варианты</string>
+    <string name="calendar_activity_client_title">Запись клиента</string>
+    <string name="calendar_activity_search_client_title">Поиск записи клиента</string>
+    <string name="calendar_activity_search_child_title">Поиск записи ребенка</string>
+
+    <string name="event_detail_activity_available_time">Доступное время</string>
+    <string name="event_detail_activity_confirm_override_message">Отчет уже был отправлен ранее. Нажимая продолжить, вы соглашаетесь с тем, что данные будут перезаписаны.</string>
+    <string name="event_detail_activity_continue">Продолжить</string>
+
+    <string name="client">Клиент</string>
+    <string name="child">Ребенок</string>
+    <string name="time">Время</string>
+    <string name="event_detail_activity_report">Отчет</string>
+    <string name="event_detail_activity_send_to_branch">Отправить отчет в филиал</string>
+    <string name="event_detail_activity_branch">Филиал</string>
+    <string name="event_detail_activity_attention_memory">Внимание/Память</string>
+    <string name="event_detail_activity_attention_memory_include">Добавить модуль Внимание/Память в отчет</string>
+
+    <string name="event_detail_activity_field_empty">Данные не заполнены</string>
+
+    <string name="event_detail_activity_client_name">Имя клиента</string>
+    <string name="event_detail_activity_client_phone">Телефон</string>
+    <string name="event_detail_activity_client_email">Почтовый адрес</string>
+    <string name="event_detail_activity_child_name">Имя ребенка</string>
+    <string name="event_detail_activity_child_age">Возраст</string>
+
+    <string name="event_detail_activity_client_name_editable_hint">Имя клиента</string>
+    <string name="event_detail_activity_client_phone_editable_hint">Телефон</string>
+    <string name="event_detail_activity_client_email_editable_hint">Почтовый адрес</string>
+    <string name="event_detail_activity_child_name_editable_hint">Имя ребенка</string>
+
+    <string name="event_detail_add_client_first">Необходимо сначала внести данные о клиенте!</string>
+    <string name="event_detail_event_added">Запись успешно создана!</string>
+    <string name="event_detail_event_edited">Запись успешно изменена!</string>
+
+    <string name="client_added">Запись успешно создана!</string>
+    <string name="client_edited">Запись успешно изменена!</string>
+
+    <string name="child_added">Запись успешно создана!</string>
+    <string name="child_edited">Запись успешно изменена!</string>
+
+    <string name="event_deleted">Запись была удалена</string>
+
+    <string name="search_by_name_email_phone">Имя, номер телефона или эл. почта</string>
+    <string name="search_by_child_name">Имя ребенка</string>
+
+    <string name="client_data_is_not_full">Данные о клиенте указаны не полностью</string>
+    <string name="child_data_is_not_full">Данные о ребенке указаны не полностью</string>
+    <string name="child_age_not_set">Укажите возраст!</string>
+    <string name="child_name_not_set">Укажите имя!</string>
+    <string name="child_gender_not_set">Укажите пол ребенка!</string>
+
+    <string name="time_is_not_set">Необходимо указать время записи</string>
+
+    <string name="action_next_week">Следующая неделя</string>
+    <string name="action_prev_week">Предыдущая неделя</string>
+
+    <string name="event_detail_activity_hint_status_new">Запись еще не была произведена</string>
+    <string name="event_detail_activity_hint_status_ready">Результаты измерений обработаны и отчет готов</string>
+    <string name="event_detail_activity_hint_status_sent">Отчет был выслан клиенту</string>
+    <string name="event_detail_activity_hint_status_uploaded">Результаты измерений были загружены</string>
+
+    <string name="calendar_add_event">СОЗДАТЬ</string>
+
+    <string name="event_detail_activity_choose_date_hint">Показаны события за %s</string>
+
+    <string name="children_activity_edit_hint">Вы перешли в режим редактирования записи</string>
+    <string name="children_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
+
+    <string name="client_activity_edit_hint">Вы перешли в режим редактирования записи</string>
+    <string name="client_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
+
+    <string name="calendar_report_new">Новый</string>
+    <string name="calendar_report_cancelled">Отменен</string>
+    <string name="calendar_report_uploaded">Загружен</string>
+    <string name="calendar_report_ready">Готов</string>
+    <string name="calendar_report_sent">Отправлен</string>
+
+    <string name="calendar_confirm_delete_message">Вы действительно хотите удалить запись?</string>
+    <string name="calendar_confirm_delete_title">Подтверждение</string>
+
+    <string name="childen_choose_age">Выберите возраст:</string>
+
+    <string name="event_confirm_send_report_to_location">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
+    <string name="event_confirm_send_report_to_location_send">Отправить</string>
+    <string name="event_confirm_send_report_to_location_success">Копия отчета была отправлена в филиал</string>
+    <string name="event_confirm_archimed_title">АРХИМЕД</string>
+    <string name="event_confirm_archimed_subtitle_enabled">В отчет будет включена панель Архимед при наличии подходящей</string>
+    <string name="event_confirm_archimed_subtitle_disabled">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>
+
+    <string name="event_confirm_hobby_title">ХОББИ</string>
+    <string name="event_confirm_hobby_subtitle_enabled">В отчет будет включена панель Хобби</string>
+    <string name="event_confirm_hobby_subtitle_disabled">В отчет НЕ будет включена панель Хобби</string>
+
+    <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
+    <string name="event_confirm_include_attention_memory_include">Включить</string>
+    <string name="event_confirm_attention_memory_include_success">Модуль Внимание/Память добавлен в отчет</string>
+
+    <string name="event_confirm_clear_database">База данных содержит записи, очистить ее перед проведением приема?</string>
+    <string name="event_confirm_clear">Очистить</string>
+    <string name="event_confirm_clear_database_title">Обнаружены данные</string>
+
+    <string name="event_confirm_hobby_dialog_title">Модуль Хобби</string>
+    <string name="event_confirm_hobby_message">Включить модуль Хобби в отчет?</string>
+    <string name="event_confirm_hobby_include">Включить</string>
+
+    <string name="school_mode_submit_hint">Все данные были записаны. Теперь вы можете завершить сессию.</string>
+
+    <string name="calendar_report_yesterday">Вчера</string>
+    <string name="calendar_report_today">Сегодня</string>
+    <string name="calendar_report_tomorrow">Завтра</string>
+
+    <string name="calendar_event_age_format">%s, %s</string>
+
+    <!-- Dashboard -->
+
+    <string name="dashboard_age" formatted="false">Возраст: %s</string>
+    <string name="dashboard_no_events_title">На указанную дату нет записей</string>
+
+    <string name="dashboard_bottom_item_main">Главная</string>
+    <string name="dashboard_bottom_item_calendar">Календарь</string>
+    <string name="dashboard_bottom_item_settings">Настройки</string>
+
+    <string name="dashboard_add_event">Добавить запись</string>
+    <string name="dashboard_start_session">Начать сессию</string>
+    <string name="dashboard_event">Запись</string>
+
+    <string name="dashboard_unknown">Неизвестно</string>
+
+    <string name="settings_item_developer">О приложении</string>
+
+    <string name="settings_clear_database_confirm_title">Подтверждение</string>
+    <string name="settings_clear_database_confirm_message">Вы уверены, что хотите очистить базу данных? Обычно это нужно перед проведением первой реальной записи после обучения.</string>
+
+    <string name="dashboard_neurometrist">Нейрометрист</string>
+    <string name="dashboard_cabinet">Кабинет</string>
+    <string name="dashboard_partner">Партнер</string>
+
+    <string name="dashboard_blocked">Ваш аккаунт был заблокирован. Обратитесь к партнеру за подробностями.</string>
+
+    <string name="settings_item_quit">Выйти</string>
+    <string name="settings_item_clear">Очистить базу данных</string>
+    <string name="settings_item_locale">Язык приложения</string>
+
+    <string name="settings_database_cleared">База данных была успешно очищена</string>
+
+    <string name="dashboard_session_finish">Сессия успешно завершена!</string>
+
+    <string name="dashboard_session_finish_error_title">Сессия не завершена!</string>
+
+    <string name="dashboard_session_finish_error_message">Необходимо отправить отчет через настройки.</string>
+
+    <string name="dashboard_status_green_hint">Работа в приложении доступна без ограничений</string>
+    <string name="dashboard_status_yellow_hint">Работа в приложении доступна, однако в скором времени может быть заблокирована</string>
+    <string name="dashboard_status_red_hint">Работа в приложении заблокирована, обратитесь к партеру для восстановления доступа</string>
+
+    <string name="developer_info_android_version">Версия Android</string>
+    <string name="developer_info_application_version">Версия приложения</string>
+
+    <string name="schedule_title">График работы</string>
+
+    <string name="late_send_title">Отправка отчетов</string>
+    <string name="late_send_no_reports">Нет отчетов для отправки</string>
+
+    <string name="language_russian">Русский</string>
+    <string name="language_english">English</string>
+    <string name="language_hong_kong">中文</string>
+    <string name="language_ukrainian">Українська</string>
+
+    <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
+
+    <string name="dashboard_gender">Пол ребенка</string>
+    <string name="dashboard_gender_male">Мужской</string>
+    <string name="dashboard_gender_female">Женский</string>
+
+    <string name="dashboard_archimedes_available">АРХИМЕД доступен</string>
+    <string name="dashboard_archimedes_not_available">АРХИМЕД не доступен</string>
+
+    <!-- Login -->
+
+    <string name="login_submit">Войти</string>
+    <string name="login_phone_hint">Номер телефона</string>
+
+    <string name="login_russia_phone_mask">+ [0] [000] [000] [00] [00]</string>
+    <string name="login_ukraine_phone_mask">+ [000] [00] [000] [00] [00]</string>
+    <string name="login_azerbaijan_phone_mask">+ [000] [00] [000] [00] [00]</string>
+    <string name="login_uae_phone_mask">+ [000] [00] [0000000]</string>
+    <string name="login_thailand_phone_mask">+ [00] [00] [00000000]</string>
+    <string name="login_belarus_phone_mask">+ [000] [00] [000] [00] [00]</string>
+    <string name="login_israel_phone_mask">+ [000] [00] [0000000]</string>
+    <string name="login_uzbekistan_phone_mask">+ [000] [00] [0000000]</string>
+    <string name="login_hong_kong_phone_mask">+ [000] [0000] [0000]</string>
+    <string name="login_swiss_phone_mask">+ [00] [00] [000] [00] [00]</string>
+
+    <string name="login_password_hint">Пароль</string>
+    <string name="login_forgot_password">Забыли пароль?</string>
+
+    <string name="login_country_selection_title">Выберите страну филиала</string>
+
+    <string name="recovery_password_confirmation_code">Код подтверждения</string>
+    <string name="recovery_password_new_password">Новый пароль</string>
+    <string name="recovery_password_new_password_repeat">Повторите пароль</string>
+    <string name="recovery_password_check_code">Отправить код</string>
+    <string name="recovery_password_next">Далее</string>
+    <string name="recovery_password_send_new_password">Задать новый пароль</string>
+    <string name="recovery_password_remember_password">Я вспомнил пароль!</string>
+    <string name="recovery_password_reset_success">Пароль успешно изменен</string>
+
+    <string name="country_russia">Россия</string>
+    <string name="country_belarus">Беларусь</string>
+    <string name="country_ukraine">Украина</string>
+    <string name="country_azerbaijan">Азербайджан</string>
+    <string name="country_uae">ОАЭ</string>
+    <string name="country_thailand">Таиланд</string>
+    <string name="country_israel">Израиль</string>
+    <string name="country_uzbekistan">Узбекистан</string>
+    <string name="country_hong_kong">Гонконг</string>
+    <string name="country_swiss">Швейцария</string>
+
+    <string name="sms_confirmation_confirm">Подтвердить</string>
+
+    <string name="sms_confirmation_code_sent">Код подтверждения успешно отправлен</string>
+    <string name="sms_confirmation_code_incorrect">Код потверждения введен некорректно</string>
+    <string name="sms_confirmation_code_sent_error">При отправке кода подтверждения произошла ошибка</string>
+    <string name="sms_confirmation_code_phone_not_full">Номер телефона указан не полностью</string>
+    <string name="sms_login_repeat">Повторно отправить СМС</string>
+    <string name="sms_login_time_before_repeat">Повторная отправка СМС станет доступна через %s</string>
+
+    <!-- Schedule -->
+
+    <string-array name="rows_names">
+        <item>ПН, %s</item>
+        <item>ВТ, %s</item>
+        <item>СР, %s</item>
+        <item>ЧТ, %s</item>
+        <item>ПТ, %s</item>
+        <item>СБ, %s</item>
+        <item>ВС, %s</item>
+    </string-array>
+
+    <string name="schedule_clear_confirm_message">Вы уверены, что хотите очистить расписание?</string>
+
+    <string name="schedule_saved">Расписание успешно сохранено!</string>
+    <string name="schedule_loaded_by_period" formatted="false">Показано расписание за период %s</string>
+    <string name="schedule_cleared">Расписание было очищено!</string>
+
+    <string name="schedule_saving">Сохранение расписания</string>
+
+    <string name="schedule_only_this_week">только эта неделя</string>
+    <string name="schedule_save_1_week">1 неделя</string>
+    <string name="schedule_save_2_weeks">2 недели</string>
+    <string name="schedule_save_3_weeks">3 недели</string>
+    <string name="schedule_save_4_weeks">4 недели</string>
+    <string name="schedule_save_5_weeks">5 недель</string>
+
+    <!-- Session -->
+
+    <string name="session_connection">Соединение</string>
+    <string name="session_start_writing">Начать запись</string>
+    <string name="session_connect">Соединить</string>
+    <string name="session_connected">Подключено</string>
+    <string name="session_connection_in_progress">Идет соединение...</string>
+    <string name="session_not_connected">Не подключено</string>
+    <string name="session_connection_instruction">
+        1. Включите питание на нейроинтерфейсе, убедитесь что он работает.
+        \n\n2. Нажмите на кнопку \"Соединить\" и дождитесь статуса \"Подключено\".
+        \n\n3. Нажмите на кнопку \"Начать запись\" для начала работы.
+    </string>
+    <string name="session_bluetooth_disabled">Bluetooth отключен</string>
+    <string name="session_settings">Настройки</string>
+
+    <string name="session_writing_load_99">99</string>
+    <string name="session_writing_load_11">11</string>
+    <string name="session_writing_load_21">21</string>
+    <string name="session_writing_load_31">31</string>
+    <string name="session_writing_load_41">41</string>
+    <string name="session_writing_load_51">51</string>
+    <string name="session_writing_load_61">61</string>
+    <string name="session_writing_load_71">71</string>
+
+    <string name="session_timer_string_full" formatted="false">Общее время: %s\nОбщее время нагрузок: %s\nОбщее время текущей нагрузки: %s\nВремя нагрузки: %s</string>
+    <string name="session_timer_string_only_full_and_loadings" formatted="false">Общее время: %s\nОбщее время нагрузок: %s</string>
+    <string name="session_timer_string_only_full" formatted="false">Общее время: %s</string>
+
+    <string name="session_player_error">Файлы для воспроизведения не найдены!</string>
+
+    <string name="session_please_finish_load_error">Необходимо выключить нагрузку перед завершением сеанса!</string>
+
+    <string name="session_submit_back">Назад</string>
+    <string name="session_submit_next">Далее</string>
+
+    <string name="session_submit">Закончить</string>
+
+    <string name="session_no_answer">Нет ответа</string>
+
+    <string name="session_question_variant_10">10</string>
+    <string name="session_question_variant_20">20</string>
+    <string name="session_question_variant_40">40</string>
+    <string name="session_question_variant_60">60</string>
+    <string name="session_question_variant_90">90</string>
+
+    <string name="session_some_activities_not_finished">Коды нагрузки %s записаны в недостаточном объеме</string>
+    <string name="session_activity_not_finished">Код нагрузки %s записан в недостаточном объеме</string>
+    <string name="session_continue">Продолжить</string>
+
+    <string name="session_connection_error">Возникли неполадки с соединением с нейроинтерфейсом. Пожалуйста, возобновите подключение.</string>
+
+    <string name="session_connection_error_try">Восстановить соединение</string>
+
+    <string-array name="session_questions">
+        <item>Лингвистический</item>
+        <item>Логико-математический</item>
+        <item>Музыкальный</item>
+        <item>Пространственный</item>
+        <item>Телесно-кинестетический</item>
+        <item>Понимание людей</item>
+        <item>Понимание себя</item>
+    </string-array>
+
+    <string name="session_include_attention_question">Включать ли отчет Внимание/Память?</string>
+    <string name="session_include_hobby_question">Включить модуль Хобби в отчет?</string>
+    <string name="session_report_type_question">Выберите тип отчета:</string>
+    <string name="session_report_type_0">Тип 0</string>
+    <string name="session_report_type_1">1: только ВнП</string>
+    <string name="session_report_type_2">Тип 2</string>
+    <string name="session_report_type_3">Тип 3</string>
+    <string name="session_report_type_4">Тип 4</string>
+    <string name="session_report_type_5">Тип 5</string>
+    <string name="session_report_type_6">Тип 6</string>
+    <string name="session_report_type_7">Тип 7</string>
+    <string name="session_report_type_8">Тип 8</string>
+    <string name="session_report_type_9">Тип 9</string>
+    <string name="session_report_type_10">Тип 10</string>
+
+</resources>
