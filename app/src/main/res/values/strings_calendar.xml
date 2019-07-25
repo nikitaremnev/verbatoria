@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="calendar_activity_create">Создать запись</string>
+    <string name="event_detail_create_new_event">Создать запись</string>
     <string name="calendar_activity_child_title">Запись ребенка</string>
     <string name="calendar_possible_children">Возможные варианты</string>
     <string name="calendar_activity_client_title">Запись клиента</string>
@@ -12,9 +12,9 @@
     <string name="event_detail_activity_confirm_override_message">Отчет уже был отправлен ранее. Нажимая продолжить, вы соглашаетесь с тем, что данные будут перезаписаны.</string>
     <string name="event_detail_activity_continue">Продолжить</string>
 
-    <string name="event_detail_activity_client">Клиент</string>
-    <string name="event_detail_activity_child">Ребенок</string>
-    <string name="event_detail_activity_time">Время</string>
+    <string name="client">Клиент</string>
+    <string name="child">Ребенок</string>
+    <string name="time">Время</string>
     <string name="event_detail_activity_report">Отчет</string>
     <string name="event_detail_activity_send_to_branch">Отправить отчет в филиал</string>
     <string name="event_detail_activity_branch">Филиал</string>

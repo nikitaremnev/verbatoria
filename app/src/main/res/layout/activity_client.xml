@@ -39,7 +39,7 @@
             android:id="@+id/submit_button"
             android:layout_width="@dimen/activity_save_button_width"
             android:layout_height="@dimen/button_height"
-            android:text="@string/calendar_activity_create"
+            android:text="@string/event_detail_create_new_event"
             style="@style/ButtonStyle"
             android:layout_below="@+id/fields_layout"
             android:layout_marginRight="@dimen/activity_horizontal_margin"

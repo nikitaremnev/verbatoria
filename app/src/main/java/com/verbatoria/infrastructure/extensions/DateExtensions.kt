@@ -12,6 +12,7 @@ const val SERVER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
 const val DATE_WITH_FULL_MONTH_FORMAT = "d MMMM"
 const val CLIENT_BIRTHDAY_FORMAT = "yyyy-MM-dd"
 const val FORMAT_TIME_SHORT = "HH:mm"
+const val FORMAT_DATE_MONTH_AND_TIME_SHORT = "d MMMM HH:mm"
 const val MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24
 const val MILLISECONDS_IN_YEAR = 1000 * 60 * 60 * 24 * 365L
 
@@ -51,6 +52,12 @@ fun Date.formatToTime(): String =
     format(
         this,
         FORMAT_TIME_SHORT
+    )
+
+fun Date.formatToDateMonthAndTime(): String =
+    format(
+        this,
+        FORMAT_DATE_MONTH_AND_TIME_SHORT
     )
 
 fun Date.plusDay() {

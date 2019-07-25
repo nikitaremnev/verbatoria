@@ -2,16 +2,13 @@ package com.verbatoria.business.schedule;
 
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
 import com.verbatoria.business.schedule.datasource.ScheduleDataSource;
-import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.ScheduleDeleteRequestModel;
 import com.verbatoria.data.network.request.ScheduleItemRequestModel;
 import com.verbatoria.data.network.request.ScheduleRequestModel;
 import com.verbatoria.data.network.response.ScheduleItemResponseModel;
 import com.verbatoria.data.repositories.schedule.IScheduleRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.RxSchedulers;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,11 +32,9 @@ public class ScheduleInteractor implements IScheduleInteractor {
     private static final String TAG = ScheduleInteractor.class.getSimpleName();
 
     private IScheduleRepository mScheduleRepository;
-    private ITokenRepository mTokenRepository;
 
-    public ScheduleInteractor(IScheduleRepository scheduleRepository, ITokenRepository tokenRepository) {
+    public ScheduleInteractor(IScheduleRepository scheduleRepository) {
         mScheduleRepository = scheduleRepository;
-        mTokenRepository = tokenRepository;
     }
 
     @Override
@@ -166,8 +161,7 @@ public class ScheduleInteractor implements IScheduleInteractor {
     }
 
     private String getAccessToken() {
-        TokenModel tokenModel = mTokenRepository.getToken();
-        return tokenModel.getAccessToken();
+        return "";
     }
 
     private ScheduleRequestModel createScheduleRequestModel(IScheduleDataSource scheduleDataSource, int weeksForwardCount) throws ParseException {

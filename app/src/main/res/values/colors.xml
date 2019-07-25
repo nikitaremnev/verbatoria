@@ -8,6 +8,7 @@
     <color name="status_bar">#40B469</color>
     <color name="font">#FFFFC5</color>
     <color name="blue">#2222aa</color>
+    <color name="grey">#999</color>
 
     <color name="yellow">#f9d616</color>
 
@@ -37,6 +38,11 @@
 
     <color name="background_schedule">#aaFFFFaa</color>
 
+    <!-- Common -->
+
+    <color name="common_button_disabled_color">#3356C869</color>
+    <color name="common_button_enabled_color">@color/main</color>
+
     <!-- Dialogs -->
     <color name="dialog_title_text_color">#8a000000</color>
     <color name="dialog_selectable_item_text_color">#8a000000</color>
@@ -44,10 +50,8 @@
     <!-- Login -->
     <color name="login_field_text_color">#333333</color>
     <color name="login_field_clear_button_color">#C1C1C1</color>
-    <color name="login_button_disabled_color">#3356C869</color>
-    <color name="login_button_enabled_color">@color/main</color>
-    <color name="login_button_text_disabled_color">#6656C869</color>
-    <color name="login_button_text_enabled_color">@color/white</color>
+    <color name="common_button_text_disabled_color">#6656C869</color>
+    <color name="common_button_text_enabled_color">@color/white</color>
 
     <!-- Countries -->
     <color name="flag_ae_red">#f00</color>

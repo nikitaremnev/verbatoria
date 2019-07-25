@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import com.remnev.verbatoria.R;
 import com.verbatoria.business.calendar.ICalendarInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
-import com.verbatoria.business.dashboard.IDashboardInteractor;
-import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.ReportModel;

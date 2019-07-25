@@ -1,6 +1,7 @@
 package com.verbatoria.ui.dashboard.calendar
 
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -10,7 +11,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
-import com.verbatoria.business.dashboard.calendar.models.EventItemModel
+import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.calendar.CalendarComponent
 import com.verbatoria.infrastructure.extensions.hide
@@ -18,7 +19,8 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterFragment
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
-import com.verbatoria.ui.common.dialog.ProgressDialog
+import com.verbatoria.ui.event.EventDetailActivity
+import com.verbatoria.ui.event.EventDetailMode
 import javax.inject.Inject
 
 /**
@@ -49,6 +51,8 @@ interface CalendarView : BaseView {
 
     fun hideProgress()
 
+    fun openCreateNewEvent()
+
     interface Callback {
 
         fun onPreviousDateClicked()
@@ -56,6 +60,8 @@ interface CalendarView : BaseView {
         fun onCurrentDateClicked()
 
         fun onNextDateClicked()
+
+        fun onCreateNewEventClicked()
 
     }
 
@@ -80,8 +86,7 @@ class CalendarFragment :
     private lateinit var nextDateImageView: ImageView
     private lateinit var loadingProgressBar: ProgressBar
     private lateinit var emptyTextView: TextView
-
-    private var progressDialog: ProgressDialog? = null
+    private lateinit var createNewEventFloatingActionButton: FloatingActionButton
 
     override fun buildComponent(
         parentComponent: DashboardComponent,
@@ -99,6 +104,7 @@ class CalendarFragment :
             nextDateImageView = findViewById(R.id.next_date_image_view)
             loadingProgressBar = findViewById(R.id.loading_progress_bar)
             emptyTextView = findViewById(R.id.empty_text_view)
+            createNewEventFloatingActionButton = findViewById(R.id.create_new_event_floating_action_button)
         }
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
@@ -111,6 +117,10 @@ class CalendarFragment :
         }
         nextDateImageView.setOnClickListener {
             presenter.onNextDateClicked()
+        }
+
+        createNewEventFloatingActionButton.setOnClickListener {
+            presenter.onCreateNewEventClicked()
         }
 
         return rootView
@@ -160,6 +170,12 @@ class CalendarFragment :
 
     override fun hideProgress() {
         loadingProgressBar.hide()
+    }
+
+    override fun openCreateNewEvent() {
+        activity?.let { activity ->
+            startActivity(EventDetailActivity.createIntent(activity, EventDetailMode.CREATE_NEW))
+        }
     }
 
     //endregion

@@ -10,14 +10,12 @@ import com.verbatoria.business.session.manager.AudioPlayerManager;
 import com.verbatoria.business.session.processor.AttentionValueProcessor;
 import com.verbatoria.business.session.processor.DoneActivitiesProcessor;
 import com.verbatoria.business.session.processor.ExportProcessor;
-import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
 import com.verbatoria.data.network.request.EventRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.DeveloperUtils;
 import com.verbatoria.utils.FileUtils;
@@ -47,7 +45,6 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
     private static final String TAG = SessionInteractor.class.getSimpleName();
 
     private ISessionRepository mSessionRepository;
-    private ITokenRepository mTokenRepository;
     private ICalendarRepository mCalendarRepository;
 
     private IConnectionCallback mConnectionCallback;
@@ -62,9 +59,8 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     private String mCurrentCode = NO_CODE;
 
-    public SessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository, ICalendarRepository calendarRepository) {
+    public SessionInteractor(ISessionRepository sessionRepository, ICalendarRepository calendarRepository) {
         mSessionRepository = sessionRepository;
-        mTokenRepository = tokenRepository;
         mCalendarRepository = calendarRepository;
         VerbatoriaApplication.setSessionInteractorCallback(this);
     }
@@ -161,7 +157,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     @Override
     public Completable sendReportToLocation(String reportId) {
-        return mSessionRepository.sendReportToLocation(mTokenRepository.getToken().getAccessToken(), reportId)
+        return mSessionRepository.sendReportToLocation("", reportId)
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -185,7 +181,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 
     @Override
     public Completable includeAttentionMemory(String reportId) {
-        return mSessionRepository.includeAttentionMemory(reportId, mTokenRepository.getToken().getAccessToken())
+        return mSessionRepository.includeAttentionMemory(reportId, "")
                 .subscribeOn(RxSchedulers.getNewThreadScheduler())
                 .observeOn(RxSchedulers.getMainThreadScheduler());
     }
@@ -408,8 +404,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
         Helper methods
      */
     private String getAccessToken() {
-        TokenModel tokenModel = mTokenRepository.getToken();
-        return tokenModel.getAccessToken();
+        return "";
     }
 
     private StartSessionRequestModel getStartSessionRequestModel(String eventId) {

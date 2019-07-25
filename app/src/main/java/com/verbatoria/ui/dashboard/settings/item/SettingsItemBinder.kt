@@ -1,6 +1,6 @@
 package com.verbatoria.ui.dashboard.settings.item
 
-import com.verbatoria.business.dashboard.settings.model.SettingsItemModel
+import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.ui.common.ViewBinder
 
 /**

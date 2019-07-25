@@ -36,12 +36,6 @@
             android:theme="@style/FullScreenTheme"/>
 
         <activity
-            android:name="com.verbatoria.ui.dashboard.view.DashboardActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="locale"
-            android:theme="@style/FullScreenTheme"/>
-
-        <activity
             android:name="com.verbatoria.ui.calendar.view.detail.EventDetailActivity"
             android:screenOrientation="landscape"/>
 
@@ -108,6 +102,10 @@
             android:screenOrientation="landscape"
             android:configChanges="locale"
             android:theme="@style/FullScreenTheme"/>
+
+        <activity
+            android:name="com.verbatoria.ui.event.EventDetailActivity"
+            android:screenOrientation="landscape"/>
 
         <service android:name="com.verbatoria.component.session.SessionService"/>
 

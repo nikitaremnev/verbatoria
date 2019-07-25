@@ -232,7 +232,7 @@ public class ChildActivity extends BaseActivity implements IChildView, ChildAgeC
         mMaleRadioButton.setEnabled(true);
         mGenderErrorView.setVisibility(View.GONE);
         mGenderField.setVisibility(View.VISIBLE);
-        mSubmitButton.setText(getString(R.string.calendar_activity_create));
+        mSubmitButton.setText(getString(R.string.event_detail_create_new_event));
         mSubmitButton.setVisibility(View.VISIBLE);
         mSubmitButton.setOnClickListener(v -> mChildrenPresenter.createChild());
         mMaleRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {

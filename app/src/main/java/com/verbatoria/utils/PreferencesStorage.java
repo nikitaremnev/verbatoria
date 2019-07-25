@@ -11,7 +11,7 @@ import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.LocationModel;
 import com.verbatoria.business.dashboard.models.VerbatologModel;
-import com.verbatoria.business.token.models.UserStatus;
+import com.verbatoria.business.user.UserStatus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -77,7 +77,6 @@ public class PreferencesStorage {
 
     private static PreferencesStorage sInstance = null;
 
-    @Inject
     public Context mContext;
 
     public static PreferencesStorage getInstance() {
@@ -91,7 +90,6 @@ public class PreferencesStorage {
     }
 
     private PreferencesStorage() {
-        VerbatoriaApplication.getInjector().inject(this);
         if (mContext != null) {
             mTokenPreferences = mContext.getSharedPreferences(TOKEN_PREFERENCES, Context.MODE_PRIVATE);
             mQuestionsPreferences = mContext.getSharedPreferences(QUESTIONS_PREFERENCES, Context.MODE_PRIVATE);
@@ -176,7 +174,7 @@ public class PreferencesStorage {
     }
 
     public String getUserStatus() {
-        return mTokenPreferences.getString(STATUS_TOKEN_KEY, UserStatus.ACTIVE_STATUS);
+        return mTokenPreferences.getString(STATUS_TOKEN_KEY, UserStatus.ACTIVE.getUserStatus());
     }
 
     public int getQuestionAnswer(String index) {

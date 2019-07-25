@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="calendar_activity_create">Create entry</string>
+    <string name="event_detail_create_new_event">Create entry</string>
     <string name="calendar_activity_child_title">Child entry</string>
     <string name="calendar_possible_children">Possible variants</string>
     <string name="calendar_activity_client_title">Client entry</string>
@@ -12,9 +12,9 @@
     <string name="event_detail_activity_confirm_override_message">The report has already been sent. By clicking \'Continue\', you agree that the data will be overwritten.</string>
     <string name="event_detail_activity_continue">Continue</string>
 
-    <string name="event_detail_activity_client">Client</string>
-    <string name="event_detail_activity_child">Child</string>
-    <string name="event_detail_activity_time">Time</string>
+    <string name="client">Client</string>
+    <string name="child">Child</string>
+    <string name="time">Time</string>
     <string name="event_detail_activity_report">Report</string>
     <string name="event_detail_activity_send_to_branch">Send report to branch</string>
     <string name="event_detail_activity_branch">Branch office</string>

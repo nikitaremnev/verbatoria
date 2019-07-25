@@ -1,7 +1,7 @@
 package com.verbatoria.ui.dashboard.calendar
 
 import com.verbatoria.business.dashboard.calendar.CalendarInteractor
-import com.verbatoria.business.dashboard.calendar.models.EventItemModel
+import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.dashboard.calendar.item.EventItemViewHolder
@@ -57,6 +57,10 @@ class CalendarPresenter(
         currentDate.plusDay()
         setCurrentDate()
         getEvents()
+    }
+
+    override fun onCreateNewEventClicked() {
+        view?.openCreateNewEvent()
     }
 
     //endregion

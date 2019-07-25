@@ -106,7 +106,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     protected void onCreate(Bundle savedInstanceState) {
         VerbatoriaApplication.getInjector().addModule(new CalendarModule()).inject(this);
 
-        setContentView(R.layout.activity_event_detail);
+        setContentView(R.layout.activity_event_detail_old);
 
         mEventDetailPresenter.bindView(this);
         mEventDetailPresenter.obtainEvent(getIntent());
@@ -235,11 +235,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         if (clientModel == null) {
             ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
             String clientString = getString(R.string.event_detail_activity_field_empty);
-            setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
+            setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.client), v -> startClient());
         } else {
             ((ImageView) mClientFieldView.findViewById(R.id.status_image_view)).setImageResource(clientModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
             String clientString = TextUtils.isEmpty(clientModel.getName()) ? getString(R.string.event_detail_activity_field_empty) : clientModel.getName();
-            setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.event_detail_activity_client), v -> startClient());
+            setUpFieldView(mClientFieldView, R.drawable.ic_client, clientString, getString(R.string.client), v -> startClient());
         }
     }
 
@@ -248,11 +248,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         if (childModel == null || childModel.getBirthday() == null || childModel.getName() == null) {
             ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
             String childString = getString(R.string.event_detail_activity_field_empty);
-            setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
+            setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.child), v -> startChild());
         } else {
             ((ImageView) mChildFieldView.findViewById(R.id.status_image_view)).setImageResource(childModel.isFull() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
             String childString = TextUtils.isEmpty(childModel.getName()) ? getString(R.string.event_detail_activity_field_empty) : childModel.getName();
-            setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.event_detail_activity_child), v -> startChild());
+            setUpFieldView(mChildFieldView, R.drawable.ic_child, childString, getString(R.string.child), v -> startChild());
         }
     }
 
@@ -314,11 +314,11 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         if (eventModel == null) {
             ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_not_ok);
             String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty) : mEventDetailPresenter.getTime();
-            setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
+            setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.time), v -> startDatePicker());
         } else {
             ((ImageView) mDateFieldView.findViewById(R.id.status_image_view)).setImageResource(eventModel.hasTime() ? R.drawable.ic_ok : R.drawable.ic_not_ok);
             String timeString = TextUtils.isEmpty(mEventDetailPresenter.getTime()) ? getString(R.string.event_detail_activity_field_empty) : mEventDetailPresenter.getTime();
-            setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.event_detail_activity_time), v -> startDatePicker());
+            setUpFieldView(mDateFieldView, R.drawable.ic_date, timeString, getString(R.string.time), v -> startDatePicker());
         }
     }
 

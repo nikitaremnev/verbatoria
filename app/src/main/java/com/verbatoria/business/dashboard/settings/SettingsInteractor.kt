@@ -2,20 +2,20 @@ package com.verbatoria.business.dashboard.settings
 
 import android.os.Build
 import com.remnev.verbatoria.BuildConfig
-import com.verbatoria.business.dashboard.settings.model.SettingsItemModel
+import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.session.SessionManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single
+import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
 
 /**
  * @author n.remnev
  */
-
-private val RUSSIAN_LOCALE = "ru"
-private val ENGLISH_LOCALE = "en"
-private val HONG_KONG_LOCALE = "ch"
 
 interface SettingsInteractor {
 
@@ -23,7 +23,7 @@ interface SettingsInteractor {
 
     fun getAppAndAndroidVersions(): Single<Pair<String, String>>
 
-    fun getAppLanguagesAvailability(): Single<Triple<Boolean, Boolean, Boolean>>
+    fun getAppLanguagesAvailability(): Single<Map<String, Boolean>>
 
     fun clearDatabase(): Completable
 
@@ -52,13 +52,14 @@ class SettingsInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getAppLanguagesAvailability(): Single<Triple<Boolean, Boolean, Boolean>> =
+    override fun getAppLanguagesAvailability(): Single<Map<String, Boolean>> =
         Single.fromCallable {
             val localesAvailable = settingsRepository.getLocales()
-            Triple(
-                localesAvailable.contains(RUSSIAN_LOCALE),
-                localesAvailable.contains(ENGLISH_LOCALE),
-                localesAvailable.contains(HONG_KONG_LOCALE)
+            mapOf(
+                Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
+                Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
+                Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE)),
+                Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINIAN_LOCALE))
             )
         }
             .subscribeOn(schedulersFactory.io)

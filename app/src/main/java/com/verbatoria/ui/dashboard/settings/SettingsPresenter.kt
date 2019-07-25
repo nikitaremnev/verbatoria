@@ -1,6 +1,9 @@
 package com.verbatoria.ui.dashboard.settings
 
-import android.util.Log
+import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_ABOUT_APP_ID
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_APP_LANGUAGE_ID
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_CLEAR_DATABASE_ID
@@ -8,7 +11,7 @@ import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_LATE_SEND_ID
 import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_SCHEDULE_ID
 import com.verbatoria.business.dashboard.settings.SettingsInteractor
-import com.verbatoria.business.dashboard.settings.model.SettingsItemModel
+import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.dashboard.settings.item.SettingsItemViewHolder
 import org.slf4j.LoggerFactory
@@ -41,7 +44,6 @@ class SettingsPresenter(
     //region SettingsView.Callback
 
     override fun onDatabaseClearConfirmed() {
-        Log.e("test", "SettingsPresenter onDatabaseClearConfirmed")
         clearDatabase()
     }
 
@@ -69,6 +71,10 @@ class SettingsPresenter(
     }
 
     override fun onHongKongLanguageSelected() {
+
+    }
+
+    override fun onUkrainianLanguageSelected() {
 
     }
 
@@ -100,8 +106,13 @@ class SettingsPresenter(
 
     private fun getAppLanguagesAvailability() {
         settingsInteractor.getAppLanguagesAvailability()
-            .subscribe({ (isRussianAvailable, isEnglishAvailable, isHongKongAvailable) ->
-                view?.showAppLanguagesDialog(isRussianAvailable, isEnglishAvailable, isHongKongAvailable)
+            .subscribe({ languagesMap ->
+                view?.showAppLanguagesDialog(
+                    languagesMap[RUSSIAN_LOCALE] ?: false,
+                    languagesMap[ENGLISH_LOCALE] ?: false,
+                    languagesMap[HONG_KONG_LOCALE] ?: false,
+                    languagesMap[UKRAINIAN_LOCALE] ?: false
+                )
             }, { error ->
                 logger.error("get app languages availability error occurred", error)
             })
@@ -109,8 +120,6 @@ class SettingsPresenter(
     }
 
     private fun clearDatabase() {
-        Log.e("test", "SettingsPresenter clearDatabase")
-
         view?.showProgress()
         settingsInteractor.clearDatabase()
             .subscribe({
@@ -123,7 +132,6 @@ class SettingsPresenter(
     }
 
     private fun logout() {
-        Log.e("test", "SettingsPresenter clearDatabase")
         view?.showProgress()
         settingsInteractor.logout()
             .subscribe({

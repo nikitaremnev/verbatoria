@@ -1,6 +1,5 @@
 package com.verbatoria.business.dashboard.processor;
 
-import com.verbatoria.business.dashboard.DashboardInteractorException;
 import com.verbatoria.business.dashboard.models.AgeGroupModel;
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.models.EventModel;
@@ -137,7 +136,7 @@ public class ModelsConverter {
             eventModel.setStartAt(DateUtils.parseDateTime(eventResponseModel.getStartAt()));
             eventModel.setEndAt(DateUtils.parseDateTime(eventResponseModel.getEndAt()));
         } catch (ParseException e) {
-            throw new DashboardInteractorException(e.getMessage());
+            throw new NullPointerException(e.getMessage());
         }
         eventModel.setChild(convertVerbatologChildResponseToEventModel(eventResponseModel.getChild()));
         eventModel.setReport(convertReportResponseModelToReportModel(eventResponseModel.getReport()));
@@ -155,12 +154,12 @@ public class ModelsConverter {
             eventModel.setStartAt(DateUtils.parseDateTime(scheduleItemResponseModel.getFromTime()));
             eventModel.setEndAt(DateUtils.parseDateTime(scheduleItemResponseModel.getToTime()));
         } catch (ParseException e) {
-            throw new DashboardInteractorException(e.getMessage());
+            throw new NullPointerException(e.getMessage());
         }
         return eventModel;
     }
 
-    private static ChildModel convertVerbatologChildResponseToEventModel(ChildResponseModel childResponseModel) throws DashboardInteractorException {
+    private static ChildModel convertVerbatologChildResponseToEventModel(ChildResponseModel childResponseModel) {
         ChildModel childModel = new ChildModel();
         childModel.setId(childResponseModel.getId());
         childModel.setClientId(childResponseModel.getClientId());
@@ -171,12 +170,12 @@ public class ModelsConverter {
                 childModel.setBirthday(DateUtils.parseDate(childResponseModel.getBirthday()));
             }
         } catch (ParseException e) {
-            throw new DashboardInteractorException(e.getMessage());
+            throw new NullPointerException(e.getMessage());
         }
         return childModel;
     }
 
-    private static ReportModel convertReportResponseModelToReportModel(ReportResponseModel reportResponseModel) throws DashboardInteractorException {
+    private static ReportModel convertReportResponseModelToReportModel(ReportResponseModel reportResponseModel) {
         ReportModel reportModel = new ReportModel();
         reportModel.setId(reportResponseModel.getId());
         reportModel.setChildId(reportResponseModel.getChildId());
@@ -189,7 +188,7 @@ public class ModelsConverter {
                 reportModel.setUpdatedAt(DateUtils.parseDate(reportResponseModel.getUpdatedAt()));
             }
         } catch (ParseException e) {
-            throw new DashboardInteractorException(e.getMessage());
+            throw new NullPointerException(e.getMessage());
         }
         reportModel.setLocationId(reportResponseModel.getLocationId());
         reportModel.setVerbatologId(reportResponseModel.getVerbatologId());

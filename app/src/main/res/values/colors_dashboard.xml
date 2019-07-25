@@ -24,5 +24,8 @@
     <color name="settings_dialog_text_title_text_color">#de000000</color>
     <color name="settings_dialog_text_subtitle_text_color">#8a8a8f</color>
 
+    <!-- Event -->
+
+    <color name="event_detail_header_text_color">#ffffff</color>
 
 </resources>

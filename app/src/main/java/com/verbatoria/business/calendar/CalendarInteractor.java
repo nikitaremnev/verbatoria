@@ -3,7 +3,6 @@ package com.verbatoria.business.calendar;
 import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.dashboard.models.TimeIntervalModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
-import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.request.AddEventRequestModel;
 import com.verbatoria.data.network.request.EditEventRequestModel;
 import com.verbatoria.data.network.request.EventRequestModel;
@@ -11,7 +10,6 @@ import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.calendar.comparator.EventsComparator;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
 import com.verbatoria.data.repositories.schedule.IScheduleRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.RxSchedulers;
 
@@ -34,16 +32,13 @@ public class CalendarInteractor implements ICalendarInteractor {
     private ICalendarRepository mCalendarRepository;
     private IScheduleRepository mScheduleRepository;
     private IDashboardRepository mDashboardRepository;
-    private ITokenRepository mTokenRepository;
 
     public CalendarInteractor(ICalendarRepository calendarRepository,
                               IScheduleRepository scheduleRepository,
-                              IDashboardRepository dashboardRepository,
-                              ITokenRepository tokenRepository) {
+                              IDashboardRepository dashboardRepository) {
         mCalendarRepository = calendarRepository;
         mScheduleRepository = scheduleRepository;
         mDashboardRepository = dashboardRepository;
-        mTokenRepository = tokenRepository;
     }
 
     @Override
@@ -161,8 +156,7 @@ public class CalendarInteractor implements ICalendarInteractor {
     }
 
     private String getAccessToken() {
-        TokenModel tokenModel = mTokenRepository.getToken();
-        return tokenModel.getAccessToken();
+        return "";
     }
 
     private long getFromTimeInMillis(Calendar calendar) {

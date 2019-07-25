@@ -4,11 +4,9 @@ import android.util.Log;
 
 import com.verbatoria.business.dashboard.models.ChildModel;
 import com.verbatoria.business.dashboard.processor.ModelsConverter;
-import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ChildRequestModel;
 import com.verbatoria.data.repositories.children.IChildrenRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.RxSchedulers;
 
@@ -29,11 +27,9 @@ public class ChildrenInteractor implements IChildrenInteractor {
     private static final String TAG = ChildrenInteractor.class.getSimpleName();
 
     private IChildrenRepository mChildrenRepository;
-    private ITokenRepository mTokenRepository;
 
-    public ChildrenInteractor(IChildrenRepository childrenRepository, ITokenRepository tokenRepository) {
+    public ChildrenInteractor(IChildrenRepository childrenRepository) {
         mChildrenRepository = childrenRepository;
-        mTokenRepository = tokenRepository;
     }
 
     @Override
@@ -116,7 +112,6 @@ public class ChildrenInteractor implements IChildrenInteractor {
 
 
     private String getAccessToken() {
-        TokenModel tokenModel = mTokenRepository.getToken();
-        return tokenModel.getAccessToken();
+        return "";
     }
 }

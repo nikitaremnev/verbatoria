@@ -1,5 +1,6 @@
 package com.verbatoria.ui.dashboard
 
+import android.util.Log
 import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.DashboardInteractor
 import com.verbatoria.ui.base.BasePresenter
@@ -38,6 +39,7 @@ class DashboardPresenter(
     //endregion
 
     private fun openFragmentByItemId() {
+        Log.e("test", "DashboardPresenter openFragmentByItemId isBlocked $isBlocked")
         if (isBlocked) {
             view?.openBlocked()
         } else {
@@ -59,10 +61,12 @@ class DashboardPresenter(
         dashboardInteractor.isBlocked()
             .subscribe({ isBlocked ->
                 this.isBlocked = isBlocked
-                view?.openBlocked()
+                Log.e("test", "DashboardPresenter getIsBlocked isBlocked $isBlocked")
+
                 if (isBlocked) {
-                    updateInfo()
+                    view?.openBlocked()
                 }
+                updateInfo()
             }, { error ->
                 logger.error("error while get is blocked occurred", error)
             })
@@ -72,11 +76,11 @@ class DashboardPresenter(
     private fun updateInfo() {
         dashboardInteractor.updateInfo()
             .subscribe({ isBlocked ->
+                Log.e("test", "DashboardPresenter updateInfo isBlocked $isBlocked")
+
                 this.isBlocked = isBlocked
                 if (isBlocked) {
-                    view?.apply {
-                        openBlocked()
-                    }
+                    view?.openBlocked()
                 } else {
                     view?.apply {
                         setInfoItemSelected()

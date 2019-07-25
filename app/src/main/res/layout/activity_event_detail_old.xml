@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.verbatoria.ui.calendar.view.add.AddCalendarEventActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fields_layout"
+            android:orientation="vertical">
+
+            <include android:id="@+id/client_field"
+                layout="@layout/item_field"/>
+
+            <include android:id="@+id/child_field"
+                layout="@layout/item_field"/>
+
+            <include android:id="@+id/date_field"
+                layout="@layout/item_field"/>
+
+            <include android:id="@+id/report_field"
+                android:visibility="gone"
+                layout="@layout/item_field"/>
+
+            <include android:id="@+id/send_to_location_field"
+                android:visibility="gone"
+                layout="@layout/item_field"/>
+
+            <include android:id="@+id/include_attention_memory_field"
+                android:visibility="visible"
+                layout="@layout/item_field"/>
+
+            <include android:id="@+id/archimed_field"
+                android:visibility="gone"
+                layout="@layout/item_field"/>
+
+            <include android:id="@+id/hobby_field"
+                android:visibility="gone"
+                layout="@layout/item_field"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="@dimen/activity_save_button_width"
+            android:layout_height="@dimen/button_height"
+            android:text="@string/dashboard_start_session"
+            style="@style/ButtonStyle"
+            android:layout_below="@+id/fields_layout"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_between_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+
+</ScrollView>

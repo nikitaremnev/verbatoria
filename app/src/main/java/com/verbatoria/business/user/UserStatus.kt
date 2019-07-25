@@ -20,7 +20,7 @@ enum class UserStatus(
                 ACTIVE.userStatus -> ACTIVE
                 WARNING.userStatus -> WARNING
                 BLOCKED.userStatus -> BLOCKED
-                else -> BLOCKED
+                else -> ACTIVE
             }
 
     }

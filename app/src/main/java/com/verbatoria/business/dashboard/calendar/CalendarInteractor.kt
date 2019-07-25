@@ -1,6 +1,6 @@
 package com.verbatoria.business.dashboard.calendar
 
-import com.verbatoria.business.dashboard.calendar.models.EventItemModel
+import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.business.report.ReportStatus
 import com.verbatoria.domain.dashboard.calendar.CalendarRepository
 import com.verbatoria.infrastructure.extensions.*

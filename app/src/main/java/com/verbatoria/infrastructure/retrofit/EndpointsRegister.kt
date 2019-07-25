@@ -2,6 +2,7 @@ package com.verbatoria.infrastructure.retrofit
 
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.AuthorizationEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.authorization.SMSLoginEndpoint
+import com.verbatoria.infrastructure.retrofit.endpoints.client.ClientEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.CalendarEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.InfoEndpoint
 import retrofit2.Retrofit
@@ -19,6 +20,9 @@ interface EndpointsRegister {
     val infoEndpoint: InfoEndpoint
 
     val calendarEndpoint: CalendarEndpoint
+
+    val clientEndpoint: ClientEndpoint
+
 
 }
 
@@ -38,5 +42,8 @@ class EndpointsRegisterImpl(
 
     override val calendarEndpoint: CalendarEndpoint =
         retrofit.create(CalendarEndpoint::class.java)
+
+    override val clientEndpoint: ClientEndpoint =
+        retrofit.create(ClientEndpoint::class.java)
 
 }

@@ -3,7 +3,7 @@ package com.verbatoria.di.dashboard.settings
 import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.settings.SettingsConfiguratorImpl
 import com.verbatoria.business.dashboard.settings.SettingsInteractorImpl
-import com.verbatoria.business.dashboard.settings.model.SettingsItemModel
+import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.di.FragmentScope
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.session.SessionManager

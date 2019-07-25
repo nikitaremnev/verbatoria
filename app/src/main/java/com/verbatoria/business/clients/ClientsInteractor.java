@@ -1,11 +1,9 @@
 package com.verbatoria.business.clients;
 
-import com.verbatoria.business.token.models.TokenModel;
 import com.verbatoria.data.network.common.ClientModel;
 import com.verbatoria.data.network.request.ClientRequestModel;
 import com.verbatoria.data.network.request.EditClientRequestModel;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.utils.CountriesHelper;
 import com.verbatoria.utils.PreferencesStorage;
 import com.verbatoria.utils.RxSchedulers;
@@ -22,12 +20,9 @@ public class ClientsInteractor implements IClientsInteractor {
     private static final String TAG = ClientsInteractor.class.getSimpleName();
 
     private IClientsRepository mClientsRepository;
-    private ITokenRepository mTokenRepository;
 
-    public ClientsInteractor(IClientsRepository clientsRepository,
-                             ITokenRepository tokenRepository) {
+    public ClientsInteractor(IClientsRepository clientsRepository) {
         mClientsRepository = clientsRepository;
-        mTokenRepository = tokenRepository;
     }
 
 
@@ -79,8 +74,7 @@ public class ClientsInteractor implements IClientsInteractor {
     }
 
     private String getAccessToken() {
-        TokenModel tokenModel = mTokenRepository.getToken();
-        return tokenModel.getAccessToken();
+        return "";
     }
 
 }

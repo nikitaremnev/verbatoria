@@ -4,7 +4,6 @@ import com.verbatoria.business.schedule.IScheduleInteractor;
 import com.verbatoria.business.schedule.ScheduleInteractor;
 import com.verbatoria.data.repositories.schedule.IScheduleRepository;
 import com.verbatoria.data.repositories.schedule.ScheduleRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.ui.schedule.presenter.ISchedulePresenter;
 import com.verbatoria.ui.schedule.presenter.SchedulePresenter;
 
@@ -27,8 +26,8 @@ public class ScheduleModule {
 
     @Provides
     @ScheduleScope
-    IScheduleInteractor provideScheduleInteractor(IScheduleRepository scheduleRepository, ITokenRepository tokenRepository) {
-        return new ScheduleInteractor(scheduleRepository, tokenRepository);
+    IScheduleInteractor provideScheduleInteractor(IScheduleRepository scheduleRepository) {
+        return new ScheduleInteractor(scheduleRepository);
     }
 
     @Provides

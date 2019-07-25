@@ -31,11 +31,10 @@ import io.reactivex.Observable;
  */
 public class SessionRepository implements ISessionRepository {
 
-    @Inject
     public Context mContext;
 
     public SessionRepository() {
-        VerbatoriaApplication.getInjector().inject(this);
+
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.verbatoria.infrastructure.extensions.hide
 private const val IS_RUSSIAN_LANGUAGE_AVAILABLE_EXTRA = "is_russian_language_available"
 private const val IS_ENGLISH_LANGUAGE_AVAILABLE_EXTRA = "is_english_language_available"
 private const val IS_HONG_KONG_LANGUAGE_AVAILABLE_EXTRA = "is_hong_kong_language_available"
+private const val IS_UKRAINIAN_LANGUAGE_AVAILABLE_EXTRA = "is_ukrainian_language_available"
 
 class AppLanguagesDialog : DialogFragment() {
 
@@ -26,7 +27,7 @@ class AppLanguagesDialog : DialogFragment() {
 
     }
 
-    private var onLanguageSelectedListener: AppLanguagesDialog.OnLanguageSelectedDialogListener? =
+    private var onLanguageSelectedListener: OnLanguageSelectedDialogListener? =
         null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -36,6 +37,7 @@ class AppLanguagesDialog : DialogFragment() {
         val russianLanguageView = rootView.findViewById<View>(R.id.russian_language_container)
         val englishLanguageView = rootView.findViewById<View>(R.id.english_language_container)
         val hongKongLanguageView = rootView.findViewById<View>(R.id.hong_kong_language_container)
+        val ukrainianLanguageView = rootView.findViewById<View>(R.id.ukrainian_language_container)
 
         if (arguments?.get(IS_RUSSIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             russianLanguageView.setOnClickListener {
@@ -61,6 +63,15 @@ class AppLanguagesDialog : DialogFragment() {
         } else {
             hongKongLanguageView.hide()
         }
+        if (arguments?.get(IS_UKRAINIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+            ukrainianLanguageView.setOnClickListener {
+                onLanguageSelectedListener?.onUkrainianLanguageSelected()
+                dismiss()
+            }
+        } else {
+            ukrainianLanguageView.hide()
+        }
+
         return AlertDialog.Builder(activity)
             .setView(rootView)
             .setNegativeButton(R.string.cancel, null)
@@ -80,6 +91,8 @@ class AppLanguagesDialog : DialogFragment() {
         var isEnglishLanguageAvailable: Boolean? = null
 
         var isHongKongLanguageAvailable: Boolean? = null
+
+        var isUkrainianLanguageAvailable: Boolean? = null
 
         init {
             init()
@@ -101,6 +114,10 @@ class AppLanguagesDialog : DialogFragment() {
                             IS_HONG_KONG_LANGUAGE_AVAILABLE_EXTRA,
                             isHongKongLanguageAvailable ?: false
                         )
+                        args.putBoolean(
+                            IS_UKRAINIAN_LANGUAGE_AVAILABLE_EXTRA,
+                            isUkrainianLanguageAvailable ?: false
+                        )
                         isCancelable = true
                     }
             }
@@ -113,6 +130,8 @@ class AppLanguagesDialog : DialogFragment() {
         fun onEnglishLanguageSelected()
 
         fun onHongKongLanguageSelected()
+
+        fun onUkrainianLanguageSelected()
 
     }
 

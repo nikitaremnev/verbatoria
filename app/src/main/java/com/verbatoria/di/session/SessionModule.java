@@ -5,7 +5,6 @@ import com.verbatoria.business.children.ChildrenInteractor;
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.clients.ClientsInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
-import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.data.repositories.calendar.CalendarRepository;
@@ -16,7 +15,6 @@ import com.verbatoria.data.repositories.clients.ClientsRepository;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.ui.calendar.presenter.detail.EventDetailPresenter;
 import com.verbatoria.ui.calendar.presenter.detail.IEventDetailPresenter;
 import com.verbatoria.ui.session.presenter.connection.ConnectionPresenter;
@@ -55,14 +53,14 @@ public class SessionModule {
 
     @Provides
     @SessionScope
-    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository, ITokenRepository tokenRepository) {
-        return new ChildrenInteractor(childrenRepository, tokenRepository);
+    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository) {
+        return new ChildrenInteractor(childrenRepository);
     }
 
     @Provides
     @SessionScope
-    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository, ITokenRepository tokenRepository) {
-        return new ClientsInteractor(clientsRepository, tokenRepository);
+    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository) {
+        return new ClientsInteractor(clientsRepository);
     }
 
     @Provides
@@ -79,8 +77,8 @@ public class SessionModule {
 
     @Provides
     @SessionScope
-    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository, ICalendarRepository calendarRepository) {
-        return new SessionInteractor(sessionRepository, tokenRepository, calendarRepository);
+    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ICalendarRepository calendarRepository) {
+        return new SessionInteractor(sessionRepository, calendarRepository);
     }
 
     @Provides

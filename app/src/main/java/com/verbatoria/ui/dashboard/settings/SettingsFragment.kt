@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.remnev.verbatoria.R
-import com.verbatoria.business.dashboard.settings.model.SettingsItemModel
+import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.settings.SettingsComponent
 import com.verbatoria.ui.base.BasePresenterFragment
@@ -39,7 +39,8 @@ interface SettingsView : BaseView {
     fun showAppLanguagesDialog(
         isRussianLanguageAvailable: Boolean,
         isEnglishLanguageAvailable: Boolean,
-        isHongKongLanguageAvailable: Boolean
+        isHongKongLanguageAvailable: Boolean,
+        isUkrainianLanguageAvailable: Boolean
     )
 
     fun setSettingsItems(settingsItemModels: List<SettingsItemModel>)
@@ -65,6 +66,8 @@ interface SettingsView : BaseView {
         fun onEnglishLanguageSelected()
 
         fun onHongKongLanguageSelected()
+
+        fun onUkrainianLanguageSelected()
 
     }
 
@@ -125,12 +128,14 @@ class SettingsFragment :
     override fun showAppLanguagesDialog(
         isRussianLanguageAvailable: Boolean,
         isEnglishLanguageAvailable: Boolean,
-        isHongKongLanguageAvailable: Boolean
+        isHongKongLanguageAvailable: Boolean,
+        isUkrainianLanguageAvailable: Boolean
     ) {
         AppLanguagesDialog.build {
             this.isRussianLanguageAvailable = isRussianLanguageAvailable
             this.isEnglishLanguageAvailable = isEnglishLanguageAvailable
             this.isHongKongLanguageAvailable = isHongKongLanguageAvailable
+            this.isUkrainianLanguageAvailable = isUkrainianLanguageAvailable
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
 
@@ -198,6 +203,10 @@ class SettingsFragment :
 
     override fun onHongKongLanguageSelected() {
         presenter.onHongKongLanguageSelected()
+    }
+
+    override fun onUkrainianLanguageSelected() {
+        presenter.onUkrainianLanguageSelected()
     }
 
     //endregion

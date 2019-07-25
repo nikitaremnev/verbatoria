@@ -1,7 +1,7 @@
 package com.verbatoria.business.dashboard.settings
 
 import com.remnev.verbatoria.R
-import com.verbatoria.business.dashboard.settings.model.SettingsItemModel
+import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 
 /**
  * @author n.remnev

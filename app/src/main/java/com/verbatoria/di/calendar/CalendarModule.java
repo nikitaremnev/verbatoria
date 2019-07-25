@@ -6,8 +6,6 @@ import com.verbatoria.business.children.ChildrenInteractor;
 import com.verbatoria.business.children.IChildrenInteractor;
 import com.verbatoria.business.clients.ClientsInteractor;
 import com.verbatoria.business.clients.IClientsInteractor;
-import com.verbatoria.business.dashboard.DashboardInteractor;
-import com.verbatoria.business.dashboard.IDashboardInteractor;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.business.session.SessionInteractor;
 import com.verbatoria.data.repositories.calendar.CalendarRepository;
@@ -22,7 +20,6 @@ import com.verbatoria.data.repositories.schedule.IScheduleRepository;
 import com.verbatoria.data.repositories.schedule.ScheduleRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
-import com.verbatoria.data.repositories.token.ITokenRepository;
 import com.verbatoria.ui.calendar.presenter.add.children.ChildPresenter;
 import com.verbatoria.ui.calendar.presenter.add.children.IChildPresenter;
 import com.verbatoria.ui.calendar.presenter.add.clients.ClientsPresenter;
@@ -75,21 +72,20 @@ public class CalendarModule {
     @CalendarScope
     ICalendarInteractor provideCalendarInteractor(ICalendarRepository calendarRepository,
                                                   IScheduleRepository scheduleRepository,
-                                                  IDashboardRepository dashboardRepository,
-                                                  ITokenRepository tokenRepository) {
-        return new CalendarInteractor(calendarRepository, scheduleRepository, dashboardRepository, tokenRepository);
+                                                  IDashboardRepository dashboardRepository) {
+        return new CalendarInteractor(calendarRepository, scheduleRepository, dashboardRepository);
     }
 
     @Provides
     @CalendarScope
-    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository, ITokenRepository tokenRepository) {
-        return new ChildrenInteractor(childrenRepository, tokenRepository);
+    IChildrenInteractor provideChildrenInteractor(IChildrenRepository childrenRepository) {
+        return new ChildrenInteractor(childrenRepository);
     }
 
     @Provides
     @CalendarScope
-    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository, ITokenRepository tokenRepository) {
-        return new ClientsInteractor(clientsRepository, tokenRepository);
+    IClientsInteractor provideClientsInteractor(IClientsRepository clientsRepository) {
+        return new ClientsInteractor(clientsRepository);
     }
 
     @Provides
@@ -120,8 +116,8 @@ public class CalendarModule {
 
     @Provides
     @CalendarScope
-    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ITokenRepository tokenRepository, ICalendarRepository calendarRepository) {
-        return new SessionInteractor(sessionRepository, tokenRepository, calendarRepository);
+    ISessionInteractor provideSessionInteractor(ISessionRepository sessionRepository, ICalendarRepository calendarRepository) {
+        return new SessionInteractor(sessionRepository, calendarRepository);
     }
 
     @Provides

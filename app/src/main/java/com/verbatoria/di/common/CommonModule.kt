@@ -7,6 +7,8 @@ import com.verbatoria.component.session.SessionServiceControllerImpl
 import com.verbatoria.domain.authorization.AuthorizationManager
 import com.verbatoria.domain.authorization.AuthorizationManagerImpl
 import com.verbatoria.domain.authorization.AuthorizationRepository
+import com.verbatoria.domain.client.ClientManager
+import com.verbatoria.domain.client.ClientManagerImpl
 import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.domain.dashboard.info.InfoManagerImpl
 import com.verbatoria.domain.dashboard.info.InfoRepository
@@ -114,6 +116,16 @@ class CommonModule {
             settingsRepository,
             endpointsRegister.infoEndpoint
         )
+
+    @Provides
+    @Singleton
+    fun provideClientManager(
+        endpointsRegister: EndpointsRegister
+    ): ClientManager =
+        ClientManagerImpl(
+            endpointsRegister.clientEndpoint
+        )
+
 
     //endregion
 

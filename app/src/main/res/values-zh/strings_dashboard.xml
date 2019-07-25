@@ -52,6 +52,7 @@
     <string name="language_russian">Русский</string>
     <string name="language_english">English</string>
     <string name="language_hong_kong">中文</string>
+    <string name="language_ukrainian">Українська</string>
 
     <string name="dashboard_update_language_error">Error during updating language occurred</string>
 

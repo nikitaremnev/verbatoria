@@ -2,7 +2,7 @@ package com.verbatoria.di.dashboard.calendar
 
 import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.calendar.CalendarInteractorImpl
-import com.verbatoria.business.dashboard.calendar.models.EventItemModel
+import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.di.FragmentScope
 import com.verbatoria.domain.dashboard.calendar.CalendarRepository
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister

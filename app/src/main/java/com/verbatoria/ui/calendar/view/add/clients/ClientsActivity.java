@@ -201,7 +201,7 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
             mEditMenuItem.setVisible(false);
             mCancelMenuItem.setVisible(true);
         }
-        mSubmitButton.setText(getString(R.string.calendar_activity_create));
+        mSubmitButton.setText(getString(R.string.event_detail_create_new_event));
         mSubmitButton.setVisibility(View.VISIBLE);
         mSubmitButton.setOnClickListener(v -> mClientsPresenter.createClient());
     }
