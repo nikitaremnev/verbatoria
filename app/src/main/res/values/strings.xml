@@ -69,6 +69,8 @@
     <string name="event_detail_event_added">Запись успешно создана!</string>
     <string name="event_detail_event_edited">Запись успешно изменена!</string>
 
+    <string name="event_detail_new">Новая запись</string>
+
     <string name="client_added">Запись успешно создана!</string>
     <string name="client_edited">Запись успешно изменена!</string>
 

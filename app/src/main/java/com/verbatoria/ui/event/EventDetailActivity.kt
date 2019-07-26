@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import com.remnev.verbatoria.R
 import com.verbatoria.business.event.models.item.EventDetailItem
 import com.verbatoria.di.Injector
@@ -22,11 +23,15 @@ private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
 
 interface EventDetailView : BaseView {
 
+    fun setTitle(titleResourceId: Int)
+
     fun setEventDetailItems(eventDetailItems: List<EventDetailItem>)
+
+    fun close()
 
     interface Callback {
 
-
+        fun onNavigationClicked()
 
     }
 
@@ -48,6 +53,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
     @Inject
     lateinit var adapter: Adapter
 
+    private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
 
     //region BasePresenterActivity
@@ -60,17 +66,31 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
             .build()
 
     override fun initViews(savedState: Bundle?) {
+        toolbar = findViewById(R.id.toolbar)
         recyclerView = findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setNavigationOnClickListener {
+            presenter.onNavigationClicked()
+        }
     }
 
     //endregion
 
     //region EventDetailView
 
+    override fun setTitle(titleResourceId: Int) {
+        toolbar.title = getString(titleResourceId)
+    }
+
     override fun setEventDetailItems(eventDetailItems: List<EventDetailItem>) {
         adapter.update(eventDetailItems)
+    }
+
+    override fun close() {
+        finish()
     }
 
     //endregion

@@ -1,5 +1,6 @@
 package com.verbatoria.ui.event
 
+import com.remnev.verbatoria.R
 import com.verbatoria.business.event.EventDetailInteractor
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.item.*
@@ -40,11 +41,15 @@ class EventDetailPresenter(
 
         if (currentMode.isCreateNew()) {
             getCreateNewEventItems()
+            view.setTitle(R.string.event_detail_new)
         }
     }
 
     //region EventDetailView.Callback
 
+    override fun onNavigationClicked() {
+        view?.close()
+    }
 
     //endregion
 

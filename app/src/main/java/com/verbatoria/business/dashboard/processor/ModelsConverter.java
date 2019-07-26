@@ -32,6 +32,7 @@ import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
  *
  * @author nikitaremnev
  */
+
 public class ModelsConverter {
 
     public static VerbatologModel convertInfoResponseToVerbatologModel(VerbatologModel verbatologModel,

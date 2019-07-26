@@ -32,7 +32,7 @@ object APIConstants {
     const val VERBATOLOG_INFO_URL = "$VERBATOLOG_ID_PATH_KEY/current$JSON_PATH"
 
     const val GET_EVENTS_URL = "$VERBATOLOG_ID_PATH_KEY/current/events$JSON_PATH"
-    const val ADD_EVENT_URL = "$VERBATOLOG_ID_PATH_KEY/current/events$JSON_PATH"
+    const val CREATE_NEW_EVENT_URL = "$VERBATOLOG_ID_PATH_KEY/current/events$JSON_PATH"
     const val EDIT_EVENT_URL = "$VERBATOLOG_ID_PATH_KEY/current/events/{$EVENT_ID_PATH_KEY}$JSON_PATH"
     const val DELETE_EVENT_URL = "$VERBATOLOG_ID_PATH_KEY/current/events/{$EVENT_ID_PATH_KEY}$JSON_PATH"
 
@@ -46,7 +46,7 @@ object APIConstants {
     const val DELETE_SCHEDULE_URL = "$VERBATOLOG_ID_PATH_KEY/current/schedule_entries/delete"
 
     const val SEARCH_CLIENT_URL = "clients$JSON_PATH"
-    const val ADD_CLIENT_URL = "clients$JSON_PATH"
+    const val CREATE_NEW_CLIENT_URL = "clients$JSON_PATH"
     const val EDIT_CLIENT_URL = "clients/{$CLIENT_ID_PATH_KEY}$JSON_PATH"
     const val GET_CLIENT_URL = "clients/{$CLIENT_ID_PATH_KEY}$JSON_PATH"
 

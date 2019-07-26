@@ -1,7 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="MainTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
         <item name="colorAccent">@color/status_bar</item>
         <item name="colorPrimary">@color/main</item>
         <item name="colorPrimaryDark">@color/status_bar</item>

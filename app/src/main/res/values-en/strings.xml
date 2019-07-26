@@ -69,6 +69,8 @@
     <string name="event_detail_event_added">The recording was successfully created!</string>
     <string name="event_detail_event_edited">The recording was successfully changed!</string>
 
+    <string name="event_detail_new">New entry</string>
+
     <string name="client_added">The entry was successfully created!</string>
     <string name="client_edited">The entry was successfully changed!</string>
 

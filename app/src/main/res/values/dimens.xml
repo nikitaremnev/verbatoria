@@ -6,6 +6,8 @@
 
     <dimen name="school_submit_height">70dp</dimen>
 
+    <dimen name="toolbar_elevation">8dp</dimen>
+
     <dimen name="button_height">50dp</dimen>
     <dimen name="button_elevation">6dp</dimen>
 

@@ -1,6 +1,5 @@
 package com.verbatoria.infrastructure.retrofit.endpoints.client
 
-import com.verbatoria.data.network.common.ClientModel
 import com.verbatoria.infrastructure.retrofit.APIConstants
 import com.verbatoria.infrastructure.retrofit.APIConstants.CLIENT_ID_PATH_KEY
 import com.verbatoria.infrastructure.retrofit.APIConstants.QUERY_PATH_KEY
@@ -8,7 +7,6 @@ import com.verbatoria.infrastructure.retrofit.endpoints.client.model.params.Crea
 import com.verbatoria.infrastructure.retrofit.endpoints.client.model.params.EditClientParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.client.model.response.ClientResponseDto
 import com.verbatoria.infrastructure.retrofit.endpoints.client.model.response.SearchClientResponseDto
-import io.reactivex.Observable
 import retrofit2.http.*
 
 /**
@@ -22,7 +20,7 @@ interface ClientEndpoint {
         @Query(QUERY_PATH_KEY) query: String
     ): SearchClientResponseDto
 
-    @POST(APIConstants.ADD_CLIENT_URL)
+    @POST(APIConstants.CREATE_NEW_CLIENT_URL)
     fun createNewClient(
         @Body params: CreateNewClientParamsDto
     ): ClientResponseDto

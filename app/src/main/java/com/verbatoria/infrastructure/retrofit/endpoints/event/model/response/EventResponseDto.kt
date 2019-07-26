@@ -1,6 +1,8 @@
-package com.verbatoria.infrastructure.retrofit.endpoints.dashboard.model
+package com.verbatoria.infrastructure.retrofit.endpoints.event.model.response
 
 import com.google.gson.annotations.SerializedName
+import com.verbatoria.infrastructure.retrofit.endpoints.child.ChildResponseDto
+import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.model.ReportResponseDto
 
 /**
  * @author n.remnev
@@ -15,11 +17,11 @@ data class EventResponseDto(
     @SerializedName("instant_report")
     val isInstantReport: Boolean,
     @SerializedName("archimed")
-    val isArchimedIncluded: Boolean,
+    val isArchimedesIncluded: Boolean,
     @SerializedName("hobby")
     val isHobbyIncluded: Boolean,
     @SerializedName("is_archimed_allowed")
-    val isArchimedAllowed: Boolean,
-    val child: ClientResponseDto,
+    val isArchimedesAllowed: Boolean,
+    val child: ChildResponseDto,
     val report: ReportResponseDto
 )
