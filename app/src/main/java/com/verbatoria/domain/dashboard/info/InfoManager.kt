@@ -5,6 +5,7 @@ import com.verbatoria.business.dashboard.info.models.LocationInfoModel
 import com.verbatoria.business.dashboard.info.models.PartnerInfoModel
 import com.verbatoria.business.user.UserStatus
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import com.verbatoria.infrastructure.database.entity.age_group.AgeGroupEntity
 import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.InfoEndpoint
 import java.lang.Exception
 
@@ -25,11 +26,20 @@ interface InfoManager {
 
     fun updateInfo(): UserStatus
 
+    fun getLocationId(): String
+
+    fun loadAndSaveAgeGroupsForArchimedes()
+
+    fun isAgeAvailableForArchimedes(age: Int): Boolean
+
+    fun isArchimedesAllowed(): Boolean
+
 }
 
 class InfoManagerImpl(
     private val infoRepository: InfoRepository,
     private val settingsRepository: SettingsRepository,
+    private val ageGroupRepository: AgeGroupRepository,
     private val infoEndpoint: InfoEndpoint
 ) : InfoManager {
 
@@ -150,5 +160,27 @@ class InfoManagerImpl(
         infoRepository.putLastInfoUpdateTime(System.currentTimeMillis())
         return responseConverted.status
     }
+
+    override fun getLocationId(): String =
+            infoRepository.getLocationId()
+
+    override fun loadAndSaveAgeGroupsForArchimedes() {
+        val responseConverted = infoEndpoint.getAgeGroupsForArchimedes().map { dto ->
+            AgeGroupEntity(
+                id = System.currentTimeMillis().toString(),
+                minAge = dto.minAge,
+                maxAge = dto.maxAge,
+                isArhimedesAllowed = dto.isArchimedesAllowed
+            )
+        }
+        ageGroupRepository.deleteAll()
+        ageGroupRepository.saveAll(responseConverted)
+    }
+
+    override fun isAgeAvailableForArchimedes(age: Int): Boolean =
+        ageGroupRepository.isAgeAvailableForArchimedes(age)
+
+    override fun isArchimedesAllowed(): Boolean =
+        infoRepository.getIsArchimedesAllowed()
 
 }

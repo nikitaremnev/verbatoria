@@ -4,7 +4,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.business.event.models.ClientModel
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
-import com.verbatoria.domain.dashboard.info.InfoRepository
+import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.infrastructure.extensions.formatToServerTime
 import com.verbatoria.infrastructure.retrofit.endpoints.event.EventEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.event.model.params.CreateNewOrEditEventParamsDto
@@ -29,14 +29,14 @@ interface EventDetailInteractor {
 
     fun getClient(cliendId: String): Single<ClientModel>
 
-    fun createNewEvent(childId: String, startAt: Date, endAt: Date): Completable
+    fun createNewEvent(childId: String, childAge: Int, startAt: Date, endAt: Date): Completable
 
 }
 
 class EventDetailInteractorImpl(
     private val eventEndpoint: EventEndpoint,
     private val clientManager: ClientManager,
-    private val infoRepository: InfoRepository,
+    private val infoManager: InfoManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : EventDetailInteractor {
 
@@ -92,18 +92,25 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun createNewEvent(childId: String, startAt: Date, endAt: Date): Completable =
+    override fun createNewEvent(
+        childId: String,
+        childAge: Int,
+        startAt: Date,
+        endAt: Date
+    ): Completable =
         Completable.fromCallable {
             eventEndpoint.createNewEvent(
                 CreateNewOrEditEventParamsDto(
                     event = EventParamsDto(
                         childId = childId,
-                        locationId = infoRepository.getLocationId(),
+                        locationId = infoManager.getLocationId(),
                         startAt = startAt.formatToServerTime(),
                         endAt = endAt.formatToServerTime(),
                         isInstantReport = true,
-                        isArchimedesIncluded = true,
-                        isHobbyIncluded = true
+                        isArchimedesIncluded = infoManager.isArchimedesAllowed() && infoManager.isAgeAvailableForArchimedes(
+                            childAge
+                        ),
+                        isHobbyIncluded = false
                     )
                 )
             )

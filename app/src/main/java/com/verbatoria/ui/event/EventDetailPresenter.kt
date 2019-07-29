@@ -102,7 +102,7 @@ class EventDetailPresenter(
     override fun onSubmitButtonClicked() {
         when (currentMode) {
             EventDetailMode.CREATE_NEW -> {
-
+                createNewEvent()
             }
             EventDetailMode.START -> {
 
@@ -131,4 +131,7 @@ class EventDetailPresenter(
 //        eventDetailInteractor.getClient(clientId)
     }
 
+    private fun createNewEvent() {
+
+    }
 }

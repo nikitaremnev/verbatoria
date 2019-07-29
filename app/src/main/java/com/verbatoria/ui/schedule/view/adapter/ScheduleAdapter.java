@@ -46,6 +46,7 @@ public class ScheduleAdapter extends LinkedAdaptiveTableAdapter<ViewHolderImpl> 
     public ScheduleAdapter(Context context, IScheduleDataSource<String, Date, Date, ScheduleItemModel> dataSource, int width, int height) {
         mLayoutInflater = LayoutInflater.from(context);
         Resources resources = context.getResources();
+
         mHeaderColumnHeight = resources.getDimensionPixelSize(R.dimen.column_header_height);
         mRowHeight = (height - mHeaderColumnHeight) / ROWS_COUNT;
         mHeaderRowWidth = resources.getDimensionPixelSize(R.dimen.row_header_width);
@@ -73,13 +74,13 @@ public class ScheduleAdapter extends LinkedAdaptiveTableAdapter<ViewHolderImpl> 
     @NonNull
     @Override
     public ViewHolderImpl onCreateColumnHeaderViewHolder(@NonNull ViewGroup parent) {
-        return new ColumnHeaderViewHolder(mLayoutInflater.inflate(R.layout.item_column_header, parent, false));
+        return new ColumnHeaderViewHolder(mLayoutInflater.inflate(R.layout.item_schedule_column_header, parent, false));
     }
 
     @NonNull
     @Override
     public ViewHolderImpl onCreateRowHeaderViewHolder(@NonNull ViewGroup parent) {
-        return new RowHeaderViewHolder(mLayoutInflater.inflate(R.layout.item_row_header, parent, false));
+        return new RowHeaderViewHolder(mLayoutInflater.inflate(R.layout.item_schedule_row_header, parent, false));
     }
 
     @NonNull

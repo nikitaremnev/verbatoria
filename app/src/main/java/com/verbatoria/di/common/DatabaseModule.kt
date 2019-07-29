@@ -7,6 +7,8 @@ import com.verbatoria.domain.authorization.AuthorizationRepository
 import com.verbatoria.domain.authorization.AuthorizationRepositoryImpl
 import com.verbatoria.domain.dashboard.calendar.CalendarRepository
 import com.verbatoria.domain.dashboard.calendar.CalendarRepositoryImpl
+import com.verbatoria.domain.dashboard.info.AgeGroupRepository
+import com.verbatoria.domain.dashboard.info.AgeGroupRepositoryImpl
 import com.verbatoria.domain.dashboard.info.InfoRepository
 import com.verbatoria.domain.dashboard.info.InfoRepositoryImpl
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
@@ -66,5 +68,9 @@ class DatabaseModule {
             context.getSharedPreferences(CALENDAR_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         )
 
+    @Provides
+    @Singleton
+    fun provideAgeGroupRepository(mainRoomDatabase: MainRoomDatabase): AgeGroupRepository =
+        AgeGroupRepositoryImpl(mainRoomDatabase.ageGroupDao())
 
 }

@@ -68,6 +68,10 @@
             android:screenOrientation="landscape"/>
 
         <activity
+            android:name="com.verbatoria.ui.schedule.ScheduleActivity"
+            android:screenOrientation="landscape"/>
+
+        <activity
             android:name="com.verbatoria.ui.late_send.LateSendActivity"
             android:screenOrientation="landscape"/>
 

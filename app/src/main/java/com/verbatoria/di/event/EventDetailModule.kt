@@ -4,6 +4,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.business.event.*
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
+import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.domain.dashboard.info.InfoRepository
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
@@ -130,12 +131,12 @@ class EventDetailModule {
         endpointsRegister: EndpointsRegister,
         eventDetailModeOrdinal: Int,
         clientManager: ClientManager,
-        infoRepository: InfoRepository,
+        infoManager: InfoManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): EventDetailPresenter =
         EventDetailPresenter(
             EventDetailMode.valueOf(eventDetailModeOrdinal),
-            EventDetailInteractorImpl(endpointsRegister.eventEndpoint, clientManager, infoRepository, rxSchedulersFactory)
+            EventDetailInteractorImpl(endpointsRegister.eventEndpoint, clientManager, infoManager, rxSchedulersFactory)
         )
 
 }

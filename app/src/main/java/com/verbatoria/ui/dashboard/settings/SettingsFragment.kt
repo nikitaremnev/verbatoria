@@ -17,7 +17,7 @@ import com.verbatoria.ui.common.dialog.ProgressDialog
 import com.verbatoria.ui.common.dialog.SuggestDialog
 import com.verbatoria.ui.late_send.LateSendActivity
 import com.verbatoria.ui.login.LoginActivity
-import com.verbatoria.ui.schedule.view.ScheduleActivity
+import com.verbatoria.ui.schedule.ScheduleActivity
 import com.verbatoria.utils.LocaleHelper
 import javax.inject.Inject
 
@@ -165,7 +165,7 @@ class SettingsFragment :
 
     override fun openSchedule() {
         activity?.let { activity ->
-            startActivity(ScheduleActivity.newInstance(activity))
+            startActivity(ScheduleActivity.createIntent(activity))
         }
     }
 

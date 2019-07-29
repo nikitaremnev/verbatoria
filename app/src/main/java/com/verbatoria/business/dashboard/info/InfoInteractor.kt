@@ -5,6 +5,7 @@ import com.verbatoria.business.dashboard.info.models.LocationInfoModel
 import com.verbatoria.business.dashboard.info.models.PartnerInfoModel
 import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
+import io.reactivex.Completable
 import io.reactivex.Single
 
 /**
@@ -16,6 +17,8 @@ interface InfoInteractor {
     fun getInfo(): Single<InfoModel>
 
     fun getLocationAndPartnerInfo(locationId: String): Single<Pair<LocationInfoModel, PartnerInfoModel>>
+
+    fun loadAndSaveAgeGroupsForArchimedes(): Completable
 
 }
 
@@ -34,6 +37,13 @@ class InfoInteractorImpl(
     override fun getLocationAndPartnerInfo(locationId: String): Single<Pair<LocationInfoModel, PartnerInfoModel>> =
         Single.fromCallable {
             infoManager.getLocationAndPartnerInfo()
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+    override fun loadAndSaveAgeGroupsForArchimedes(): Completable =
+        Completable.fromCallable {
+            infoManager.loadAndSaveAgeGroupsForArchimedes()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

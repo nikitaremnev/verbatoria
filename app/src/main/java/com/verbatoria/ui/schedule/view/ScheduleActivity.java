@@ -12,18 +12,14 @@ import android.widget.RadioButton;
 import com.cleveroad.adaptivetablelayout.AdaptiveTableLayout;
 import com.cleveroad.adaptivetablelayout.OnItemClickListener;
 import com.remnev.verbatoria.R;
-import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.business.schedule.datasource.IScheduleDataSource;
-import com.verbatoria.di.schedule.ScheduleModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
 import com.verbatoria.ui.schedule.presenter.ISchedulePresenter;
 import com.verbatoria.ui.schedule.view.adapter.ScheduleAdapter;
 import com.verbatoria.utils.Helper;
 
-import javax.inject.Inject;
 
-import butterknife.BindView;
 
 /**
  * Экран расписания
@@ -34,10 +30,8 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
 
     private static final String TAG = ScheduleActivity.class.getSimpleName();
 
-    @BindView(R.id.schedule_recycler_view)
     public AdaptiveTableLayout mScheduleLayout;
 
-    @Inject
     ISchedulePresenter mSchedulePresenter;
 
     private ScheduleAdapter mScheduleAdapter;
@@ -50,7 +44,7 @@ public class ScheduleActivity extends BaseActivity implements IScheduleView, OnI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        VerbatoriaApplication.getInjector().addModule(new ScheduleModule()).inject(this);
+//        VerbatoriaApplication.getInjector().addModule(new ScheduleModule()).inject(this);
 
         setContentView(R.layout.activity_schedule);
 

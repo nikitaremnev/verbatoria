@@ -17,7 +17,6 @@ import com.verbatoria.di.login.LoginComponent
 import com.verbatoria.di.login.sms.SMSLoginComponent
 import com.verbatoria.di.recovery_password.RecoveryPasswordComponent
 import com.verbatoria.di.schedule.ScheduleComponent
-import com.verbatoria.di.schedule.ScheduleModule
 import com.verbatoria.di.session.SessionComponent
 import com.verbatoria.di.session.SessionModule
 import com.verbatoria.di.splash.SplashComponent
@@ -61,8 +60,6 @@ interface Injector {
 
     fun addModule(calendarModule: CalendarModule): CalendarComponent
 
-    fun addModule(scheduleModule: ScheduleModule): ScheduleComponent
-
     fun plusSplashComponent(): SplashComponent.Builder
 
     fun plusLateSendComponent(): LateSendComponent.Builder
@@ -76,6 +73,8 @@ interface Injector {
     fun plusDashboardComponent(): DashboardComponent.Builder
 
     fun plusEventDetailComponent(): EventDetailComponent.Builder
+
+    fun plusScheduleComponent(): ScheduleComponent.Builder
 
     @Component.Builder
     interface Builder {

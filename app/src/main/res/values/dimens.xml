@@ -174,7 +174,6 @@
     <dimen name="info_progress_bar_2_size">40dp</dimen>
     <dimen name="info_progress_bar_3_size">30dp</dimen>
 
-
     <!-- Settings -->
 
     <dimen name="settings_dialog_title_text_size">20sp</dimen>
@@ -264,6 +263,16 @@
 
     <dimen name="save_dialog_padding">24dp</dimen>
     <dimen name="save_dialog_option_padding">8dp</dimen>
+    <dimen name="cell_margin">2dp</dimen>
+
+    <dimen name="schedule_top_left_width">70dp</dimen>
+    <dimen name="schedule_top_left_height">70dp</dimen>
+
+    <dimen name="schedule_column_header_width">70dp</dimen>
+    <dimen name="schedule_column_header_height">70dp</dimen>
+
+    <dimen name="schedule_row_header_width">70dp</dimen>
+    <dimen name="schedule_row_header_height">70dp</dimen>
 
     <!-- Session -->
 
