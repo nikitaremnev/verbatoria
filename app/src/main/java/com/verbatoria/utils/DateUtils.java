@@ -29,32 +29,6 @@ public class DateUtils {
     private static final SimpleDateFormat TIMER_TIME_FORMAT = new SimpleDateFormat("mm:ss", Locale.ROOT);
     private static final SimpleDateFormat UI_DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
 
-    public static boolean isCurrentYear(long millis) {
-        Calendar currentCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
-        Calendar tempCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
-        currentCalendar.setTimeInMillis(System.currentTimeMillis());
-        tempCalendar.setTimeInMillis(millis);
-        return currentCalendar.get(Calendar.YEAR) == tempCalendar.get(Calendar.YEAR);
-    }
-
-    public static boolean isToday(long millis) {
-        Calendar currentCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
-        Calendar tempCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
-        currentCalendar.setTimeInMillis(System.currentTimeMillis());
-        tempCalendar.setTimeInMillis(millis);
-        return currentCalendar.get(Calendar.YEAR) == tempCalendar.get(Calendar.YEAR)
-                && currentCalendar.get(Calendar.DAY_OF_YEAR) == tempCalendar.get(Calendar.DAY_OF_YEAR);
-    }
-
-    public static boolean isYesterday(long millis) {
-        Calendar yesterdayCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
-        Calendar tempCalendar = Calendar.getInstance(new Locale(LOCALE_RU));
-        yesterdayCalendar.setTimeInMillis(System.currentTimeMillis() - android.text.format.DateUtils.DAY_IN_MILLIS);
-        tempCalendar.setTimeInMillis(millis);
-        return yesterdayCalendar.get(Calendar.YEAR) == tempCalendar.get(Calendar.YEAR)
-                && yesterdayCalendar.get(Calendar.DAY_OF_YEAR) == tempCalendar.get(Calendar.DAY_OF_YEAR);
-    }
-
     public static Date parseDateTime(String dateString) throws ParseException {
         return SERVER_DATETIME_FORMAT.parse(dateString);
     }

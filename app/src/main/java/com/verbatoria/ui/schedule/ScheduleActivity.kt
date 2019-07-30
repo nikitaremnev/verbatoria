@@ -8,6 +8,7 @@ import com.cleveroad.adaptivetablelayout.AdaptiveTableLayout
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.schedule.ScheduleComponent
+import com.verbatoria.domain.schedule.ScheduleDataSource
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 
@@ -16,6 +17,8 @@ import com.verbatoria.ui.base.BaseView
  */
 
 interface ScheduleView : BaseView {
+
+    fun setSchedule(scheduleDataSource: ScheduleDataSource)
 
     fun close()
 
@@ -62,6 +65,12 @@ class ScheduleActivity : BasePresenterActivity<ScheduleView, SchedulePresenter, 
     //endregion
 
     //region ScheduleView
+
+    override fun setSchedule(scheduleDataSource: ScheduleDataSource) {
+        adaptiveTableLayout.setAdapter(
+            ScheduleAdapter(this, adaptiveTableLayout.width, adaptiveTableLayout.height, scheduleDataSource)
+        )
+    }
 
     override fun close() {
         finish()

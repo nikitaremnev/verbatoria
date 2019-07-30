@@ -14,13 +14,15 @@ import retrofit2.http.*
  * @author n.remnev
  */
 
+private val SCHEDULE_ITEMS_PER_PAGE = 7 * 14
+
 interface ScheduleEndpoint {
 
     @GET(APIConstants.GET_SCHEDULE_URL)
     fun getSchedule(
         @Query(FROM_TIME_QUERY_KEY) fromTime: String,
         @Query(TO_TIME_QUERY_KEY) toTime: String,
-        @Query(PER_PAGE_KEY) perPage: Int
+        @Query(PER_PAGE_KEY) perPage: Int = SCHEDULE_ITEMS_PER_PAGE
     ): ScheduleResponseDto
 
     @POST(APIConstants.ADD_SCHEDULE_URL)
