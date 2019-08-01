@@ -1,8 +1,8 @@
 package com.verbatoria.ui.schedule.item
 
 import android.view.View
-import com.cleveroad.adaptivetablelayout.ViewHolderImpl
 import com.remnev.verbatoria.R
+import com.verbatoria.ui.common.adaptivetablelayout.ViewHolderImpl
 
 /**
  * @author n.remnev

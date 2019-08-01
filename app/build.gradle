@@ -99,7 +99,7 @@ dependencies {
     compile "com.android.support:multidex:${rootProject.multidexVersion}"
     compile "com.redmadrobot:inputmask:${rootProject.inputMaskVersion}"
     compile "uk.co.chrisjenx:calligraphy:${rootProject.calligraphyVersion}"
-    compile "com.cleveroad:adaptivetablelayout:${rootProject.adaptiveTableLayoutVersion}"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+//    implementation "com.cleveroad:adaptivetablelayout:${rootProject.adaptiveTableLayoutVersion}"
+    implementation "com.android.support.constraint:constraint-layout:${rootProject.constraintLayoutVersion}"
 
 }

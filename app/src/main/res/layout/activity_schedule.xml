@@ -10,17 +10,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.cleveroad.adaptivetablelayout.AdaptiveTableLayout
+    <com.verbatoria.ui.common.adaptivetablelayout.AdaptiveTableLayout
         android:id="@+id/schedule_adaptive_table_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:cellMargin="@dimen/cell_margin"
-        app:dragAndDropEnabled="false"
         app:fixedHeaders="true"
-        app:solidRowHeaders="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:solidRowHeaders="true" />
 
 </android.support.constraint.ConstraintLayout>
 

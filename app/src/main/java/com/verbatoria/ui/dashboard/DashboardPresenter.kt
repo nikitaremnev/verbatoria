@@ -21,6 +21,8 @@ class DashboardPresenter(
     private var isBlocked: Boolean = false
 
     init {
+        Log.e("test", "DashboardPresenter init")
+
         getIsBlocked()
     }
 
@@ -39,18 +41,26 @@ class DashboardPresenter(
     //endregion
 
     private fun openFragmentByItemId() {
-        Log.e("test", "DashboardPresenter openFragmentByItemId isBlocked $isBlocked")
+        Log.e("test", "DashboardPresenter openFragmentByItemId")
         if (isBlocked) {
+            Log.e("test", "DashboardPresenter openFragmentByItemId isBlocked")
+
             view?.openBlocked()
         } else {
+            Log.e("test", "DashboardPresenter openFragmentByItemId else")
+
             when (selectedNavigationItemId) {
                 R.id.navigation_info -> {
+                    Log.e("test", "DashboardPresenter openInfo")
                     view?.openInfo()
                 }
                 R.id.navigation_calendar -> {
+                    Log.e("test", "DashboardPresenter openCalendar")
                     view?.openCalendar()
                 }
                 R.id.navigation_settings -> {
+                    Log.e("test", "DashboardPresenter openSettings")
+
                     view?.openSettings()
                 }
             }
@@ -58,6 +68,8 @@ class DashboardPresenter(
     }
 
     private fun getIsBlocked() {
+        Log.e("test", "DashboardPresenter getIsBlocked")
+
         dashboardInteractor.isBlocked()
             .subscribe({ isBlocked ->
                 this.isBlocked = isBlocked
@@ -74,18 +86,13 @@ class DashboardPresenter(
     }
 
     private fun updateInfo() {
+        Log.e("test", "DashboardPresenter updateInfo")
         dashboardInteractor.updateInfo()
             .subscribe({ isBlocked ->
                 Log.e("test", "DashboardPresenter updateInfo isBlocked $isBlocked")
-
                 this.isBlocked = isBlocked
                 if (isBlocked) {
                     view?.openBlocked()
-                } else {
-                    view?.apply {
-                        setInfoItemSelected()
-                        openInfo()
-                    }
                 }
             }, { error ->
                 logger.error("error while get is blocked occurred", error)

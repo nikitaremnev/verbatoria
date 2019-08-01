@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
-import com.cleveroad.adaptivetablelayout.LinkedAdaptiveTableAdapter
-import com.cleveroad.adaptivetablelayout.ViewHolderImpl
 import com.remnev.verbatoria.R
 import com.verbatoria.domain.schedule.ScheduleDataSource
 import com.verbatoria.infrastructure.extensions.formatToShortDate
 import com.verbatoria.infrastructure.extensions.formatToTime
+import com.verbatoria.ui.common.adaptivetablelayout.LinkedAdaptiveTableAdapter
+import com.verbatoria.ui.common.adaptivetablelayout.ViewHolderImpl
 import com.verbatoria.ui.schedule.item.ScheduleColumnHeaderViewHolder
 import com.verbatoria.ui.schedule.item.ScheduleItemViewHolder
 import com.verbatoria.ui.schedule.item.ScheduleRowHeaderViewHolder
