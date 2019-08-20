@@ -283,6 +283,7 @@
     <string name="schedule_cleared">Расписание было очищено!</string>
 
     <string name="schedule_saving">Сохранение расписания</string>
+    <string name="schedule_clearing">Очищаем расписание</string>
 
     <string name="schedule_only_this_week">только эта неделя</string>
     <string name="schedule_save_1_week">1 неделя</string>

@@ -31,11 +31,11 @@ class ScheduleAdapter(
 
     private val headerColumnHeight: Int = context.resources.getDimensionPixelSize(R.dimen.column_header_height)
 
-    private val rowHeight: Int = (height - headerColumnHeight) / ROWS_COUNT
+    private var rowHeight: Int = (height - headerColumnHeight) / ROWS_COUNT + 1
 
     private val headerRowWidth: Int = context.resources.getDimensionPixelSize(R.dimen.row_header_width)
 
-    private val columnWidth: Int = (width - headerRowWidth) / COLUMN_COUNT
+    private var columnWidth: Int = (width - headerRowWidth) / COLUMN_COUNT + 1
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -91,5 +91,14 @@ class ScheduleAdapter(
     override fun getRowCount(): Int = ScheduleDataSource.ROWS_COUNT
 
     override fun getColumnCount(): Int = ScheduleDataSource.COLUMN_COUNT
+
+    //region Schedule Adapter
+
+    fun updateWidthAndHeight(width: Int, height: Int) {
+        rowHeight = (height - headerColumnHeight) / ROWS_COUNT + 1
+        columnWidth = (width - headerRowWidth) / COLUMN_COUNT + 1
+    }
+
+    //endregion
 
 }

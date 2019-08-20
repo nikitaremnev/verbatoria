@@ -70,7 +70,7 @@ class LateSendPresenter(
 //                    finishSession()
 //                },
 //                { error ->
-//                    view?.hideProgress()
+//                    view?.hideLoadScheduleProgress()
 //                    view?.showErrorSnackbar(error.localizedMessage)
 //                }
 //            )
@@ -86,7 +86,7 @@ class LateSendPresenter(
 //                    cleanUp()
 //                },
 //                { error ->
-//                    view?.hideProgress()
+//                    view?.hideLoadScheduleProgress()
 //                    view?.showErrorSnackbar(error.localizedMessage)
 //                }
 //            )
@@ -104,10 +104,10 @@ class LateSendPresenter(
 //                    if (lateReportsList.isEmpty()) {
 //                        view?.showLateReportsIsEmpty()
 //                    }
-//                    view?.hideProgress()
+//                    view?.hideLoadScheduleProgress()
 //                },
 //                { error ->
-//                    view?.hideProgress()
+//                    view?.hideLoadScheduleProgress()
 //                    view?.showErrorSnackbar(error.localizedMessage)
 //                }
 //            )

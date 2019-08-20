@@ -32,9 +32,8 @@
 
     <!-- Loading Progress Dialog -->
 
-    <dimen name="dialog_progress_loading_padding">16dp</dimen>
-    <dimen name="dialog_progress_space">16dp</dimen>
-
+    <dimen name="dialog_progress_loading_padding">24dp</dimen>
+    <dimen name="dialog_progress_title_margin_left">24dp</dimen>
 
     <!-- Bottom Sheet Dialog -->
 
@@ -325,5 +324,10 @@
     <dimen name="submit_question_has_answer_padding">6dp</dimen>
     <dimen name="submit_question_has_answer_text_size">18sp</dimen>
     <dimen name="submit_question_report_type_padding">12dp</dimen>
+
+    <!-- Schedule -->
+
+    <dimen name="schedule_progress_bar_size">60dp</dimen>
+
 
 </resources>

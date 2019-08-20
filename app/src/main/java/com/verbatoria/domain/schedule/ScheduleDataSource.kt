@@ -3,6 +3,7 @@ package com.verbatoria.domain.schedule
 import com.verbatoria.domain.schedule.ScheduleDataSource.Companion.COLUMN_COUNT
 import com.verbatoria.domain.schedule.ScheduleDataSource.Companion.ROWS_COUNT
 import com.verbatoria.domain.schedule.model.ScheduleCellItem
+import com.verbatoria.infrastructure.extensions.dropToStartOfTheDay
 import com.verbatoria.utils.DateUtils
 import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
@@ -50,24 +51,22 @@ interface ScheduleDataSource {
 
     fun getColumnHeaderDate(column: Int): Date
 
+    fun getSchedule(): Map<Int, List<ScheduleCellItem>>
+
+    fun setWorkingInterval(date: Date)
+
     fun clear()
 
 }
 
 class ScheduleDataSourceImpl : ScheduleDataSource {
 
-    private var originalCalendar: Calendar
+    private var originalCalendar: Calendar = Calendar.getInstance(Locale(LOCALE_RU))
     private var currentCalendar: Calendar = Calendar.getInstance(Locale(LOCALE_RU))
 
-    private var scheduleItems: MutableMap<Int, List<ScheduleCellItem>> =
-        WeakHashMap<Int, List<ScheduleCellItem>>()
+    private var scheduleItems: MutableMap<Int, List<ScheduleCellItem>> = hashMapOf()
 
-    constructor() {
-        originalCalendar = Calendar.getInstance(Locale(LOCALE_RU))
-    }
-
-    constructor(calendar: Calendar) {
-        originalCalendar = calendar
+    init {
         var dayOfWeekIndex = 1
         while (dayOfWeekIndex < ROWS_COUNT) {
             val dayGenerated = mutableListOf<ScheduleCellItem>()
@@ -121,11 +120,9 @@ class ScheduleDataSourceImpl : ScheduleDataSource {
     }
 
     override fun getFirstDayOfCurrentWeek(): Date {
-        currentCalendar = Calendar.getInstance(Locale(LOCALE_RU))
         currentCalendar.time = originalCalendar.time
         val firstDayOfWeek = getFirstDayOfWeek()
-        currentCalendar.set(Calendar.HOUR_OF_DAY, 0)
-        currentCalendar.set(Calendar.MINUTE, 0)
+        currentCalendar.dropToStartOfTheDay()
         currentCalendar.set(
             Calendar.DAY_OF_YEAR,
             currentCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek)
@@ -134,11 +131,9 @@ class ScheduleDataSourceImpl : ScheduleDataSource {
     }
 
     override fun getLastDayOfCurrentWeek(): Date {
-        currentCalendar = Calendar.getInstance(Locale(LOCALE_RU))
         currentCalendar.time = originalCalendar.time
         val firstDayOfWeek = getFirstDayOfWeek()
-        currentCalendar.set(Calendar.HOUR_OF_DAY, 0)
-        currentCalendar.set(Calendar.MINUTE, 0)
+        currentCalendar.dropToStartOfTheDay()
         currentCalendar.set(
             Calendar.DAY_OF_YEAR,
             currentCalendar.get(Calendar.DAY_OF_YEAR) - (getCurrentDayOfWeek() - firstDayOfWeek - WEEK_COUNT)
@@ -179,7 +174,6 @@ class ScheduleDataSourceImpl : ScheduleDataSource {
         )
 
     override fun getRowHeaderDate(row: Int): Date {
-        currentCalendar = Calendar.getInstance(Locale(LOCALE_RU))
         currentCalendar.time = originalCalendar.time
         val firstDayOfWeek = getFirstDayOfWeek()
         currentCalendar.set(
@@ -193,6 +187,20 @@ class ScheduleDataSourceImpl : ScheduleDataSource {
         currentCalendar.set(Calendar.HOUR_OF_DAY, START_HOUR + column - 1)
         currentCalendar.set(Calendar.MINUTE, 0)
         return currentCalendar.time
+    }
+
+    override fun getSchedule(): Map<Int, List<ScheduleCellItem>> =
+        scheduleItems
+
+    override fun setWorkingInterval(date: Date) {
+        currentCalendar = Calendar.getInstance(Locale(LOCALE_RU))
+        currentCalendar.time = date
+        val currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY)
+        if (isHourInBorders(currentHour)) {
+            scheduleItems[getCurrentDayOfWeek()]?.let { scheduleCellItemsList ->
+                scheduleCellItemsList[currentHour - START_HOUR].isSelected = true
+            }
+        }
     }
 
     override fun clear() {

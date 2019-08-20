@@ -4,7 +4,7 @@ import com.verbatoria.infrastructure.retrofit.APIConstants
 import com.verbatoria.infrastructure.retrofit.APIConstants.FROM_TIME_QUERY_KEY
 import com.verbatoria.infrastructure.retrofit.APIConstants.PER_PAGE_KEY
 import com.verbatoria.infrastructure.retrofit.APIConstants.TO_TIME_QUERY_KEY
-import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.params.DeleteScheduleParamsDto
+import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.params.ClearScheduleParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.params.SaveScheduleParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.response.ScheduleItemResponseDto
 import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.response.ScheduleResponseDto
@@ -14,7 +14,9 @@ import retrofit2.http.*
  * @author n.remnev
  */
 
-private val SCHEDULE_ITEMS_PER_PAGE = 7 * 14
+private const val DELETE_HTTP_METHOD = "DELETE"
+
+private const val SCHEDULE_ITEMS_PER_PAGE = 7 * 14
 
 interface ScheduleEndpoint {
 
@@ -31,9 +33,13 @@ interface ScheduleEndpoint {
     ): List<ScheduleItemResponseDto>
 
 
-    @DELETE(APIConstants.DELETE_SCHEDULE_URL)
-    fun deleteSchedule(
-        @Body params: DeleteScheduleParamsDto
+    @HTTP(
+        method = DELETE_HTTP_METHOD,
+        path = APIConstants.DELETE_SCHEDULE_URL,
+        hasBody = true
+    )
+    fun clearSchedule(
+        @Body params: ClearScheduleParamsDto
     ): List<ScheduleItemResponseDto>
 
 }

@@ -7,14 +7,14 @@ import java.util.*
  * @author n.remnev
  */
 
-const val FORMAT_WITH_MILLISECONDS_AND_ZERO_OFFSET = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+const val FORMAT_WITH_MILLISECONDS_AND_ZERO_OFFSET = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
 const val SERVER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
 const val DATE_WITH_FULL_MONTH_FORMAT = "d MMMM"
 const val CLIENT_BIRTHDAY_FORMAT = "yyyy-MM-dd"
 const val FORMAT_TIME_SHORT = "HH:mm"
 const val FORMAT_DATE_SHORT = "dd.MM"
 const val FORMAT_DATE_MONTH_AND_TIME_SHORT = "d MMMM HH:mm"
-const val MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24
+const val MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24L
 const val MILLISECONDS_IN_YEAR = 1000 * 60 * 60 * 24 * 365L
 
 fun String.parseWithMillisecondsAndZeroOffset(): Date {
@@ -30,6 +30,17 @@ fun String.parseBirthdayFormat(): Date {
 fun String.parseServerFormat(): Date {
     val formatter = SimpleDateFormat(SERVER_DATETIME_FORMAT, Locale.getDefault())
     return formatter.parse(this)
+}
+
+fun Calendar.dropToStartOfTheDay() {
+    set(Calendar.HOUR_OF_DAY, 0)
+    set(Calendar.MINUTE, 0)
+    set(Calendar.SECOND, 0)
+    set(Calendar.MILLISECOND, 0)
+}
+
+fun Calendar.setHour(hour: Int) {
+    set(Calendar.HOUR_OF_DAY, hour)
 }
 
 fun Date.formatWithMillisecondsAndZeroOffset(): String {

@@ -82,15 +82,7 @@ class AlertDialogFragment : DialogFragment() {
                 findViewById<TextView>(R.id.dialog_loading_progress_message)
                     .setText(it.getInt(MESSAGE_RES_ID_KEY))
             }
-            dialog.requestWindowFeature(STYLE_NO_TITLE)
             isCancelable = false
         }
 
-    override fun onStart() {
-        super.onStart()
-        dialog.window.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-    }
 }

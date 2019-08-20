@@ -284,6 +284,7 @@
     <string name="schedule_cleared">Schedule was cleared!</string>
 
     <string name="schedule_saving">Saving the schedule</string>
+    <string name="schedule_clearing">Clearing the schedule</string>
 
     <string name="schedule_only_this_week">only this week</string>
     <string name="schedule_save_1_week">1 week</string>
