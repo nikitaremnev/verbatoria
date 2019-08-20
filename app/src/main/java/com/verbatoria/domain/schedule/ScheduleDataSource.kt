@@ -61,12 +61,35 @@ interface ScheduleDataSource {
 
 class ScheduleDataSourceImpl : ScheduleDataSource {
 
-    private var originalCalendar: Calendar = Calendar.getInstance(Locale(LOCALE_RU))
+    private var originalCalendar: Calendar
     private var currentCalendar: Calendar = Calendar.getInstance(Locale(LOCALE_RU))
 
     private var scheduleItems: MutableMap<Int, List<ScheduleCellItem>> = hashMapOf()
 
-    init {
+    constructor() {
+        originalCalendar = Calendar.getInstance(Locale(LOCALE_RU))
+        originalCalendar.dropToStartOfTheDay()
+
+        var dayOfWeekIndex = 1
+        while (dayOfWeekIndex < ROWS_COUNT) {
+            val dayGenerated = mutableListOf<ScheduleCellItem>()
+            for (i in START_HOUR until END_HOUR) {
+                dayGenerated.add(
+                    ScheduleCellItem(
+                        startHour = i,
+                        isSelected = false
+                    )
+                )
+            }
+            scheduleItems[dayOfWeekIndex] = dayGenerated
+            dayOfWeekIndex++
+        }
+    }
+
+    constructor(calendar: Calendar) {
+        originalCalendar = calendar
+        originalCalendar.dropToStartOfTheDay()
+
         var dayOfWeekIndex = 1
         while (dayOfWeekIndex < ROWS_COUNT) {
             val dayGenerated = mutableListOf<ScheduleCellItem>()

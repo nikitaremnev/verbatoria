@@ -23,6 +23,7 @@ import com.verbatoria.ui.common.adaptivetablelayout.AdaptiveTableLayout
 
 private const val SAVE_SCHEDULE_PROGRESS_DIALOG_TAG = "SAVE_SCHEDULE_PROGRESS_DIALOG_TAG"
 private const val CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG = "CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG"
+private const val LOAD_SCHEDULE_PROGRESS_DIALOG_TAG = "LOAD_SCHEDULE_PROGRESS_DIALOG_TAG"
 
 interface ScheduleView : BaseView {
 
@@ -32,9 +33,9 @@ interface ScheduleView : BaseView {
 
     fun updateScheduleAfterCleared()
 
-    fun showLoadScheduleProgress()
+    fun showInitialLoadScheduleProgress()
 
-    fun hideLoadScheduleProgress()
+    fun hideInitialLoadScheduleProgress()
 
     fun showSaveScheduleProgressDialog()
 
@@ -43,6 +44,10 @@ interface ScheduleView : BaseView {
     fun showClearScheduleProgressDialog()
 
     fun hideClearScheduleProgressDialog()
+
+    fun showLoadScheduleProgress()
+
+    fun hideLoadScheduleProgress()
 
     fun close()
 
@@ -136,6 +141,7 @@ class ScheduleActivity : BasePresenterActivity<ScheduleView, SchedulePresenter, 
         scheduleAdapter = ScheduleAdapter(this, adaptiveTableLayout.width, adaptiveTableLayout.height, scheduleDataSource)
         scheduleAdapter?.onItemClickListener = presenter
         adaptiveTableLayout.setAdapter(scheduleAdapter)
+        scheduleAdapter?.notifyDataSetChanged()
     }
 
     override fun updateScheduleCellAfterClicked(row: Int, column: Int) {
@@ -146,16 +152,16 @@ class ScheduleActivity : BasePresenterActivity<ScheduleView, SchedulePresenter, 
         scheduleAdapter?.notifyDataSetChanged()
     }
 
-    override fun showLoadScheduleProgress() {
+    override fun showInitialLoadScheduleProgress() {
         progressBar.show()
     }
 
-    override fun hideLoadScheduleProgress() {
+    override fun hideInitialLoadScheduleProgress() {
         progressBar.hide()
     }
 
     override fun showSaveScheduleProgressDialog() {
-        showProgressDialogFragment(R.string.schedule_saving, supportFragmentManager, SAVE_SCHEDULE_PROGRESS_DIALOG_TAG)
+        showProgressDialogFragment(R.string.schedule_save, supportFragmentManager, SAVE_SCHEDULE_PROGRESS_DIALOG_TAG)
     }
 
     override fun hideSaveScheduleProgressDialog() {
@@ -163,11 +169,19 @@ class ScheduleActivity : BasePresenterActivity<ScheduleView, SchedulePresenter, 
     }
 
     override fun showClearScheduleProgressDialog() {
-        showProgressDialogFragment(R.string.schedule_clearing, supportFragmentManager, CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG)
+        showProgressDialogFragment(R.string.schedule_clear, supportFragmentManager, CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG)
     }
 
     override fun hideClearScheduleProgressDialog() {
         hideProgressDialogFragment(supportFragmentManager, CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG)
+    }
+
+    override fun showLoadScheduleProgress() {
+        showProgressDialogFragment(R.string.schedule_load, supportFragmentManager, LOAD_SCHEDULE_PROGRESS_DIALOG_TAG)
+    }
+
+    override fun hideLoadScheduleProgress() {
+        hideProgressDialogFragment(supportFragmentManager, LOAD_SCHEDULE_PROGRESS_DIALOG_TAG)
     }
 
     override fun close() {

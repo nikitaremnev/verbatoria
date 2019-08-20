@@ -21,7 +21,7 @@ class SchedulePresenter(
         scheduleInteractor.getSchedule()
             .doAfterTerminate {
                 isLoadingSchedule = false
-                view?.hideLoadScheduleProgress()
+                view?.hideInitialLoadScheduleProgress()
             }
             .doOnSubscribe {
                 isLoadingSchedule = true
@@ -38,9 +38,9 @@ class SchedulePresenter(
     override fun onAttachView(view: ScheduleView) {
         super.onAttachView(view)
         if (isLoadingSchedule) {
-            view.showLoadScheduleProgress()
+            view.showInitialLoadScheduleProgress()
         } else {
-            view.hideLoadScheduleProgress()
+            view.hideInitialLoadScheduleProgress()
             scheduleDataSource?.let { scheduleDataSource ->
                 view.setSchedule(scheduleDataSource)
             }
@@ -66,11 +66,37 @@ class SchedulePresenter(
     }
 
     override fun onNextWeekClicked() {
-
+        view?.showLoadScheduleProgress()
+        scheduleDataSource?.let { scheduleDataSource ->
+            scheduleInteractor.getScheduleForNextWeek(scheduleDataSource)
+                .doAfterTerminate {
+                    view?.hideLoadScheduleProgress()
+                }
+                .subscribe({ scheduleDataSourceLoaded ->
+                    this.scheduleDataSource = scheduleDataSourceLoaded
+                    view?.setSchedule(scheduleDataSourceLoaded)
+                }, { error ->
+                    error.printStackTrace()
+                })
+                .let(::addDisposable)
+        }
     }
 
     override fun onPreviousWeekClicked() {
-
+        view?.showLoadScheduleProgress()
+        scheduleDataSource?.let { scheduleDataSource ->
+            scheduleInteractor.getScheduleForPreviousWeek(scheduleDataSource)
+                .doAfterTerminate {
+                    view?.hideLoadScheduleProgress()
+                }
+                .subscribe({ scheduleDataSourceLoaded ->
+                    this.scheduleDataSource = scheduleDataSourceLoaded
+                    view?.setSchedule(scheduleDataSourceLoaded)
+                }, { error ->
+                    error.printStackTrace()
+                })
+                .let(::addDisposable)
+        }
     }
 
     override fun onSaveScheduleClicked() {
