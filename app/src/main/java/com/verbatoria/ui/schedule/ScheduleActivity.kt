@@ -16,11 +16,13 @@ import com.verbatoria.infrastructure.extensions.showProgressDialogFragment
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.adaptivetablelayout.AdaptiveTableLayout
+import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
 
 /**
  * @author n.remnev
  */
 
+private const val SAVE_SCHEDULE_CONFIRMATION_DIALOG_TAG = "SAVE_SCHEDULE_CONFIRMATION_DIALOG_TAG"
 private const val SAVE_SCHEDULE_PROGRESS_DIALOG_TAG = "SAVE_SCHEDULE_PROGRESS_DIALOG_TAG"
 private const val CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG = "CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG"
 private const val LOAD_SCHEDULE_PROGRESS_DIALOG_TAG = "LOAD_SCHEDULE_PROGRESS_DIALOG_TAG"
@@ -32,6 +34,8 @@ interface ScheduleView : BaseView {
     fun updateScheduleCellAfterClicked(row: Int, column: Int)
 
     fun updateScheduleAfterCleared()
+
+    fun showSaveScheduleConfirmationDialog()
 
     fun showInitialLoadScheduleProgress()
 
@@ -63,11 +67,15 @@ interface ScheduleView : BaseView {
 
         fun onNavigationClicked()
 
+        fun onWeeksForwardSaveSelected(weeksForward: Int)
+
     }
 
 }
 
-class ScheduleActivity : BasePresenterActivity<ScheduleView, SchedulePresenter, ScheduleActivity, ScheduleComponent>(), ScheduleView {
+class ScheduleActivity :
+    BasePresenterActivity<ScheduleView, SchedulePresenter, ScheduleActivity, ScheduleComponent>(),
+    ScheduleView, SelectionBottomSheetDialog.OnSelectedItemListener {
 
     companion object {
 
@@ -152,6 +160,21 @@ class ScheduleActivity : BasePresenterActivity<ScheduleView, SchedulePresenter, 
         scheduleAdapter?.notifyDataSetChanged()
     }
 
+    override fun showSaveScheduleConfirmationDialog() {
+        SelectionBottomSheetDialog.build {
+            titleText = getString(R.string.schedule_save_confirmation_title)
+            itemsArray = arrayListOf(
+                getString(R.string.schedule_only_this_week),
+                getString(R.string.schedule_save_1_week),
+                getString(R.string.schedule_save_2_weeks),
+                getString(R.string.schedule_save_3_weeks),
+                getString(R.string.schedule_save_4_weeks),
+                getString(R.string.schedule_save_5_weeks)
+            )
+        }
+            .show(supportFragmentManager, SAVE_SCHEDULE_CONFIRMATION_DIALOG_TAG)
+    }
+
     override fun showInitialLoadScheduleProgress() {
         progressBar.show()
     }
@@ -186,6 +209,14 @@ class ScheduleActivity : BasePresenterActivity<ScheduleView, SchedulePresenter, 
 
     override fun close() {
         finish()
+    }
+
+    //endregion
+
+    //region SelectionBottomSheetDialog.OnSelectedItemListener
+
+    override fun onSelectionDialogItemSelected(tag: String?, position: Int) {
+        presenter.onWeeksForwardSaveSelected(position)
     }
 
     //endregion

@@ -16,8 +16,6 @@ import com.verbatoria.data.repositories.clients.ClientsRepository;
 import com.verbatoria.data.repositories.clients.IClientsRepository;
 import com.verbatoria.data.repositories.dashboard.DashboardRepository;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
-import com.verbatoria.data.repositories.schedule.IScheduleRepository;
-import com.verbatoria.data.repositories.schedule.ScheduleRepository;
 import com.verbatoria.data.repositories.session.ISessionRepository;
 import com.verbatoria.data.repositories.session.SessionRepository;
 import com.verbatoria.ui.calendar.presenter.add.children.ChildPresenter;
@@ -64,16 +62,9 @@ public class CalendarModule {
 
     @Provides
     @CalendarScope
-    IScheduleRepository provideScheduleRepository() {
-        return new ScheduleRepository();
-    }
-
-    @Provides
-    @CalendarScope
     ICalendarInteractor provideCalendarInteractor(ICalendarRepository calendarRepository,
-                                                  IScheduleRepository scheduleRepository,
                                                   IDashboardRepository dashboardRepository) {
-        return new CalendarInteractor(calendarRepository, scheduleRepository, dashboardRepository);
+        return new CalendarInteractor(calendarRepository, dashboardRepository);
     }
 
     @Provides

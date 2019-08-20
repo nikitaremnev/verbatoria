@@ -291,11 +291,11 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
     @Override
     public void pickTime(Calendar calendar) {
         eventDetailView.showProgress();
-        addSubscription(
-                calendarInteractor.getAvailableTimeIntervals(calendar)
-                        .doOnComplete(() -> eventDetailView.hideProgress())
-                        .subscribe(this::handleTimeIntervalsReceived, this::handleError)
-        );
+//        addSubscription(
+//                calendarInteractor.getAvailableTimeIntervals(calendar)
+//                        .doOnComplete(() -> eventDetailView.hideProgress())
+//                        .subscribe(this::handleTimeIntervalsReceived, this::handleError)
+//        );
     }
 
     private void addEvent() {

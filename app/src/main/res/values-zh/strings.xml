@@ -280,8 +280,9 @@
     <string name="schedule_clear_confirm_message">Are you sure you want to clear the schedule?</string>
 
     <string name="schedule_saved">Schedule saved successfully!</string>
-    <string name="schedule_loaded_by_period" formatted="false">Showing the schedule for the period %s</string>
     <string name="schedule_cleared">Schedule was cleared!</string>
+
+    <string name="schedule_save_confirmation_title">Choose the period to save selected schedule?</string>
 
     <string name="schedule_save">Saving the schedule…</string>
     <string name="schedule_clear">Clearing the schedule…</string>

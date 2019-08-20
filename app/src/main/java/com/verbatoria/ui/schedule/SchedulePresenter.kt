@@ -1,6 +1,6 @@
 package com.verbatoria.ui.schedule
 
-import com.verbatoria.business.schedule.interactor.ScheduleInteractor
+import com.verbatoria.business.schedule.ScheduleInteractor
 import com.verbatoria.domain.schedule.ScheduleDataSource
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.common.adaptivetablelayout.OnItemClickListener
@@ -31,6 +31,7 @@ class SchedulePresenter(
                 view?.setSchedule(scheduleDataSource)
             }, { error ->
                 error.printStackTrace()
+                view?.showErrorSnackbar(error.localizedMessage)
             })
             .let(::addDisposable)
     }
@@ -60,6 +61,7 @@ class SchedulePresenter(
                     view?.updateScheduleAfterCleared()
                 }, { error ->
                     error.printStackTrace()
+                    view?.showErrorSnackbar(error.localizedMessage)
                 })
                 .let(::addDisposable)
         }
@@ -77,6 +79,7 @@ class SchedulePresenter(
                     view?.setSchedule(scheduleDataSourceLoaded)
                 }, { error ->
                     error.printStackTrace()
+                    view?.showErrorSnackbar(error.localizedMessage)
                 })
                 .let(::addDisposable)
         }
@@ -94,15 +97,24 @@ class SchedulePresenter(
                     view?.setSchedule(scheduleDataSourceLoaded)
                 }, { error ->
                     error.printStackTrace()
+                    view?.showErrorSnackbar(error.localizedMessage)
                 })
                 .let(::addDisposable)
         }
     }
 
     override fun onSaveScheduleClicked() {
+        view?.showSaveScheduleConfirmationDialog()
+    }
+
+    override fun onNavigationClicked() {
+        view?.close()
+    }
+
+    override fun onWeeksForwardSaveSelected(weeksForward: Int) {
         scheduleDataSource?.let { scheduleDataSource ->
             view?.showSaveScheduleProgressDialog()
-            scheduleInteractor.saveSchedule(scheduleDataSource)
+            scheduleInteractor.saveSchedule(scheduleDataSource, weeksForward)
                 .doAfterTerminate {
                     view?.hideSaveScheduleProgressDialog()
                 }
@@ -110,13 +122,10 @@ class SchedulePresenter(
                     //empty
                 }, { error ->
                     error.printStackTrace()
+                    view?.showErrorSnackbar(error.localizedMessage)
                 })
                 .let(::addDisposable)
         }
-    }
-
-    override fun onNavigationClicked() {
-        view?.close()
     }
 
     //endregion

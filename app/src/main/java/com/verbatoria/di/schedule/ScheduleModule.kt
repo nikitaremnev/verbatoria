@@ -1,6 +1,6 @@
 package com.verbatoria.di.schedule
 
-import com.verbatoria.business.schedule.interactor.ScheduleInteractorImpl
+import com.verbatoria.business.schedule.ScheduleInteractorImpl
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.schedule.SchedulePresenter
@@ -22,7 +22,10 @@ class ScheduleModule {
         schedulersFactory: RxSchedulersFactory
     ): SchedulePresenter =
         SchedulePresenter(
-            ScheduleInteractorImpl(endpointsRegister.scheduleEndpoint, schedulersFactory)
+            ScheduleInteractorImpl(
+                endpointsRegister.scheduleEndpoint,
+                schedulersFactory
+            )
         )
 
 }

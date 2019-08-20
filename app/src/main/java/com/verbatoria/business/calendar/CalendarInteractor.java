@@ -9,7 +9,6 @@ import com.verbatoria.data.network.request.EventRequestModel;
 import com.verbatoria.data.repositories.calendar.ICalendarRepository;
 import com.verbatoria.data.repositories.calendar.comparator.EventsComparator;
 import com.verbatoria.data.repositories.dashboard.IDashboardRepository;
-import com.verbatoria.data.repositories.schedule.IScheduleRepository;
 import com.verbatoria.utils.DateUtils;
 import com.verbatoria.utils.RxSchedulers;
 
@@ -22,6 +21,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * @author nikitaremnev
@@ -30,14 +30,11 @@ import io.reactivex.Observable;
 public class CalendarInteractor implements ICalendarInteractor {
 
     private ICalendarRepository mCalendarRepository;
-    private IScheduleRepository mScheduleRepository;
     private IDashboardRepository mDashboardRepository;
 
     public CalendarInteractor(ICalendarRepository calendarRepository,
-                              IScheduleRepository scheduleRepository,
                               IDashboardRepository dashboardRepository) {
         mCalendarRepository = calendarRepository;
-        mScheduleRepository = scheduleRepository;
         mDashboardRepository = dashboardRepository;
     }
 
@@ -67,27 +64,29 @@ public class CalendarInteractor implements ICalendarInteractor {
         }
     }
 
-    @Override
-    public Observable<List<TimeIntervalModel>> getAvailableTimeIntervals(Calendar calendar) {
-        try {
-            return Observable.zip(
-                    mCalendarRepository.getEvents(getAccessToken(),
-                            DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
-                            DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar)))
-                    ,
-                    mScheduleRepository.getSchedule(getAccessToken(),
-                            DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
-                            DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar))),
-                    (eventsResponseModel, scheduleResponseModel) ->
-                            ModelsConverter.convertEventsResponseToTimeIntervalsList(calendar, eventsResponseModel, scheduleResponseModel)
-            )
-                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
-                    .observeOn(RxSchedulers.getMainThreadScheduler());
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    @Override
+//    public Observable<List<TimeIntervalModel>> getAvailableTimeIntervals(Calendar calendar) {
+//        try {
+//            return Single.fromCallable {
+//                    mCalendarRepository.getEvents(getAccessToken(),
+//                            DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
+//                            DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar)))
+//                    ,
+//                    mScheduleRepository.getSchedule(getAccessToken(),
+//                            DateUtils.toServerDateTimeWithoutConvertingString(getFromTimeInMillis(calendar)),
+//                            DateUtils.toServerDateTimeWithoutConvertingString(getToTimeInMillis(calendar))),
+//                    (eventsResponseModel, scheduleResponseModel) ->
+//                            ModelsConverter.convertEventsResponseToTimeIntervalsList(calendar, eventsResponseModel, scheduleResponseModel)
+
+//                new ArrayList<TimeIntervalModel>();
+//            }
+//                    .subscribeOn(RxSchedulers.getNewThreadScheduler())
+//                    .observeOn(RxSchedulers.getMainThreadScheduler());
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     @Override
     public Observable<EventModel> addEvent(EventModel eventModel) {

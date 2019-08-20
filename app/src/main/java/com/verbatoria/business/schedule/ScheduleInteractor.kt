@@ -1,4 +1,4 @@
-package com.verbatoria.business.schedule.interactor
+package com.verbatoria.business.schedule
 
 import com.verbatoria.domain.schedule.ScheduleDataSource
 import com.verbatoria.domain.schedule.ScheduleDataSourceImpl
@@ -25,7 +25,7 @@ interface ScheduleInteractor {
 
     fun getScheduleForPreviousWeek(currentScheduleDataSource: ScheduleDataSource): Single<ScheduleDataSource>
 
-    fun saveSchedule(scheduleDataSource: ScheduleDataSource): Completable
+    fun saveSchedule(scheduleDataSource: ScheduleDataSource, weeksForward: Int): Completable
 
     fun clearSchedule(scheduleDataSource: ScheduleDataSource): Completable
 
@@ -39,14 +39,7 @@ class ScheduleInteractorImpl(
     override fun getSchedule(): Single<ScheduleDataSource> =
         Single.fromCallable {
             val scheduleDataSource: ScheduleDataSource = ScheduleDataSourceImpl()
-            val scheduleResponse = scheduleEndpoint.getSchedule(
-                fromTime = scheduleDataSource.getFirstDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset(),
-                toTime = scheduleDataSource.getLastDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset()
-            )
-            scheduleResponse.scheduleItems.forEach { scheduleItemResponse ->
-                scheduleDataSource.setWorkingInterval(scheduleItemResponse.fromTime.parseServerFormat())
-            }
-            scheduleDataSource
+            loadSchedule(scheduleDataSource)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
@@ -57,14 +50,7 @@ class ScheduleInteractorImpl(
             val scheduleDataSource: ScheduleDataSource = ScheduleDataSourceImpl(Calendar.getInstance().apply {
                 time = firstDayOfNextWeek
             })
-            val scheduleResponse = scheduleEndpoint.getSchedule(
-                fromTime = scheduleDataSource.getFirstDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset(),
-                toTime = scheduleDataSource.getLastDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset()
-            )
-            scheduleResponse.scheduleItems.forEach { scheduleItemResponse ->
-                scheduleDataSource.setWorkingInterval(scheduleItemResponse.fromTime.parseServerFormat())
-            }
-            scheduleDataSource
+            loadSchedule(scheduleDataSource)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
@@ -75,22 +61,15 @@ class ScheduleInteractorImpl(
             val scheduleDataSource: ScheduleDataSource = ScheduleDataSourceImpl(Calendar.getInstance().apply {
                 time = firstDayOfPreviousWeek
             })
-            val scheduleResponse = scheduleEndpoint.getSchedule(
-                fromTime = scheduleDataSource.getFirstDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset(),
-                toTime = scheduleDataSource.getLastDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset()
-            )
-            scheduleResponse.scheduleItems.forEach { scheduleItemResponse ->
-                scheduleDataSource.setWorkingInterval(scheduleItemResponse.fromTime.parseServerFormat())
-            }
-            scheduleDataSource
+            loadSchedule(scheduleDataSource)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun saveSchedule(scheduleDataSource: ScheduleDataSource): Completable =
+    override fun saveSchedule(scheduleDataSource: ScheduleDataSource, weeksForward: Int): Completable =
         Completable.fromCallable {
             val currentSchedule = scheduleDataSource.getSchedule()
-            val scheduleItemsToSave = ArrayList<ScheduleItemParamsDto>()
+            val scheduleItemsToSave = mutableListOf<ScheduleItemParamsDto>()
 
             val calendar = Calendar.getInstance(Locale(LOCALE_RU)).apply {
                 time = scheduleDataSource.getFirstDayOfCurrentWeek()
@@ -103,22 +82,36 @@ class ScheduleInteractorImpl(
                 val subItems = currentSchedule[index]
                 subItems?.forEach { scheduleCellItem ->
                     if (scheduleCellItem.isSelected) {
-                        calendar.setHour(scheduleCellItem.startHour)
-                        val startDate = calendar.time
-                        calendar.setHour(scheduleCellItem.startHour + 1)
-                        val endDate = calendar.time
-                        scheduleItemsToSave.add(
-                            ScheduleItemParamsDto(
-                                fromTime = startDate.formatWithMillisecondsAndZeroOffset(),
-                                toTime = endDate.formatWithMillisecondsAndZeroOffset()
+                        for (week in 0..weeksForward) {
+                            calendar.plusDays(DAYS_IN_WEEK * week)
+                            calendar.setHour(scheduleCellItem.startHour)
+                            val startDate = calendar.time
+                            calendar.setHour(scheduleCellItem.startHour + 1)
+                            val endDate = calendar.time
+                            scheduleItemsToSave.add(
+                                ScheduleItemParamsDto(
+                                    fromTime = startDate.formatWithMillisecondsAndZeroOffset(),
+                                    toTime = endDate.formatWithMillisecondsAndZeroOffset()
+                                )
                             )
-                        )
+                            calendar.minusDays(DAYS_IN_WEEK * week)
+                        }
                     }
                 }
                 calendar.timeInMillis += MILLISECONDS_IN_DAY
             }
 
-            clearScheduleForCurrentWeek(scheduleDataSource)
+            scheduleEndpoint.clearSchedule(
+                ClearScheduleParamsDto(
+                    fromTime = scheduleDataSource.getFirstDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset(),
+                    toTime = scheduleDataSource.getLastDayOfCurrentWeek()
+                        .toCalendar().apply {
+                            plusDays(DAYS_IN_WEEK * weeksForward)
+                        }
+                        .time
+                        .formatWithMillisecondsAndZeroOffset()
+                )
+            )
 
             scheduleEndpoint.saveSchedule(
                 SaveScheduleParamsDto(
@@ -131,19 +124,26 @@ class ScheduleInteractorImpl(
 
     override fun clearSchedule(scheduleDataSource: ScheduleDataSource): Completable =
         Completable.fromCallable {
-            clearScheduleForCurrentWeek(scheduleDataSource)
+            scheduleEndpoint.clearSchedule(
+                ClearScheduleParamsDto(
+                    fromTime = scheduleDataSource.getFirstDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset(),
+                    toTime = scheduleDataSource.getLastDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset()
+                )
+            )
             scheduleDataSource.clear()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    private fun clearScheduleForCurrentWeek(scheduleDataSource: ScheduleDataSource) {
-        scheduleEndpoint.clearSchedule(
-            ClearScheduleParamsDto(
-                fromTime = scheduleDataSource.getFirstDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset(),
-                toTime = scheduleDataSource.getLastDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset()
-            )
+    private fun loadSchedule(scheduleDataSource: ScheduleDataSource): ScheduleDataSource {
+        val scheduleResponse = scheduleEndpoint.getSchedule(
+            fromTime = scheduleDataSource.getFirstDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset(),
+            toTime = scheduleDataSource.getLastDayOfCurrentWeek().formatWithMillisecondsAndZeroOffset()
         )
+        scheduleResponse.scheduleItems.forEach { scheduleItemResponse ->
+            scheduleDataSource.setWorkingInterval(scheduleItemResponse.fromTime.parseServerFormat())
+        }
+        return scheduleDataSource
     }
 
 }

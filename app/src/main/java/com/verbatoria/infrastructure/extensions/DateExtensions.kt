@@ -14,6 +14,7 @@ const val CLIENT_BIRTHDAY_FORMAT = "yyyy-MM-dd"
 const val FORMAT_TIME_SHORT = "HH:mm"
 const val FORMAT_DATE_SHORT = "dd.MM"
 const val FORMAT_DATE_MONTH_AND_TIME_SHORT = "d MMMM HH:mm"
+const val DAYS_IN_WEEK = 7
 const val MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24L
 const val MILLISECONDS_IN_YEAR = 1000 * 60 * 60 * 24 * 365L
 
@@ -137,6 +138,14 @@ fun Date.isYesterday(): Boolean {
     calendar.add(Calendar.DAY_OF_MONTH, -1)
     return (calendar.get(Calendar.YEAR) == thisCalendar.get(Calendar.YEAR)
             && calendar.get(Calendar.DAY_OF_YEAR) == thisCalendar.get(Calendar.DAY_OF_YEAR))
+}
+
+fun Calendar.plusDays(days: Int) {
+    set(Calendar.DAY_OF_YEAR, get(Calendar.DAY_OF_YEAR) + days)
+}
+
+fun Calendar.minusDays(days: Int) {
+    set(Calendar.DAY_OF_YEAR, get(Calendar.DAY_OF_YEAR) - days)
 }
 
 private fun format(date: Date, pattern: String): String {

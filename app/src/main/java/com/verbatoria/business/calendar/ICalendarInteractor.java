@@ -18,7 +18,7 @@ public interface ICalendarInteractor {
 
     Observable<List<EventModel>> getEvents(Date startDate, Date endDate);
 
-    Observable<List<TimeIntervalModel>> getAvailableTimeIntervals(Calendar day);
+//    Observable<List<TimeIntervalModel>> getAvailableTimeIntervals(Calendar day);
 
     Observable<EventModel> addEvent(EventModel eventModel);
 

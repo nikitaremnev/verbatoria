@@ -279,12 +279,13 @@
     <string name="schedule_clear_confirm_message">Вы уверены, что хотите очистить расписание?</string>
 
     <string name="schedule_saved">Расписание успешно сохранено!</string>
-    <string name="schedule_loaded_by_period" formatted="false">Показано расписание за период %s</string>
     <string name="schedule_cleared">Расписание было очищено!</string>
 
     <string name="schedule_save">Сохранение расписания…</string>
     <string name="schedule_clear">Очищаем расписание…</string>
     <string name="schedule_load">Загружаем расписание…</string>
+
+    <string name="schedule_save_confirmation_title">На какой период сохранить указанное расписание?</string>
 
     <string name="schedule_only_this_week">только эта неделя</string>
     <string name="schedule_save_1_week">1 неделя</string>
