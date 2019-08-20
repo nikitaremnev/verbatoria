@@ -4,6 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.remnev.verbatoria.R
+import com.verbatoria.infrastructure.extensions.hide
+import com.verbatoria.infrastructure.extensions.invisible
+import com.verbatoria.infrastructure.extensions.show
 
 /**
  * @author n.remnev
@@ -12,6 +15,8 @@ import com.remnev.verbatoria.R
 interface EventDetailDateItemViewHolder {
 
     fun setDate(intervalDate: String)
+
+    fun showHint()
 
     interface Callback {
 
@@ -29,6 +34,8 @@ class EventDetailDateItemViewHolderImpl(
 
     private val dateTextView: TextView = view.findViewById(R.id.date_text_view)
 
+    private val hintTextView: TextView = view.findViewById(R.id.hint_text_view)
+
     init {
         view.setOnClickListener {
             callback.onDateClicked()
@@ -37,6 +44,13 @@ class EventDetailDateItemViewHolderImpl(
 
     override fun setDate(intervalDate: String) {
         dateTextView.text = intervalDate
+        hintTextView.hide()
+        dateTextView.show()
+    }
+
+    override fun showHint() {
+        dateTextView.invisible()
+        hintTextView.show()
     }
 
 }

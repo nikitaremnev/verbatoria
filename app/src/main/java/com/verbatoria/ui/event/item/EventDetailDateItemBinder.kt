@@ -12,7 +12,11 @@ import com.verbatoria.ui.common.ViewBinder
 class EventDetailDateItemBinder: ViewBinder<EventDetailDateItemViewHolder, EventDetailDateItem>() {
 
     override fun bind(view: EventDetailDateItemViewHolder, data: EventDetailDateItem, position: Int) {
-        view.setDate(data.startDate.formatToDateMonthAndTime() + " - "  + data.endDate.formatToTime())
+        if (data.startDate != null && data.endDate != null) {
+            view.setDate(data.startDate.formatToDateMonthAndTime() + " - "  + data.endDate.formatToTime())
+        } else {
+            view.showHint()
+        }
     }
 
 }

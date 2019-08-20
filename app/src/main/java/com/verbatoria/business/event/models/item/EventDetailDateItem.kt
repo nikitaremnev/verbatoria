@@ -9,6 +9,6 @@ import java.util.*
 
 class EventDetailDateItem(
     mode: EventDetailMode,
-    val startDate: Date,
-    val endDate: Date
+    val startDate: Date? = null,
+    val endDate: Date? = null
 ) : EventDetailItem(mode)

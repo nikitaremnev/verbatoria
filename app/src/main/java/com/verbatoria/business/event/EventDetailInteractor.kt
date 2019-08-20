@@ -66,9 +66,7 @@ class EventDetailInteractorImpl(
                     headerStringResource = R.string.time
                 ),
                 EventDetailDateItem(
-                    mode = EventDetailMode.CREATE_NEW,
-                    startDate = Date(),
-                    endDate = Date()
+                    mode = EventDetailMode.CREATE_NEW
                 ),
                 EventDetailSubmitItem(
                     EventDetailMode.CREATE_NEW
