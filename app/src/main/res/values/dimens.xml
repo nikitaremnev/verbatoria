@@ -209,11 +209,13 @@
 
     <dimen name="event_detail_date_margin_horizontal">24dp</dimen>
     <dimen name="event_detail_date_margin_top">16dp</dimen>
-    <dimen name="event_detail_date_text_size">14sp</dimen>
 
     <dimen name="event_detail_header_text_size">12sp</dimen>
     <dimen name="event_detail_header_padding_vertical">8dp</dimen>
     <dimen name="event_detail_header_padding_horizontal">16dp</dimen>
+
+    <dimen name="event_detail_item_hint_text_size">14sp</dimen>
+    <dimen name="event_detail_item_hint_logo_padding">8dp</dimen>
 
     <!-- Loading -->
 

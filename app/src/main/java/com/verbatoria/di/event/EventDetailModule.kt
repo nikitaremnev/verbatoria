@@ -5,7 +5,6 @@ import com.verbatoria.business.event.*
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.domain.dashboard.info.InfoManager
-import com.verbatoria.domain.dashboard.info.InfoRepository
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.infrastructure.utils.ViewInflater
@@ -26,7 +25,6 @@ import dagger.Reusable
 class EventDetailModule {
 
     @Provides
-    @Reusable
     fun provideAdapter(
         eventDetailPresenter: EventDetailPresenter
     ): Adapter =

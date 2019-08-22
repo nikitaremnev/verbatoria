@@ -60,12 +60,18 @@ class EventDetailPresenter(
 
     //region EventDetailChildItemViewHolder.Callback
 
+    override fun onChildClicked() {
+
+    }
 
     //endregion
 
 
     //region EventDetailClientItemViewHolder.Callback
 
+    override fun onClientClicked() {
+
+    }
 
     //endregion
 

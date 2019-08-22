@@ -72,6 +72,8 @@
     <string name="event_detail_new">Новая запись</string>
 
     <string name="event_detail_date_hint">Выберите дату</string>
+    <string name="event_detail_child_hint">Необходимо указать данные ребенка</string>
+    <string name="event_detail_client_hint">Необходимо указать данные клиента</string>
 
     <string name="client_added">Запись успешно создана!</string>
     <string name="client_edited">Запись успешно изменена!</string>

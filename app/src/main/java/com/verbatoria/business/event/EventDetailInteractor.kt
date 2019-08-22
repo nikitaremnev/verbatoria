@@ -48,18 +48,14 @@ class EventDetailInteractorImpl(
                     headerStringResource = R.string.client
                 ),
                 EventDetailClientItem(
-                    EventDetailMode.CREATE_NEW,
-                    name = "Test",
-                    phone = "test 2"
+                    EventDetailMode.CREATE_NEW
                 ),
                 EventDetailHeaderItem(
                     mode = EventDetailMode.CREATE_NEW,
                     headerStringResource = R.string.child
                 ),
                 EventDetailChildItem(
-                    EventDetailMode.CREATE_NEW,
-                    name = "Test",
-                    age = 14
+                    EventDetailMode.CREATE_NEW
                 ),
                 EventDetailHeaderItem(
                     mode = EventDetailMode.CREATE_NEW,

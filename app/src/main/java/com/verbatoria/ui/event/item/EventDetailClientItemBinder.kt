@@ -10,8 +10,12 @@ import com.verbatoria.ui.common.ViewBinder
 class EventDetailClientItemBinder: ViewBinder<EventDetailClientItemViewHolder, EventDetailClientItem>() {
 
     override fun bind(view: EventDetailClientItemViewHolder, data: EventDetailClientItem, position: Int) {
-        view.setName(data.name)
-        view.setPhone(data.phone)
+        if (data.name != null && data.phone != null) {
+            view.setName(data.name)
+            view.setPhone(data.phone)
+        } else {
+            view.showHint()
+        }
     }
 
 }

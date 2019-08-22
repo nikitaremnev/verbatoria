@@ -10,8 +10,12 @@ import com.verbatoria.ui.common.ViewBinder
 class EventDetailChildItemBinder: ViewBinder<EventDetailChildItemViewHolder, EventDetailChildItem>() {
 
     override fun bind(view: EventDetailChildItemViewHolder, data: EventDetailChildItem, position: Int) {
-        view.setName(data.name)
-        view.setAge(data.age)
+        if (data.name != null && data.age != null) {
+            view.setName(data.name)
+            view.setAge(data.age)
+        } else {
+            view.showHint()
+        }
     }
 
 }

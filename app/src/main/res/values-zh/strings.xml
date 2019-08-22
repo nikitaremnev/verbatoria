@@ -72,6 +72,8 @@
     <string name="event_detail_new">New entry</string>
 
     <string name="event_detail_date_hint">Choose date</string>
+    <string name="event_detail_child_hint">Child data is required</string>
+    <string name="event_detail_client_hint">Client data is required</string>
 
     <string name="client_added">The entry was successfully created!</string>
     <string name="client_edited">The entry was successfully changed!</string>
