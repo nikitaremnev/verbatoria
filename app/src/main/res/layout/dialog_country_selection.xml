@@ -13,6 +13,7 @@
         android:paddingTop="@dimen/dialog_title_padding_top"
         android:paddingRight="@dimen/dialog_title_padding_horizontal"
         android:paddingBottom="@dimen/dialog_title_padding_bottom"
+        android:text="@string/child_age_selection_title"
         android:textColor="@color/dialog_title_text_color"
         android:textSize="@dimen/dialog_title_text_size" />
 

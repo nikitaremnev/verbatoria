@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.remnev.verbatoria.R
 import com.verbatoria.business.child.Child
 import com.verbatoria.di.Injector
@@ -19,11 +20,14 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.event.EventDetailMode
+
 import java.util.*
 
 /**
  * @author nikitaremnev
  */
+
+private const val AGE_SELECTION_DIALOG_TAG = "AGE_SELECTION_DIALOG_TAG"
 
 private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
 private const val CLIENT_ID_EXTRA = "client_id_extra"
@@ -34,7 +38,11 @@ interface ChildView : BaseView {
 
     fun hideSaveProgress()
 
+    fun showAgeSelectionDialog(isSchoolMode: Boolean)
+
     fun setChildName(childName: String)
+
+    fun setChildAge(childAge: Int)
 
     fun setEditableMode()
 
@@ -52,11 +60,13 @@ interface ChildView : BaseView {
 
         fun onChildNameChanged(newChildName: String)
 
-        fun onChildAgeSelected(age: Int)
+        fun onChildAgeSelected(newChildAge: Int)
 
         fun onChildBirthdaySelected(birthday: Date)
 
         fun onSaveButtonClicked()
+
+        fun onChildAgeClicked()
 
         fun onBackPressed()
 
@@ -66,7 +76,7 @@ interface ChildView : BaseView {
 
 }
 
-class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActivity, ChildComponent>(), ChildView {
+class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActivity, ChildComponent>(), ChildView, ChildAgeSelectionBottomSheetDialog.ChildAgeSelectionListener {
 
     companion object {
 
@@ -87,6 +97,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     private lateinit var toolbar: Toolbar
     private lateinit var childNameEditText: EditText
+    private lateinit var childAgeTextView: TextView
     private lateinit var saveButton: Button
     private lateinit var progressBar: ProgressBar
 
@@ -105,6 +116,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
         toolbar = findViewById(R.id.toolbar)
 
         childNameEditText = findViewById(R.id.child_name_edit_text)
+        childAgeTextView = findViewById(R.id.child_age_text_view)
 
         saveButton = findViewById(R.id.save_button)
         progressBar = findViewById(R.id.progress_bar)
@@ -130,6 +142,9 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
             }
 
         })
+        childAgeTextView.setOnClickListener {
+            presenter.onChildAgeClicked()
+        }
 
         saveButton.setOnClickListener {
             presenter.onSaveButtonClicked()
@@ -158,8 +173,18 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
         progressBar.hide()
     }
 
+    override fun showAgeSelectionDialog(isSchoolMode: Boolean) {
+        ChildAgeSelectionBottomSheetDialog.build {
+           this.isSchoolMode = isSchoolMode
+        }.show(supportFragmentManager, AGE_SELECTION_DIALOG_TAG)
+    }
+
     override fun setChildName(childName: String) {
         childNameEditText.setText(childName)
+    }
+
+    override fun setChildAge(childAge: Int) {
+        childAgeTextView.text = childAge.toString()
     }
 
     override fun setEditableMode() {
@@ -193,6 +218,14 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
     override fun close() {
         setResult(Activity.RESULT_CANCELED)
         finish()
+    }
+
+    //endregion
+
+    //region ChildAgeSelectionBottomSheetDialog.ChildAgeSelectionListener
+
+    override fun onChildAgeSelected(tag: String?, age: Int) {
+        presenter.onChildAgeSelected(age)
     }
 
     //endregion

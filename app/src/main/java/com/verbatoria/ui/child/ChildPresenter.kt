@@ -37,8 +37,10 @@ class ChildPresenter(
         checkIsAllFieldsFilled()
     }
 
-    override fun onChildAgeSelected(age: Int) {
-
+    override fun onChildAgeSelected(newChildAge: Int) {
+        child.age = newChildAge
+        view?.setChildAge(child.age)
+        checkIsAllFieldsFilled()
     }
 
     override fun onChildBirthdaySelected(birthday: Date) {
@@ -47,6 +49,10 @@ class ChildPresenter(
 
     override fun onSaveButtonClicked() {
 
+    }
+
+    override fun onChildAgeClicked() {
+        view?.showAgeSelectionDialog(false)
     }
 
     override fun onBackPressed() {
@@ -60,7 +66,7 @@ class ChildPresenter(
     //endregion
 
     private fun checkIsAllFieldsFilled() {
-        if (child.hasName()) {
+        if (child.hasName() && child.hasAge()) {
             view?.setSaveButtonEnabled()
         } else {
             view?.setSaveButtonDisabled()

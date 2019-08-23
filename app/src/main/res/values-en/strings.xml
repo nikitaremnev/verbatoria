@@ -68,10 +68,10 @@
 
     <string name="child_name_header_title">Child name</string>
     <string name="child_gender_header_title">Gender</string>
-    <string name="child_birthday_header_title">Birthday</string>
+    <string name="child_age_header_title">Age</string>
 
     <string name="child_name_field_hint">Ivan Ivanov</string>
-    <string name="child_birthday_field_hint">5 years</string>
+    <string name="child_age_field_hint">5 years</string>
 
     <string name="child_first_fill_client_error">It is required to fill client data first</string>
 
@@ -139,7 +139,7 @@
     <string name="calendar_confirm_delete_message">Are you sure you want to delete the entry?</string>
     <string name="calendar_confirm_delete_title">Confirmation</string>
 
-    <string name="childen_choose_age">Choose age:</string>
+    <string name="child_age_selection_title">Choose age:</string>
 
     <string name="event_confirm_send_report_to_location">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
     <string name="event_confirm_send_report_to_location_send">Send</string>

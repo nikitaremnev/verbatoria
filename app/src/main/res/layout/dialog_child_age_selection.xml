@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/dialog_title_padding_horizontal"
+        android:paddingTop="@dimen/dialog_title_padding_top"
+        android:paddingRight="@dimen/dialog_title_padding_horizontal"
+        android:paddingBottom="@dimen/dialog_title_padding_bottom"
+        android:text="@string/child_age_selection_title"
+        android:textColor="@color/dialog_title_text_color"
+        android:textSize="@dimen/dialog_title_text_size" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="@dimen/child_age_selection_item_spacing_half"
+        android:paddingBottom="@dimen/child_age_selection_item_spacing_half" />
+
+</LinearLayout>
+
+

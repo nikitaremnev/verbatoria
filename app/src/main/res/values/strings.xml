@@ -68,10 +68,10 @@
 
     <string name="child_name_header_title">Имя ребенка</string>
     <string name="child_gender_header_title">Пол</string>
-    <string name="child_birthday_header_title">Дата рождения</string>
+    <string name="child_age_header_title">Возраст</string>
 
     <string name="child_name_field_hint">Иван Иванов</string>
-    <string name="child_birthday_field_hint">5 лет</string>
+    <string name="child_age_field_hint">5 лет</string>
 
     <string name="child_first_fill_client_error">Необходимо сначала заполнить данные о клиенте</string>
 
@@ -139,7 +139,7 @@
     <string name="calendar_confirm_delete_message">Вы действительно хотите удалить запись?</string>
     <string name="calendar_confirm_delete_title">Подтверждение</string>
 
-    <string name="childen_choose_age">Выберите возраст:</string>
+    <string name="child_age_selection_title">Выберите возраст:</string>
 
     <string name="event_confirm_send_report_to_location">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
     <string name="event_confirm_send_report_to_location_send">Отправить</string>

@@ -14,7 +14,7 @@
         android:paddingRight="@dimen/list_item_spacing"
         android:paddingTop="@dimen/list_item_spacing_half"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="@string/childen_choose_age"/>
+        android:text="@string/child_age_selection_title"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
