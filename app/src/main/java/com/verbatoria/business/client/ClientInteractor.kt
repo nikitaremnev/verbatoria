@@ -1,6 +1,5 @@
 package com.verbatoria.business.client
 
-import com.verbatoria.business.event.models.Client
 import com.verbatoria.domain.authorization.AuthorizationManager
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory

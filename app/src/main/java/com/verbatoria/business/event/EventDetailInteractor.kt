@@ -1,7 +1,7 @@
 package com.verbatoria.business.event
 
 import com.remnev.verbatoria.R
-import com.verbatoria.business.event.models.Client
+import com.verbatoria.business.client.Client
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.domain.dashboard.info.InfoManager

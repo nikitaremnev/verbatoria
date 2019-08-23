@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.remnev.verbatoria.R
 import com.verbatoria.business.event.models.item.EventDetailItem
-import com.verbatoria.business.event.models.Client
+import com.verbatoria.business.client.Client
 import com.verbatoria.di.Injector
 import com.verbatoria.di.event.EventDetailComponent
 import com.verbatoria.ui.base.BasePresenterActivity

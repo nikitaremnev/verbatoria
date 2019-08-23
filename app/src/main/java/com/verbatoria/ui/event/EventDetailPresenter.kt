@@ -2,7 +2,7 @@ package com.verbatoria.ui.event
 
 import com.remnev.verbatoria.R
 import com.verbatoria.business.event.EventDetailInteractor
-import com.verbatoria.business.event.models.Client
+import com.verbatoria.business.client.Client
 import com.verbatoria.business.event.models.item.EventDetailClientItem
 import com.verbatoria.business.event.models.item.EventDetailItem
 import com.verbatoria.ui.base.BasePresenter

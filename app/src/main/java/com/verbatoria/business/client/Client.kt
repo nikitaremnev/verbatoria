@@ -1,4 +1,4 @@
-package com.verbatoria.business.event.models
+package com.verbatoria.business.client
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
