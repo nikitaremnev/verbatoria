@@ -1,6 +1,7 @@
 package com.verbatoria.ui.event
 
 import com.remnev.verbatoria.R
+import com.verbatoria.business.child.Child
 import com.verbatoria.business.event.EventDetailInteractor
 import com.verbatoria.business.client.Client
 import com.verbatoria.business.event.models.item.EventDetailClientItem
@@ -36,8 +37,10 @@ class EventDetailPresenter(
     private var eventDetailItemsList: List<EventDetailItem> = emptyList()
 
     private var client: Client? = null
+    private var child: Child? = null
 
     init {
+        getClient("13055")
 //        if (currentMode.isCreateNew()) {
 //            getCreateNewEventItems()
 //        }
@@ -80,7 +83,13 @@ class EventDetailPresenter(
     //region EventDetailChildItemViewHolder.Callback
 
     override fun onChildClicked() {
-
+        client?.let { client ->
+            if (client.hasId()) {
+                view?.openChild(currentMode, child, client.id!!)
+            } else {
+                view?.showFillClientFirstError()
+            }
+        } ?:  view?.showFillClientFirstError()
     }
 
     //endregion
@@ -140,8 +149,6 @@ class EventDetailPresenter(
 
     //endregion
 
-
-
     private fun getCreateNewEventItems() {
         eventDetailInteractor.getCreateNewModeEventDetailItems()
             .subscribe({ eventDetailItems ->
@@ -154,8 +161,23 @@ class EventDetailPresenter(
     }
 
     private fun getClient(clientId: String) {
-//        eventDetailInteractor.getClient(clientId)
-
+        eventDetailInteractor.getClient(clientId)
+            .subscribe({ client ->
+                this.client = client
+                if (eventDetailItemsList.isNotEmpty()) {
+                    (eventDetailItemsList
+                        .firstOrNull { item -> item is EventDetailClientItem }
+                            as? EventDetailClientItem)
+                        ?.let { eventDetailClientItem ->
+                            eventDetailClientItem.name = client?.name
+                            eventDetailClientItem.phone = client?.phone
+                            view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
+                        }
+                }
+            }, { error ->
+                logger.error("get create new event items models", error)
+            })
+            .let(::addDisposable)
     }
 
     private fun createNewEvent() {

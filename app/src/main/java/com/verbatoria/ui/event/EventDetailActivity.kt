@@ -8,12 +8,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.remnev.verbatoria.R
+import com.verbatoria.business.child.Child
 import com.verbatoria.business.event.models.item.EventDetailItem
 import com.verbatoria.business.client.Client
 import com.verbatoria.di.Injector
 import com.verbatoria.di.event.EventDetailComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.child.ChildActivity
 import com.verbatoria.ui.client.ClientActivity
 import com.verbatoria.ui.common.Adapter
 import javax.inject.Inject
@@ -23,6 +25,7 @@ import javax.inject.Inject
  */
 
 private const val CLIENT_REQUEST_CODE = 912
+private const val CHILD_REQUEST_CODE = 913
 
 private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
 
@@ -34,7 +37,11 @@ interface EventDetailView : BaseView {
 
     fun openClient(eventDetailMode: EventDetailMode, client: Client?)
 
+    fun openChild(eventDetailMode: EventDetailMode, child: Child?, clientId: String)
+
     fun updateEventDetailItem(position: Int)
+
+    fun showFillClientFirstError()
 
     fun close()
 
@@ -114,8 +121,16 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         startActivityForResult(ClientActivity.createIntent(this, eventDetailMode, client), CLIENT_REQUEST_CODE)
     }
 
+    override fun openChild(eventDetailMode: EventDetailMode, child: Child?, clientId: String) {
+        startActivityForResult(ChildActivity.createIntent(this, eventDetailMode, child, clientId), CHILD_REQUEST_CODE)
+    }
+
     override fun updateEventDetailItem(position: Int) {
         adapter.update(position)
+    }
+
+    override fun showFillClientFirstError() {
+        showErrorSnackbar(getString(R.string.child_first_fill_client_error))
     }
 
     override fun close() {

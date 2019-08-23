@@ -9,7 +9,6 @@ import io.reactivex.Single
  * @author n.remnev
  */
 
-
 interface ClientInteractor {
 
     fun createNewClient(client: Client): Single<String>

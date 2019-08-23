@@ -217,6 +217,7 @@
     <dimen name="event_detail_item_hint_text_size">14sp</dimen>
     <dimen name="event_detail_item_hint_logo_padding">8dp</dimen>
 
+    <!-- Client -->
 
     <dimen name="client_header_text_size">12sp</dimen>
 
@@ -234,6 +235,25 @@
     <dimen name="client_submit_button_width">220dp</dimen>
 
     <dimen name="client_padding_bottom">16dp</dimen>
+
+    <!-- Child -->
+
+    <dimen name="child_header_text_size">12sp</dimen>
+
+    <dimen name="child_header_padding_vertical">8dp</dimen>
+    <dimen name="child_header_padding_horizontal">16dp</dimen>
+
+    <dimen name="child_field_padding">16dp</dimen>
+    <dimen name="child_field_padding_right">56dp</dimen>
+    <dimen name="child_field_text_size">16sp</dimen>
+    <dimen name="child_field_height">56dp</dimen>
+
+    <dimen name="child_submit_button_margin">16dp</dimen>
+
+    <dimen name="child_submit_button_height">56dp</dimen>
+    <dimen name="child_submit_button_width">220dp</dimen>
+
+    <dimen name="child_padding_bottom">16dp</dimen>
 
     <!-- Loading -->
 

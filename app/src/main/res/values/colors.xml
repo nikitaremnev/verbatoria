@@ -118,6 +118,11 @@
     <color name="client_header_text_color">#ffffff</color>
     <color name="client_field_text_color">#333333</color>
 
+    <!-- Child -->
+
+    <color name="child_header_text_color">#ffffff</color>
+    <color name="child_field_text_color">#333333</color>
+
     <!-- Connection -->
 
     <color name="connection_status_text_color">#000</color>

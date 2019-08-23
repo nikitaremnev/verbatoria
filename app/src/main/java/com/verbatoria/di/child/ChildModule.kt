@@ -1,6 +1,11 @@
 package com.verbatoria.di.child
 
+import com.verbatoria.business.child.Child
+import com.verbatoria.business.child.ChildInteractorImpl
+import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.child.ChildPresenter
+import com.verbatoria.ui.event.EventDetailMode
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -14,7 +19,21 @@ class ChildModule {
 
     @Provides
     @Reusable
-    fun provideChildPresenter(): ChildPresenter =
-        ChildPresenter()
+    fun provideChildPresenter(
+        eventDetailModeOrdinal: Int,
+        child: Child?,
+        clientId: String,
+        authorizationManager: AuthorizationManager,
+        rxSchedulersFactory: RxSchedulersFactory
+    ): ChildPresenter =
+        ChildPresenter(
+            EventDetailMode.valueOf(eventDetailModeOrdinal),
+            child ?: Child(),
+            clientId,
+            ChildInteractorImpl(
+                authorizationManager,
+                rxSchedulersFactory
+            )
+        )
 
 }
