@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/client_padding_bottom">
+
+        <include
+            layout="@layout/toolbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/client_name_header_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main"
+            android:paddingStart="@dimen/client_header_padding_horizontal"
+            android:paddingTop="@dimen/client_header_padding_vertical"
+            android:paddingEnd="@dimen/client_header_padding_horizontal"
+            android:paddingBottom="@dimen/client_header_padding_vertical"
+            android:text="@string/client_name_header_title"
+            android:textColor="@color/client_header_text_color"
+            android:textSize="@dimen/client_header_text_size"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+        <View
+            android:id="@+id/border_name_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_name_header_text_view" />
+
+        <EditText
+            android:id="@+id/client_name_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/client_field_height"
+            android:background="@drawable/background_client_field"
+            android:hint="@string/client_name_field_hint"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textCapWords"
+            android:paddingStart="@dimen/client_field_padding"
+            android:paddingTop="@dimen/client_field_padding"
+            android:paddingEnd="@dimen/client_field_padding_right"
+            android:paddingBottom="@dimen/client_field_padding"
+            android:textColor="@color/client_field_text_color"
+            android:textSize="@dimen/client_field_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/border_name_bottom_view"/>
+
+        <View
+            android:id="@+id/border_name_field_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_name_edit_text" />
+
+        <TextView
+            android:id="@+id/client_phone_header_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main"
+            android:paddingStart="@dimen/client_header_padding_horizontal"
+            android:paddingTop="@dimen/client_header_padding_vertical"
+            android:paddingEnd="@dimen/client_header_padding_horizontal"
+            android:paddingBottom="@dimen/client_header_padding_vertical"
+            android:text="@string/client_phone_header_title"
+            android:textColor="@color/client_header_text_color"
+            android:textSize="@dimen/client_header_text_size"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/border_name_field_bottom_view" />
+
+        <View
+            android:id="@+id/border_phone_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_phone_header_text_view" />
+
+        <EditText
+            android:id="@+id/client_phone_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/client_field_height"
+            android:background="@drawable/background_client_field"
+            android:hint="@string/client_phone_field_hint"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="phone"
+            android:paddingStart="@dimen/client_field_padding"
+            android:paddingTop="@dimen/client_field_padding"
+            android:paddingEnd="@dimen/client_field_padding_right"
+            android:paddingBottom="@dimen/client_field_padding"
+            android:textColor="@color/client_field_text_color"
+            android:textSize="@dimen/client_field_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/border_phone_bottom_view"/>
+
+        <View
+            android:id="@+id/border_phone_field_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_phone_edit_text" />
+
+        <TextView
+            android:id="@+id/client_email_header_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main"
+            android:paddingStart="@dimen/client_header_padding_horizontal"
+            android:paddingTop="@dimen/client_header_padding_vertical"
+            android:paddingEnd="@dimen/client_header_padding_horizontal"
+            android:paddingBottom="@dimen/client_header_padding_vertical"
+            android:text="@string/client_email_header_title"
+            android:textColor="@color/client_header_text_color"
+            android:textSize="@dimen/client_header_text_size"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/border_phone_field_bottom_view" />
+
+        <View
+            android:id="@+id/border_email_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_email_header_text_view" />
+
+        <EditText
+            android:id="@+id/client_email_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/client_field_height"
+            android:background="@drawable/background_client_field"
+            android:hint="@string/client_email_field_hint"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textEmailAddress"
+            android:paddingStart="@dimen/client_field_padding"
+            android:paddingTop="@dimen/client_field_padding"
+            android:paddingEnd="@dimen/client_field_padding_right"
+            android:paddingBottom="@dimen/client_field_padding"
+            android:textColor="@color/client_field_text_color"
+            android:textSize="@dimen/client_field_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/border_email_bottom_view"/>
+
+        <View
+            android:id="@+id/border_email_field_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/divider_item_color"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/client_email_edit_text" />
+
+        <Button
+            android:id="@+id/save_button"
+            style="@style/ButtonStyle"
+            android:layout_width="@dimen/client_submit_button_width"
+            android:layout_height="@dimen/client_submit_button_height"
+            android:layout_margin="@dimen/client_submit_button_margin"
+            android:background="@drawable/selector_common_button"
+            android:enabled="false"
+            android:text="@string/save"
+            android:textColor="@drawable/selector_common_button_text"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/border_email_field_bottom_view" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="@+id/save_button"
+            app:layout_constraintBottom_toBottomOf="@+id/save_button"
+            app:layout_constraintRight_toRightOf="@+id/save_button"
+            app:layout_constraintTop_toTopOf="@+id/save_button" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</ScrollView>

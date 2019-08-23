@@ -2,6 +2,9 @@ package com.verbatoria.ui.event
 
 import com.remnev.verbatoria.R
 import com.verbatoria.business.event.EventDetailInteractor
+import com.verbatoria.business.event.models.Client
+import com.verbatoria.business.event.models.item.EventDetailClientItem
+import com.verbatoria.business.event.models.item.EventDetailItem
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.item.*
 import org.slf4j.Logger
@@ -30,6 +33,10 @@ class EventDetailPresenter(
 
     private var currentMode: EventDetailMode = eventDetailMode
 
+    private var eventDetailItemsList: List<EventDetailItem> = emptyList()
+
+    private var client: Client? = null
+
     init {
 //        if (currentMode.isCreateNew()) {
 //            getCreateNewEventItems()
@@ -46,6 +53,18 @@ class EventDetailPresenter(
     }
 
     //region EventDetailView.Callback
+
+    override fun onClientReturned(client: Client?) {
+        this.client = client
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailClientItem }
+                as? EventDetailClientItem)
+            ?.let { eventDetailClientItem ->
+                eventDetailClientItem.name = client?.name
+                eventDetailClientItem.phone = client?.phone
+                view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
+            }
+    }
 
     override fun onNavigationClicked() {
         view?.close()
@@ -70,7 +89,7 @@ class EventDetailPresenter(
     //region EventDetailClientItemViewHolder.Callback
 
     override fun onClientClicked() {
-
+        view?.openClient(currentMode, client)
     }
 
     //endregion
@@ -126,7 +145,8 @@ class EventDetailPresenter(
     private fun getCreateNewEventItems() {
         eventDetailInteractor.getCreateNewModeEventDetailItems()
             .subscribe({ eventDetailItems ->
-                view?.setEventDetailItems(eventDetailItems)
+                eventDetailItemsList = eventDetailItems
+                view?.setEventDetailItems(eventDetailItemsList)
             }, { error ->
                 logger.error("get create new event items models", error)
             })
@@ -135,6 +155,7 @@ class EventDetailPresenter(
 
     private fun getClient(clientId: String) {
 //        eventDetailInteractor.getClient(clientId)
+
     }
 
     private fun createNewEvent() {

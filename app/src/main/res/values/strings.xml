@@ -54,9 +54,14 @@
 
     <string name="event_detail_activity_field_empty">Данные не заполнены</string>
 
-    <string name="event_detail_activity_client_name">Имя клиента</string>
-    <string name="event_detail_activity_client_phone">Телефон</string>
-    <string name="event_detail_activity_client_email">Почтовый адрес</string>
+    <string name="client_name_header_title">Имя клиента</string>
+    <string name="client_phone_header_title">Телефон</string>
+    <string name="client_email_header_title">Email</string>
+
+    <string name="client_name_field_hint">Иван Иванов</string>
+    <string name="client_phone_field_hint">+7 123 456 78 90</string>
+    <string name="client_email_field_hint">example@mail.ru</string>
+
     <string name="event_detail_activity_child_name">Имя ребенка</string>
     <string name="event_detail_activity_child_age">Возраст</string>
 

@@ -39,4 +39,14 @@ object CountryHelper {
             else -> context.getString(R.string.login_russia_phone_mask)
         }
 
+    fun getCountryCodeByCountry(context: Context, country: String): String {
+        return if (country == context.getString(R.string.country_russia)) {
+            "ru"
+        } else if (country == context.getString(R.string.country_ukraine)) {
+            "ua"
+        } else {
+            "az"
+        }
+    }
+
 }

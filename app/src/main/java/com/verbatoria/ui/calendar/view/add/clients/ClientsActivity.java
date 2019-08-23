@@ -300,9 +300,9 @@ public class ClientsActivity extends BaseActivity implements IClientsView {
         String clientNameString = TextUtils.isEmpty(mClientsPresenter.getClientName()) ? getString(R.string.event_detail_activity_field_empty): mClientsPresenter.getClientName();
         String clientPhoneString = TextUtils.isEmpty(mClientsPresenter.getClientPhone()) ? getString(R.string.event_detail_activity_field_empty): mClientsPresenter.getClientPhone();
         String clientEmailString = TextUtils.isEmpty(mClientsPresenter.getClientEmail()) ? getString(R.string.event_detail_activity_field_empty): mClientsPresenter.getClientEmail();
-        setUpFieldView(mClientNameField, R.drawable.ic_client_name, clientNameString, getString(R.string.event_detail_activity_client_name));
-        setUpFieldView(mClientEmailField, R.drawable.ic_client_email, clientEmailString, getString(R.string.event_detail_activity_client_email));
-        setUpFieldView(mClientPhoneField, R.drawable.ic_client_phone, clientPhoneString, getString(R.string.event_detail_activity_client_phone));
+        setUpFieldView(mClientNameField, R.drawable.ic_client_name, clientNameString, getString(R.string.client_name_header_title));
+        setUpFieldView(mClientEmailField, R.drawable.ic_client_email, clientEmailString, getString(R.string.client_email_header_title));
+        setUpFieldView(mClientPhoneField, R.drawable.ic_client_phone, clientPhoneString, getString(R.string.client_phone_header_title));
     }
 
     private void setUpEditableFields() {

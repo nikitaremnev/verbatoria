@@ -8,6 +8,6 @@ import com.verbatoria.ui.event.EventDetailMode
 
 class EventDetailClientItem(
     mode: EventDetailMode,
-    val name: String? = null,
-    val phone: String? = null
+    var name: String? = null,
+    var phone: String? = null
 ) : EventDetailItem(mode)

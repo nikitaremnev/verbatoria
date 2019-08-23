@@ -1,7 +1,7 @@
 package com.verbatoria.business.event
 
 import com.remnev.verbatoria.R
-import com.verbatoria.business.event.models.ClientModel
+import com.verbatoria.business.event.models.Client
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.domain.dashboard.info.InfoManager
@@ -27,7 +27,7 @@ interface EventDetailInteractor {
 
     fun getViewModeEventDetailItems(): Single<List<EventDetailItem>>
 
-    fun getClient(cliendId: String): Single<ClientModel>
+    fun getClient(cliendId: String): Single<Client>
 
     fun createNewEvent(childId: String, childAge: Int, startAt: Date, endAt: Date): Completable
 
@@ -79,7 +79,7 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getClient(cliendId: String): Single<ClientModel> =
+    override fun getClient(cliendId: String): Single<Client> =
         Single.fromCallable {
             clientManager.getClient(cliendId)
         }

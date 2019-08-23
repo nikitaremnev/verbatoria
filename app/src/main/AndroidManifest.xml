@@ -69,7 +69,15 @@
 
         <activity
             android:name="com.verbatoria.ui.late_send.LateSendActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name="com.verbatoria.ui.client.ClientActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
+            android:name="com.verbatoria.ui.child.ChildActivity"
+            android:screenOrientation="landscape" />
 
         <activity
             android:name="com.verbatoria.ui.session.view.writing.WritingActivity"

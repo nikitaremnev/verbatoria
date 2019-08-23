@@ -64,7 +64,7 @@ public class ChildrenInteractor implements IChildrenInteractor {
 
     @Override
     public Observable<ArrayList<ChildModel>> getChild(ClientModel clientModel) {
-        Log.e("test", "clientModel: " + clientModel.toString());
+        Log.e("test", "client: " + clientModel.toString());
         List<Observable<ChildModel>> childObservables = new ArrayList<>();
         for (int i = 0; i < clientModel.getChildren().size(); i++) {
             childObservables.add(

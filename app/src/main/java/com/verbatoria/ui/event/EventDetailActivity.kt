@@ -1,5 +1,6 @@
 package com.verbatoria.ui.event
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,16 +9,20 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.remnev.verbatoria.R
 import com.verbatoria.business.event.models.item.EventDetailItem
+import com.verbatoria.business.event.models.Client
 import com.verbatoria.di.Injector
 import com.verbatoria.di.event.EventDetailComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.client.ClientActivity
 import com.verbatoria.ui.common.Adapter
 import javax.inject.Inject
 
 /**
  * @author n.remnev
  */
+
+private const val CLIENT_REQUEST_CODE = 912
 
 private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
 
@@ -27,9 +32,15 @@ interface EventDetailView : BaseView {
 
     fun setEventDetailItems(eventDetailItems: List<EventDetailItem>)
 
+    fun openClient(eventDetailMode: EventDetailMode, client: Client?)
+
+    fun updateEventDetailItem(position: Int)
+
     fun close()
 
     interface Callback {
+
+        fun onClientReturned(client: Client?)
 
         fun onNavigationClicked()
 
@@ -79,6 +90,16 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     //endregion
 
+    //region BasePresenterActivity
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CLIENT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            presenter.onClientReturned(data?.getParcelableExtra(ClientActivity.CLIENT_EXTRA))
+        }
+    }
+
+    //endregion
+
     //region EventDetailView
 
     override fun setTitle(titleResourceId: Int) {
@@ -87,6 +108,14 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     override fun setEventDetailItems(eventDetailItems: List<EventDetailItem>) {
         adapter.update(eventDetailItems)
+    }
+
+    override fun openClient(eventDetailMode: EventDetailMode, client: Client?) {
+        startActivityForResult(ClientActivity.createIntent(this, eventDetailMode, client), CLIENT_REQUEST_CODE)
+    }
+
+    override fun updateEventDetailItem(position: Int) {
+        adapter.update(position)
     }
 
     override fun close() {

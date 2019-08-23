@@ -9,6 +9,8 @@ import com.verbatoria.component.session.SessionService
 import com.verbatoria.data.repositories.late_send.LateSendRepository
 import com.verbatoria.di.calendar.CalendarComponent
 import com.verbatoria.di.calendar.CalendarModule
+import com.verbatoria.di.child.ChildComponent
+import com.verbatoria.di.client.ClientComponent
 import com.verbatoria.di.common.CommonModule
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.event.EventDetailComponent
@@ -75,6 +77,10 @@ interface Injector {
     fun plusEventDetailComponent(): EventDetailComponent.Builder
 
     fun plusScheduleComponent(): ScheduleComponent.Builder
+
+    fun plusClientComponent(): ClientComponent.Builder
+
+    fun plusChildComponent(): ChildComponent.Builder
 
     @Component.Builder
     interface Builder {

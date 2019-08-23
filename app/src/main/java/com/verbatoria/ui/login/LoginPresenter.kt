@@ -138,7 +138,7 @@ class LoginPresenter(
                 logger.error("Login error occurred", error)
                 view?.apply {
                     hideProgressForLoginWithError()
-                    showError(error.message ?: "Login error occurred")
+                    showErrorSnackbar(error.message ?: "Login error occurred")
                 }
             })
             .let(::addDisposable)
@@ -158,7 +158,7 @@ class LoginPresenter(
                 logger.error("Get last login error occurred", error)
                 view?.apply {
                     hideProgressForLoginWithError()
-                    showError(error.message ?: "Get last login error occurred")
+                    showErrorSnackbar(error.message ?: "Get last login error occurred")
                 }
             })
             .let(::addDisposable)
@@ -171,7 +171,7 @@ class LoginPresenter(
                 view?.setCurrentCountry(this.country)
             }, { error ->
                 logger.error("Get current country error occurred", error)
-                view?.showError(error.message ?: "Get current country error occurred")
+                view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
     }
@@ -184,7 +184,7 @@ class LoginPresenter(
                 view?.setPhone(this.phone)
             }, { error ->
                 logger.error("Save current country error occurred", error)
-                view?.showError(error.message ?: "Save current country error occurred")
+                view?.showErrorSnackbar(error.message ?: "Save current country error occurred")
             })
             .let(::addDisposable)
     }

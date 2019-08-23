@@ -37,8 +37,6 @@ interface LoginView : BaseView {
 
     fun showCountrySelectionDialog()
 
-    fun showError(error: String)
-
     fun setLoginButtonEnabled()
 
     fun setLoginButtonDisabled()
@@ -230,10 +228,6 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         CountrySelectionBottomSheetDialog.build {
             titleText = getString(R.string.login_country_selection_title)
         }.show(supportFragmentManager, LANGUAGE_SELECTION_DIALOG_TAG)
-    }
-
-    override fun showError(error: String) {
-        showErrorSnackbar(error)
     }
 
     override fun setLoginButtonEnabled() {
