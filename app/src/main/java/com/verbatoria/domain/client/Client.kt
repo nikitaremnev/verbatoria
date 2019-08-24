@@ -1,4 +1,4 @@
-package com.verbatoria.business.client
+package com.verbatoria.domain.client
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

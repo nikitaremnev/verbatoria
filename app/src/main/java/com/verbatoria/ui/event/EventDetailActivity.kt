@@ -1,6 +1,7 @@
 package com.verbatoria.ui.event
 
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +9,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.remnev.verbatoria.R
-import com.verbatoria.business.child.Child
+import com.verbatoria.domain.child.Child
 import com.verbatoria.business.event.models.item.EventDetailItem
-import com.verbatoria.business.client.Client
+import com.verbatoria.domain.client.Client
 import com.verbatoria.di.Injector
 import com.verbatoria.di.event.EventDetailComponent
 import com.verbatoria.ui.base.BasePresenterActivity
@@ -18,6 +19,9 @@ import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.child.ChildActivity
 import com.verbatoria.ui.client.ClientActivity
 import com.verbatoria.ui.common.Adapter
+import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
+import com.verbatoria.utils.LocaleHelper.LOCALE_RU
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -28,6 +32,7 @@ private const val CLIENT_REQUEST_CODE = 912
 private const val CHILD_REQUEST_CODE = 913
 
 private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
+private const val INTERVALS_SELECTION_DIALOG_TAG = "INTERVALS_SELECTION_DIALOG_TAG"
 
 interface EventDetailView : BaseView {
 
@@ -42,6 +47,10 @@ interface EventDetailView : BaseView {
     fun updateEventDetailItem(position: Int)
 
     fun showFillClientFirstError()
+
+    fun showDatePickerDialog()
+
+    fun showIntervalSelectionDialog(availableIntervals: ArrayList<String>)
 
     fun close()
 
@@ -136,6 +145,26 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     override fun showFillClientFirstError() {
         showErrorSnackbar(getString(R.string.child_first_fill_client_error))
+    }
+
+    override fun showDatePickerDialog() {
+        val now = Calendar.getInstance(Locale(LOCALE_RU))
+        val datePickerDialog = DatePickerDialog(
+            this,
+            presenter,
+            now.get(Calendar.YEAR),
+            now.get(Calendar.MONTH),
+            now.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
+    }
+
+    override fun showIntervalSelectionDialog(availableIntervals: ArrayList<String>) {
+        SelectionBottomSheetDialog.build {
+            titleText = getString(R.string.schedule_save_confirmation_title)
+            itemsArray = availableIntervals
+        }
+            .show(supportFragmentManager, INTERVALS_SELECTION_DIALOG_TAG)
     }
 
     override fun close() {

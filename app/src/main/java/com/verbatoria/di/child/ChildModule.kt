@@ -1,6 +1,6 @@
 package com.verbatoria.di.child
 
-import com.verbatoria.business.child.Child
+import com.verbatoria.domain.child.Child
 import com.verbatoria.business.child.ChildInteractorImpl
 import com.verbatoria.domain.child.ChildManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory

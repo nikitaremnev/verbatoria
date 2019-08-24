@@ -1,10 +1,7 @@
 package com.verbatoria.business.dashboard.calendar
 
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
-import com.verbatoria.business.report.ReportStatus
-import com.verbatoria.domain.dashboard.calendar.CalendarRepository
-import com.verbatoria.infrastructure.extensions.*
-import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.CalendarEndpoint
+import com.verbatoria.domain.dashboard.calendar.CalendarManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -25,45 +22,40 @@ interface CalendarInteractor {
 }
 
 class CalendarInteractorImpl(
-    private val calendarEndpoint: CalendarEndpoint,
-    private val calendarRepository: CalendarRepository,
+    private val calendarManager: CalendarManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : CalendarInteractor {
 
     override fun getLastSelectedDate(): Single<Date> =
         Single.fromCallable {
-            calendarRepository.getSelectedDate()
+            calendarManager.getLastSelectedDate()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
     override fun saveLastSelectedDate(selectedDate: Date): Completable =
         Completable.fromCallable {
-            calendarRepository.putSelectedDate(selectedDate)
+            calendarManager.saveLastSelectedDate(selectedDate)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
     override fun getEventsForDate(date: Date): Single<List<EventItemModel>> =
         Single.fromCallable {
-            val eventsListDto = calendarEndpoint.getEvents(
-                fromTime = date.toStartDay().formatToServerTime(),
-                toTime = date.toEndDay().formatToServerTime()
-            )
-            eventsListDto.data.map { eventDto ->
-                ReportStatus.valueOfWithDefault(eventDto.report.status)
+            val events = calendarManager.getEventsForDate(date)
+            events.map { event ->
                 EventItemModel(
-                    clientName = eventDto.child.name,
-                    clientAge = eventDto.child.birthday.parseBirthdayFormat().getYearsForCurrentMoment(),
-                    reportId = eventDto.report.reportId,
-                    status = ReportStatus.valueOfWithDefault(eventDto.report.status),
-                    startDate = eventDto.startAt.parseServerFormat(),
-                    endDate = eventDto.endAt.parseServerFormat()
+                    clientName = event.child.name,
+                    clientAge = event.child.age,
+                    reportId = event.report.reportId,
+                    status = event.report.status,
+                    startDate = event.startDate,
+                    endDate = event.endDate
                 )
             }
+
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
-
 
 }

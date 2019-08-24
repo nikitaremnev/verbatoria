@@ -1,6 +1,6 @@
 package com.verbatoria.business.dashboard.calendar.models.item
 
-import com.verbatoria.business.report.ReportStatus
+import com.verbatoria.domain.report.ReportStatus
 import java.util.*
 
 /**

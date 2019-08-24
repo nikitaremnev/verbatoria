@@ -1,7 +1,7 @@
 package com.verbatoria.ui.dashboard.calendar.item
 
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
-import com.verbatoria.business.report.ReportStatusHelper
+import com.verbatoria.domain.report.ReportStatusHelper
 import com.verbatoria.infrastructure.extensions.formatToTime
 import com.verbatoria.ui.common.ViewBinder
 

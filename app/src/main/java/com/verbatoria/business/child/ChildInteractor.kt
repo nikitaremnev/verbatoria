@@ -1,6 +1,6 @@
 package com.verbatoria.business.child
 
-import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.child.Child
 import com.verbatoria.domain.child.ChildManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable

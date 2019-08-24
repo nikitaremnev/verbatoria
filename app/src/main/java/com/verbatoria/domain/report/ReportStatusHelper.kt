@@ -1,4 +1,4 @@
-package com.verbatoria.business.report
+package com.verbatoria.domain.report
 
 import com.remnev.verbatoria.R
 

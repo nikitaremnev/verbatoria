@@ -1,8 +1,7 @@
-package com.verbatoria.business.child
+package com.verbatoria.domain.child
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 /**
  * @author n.remnev

@@ -1,6 +1,5 @@
 package com.verbatoria.domain.client
 
-import com.verbatoria.business.client.Client
 import com.verbatoria.infrastructure.retrofit.endpoints.client.ClientEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.client.model.params.ClientParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.client.model.params.CreateNewClientParamsDto

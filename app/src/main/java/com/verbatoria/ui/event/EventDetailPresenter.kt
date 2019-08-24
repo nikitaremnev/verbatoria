@@ -1,9 +1,11 @@
 package com.verbatoria.ui.event
 
+import android.app.DatePickerDialog
+import android.widget.DatePicker
 import com.remnev.verbatoria.R
-import com.verbatoria.business.child.Child
+import com.verbatoria.domain.child.Child
 import com.verbatoria.business.event.EventDetailInteractor
-import com.verbatoria.business.client.Client
+import com.verbatoria.domain.client.Client
 import com.verbatoria.business.event.models.item.EventDetailChildItem
 import com.verbatoria.business.event.models.item.EventDetailClientItem
 import com.verbatoria.business.event.models.item.EventDetailItem
@@ -11,6 +13,8 @@ import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.item.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author n.remnev
@@ -29,7 +33,8 @@ class EventDetailPresenter(
     EventDetailIncludeMemoryAttentionItemViewHolder.Callback,
     EventDetailReportItemViewHolder.Callback,
     EventDetailSendToLocationItemViewHolder.Callback,
-    EventDetailSubmitItemViewHolder.Callback {
+    EventDetailSubmitItemViewHolder.Callback,
+    DatePickerDialog.OnDateSetListener {
 
     private val logger: Logger = LoggerFactory.getLogger("EventDetailPresenter")
 
@@ -119,7 +124,7 @@ class EventDetailPresenter(
     //region EventDetailDateItemViewHolder.Callback
 
     override fun onDateClicked() {
-
+        view?.showDatePickerDialog()
     }
 
     //endregion
@@ -158,6 +163,26 @@ class EventDetailPresenter(
 
             }
         }
+    }
+
+    //endregion
+
+    //region DatePickerDialog.OnDateSetListener
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        eventDetailInteractor.getAvailableTimeSlots(
+            Calendar.getInstance().apply {
+                set(Calendar.YEAR, year)
+                set(Calendar.MONTH, month)
+                set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            }.time
+        )
+            .subscribe({ availableIntervals ->
+                this.view?.showIntervalSelectionDialog(availableIntervals)
+            }, { error ->
+                logger.error("get create new event items models", error)
+            })
+            .let(::addDisposable)
     }
 
     //endregion

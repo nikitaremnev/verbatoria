@@ -1,19 +1,21 @@
 package com.verbatoria.business.event
 
 import com.remnev.verbatoria.R
-import com.verbatoria.business.client.Client
+import com.verbatoria.domain.schedule.TimeSlot
+import com.verbatoria.domain.client.Client
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
-import com.verbatoria.domain.dashboard.info.InfoManager
-import com.verbatoria.infrastructure.extensions.formatToServerTime
-import com.verbatoria.infrastructure.retrofit.endpoints.event.EventEndpoint
-import com.verbatoria.infrastructure.retrofit.endpoints.event.model.params.CreateNewOrEditEventParamsDto
-import com.verbatoria.infrastructure.retrofit.endpoints.event.model.params.EventParamsDto
+import com.verbatoria.domain.dashboard.calendar.CalendarManager
+import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.schedule.ScheduleManager
+import com.verbatoria.infrastructure.extensions.formatToTime
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.event.EventDetailMode
 import io.reactivex.Completable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * @author n.remnev
@@ -31,12 +33,14 @@ interface EventDetailInteractor {
 
     fun createNewEvent(childId: String, childAge: Int, startAt: Date, endAt: Date): Completable
 
+    fun getAvailableTimeSlots(date: Date): Single<ArrayList<String>>
+
 }
 
 class EventDetailInteractorImpl(
-    private val eventEndpoint: EventEndpoint,
+    private val calendarManager: CalendarManager,
+    private val scheduleManager: ScheduleManager,
     private val clientManager: ClientManager,
-    private val infoManager: InfoManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : EventDetailInteractor {
 
@@ -93,23 +97,28 @@ class EventDetailInteractorImpl(
         endAt: Date
     ): Completable =
         Completable.fromCallable {
-            eventEndpoint.createNewEvent(
-                CreateNewOrEditEventParamsDto(
-                    event = EventParamsDto(
-                        childId = childId,
-                        locationId = infoManager.getLocationId(),
-                        startAt = startAt.formatToServerTime(),
-                        endAt = endAt.formatToServerTime(),
-                        isInstantReport = true,
-                        isArchimedesIncluded = infoManager.isArchimedesAllowed() && infoManager.isAgeAvailableForArchimedes(
-                            childAge
-                        ),
-                        isHobbyIncluded = false
-                    )
-                )
-            )
+            calendarManager.createNewEvent(childId, childAge, startAt, endAt)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
+
+    override fun getAvailableTimeSlots(date: Date): Single<ArrayList<String>> =
+        Single.zip(
+            Single.fromCallable {
+                calendarManager.getEventsForDate(date)
+            },
+            Single.fromCallable {
+                scheduleManager.loadScheduleForDay(date)
+            },
+            BiFunction { events: List<Event>, timeSlots: List<TimeSlot> ->
+                //intersection function
+                ArrayList(timeSlots.map {
+                    it.startTime.formatToTime() + " - " + it.endTime.formatToTime()
+                })
+            }
+        )
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
 
 }

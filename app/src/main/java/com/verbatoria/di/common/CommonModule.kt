@@ -11,11 +11,16 @@ import com.verbatoria.domain.child.ChildManager
 import com.verbatoria.domain.child.ChildManagerImpl
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.domain.client.ClientManagerImpl
+import com.verbatoria.domain.dashboard.calendar.CalendarManager
+import com.verbatoria.domain.dashboard.calendar.CalendarManagerImpl
+import com.verbatoria.domain.dashboard.calendar.CalendarRepository
 import com.verbatoria.domain.dashboard.info.AgeGroupRepository
 import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.domain.dashboard.info.InfoManagerImpl
 import com.verbatoria.domain.dashboard.info.InfoRepository
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import com.verbatoria.domain.schedule.ScheduleManager
+import com.verbatoria.domain.schedule.ScheduleManagerImpl
 import com.verbatoria.domain.session.PreferencesSessionProvider
 import com.verbatoria.domain.session.SessionManager
 import com.verbatoria.domain.session.SessionManagerImpl
@@ -138,6 +143,31 @@ class CommonModule {
     ): ClientManager =
         ClientManagerImpl(
             endpointsRegister.clientEndpoint
+        )
+
+    @Provides
+    @Singleton
+    fun provideScheduleManager(
+        endpointsRegister: EndpointsRegister
+    ): ScheduleManager =
+        ScheduleManagerImpl(
+            endpointsRegister.scheduleEndpoint
+        )
+
+    @Provides
+    @Singleton
+    fun provideCalendarManager(
+        infoManager: InfoManager,
+        childManager: ChildManager,
+        endpointsRegister: EndpointsRegister,
+        calendarRepository: CalendarRepository
+    ): CalendarManager =
+        CalendarManagerImpl(
+            infoManager,
+            childManager,
+            endpointsRegister.calendarEndpoint,
+            endpointsRegister.eventEndpoint,
+            calendarRepository
         )
 
     //endregion

@@ -7,13 +7,13 @@ import java.util.*
  * @author n.remnev
  */
 
-private const val SELECTED_DATE_KEY = "selected_date"
+private const val LAST_SELECTED_DATE_KEY = "last_selected_date"
 
 interface CalendarRepository {
 
-    fun putSelectedDate(selectedDate: Date)
+    fun putLastSelectedDate(lastSelectedDate: Date)
 
-    fun getSelectedDate(): Date
+    fun getLastSelectedDate(): Date
 
 }
 
@@ -21,14 +21,14 @@ class CalendarRepositoryImpl(
     private val sharedPreferences: SharedPreferences
 ) : CalendarRepository {
 
-    override fun putSelectedDate(selectedDate: Date) {
+    override fun putLastSelectedDate(lastSelectedDate: Date) {
         sharedPreferences.edit().apply {
-            putLong(SELECTED_DATE_KEY, selectedDate.time)
+            putLong(LAST_SELECTED_DATE_KEY, lastSelectedDate.time)
             apply()
         }
     }
 
-    override fun getSelectedDate(): Date =
-        Date(sharedPreferences.getLong(SELECTED_DATE_KEY, System.currentTimeMillis()))
+    override fun getLastSelectedDate(): Date =
+        Date(sharedPreferences.getLong(LAST_SELECTED_DATE_KEY, System.currentTimeMillis()))
 
 }

@@ -1,10 +1,10 @@
 package com.verbatoria.domain.child
 
-import com.verbatoria.business.child.Child
 import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.infrastructure.retrofit.endpoints.child.ChildEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.child.model.params.ChildParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.child.model.params.CreateOrEditChildParamsDto
+import com.verbatoria.infrastructure.retrofit.endpoints.child.model.response.ChildResponseDto
 import java.lang.IllegalStateException
 
 /**
@@ -24,6 +24,8 @@ interface ChildManager {
     fun createNewChild(clientId: String, child: Child): String
 
     fun editChild(clientId: String, child: Child)
+
+    fun parseChildDto(childDto: ChildResponseDto): Child
 
 }
 
@@ -80,5 +82,18 @@ class ChildManagerImpl(
             )
         )
     }
+
+    override fun parseChildDto(childDto: ChildResponseDto): Child =
+        with(childDto) {
+            Child(
+                id = id,
+                name = name,
+                gender = if (gender == MALE_GENDER)
+                    MALE_GENDER_POSITION
+                else
+                    FEMALE_GENDER_POSITION,
+                age = birthday.parseServerFormat().getYearsForCurrentMoment()
+            )
+        }
 
 }
