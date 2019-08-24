@@ -112,7 +112,6 @@ class ClientPresenter(
             .let(::addDisposable)
     }
 
-
     private fun getCurrentCountry() {
         clientInteractor.getCurrentCountry()
             .subscribe({ country ->

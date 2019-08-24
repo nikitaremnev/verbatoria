@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.view.View
+import android.widget.*
 import com.remnev.verbatoria.R
 import com.verbatoria.business.child.Child
 import com.verbatoria.di.Injector
@@ -20,8 +18,6 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.event.EventDetailMode
-
-import java.util.*
 
 /**
  * @author nikitaremnev
@@ -42,6 +38,8 @@ interface ChildView : BaseView {
 
     fun setChildName(childName: String)
 
+    fun setChildGender(childGender: Int)
+
     fun setChildAge(childAge: Int)
 
     fun setEditableMode()
@@ -60,9 +58,9 @@ interface ChildView : BaseView {
 
         fun onChildNameChanged(newChildName: String)
 
-        fun onChildAgeSelected(newChildAge: Int)
+        fun onChildGenderSelected(newChildGender: Int)
 
-        fun onChildBirthdaySelected(birthday: Date)
+        fun onChildAgeSelected(newChildAge: Int)
 
         fun onSaveButtonClicked()
 
@@ -97,6 +95,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     private lateinit var toolbar: Toolbar
     private lateinit var childNameEditText: EditText
+    private lateinit var childGenderSpinner: Spinner
     private lateinit var childAgeTextView: TextView
     private lateinit var saveButton: Button
     private lateinit var progressBar: ProgressBar
@@ -116,6 +115,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
         toolbar = findViewById(R.id.toolbar)
 
         childNameEditText = findViewById(R.id.child_name_edit_text)
+        childGenderSpinner = findViewById(R.id.child_gender_spinner)
         childAgeTextView = findViewById(R.id.child_age_text_view)
 
         saveButton = findViewById(R.id.save_button)
@@ -142,6 +142,23 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
             }
 
         })
+        childGenderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                //empty
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                presenter.onChildGenderSelected(position)
+            }
+
+        }
+
         childAgeTextView.setOnClickListener {
             presenter.onChildAgeClicked()
         }
@@ -181,6 +198,10 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     override fun setChildName(childName: String) {
         childNameEditText.setText(childName)
+    }
+
+    override fun setChildGender(childGender: Int) {
+        childGenderSpinner.setSelection(childGender)
     }
 
     override fun setChildAge(childAge: Int) {

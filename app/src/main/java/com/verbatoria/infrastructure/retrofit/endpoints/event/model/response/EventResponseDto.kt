@@ -1,7 +1,7 @@
 package com.verbatoria.infrastructure.retrofit.endpoints.event.model.response
 
 import com.google.gson.annotations.SerializedName
-import com.verbatoria.infrastructure.retrofit.endpoints.child.ChildResponseDto
+import com.verbatoria.infrastructure.retrofit.endpoints.child.model.response.ChildResponseDto
 import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.model.ReportResponseDto
 
 /**

@@ -92,20 +92,17 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/child_gender_header_text_view" />
 
-        <EditText
-            android:id="@+id/child_gender_edit_text"
+        <Spinner android:id="@+id/child_gender_spinner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/child_field_height"
             android:background="@drawable/background_child_field"
-            android:hint="@string/child_age_field_hint"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="phone"
+            android:layout_height="@dimen/child_field_height"
             android:paddingStart="@dimen/child_field_padding"
             android:paddingTop="@dimen/child_field_padding"
             android:paddingEnd="@dimen/child_field_padding_right"
             android:paddingBottom="@dimen/child_field_padding"
             android:textColor="@color/child_field_text_color"
             android:textSize="@dimen/child_field_text_size"
+            android:entries="@array/child_genders"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/border_gender_bottom_view"/>
 
@@ -116,7 +113,7 @@
             android:background="@color/divider_item_color"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/child_gender_edit_text" />
+            app:layout_constraintTop_toBottomOf="@+id/child_gender_spinner" />
 
         <TextView
             android:id="@+id/child_age_header_text_view"

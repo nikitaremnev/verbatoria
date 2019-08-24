@@ -1,5 +1,7 @@
 package com.verbatoria.infrastructure.retrofit.endpoints.client.model.response
 
+import com.verbatoria.infrastructure.retrofit.endpoints.child.model.response.ChildIdResponseDto
+
 /**
  * @author n.remnev
  */

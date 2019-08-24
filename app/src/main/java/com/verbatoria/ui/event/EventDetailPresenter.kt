@@ -4,6 +4,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.business.child.Child
 import com.verbatoria.business.event.EventDetailInteractor
 import com.verbatoria.business.client.Client
+import com.verbatoria.business.event.models.item.EventDetailChildItem
 import com.verbatoria.business.event.models.item.EventDetailClientItem
 import com.verbatoria.business.event.models.item.EventDetailItem
 import com.verbatoria.ui.base.BasePresenter
@@ -66,6 +67,18 @@ class EventDetailPresenter(
                 eventDetailClientItem.name = client?.name
                 eventDetailClientItem.phone = client?.phone
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
+            }
+    }
+
+    override fun onChildReturned(child: Child?) {
+        this.child = child
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailChildItem }
+                as? EventDetailChildItem)
+            ?.let { eventDetailChildItem ->
+                eventDetailChildItem.name = child?.name
+                eventDetailChildItem.age = child?.age
+                view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailChildItem))
             }
     }
 

@@ -4,7 +4,6 @@ import com.verbatoria.business.child.Child
 import com.verbatoria.business.child.ChildInteractor
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.EventDetailMode
-import java.util.*
 
 /**
  * @author n.remnev
@@ -28,6 +27,12 @@ class ChildPresenter(
             eventDetailMode.isEdit() -> view.setEditableMode()
             else -> view.setViewOnlyMode()
         }
+        view.apply {
+            setChildName(child.name)
+            setChildGender(child.gender)
+            setChildAge(child.age)
+        }
+        checkIsAllFieldsFilled()
     }
 
     //region ChildView.Callback
@@ -37,18 +42,22 @@ class ChildPresenter(
         checkIsAllFieldsFilled()
     }
 
+    override fun onChildGenderSelected(newChildGender: Int) {
+        child.gender = newChildGender
+    }
+
     override fun onChildAgeSelected(newChildAge: Int) {
         child.age = newChildAge
         view?.setChildAge(child.age)
         checkIsAllFieldsFilled()
     }
 
-    override fun onChildBirthdaySelected(birthday: Date) {
-
-    }
-
     override fun onSaveButtonClicked() {
-
+        if (child.hasId()) {
+            editChild()
+        } else {
+            createNewChild()
+        }
     }
 
     override fun onChildAgeClicked() {
@@ -73,5 +82,35 @@ class ChildPresenter(
         }
     }
 
+    private fun createNewChild() {
+        view?.showSaveProgress()
+        childInteractor.createNewChild(clientId, child)
+            .doAfterTerminate {
+                view?.hideSaveProgress()
+            }
+            .subscribe({ childId ->
+                child.id = childId
+                view?.close(child)
+            }, { error ->
+                error.printStackTrace()
+                view?.showErrorSnackbar(error.localizedMessage)
+            })
+            .let(::addDisposable)
+    }
+
+    private fun editChild() {
+        view?.showSaveProgress()
+        childInteractor.editChild(clientId, child)
+            .doAfterTerminate {
+                view?.hideSaveProgress()
+            }
+            .subscribe({
+                view?.close(child)
+            }, { error ->
+                error.printStackTrace()
+                view?.showErrorSnackbar(error.localizedMessage)
+            })
+            .let(::addDisposable)
+    }
 
 }

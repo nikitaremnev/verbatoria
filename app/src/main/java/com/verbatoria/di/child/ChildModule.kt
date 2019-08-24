@@ -2,7 +2,7 @@ package com.verbatoria.di.child
 
 import com.verbatoria.business.child.Child
 import com.verbatoria.business.child.ChildInteractorImpl
-import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.child.ChildManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.child.ChildPresenter
 import com.verbatoria.ui.event.EventDetailMode
@@ -23,7 +23,7 @@ class ChildModule {
         eventDetailModeOrdinal: Int,
         child: Child?,
         clientId: String,
-        authorizationManager: AuthorizationManager,
+        childManager: ChildManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): ChildPresenter =
         ChildPresenter(
@@ -31,7 +31,7 @@ class ChildModule {
             child ?: Child(),
             clientId,
             ChildInteractorImpl(
-                authorizationManager,
+                childManager,
                 rxSchedulersFactory
             )
         )

@@ -49,6 +49,8 @@ interface EventDetailView : BaseView {
 
         fun onClientReturned(client: Client?)
 
+        fun onChildReturned(child: Child?)
+
         fun onNavigationClicked()
 
     }
@@ -102,6 +104,9 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CLIENT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             presenter.onClientReturned(data?.getParcelableExtra(ClientActivity.CLIENT_EXTRA))
+        }
+        if (requestCode == CHILD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            presenter.onChildReturned(data?.getParcelableExtra(ChildActivity.CHILD_EXTRA))
         }
     }
 

@@ -1,4 +1,4 @@
-package com.verbatoria.infrastructure.retrofit.endpoints.child
+package com.verbatoria.infrastructure.retrofit.endpoints.child.model.params
 
 import com.google.gson.annotations.SerializedName
 
@@ -6,8 +6,7 @@ import com.google.gson.annotations.SerializedName
  * @author n.remnev
  */
 
-data class ChildResponseDto(
-    val id: String,
+data class ChildParamsDto(
     @SerializedName("client_id")
     val clientId: String,
     val name: String,

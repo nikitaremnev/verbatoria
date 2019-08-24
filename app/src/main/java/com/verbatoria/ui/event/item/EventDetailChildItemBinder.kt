@@ -11,8 +11,8 @@ class EventDetailChildItemBinder: ViewBinder<EventDetailChildItemViewHolder, Eve
 
     override fun bind(view: EventDetailChildItemViewHolder, data: EventDetailChildItem, position: Int) {
         if (data.name != null && data.age != null) {
-            view.setName(data.name)
-            view.setAge(data.age)
+            view.setName(data.name ?: "")
+            view.setAge(data.age ?: 0)
         } else {
             view.showHint()
         }

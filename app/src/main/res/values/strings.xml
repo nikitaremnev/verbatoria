@@ -73,6 +73,11 @@
     <string name="child_name_field_hint">Иван Иванов</string>
     <string name="child_age_field_hint">5 лет</string>
 
+    <string-array name="child_genders">
+        <item>Мужской</item>
+        <item>Женский</item>
+    </string-array>
+
     <string name="child_first_fill_client_error">Необходимо сначала заполнить данные о клиенте</string>
 
     <string name="event_detail_activity_child_name">Имя ребенка</string>
@@ -230,6 +235,7 @@
     <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
 
     <string name="dashboard_gender">Пол ребенка</string>
+
     <string name="dashboard_gender_male">Мужской</string>
     <string name="dashboard_gender_female">Женский</string>
 

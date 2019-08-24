@@ -12,8 +12,8 @@ import java.util.*
 data class Child(
     var id: String? = null,
     var name: String = "",
-    var age: Int = 0,
-    var birthday: Date? = null
+    var gender: Int = 0,
+    var age: Int = 0
 ): Parcelable {
 
     fun hasId(): Boolean =
@@ -24,8 +24,5 @@ data class Child(
 
     fun hasAge(): Boolean =
         age != 0
-
-    fun hasBirthday(): Boolean =
-        birthday != null
 
 }

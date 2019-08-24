@@ -1,4 +1,4 @@
-package com.verbatoria.infrastructure.retrofit.endpoints.client.model.response
+package com.verbatoria.infrastructure.retrofit.endpoints.child.model.response
 
 /**
  * @author n.remnev
