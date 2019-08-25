@@ -149,11 +149,11 @@
     <string name="event_confirm_send_report_to_location">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
     <string name="event_confirm_send_report_to_location_send">Отправить</string>
     <string name="event_confirm_send_report_to_location_success">Копия отчета была отправлена в филиал</string>
-    <string name="event_confirm_archimed_title">АРХИМЕД</string>
+    <string name="arhimedes">АРХИМЕД</string>
     <string name="event_confirm_archimed_subtitle_enabled">В отчет будет включена панель Архимед при наличии подходящей</string>
     <string name="event_confirm_archimed_subtitle_disabled">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>
 
-    <string name="event_confirm_hobby_title">ХОББИ</string>
+    <string name="hobby">ХОББИ</string>
     <string name="event_confirm_hobby_subtitle_enabled">В отчет будет включена панель Хобби</string>
     <string name="event_confirm_hobby_subtitle_disabled">В отчет НЕ будет включена панель Хобби</string>
 

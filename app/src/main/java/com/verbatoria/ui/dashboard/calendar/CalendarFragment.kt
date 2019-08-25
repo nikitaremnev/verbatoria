@@ -14,6 +14,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.calendar.CalendarComponent
+import com.verbatoria.domain.dashboard.calendar.Event
 import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterFragment
@@ -52,6 +53,8 @@ interface CalendarView : BaseView {
     fun hideProgress()
 
     fun openCreateNewEvent()
+
+    fun openEventDetail(event: Event)
 
     interface Callback {
 
@@ -175,6 +178,12 @@ class CalendarFragment :
     override fun openCreateNewEvent() {
         activity?.let { activity ->
             startActivity(EventDetailActivity.createIntent(activity, EventDetailMode.CREATE_NEW))
+        }
+    }
+
+    override fun openEventDetail(event: Event) {
+        activity?.let { activity ->
+            startActivity(EventDetailActivity.createIntent(activity, EventDetailMode.EDIT, event))
         }
     }
 

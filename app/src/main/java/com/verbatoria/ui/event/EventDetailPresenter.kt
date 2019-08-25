@@ -7,6 +7,7 @@ import com.verbatoria.domain.child.Child
 import com.verbatoria.business.event.EventDetailInteractor
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.Client
+import com.verbatoria.domain.dashboard.calendar.Event
 import com.verbatoria.domain.schedule.TimeSlot
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.item.*
@@ -20,6 +21,7 @@ import java.util.*
 
 class EventDetailPresenter(
     eventDetailMode: EventDetailMode,
+    private var event: Event?,
     private val eventDetailInteractor: EventDetailInteractor
 ) : BasePresenter<EventDetailView>(),
     EventDetailView.Callback,
@@ -47,10 +49,15 @@ class EventDetailPresenter(
     private var selectedTimeSlot: TimeSlot? = null
 
     init {
-        getClient("13055")
-//        if (currentMode.isCreateNew()) {
-//            getCreateNewEventItems()
-//        }
+
+        event?.let { event ->
+            getClient(event.clientId)
+            child = event.child
+            selectedTimeSlot = TimeSlot(
+                startTime = event.startDate,
+                endTime = event.endDate
+            )
+        }
     }
 
     override fun onAttachView(view: EventDetailView) {
@@ -59,6 +66,8 @@ class EventDetailPresenter(
         if (currentMode.isCreateNew()) {
             getCreateNewEventItems()
             view.setTitle(R.string.event_detail_new)
+        } else {
+            getViewModeEventItems(event ?: throw IllegalStateException("Event is null and event mode is not create new"))
         }
     }
 
@@ -211,6 +220,17 @@ class EventDetailPresenter(
                 view?.setEventDetailItems(eventDetailItemsList)
             }, { error ->
                 logger.error("get create new event items models", error)
+            })
+            .let(::addDisposable)
+    }
+
+    private fun getViewModeEventItems(event: Event) {
+        eventDetailInteractor.getViewModeEventDetailItems(event)
+            .subscribe({ eventDetailItems ->
+                eventDetailItemsList = eventDetailItems
+                view?.setEventDetailItems(eventDetailItemsList)
+            }, { error ->
+                logger.error("get view mode event items models", error)
             })
             .let(::addDisposable)
     }

@@ -14,6 +14,7 @@ import com.verbatoria.business.event.models.item.EventDetailItem
 import com.verbatoria.domain.client.Client
 import com.verbatoria.di.Injector
 import com.verbatoria.di.event.EventDetailComponent
+import com.verbatoria.domain.dashboard.calendar.Event
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.child.ChildActivity
@@ -32,6 +33,8 @@ private const val CLIENT_REQUEST_CODE = 912
 private const val CHILD_REQUEST_CODE = 913
 
 private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
+private const val EVENT_EXTRA = "event_extra"
+
 private const val INTERVALS_SELECTION_DIALOG_TAG = "INTERVALS_SELECTION_DIALOG_TAG"
 
 interface EventDetailView : BaseView {
@@ -75,10 +78,12 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
         fun createIntent(
             context: Context,
-            eventDetailMode: EventDetailMode
+            eventDetailMode: EventDetailMode,
+            event: Event? = null
         ): Intent =
             Intent(context, EventDetailActivity::class.java)
                 .putExtra(EVENT_DETAIL_MODE_EXTRA, eventDetailMode.ordinal)
+                .putExtra(EVENT_EXTRA, event)
 
     }
 
@@ -95,6 +100,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
     override fun buildComponent(injector: Injector, savedState: Bundle?): EventDetailComponent =
         injector.plusEventDetailComponent()
             .eventDetailMode(intent.getIntExtra(EVENT_DETAIL_MODE_EXTRA, EventDetailMode.CREATE_NEW.ordinal))
+            .event(intent.getParcelableExtra(EVENT_EXTRA))
             .build()
 
     override fun initViews(savedState: Bundle?) {

@@ -2,6 +2,7 @@ package com.verbatoria.business.dashboard.calendar
 
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.domain.dashboard.calendar.CalendarManager
+import com.verbatoria.domain.dashboard.calendar.Event
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -17,7 +18,7 @@ interface CalendarInteractor {
 
     fun saveLastSelectedDate(selectedDate: Date): Completable
 
-    fun getEventsForDate(date: Date): Single<List<EventItemModel>>
+    fun getEventsForDate(date: Date): Single<Pair<List<Event>, List<EventItemModel>>>
 
 }
 
@@ -40,10 +41,10 @@ class CalendarInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getEventsForDate(date: Date): Single<List<EventItemModel>> =
+    override fun getEventsForDate(date: Date): Single<Pair<List<Event>, List<EventItemModel>>> =
         Single.fromCallable {
             val events = calendarManager.getEventsForDate(date)
-            events.map { event ->
+            Pair(events, events.map { event ->
                 EventItemModel(
                     clientName = event.child.name,
                     clientAge = event.child.age,
@@ -52,7 +53,7 @@ class CalendarInteractorImpl(
                     startDate = event.startDate,
                     endDate = event.endDate
                 )
-            }
+            })
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

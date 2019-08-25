@@ -27,7 +27,7 @@ interface EventDetailInteractor {
 
     fun getCreateNewModeEventDetailItems(): Single<List<EventDetailItem>>
 
-    fun getViewModeEventDetailItems(): Single<List<EventDetailItem>>
+    fun getViewModeEventDetailItems(event: Event): Single<List<EventDetailItem>>
 
     fun getClient(cliendId: String): Single<Client>
 
@@ -76,9 +76,74 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getViewModeEventDetailItems(): Single<List<EventDetailItem>> =
+    override fun getViewModeEventDetailItems(event: Event): Single<List<EventDetailItem>> =
         Single.fromCallable {
-            listOf<EventDetailItem>()
+            val eventDetailItems = mutableListOf(
+                EventDetailHeaderItem(
+                    mode = EventDetailMode.CREATE_NEW,
+                    headerStringResource = R.string.client
+                ),
+                EventDetailClientItem(
+                    EventDetailMode.CREATE_NEW
+                ),
+                EventDetailHeaderItem(
+                    mode = EventDetailMode.CREATE_NEW,
+                    headerStringResource = R.string.child
+                ),
+                EventDetailChildItem(
+                    EventDetailMode.CREATE_NEW,
+                    name = event.child.name,
+                    age = event.child.age
+                ),
+                EventDetailHeaderItem(
+                    mode = EventDetailMode.CREATE_NEW,
+                    headerStringResource = R.string.time
+                ),
+                EventDetailTimeItem(
+                    mode = EventDetailMode.CREATE_NEW,
+                    startDate = event.startDate,
+                    endDate = event.endDate
+                )
+            )
+            if (event.isArchimedesAllowed) {
+                EventDetailHeaderItem(
+                    mode = EventDetailMode.CREATE_NEW,
+                    headerStringResource = R.string.arhimedes
+                )
+                EventDetailArchimedesItem(
+                    mode = EventDetailMode.CREATE_NEW
+                )
+            }
+
+            if (event.isArchimedesAllowed) {
+                eventDetailItems.add(
+                    EventDetailHeaderItem(
+                        mode = EventDetailMode.CREATE_NEW,
+                        headerStringResource = R.string.arhimedes
+                    )
+                )
+                eventDetailItems.add(
+                    EventDetailArchimedesItem(
+                        mode = EventDetailMode.CREATE_NEW
+                    )
+                )
+            }
+
+            if (event.isHobbyIncluded) {
+                eventDetailItems.add(
+                    EventDetailHeaderItem(
+                        mode = EventDetailMode.CREATE_NEW,
+                        headerStringResource = R.string.hobby
+                    )
+                )
+                eventDetailItems.add(
+                    EventDetailArchimedesItem(
+                        mode = EventDetailMode.CREATE_NEW
+                    )
+                )
+            }
+
+            eventDetailItems.toList()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

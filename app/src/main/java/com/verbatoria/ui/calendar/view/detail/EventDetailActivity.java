@@ -282,7 +282,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 archimedSubtitle = getString(R.string.event_confirm_archimed_subtitle_disabled);
             }
             mArchimedFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
-            setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.event_confirm_archimed_title), archimedSubtitle, v -> {
+            setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.arhimedes), archimedSubtitle, v -> {
             });
             mArchimedFieldView.setVisibility(View.VISIBLE);
         }
@@ -300,7 +300,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
                 hobbySubtitle = getString(R.string.event_confirm_hobby_subtitle_disabled);
             }
             mHobbyFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
-            setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.event_confirm_hobby_title), hobbySubtitle, v -> {
+            setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.hobby), hobbySubtitle, v -> {
                 if (!isHobby) {
                     mEventDetailPresenter.onHobbyClicked();
                 }

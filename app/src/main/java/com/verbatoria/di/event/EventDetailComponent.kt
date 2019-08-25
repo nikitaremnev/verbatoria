@@ -1,6 +1,7 @@
 package com.verbatoria.di.event
 
 import com.verbatoria.di.BaseInjector
+import com.verbatoria.domain.dashboard.calendar.Event
 import com.verbatoria.ui.event.EventDetailActivity
 import dagger.BindsInstance
 import dagger.Subcomponent
@@ -17,6 +18,9 @@ interface EventDetailComponent : BaseInjector<EventDetailActivity> {
 
         @BindsInstance
         fun eventDetailMode(eventDetailModeOrdinal: Int): Builder
+
+        @BindsInstance
+        fun event(event: Event?): Builder
 
         fun build(): EventDetailComponent
 

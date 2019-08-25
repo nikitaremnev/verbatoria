@@ -2,6 +2,7 @@ package com.verbatoria.ui.dashboard.calendar
 
 import com.verbatoria.business.dashboard.calendar.CalendarInteractor
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
+import com.verbatoria.domain.dashboard.calendar.Event
 import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.dashboard.calendar.item.EventItemViewHolder
@@ -20,7 +21,9 @@ class CalendarPresenter(
 
     private var currentDate: Date = Date()
 
-    private val eventsList: MutableList<EventItemModel> = mutableListOf()
+    private val eventsViewModelsList: MutableList<EventItemModel> = mutableListOf()
+
+    private val eventsList: MutableList<Event> = mutableListOf()
 
     private var isLoadingEventsInProgress: Boolean = false
 
@@ -68,7 +71,9 @@ class CalendarPresenter(
     //region EventItemViewHolder.Callback
 
     override fun onEventItemClicked(position: Int) {
-
+        if (position in 0..eventsList.size) {
+            view?.openEventDetail(eventsList[position])
+        }
     }
 
     //endregion
@@ -97,6 +102,7 @@ class CalendarPresenter(
 
     private fun getEvents() {
         isLoadingEventsInProgress = true
+        eventsViewModelsList.clear()
         eventsList.clear()
         clearDisposables()
         view?.apply {
@@ -105,8 +111,9 @@ class CalendarPresenter(
             showProgress()
         }
         calendarInteractor.getEventsForDate(currentDate)
-            .subscribe({ calendarItemModels ->
-                eventsList.addAll(calendarItemModels)
+            .subscribe({ (events, eventsViewModels) ->
+                eventsList.addAll(events)
+                eventsViewModelsList.addAll(eventsViewModels)
                 view?.apply {
                     hideProgress()
                     setCalendarItems()
@@ -138,14 +145,14 @@ class CalendarPresenter(
     }
 
     private fun setCalendarItems() {
-        if (eventsList.isEmpty()) {
+        if (eventsViewModelsList.isEmpty()) {
             view?.apply {
                 hideEventsList()
                 showEmptyEvents()
             }
         } else {
             view?.apply {
-                setCalendarItems(eventsList)
+                setCalendarItems(eventsViewModelsList)
                 showEventsList()
             }
         }
