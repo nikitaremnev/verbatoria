@@ -22,6 +22,11 @@ class EventDetailSubmitItemBinder: ViewBinder<EventDetailSubmitItemViewHolder, E
                 view.setStartEventTitle()
             }
         }
+        if (data.isAllFieldsFilled) {
+            view.setSubmitButtonEnabled()
+        } else {
+            view.setSubmitButtonDisabled()
+        }
     }
 
 }

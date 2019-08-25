@@ -33,7 +33,7 @@ interface EventDetailInteractor {
 
     fun createNewEvent(childId: String, childAge: Int, startAt: Date, endAt: Date): Completable
 
-    fun getAvailableTimeSlots(date: Date): Single<ArrayList<String>>
+    fun getAvailableTimeSlots(date: Date): Single<Pair<List<TimeSlot>, ArrayList<String>>>
 
 }
 
@@ -65,7 +65,7 @@ class EventDetailInteractorImpl(
                     mode = EventDetailMode.CREATE_NEW,
                     headerStringResource = R.string.time
                 ),
-                EventDetailDateItem(
+                EventDetailTimeItem(
                     mode = EventDetailMode.CREATE_NEW
                 ),
                 EventDetailSubmitItem(
@@ -102,7 +102,7 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getAvailableTimeSlots(date: Date): Single<ArrayList<String>> =
+    override fun getAvailableTimeSlots(date: Date): Single<Pair<List<TimeSlot>, ArrayList<String>>> =
         Single.zip(
             Single.fromCallable {
                 calendarManager.getEventsForDate(date)
@@ -112,9 +112,9 @@ class EventDetailInteractorImpl(
             },
             BiFunction { events: List<Event>, timeSlots: List<TimeSlot> ->
                 //intersection function
-                ArrayList(timeSlots.map {
+                Pair(timeSlots, ArrayList(timeSlots.map {
                     it.startTime.formatToTime() + " - " + it.endTime.formatToTime()
-                })
+                }))
             }
         )
             .subscribeOn(schedulersFactory.io)

@@ -114,6 +114,7 @@ class CalendarPresenter(
                 isLoadingEventsInProgress = false
             }, { error ->
                 logger.error("error while get events occurred", error)
+                error.printStackTrace()
                 view?.apply {
                     hideProgress()
                     showEmptyEvents()

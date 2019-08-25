@@ -12,9 +12,9 @@ import com.verbatoria.infrastructure.extensions.show
  * @author n.remnev
  */
 
-interface EventDetailDateItemViewHolder {
+interface EventDetailTimeItemViewHolder {
 
-    fun setDate(intervalDate: String)
+    fun setTime(time: String)
 
     fun showHint()
 
@@ -26,11 +26,11 @@ interface EventDetailDateItemViewHolder {
 
 }
 
-class EventDetailDateItemViewHolderImpl(
+class EventDetailTimeItemViewHolderImpl(
     view: View,
-    callback: EventDetailDateItemViewHolder.Callback
+    callback: EventDetailTimeItemViewHolder.Callback
 ) : RecyclerView.ViewHolder(view),
-    EventDetailDateItemViewHolder {
+    EventDetailTimeItemViewHolder {
 
     private val dateTextView: TextView = view.findViewById(R.id.date_text_view)
 
@@ -42,8 +42,8 @@ class EventDetailDateItemViewHolderImpl(
         }
     }
 
-    override fun setDate(intervalDate: String) {
-        dateTextView.text = intervalDate
+    override fun setTime(time: String) {
+        dateTextView.text = time
         hintTextView.hide()
         dateTextView.show()
     }

@@ -5,16 +5,14 @@ import android.widget.DatePicker
 import com.remnev.verbatoria.R
 import com.verbatoria.domain.child.Child
 import com.verbatoria.business.event.EventDetailInteractor
+import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.Client
-import com.verbatoria.business.event.models.item.EventDetailChildItem
-import com.verbatoria.business.event.models.item.EventDetailClientItem
-import com.verbatoria.business.event.models.item.EventDetailItem
+import com.verbatoria.domain.schedule.TimeSlot
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.item.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * @author n.remnev
@@ -28,7 +26,7 @@ class EventDetailPresenter(
     EventDetailArchimedesItemViewHolder.Callback,
     EventDetailChildItemViewHolder.Callback,
     EventDetailClientItemViewHolder.Callback,
-    EventDetailDateItemViewHolder.Callback,
+    EventDetailTimeItemViewHolder.Callback,
     EventDetailHobbyItemViewHolder.Callback,
     EventDetailIncludeMemoryAttentionItemViewHolder.Callback,
     EventDetailReportItemViewHolder.Callback,
@@ -42,8 +40,11 @@ class EventDetailPresenter(
 
     private var eventDetailItemsList: List<EventDetailItem> = emptyList()
 
+    private var timeSlots: List<TimeSlot> = emptyList()
+
     private var client: Client? = null
     private var child: Child? = null
+    private var selectedTimeSlot: TimeSlot? = null
 
     init {
         getClient("13055")
@@ -63,6 +64,19 @@ class EventDetailPresenter(
 
     //region EventDetailView.Callback
 
+    override fun onIntervalSelected(position: Int) {
+        selectedTimeSlot = timeSlots.getOrNull(position)
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailTimeItem }
+                as? EventDetailTimeItem)
+            ?.let { eventDetailDateItem ->
+                eventDetailDateItem.startDate = selectedTimeSlot?.startTime
+                eventDetailDateItem.endDate = selectedTimeSlot?.endTime
+                view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailDateItem))
+            }
+        checkIsAllFieldsFilled()
+    }
+
     override fun onClientReturned(client: Client?) {
         this.client = client
         (eventDetailItemsList
@@ -73,6 +87,7 @@ class EventDetailPresenter(
                 eventDetailClientItem.phone = client?.phone
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
             }
+        checkIsAllFieldsFilled()
     }
 
     override fun onChildReturned(child: Child?) {
@@ -85,6 +100,7 @@ class EventDetailPresenter(
                 eventDetailChildItem.age = child?.age
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailChildItem))
             }
+        checkIsAllFieldsFilled()
     }
 
     override fun onNavigationClicked() {
@@ -121,7 +137,7 @@ class EventDetailPresenter(
 
     //endregion
 
-    //region EventDetailDateItemViewHolder.Callback
+    //region EventDetailTimeItemViewHolder.Callback
 
     override fun onDateClicked() {
         view?.showDatePickerDialog()
@@ -177,7 +193,8 @@ class EventDetailPresenter(
                 set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }.time
         )
-            .subscribe({ availableIntervals ->
+            .subscribe({ (timeSlots, availableIntervals) ->
+                this.timeSlots = timeSlots
                 this.view?.showIntervalSelectionDialog(availableIntervals)
             }, { error ->
                 logger.error("get create new event items models", error)
@@ -219,6 +236,45 @@ class EventDetailPresenter(
     }
 
     private fun createNewEvent() {
-
+        eventDetailInteractor.createNewEvent(
+            childId = child?.id
+                ?: throw IllegalStateException("Try to create new event while child id is null"),
+            childAge = child?.age
+                ?: throw IllegalStateException("Try to create new event while child age is null"),
+            startAt = selectedTimeSlot?.startTime
+                ?: throw IllegalStateException("Try to create new event while start time is null"),
+            endAt = selectedTimeSlot?.endTime
+                ?: throw IllegalStateException("Try to create new event while start time is null")
+        ).subscribe({
+            view?.close()
+        }, { error ->
+            logger.error("create new event error occurred", error)
+        })
+            .let(::addDisposable)
     }
+
+    private fun checkIsAllFieldsFilled() {
+        if (client != null && child != null) {
+            if (eventDetailItemsList.isNotEmpty()) {
+                (eventDetailItemsList
+                    .firstOrNull { item -> item is EventDetailSubmitItem }
+                        as? EventDetailSubmitItem)
+                    ?.let { eventDetailSubmitItem ->
+                        eventDetailSubmitItem.isAllFieldsFilled = true
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSubmitItem))
+                    }
+            }
+        } else {
+            if (eventDetailItemsList.isNotEmpty()) {
+                (eventDetailItemsList
+                    .firstOrNull { item -> item is EventDetailSubmitItem }
+                        as? EventDetailSubmitItem)
+                    ?.let { eventDetailSubmitItem ->
+                        eventDetailSubmitItem.isAllFieldsFilled = false
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSubmitItem))
+                    }
+            }
+        }
+    }
+
 }

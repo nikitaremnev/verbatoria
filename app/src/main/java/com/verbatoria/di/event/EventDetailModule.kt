@@ -67,13 +67,13 @@ class EventDetailModule {
                     EventDetailClientItemBinder()
                 ),
                 ItemAdapter(
-                    { it is EventDetailDateItem },
+                    { it is EventDetailTimeItem },
                     {
-                        EventDetailDateItemViewHolderImpl(
+                        EventDetailTimeItemViewHolderImpl(
                             ViewInflater.inflate(R.layout.item_event_detail_date, it), eventDetailPresenter
                         )
                     },
-                    EventDetailDateItemBinder()
+                    EventDetailTimeItemBinder()
                 ),
                 ItemAdapter(
                     { it is EventDetailHobbyItem },

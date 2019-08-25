@@ -53,7 +53,6 @@ class CalendarInteractorImpl(
                     endDate = event.endDate
                 )
             }
-
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

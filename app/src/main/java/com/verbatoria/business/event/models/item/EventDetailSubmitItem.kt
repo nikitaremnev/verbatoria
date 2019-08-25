@@ -7,5 +7,6 @@ import com.verbatoria.ui.event.EventDetailMode
  */
 
 class EventDetailSubmitItem(
-    mode: EventDetailMode
+    mode: EventDetailMode,
+    var isAllFieldsFilled: Boolean = false
 ) : EventDetailItem(mode)

@@ -7,8 +7,8 @@ import java.util.*
  * @author n.remnev
  */
 
-class EventDetailDateItem(
+class EventDetailTimeItem(
     mode: EventDetailMode,
-    val startDate: Date? = null,
-    val endDate: Date? = null
+    var startDate: Date? = null,
+    var endDate: Date? = null
 ) : EventDetailItem(mode)

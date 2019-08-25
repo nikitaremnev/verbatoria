@@ -42,7 +42,7 @@ class ChildManagerImpl(
                 MALE_GENDER_POSITION
             else
                 FEMALE_GENDER_POSITION,
-            age = childResponse.birthday.parseServerFormat().getYearsForCurrentMoment()
+            age = childResponse.birthday.parseBirthdayFormat().getYearsForCurrentMoment()
         )
     }
 
@@ -92,7 +92,7 @@ class ChildManagerImpl(
                     MALE_GENDER_POSITION
                 else
                     FEMALE_GENDER_POSITION,
-                age = birthday.parseServerFormat().getYearsForCurrentMoment()
+                age = birthday.parseBirthdayFormat().getYearsForCurrentMoment()
             )
         }
 

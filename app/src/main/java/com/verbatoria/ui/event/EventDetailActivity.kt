@@ -56,6 +56,8 @@ interface EventDetailView : BaseView {
 
     interface Callback {
 
+        fun onIntervalSelected(position: Int)
+
         fun onClientReturned(client: Client?)
 
         fun onChildReturned(child: Child?)
@@ -66,7 +68,8 @@ interface EventDetailView : BaseView {
 
 }
 
-class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPresenter, EventDetailActivity, EventDetailComponent>(), EventDetailView {
+class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPresenter, EventDetailActivity, EventDetailComponent>(),
+    EventDetailView, SelectionBottomSheetDialog.OnSelectedItemListener {
 
     companion object {
 
@@ -161,7 +164,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     override fun showIntervalSelectionDialog(availableIntervals: ArrayList<String>) {
         SelectionBottomSheetDialog.build {
-            titleText = getString(R.string.schedule_save_confirmation_title)
+            titleText = getString(R.string.event_detail_intervals_selection_dialog_title)
             itemsArray = availableIntervals
         }
             .show(supportFragmentManager, INTERVALS_SELECTION_DIALOG_TAG)
@@ -169,6 +172,16 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     override fun close() {
         finish()
+    }
+
+    //endregion
+
+    //region SelectionBottomSheetDialog.OnSelectedItemListener
+
+    override fun onSelectionDialogItemSelected(tag: String?, position: Int) {
+        if (tag == INTERVALS_SELECTION_DIALOG_TAG) {
+            presenter.onIntervalSelected(position)
+        }
     }
 
     //endregion
