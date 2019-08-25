@@ -26,11 +26,11 @@
                 layout="@layout/item_field"/>
 
             <include android:id="@+id/report_field"
-                android:visibility="gone"
+                android:visibility="visible"
                 layout="@layout/item_field"/>
 
             <include android:id="@+id/send_to_location_field"
-                android:visibility="gone"
+                android:visibility="visible"
                 layout="@layout/item_field"/>
 
             <include android:id="@+id/include_attention_memory_field"
@@ -38,11 +38,11 @@
                 layout="@layout/item_field"/>
 
             <include android:id="@+id/archimed_field"
-                android:visibility="gone"
+                android:visibility="visible"
                 layout="@layout/item_field"/>
 
             <include android:id="@+id/hobby_field"
-                android:visibility="gone"
+                android:visibility="visible"
                 layout="@layout/item_field"/>
 
         </LinearLayout>

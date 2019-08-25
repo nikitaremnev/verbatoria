@@ -11,9 +11,13 @@ class EventDetailClientItemBinder: ViewBinder<EventDetailClientItemViewHolder, E
 
     override fun bind(view: EventDetailClientItemViewHolder, data: EventDetailClientItem, position: Int) {
         if (data.name != null && data.phone != null) {
+            view.hideLoading()
             view.setName(data.name ?: "")
             view.setPhone(data.phone ?: "")
+        } else if (data.isLoading) {
+            view.showLoading()
         } else {
+            view.hideLoading()
             view.showHint()
         }
     }

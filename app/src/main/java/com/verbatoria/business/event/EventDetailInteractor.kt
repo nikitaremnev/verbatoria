@@ -52,7 +52,8 @@ class EventDetailInteractorImpl(
                     headerStringResource = R.string.client
                 ),
                 EventDetailClientItem(
-                    EventDetailMode.CREATE_NEW
+                    mode =EventDetailMode.CREATE_NEW,
+                    isLoading = false
                 ),
                 EventDetailHeaderItem(
                     mode = EventDetailMode.CREATE_NEW,

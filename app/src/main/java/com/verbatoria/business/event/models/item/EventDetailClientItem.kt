@@ -8,6 +8,7 @@ import com.verbatoria.ui.event.EventDetailMode
 
 class EventDetailClientItem(
     mode: EventDetailMode,
+    var isLoading: Boolean = true,
     var name: String? = null,
     var phone: String? = null
 ) : EventDetailItem(mode)

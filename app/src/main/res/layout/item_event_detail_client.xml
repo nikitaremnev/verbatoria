@@ -44,9 +44,20 @@
         android:drawableStart="@drawable/ic_not_ok"
         android:drawablePadding="@dimen/event_detail_item_hint_logo_padding"
         android:gravity="center_vertical"
+        android:visibility="gone"
         android:textColor="@color/red"
         android:textSize="@dimen/event_detail_item_hint_text_size"
         android:text="@string/event_detail_client_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        android:layout_marginStart="@dimen/event_detail_client_progress_bar_margin_start"
+        android:layout_width="@dimen/event_detail_client_progress_bar_size"
+        android:layout_height="@dimen/event_detail_client_progress_bar_size"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

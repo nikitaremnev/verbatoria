@@ -3,6 +3,7 @@ package com.verbatoria.ui.event.item
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
 import com.verbatoria.infrastructure.extensions.hide
@@ -18,6 +19,10 @@ interface EventDetailClientItemViewHolder {
     fun setName(name: String)
 
     fun setPhone(phone: String)
+
+    fun showLoading()
+
+    fun hideLoading()
 
     fun showHint()
 
@@ -39,7 +44,7 @@ class EventDetailClientItemViewHolderImpl(
 
     private val nameTextView: TextView = view.findViewById(R.id.name_text_view)
     private val phoneTextView: TextView = view.findViewById(R.id.phone_text_view)
-
+    private val progressBar: ProgressBar = view.findViewById(R.id.loading_progress_bar)
     private val hintTextView: TextView = view.findViewById(R.id.hint_text_view)
 
     init {
@@ -58,6 +63,14 @@ class EventDetailClientItemViewHolderImpl(
         phoneTextView.text = phone
         hintTextView.hide()
         phoneTextView.show()
+    }
+
+    override fun showLoading() {
+        progressBar.show()
+    }
+
+    override fun hideLoading() {
+        progressBar.hide()
     }
 
     override fun showHint() {

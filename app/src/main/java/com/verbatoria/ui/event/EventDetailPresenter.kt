@@ -246,6 +246,7 @@ class EventDetailPresenter(
                         ?.let { eventDetailClientItem ->
                             eventDetailClientItem.name = client?.name
                             eventDetailClientItem.phone = client?.phone
+                            eventDetailClientItem.isLoading = false
                             view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
                         }
                 }
