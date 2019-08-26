@@ -1,5 +1,6 @@
 package com.verbatoria.ui.dashboard.calendar
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.LinearLayoutManager
@@ -66,6 +67,8 @@ interface CalendarView : BaseView {
 
         fun onCreateNewEventClicked()
 
+        fun onEventReturned(event: Event)
+
     }
 
 }
@@ -127,6 +130,11 @@ class CalendarFragment :
         }
 
         return rootView
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
     }
 
     //region CalendarView
