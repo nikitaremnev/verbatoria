@@ -47,8 +47,8 @@
     <string name="child">Ребенок</string>
     <string name="time">Время</string>
     <string name="report">Отчет</string>
-    <string name="event_detail_activity_send_to_branch">Отправить отчет в филиал</string>
-    <string name="event_detail_activity_branch">Филиал</string>
+    <string name="event_detail_send_to_location">Отправить отчет в филиал</string>
+    <string name="event_detail_location">Филиал</string>
     <string name="event_detail_activity_attention_memory">Внимание/Память</string>
     <string name="event_detail_activity_attention_memory_include">Добавить модуль Внимание/Память в отчет</string>
 
@@ -146,9 +146,10 @@
 
     <string name="child_age_selection_title">Выберите возраст:</string>
 
-    <string name="event_confirm_send_report_to_location">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
-    <string name="event_confirm_send_report_to_location_send">Отправить</string>
+    <string name="event_detail_send_to_location_message">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
+    <string name="event_detail_send_to_location_send">Отправить</string>
     <string name="event_confirm_send_report_to_location_success">Копия отчета была отправлена в филиал</string>
+
     <string name="arhimedes">АРХИМЕД</string>
     <string name="event_confirm_archimed_subtitle_enabled">В отчет будет включена панель Архимед при наличии подходящей</string>
     <string name="event_confirm_archimed_subtitle_disabled">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>

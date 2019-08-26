@@ -14,7 +14,7 @@ import com.verbatoria.ui.base.BasePresenterFragment
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.dialog.ProgressDialog
-import com.verbatoria.ui.common.dialog.SuggestDialog
+import com.verbatoria.ui.common.dialog.FragmentSuggestDialog
 import com.verbatoria.ui.late_send.LateSendActivity
 import com.verbatoria.ui.login.LoginActivity
 import com.verbatoria.ui.schedule.ScheduleActivity
@@ -75,7 +75,7 @@ interface SettingsView : BaseView {
 
 class SettingsFragment :
     BasePresenterFragment<SettingsView, DashboardComponent, SettingsFragment, SettingsComponent, SettingsPresenter>(),
-    SettingsView, SuggestDialog.OnClickSuggestDialogListener, AppLanguagesDialog.OnLanguageSelectedDialogListener {
+    SettingsView, FragmentSuggestDialog.OnClickSuggestDialogListener, AppLanguagesDialog.OnLanguageSelectedDialogListener {
 
     companion object {
 
@@ -117,7 +117,7 @@ class SettingsFragment :
     }
 
     override fun showClearDatabaseConfirmationDialog() {
-        SuggestDialog.build {
+        FragmentSuggestDialog.build {
             title = getString(R.string.settings_clear_database_confirm_title)
             message = getString(R.string.settings_clear_database_confirm_message)
             positiveTitleBtn = getString(R.string.settings_item_clear)
@@ -177,7 +177,7 @@ class SettingsFragment :
 
     //endregion
 
-    //region SuggestDialog.OnClickSuggestDialogListener
+    //region FragmentSuggestDialog.OnClickSuggestDialogListener
 
     override fun onPositiveClicked(tag: String?) {
         if (tag == CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG) {

@@ -17,6 +17,10 @@ data class Report(
     val status: ReportStatus,
     val createdAt: Date,
     val updatedAt: Date
-): Parcelable
+): Parcelable {
+
+    fun isSent() = status == ReportStatus.SENT
+
+}
 
 

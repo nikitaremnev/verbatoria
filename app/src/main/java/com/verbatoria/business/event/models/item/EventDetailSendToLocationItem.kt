@@ -7,5 +7,7 @@ import com.verbatoria.ui.event.EventDetailMode
  */
 
 class EventDetailSendToLocationItem(
-    mode: EventDetailMode
+    mode: EventDetailMode,
+    var isLoading: Boolean = false,
+    var isAlreadySent: Boolean = false
 ) : EventDetailItem(mode)

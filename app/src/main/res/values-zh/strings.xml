@@ -47,8 +47,8 @@
     <string name="child">Child</string>
     <string name="time">Time</string>
     <string name="report">Report</string>
-    <string name="event_detail_activity_send_to_branch">Send report to branch</string>
-    <string name="event_detail_activity_branch">Branch office</string>
+    <string name="event_detail_send_to_location">Send report to branch</string>
+    <string name="event_detail_location">Branch office</string>
     <string name="event_detail_activity_attention_memory">Attention/Memory</string>
     <string name="event_detail_activity_attention_memory_include">Include Attention/Memory module to the report</string>
 
@@ -146,8 +146,8 @@
 
     <string name="child_age_selection_title">Choose age:</string>
 
-    <string name="event_confirm_send_report_to_location">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
-    <string name="event_confirm_send_report_to_location_send">Send</string>
+    <string name="event_detail_send_to_location_message">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
+    <string name="event_detail_send_to_location_send">Send</string>
     <string name="event_confirm_send_report_to_location_success">A copy of the report was sent to the branch office</string>
     <string name="arhimedes">ARCHIMEDES</string>
     <string name="event_confirm_archimed_subtitle_enabled">The report will include the Archimedes panel if there is a suitable</string>

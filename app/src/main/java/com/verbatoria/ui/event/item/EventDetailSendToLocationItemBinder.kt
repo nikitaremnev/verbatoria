@@ -10,7 +10,14 @@ import com.verbatoria.ui.common.ViewBinder
 class EventDetailSendToLocationItemBinder: ViewBinder<EventDetailSendToLocationItemViewHolder, EventDetailSendToLocationItem>() {
 
     override fun bind(view: EventDetailSendToLocationItemViewHolder, data: EventDetailSendToLocationItem, position: Int) {
-
+        if (data.isLoading) {
+            view.showLoading()
+        } else {
+            view.hideLoading()
+        }
+        if (data.isAlreadySent) {
+            view.setAlreadySent()
+        }
     }
 
 }

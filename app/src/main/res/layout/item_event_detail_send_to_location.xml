@@ -8,7 +8,7 @@
     android:foreground="?selectableItemBackground">
 
     <TextView
-        android:id="@+id/name_text_view"
+        android:id="@+id/send_to_location_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -16,47 +16,30 @@
         android:layout_marginTop="@dimen/event_detail_client_name_margin_top"
         android:layout_marginEnd="@dimen/event_detail_client_name_margin_horizontal"
         android:textColor="@color/black"
+        android:text="@string/event_detail_send_to_location"
         android:textSize="@dimen/event_detail_client_name_text_size"
         android:textStyle="bold"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Вербатолог Вербатологов" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/phone_text_view"
+        android:id="@+id/already_sent_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/event_detail_client_phone_margin_top"
         android:textSize="@dimen/event_detail_client_phone_text_size"
         android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="@+id/hobby_included_status_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/hobby_included_status_text_view"
+        app:layout_constraintLeft_toLeftOf="@+id/send_to_location_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/send_to_location_text_view"
         tools:text="+7 (915) 397 46-89" />
-
-    <TextView
-        android:id="@+id/hint_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/info_name_margin_horizontal"
-        android:layout_marginTop="@dimen/event_detail_client_name_margin_top"
-        android:layout_marginEnd="@dimen/event_detail_client_name_margin_horizontal"
-        android:drawableStart="@drawable/ic_not_ok"
-        android:drawablePadding="@dimen/event_detail_item_hint_logo_padding"
-        android:gravity="center_vertical"
-        android:visibility="gone"
-        android:textColor="@color/red"
-        android:textSize="@dimen/event_detail_item_hint_text_size"
-        android:text="@string/event_detail_client_hint"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/loading_progress_bar"
         android:layout_marginStart="@dimen/event_detail_client_progress_bar_margin_start"
         android:layout_width="@dimen/event_detail_client_progress_bar_size"
         android:layout_height="@dimen/event_detail_client_progress_bar_size"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -69,6 +52,6 @@
         android:background="@color/divider_item_color"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_text_view" />
+        app:layout_constraintTop_toBottomOf="@+id/already_sent_text_view" />
 
 </android.support.constraint.ConstraintLayout>

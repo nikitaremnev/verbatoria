@@ -19,6 +19,8 @@ import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.domain.dashboard.info.InfoManagerImpl
 import com.verbatoria.domain.dashboard.info.InfoRepository
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import com.verbatoria.domain.report.ReportManager
+import com.verbatoria.domain.report.ReportManagerImpl
 import com.verbatoria.domain.schedule.ScheduleManager
 import com.verbatoria.domain.schedule.ScheduleManagerImpl
 import com.verbatoria.domain.session.PreferencesSessionProvider
@@ -168,6 +170,15 @@ class CommonModule {
             endpointsRegister.calendarEndpoint,
             endpointsRegister.eventEndpoint,
             calendarRepository
+        )
+
+    @Provides
+    @Singleton
+    fun provideReportManager(
+        endpointsRegister: EndpointsRegister
+    ): ReportManager =
+        ReportManagerImpl(
+            endpointsRegister.reportEndpoint
         )
 
     //endregion

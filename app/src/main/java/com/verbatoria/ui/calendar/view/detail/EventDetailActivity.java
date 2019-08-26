@@ -324,7 +324,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             } else {
                 mSendToLocationFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
             }
-            setUpFieldView(mSendToLocationFieldView, R.drawable.ic_location_plus, getString(R.string.event_detail_activity_send_to_branch), getString(R.string.event_detail_activity_branch), v -> mEventDetailPresenter.onSendReportToLocationClicked());
+            setUpFieldView(mSendToLocationFieldView, R.drawable.ic_location_plus, getString(R.string.event_detail_send_to_location), getString(R.string.event_detail_location), v -> mEventDetailPresenter.onSendReportToLocationClicked());
             mSendToLocationFieldView.setVisibility(View.VISIBLE);
         }
     }
@@ -364,8 +364,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void showConfirmSendToLocation() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.confirmation))
-                .setMessage(getString(R.string.event_confirm_send_report_to_location));
-        builder.setPositiveButton(getString(R.string.event_confirm_send_report_to_location_send), (dialog, which) -> {
+                .setMessage(getString(R.string.event_detail_send_to_location_message));
+        builder.setPositiveButton(getString(R.string.event_detail_send_to_location_send), (dialog, which) -> {
             mEventDetailPresenter.onSendReportToLocationConfirmed();
         });
         builder.setNegativeButton(getString(R.string.cancel), null);

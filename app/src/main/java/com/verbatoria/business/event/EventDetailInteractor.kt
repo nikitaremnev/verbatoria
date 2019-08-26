@@ -7,6 +7,7 @@ import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.domain.dashboard.calendar.CalendarManager
 import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.report.ReportManager
 import com.verbatoria.domain.schedule.ScheduleManager
 import com.verbatoria.infrastructure.extensions.formatToTime
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
@@ -37,12 +38,15 @@ interface EventDetailInteractor {
 
     fun getAvailableTimeSlots(date: Date): Single<Pair<List<TimeSlot>, ArrayList<String>>>
 
+    fun sendReportToLocation(reportId: String): Completable
+
 }
 
 class EventDetailInteractorImpl(
     private val calendarManager: CalendarManager,
     private val scheduleManager: ScheduleManager,
     private val clientManager: ClientManager,
+    private val reportManager: ReportManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : EventDetailInteractor {
 
@@ -87,7 +91,7 @@ class EventDetailInteractorImpl(
                     headerStringResource = R.string.client
                 ),
                 EventDetailClientItem(
-                    EventDetailMode.CREATE_NEW
+                    EventDetailMode.START
                 ),
                 EventDetailHeaderItem(
                     mode = EventDetailMode.START,
@@ -118,40 +122,37 @@ class EventDetailInteractorImpl(
                 )
             )
 
+//            if (!event.report.isSent()) {
+                EventDetailHeaderItem(
+                    mode = EventDetailMode.START,
+                    headerStringResource = R.string.event_detail_location
+                )
+                EventDetailSendToLocationItem(
+                    mode = EventDetailMode.START
+
+                )
+//            }
+
             if (event.isArchimedesAllowed) {
                 EventDetailHeaderItem(
-                    mode = EventDetailMode.CREATE_NEW,
+                    mode = EventDetailMode.START,
                     headerStringResource = R.string.arhimedes
                 )
                 EventDetailArchimedesItem(
-                    mode = EventDetailMode.CREATE_NEW
-                )
-            }
-
-            if (event.isArchimedesAllowed) {
-                eventDetailItems.add(
-                    EventDetailHeaderItem(
-                        mode = EventDetailMode.CREATE_NEW,
-                        headerStringResource = R.string.arhimedes
-                    )
-                )
-                eventDetailItems.add(
-                    EventDetailArchimedesItem(
-                        mode = EventDetailMode.CREATE_NEW
-                    )
+                    mode = EventDetailMode.START
                 )
             }
 
             if (event.child.age  >= MINIMUM_HOBBY_AGE) {
                 eventDetailItems.add(
                     EventDetailHeaderItem(
-                        mode = EventDetailMode.CREATE_NEW,
+                        mode = EventDetailMode.START,
                         headerStringResource = R.string.hobby
                     )
                 )
                 eventDetailItems.add(
                     EventDetailHobbyItem(
-                        mode = EventDetailMode.CREATE_NEW,
+                        mode = EventDetailMode.START,
                         isHobbyIncluded = event.isHobbyIncluded
                     )
                 )
@@ -205,6 +206,13 @@ class EventDetailInteractorImpl(
                 }))
             }
         )
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+    override fun sendReportToLocation(reportId: String): Completable =
+        Completable.fromCallable {
+            reportManager.sendReportToLocation(reportId)
+        }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 

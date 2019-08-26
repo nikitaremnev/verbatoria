@@ -21,7 +21,7 @@ import com.verbatoria.ui.child.ChildActivity
 import com.verbatoria.ui.client.ClientActivity
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
-import com.verbatoria.ui.common.dialog.SuggestDialog
+import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
 import javax.inject.Inject
@@ -38,6 +38,7 @@ private const val EVENT_EXTRA = "event_extra"
 
 private const val INTERVALS_SELECTION_DIALOG_TAG = "INTERVALS_SELECTION_DIALOG_TAG"
 private const val INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG = "INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG"
+private const val SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG = "SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG"
 
 interface EventDetailView : BaseView {
 
@@ -61,11 +62,15 @@ interface EventDetailView : BaseView {
 
     fun showIncludeHobbyConfirmationDialog()
 
+    fun showSendToLocationConfirmationDialog()
+
     fun close()
 
     interface Callback {
 
         fun onIncludeHobbyConfirmed()
+
+        fun onSendToLocationConfirmed()
 
         fun onIntervalSelected(position: Int)
 
@@ -80,7 +85,7 @@ interface EventDetailView : BaseView {
 }
 
 class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPresenter, EventDetailActivity, EventDetailComponent>(),
-    EventDetailView, SelectionBottomSheetDialog.OnSelectedItemListener, SuggestDialog.OnClickSuggestDialogListener {
+    EventDetailView, SelectionBottomSheetDialog.OnSelectedItemListener, ActivitySuggestDialog.OnClickSuggestDialogListener {
 
     companion object {
 
@@ -189,12 +194,21 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
     }
 
     override fun showIncludeHobbyConfirmationDialog() {
-        SuggestDialog.build {
+        ActivitySuggestDialog.build {
             title = getString(R.string.event_detail_include_hobby_confirmation_dialog_title)
             message = getString(R.string.event_detail_include_hobby_confirmation_dialog_message)
             positiveTitleBtn = getString(R.string.event_detail_include_hobby_confirmation_dialog_include)
             negativeTitleBtn = getString(R.string.cancel)
         }.show(supportFragmentManager, INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG)
+    }
+
+    override fun showSendToLocationConfirmationDialog() {
+        ActivitySuggestDialog.build {
+            title = getString(R.string.event_detail_send_to_location)
+            message = getString(R.string.event_detail_send_to_location_message)
+            positiveTitleBtn = getString(R.string.event_detail_send_to_location_send)
+            negativeTitleBtn = getString(R.string.cancel)
+        }.show(supportFragmentManager, SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG)
     }
 
     override fun close() {
@@ -213,11 +227,14 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     //endregion
 
-    //region SuggestDialog.OnClickSuggestDialogListener
+    //region ActivitySuggestDialog.OnClickSuggestDialogListener
 
     override fun onPositiveClicked(tag: String?) {
         if (tag == INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG) {
             presenter.onIncludeHobbyConfirmed()
+        }
+        if (tag == SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG) {
+            presenter.onSendToLocationConfirmed()
         }
     }
 

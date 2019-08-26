@@ -15,11 +15,11 @@ private const val MESSAGE_EXTRA = "message"
 private const val POSITIVE_TITLE_BUTTON_EXTRA = "positive_title_button"
 private const val NEGATIVE_TITLE_BUTTON_EXTRA = "negative_title_button"
 
-class SuggestDialog : DialogFragment() {
+class FragmentSuggestDialog : DialogFragment() {
 
     companion object {
 
-        fun build(init: Builder.() -> Unit): SuggestDialog = Builder(init).build()
+        fun build(init: Builder.() -> Unit): FragmentSuggestDialog = Builder(init).build()
 
     }
 
@@ -30,8 +30,8 @@ class SuggestDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         AlertDialog.Builder(activity)
             .apply {
-                clickListener = (activity?.supportFragmentManager?.fragments?.firstOrNull() ?: activity) as? OnClickSuggestDialogListener
-                cancelListener = (activity?.supportFragmentManager?.fragments?.firstOrNull() ?: activity) as? OnCancelSuggestDialogListener
+                clickListener = (activity?.supportFragmentManager?.fragments?.firstOrNull()) as? OnClickSuggestDialogListener
+                cancelListener = (activity?.supportFragmentManager?.fragments?.firstOrNull()) as? OnCancelSuggestDialogListener
                 if (arguments?.containsKey(TITLE_EXTRA) == true) setTitle(
                     arguments?.getString(
                         TITLE_EXTRA
@@ -43,7 +43,6 @@ class SuggestDialog : DialogFragment() {
                     )
                 )
                 if (arguments?.containsKey(POSITIVE_TITLE_BUTTON_EXTRA) == true) {
-
                     setPositiveButton(arguments?.getString(POSITIVE_TITLE_BUTTON_EXTRA)) { _, _ ->
                         clickListener?.onPositiveClicked(tag)
                         dismiss()
@@ -88,7 +87,7 @@ class SuggestDialog : DialogFragment() {
         }
 
         fun build() =
-            SuggestDialog().apply {
+            FragmentSuggestDialog().apply {
                 arguments = Bundle()
                     .also { args ->
                         if (title != null) args.putString(TITLE_EXTRA, title)

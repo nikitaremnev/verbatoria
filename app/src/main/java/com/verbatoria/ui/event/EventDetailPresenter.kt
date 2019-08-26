@@ -75,6 +75,17 @@ class EventDetailPresenter(
 
     //region EventDetailView.Callback
 
+    override fun onSendToLocationConfirmed() {
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailSendToLocationItem }
+                as? EventDetailSendToLocationItem)
+            ?.let { eventDetailSendToLocationItem ->
+                eventDetailSendToLocationItem.isLoading = true
+                view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
+                sendReportToLocation()
+            }
+    }
+
     override fun onIncludeHobbyConfirmed() {
         (eventDetailItemsList
             .firstOrNull { item -> item is EventDetailHobbyItem }
@@ -209,6 +220,16 @@ class EventDetailPresenter(
 
     //region EventDetailSendToLocationItemViewHolder.Callback
 
+    override fun onSendToLocationClicked() {
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailSendToLocationItem }
+                as? EventDetailSendToLocationItem)
+            ?.let { eventDetailSendToLocationItem ->
+                if (!eventDetailSendToLocationItem.isAlreadySent) {
+                    view?.showSendToLocationConfirmationDialog()
+                }
+            }
+    }
 
     //endregion
 
@@ -244,7 +265,8 @@ class EventDetailPresenter(
                 this.timeSlots = timeSlots
                 this.view?.showIntervalSelectionDialog(availableIntervals)
             }, { error ->
-                logger.error("get create new event items models", error)
+                logger.error("get available time slots error occurred", error)
+                this.view?.showErrorSnackbar("get available time slots error occurred")
             })
             .let(::addDisposable)
     }
@@ -258,6 +280,7 @@ class EventDetailPresenter(
                 view?.setEventDetailItems(eventDetailItemsList)
             }, { error ->
                 logger.error("get create new event items models", error)
+                view?.showErrorSnackbar("get create new event items models error occurred")
             })
             .let(::addDisposable)
     }
@@ -269,6 +292,8 @@ class EventDetailPresenter(
                 view?.setEventDetailItems(eventDetailItemsList)
             }, { error ->
                 logger.error("get view mode event items models", error)
+                view?.showErrorSnackbar("get view mode event items models error occurred")
+
             })
             .let(::addDisposable)
     }
@@ -289,7 +314,9 @@ class EventDetailPresenter(
                         }
                 }
             }, { error ->
-                logger.error("get create new event items models", error)
+                logger.error("get client error occurred", error)
+                this.view?.showErrorSnackbar("get client error occurred")
+
             })
             .let(::addDisposable)
     }
@@ -308,6 +335,8 @@ class EventDetailPresenter(
             view?.close()
         }, { error ->
             logger.error("create new event error occurred", error)
+            this.view?.showErrorSnackbar("create new event error occurred")
+
         })
             .let(::addDisposable)
     }
@@ -327,6 +356,7 @@ class EventDetailPresenter(
 
             }, { error ->
                 logger.error("edit event for hobby event error occurred", error)
+                this.view?.showErrorSnackbar("edit event for hobby event error occurred")
                 (eventDetailItemsList
                     .firstOrNull { item -> item is EventDetailHobbyItem }
                         as? EventDetailHobbyItem)
@@ -334,6 +364,32 @@ class EventDetailPresenter(
                         event?.isHobbyIncluded = false
                         eventDetailHobbyItem.isLoading = false
                         view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
+                    }
+            })
+            .let(::addDisposable)
+    }
+
+    private fun sendReportToLocation() {
+        eventDetailInteractor.sendReportToLocation(event?.report?.reportId ?: throw IllegalStateException("Try to send report to location while event is null"))
+            .subscribe({
+                (eventDetailItemsList
+                    .firstOrNull { item -> item is EventDetailSendToLocationItem }
+                        as? EventDetailSendToLocationItem)
+                    ?.let { eventDetailSendToLocationItem ->
+                        eventDetailSendToLocationItem.isLoading = false
+                        eventDetailSendToLocationItem.isAlreadySent = true
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
+                    }
+            }, { error ->
+                logger.error("send report to location error occurred", error)
+                view?.showErrorSnackbar("send report to location error occurred")
+                (eventDetailItemsList
+                    .firstOrNull { item -> item is EventDetailSendToLocationItem }
+                        as? EventDetailSendToLocationItem)
+                    ?.let { eventDetailSendToLocationItem ->
+                        eventDetailSendToLocationItem.isLoading = false
+                        eventDetailSendToLocationItem.isAlreadySent = false
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
                     }
             })
             .let(::addDisposable)
