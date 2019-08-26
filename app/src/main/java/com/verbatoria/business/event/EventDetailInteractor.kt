@@ -123,23 +123,31 @@ class EventDetailInteractorImpl(
             )
 
 //            if (!event.report.isSent()) {
+            eventDetailItems.add(
                 EventDetailHeaderItem(
                     mode = EventDetailMode.START,
                     headerStringResource = R.string.event_detail_location
                 )
+            )
+            eventDetailItems.add(
                 EventDetailSendToLocationItem(
                     mode = EventDetailMode.START
 
                 )
+            )
 //            }
 
             if (event.isArchimedesAllowed) {
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.START,
-                    headerStringResource = R.string.arhimedes
+                eventDetailItems.add(
+                    EventDetailHeaderItem(
+                        mode = EventDetailMode.START,
+                        headerStringResource = R.string.arhimedes
+                    )
                 )
-                EventDetailArchimedesItem(
-                    mode = EventDetailMode.START
+                eventDetailItems.add(
+                    EventDetailArchimedesItem(
+                        mode = EventDetailMode.START
+                    )
                 )
             }
 

@@ -76,9 +76,7 @@ class EventDetailPresenter(
     //region EventDetailView.Callback
 
     override fun onSendToLocationConfirmed() {
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailSendToLocationItem }
-                as? EventDetailSendToLocationItem)
+        findEventDetailItemInList<EventDetailSendToLocationItem>()
             ?.let { eventDetailSendToLocationItem ->
                 eventDetailSendToLocationItem.isLoading = true
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
@@ -87,9 +85,7 @@ class EventDetailPresenter(
     }
 
     override fun onIncludeHobbyConfirmed() {
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailHobbyItem }
-                as? EventDetailHobbyItem)
+        findEventDetailItemInList<EventDetailHobbyItem>()
             ?.let { eventDetailHobbyItem ->
                 eventDetailHobbyItem.isLoading = true
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
@@ -99,9 +95,7 @@ class EventDetailPresenter(
 
     override fun onIntervalSelected(position: Int) {
         selectedTimeSlot = timeSlots.getOrNull(position)
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailTimeItem }
-                as? EventDetailTimeItem)
+        findEventDetailItemInList<EventDetailTimeItem>()
             ?.let { eventDetailDateItem ->
                 eventDetailDateItem.startDate = selectedTimeSlot?.startTime
                 eventDetailDateItem.endDate = selectedTimeSlot?.endTime
@@ -112,9 +106,7 @@ class EventDetailPresenter(
 
     override fun onClientReturned(client: Client?) {
         this.client = client
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailClientItem }
-                as? EventDetailClientItem)
+        findEventDetailItemInList<EventDetailClientItem>()
             ?.let { eventDetailClientItem ->
                 eventDetailClientItem.name = client?.name
                 eventDetailClientItem.phone = client?.phone
@@ -125,9 +117,7 @@ class EventDetailPresenter(
 
     override fun onChildReturned(child: Child?) {
         this.child = child
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailChildItem }
-                as? EventDetailChildItem)
+        findEventDetailItemInList<EventDetailChildItem>()
             ?.let { eventDetailChildItem ->
                 eventDetailChildItem.name = child?.name
                 eventDetailChildItem.age = child?.age
@@ -150,13 +140,18 @@ class EventDetailPresenter(
     //region EventDetailChildItemViewHolder.Callback
 
     override fun onChildClicked() {
-        client?.let { client ->
-            if (client.hasId()) {
-                view?.openChild(currentMode, child, client.id!!)
-            } else {
-                view?.showFillClientFirstError()
-            }
-        } ?:  view?.showFillClientFirstError()
+        if (client != null || event != null) {
+            client?.let { client ->
+                if (client.hasId() ) {
+                    view?.openChild(currentMode, child, client.id!!)
+                } else {
+                    view?.showFillClientFirstError()
+                }
+            } ?: view?.showFillClientFirstError()
+        } else {
+            view?.showFillClientFirstError()
+        }
+
     }
 
     //endregion
@@ -181,9 +176,7 @@ class EventDetailPresenter(
     //region EventDetailHobbyItemViewHolder.Callback
 
     override fun onHobbyClicked() {
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailHobbyItem }
-                as? EventDetailHobbyItem)
+        findEventDetailItemInList<EventDetailHobbyItem>()
             ?.let { eventDetailHobbyItem ->
                 if (!eventDetailHobbyItem.isHobbyIncluded) {
                     view?.showIncludeHobbyConfirmationDialog()
@@ -201,9 +194,7 @@ class EventDetailPresenter(
     //region EventDetailReportItemViewHolder.Callback
 
     override fun onReportClicked() {
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailReportItem }
-                as? EventDetailReportItem)
+        findEventDetailItemInList<EventDetailReportItem>()
             ?.let { eventDetailReportItem ->
                 view?.showReportHint(
                     when (eventDetailReportItem.reportStatus) {
@@ -221,9 +212,7 @@ class EventDetailPresenter(
     //region EventDetailSendToLocationItemViewHolder.Callback
 
     override fun onSendToLocationClicked() {
-        (eventDetailItemsList
-            .firstOrNull { item -> item is EventDetailSendToLocationItem }
-                as? EventDetailSendToLocationItem)
+        findEventDetailItemInList<EventDetailSendToLocationItem>()
             ?.let { eventDetailSendToLocationItem ->
                 if (!eventDetailSendToLocationItem.isAlreadySent) {
                     view?.showSendToLocationConfirmationDialog()
@@ -266,7 +255,7 @@ class EventDetailPresenter(
                 this.view?.showIntervalSelectionDialog(availableIntervals)
             }, { error ->
                 logger.error("get available time slots error occurred", error)
-                this.view?.showErrorSnackbar("get available time slots error occurred")
+                this.view?.showErrorSnackbar("get fiavailable time slots error occurred")
             })
             .let(::addDisposable)
     }
@@ -303,9 +292,7 @@ class EventDetailPresenter(
             .subscribe({ client ->
                 this.client = client
                 if (eventDetailItemsList.isNotEmpty()) {
-                    (eventDetailItemsList
-                        .firstOrNull { item -> item is EventDetailClientItem }
-                            as? EventDetailClientItem)
+                    findEventDetailItemInList<EventDetailClientItem>()
                         ?.let { eventDetailClientItem ->
                             eventDetailClientItem.name = client?.name
                             eventDetailClientItem.phone = client?.phone
@@ -345,9 +332,7 @@ class EventDetailPresenter(
         event?.isHobbyIncluded = true
         eventDetailInteractor.editEvent(event ?: throw IllegalStateException("Try to edit event while event object is null"))
             .subscribe({
-                (eventDetailItemsList
-                    .firstOrNull { item -> item is EventDetailHobbyItem }
-                        as? EventDetailHobbyItem)
+                findEventDetailItemInList<EventDetailHobbyItem>()
                     ?.let { eventDetailHobbyItem ->
                         eventDetailHobbyItem.isLoading = false
                         eventDetailHobbyItem.isHobbyIncluded = true
@@ -357,9 +342,7 @@ class EventDetailPresenter(
             }, { error ->
                 logger.error("edit event for hobby event error occurred", error)
                 this.view?.showErrorSnackbar("edit event for hobby event error occurred")
-                (eventDetailItemsList
-                    .firstOrNull { item -> item is EventDetailHobbyItem }
-                        as? EventDetailHobbyItem)
+                findEventDetailItemInList<EventDetailHobbyItem>()
                     ?.let { eventDetailHobbyItem ->
                         event?.isHobbyIncluded = false
                         eventDetailHobbyItem.isLoading = false
@@ -372,9 +355,7 @@ class EventDetailPresenter(
     private fun sendReportToLocation() {
         eventDetailInteractor.sendReportToLocation(event?.report?.reportId ?: throw IllegalStateException("Try to send report to location while event is null"))
             .subscribe({
-                (eventDetailItemsList
-                    .firstOrNull { item -> item is EventDetailSendToLocationItem }
-                        as? EventDetailSendToLocationItem)
+                findEventDetailItemInList<EventDetailSendToLocationItem>()
                     ?.let { eventDetailSendToLocationItem ->
                         eventDetailSendToLocationItem.isLoading = false
                         eventDetailSendToLocationItem.isAlreadySent = true
@@ -383,9 +364,7 @@ class EventDetailPresenter(
             }, { error ->
                 logger.error("send report to location error occurred", error)
                 view?.showErrorSnackbar("send report to location error occurred")
-                (eventDetailItemsList
-                    .firstOrNull { item -> item is EventDetailSendToLocationItem }
-                        as? EventDetailSendToLocationItem)
+                findEventDetailItemInList<EventDetailSendToLocationItem>()
                     ?.let { eventDetailSendToLocationItem ->
                         eventDetailSendToLocationItem.isLoading = false
                         eventDetailSendToLocationItem.isAlreadySent = false
@@ -398,9 +377,7 @@ class EventDetailPresenter(
     private fun checkIsAllFieldsFilled() {
         if (client != null && child != null) {
             if (eventDetailItemsList.isNotEmpty()) {
-                (eventDetailItemsList
-                    .firstOrNull { item -> item is EventDetailSubmitItem }
-                        as? EventDetailSubmitItem)
+                findEventDetailItemInList<EventDetailSubmitItem>()
                     ?.let { eventDetailSubmitItem ->
                         eventDetailSubmitItem.isAllFieldsFilled = true
                         view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSubmitItem))
@@ -408,9 +385,7 @@ class EventDetailPresenter(
             }
         } else {
             if (eventDetailItemsList.isNotEmpty()) {
-                (eventDetailItemsList
-                    .firstOrNull { item -> item is EventDetailSubmitItem }
-                        as? EventDetailSubmitItem)
+                findEventDetailItemInList<EventDetailSubmitItem>()
                     ?.let { eventDetailSubmitItem ->
                         eventDetailSubmitItem.isAllFieldsFilled = false
                         view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSubmitItem))
@@ -418,5 +393,8 @@ class EventDetailPresenter(
             }
         }
     }
+
+    private inline fun <reified T> findEventDetailItemInList(): T? =
+        (eventDetailItemsList.firstOrNull { item -> item is T } as? T)
 
 }
