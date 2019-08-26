@@ -30,6 +30,15 @@ interface CalendarManager {
         endAt: Date
     )
 
+    fun editEvent(
+        eventId: String,
+        childId: String,
+        childAge: Int,
+        startAt: Date,
+        endAt: Date,
+        isHobbyIncluded: Boolean
+    )
+
 }
 
 class CalendarManagerImpl(
@@ -89,6 +98,32 @@ class CalendarManagerImpl(
                         childAge
                     ),
                     isHobbyIncluded = false
+                )
+            )
+        )
+    }
+
+    override fun editEvent(
+        eventId: String,
+        childId: String,
+        childAge: Int,
+        startAt: Date,
+        endAt: Date,
+        isHobbyIncluded: Boolean
+    ) {
+        eventEndpoint.editEvent(
+            eventId = eventId,
+            params = CreateNewOrEditEventParamsDto(
+                event = EventParamsDto(
+                    childId = childId,
+                    locationId = infoManager.getLocationId(),
+                    startAt = startAt.formatToServerTime(),
+                    endAt = endAt.formatToServerTime(),
+                    isInstantReport = true,
+                    isArchimedesIncluded = infoManager.isArchimedesAllowed() && infoManager.isAgeAvailableForArchimedes(
+                        childAge
+                    ),
+                    isHobbyIncluded = isHobbyIncluded
                 )
             )
         )

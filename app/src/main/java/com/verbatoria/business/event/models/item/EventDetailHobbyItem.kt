@@ -7,5 +7,7 @@ import com.verbatoria.ui.event.EventDetailMode
  */
 
 class EventDetailHobbyItem(
-    mode: EventDetailMode
+    mode: EventDetailMode,
+    var isHobbyIncluded: Boolean = false,
+    var isLoading: Boolean = false
 ) : EventDetailItem(mode)

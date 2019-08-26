@@ -46,7 +46,7 @@
     <string name="client">Client</string>
     <string name="child">Child</string>
     <string name="time">Time</string>
-    <string name="event_detail_activity_report">Report</string>
+    <string name="report">Report</string>
     <string name="event_detail_activity_send_to_branch">Send report to branch</string>
     <string name="event_detail_activity_branch">Branch office</string>
     <string name="event_detail_activity_attention_memory">Attention/Memory</string>
@@ -92,7 +92,7 @@
     <string name="event_detail_event_added">The recording was successfully created!</string>
     <string name="event_detail_event_edited">The recording was successfully changed!</string>
 
-    <string name="event_detail_new">New entry</string>
+    <string name="event_detail_create_new_mode_title">New entry</string>
 
     <string name="event_detail_date_hint">Choose date</string>
     <string name="event_detail_child_hint">Child data is required</string>
@@ -120,10 +120,10 @@
     <string name="action_next_week">Next week</string>
     <string name="action_prev_week">Previous week</string>
 
-    <string name="event_detail_activity_hint_status_new">The recording has not yet been started</string>
-    <string name="event_detail_activity_hint_status_ready">The measurement results are processed and the report is ready</string>
-    <string name="event_detail_activity_hint_status_sent">The report was sent to the client</string>
-    <string name="event_detail_activity_hint_status_uploaded">The measurement results were uploaded</string>
+    <string name="report_status_new_hint">The recording has not yet been started</string>
+    <string name="report_status_ready_hint">The measurement results are processed and the report is ready</string>
+    <string name="report_status_sent_hint">The report was sent to the client</string>
+    <string name="report_status_uploaded_hint">The measurement results were uploaded</string>
 
     <string name="calendar_add_event">CREATE</string>
 
@@ -135,11 +135,11 @@
     <string name="client_activity_edit_hint">You are now in edit mode</string>
     <string name="client_activity_cancel_edit_hint">You canceled editing the recording</string>
 
-    <string name="calendar_report_new">New</string>
-    <string name="calendar_report_cancelled">Cancelled</string>
-    <string name="calendar_report_uploaded">Uploaded</string>
-    <string name="calendar_report_ready">Ready</string>
-    <string name="calendar_report_sent">Sent</string>
+    <string name="report_status_new">New</string>
+    <string name="report_status_cancelled">Cancelled</string>
+    <string name="report_status_uploaded">Uploaded</string>
+    <string name="report_status_ready">Ready</string>
+    <string name="report_status_sent">Sent</string>
 
     <string name="calendar_confirm_delete_message">Are you sure you want to delete the entry?</string>
     <string name="calendar_confirm_delete_title">Confirmation</string>
@@ -154,8 +154,12 @@
     <string name="event_confirm_archimed_subtitle_disabled">CUSTOMER WILL NOT RECEIVE PANEL ARCHEMED - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
 
     <string name="hobby">HOBBY</string>
-    <string name="event_confirm_hobby_subtitle_enabled">The report will include the Hobby panel</string>
-    <string name="event_confirm_hobby_subtitle_disabled">The report will NOT include the Hobby panel</string>
+
+    <string name="event_detail_hobby_panel_included">Panel included</string>
+    <string name="event_detail_hobby_panel_not_included">Panel not included</string>
+
+    <string name="event_detail_hobby_included_status">The report will include the Hobby panel</string>
+    <string name="event_detail_hobby_not_included_status">The report will NOT include the Hobby panel</string>
 
     <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
     <string name="event_confirm_include_attention_memory_include">Include</string>
@@ -190,7 +194,7 @@
 
     <string name="dashboard_add_event">Create recording</string>
     <string name="dashboard_start_session">Start session</string>
-    <string name="dashboard_event">Recording</string>
+    <string name="event_detail_start_mode_title">Recording</string>
 
     <string name="dashboard_unknown">Unknown</string>
 

@@ -183,7 +183,7 @@ class CalendarFragment :
 
     override fun openEventDetail(event: Event) {
         activity?.let { activity ->
-            startActivity(EventDetailActivity.createIntent(activity, EventDetailMode.EDIT, event))
+            startActivity(EventDetailActivity.createIntent(activity, EventDetailMode.START, event))
         }
     }
 

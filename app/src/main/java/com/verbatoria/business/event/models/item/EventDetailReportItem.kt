@@ -1,5 +1,6 @@
 package com.verbatoria.business.event.models.item
 
+import com.verbatoria.domain.report.ReportStatus
 import com.verbatoria.ui.event.EventDetailMode
 
 /**
@@ -7,5 +8,7 @@ import com.verbatoria.ui.event.EventDetailMode
  */
 
 class EventDetailReportItem(
-    mode: EventDetailMode
+    mode: EventDetailMode,
+    val reportId: String,
+    val reportStatus: ReportStatus
 ) : EventDetailItem(mode)

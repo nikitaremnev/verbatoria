@@ -50,6 +50,10 @@ interface ChildView : BaseView {
 
     fun setSaveButtonDisabled()
 
+    fun showSaveButton()
+
+    fun hideSaveButton()
+
     fun close(child: Child?)
 
     fun close()
@@ -210,13 +214,11 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     override fun setEditableMode() {
         childNameEditText.isEnabled = true
-
         saveButton.show()
     }
 
     override fun setViewOnlyMode() {
         childNameEditText.isEnabled = false
-
         saveButton.hide()
     }
 
@@ -226,6 +228,14 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     override fun setSaveButtonDisabled() {
         saveButton.isEnabled = false
+    }
+
+    override fun showSaveButton() {
+        saveButton.show()
+    }
+
+    override fun hideSaveButton() {
+        saveButton.hide()
     }
 
     override fun close(child: Child?) {

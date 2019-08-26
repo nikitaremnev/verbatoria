@@ -55,6 +55,8 @@ interface EventDetailView : BaseView {
 
     fun showIntervalSelectionDialog(availableIntervals: ArrayList<String>)
 
+    fun showReportHint(reportHintStringResourceId: Int)
+
     fun close()
 
     interface Callback {
@@ -174,6 +176,10 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
             itemsArray = availableIntervals
         }
             .show(supportFragmentManager, INTERVALS_SELECTION_DIALOG_TAG)
+    }
+
+    override fun showReportHint(reportHintStringResourceId: Int) {
+        showHintSnackbar(getString(reportHintStringResourceId))
     }
 
     override fun close() {

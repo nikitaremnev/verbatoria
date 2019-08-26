@@ -10,7 +10,7 @@ enum class EventDetailMode {
 
     fun isCreateNew() = this == CREATE_NEW
 
-    fun isView() = this == START
+    fun isStart() = this == START
 
     fun isEdit() = this == EDIT
 

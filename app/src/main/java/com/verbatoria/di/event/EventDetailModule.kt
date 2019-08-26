@@ -44,7 +44,7 @@ class EventDetailModule {
                     { it is EventDetailArchimedesItem },
                     {
                         EventDetailArchimedesItemViewHolderImpl(
-                            ViewInflater.inflate(R.layout.item_settings, it), eventDetailPresenter
+                            ViewInflater.inflate(R.layout.item_event_detail_archimedes, it), eventDetailPresenter
                         )
                     },
                     EventDetailArchimedesItemBinder()
@@ -80,7 +80,7 @@ class EventDetailModule {
                     { it is EventDetailHobbyItem },
                     {
                         EventDetailHobbyItemViewHolderImpl(
-                            ViewInflater.inflate(R.layout.item_settings, it), eventDetailPresenter
+                            ViewInflater.inflate(R.layout.item_event_detail_hobby, it), eventDetailPresenter
                         )
                     },
                     EventDetailHobbyItemBinder()
@@ -89,7 +89,7 @@ class EventDetailModule {
                     { it is EventDetailIncludeMemoryAttentionItem },
                     {
                         EventDetailIncludeMemoryAttentionItemViewHolderImpl(
-                            ViewInflater.inflate(R.layout.item_settings, it), eventDetailPresenter
+                            ViewInflater.inflate(R.layout.item_event_detail_include_memory_attention, it), eventDetailPresenter
                         )
                     },
                     EventDetailIncludeMemoryAttentionItemBinder()
@@ -98,7 +98,7 @@ class EventDetailModule {
                     { it is EventDetailReportItem },
                     {
                         EventDetailReportItemViewHolderImpl(
-                            ViewInflater.inflate(R.layout.item_settings, it), eventDetailPresenter
+                            ViewInflater.inflate(R.layout.item_event_detail_report, it), eventDetailPresenter
                         )
                     },
                     EventDetailReportItemBinder()
@@ -107,7 +107,7 @@ class EventDetailModule {
                     { it is EventDetailSendToLocationItem },
                     {
                         EventDetailSendToLocationItemViewHolderImpl(
-                            ViewInflater.inflate(R.layout.item_settings, it), eventDetailPresenter
+                            ViewInflater.inflate(R.layout.item_event_detail_send_to_location, it), eventDetailPresenter
                         )
                     },
                     EventDetailSendToLocationItemBinder()

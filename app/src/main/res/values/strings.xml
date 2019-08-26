@@ -46,7 +46,7 @@
     <string name="client">Клиент</string>
     <string name="child">Ребенок</string>
     <string name="time">Время</string>
-    <string name="event_detail_activity_report">Отчет</string>
+    <string name="report">Отчет</string>
     <string name="event_detail_activity_send_to_branch">Отправить отчет в филиал</string>
     <string name="event_detail_activity_branch">Филиал</string>
     <string name="event_detail_activity_attention_memory">Внимание/Память</string>
@@ -92,7 +92,7 @@
     <string name="event_detail_event_added">Запись успешно создана!</string>
     <string name="event_detail_event_edited">Запись успешно изменена!</string>
 
-    <string name="event_detail_new">Новая запись</string>
+    <string name="event_detail_create_new_mode_title">Новая запись</string>
 
     <string name="event_detail_date_hint">Выберите дату</string>
     <string name="event_detail_child_hint">Необходимо указать данные ребенка</string>
@@ -120,10 +120,10 @@
     <string name="action_next_week">Следующая неделя</string>
     <string name="action_prev_week">Предыдущая неделя</string>
 
-    <string name="event_detail_activity_hint_status_new">Запись еще не была произведена</string>
-    <string name="event_detail_activity_hint_status_ready">Результаты измерений обработаны и отчет готов</string>
-    <string name="event_detail_activity_hint_status_sent">Отчет был выслан клиенту</string>
-    <string name="event_detail_activity_hint_status_uploaded">Результаты измерений были загружены</string>
+    <string name="report_status_new_hint">Запись еще не была произведена</string>
+    <string name="report_status_ready_hint">Результаты измерений обработаны и отчет готов</string>
+    <string name="report_status_sent_hint">Отчет был выслан клиенту</string>
+    <string name="report_status_uploaded_hint">Результаты измерений были загружены</string>
 
     <string name="calendar_add_event">СОЗДАТЬ</string>
 
@@ -135,11 +135,11 @@
     <string name="client_activity_edit_hint">Вы перешли в режим редактирования записи</string>
     <string name="client_activity_cancel_edit_hint">Вы отменили редактирование записи</string>
 
-    <string name="calendar_report_new">Новый</string>
-    <string name="calendar_report_cancelled">Отменен</string>
-    <string name="calendar_report_uploaded">Загружен</string>
-    <string name="calendar_report_ready">Готов</string>
-    <string name="calendar_report_sent">Отправлен</string>
+    <string name="report_status_new">Новый</string>
+    <string name="report_status_cancelled">Отменен</string>
+    <string name="report_status_uploaded">Загружен</string>
+    <string name="report_status_ready">Готов</string>
+    <string name="report_status_sent">Отправлен</string>
 
     <string name="calendar_confirm_delete_message">Вы действительно хотите удалить запись?</string>
     <string name="calendar_confirm_delete_title">Подтверждение</string>
@@ -154,8 +154,11 @@
     <string name="event_confirm_archimed_subtitle_disabled">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>
 
     <string name="hobby">ХОББИ</string>
-    <string name="event_confirm_hobby_subtitle_enabled">В отчет будет включена панель Хобби</string>
-    <string name="event_confirm_hobby_subtitle_disabled">В отчет НЕ будет включена панель Хобби</string>
+    <string name="event_detail_hobby_panel_included">Панель включена</string>
+    <string name="event_detail_hobby_panel_not_included">Панель не включена</string>
+
+    <string name="event_detail_hobby_included_status">В отчет будет включена панель Хобби</string>
+    <string name="event_detail_hobby_not_included_status">В отчет НЕ будет включена панель Хобби</string>
 
     <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
     <string name="event_confirm_include_attention_memory_include">Включить</string>
@@ -190,7 +193,7 @@
 
     <string name="dashboard_add_event">Добавить запись</string>
     <string name="dashboard_start_session">Начать сессию</string>
-    <string name="dashboard_event">Запись</string>
+    <string name="event_detail_start_mode_title">Запись</string>
 
     <string name="dashboard_unknown">Неизвестно</string>
 

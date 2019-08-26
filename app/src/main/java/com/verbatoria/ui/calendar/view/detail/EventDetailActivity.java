@@ -258,16 +258,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void updateReportView(ReportModel reportModel) {
-        if (reportModel == null) {
-            mReportFieldView.setVisibility(View.GONE);
-        } else {
-            setUpFieldView(mReportFieldView, R.drawable.ic_report, reportModel.getReportId(), getString(R.string.event_detail_activity_report), v -> {
-                showStatusHint(reportModel);
-            });
-            mReportFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
-            setUpReportStatus(reportModel);
-            mReportFieldView.setVisibility(View.VISIBLE);
-        }
+
     }
 
     @Override
@@ -295,9 +286,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         } else {
             String hobbySubtitle;
             if (isHobby) {
-                hobbySubtitle = getString(R.string.event_confirm_hobby_subtitle_enabled);
+                hobbySubtitle = getString(R.string.event_detail_hobby_included_status);
             } else {
-                hobbySubtitle = getString(R.string.event_confirm_hobby_subtitle_disabled);
+                hobbySubtitle = getString(R.string.event_detail_hobby_not_included_status);
             }
             mHobbyFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
             setUpFieldView(mHobbyFieldView, R.drawable.ic_hobby_green, getString(R.string.hobby), hobbySubtitle, v -> {
@@ -489,7 +480,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.dashboard_event));
+        getSupportActionBar().setTitle(getString(R.string.event_detail_start_mode_title));
     }
 
     private void setUpButton() {
@@ -523,40 +514,6 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         ((TextView) fieldView.findViewById(R.id.field_title)).setText(title);
         ((TextView) fieldView.findViewById(R.id.field_subtitle)).setText(subtitle);
         fieldView.setOnClickListener(onClickListener);
-    }
-
-    private void setUpReportStatus(ReportModel reportModel) {
-        switch (reportModel.getStatus()) {
-            case ReportModel.STATUS.NEW:
-                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_new);
-                break;
-            case ReportModel.STATUS.READY:
-                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_ready);
-                break;
-            case ReportModel.STATUS.SENT:
-                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_sent);
-                break;
-            case ReportModel.STATUS.UPLOADED:
-                ((ImageView) mReportFieldView.findViewById(R.id.status_image_view)).setImageResource(R.drawable.ic_report_uploaded);
-                break;
-        }
-    }
-
-    private void showStatusHint(ReportModel reportModel) {
-        switch (reportModel.getStatus()) {
-            case ReportModel.STATUS.NEW:
-                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_new));
-                break;
-            case ReportModel.STATUS.READY:
-                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_ready));
-                break;
-            case ReportModel.STATUS.SENT:
-                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_sent));
-                break;
-            case ReportModel.STATUS.UPLOADED:
-                Helper.showHintSnackBar(mReportFieldView, getString(R.string.event_detail_activity_hint_status_uploaded));
-                break;
-        }
     }
 
     private void showConfirmDeleteDialog() {

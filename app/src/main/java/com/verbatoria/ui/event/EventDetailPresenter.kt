@@ -8,6 +8,7 @@ import com.verbatoria.business.event.EventDetailInteractor
 import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.Client
 import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.report.ReportStatus
 import com.verbatoria.domain.schedule.TimeSlot
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.item.*
@@ -65,9 +66,10 @@ class EventDetailPresenter(
 
         if (currentMode.isCreateNew()) {
             getCreateNewEventItems()
-            view.setTitle(R.string.event_detail_new)
+            view.setTitle(R.string.event_detail_create_new_mode_title)
         } else {
             getViewModeEventItems(event ?: throw IllegalStateException("Event is null and event mode is not create new"))
+            view.setTitle(R.string.event_detail_start_mode_title)
         }
     }
 
@@ -156,6 +158,19 @@ class EventDetailPresenter(
 
     //region EventDetailHobbyItemViewHolder.Callback
 
+    override fun onHobbyClicked() {
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailHobbyItem }
+                as? EventDetailHobbyItem)
+            ?.let { eventDetailHobbyItem ->
+                if (!eventDetailHobbyItem.isHobbyIncluded) {
+                    event?.isHobbyIncluded = true
+                    eventDetailHobbyItem.isLoading = true
+                    view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
+                    editEventForHobby()
+                }
+            }
+    }
 
     //endregion
 
@@ -166,6 +181,21 @@ class EventDetailPresenter(
 
     //region EventDetailReportItemViewHolder.Callback
 
+    override fun onReportClicked() {
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailReportItem }
+                as? EventDetailReportItem)
+            ?.let { eventDetailReportItem ->
+                view?.showReportHint(
+                    when (eventDetailReportItem.reportStatus) {
+                        ReportStatus.UPLOADED ->  R.string.report_status_uploaded_hint
+                        ReportStatus.READY ->  R.string.report_status_ready_hint
+                        ReportStatus.SENT ->  R.string.report_status_sent_hint
+                        else -> R.string.report_status_new_hint
+                    }
+                )
+            }
+    }
 
     //endregion
 
@@ -225,7 +255,7 @@ class EventDetailPresenter(
     }
 
     private fun getViewModeEventItems(event: Event) {
-        eventDetailInteractor.getViewModeEventDetailItems(event)
+        eventDetailInteractor.getStartModeEventDetailItems(event)
             .subscribe({ eventDetailItems ->
                 eventDetailItemsList = eventDetailItems
                 view?.setEventDetailItems(eventDetailItemsList)
@@ -271,6 +301,33 @@ class EventDetailPresenter(
         }, { error ->
             logger.error("create new event error occurred", error)
         })
+            .let(::addDisposable)
+    }
+
+    private fun editEventForHobby() {
+        event?.isHobbyIncluded = true
+        eventDetailInteractor.editEvent(event ?: throw IllegalStateException("Try to edit event while event object is null"))
+            .subscribe({
+                (eventDetailItemsList
+                    .firstOrNull { item -> item is EventDetailHobbyItem }
+                        as? EventDetailHobbyItem)
+                    ?.let { eventDetailHobbyItem ->
+                        eventDetailHobbyItem.isLoading = false
+                        eventDetailHobbyItem.isHobbyIncluded = true
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
+                    }
+
+            }, { error ->
+                logger.error("edit event for hobby event error occurred", error)
+                (eventDetailItemsList
+                    .firstOrNull { item -> item is EventDetailHobbyItem }
+                        as? EventDetailHobbyItem)
+                    ?.let { eventDetailHobbyItem ->
+                        event?.isHobbyIncluded = false
+                        eventDetailHobbyItem.isLoading = false
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
+                    }
+            })
             .let(::addDisposable)
     }
 

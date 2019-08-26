@@ -27,11 +27,13 @@ interface EventDetailInteractor {
 
     fun getCreateNewModeEventDetailItems(): Single<List<EventDetailItem>>
 
-    fun getViewModeEventDetailItems(event: Event): Single<List<EventDetailItem>>
+    fun getStartModeEventDetailItems(event: Event): Single<List<EventDetailItem>>
 
     fun getClient(cliendId: String): Single<Client>
 
     fun createNewEvent(childId: String, childAge: Int, startAt: Date, endAt: Date): Completable
+
+    fun editEvent(event: Event): Completable
 
     fun getAvailableTimeSlots(date: Date): Single<Pair<List<TimeSlot>, ArrayList<String>>>
 
@@ -77,35 +79,45 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getViewModeEventDetailItems(event: Event): Single<List<EventDetailItem>> =
+    override fun getStartModeEventDetailItems(event: Event): Single<List<EventDetailItem>> =
         Single.fromCallable {
             val eventDetailItems = mutableListOf(
                 EventDetailHeaderItem(
-                    mode = EventDetailMode.CREATE_NEW,
+                    mode = EventDetailMode.START,
                     headerStringResource = R.string.client
                 ),
                 EventDetailClientItem(
                     EventDetailMode.CREATE_NEW
                 ),
                 EventDetailHeaderItem(
-                    mode = EventDetailMode.CREATE_NEW,
+                    mode = EventDetailMode.START,
                     headerStringResource = R.string.child
                 ),
                 EventDetailChildItem(
-                    EventDetailMode.CREATE_NEW,
+                    EventDetailMode.START,
                     name = event.child.name,
                     age = event.child.age
                 ),
                 EventDetailHeaderItem(
-                    mode = EventDetailMode.CREATE_NEW,
+                    mode = EventDetailMode.START,
                     headerStringResource = R.string.time
                 ),
                 EventDetailTimeItem(
-                    mode = EventDetailMode.CREATE_NEW,
+                    mode = EventDetailMode.START,
                     startDate = event.startDate,
                     endDate = event.endDate
+                ),
+                EventDetailHeaderItem(
+                    mode = EventDetailMode.START,
+                    headerStringResource = R.string.report
+                ),
+                EventDetailReportItem(
+                    mode = EventDetailMode.START,
+                    reportId = event.report.reportId,
+                    reportStatus = event.report.status
                 )
             )
+
             if (event.isArchimedesAllowed) {
                 EventDetailHeaderItem(
                     mode = EventDetailMode.CREATE_NEW,
@@ -130,7 +142,7 @@ class EventDetailInteractorImpl(
                 )
             }
 
-            if (event.isHobbyIncluded) {
+            if (event.child.age  >= MINIMUM_HOBBY_AGE) {
                 eventDetailItems.add(
                     EventDetailHeaderItem(
                         mode = EventDetailMode.CREATE_NEW,
@@ -138,7 +150,7 @@ class EventDetailInteractorImpl(
                     )
                 )
                 eventDetailItems.add(
-                    EventDetailArchimedesItem(
+                    EventDetailHobbyItem(
                         mode = EventDetailMode.CREATE_NEW
                     )
                 )
@@ -168,6 +180,15 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
+    override fun editEvent(
+        event: Event
+    ): Completable =
+        Completable.fromCallable {
+            calendarManager.editEvent(event.id, event.child.id ?: throw IllegalStateException("Try to edit event while event child id is null"), event.child.age, event.startDate, event.endDate, event.isHobbyIncluded)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
     override fun getAvailableTimeSlots(date: Date): Single<Pair<List<TimeSlot>, ArrayList<String>>> =
         Single.zip(
             Single.fromCallable {
@@ -185,6 +206,5 @@ class EventDetailInteractorImpl(
         )
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
-
 
 }

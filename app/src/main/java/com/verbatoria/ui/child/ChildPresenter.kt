@@ -16,6 +16,8 @@ class ChildPresenter(
     private val childInteractor: ChildInteractor
 ) : BasePresenter<ChildView>(), ChildView.Callback {
 
+    private var editedChild: Child = child.copy()
+
     init {
 
     }
@@ -43,13 +45,24 @@ class ChildPresenter(
     }
 
     override fun onChildGenderSelected(newChildGender: Int) {
-        child.gender = newChildGender
+        if (eventDetailMode.isStart()) {
+            editedChild.gender = newChildGender
+            checkIsSomeFieldsChanged()
+        } else if (eventDetailMode.isCreateNew()) {
+            child.gender = newChildGender
+        }
     }
 
     override fun onChildAgeSelected(newChildAge: Int) {
-        child.age = newChildAge
-        view?.setChildAge(child.age)
-        checkIsAllFieldsFilled()
+        if (eventDetailMode.isStart()) {
+            editedChild.age = newChildAge
+            view?.setChildAge(editedChild.age)
+            checkIsSomeFieldsChanged()
+        } else if (eventDetailMode.isCreateNew()) {
+            child.age = newChildAge
+            view?.setChildAge(child.age)
+            checkIsAllFieldsFilled()
+        }
     }
 
     override fun onSaveButtonClicked() {
@@ -82,6 +95,14 @@ class ChildPresenter(
         }
     }
 
+    private fun checkIsSomeFieldsChanged() {
+        if (child.gender != editedChild.gender || child.age != editedChild.age) {
+            view?.showSaveButton()
+        } else {
+            view?.hideSaveButton()
+        }
+    }
+
     private fun createNewChild() {
         view?.showSaveProgress()
         childInteractor.createNewChild(clientId, child)
@@ -100,12 +121,12 @@ class ChildPresenter(
 
     private fun editChild() {
         view?.showSaveProgress()
-        childInteractor.editChild(clientId, child)
+        childInteractor.editChild(clientId, editedChild)
             .doAfterTerminate {
                 view?.hideSaveProgress()
             }
             .subscribe({
-                view?.close(child)
+                view?.close(editedChild)
             }, { error ->
                 error.printStackTrace()
                 view?.showErrorSnackbar(error.localizedMessage)

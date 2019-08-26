@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:foreground="?selectableItemBackground">
+
+    <TextView
+        android:id="@+id/report_id_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/info_name_margin_horizontal"
+        android:layout_marginTop="@dimen/event_detail_client_name_margin_top"
+        android:layout_marginEnd="@dimen/event_detail_client_name_margin_horizontal"
+        android:textColor="@color/black"
+        android:textSize="@dimen/event_detail_client_name_text_size"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Вербатолог Вербатологов" />
+
+    <TextView
+        android:id="@+id/report_status_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/event_detail_client_phone_margin_top"
+        android:textSize="@dimen/event_detail_client_phone_text_size"
+        android:visibility="visible"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/event_report_status_logo_padding"
+        app:layout_constraintLeft_toLeftOf="@+id/report_id_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/report_id_text_view"
+        tools:text="+7 (915) 397 46-89" />
+
+    <View
+        android:id="@+id/border_bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/event_detail_client_bottom_border_margin_top"
+        android:background="@color/divider_item_color"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/report_status_text_view" />
+
+</android.support.constraint.ConstraintLayout>
