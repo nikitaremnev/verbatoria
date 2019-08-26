@@ -399,9 +399,9 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     @Override
     public void showConfirmHobby() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.event_confirm_hobby_dialog_title))
-                .setMessage(getString(R.string.event_confirm_hobby_message));
-        builder.setPositiveButton(getString(R.string.event_confirm_hobby_include), (dialog, which) -> {
+                .setTitle(getString(R.string.event_detail_include_hobby_confirmation_dialog_title))
+                .setMessage(getString(R.string.event_detail_include_hobby_confirmation_dialog_message));
+        builder.setPositiveButton(getString(R.string.event_detail_include_hobby_confirmation_dialog_include), (dialog, which) -> {
             mEventDetailPresenter.onHobbyConfirmed();
         });
         builder.setNegativeButton(getString(R.string.cancel), null);

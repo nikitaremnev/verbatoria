@@ -168,9 +168,9 @@
     <string name="event_confirm_clear">Очистить</string>
     <string name="event_confirm_clear_database_title">Обнаружены данные</string>
 
-    <string name="event_confirm_hobby_dialog_title">Модуль Хобби</string>
-    <string name="event_confirm_hobby_message">Включить модуль Хобби в отчет?</string>
-    <string name="event_confirm_hobby_include">Включить</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_title">Модуль Хобби</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_message">Включить модуль Хобби в отчет?</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_include">Включить</string>
 
     <string name="school_mode_submit_hint">Все данные были записаны. Теперь вы можете завершить сессию.</string>
 

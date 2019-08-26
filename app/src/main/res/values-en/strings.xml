@@ -169,9 +169,9 @@
     <string name="event_confirm_clear">Clear</string>
     <string name="event_confirm_clear_database_title">Data found</string>
 
-    <string name="event_confirm_hobby_dialog_title">Hobby Module</string>
-    <string name="event_confirm_hobby_message">Do you want to include the Hobby module in the report?</string>
-    <string name="event_confirm_hobby_include">Include</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_title">Hobby Module</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_message">Do you want to include the Hobby module in the report?</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_include">Include</string>
 
     <string name="school_mode_submit_hint">All data has been recorded. Now you can finish the session.</string>
 

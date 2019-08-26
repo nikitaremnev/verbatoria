@@ -151,7 +151,8 @@ class EventDetailInteractorImpl(
                 )
                 eventDetailItems.add(
                     EventDetailHobbyItem(
-                        mode = EventDetailMode.CREATE_NEW
+                        mode = EventDetailMode.CREATE_NEW,
+                        isHobbyIncluded = event.isHobbyIncluded
                     )
                 )
             }

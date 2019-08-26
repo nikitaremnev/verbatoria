@@ -21,6 +21,7 @@ import com.verbatoria.ui.child.ChildActivity
 import com.verbatoria.ui.client.ClientActivity
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
+import com.verbatoria.ui.common.dialog.SuggestDialog
 import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
 import javax.inject.Inject
@@ -36,6 +37,7 @@ private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
 private const val EVENT_EXTRA = "event_extra"
 
 private const val INTERVALS_SELECTION_DIALOG_TAG = "INTERVALS_SELECTION_DIALOG_TAG"
+private const val INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG = "INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG"
 
 interface EventDetailView : BaseView {
 
@@ -57,9 +59,13 @@ interface EventDetailView : BaseView {
 
     fun showReportHint(reportHintStringResourceId: Int)
 
+    fun showIncludeHobbyConfirmationDialog()
+
     fun close()
 
     interface Callback {
+
+        fun onIncludeHobbyConfirmed()
 
         fun onIntervalSelected(position: Int)
 
@@ -74,7 +80,7 @@ interface EventDetailView : BaseView {
 }
 
 class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPresenter, EventDetailActivity, EventDetailComponent>(),
-    EventDetailView, SelectionBottomSheetDialog.OnSelectedItemListener {
+    EventDetailView, SelectionBottomSheetDialog.OnSelectedItemListener, SuggestDialog.OnClickSuggestDialogListener {
 
     companion object {
 
@@ -182,6 +188,15 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         showHintSnackbar(getString(reportHintStringResourceId))
     }
 
+    override fun showIncludeHobbyConfirmationDialog() {
+        SuggestDialog.build {
+            title = getString(R.string.event_detail_include_hobby_confirmation_dialog_title)
+            message = getString(R.string.event_detail_include_hobby_confirmation_dialog_message)
+            positiveTitleBtn = getString(R.string.event_detail_include_hobby_confirmation_dialog_include)
+            negativeTitleBtn = getString(R.string.cancel)
+        }.show(supportFragmentManager, INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG)
+    }
+
     override fun close() {
         finish()
     }
@@ -194,6 +209,20 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         if (tag == INTERVALS_SELECTION_DIALOG_TAG) {
             presenter.onIntervalSelected(position)
         }
+    }
+
+    //endregion
+
+    //region SuggestDialog.OnClickSuggestDialogListener
+
+    override fun onPositiveClicked(tag: String?) {
+        if (tag == INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG) {
+            presenter.onIncludeHobbyConfirmed()
+        }
+    }
+
+    override fun onNegativeClicked(tag: String?) {
+        //empty
     }
 
     //endregion

@@ -75,6 +75,17 @@ class EventDetailPresenter(
 
     //region EventDetailView.Callback
 
+    override fun onIncludeHobbyConfirmed() {
+        (eventDetailItemsList
+            .firstOrNull { item -> item is EventDetailHobbyItem }
+                as? EventDetailHobbyItem)
+            ?.let { eventDetailHobbyItem ->
+                eventDetailHobbyItem.isLoading = true
+                view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
+                editEventForHobby()
+            }
+    }
+
     override fun onIntervalSelected(position: Int) {
         selectedTimeSlot = timeSlots.getOrNull(position)
         (eventDetailItemsList
@@ -164,10 +175,7 @@ class EventDetailPresenter(
                 as? EventDetailHobbyItem)
             ?.let { eventDetailHobbyItem ->
                 if (!eventDetailHobbyItem.isHobbyIncluded) {
-                    event?.isHobbyIncluded = true
-                    eventDetailHobbyItem.isLoading = true
-                    view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
-                    editEventForHobby()
+                    view?.showIncludeHobbyConfirmationDialog()
                 }
             }
     }
