@@ -46,6 +46,11 @@ class CalendarPresenter(
 
     //region CalendarView.Callback
 
+
+    override fun onEventReturned() {
+        getEvents()
+    }
+
     override fun onPreviousDateClicked() {
         currentDate.minusDay()
         setCurrentDate()

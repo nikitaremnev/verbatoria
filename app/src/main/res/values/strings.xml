@@ -49,7 +49,7 @@
     <string name="report">Отчет</string>
     <string name="event_detail_send_to_location">Отправить отчет в филиал</string>
     <string name="event_detail_location">Филиал</string>
-    <string name="event_detail_activity_attention_memory">Внимание/Память</string>
+    <string name="attention_memory">Внимание/Память</string>
     <string name="event_detail_activity_attention_memory_include">Добавить модуль Внимание/Память в отчет</string>
 
     <string name="event_detail_activity_field_empty">Данные не заполнены</string>
@@ -148,11 +148,13 @@
 
     <string name="event_detail_send_to_location_message">Мной получено согласие клиента на получение копии отчета в целях проведения консультации, время согласовано</string>
     <string name="event_detail_send_to_location_send">Отправить</string>
-    <string name="event_confirm_send_report_to_location_success">Копия отчета была отправлена в филиал</string>
+    <string name="event_detail_send_to_location_complete">Копия отчета была отправлена в филиал</string>
+
+    <string name="event_detail_include_attention_memory_complete">Модуль был добавлен в отчет</string>
 
     <string name="arhimedes">АРХИМЕД</string>
-    <string name="event_confirm_archimed_subtitle_enabled">В отчет будет включена панель Архимед при наличии подходящей</string>
-    <string name="event_confirm_archimed_subtitle_disabled">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>
+    <string name="event_detail_archimedes_included">В отчет будет включена панель Архимед при наличии подходящей</string>
+    <string name="event_detail_archimedes_not_included">КЛИЕНТ НЕ ПОЛУЧИТ ПАНЕЛЬ АРХИМЕД – ВАШ ПРОФИЛЬ В СИСТЕМЕ НЕ АКТИВНЫЙ</string>
 
     <string name="hobby">ХОББИ</string>
     <string name="event_detail_hobby_panel_included">Панель включена</string>
@@ -161,8 +163,8 @@
     <string name="event_detail_hobby_included_status">В отчет будет включена панель Хобби</string>
     <string name="event_detail_hobby_not_included_status">В отчет НЕ будет включена панель Хобби</string>
 
-    <string name="event_confirm_include_attention_memory">Включить модуль Внимание/Память в отчет?</string>
-    <string name="event_confirm_include_attention_memory_include">Включить</string>
+    <string name="event_detail_include_attention_memory_confirmation_dialog_message">Включить модуль Внимание/Память в отчет?</string>
+    <string name="include">Включить</string>
     <string name="event_confirm_attention_memory_include_success">Модуль Внимание/Память добавлен в отчет</string>
 
     <string name="event_confirm_clear_database">База данных содержит записи, очистить ее перед проведением приема?</string>

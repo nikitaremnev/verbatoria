@@ -39,6 +39,7 @@ private const val EVENT_EXTRA = "event_extra"
 private const val INTERVALS_SELECTION_DIALOG_TAG = "INTERVALS_SELECTION_DIALOG_TAG"
 private const val INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG = "INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG"
 private const val SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG = "SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG"
+private const val INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG = "INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG"
 
 interface EventDetailView : BaseView {
 
@@ -64,9 +65,13 @@ interface EventDetailView : BaseView {
 
     fun showSendToLocationConfirmationDialog()
 
+    fun showIncludeAttentionMemoryConfirmationDialog()
+
     fun close()
 
     interface Callback {
+
+        fun onIncludeAttentionMemoryConfirmed()
 
         fun onIncludeHobbyConfirmed()
 
@@ -131,6 +136,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
     //endregion
 
     //region BasePresenterActivity
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CLIENT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -211,6 +217,15 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         }.show(supportFragmentManager, SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG)
     }
 
+    override fun showIncludeAttentionMemoryConfirmationDialog() {
+        ActivitySuggestDialog.build {
+            title = getString(R.string.confirmation)
+            message = getString(R.string.event_detail_include_attention_memory_confirmation_dialog_message)
+            positiveTitleBtn = getString(R.string.include)
+            negativeTitleBtn = getString(R.string.cancel)
+        }.show(supportFragmentManager, INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG)
+    }
+
     override fun close() {
         finish()
     }
@@ -235,6 +250,9 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         }
         if (tag == SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG) {
             presenter.onSendToLocationConfirmed()
+        }
+        if (tag == INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG) {
+            presenter.onIncludeAttentionMemoryConfirmed()
         }
     }
 

@@ -49,7 +49,7 @@
     <string name="report">Report</string>
     <string name="event_detail_send_to_location">Send report to branch</string>
     <string name="event_detail_location">Branch office</string>
-    <string name="event_detail_activity_attention_memory">Attention/Memory</string>
+    <string name="attention_memory">Attention/Memory</string>
     <string name="event_detail_activity_attention_memory_include">Include Attention/Memory module to the report</string>
 
     <string name="event_detail_activity_field_empty">Data not filled</string>
@@ -148,10 +148,13 @@
 
     <string name="event_detail_send_to_location_message">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
     <string name="event_detail_send_to_location_send">Send</string>
-    <string name="event_confirm_send_report_to_location_success">A copy of the report was sent to the branch office</string>
+    <string name="event_detail_send_to_location_complete">A copy of the report was sent to the branch office</string>
+
+    <string name="event_detail_include_attention_memory_complete">Module added to report</string>
+
     <string name="arhimedes">ARCHIMEDES</string>
-    <string name="event_confirm_archimed_subtitle_enabled">The report will include the Archimedes panel if there is a suitable</string>
-    <string name="event_confirm_archimed_subtitle_disabled">CUSTOMER WILL NOT RECEIVE PANEL ARCHEMED - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
+    <string name="event_detail_archimedes_included">The report will include the Archimedes panel if there is a suitable</string>
+    <string name="event_detail_archimedes_not_included">CUSTOMER WILL NOT RECEIVE PANEL ARCHEMED - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
 
     <string name="hobby">HOBBY</string>
 
@@ -161,8 +164,8 @@
     <string name="event_detail_hobby_included_status">The report will include the Hobby panel</string>
     <string name="event_detail_hobby_not_included_status">The report will NOT include the Hobby panel</string>
 
-    <string name="event_confirm_include_attention_memory">Do you want to include the Attention/Memory module in the report?</string>
-    <string name="event_confirm_include_attention_memory_include">Include</string>
+    <string name="event_detail_include_attention_memory_confirmation_dialog_message">Do you want to include the Attention/Memory module in the report?</string>
+    <string name="include">Include</string>
     <string name="event_confirm_attention_memory_include_success">The Attention/Memory module has been added in the report</string>
 
     <string name="event_confirm_clear_database">Database contains some data. Clear it before the writing new data?</string>

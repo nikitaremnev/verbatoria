@@ -1,7 +1,6 @@
 package com.verbatoria.ui.event.item
 
-import android.content.Context
-import android.support.v7.widget.AppCompatImageView
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
@@ -13,30 +12,28 @@ import com.remnev.verbatoria.R
 
 interface EventDetailArchimedesItemViewHolder {
 
+    fun setArchimedesState(archimedesStateResourceId: Int)
 
-    interface Callback {
-
-
-
-    }
+    fun showArchimedesNotAllowedForVerbatolog()
 
 }
 
 class EventDetailArchimedesItemViewHolderImpl(
-    view: View,
-    callback: EventDetailClientItemViewHolder.Callback
+    view: View
 ) : RecyclerView.ViewHolder(view),
     EventDetailArchimedesItemViewHolder {
 
-    private val context: Context = view.context
+    private val context = view.context
 
-    private val titleTextView: TextView = view.findViewById(R.id.title_text_view)
-    private val logoImageView: AppCompatImageView = view.findViewById(R.id.logo_image_view)
+    private val archimedesStateTextView: TextView = view.findViewById(R.id.archimedes_state_text_view)
 
-    init {
-        view.setOnClickListener {
+    override fun setArchimedesState(archimedesStateResourceId: Int) {
+        archimedesStateTextView.setText(archimedesStateResourceId)
+    }
 
-        }
+    override fun showArchimedesNotAllowedForVerbatolog() {
+        val leftDrawable = ContextCompat.getDrawable(context, R.drawable.ic_archimedes_not_included)
+        archimedesStateTextView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null)
     }
 
 }

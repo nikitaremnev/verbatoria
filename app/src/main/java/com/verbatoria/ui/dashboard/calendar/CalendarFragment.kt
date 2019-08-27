@@ -29,6 +29,8 @@ import javax.inject.Inject
  * @author n.remnev
  */
 
+private const val EVENT_DETAIL_REQUEST_CODE = 914
+
 interface CalendarView : BaseView {
 
     fun setCurrentDate(currentDate: String)
@@ -67,7 +69,7 @@ interface CalendarView : BaseView {
 
         fun onCreateNewEventClicked()
 
-        fun onEventReturned(event: Event)
+        fun onEventReturned()
 
     }
 
@@ -134,7 +136,9 @@ class CalendarFragment :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        if (requestCode == EVENT_DETAIL_REQUEST_CODE) {
+            presenter.onEventReturned()
+        }
     }
 
     //region CalendarView
@@ -185,13 +189,13 @@ class CalendarFragment :
 
     override fun openCreateNewEvent() {
         activity?.let { activity ->
-            startActivity(EventDetailActivity.createIntent(activity, EventDetailMode.CREATE_NEW))
+            startActivityForResult(EventDetailActivity.createIntent(activity, EventDetailMode.CREATE_NEW), EVENT_DETAIL_REQUEST_CODE)
         }
     }
 
     override fun openEventDetail(event: Event) {
         activity?.let { activity ->
-            startActivity(EventDetailActivity.createIntent(activity, EventDetailMode.START, event))
+            startActivityForResult(EventDetailActivity.createIntent(activity, EventDetailMode.START, event), EVENT_DETAIL_REQUEST_CODE)
         }
     }
 

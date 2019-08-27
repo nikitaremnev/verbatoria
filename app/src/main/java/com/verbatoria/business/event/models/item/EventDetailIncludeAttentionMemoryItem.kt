@@ -6,7 +6,8 @@ import com.verbatoria.ui.event.EventDetailMode
  * @author n.remnev
  */
 
-class EventDetailArchimedesItem(
+class EventDetailIncludeAttentionMemoryItem(
     mode: EventDetailMode,
-    var isArchimedesIncluded: Boolean
+    var isLoading: Boolean = false,
+    var isAttentionMemoryIncluded: Boolean = false
 ) : EventDetailItem(mode)

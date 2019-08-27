@@ -10,6 +10,8 @@ interface ReportManager {
 
     fun sendReportToLocation(reportId: String)
 
+    fun includeAttentionMemory(reportId: String)
+
 }
 
 class ReportManagerImpl(
@@ -18,6 +20,10 @@ class ReportManagerImpl(
 
     override fun sendReportToLocation(reportId: String) {
         reportEndpoint.sendReportToLocation(reportId)
+    }
+
+    override fun includeAttentionMemory(reportId: String) {
+        reportEndpoint.includeAttentionMemory(reportId)
     }
 
 }

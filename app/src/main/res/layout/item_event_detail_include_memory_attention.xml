@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="@dimen/event_detail_field_min_height"
     android:background="@color/white"
     android:foreground="?selectableItemBackground">
 
     <TextView
-        android:id="@+id/name_text_view"
+        android:id="@+id/include_attention_memory_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
@@ -16,47 +16,32 @@
         android:layout_marginTop="@dimen/event_detail_client_name_margin_top"
         android:layout_marginEnd="@dimen/event_detail_client_name_margin_horizontal"
         android:textColor="@color/black"
+        android:text="@string/event_detail_activity_attention_memory_include"
         android:textSize="@dimen/event_detail_client_name_text_size"
         android:textStyle="bold"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Вербатолог Вербатологов" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/phone_text_view"
+        android:id="@+id/already_sent_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/event_detail_client_phone_margin_top"
         android:textSize="@dimen/event_detail_client_phone_text_size"
-        android:visibility="invisible"
-        app:layout_constraintLeft_toLeftOf="@+id/hobby_included_status_text_view"
-        app:layout_constraintTop_toBottomOf="@+id/hobby_included_status_text_view"
-        tools:text="+7 (915) 397 46-89" />
-
-    <TextView
-        android:id="@+id/hint_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/info_name_margin_horizontal"
-        android:layout_marginTop="@dimen/event_detail_client_name_margin_top"
-        android:layout_marginEnd="@dimen/event_detail_client_name_margin_horizontal"
-        android:drawableStart="@drawable/ic_not_ok"
-        android:drawablePadding="@dimen/event_detail_item_hint_logo_padding"
-        android:gravity="center_vertical"
         android:visibility="gone"
-        android:textColor="@color/red"
-        android:textSize="@dimen/event_detail_item_hint_text_size"
-        android:text="@string/event_detail_client_hint"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="@dimen/event_detail_late_send_alread_send_margin_bottom"
+        app:layout_constraintLeft_toLeftOf="@+id/include_attention_memory_text_view"
+        app:layout_constraintTop_toBottomOf="@+id/include_attention_memory_text_view"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="+7 (915) 397 46-89" />
 
     <ProgressBar
         android:id="@+id/loading_progress_bar"
         android:layout_marginStart="@dimen/event_detail_client_progress_bar_margin_start"
         android:layout_width="@dimen/event_detail_client_progress_bar_size"
         android:layout_height="@dimen/event_detail_client_progress_bar_size"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -67,8 +52,8 @@
         android:layout_height="@dimen/divider_height"
         android:layout_marginTop="@dimen/event_detail_client_bottom_border_margin_top"
         android:background="@color/divider_item_color"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_text_view" />
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

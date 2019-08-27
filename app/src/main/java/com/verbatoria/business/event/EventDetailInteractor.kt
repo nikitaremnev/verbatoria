@@ -7,6 +7,7 @@ import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.domain.dashboard.calendar.CalendarManager
 import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.domain.report.ReportManager
 import com.verbatoria.domain.schedule.ScheduleManager
 import com.verbatoria.infrastructure.extensions.formatToTime
@@ -40,6 +41,8 @@ interface EventDetailInteractor {
 
     fun sendReportToLocation(reportId: String): Completable
 
+    fun includeAttentionMemory(reportId: String): Completable
+
 }
 
 class EventDetailInteractorImpl(
@@ -47,6 +50,7 @@ class EventDetailInteractorImpl(
     private val scheduleManager: ScheduleManager,
     private val clientManager: ClientManager,
     private val reportManager: ReportManager,
+    private val infoManager: InfoManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : EventDetailInteractor {
 
@@ -122,22 +126,35 @@ class EventDetailInteractorImpl(
                 )
             )
 
-//            if (!event.report.isSent()) {
-            eventDetailItems.add(
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.START,
-                    headerStringResource = R.string.event_detail_location
+            if (!infoManager.isSchool() && event.report.isSent()) {
+                eventDetailItems.add(
+                    EventDetailHeaderItem(
+                        mode = EventDetailMode.START,
+                        headerStringResource = R.string.event_detail_location
+                    )
                 )
-            )
-            eventDetailItems.add(
-                EventDetailSendToLocationItem(
-                    mode = EventDetailMode.START
-
+                eventDetailItems.add(
+                    EventDetailSendToLocationItem(
+                        mode = EventDetailMode.START
+                    )
                 )
-            )
-//            }
+            }
 
-            if (event.isArchimedesAllowed) {
+            if (!infoManager.isSchool() && event.report.isSentOrReady()) {
+                eventDetailItems.add(
+                    EventDetailHeaderItem(
+                        mode = EventDetailMode.START,
+                        headerStringResource = R.string.attention_memory
+                    )
+                )
+                eventDetailItems.add(
+                    EventDetailIncludeAttentionMemoryItem(
+                        mode = EventDetailMode.START
+                    )
+                )
+            }
+
+            if (!infoManager.isSchool() && event.isArchimedesAllowed) {
                 eventDetailItems.add(
                     EventDetailHeaderItem(
                         mode = EventDetailMode.START,
@@ -146,12 +163,13 @@ class EventDetailInteractorImpl(
                 )
                 eventDetailItems.add(
                     EventDetailArchimedesItem(
-                        mode = EventDetailMode.START
+                        mode = EventDetailMode.START,
+                        isArchimedesIncluded = infoManager.isArchimedesAllowedForVerbatolog()
                     )
                 )
             }
 
-            if (event.child.age  >= MINIMUM_HOBBY_AGE) {
+            if (!infoManager.isSchool() && event.child.age  >= MINIMUM_HOBBY_AGE) {
                 eventDetailItems.add(
                     EventDetailHeaderItem(
                         mode = EventDetailMode.START,
@@ -220,6 +238,13 @@ class EventDetailInteractorImpl(
     override fun sendReportToLocation(reportId: String): Completable =
         Completable.fromCallable {
             reportManager.sendReportToLocation(reportId)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+    override fun includeAttentionMemory(reportId: String): Completable =
+        Completable.fromCallable {
+            reportManager.includeAttentionMemory(reportId)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

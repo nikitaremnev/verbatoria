@@ -32,7 +32,9 @@ interface InfoManager {
 
     fun isAgeAvailableForArchimedes(age: Int): Boolean
 
-    fun isArchimedesAllowed(): Boolean
+    fun isArchimedesAllowedForVerbatolog(): Boolean
+
+    fun isSchool(): Boolean
 
 }
 
@@ -99,6 +101,7 @@ class InfoManagerImpl(
                     name = response.partner.name
                 )
 
+                infoRepository.putIsSchool(response.isSchool ?: false)
                 infoRepository.saveLocationInfo(responseLocationInfoConverted)
                 infoRepository.savePartnerInfo(responsePartnerInfoConverted)
                 infoRepository.putLastLocationInfoUpdateTime(System.currentTimeMillis())
@@ -180,7 +183,9 @@ class InfoManagerImpl(
     override fun isAgeAvailableForArchimedes(age: Int): Boolean =
         ageGroupRepository.isAgeAvailableForArchimedes(age)
 
-    override fun isArchimedesAllowed(): Boolean =
+    override fun isArchimedesAllowedForVerbatolog(): Boolean =
         infoRepository.getIsArchimedesAllowed()
 
+    override fun isSchool(): Boolean =
+        infoRepository.getIsSchool()
 }

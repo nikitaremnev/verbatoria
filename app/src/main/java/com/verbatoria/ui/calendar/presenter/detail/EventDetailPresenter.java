@@ -360,7 +360,7 @@ public class EventDetailPresenter extends BasePresenter implements IEventDetailP
 
     private void handleReportSentToLocation() {
         eventDetailView.updateSendToLocationView(eventModel.getReport(), true);
-        eventDetailView.showSuccessMessage(R.string.event_confirm_send_report_to_location_success);
+        eventDetailView.showSuccessMessage(R.string.event_detail_send_to_location_complete);
     }
 
     private void handleReportSendToLocationError(Throwable throwable) {

@@ -26,12 +26,11 @@ class EventDetailPresenter(
     private val eventDetailInteractor: EventDetailInteractor
 ) : BasePresenter<EventDetailView>(),
     EventDetailView.Callback,
-    EventDetailArchimedesItemViewHolder.Callback,
     EventDetailChildItemViewHolder.Callback,
     EventDetailClientItemViewHolder.Callback,
     EventDetailTimeItemViewHolder.Callback,
     EventDetailHobbyItemViewHolder.Callback,
-    EventDetailIncludeMemoryAttentionItemViewHolder.Callback,
+    EventDetailIncludeAttentionMemoryItemViewHolder.Callback,
     EventDetailReportItemViewHolder.Callback,
     EventDetailSendToLocationItemViewHolder.Callback,
     EventDetailSubmitItemViewHolder.Callback,
@@ -93,6 +92,15 @@ class EventDetailPresenter(
             }
     }
 
+    override fun onIncludeAttentionMemoryConfirmed() {
+        findEventDetailItemInList<EventDetailIncludeAttentionMemoryItem>()
+            ?.let { eventDetailIncludeAttentionMemoryItem ->
+                eventDetailIncludeAttentionMemoryItem.isLoading = true
+                view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailIncludeAttentionMemoryItem))
+                includeAttentionMemoryModule()
+            }
+    }
+
     override fun onIntervalSelected(position: Int) {
         selectedTimeSlot = timeSlots.getOrNull(position)
         findEventDetailItemInList<EventDetailTimeItem>()
@@ -132,26 +140,20 @@ class EventDetailPresenter(
 
     //endregion
 
-    //region EventDetailArchimedesItemViewHolder.Callback
-
-
-    //endregion
-
     //region EventDetailChildItemViewHolder.Callback
 
     override fun onChildClicked() {
-        if (client != null || event != null) {
+        if (event != null) {
+            view?.openChild(currentMode, child, event?.clientId ?: throw IllegalStateException("try to open child activity when event is null"))
+        } else {
             client?.let { client ->
                 if (client.hasId() ) {
-                    view?.openChild(currentMode, child, client.id!!)
+                    view?.openChild(currentMode, child, client.id ?: throw IllegalStateException("try to open child activity when client is null"))
                 } else {
                     view?.showFillClientFirstError()
                 }
             } ?: view?.showFillClientFirstError()
-        } else {
-            view?.showFillClientFirstError()
         }
-
     }
 
     //endregion
@@ -178,7 +180,7 @@ class EventDetailPresenter(
     override fun onHobbyClicked() {
         findEventDetailItemInList<EventDetailHobbyItem>()
             ?.let { eventDetailHobbyItem ->
-                if (!eventDetailHobbyItem.isHobbyIncluded) {
+                if (!eventDetailHobbyItem.isHobbyIncluded && !eventDetailHobbyItem.isLoading) {
                     view?.showIncludeHobbyConfirmationDialog()
                 }
             }
@@ -186,8 +188,16 @@ class EventDetailPresenter(
 
     //endregion
 
-    //region EventDetailIncludeMemoryAttentionItemViewHolder.Callback
+    //region EventDetailIncludeAttentionMemoryItemViewHolder.Callback
 
+    override fun onIncludeAttentionMemoryClicked() {
+        findEventDetailItemInList<EventDetailIncludeAttentionMemoryItem>()
+            ?.let { eventDetailIncludeAttentionMemoryItem ->
+                if (!eventDetailIncludeAttentionMemoryItem.isAttentionMemoryIncluded && !eventDetailIncludeAttentionMemoryItem.isLoading) {
+                    view?.showIncludeAttentionMemoryConfirmationDialog()
+                }
+            }
+    }
 
     //endregion
 
@@ -214,7 +224,7 @@ class EventDetailPresenter(
     override fun onSendToLocationClicked() {
         findEventDetailItemInList<EventDetailSendToLocationItem>()
             ?.let { eventDetailSendToLocationItem ->
-                if (!eventDetailSendToLocationItem.isAlreadySent) {
+                if (!eventDetailSendToLocationItem.isAlreadySent && !eventDetailSendToLocationItem.isLoading) {
                     view?.showSendToLocationConfirmationDialog()
                 }
             }
@@ -255,7 +265,7 @@ class EventDetailPresenter(
                 this.view?.showIntervalSelectionDialog(availableIntervals)
             }, { error ->
                 logger.error("get available time slots error occurred", error)
-                this.view?.showErrorSnackbar("get fiavailable time slots error occurred")
+                this.view?.showErrorSnackbar("get available time slots error occurred")
             })
             .let(::addDisposable)
     }
@@ -352,6 +362,28 @@ class EventDetailPresenter(
             .let(::addDisposable)
     }
 
+    private fun include() {
+        eventDetailInteractor.sendReportToLocation(event?.report?.reportId ?: throw IllegalStateException("Try to send report to location while event is null"))
+            .subscribe({
+                findEventDetailItemInList<EventDetailSendToLocationItem>()
+                    ?.let { eventDetailSendToLocationItem ->
+                        eventDetailSendToLocationItem.isLoading = false
+                        eventDetailSendToLocationItem.isAlreadySent = true
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
+                    }
+            }, { error ->
+                logger.error("send report to location error occurred", error)
+                view?.showErrorSnackbar("send report to location error occurred")
+                findEventDetailItemInList<EventDetailSendToLocationItem>()
+                    ?.let { eventDetailSendToLocationItem ->
+                        eventDetailSendToLocationItem.isLoading = false
+                        eventDetailSendToLocationItem.isAlreadySent = false
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
+                    }
+            })
+            .let(::addDisposable)
+    }
+
     private fun sendReportToLocation() {
         eventDetailInteractor.sendReportToLocation(event?.report?.reportId ?: throw IllegalStateException("Try to send report to location while event is null"))
             .subscribe({
@@ -369,6 +401,28 @@ class EventDetailPresenter(
                         eventDetailSendToLocationItem.isLoading = false
                         eventDetailSendToLocationItem.isAlreadySent = false
                         view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
+                    }
+            })
+            .let(::addDisposable)
+    }
+
+    private fun includeAttentionMemoryModule() {
+        eventDetailInteractor.includeAttentionMemory(event?.report?.reportId ?: throw IllegalStateException("Try to include attention memory while event is null"))
+            .subscribe({
+                findEventDetailItemInList<EventDetailIncludeAttentionMemoryItem>()
+                    ?.let { eventDetailIncludeAttentionMemoryItem ->
+                        eventDetailIncludeAttentionMemoryItem.isLoading = false
+                        eventDetailIncludeAttentionMemoryItem.isAttentionMemoryIncluded = true
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailIncludeAttentionMemoryItem))
+                    }
+            }, { error ->
+                logger.error("include attention memory error occurred", error)
+                view?.showErrorSnackbar("include attention memory error occurred")
+                findEventDetailItemInList<EventDetailIncludeAttentionMemoryItem>()
+                    ?.let { eventDetailIncludeAttentionMemoryItem ->
+                        eventDetailIncludeAttentionMemoryItem.isLoading = false
+                        eventDetailIncludeAttentionMemoryItem.isAttentionMemoryIncluded = false
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailIncludeAttentionMemoryItem))
                     }
             })
             .let(::addDisposable)

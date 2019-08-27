@@ -268,12 +268,13 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
         } else {
             String archimedSubtitle;
             if (isArchimedFieldEnabledForVerbatolog) {
-                archimedSubtitle = getString(R.string.event_confirm_archimed_subtitle_enabled);
+                archimedSubtitle = getString(R.string.event_detail_archimedes_included);
             } else {
-                archimedSubtitle = getString(R.string.event_confirm_archimed_subtitle_disabled);
+                archimedSubtitle = getString(R.string.event_detail_archimedes_not_included);
             }
             mArchimedFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
             setUpFieldView(mArchimedFieldView, R.drawable.ic_archimed_green, getString(R.string.arhimedes), archimedSubtitle, v -> {
+
             });
             mArchimedFieldView.setVisibility(View.VISIBLE);
         }
@@ -340,7 +341,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             } else {
                 mIncludeAttentionMemoryFieldView.findViewById(R.id.status_image_view).setVisibility(View.GONE);
             }
-            setUpFieldView(mIncludeAttentionMemoryFieldView, R.drawable.ic_report, getString(R.string.event_detail_activity_attention_memory), getString(R.string.event_detail_activity_attention_memory_include), v -> mEventDetailPresenter.onIncludeAttentionMemoryClicked());
+            setUpFieldView(mIncludeAttentionMemoryFieldView, R.drawable.ic_report, getString(R.string.attention_memory), getString(R.string.event_detail_activity_attention_memory_include), v -> mEventDetailPresenter.onIncludeAttentionMemoryClicked());
             mIncludeAttentionMemoryFieldView.setVisibility(View.VISIBLE);
         }
     }
@@ -376,8 +377,8 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     public void showConfirmIncludeAttentionMemory() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.confirmation))
-                .setMessage(getString(R.string.event_confirm_include_attention_memory));
-        builder.setPositiveButton(getString(R.string.event_confirm_include_attention_memory_include), (dialog, which) -> {
+                .setMessage(getString(R.string.event_detail_include_attention_memory_confirmation_dialog_message));
+        builder.setPositiveButton(getString(R.string.include), (dialog, which) -> {
             mEventDetailPresenter.onIncludeAttentionMemoryConfirmed();
         });
         builder.setNegativeButton(getString(R.string.cancel), null);

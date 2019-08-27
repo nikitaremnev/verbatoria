@@ -21,6 +21,8 @@ data class Report(
 
     fun isSent() = status == ReportStatus.SENT
 
+    fun isSentOrReady() = status == ReportStatus.SENT || status == ReportStatus.READY
+
 }
 
 

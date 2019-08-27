@@ -94,7 +94,7 @@ class CalendarManagerImpl(
                     startAt = startAt.formatToServerTime(),
                     endAt = endAt.formatToServerTime(),
                     isInstantReport = true,
-                    isArchimedesIncluded = infoManager.isArchimedesAllowed() && infoManager.isAgeAvailableForArchimedes(
+                    isArchimedesIncluded = infoManager.isArchimedesAllowedForVerbatolog() && infoManager.isAgeAvailableForArchimedes(
                         childAge
                     ),
                     isHobbyIncluded = false
@@ -120,7 +120,7 @@ class CalendarManagerImpl(
                     startAt = startAt.formatToServerTime(),
                     endAt = endAt.formatToServerTime(),
                     isInstantReport = true,
-                    isArchimedesIncluded = infoManager.isArchimedesAllowed() && infoManager.isAgeAvailableForArchimedes(
+                    isArchimedesIncluded = infoManager.isArchimedesAllowedForVerbatolog() && infoManager.isAgeAvailableForArchimedes(
                         childAge
                     ),
                     isHobbyIncluded = isHobbyIncluded

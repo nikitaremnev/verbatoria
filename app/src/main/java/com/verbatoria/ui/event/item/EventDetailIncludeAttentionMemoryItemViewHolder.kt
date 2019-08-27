@@ -13,9 +13,9 @@ import com.verbatoria.infrastructure.extensions.show
  * @author n.remnev
  */
 
-interface EventDetailSendToLocationItemViewHolder {
+interface EventDetailIncludeAttentionMemoryItemViewHolder {
 
-    fun setAlreadySent()
+    fun setAttentionMemoryIncluded()
 
     fun showLoading()
 
@@ -23,41 +23,42 @@ interface EventDetailSendToLocationItemViewHolder {
 
     interface Callback {
 
-        fun onSendToLocationClicked()
+        fun onIncludeAttentionMemoryClicked()
 
     }
 
+
 }
 
-class EventDetailSendToLocationItemViewHolderImpl(
+class EventDetailIncludeAttentionMemoryItemViewHolderImpl(
     view: View,
-    callback: EventDetailSendToLocationItemViewHolder.Callback
+    callback: EventDetailIncludeAttentionMemoryItemViewHolder.Callback
 ) : RecyclerView.ViewHolder(view),
-    EventDetailSendToLocationItemViewHolder {
+    EventDetailIncludeAttentionMemoryItemViewHolder {
 
-    private val sendToLocationTextView: TextView = view.findViewById(R.id.send_to_location_text_view)
+    private val includeAttentionMemoryTextView: TextView = view.findViewById(R.id.include_attention_memory_text_view)
     private val alreadySentTextView: TextView = view.findViewById(R.id.already_sent_text_view)
     private val progressBar: ProgressBar = view.findViewById(R.id.loading_progress_bar)
 
     init {
         view.setOnClickListener {
-            callback.onSendToLocationClicked()
+            callback.onIncludeAttentionMemoryClicked()
         }
     }
 
-    override fun setAlreadySent() {
-        alreadySentTextView.setText(R.string.event_detail_send_to_location_complete)
+    override fun setAttentionMemoryIncluded() {
+        alreadySentTextView.setText(R.string.event_detail_include_attention_memory_complete)
         alreadySentTextView.show()
     }
 
     override fun showLoading() {
-        sendToLocationTextView.invisible()
+        includeAttentionMemoryTextView.invisible()
         progressBar.show()
     }
 
     override fun hideLoading() {
         progressBar.hide()
-        sendToLocationTextView.show()
+        includeAttentionMemoryTextView.show()
     }
 
 }

@@ -6,6 +6,7 @@ import com.verbatoria.business.event.models.item.*
 import com.verbatoria.domain.client.ClientManager
 import com.verbatoria.domain.dashboard.calendar.CalendarManager
 import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.dashboard.info.InfoManager
 import com.verbatoria.domain.report.ReportManager
 import com.verbatoria.domain.schedule.ScheduleManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
@@ -45,7 +46,7 @@ class EventDetailModule {
                     { it is EventDetailArchimedesItem },
                     {
                         EventDetailArchimedesItemViewHolderImpl(
-                            ViewInflater.inflate(R.layout.item_event_detail_archimedes, it), eventDetailPresenter
+                            ViewInflater.inflate(R.layout.item_event_detail_archimedes, it)
                         )
                     },
                     EventDetailArchimedesItemBinder()
@@ -87,13 +88,13 @@ class EventDetailModule {
                     EventDetailHobbyItemBinder()
                 ),
                 ItemAdapter(
-                    { it is EventDetailIncludeMemoryAttentionItem },
+                    { it is EventDetailIncludeAttentionMemoryItem },
                     {
-                        EventDetailIncludeMemoryAttentionItemViewHolderImpl(
+                        EventDetailIncludeAttentionMemoryItemViewHolderImpl(
                             ViewInflater.inflate(R.layout.item_event_detail_include_memory_attention, it), eventDetailPresenter
                         )
                     },
-                    EventDetailIncludeMemoryAttentionItemBinder()
+                    EventDetailIncludeAttentionMemoryItemBinder()
                 ),
                 ItemAdapter(
                     { it is EventDetailReportItem },
@@ -134,12 +135,13 @@ class EventDetailModule {
         scheduleManager: ScheduleManager,
         clientManager: ClientManager,
         reportManager: ReportManager,
+        infoManager: InfoManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): EventDetailPresenter =
         EventDetailPresenter(
             EventDetailMode.valueOf(eventDetailModeOrdinal),
             event,
-            EventDetailInteractorImpl(calendarManager, scheduleManager, clientManager, reportManager, rxSchedulersFactory)
+            EventDetailInteractorImpl(calendarManager, scheduleManager, clientManager, reportManager, infoManager, rxSchedulersFactory)
         )
 
 }

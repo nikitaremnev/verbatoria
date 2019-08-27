@@ -14,6 +14,8 @@ private const val STATUS_KEY = "status"
 private const val NAME_KEY = "name"
 private const val PHONE_KEY = "phone"
 private const val EMAIL_KEY = "email"
+private const val IS_SCHOOL_KEY = "is_school"
+
 private const val IS_ARCHIMEDES_ALLOWED_KEY = "is_archimedes_allowed"
 private const val LAST_INFO_UPDATE_TIME = "last_info_update_time"
 
@@ -38,6 +40,8 @@ interface InfoRepository {
 
     fun putIsArchimedesAllowed(isArchimedesAllowed: Boolean)
 
+    fun putIsSchool(isSchool: Boolean)
+
     fun putLocationId(locationId: String)
 
     fun putLocationName(locationName: String)
@@ -61,6 +65,8 @@ interface InfoRepository {
     fun getEmail(): String
 
     fun getIsArchimedesAllowed(): Boolean
+
+    fun getIsSchool(): Boolean
 
     fun getLocationId(): String
 
@@ -131,6 +137,13 @@ class InfoRepositoryImpl(
         }
     }
 
+    override fun putIsSchool(isSchool: Boolean) {
+        sharedPreferences.edit().apply {
+            putBoolean(IS_SCHOOL_KEY, isSchool)
+            apply()
+        }
+    }
+
     override fun putLocationId(locationId: String) {
         sharedPreferences.edit().apply {
             putString(LOCATION_ID_KEY, locationId)
@@ -194,6 +207,9 @@ class InfoRepositoryImpl(
 
     override fun getIsArchimedesAllowed(): Boolean =
         sharedPreferences.getBoolean(IS_ARCHIMEDES_ALLOWED_KEY, false)
+
+    override fun getIsSchool(): Boolean =
+        sharedPreferences.getBoolean(IS_SCHOOL_KEY, false)
 
     override fun getLocationId(): String =
         sharedPreferences.getString(LOCATION_ID_KEY, "")
