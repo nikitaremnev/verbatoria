@@ -50,6 +50,10 @@ interface ClientView : BaseView {
 
     fun setSaveButtonDisabled()
 
+    fun showSaveButton()
+
+    fun hideSaveButton()
+
     fun close(client: Client?)
 
     fun close()
@@ -233,6 +237,14 @@ class ClientActivity : BasePresenterActivity<ClientView, ClientPresenter, Client
 
     override fun setSaveButtonDisabled() {
         saveButton.isEnabled = false
+    }
+
+    override fun showSaveButton() {
+        saveButton.show()
+    }
+
+    override fun hideSaveButton() {
+        saveButton.hide()
     }
 
     override fun close(client: Client?) {

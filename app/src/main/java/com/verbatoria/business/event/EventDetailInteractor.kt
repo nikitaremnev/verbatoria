@@ -186,6 +186,14 @@ class EventDetailInteractorImpl(
                 )
             }
 
+            if (!event.report.isCanceled()) {
+                eventDetailItems.add(
+                    EventDetailSubmitItem(
+                        mode = EventDetailMode.START
+                    )
+                )
+            }
+
             eventDetailItems.toList()
         }
             .subscribeOn(schedulersFactory.io)

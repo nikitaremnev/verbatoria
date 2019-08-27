@@ -6,6 +6,7 @@ import com.verbatoria.domain.dashboard.calendar.Event
 import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.dashboard.calendar.item.EventItemViewHolder
+import com.verbatoria.ui.event.EventDetailMode
 import org.slf4j.LoggerFactory
 import java.util.*
 
@@ -77,7 +78,15 @@ class CalendarPresenter(
 
     override fun onEventItemClicked(position: Int) {
         if (position in 0..eventsList.size) {
-            view?.openEventDetail(eventsList[position])
+            val event = eventsList[position]
+            view?.openEventDetail(
+                event,
+                if (event.report.isCanceled()) {
+                    EventDetailMode.VIEW_ONLY
+                } else {
+                    EventDetailMode.START
+                }
+            )
         }
     }
 

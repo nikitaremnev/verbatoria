@@ -86,6 +86,9 @@ class EventDetailPresenter(
     }
 
     override fun onSendToLocationConfirmed() {
+        if (currentMode.isViewOnly()) {
+            return
+        }
         findEventDetailItemInList<EventDetailSendToLocationItem>()
             ?.let { eventDetailSendToLocationItem ->
                 eventDetailSendToLocationItem.isLoading = true
@@ -129,6 +132,7 @@ class EventDetailPresenter(
             ?.let { eventDetailClientItem ->
                 eventDetailClientItem.name = client?.name
                 eventDetailClientItem.phone = client?.phone
+                eventDetailClientItem.isLoading = false
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
             }
         checkIsAllFieldsFilled()
@@ -181,6 +185,9 @@ class EventDetailPresenter(
     //region EventDetailTimeItemViewHolder.Callback
 
     override fun onDateClicked() {
+        if (currentMode.isViewOnly()) {
+            return
+        }
         view?.showDatePickerDialog()
     }
 
@@ -189,6 +196,9 @@ class EventDetailPresenter(
     //region EventDetailHobbyItemViewHolder.Callback
 
     override fun onHobbyClicked() {
+        if (currentMode.isViewOnly()) {
+            return
+        }
         findEventDetailItemInList<EventDetailHobbyItem>()
             ?.let { eventDetailHobbyItem ->
                 if (!eventDetailHobbyItem.isHobbyIncluded && !eventDetailHobbyItem.isLoading) {
@@ -202,6 +212,9 @@ class EventDetailPresenter(
     //region EventDetailIncludeAttentionMemoryItemViewHolder.Callback
 
     override fun onIncludeAttentionMemoryClicked() {
+        if (currentMode.isViewOnly()) {
+            return
+        }
         findEventDetailItemInList<EventDetailIncludeAttentionMemoryItem>()
             ?.let { eventDetailIncludeAttentionMemoryItem ->
                 if (!eventDetailIncludeAttentionMemoryItem.isAttentionMemoryIncluded && !eventDetailIncludeAttentionMemoryItem.isLoading) {
@@ -252,10 +265,7 @@ class EventDetailPresenter(
                 createNewEvent()
             }
             EventDetailMode.START -> {
-
-            }
-            EventDetailMode.EDIT -> {
-
+                view?.openStartSession()
             }
         }
     }

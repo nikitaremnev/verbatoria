@@ -83,6 +83,8 @@ interface EventDetailView : BaseView {
 
     fun hideProgress()
 
+    fun openStartSession()
+
     fun close()
 
     interface Callback {
@@ -283,6 +285,10 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     override fun hideProgress() {
         progressDialog?.dismiss()
+    }
+
+    override fun openStartSession() {
+        //empty
     }
 
     override fun close() {

@@ -1,6 +1,7 @@
 package com.verbatoria.ui.client
 
 import com.verbatoria.business.client.ClientInteractor
+import com.verbatoria.domain.child.Child
 import com.verbatoria.domain.client.Client
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.EventDetailMode
@@ -15,6 +16,8 @@ class ClientPresenter(
     private val clientInteractor: ClientInteractor
 ) : BasePresenter<ClientView>(), ClientView.Callback {
 
+    private var editedClient: Client = client.copy()
+
     private var country: String = ""
 
     init {
@@ -26,7 +29,7 @@ class ClientPresenter(
         view.setCurrentCountry(country)
         when {
             eventDetailMode.isCreateNew() -> view.setEditableMode()
-            eventDetailMode.isEdit() -> view.setEditableMode()
+            eventDetailMode.isStart() -> view.setEditableMode()
             else -> view.setViewOnlyMode()
         }
         view.apply {
@@ -40,18 +43,33 @@ class ClientPresenter(
     //region ClientView.Callback
 
     override fun onClientNameChanged(newClientName: String) {
-        client.name = newClientName
-        checkIsAllFieldsFilled()
+        if (eventDetailMode.isStart()) {
+            editedClient.name = newClientName
+            checkIsSomeFieldsChanged()
+        } else if (eventDetailMode.isCreateNew()) {
+            client.name = newClientName
+            checkIsAllFieldsFilled()
+        }
     }
 
     override fun onClientPhoneChanged(newClientPhone: String) {
-        client.phone = newClientPhone
-        checkIsAllFieldsFilled()
+        if (eventDetailMode.isStart()) {
+            editedClient.phone = newClientPhone
+            checkIsSomeFieldsChanged()
+        } else if (eventDetailMode.isCreateNew()) {
+            client.phone = newClientPhone
+            checkIsAllFieldsFilled()
+        }
     }
 
     override fun onClientEmailChanged(newClientEmail: String) {
-        client.email = newClientEmail
-        checkIsAllFieldsFilled()
+        if (eventDetailMode.isStart()) {
+            editedClient.email = newClientEmail
+            checkIsSomeFieldsChanged()
+        } else if (eventDetailMode.isCreateNew()) {
+            client.email = newClientEmail
+            checkIsAllFieldsFilled()
+        }
     }
 
     override fun onSaveButtonClicked() {
@@ -99,13 +117,13 @@ class ClientPresenter(
 
     private fun editClient() {
         view?.showSaveProgress()
-        clientInteractor.editClient(client)
+        clientInteractor.editClient(editedClient)
             .doAfterTerminate {
                 view?.hideSaveProgress()
             }
             .subscribe({ editedClient ->
                 client = editedClient
-                view?.close(client)
+                view?.close(editedClient)
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage)
             })
@@ -121,6 +139,15 @@ class ClientPresenter(
                 view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
+    }
+
+    private fun checkIsSomeFieldsChanged() {
+        if (client.name != editedClient.name || client.phone != editedClient.phone ||
+            client.email != editedClient.email) {
+            view?.showSaveButton()
+        } else {
+            view?.hideSaveButton()
+        }
     }
 
 }

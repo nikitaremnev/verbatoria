@@ -219,6 +219,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     override fun setViewOnlyMode() {
         childNameEditText.isEnabled = false
+        childGenderSpinner.isEnabled = false
         saveButton.hide()
     }
 

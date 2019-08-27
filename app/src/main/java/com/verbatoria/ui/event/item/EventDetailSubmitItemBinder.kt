@@ -15,9 +15,6 @@ class EventDetailSubmitItemBinder: ViewBinder<EventDetailSubmitItemViewHolder, E
             EventDetailMode.CREATE_NEW -> {
                 view.setCreateNewEventTitle()
             }
-            EventDetailMode.EDIT -> {
-                view.setEditEventTitle()
-            }
             EventDetailMode.START -> {
                 view.setStartEventTitle()
             }

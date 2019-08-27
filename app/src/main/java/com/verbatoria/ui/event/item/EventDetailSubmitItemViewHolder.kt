@@ -14,8 +14,6 @@ interface EventDetailSubmitItemViewHolder {
 
     fun setCreateNewEventTitle()
 
-    fun setEditEventTitle()
-
     fun setStartEventTitle()
 
     fun setSubmitButtonEnabled()
@@ -50,12 +48,8 @@ class EventDetailSubmitItemViewHolderImpl(
         submitButton.text = context.getString(R.string.event_detail_create_new_event)
     }
 
-    override fun setEditEventTitle() {
-        submitButton.text = context.getString(R.string.event_detail_create_new_event)
-    }
-
     override fun setStartEventTitle() {
-        submitButton.text = context.getString(R.string.event_detail_create_new_event)
+        submitButton.text = context.getString(R.string.event_detail_start_session)
     }
 
     override fun setSubmitButtonEnabled() {

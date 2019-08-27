@@ -348,7 +348,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public void setUpEventCreated() {
-        mSubmitButton.setText(getString(R.string.dashboard_start_session));
+        mSubmitButton.setText(getString(R.string.event_detail_start_session));
         mSubmitButton.setOnClickListener(v -> {
             mEventDetailPresenter.checkDatabaseClear();
         });
@@ -489,7 +489,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
             mSubmitButton.setText(getString(R.string.dashboard_add_event));
             mSubmitButton.setOnClickListener(v -> mEventDetailPresenter.onCreateEventClicked());
         } else {
-            mSubmitButton.setText(getString(R.string.dashboard_start_session));
+            mSubmitButton.setText(getString(R.string.event_detail_start_session));
             mSubmitButton.setOnClickListener(v -> {
                 if (!mEventDetailPresenter.checkStartSession()) {
                     mEventDetailPresenter.checkDatabaseClear();

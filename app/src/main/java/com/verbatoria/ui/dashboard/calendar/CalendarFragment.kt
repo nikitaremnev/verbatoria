@@ -57,7 +57,7 @@ interface CalendarView : BaseView {
 
     fun openCreateNewEvent()
 
-    fun openEventDetail(event: Event)
+    fun openEventDetail(event: Event, eventDetailMode: EventDetailMode)
 
     interface Callback {
 
@@ -193,9 +193,9 @@ class CalendarFragment :
         }
     }
 
-    override fun openEventDetail(event: Event) {
+    override fun openEventDetail(event: Event, eventDetailMode: EventDetailMode) {
         activity?.let { activity ->
-            startActivityForResult(EventDetailActivity.createIntent(activity, EventDetailMode.START, event), EVENT_DETAIL_REQUEST_CODE)
+            startActivityForResult(EventDetailActivity.createIntent(activity, eventDetailMode, event), EVENT_DETAIL_REQUEST_CODE)
         }
     }
 

@@ -6,13 +6,13 @@ package com.verbatoria.ui.event
 
 enum class EventDetailMode {
 
-    CREATE_NEW, START, EDIT;
+    CREATE_NEW, START, VIEW_ONLY;
 
     fun isCreateNew() = this == CREATE_NEW
 
     fun isStart() = this == START
 
-    fun isEdit() = this == EDIT
+    fun isViewOnly() = this == VIEW_ONLY
 
     companion object {
 
@@ -20,7 +20,7 @@ enum class EventDetailMode {
             when (ordinal) {
                 CREATE_NEW.ordinal -> CREATE_NEW
                 START.ordinal -> START
-                EDIT.ordinal -> EDIT
+                VIEW_ONLY.ordinal -> VIEW_ONLY
                 else -> throw IllegalArgumentException("Wrong ordinal for EventDetailMode")
             }
 

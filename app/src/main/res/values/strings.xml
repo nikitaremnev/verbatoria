@@ -199,7 +199,7 @@
     <string name="dashboard_bottom_item_settings">Настройки</string>
 
     <string name="dashboard_add_event">Добавить запись</string>
-    <string name="dashboard_start_session">Начать сессию</string>
+    <string name="event_detail_start_session">Начать сессию</string>
     <string name="event_detail_start_mode_title">Запись</string>
 
     <string name="dashboard_unknown">Неизвестно</string>
