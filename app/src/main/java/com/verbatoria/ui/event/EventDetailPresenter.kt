@@ -49,7 +49,6 @@ class EventDetailPresenter(
     private var selectedTimeSlot: TimeSlot? = null
 
     init {
-
         event?.let { event ->
             getClient(event.clientId)
             child = event.child
@@ -62,17 +61,29 @@ class EventDetailPresenter(
 
     override fun onAttachView(view: EventDetailView) {
         super.onAttachView(view)
-
         if (currentMode.isCreateNew()) {
             getCreateNewEventItems()
             view.setTitle(R.string.event_detail_create_new_mode_title)
         } else {
-            getViewModeEventItems(event ?: throw IllegalStateException("Event is null and event mode is not create new"))
-            view.setTitle(R.string.event_detail_start_mode_title)
+            event?.let { event ->
+                getViewModeEventItems(event)
+                view.setTitle(R.string.event_detail_start_mode_title)
+                if (!event.report.isSentOrReady() && !event.report.isCanceled()) {
+                    view.showDeleteMenuItem()
+                }
+            } ?: throw IllegalStateException("Event is null and event mode is not create new")
         }
     }
 
     //region EventDetailView.Callback
+
+    override fun onDeleteEventClicked() {
+        view?.showDeleteEventConfirmationDialog()
+    }
+
+    override fun onDeleteEventConfirmed() {
+        deleteEvent()
+    }
 
     override fun onSendToLocationConfirmed() {
         findEventDetailItemInList<EventDetailSendToLocationItem>()
@@ -211,6 +222,7 @@ class EventDetailPresenter(
                         ReportStatus.UPLOADED ->  R.string.report_status_uploaded_hint
                         ReportStatus.READY ->  R.string.report_status_ready_hint
                         ReportStatus.SENT ->  R.string.report_status_sent_hint
+                        ReportStatus.CANCELED ->  R.string.report_status_sent_canceled
                         else -> R.string.report_status_new_hint
                     }
                 )
@@ -253,6 +265,7 @@ class EventDetailPresenter(
     //region DatePickerDialog.OnDateSetListener
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        this.view?.showProgress()
         eventDetailInteractor.getAvailableTimeSlots(
             Calendar.getInstance().apply {
                 set(Calendar.YEAR, year)
@@ -260,9 +273,16 @@ class EventDetailPresenter(
                 set(Calendar.DAY_OF_MONTH, dayOfMonth)
             }.time
         )
+            .doAfterTerminate {
+                this.view?.hideProgress()
+            }
             .subscribe({ (timeSlots, availableIntervals) ->
                 this.timeSlots = timeSlots
-                this.view?.showIntervalSelectionDialog(availableIntervals)
+                if (availableIntervals.isNotEmpty()) {
+                    this.view?.showIntervalSelectionDialog(availableIntervals)
+                } else {
+                    this.view?.showIntervalsEmptyError()
+                }
             }, { error ->
                 logger.error("get available time slots error occurred", error)
                 this.view?.showErrorSnackbar("get available time slots error occurred")
@@ -362,28 +382,6 @@ class EventDetailPresenter(
             .let(::addDisposable)
     }
 
-    private fun include() {
-        eventDetailInteractor.sendReportToLocation(event?.report?.reportId ?: throw IllegalStateException("Try to send report to location while event is null"))
-            .subscribe({
-                findEventDetailItemInList<EventDetailSendToLocationItem>()
-                    ?.let { eventDetailSendToLocationItem ->
-                        eventDetailSendToLocationItem.isLoading = false
-                        eventDetailSendToLocationItem.isAlreadySent = true
-                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
-                    }
-            }, { error ->
-                logger.error("send report to location error occurred", error)
-                view?.showErrorSnackbar("send report to location error occurred")
-                findEventDetailItemInList<EventDetailSendToLocationItem>()
-                    ?.let { eventDetailSendToLocationItem ->
-                        eventDetailSendToLocationItem.isLoading = false
-                        eventDetailSendToLocationItem.isAlreadySent = false
-                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailSendToLocationItem))
-                    }
-            })
-            .let(::addDisposable)
-    }
-
     private fun sendReportToLocation() {
         eventDetailInteractor.sendReportToLocation(event?.report?.reportId ?: throw IllegalStateException("Try to send report to location while event is null"))
             .subscribe({
@@ -424,6 +422,21 @@ class EventDetailPresenter(
                         eventDetailIncludeAttentionMemoryItem.isAttentionMemoryIncluded = false
                         view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailIncludeAttentionMemoryItem))
                     }
+            })
+            .let(::addDisposable)
+    }
+
+    private fun deleteEvent() {
+        view?.showProgress()
+        eventDetailInteractor.deleteEvent(event?.id ?: throw IllegalStateException("Try to delete event while event is null"))
+            .doAfterTerminate {
+                view?.hideProgress()
+            }
+            .subscribe({
+                view?.close()
+            }, { error ->
+                logger.error("delete event error occurred", error)
+                view?.showErrorSnackbar("delete event error occurred")
             })
             .let(::addDisposable)
     }

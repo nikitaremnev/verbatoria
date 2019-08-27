@@ -1,6 +1,7 @@
 package com.verbatoria.ui.base
 
 import android.support.annotation.CallSuper
+import android.util.Log
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -21,6 +22,12 @@ open class BasePresenter<View : BaseView> {
     @CallSuper
     open fun onAttachView(view: View) {
         this.view = view
+    }
+
+    @CallSuper
+    open fun onAttachViewMenu() {
+        Log.e("test", "BasePresenter onAttachViewMenu")
+
     }
 
     @CallSuper

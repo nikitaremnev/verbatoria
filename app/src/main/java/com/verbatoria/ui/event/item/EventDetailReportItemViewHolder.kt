@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.remnev.verbatoria.R
+import com.verbatoria.domain.report.ReportStatus
+import com.verbatoria.domain.report.ReportStatusHelper
 
 /**
  * @author n.remnev
@@ -14,7 +16,7 @@ interface EventDetailReportItemViewHolder {
 
     fun setReportId(reportId: String)
 
-    fun setReportStatus(reportStatusLogoResourceId: Int, reportStatusStringResourceId: Int)
+    fun setReportStatus(reportStatus: ReportStatus)
 
     interface Callback {
 
@@ -45,10 +47,11 @@ class EventDetailReportItemViewHolderImpl(
         reportIdTextView.text = reportId
     }
 
-    override fun setReportStatus(reportStatusLogoResourceId: Int, reportStatusStringResourceId: Int) {
-        val leftDrawable = ContextCompat.getDrawable(context, reportStatusLogoResourceId)
+    override fun setReportStatus(reportStatus: ReportStatus) {
+        val (reportStatusLogo, reportStatusString) = ReportStatusHelper.getStatusLogoAndStringByEnum(reportStatus)
+        val leftDrawable = ContextCompat.getDrawable(context, reportStatusLogo)
         reportStatusTextView.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null)
-        reportStatusTextView.setText(reportStatusStringResourceId)
+        reportStatusTextView.setText(reportStatusString)
     }
 
 }

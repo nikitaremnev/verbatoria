@@ -39,6 +39,8 @@ interface CalendarManager {
         isHobbyIncluded: Boolean
     )
 
+    fun deleteEvent(eventId: String)
+
 }
 
 class CalendarManagerImpl(
@@ -127,6 +129,10 @@ class CalendarManagerImpl(
                 )
             )
         )
+    }
+
+    override fun deleteEvent(eventId: String) {
+        eventEndpoint.deleteEvent(eventId)
     }
 
 }

@@ -124,6 +124,9 @@
     <string name="report_status_ready_hint">The measurement results are processed and the report is ready</string>
     <string name="report_status_sent_hint">The report was sent to the client</string>
     <string name="report_status_uploaded_hint">The measurement results were uploaded</string>
+    <string name="report_status_sent_canceled">The recording was cancelled</string>
+
+    <string name="event_detail_time_intervals_empty">There is no available time at selected date. Please, check your schedule</string>
 
     <string name="calendar_add_event">CREATE</string>
 
@@ -141,7 +144,7 @@
     <string name="report_status_ready">Ready</string>
     <string name="report_status_sent">Sent</string>
 
-    <string name="calendar_confirm_delete_message">Are you sure you want to delete the entry?</string>
+    <string name="event_detail_delete_event_confirmation_dialog_message">Are you sure you want to delete the entry?</string>
     <string name="calendar_confirm_delete_title">Confirmation</string>
 
     <string name="child_age_selection_title">Choose age:</string>

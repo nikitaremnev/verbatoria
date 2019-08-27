@@ -23,6 +23,8 @@ data class Report(
 
     fun isSentOrReady() = status == ReportStatus.SENT || status == ReportStatus.READY
 
+    fun isCanceled() = status == ReportStatus.CANCELED || status == ReportStatus.READY
+
 }
 
 

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import com.remnev.verbatoria.R
 import com.verbatoria.domain.child.Child
 import com.verbatoria.business.event.models.item.EventDetailItem
@@ -22,6 +23,7 @@ import com.verbatoria.ui.client.ClientActivity
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
 import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
+import com.verbatoria.ui.common.dialog.ProgressDialog
 import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
 import javax.inject.Inject
@@ -40,6 +42,8 @@ private const val INTERVALS_SELECTION_DIALOG_TAG = "INTERVALS_SELECTION_DIALOG_T
 private const val INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG = "INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG"
 private const val SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG = "SEND_TO_LOCATION_CONFIRMATION_DIALOG_TAG"
 private const val INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG = "INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG"
+private const val DELETE_EVENT_CONFIRMATION_DIALOG_TAG = "DELETE_EVENT_CONFIRMATION_DIALOG_TAG"
+private const val PROGRESS_DIALOG_TAG = "PROGRESS_DIALOG_TAG"
 
 interface EventDetailView : BaseView {
 
@@ -59,6 +63,8 @@ interface EventDetailView : BaseView {
 
     fun showIntervalSelectionDialog(availableIntervals: ArrayList<String>)
 
+    fun showIntervalsEmptyError()
+
     fun showReportHint(reportHintStringResourceId: Int)
 
     fun showIncludeHobbyConfirmationDialog()
@@ -67,15 +73,29 @@ interface EventDetailView : BaseView {
 
     fun showIncludeAttentionMemoryConfirmationDialog()
 
+    fun showDeleteEventConfirmationDialog()
+
+    fun showDeleteMenuItem()
+
+    fun hideDeleteMenuItem()
+
+    fun showProgress()
+
+    fun hideProgress()
+
     fun close()
 
     interface Callback {
+
+        fun onDeleteEventConfirmed()
 
         fun onIncludeAttentionMemoryConfirmed()
 
         fun onIncludeHobbyConfirmed()
 
         fun onSendToLocationConfirmed()
+
+        fun onDeleteEventClicked()
 
         fun onIntervalSelected(position: Int)
 
@@ -110,6 +130,9 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     private lateinit var toolbar: Toolbar
     private lateinit var recyclerView: RecyclerView
+    private lateinit var deleteMenuItem: MenuItem
+
+    private var progressDialog: ProgressDialog? = null
 
     //region BasePresenterActivity
 
@@ -130,6 +153,12 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
         toolbar.setNavigationOnClickListener {
             presenter.onNavigationClicked()
+        }
+        toolbar.inflateMenu(R.menu.menu_event_detail)
+        deleteMenuItem = toolbar.menu.findItem(R.id.action_delete) ?: throw IllegalStateException("on create options menu inflating error occcurred")
+        deleteMenuItem.setOnMenuItemClickListener {
+            presenter.onDeleteEventClicked()
+            true
         }
     }
 
@@ -195,6 +224,10 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
             .show(supportFragmentManager, INTERVALS_SELECTION_DIALOG_TAG)
     }
 
+    override fun showIntervalsEmptyError() {
+        showWarningSnackbar(getString(R.string.event_detail_time_intervals_empty))
+    }
+
     override fun showReportHint(reportHintStringResourceId: Int) {
         showHintSnackbar(getString(reportHintStringResourceId))
     }
@@ -226,6 +259,32 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         }.show(supportFragmentManager, INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG)
     }
 
+    override fun showDeleteEventConfirmationDialog() {
+        ActivitySuggestDialog.build {
+            title = getString(R.string.confirmation)
+            message = getString(R.string.event_detail_delete_event_confirmation_dialog_message)
+            positiveTitleBtn = getString(R.string.delete)
+            negativeTitleBtn = getString(R.string.cancel)
+        }.show(supportFragmentManager, DELETE_EVENT_CONFIRMATION_DIALOG_TAG)
+    }
+
+    override fun showDeleteMenuItem() {
+        deleteMenuItem.isVisible = true
+    }
+
+    override fun hideDeleteMenuItem() {
+        deleteMenuItem.isVisible = false
+    }
+
+    override fun showProgress() {
+        progressDialog = ProgressDialog()
+        progressDialog?.show(supportFragmentManager, PROGRESS_DIALOG_TAG)
+    }
+
+    override fun hideProgress() {
+        progressDialog?.dismiss()
+    }
+
     override fun close() {
         finish()
     }
@@ -253,6 +312,9 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         }
         if (tag == INCLUDE_ATTENTION_MEMORY_CONFIRMATION_DIALOG_TAG) {
             presenter.onIncludeAttentionMemoryConfirmed()
+        }
+        if (tag == DELETE_EVENT_CONFIRMATION_DIALOG_TAG) {
+            presenter.onDeleteEventConfirmed()
         }
     }
 

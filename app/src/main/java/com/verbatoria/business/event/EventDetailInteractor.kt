@@ -37,6 +37,8 @@ interface EventDetailInteractor {
 
     fun editEvent(event: Event): Completable
 
+    fun deleteEvent(eventId: String): Completable
+
     fun getAvailableTimeSlots(date: Date): Single<Pair<List<TimeSlot>, ArrayList<String>>>
 
     fun sendReportToLocation(reportId: String): Completable
@@ -213,6 +215,13 @@ class EventDetailInteractorImpl(
     ): Completable =
         Completable.fromCallable {
             calendarManager.editEvent(event.id, event.child.id ?: throw IllegalStateException("Try to edit event while event child id is null"), event.child.age, event.startDate, event.endDate, event.isHobbyIncluded)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+    override fun deleteEvent(eventId: String): Completable =
+        Completable.fromCallable {
+            calendarManager.deleteEvent(eventId)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

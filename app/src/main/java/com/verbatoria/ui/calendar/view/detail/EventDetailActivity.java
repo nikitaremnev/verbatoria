@@ -118,7 +118,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_toolbar_delete, menu);
+        getMenuInflater().inflate(R.menu.menu_event_detail, menu);
         mDeleteMenuItem = menu.findItem(R.id.action_delete);
         mDeleteMenuItem.setVisible(mEventDetailPresenter.isEditMode());
         return super.onCreateOptionsMenu(menu);
@@ -520,7 +520,7 @@ public class EventDetailActivity extends BaseActivity implements IEventDetailVie
     private void showConfirmDeleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setTitle(getString(R.string.calendar_confirm_delete_title))
-                .setMessage(getString(R.string.calendar_confirm_delete_message));
+                .setMessage(getString(R.string.event_detail_delete_event_confirmation_dialog_message));
         builder.setPositiveButton(getString(R.string.delete), (dialog, which) -> {
             mEventDetailPresenter.onDeleteEventClicked();
         });

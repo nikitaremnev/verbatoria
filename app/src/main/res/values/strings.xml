@@ -123,6 +123,10 @@
     <string name="report_status_new_hint">Запись еще не была произведена</string>
     <string name="report_status_ready_hint">Результаты измерений обработаны и отчет готов</string>
     <string name="report_status_sent_hint">Отчет был выслан клиенту</string>
+    <string name="report_status_sent_canceled">Запись была отменена</string>
+
+    <string name="event_detail_time_intervals_empty">Отстутствует возможность записи в выбранный день. Проверьте свое расписание</string>
+
     <string name="report_status_uploaded_hint">Результаты измерений были загружены</string>
 
     <string name="calendar_add_event">СОЗДАТЬ</string>
@@ -141,7 +145,7 @@
     <string name="report_status_ready">Готов</string>
     <string name="report_status_sent">Отправлен</string>
 
-    <string name="calendar_confirm_delete_message">Вы действительно хотите удалить запись?</string>
+    <string name="event_detail_delete_event_confirmation_dialog_message">Вы действительно хотите удалить запись?</string>
     <string name="calendar_confirm_delete_title">Подтверждение</string>
 
     <string name="child_age_selection_title">Выберите возраст:</string>
