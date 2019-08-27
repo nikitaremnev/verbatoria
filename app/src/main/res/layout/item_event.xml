@@ -16,7 +16,7 @@
         android:layout_marginTop="@dimen/event_status_logo_margin_top"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_report_ready_large" />
+        app:srcCompat="@drawable/ic_report_ready" />
 
     <TextView
         android:id="@+id/status_text_view"

@@ -28,7 +28,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="4dp"
-                app:srcCompat="@drawable/ic_report_ready_large" />
+                app:srcCompat="@drawable/ic_report_ready" />
 
             <TextView
                 android:layout_width="wrap_content"

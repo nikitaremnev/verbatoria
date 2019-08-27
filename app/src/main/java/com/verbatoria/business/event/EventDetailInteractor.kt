@@ -236,7 +236,21 @@ class EventDetailInteractorImpl(
             },
             BiFunction { events: List<Event>, timeSlots: List<TimeSlot> ->
                 //intersection function
-                Pair(timeSlots, ArrayList(timeSlots.map {
+                val availableTimeSlots = mutableListOf<TimeSlot>()
+                for (timeSlot in timeSlots) {
+                    var isTimeSlotsIntersectsWithOneOfTheEvent = false
+                    for (event in events) {
+                        if ((timeSlot.startTime >= event.startDate && timeSlot.startTime < event.endDate) ||
+                            (timeSlot.endTime > event.startDate && timeSlot.endTime <= event.endDate)) {
+                            isTimeSlotsIntersectsWithOneOfTheEvent = true
+                        }
+                    }
+                    if (!isTimeSlotsIntersectsWithOneOfTheEvent) {
+                        availableTimeSlots.add(timeSlot)
+                    }
+                }
+
+                Pair(availableTimeSlots.toList(), ArrayList(availableTimeSlots.map {
                     it.startTime.formatToTime() + " - " + it.endTime.formatToTime()
                 }))
             }
