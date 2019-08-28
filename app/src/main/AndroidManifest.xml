@@ -53,6 +53,10 @@
             android:screenOrientation="landscape" />
 
         <activity
+            android:name="com.verbatoria.ui.writing.WritingActivity"
+            android:screenOrientation="landscape" />
+
+        <activity
             android:name="com.verbatoria.ui.client.ClientActivity"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:screenOrientation="landscape" />
