@@ -57,21 +57,29 @@ class EventDetailPresenter(
                 endTime = event.endDate
             )
         }
+        if (currentMode.isCreateNew()) {
+            getCreateNewEventItems()
+        } else {
+            event?.let { event ->
+                getViewModeEventItems(event)
+            } ?: throw IllegalStateException("Event is null and event mode is not create new")
+        }
     }
 
     override fun onAttachView(view: EventDetailView) {
         super.onAttachView(view)
         if (currentMode.isCreateNew()) {
-            getCreateNewEventItems()
             view.setTitle(R.string.event_detail_create_new_mode_title)
         } else {
             event?.let { event ->
-                getViewModeEventItems(event)
                 view.setTitle(R.string.event_detail_start_mode_title)
                 if (!event.report.isSentOrReady() && !event.report.isCanceled()) {
                     view.showDeleteMenuItem()
                 }
             } ?: throw IllegalStateException("Event is null and event mode is not create new")
+        }
+        if (eventDetailItemsList.isNotEmpty()) {
+            view.setEventDetailItems(eventDetailItemsList)
         }
     }
 
@@ -116,6 +124,10 @@ class EventDetailPresenter(
     }
 
     override fun onIntervalSelected(position: Int) {
+        if (currentMode.isStart()) {
+            selectedTimeSlot = timeSlots.getOrNull(position)
+            editEventForTimeInterval()
+        }
         selectedTimeSlot = timeSlots.getOrNull(position)
         findEventDetailItemInList<EventDetailTimeItem>()
             ?.let { eventDetailDateItem ->
@@ -388,6 +400,28 @@ class EventDetailPresenter(
                         eventDetailHobbyItem.isLoading = false
                         view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
                     }
+            })
+            .let(::addDisposable)
+    }
+
+    private fun editEventForTimeInterval() {
+        event?.startDate = selectedTimeSlot?.startTime ?: throw IllegalStateException("Try to edit event for time interval while selected time slot is null")
+        event?.endDate = selectedTimeSlot?.endTime ?: throw IllegalStateException("Try to edit event for time interval while selected time slot is null")
+        view?.showProgress()
+        eventDetailInteractor.editEvent(event ?: throw IllegalStateException("Try to edit event while event object is null"))
+            .doAfterTerminate {
+                view?.hideProgress()
+            }
+            .subscribe({
+                findEventDetailItemInList<EventDetailTimeItem>()
+                    ?.let { eventDetailDateItem ->
+                        eventDetailDateItem.startDate = selectedTimeSlot?.startTime
+                        eventDetailDateItem.endDate = selectedTimeSlot?.endTime
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailDateItem))
+                    }
+            }, { error ->
+                logger.error("edit event for time interval error occurred", error)
+                this.view?.showErrorSnackbar("edit event for time interval error occurred")
             })
             .let(::addDisposable)
     }
