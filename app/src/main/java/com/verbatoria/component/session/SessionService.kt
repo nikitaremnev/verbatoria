@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
-import com.verbatoria.VerbatoriaApplication
+import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.domain.authorization.model.Authorization
 import com.verbatoria.domain.session.SessionProvider
 import com.verbatoria.domain.session.model.Session
@@ -69,15 +69,13 @@ class SessionService : Service() {
     override fun onCreate() {
         super.onCreate()
         Log.e("test", "SessionService onCreate")
-
         logger.debug("Create session service")
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
-        VerbatoriaApplication.getInjector().inject(this)
+        (application as VerbatoriaKtApplication).injector.inject(this)
     }
 
     override fun onDestroy() {
         Log.e("test", "SessionService onDestroy")
-
         logger.debug("Destroy session service")
         super.onDestroy()
     }

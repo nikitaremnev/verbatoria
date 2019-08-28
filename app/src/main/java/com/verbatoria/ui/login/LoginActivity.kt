@@ -10,6 +10,7 @@ import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
+import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.di.Injector
 import com.verbatoria.di.login.LoginComponent
 import com.verbatoria.infrastructure.extensions.hide
@@ -60,6 +61,8 @@ interface LoginView : BaseView {
     fun openRecoveryPassword(phone: String)
 
     fun openSMSConfirmation(phone: String)
+
+    fun startConnection()
 
     interface Callback {
 
@@ -293,6 +296,10 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     override fun openSMSConfirmation(phone: String) {
         startActivity(SMSLoginActivity.createIntent(this, phone))
         finish()
+    }
+
+    override fun startConnection() {
+        (application as VerbatoriaKtApplication).startConnection()
     }
 
     //endregion

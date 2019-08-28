@@ -1,7 +1,7 @@
 package com.verbatoria.ui.base
 
 import android.support.annotation.CallSuper
-import android.util.Log
+import com.verbatoria.component.event.EventManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -9,25 +9,15 @@ import io.reactivex.disposables.Disposable
  * @author n.remnev
  */
 
-open class BasePresenter<View : BaseView> {
+open class BasePresenter<View : BaseView>: EventManager.Subscriber {
 
     protected var view: View? = null
 
     private val compositeDisposable = CompositeDisposable()
 
-    init {
-        //empty
-    }
-
     @CallSuper
     open fun onAttachView(view: View) {
         this.view = view
-    }
-
-    @CallSuper
-    open fun onAttachViewMenu() {
-        Log.e("test", "BasePresenter onAttachViewMenu")
-
     }
 
     @CallSuper
@@ -47,5 +37,13 @@ open class BasePresenter<View : BaseView> {
     protected fun clearDisposables() {
         compositeDisposable.clear()
     }
+
+    //region EventManager.Subscriber
+
+    protected open fun getEventsKey(): List<String> = emptyList()
+
+    override fun onEvent(key: String, data: Any?) { /* empty */ }
+
+    //endregion
 
 }

@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.R
-import com.verbatoria.VerbatoriaApplication
 import com.verbatoria.di.Injector
 import com.verbatoria.di.login.sms.SMSLoginComponent
 import com.verbatoria.infrastructure.extensions.hide
@@ -17,7 +16,6 @@ import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.DashboardActivity
 import com.verbatoria.utils.CountryHelper
-import com.verbatoria.utils.Helper
 
 /**
  * @author n.remnev
@@ -72,8 +70,6 @@ interface SMSLoginView : BaseView {
     fun setTimerText(timer: String)
 
     fun openDashboard()
-
-    fun showError(error: String)
 
     fun close()
 
@@ -299,17 +295,13 @@ class SMSLoginActivity :
     }
 
     override fun openDashboard() {
-        VerbatoriaApplication.onSmsConfirmationPassed()
+//        VerbatoriaApplication.onSmsConfirmationPassed()
         startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 
-    override fun showError(error: String) {
-        Helper.showErrorSnackBar(sendCodeButton, error)
-    }
-
     override fun close() {
-        VerbatoriaApplication.onSmsConfirmationPassed()
+//        VerbatoriaApplication.onSmsConfirmationPassed()
         finish()
     }
 

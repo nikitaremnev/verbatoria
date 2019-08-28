@@ -3,6 +3,8 @@ package com.verbatoria.di.common
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
+import com.verbatoria.component.event.EventManager
+import com.verbatoria.component.event.EventManagerImpl
 import com.verbatoria.component.session.SessionServiceControllerImpl
 import com.verbatoria.domain.authorization.AuthorizationManager
 import com.verbatoria.domain.authorization.AuthorizationManagerImpl
@@ -82,6 +84,10 @@ class CommonModule {
     @Singleton
     fun provideSessionProvider(sharedPreferences: SharedPreferences): SessionProvider =
         PreferencesSessionProvider(sharedPreferences)
+
+    @Provides
+    @Singleton
+    fun provideEventManager(): EventManager = EventManagerImpl()
 
     //region Managers
 

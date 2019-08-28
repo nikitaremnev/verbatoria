@@ -140,7 +140,7 @@ class SMSLoginPresenter(
                 restartTryAgainSendCodeTimer()
             }, { error ->
                 logger.error("Send sms code error occurred", error)
-                view?.showError(error.message ?: "Send sms code error occurred")
+                view?.showErrorSnackbar(error.message ?: "Send sms code error occurred")
                 view?.hideProgressForSendCode()
             })
             .let(::addDisposable)
@@ -153,7 +153,7 @@ class SMSLoginPresenter(
                 view?.setPhoneFormatterBasedOnCountry(this.country)
             }, { error ->
                 logger.error("Get current country error occurred", error)
-                view?.showError(error.message ?: "Get current country error occurred")
+                view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
     }

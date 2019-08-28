@@ -1,7 +1,11 @@
 package com.verbatoria.ui.login
 
+import android.util.Log
+import com.neurosky.connection.EEGPower
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.login.LoginInteractor
+import com.verbatoria.component.connection.NeurodataConnectionDataCallback
+import com.verbatoria.component.connection.NeurodataConnectionStateCallback
 import com.verbatoria.ui.base.BasePresenter
 import org.slf4j.LoggerFactory
 
@@ -11,7 +15,7 @@ import org.slf4j.LoggerFactory
 
 class LoginPresenter(
     private val loginInteractor: LoginInteractor
-) : BasePresenter<LoginView>(), LoginView.Callback {
+) : BasePresenter<LoginView>(), LoginView.Callback, NeurodataConnectionDataCallback, NeurodataConnectionStateCallback {
 
     private val logger = LoggerFactory.getLogger("LoginPresenter")
 
@@ -107,7 +111,8 @@ class LoginPresenter(
     }
 
     override fun onLoginButtonClicked() {
-        login()
+        view?.startConnection()
+//        login()
     }
 
     override fun onForgotPasswordClicked() {
@@ -188,5 +193,55 @@ class LoginPresenter(
             })
             .let(::addDisposable)
     }
+
+    //region BCIPresenterCallback
+
+    //region NeurodataConnectionDataCallback
+
+    override fun onAttentionDataReceived(attentionValue: Int) {
+        Log.e("test", "LoginPresenter attentionValue $attentionValue")
+    }
+
+    override fun onMediationDataReceived(mediationValue: Int) {
+        Log.e("test", "LoginPresenter mediationValue $mediationValue")
+    }
+
+    //endregion
+
+    //region NeurodataConnectionStateCallback
+
+    override fun onConnected() {
+        Log.e("test", "LoginPresenter onConnected")
+    }
+
+    override fun onBluetoothDisabled() {
+        Log.e("test", "LoginPresenter onBluetoothDisabled")
+    }
+
+    override fun onConnecting() {
+        Log.e("test", "LoginPresenter onConnecting")
+    }
+
+    override fun onConnectionFailed() {
+        Log.e("test", "LoginPresenter onConnectionFailed")
+    }
+
+    override fun onDisconnected() {
+        Log.e("test", "LoginPresenter onDisconnected")
+    }
+
+    override fun onEEGDataReceivedCallback(eegPower: EEGPower) {
+        Log.e("test", "LoginPresenter onEEGDataReceivedCallback")
+    }
+
+    override fun onRecordingStarted() {
+        Log.e("test", "LoginPresenter onRecordingStarted")
+    }
+
+    override fun onWorking() {
+        Log.e("test", "LoginPresenter onWorking")
+    }
+
+    //endregion
 
 }

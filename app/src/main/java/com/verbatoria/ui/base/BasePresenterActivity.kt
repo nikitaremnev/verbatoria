@@ -5,7 +5,9 @@ import android.support.annotation.LayoutRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.remnev.verbatoria.R
-import com.verbatoria.VerbatoriaApplication
+import com.verbatoria.VerbatoriaKtApplication
+import com.verbatoria.component.connection.NeurodataConnectionDataCallback
+import com.verbatoria.component.connection.NeurodataConnectionStateCallback
 import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.BaseInjector
 import com.verbatoria.di.Injector
@@ -35,7 +37,7 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
 
         @Suppress("UNCHECKED_CAST")
         component = dependencyHolder.pop<Component>(getDependencyKey())
-            ?: buildComponent(VerbatoriaApplication.getInjector(), savedInstanceState)
+            ?: buildComponent((application as VerbatoriaKtApplication).injector, savedInstanceState)
 
         inject(component)
 
@@ -46,6 +48,11 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
 
         @Suppress("UNCHECKED_CAST")
         presenter.onAttachView(this as V)
+
+        (application as? VerbatoriaKtApplication)?.apply {
+            setNeurodataDataCallback(presenter as? NeurodataConnectionDataCallback)
+            setNeurodataConnectionStateCallback(presenter as? NeurodataConnectionStateCallback)
+        }
     }
 
     override fun onDestroy() {
