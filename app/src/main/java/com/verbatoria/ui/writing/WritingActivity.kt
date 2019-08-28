@@ -27,7 +27,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     //region BasePresenterActivity
 
-    override fun getLayoutResourceId(): Int = R.layout.activity_splash
+    override fun getLayoutResourceId(): Int = R.layout.activity_writing
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): WritingComponent =
         injector.plusWritingComponent()

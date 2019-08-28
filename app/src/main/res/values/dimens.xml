@@ -353,6 +353,8 @@
     <dimen name="writing_finish_button_margin">16dp</dimen>
     <dimen name="writing_finish_button_size">70dp</dimen>
 
+    <dimen name="writing_code_button_height">70dp</dimen>
+
     <dimen name="submit_padding">16dp</dimen>
 
     <dimen name="submit_questionary_buttons_vertical_padding">8dp</dimen>
