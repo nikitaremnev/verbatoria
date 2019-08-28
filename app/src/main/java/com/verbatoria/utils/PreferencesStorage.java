@@ -2,26 +2,9 @@ package com.verbatoria.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.remnev.verbatoria.R;
-import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.AgeGroupModel;
-import com.verbatoria.business.dashboard.models.LocationModel;
-import com.verbatoria.business.dashboard.models.VerbatologModel;
 import com.verbatoria.business.user.UserStatus;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-
-import javax.inject.Inject;
-
 import static com.verbatoria.utils.LocaleHelper.LOCALE_RU;
 
 /**
@@ -208,54 +191,6 @@ public class PreferencesStorage {
         return mTokenPreferences.getString(LAST_REPORT_NAME_KEY, null);
     }
 
-    public void setVerbatologInfo(VerbatologModel verbatologModel) {
-        SharedPreferences.Editor editor = mCachePreferences.edit();
-        editor.putString(VERBATOLOG_FIRST_NAME_KEY, verbatologModel.getFirstName());
-        editor.putString(VERBATOLOG_LAST_NAME_KEY, verbatologModel.getLastName());
-        editor.putString(VERBATOLOG_MIDDLE_NAME_KEY, verbatologModel.getMiddleName());
-        editor.putString(VERBATOLOG_PHONE_KEY, verbatologModel.getPhone());
-        editor.putString(VERBATOLOG_LOCATION_ID_KEY, verbatologModel.getLocationId());
-        editor.putString(VERBATOLOG_EMAIL_KEY, verbatologModel.getEmail());
-        editor.putBoolean(VERBATOLOG_IS_ARCHIMED_ALLOWED_KEY, verbatologModel.isArchimedAllowed());
-        editor.apply();
-    }
-
-    public void setLocationInfo(LocationModel locationModel) {
-        SharedPreferences.Editor editor = mCachePreferences.edit();
-        editor.putString(LOCATION_ADDRESS_KEY, locationModel.getAddress());
-        editor.putString(LOCATION_CITY_KEY, locationModel.getCity());
-        editor.putString(LOCATION_COUNTRY_KEY, locationModel.getCountry());
-        editor.putString(LOCATION_PARTNER_KEY, locationModel.getPartner());
-        editor.putString(LOCATION_NAME_KEY, locationModel.getName());
-        editor.putString(LOCATION_ID_KEY, locationModel.getId());
-        editor.putString(LOCATION_LOCALE_KEY, locationModel.getLocale());
-        editor.putStringSet(LOCATION_AVAILABLE_LOCALES_KEY, new HashSet<>(locationModel.getAvailableLocales()));
-        editor.apply();
-    }
-
-    public VerbatologModel getVerbatologInfo() {
-        return new VerbatologModel()
-                .setLocationId(mCachePreferences.getString(VERBATOLOG_LOCATION_ID_KEY, null))
-                .setEmail(mCachePreferences.getString(VERBATOLOG_EMAIL_KEY, null))
-                .setFirstName(mCachePreferences.getString(VERBATOLOG_FIRST_NAME_KEY, null))
-                .setLastName(mCachePreferences.getString(VERBATOLOG_LAST_NAME_KEY, null))
-                .setMiddleName(mCachePreferences.getString(VERBATOLOG_MIDDLE_NAME_KEY, null))
-                .setPhone(mCachePreferences.getString(VERBATOLOG_PHONE_KEY, null))
-                .setIsArchimedAllowed(mCachePreferences.getBoolean(VERBATOLOG_IS_ARCHIMED_ALLOWED_KEY, false));
-    }
-
-    public LocationModel getLocationInfo() {
-        return new LocationModel()
-                .setAddress(mCachePreferences.getString(LOCATION_ADDRESS_KEY, null))
-                .setCity(mCachePreferences.getString(LOCATION_CITY_KEY, null))
-                .setCountry(mCachePreferences.getString(LOCATION_COUNTRY_KEY, null))
-                .setPartner(mCachePreferences.getString(LOCATION_PARTNER_KEY, null))
-                .setName(mCachePreferences.getString(LOCATION_NAME_KEY, null))
-                .setId(mCachePreferences.getString(LOCATION_ID_KEY, null))
-                .setLocale(mCachePreferences.getString(LOCATION_LOCALE_KEY, null))
-                .setAvailableLocales(new ArrayList<>(mCachePreferences.getStringSet(LOCATION_AVAILABLE_LOCALES_KEY, Collections.emptySet())));
-    }
-
     public void setLocationId(String locationId) {
         SharedPreferences.Editor editor = mTokenPreferences.edit();
         editor.putString(VERBATOLOG_LOCATION_ID_KEY, locationId);
@@ -294,28 +229,6 @@ public class PreferencesStorage {
 
     public String getCurrentLocale() {
         return mTokenPreferences.getString(CURRENT_LOCALE_KEY, LOCALE_RU);
-    }
-
-    public void setAgeGroups(List<AgeGroupModel> ageGroupModels) {
-        ObjectMapper mapper = new ObjectMapper();
-        SharedPreferences.Editor editor = mTokenPreferences.edit();
-        try {
-            editor.putString(AGE_GROUPS_KEY, mapper.writeValueAsString(ageGroupModels));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        editor.apply();
-    }
-
-    public List<AgeGroupModel> getAgeGroups() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            TypeReference<List<AgeGroupModel>> mapType = new TypeReference<List<AgeGroupModel>>() {};
-            return mapper.readValue(mTokenPreferences.getString(AGE_GROUPS_KEY, null), mapType);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     public void setShowSettings(boolean showSettings) {

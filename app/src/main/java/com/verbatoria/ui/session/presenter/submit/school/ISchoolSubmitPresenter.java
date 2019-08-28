@@ -16,6 +16,5 @@ public interface ISchoolSubmitPresenter {
     void unbindView();
 
     void sendResults();
-    void obtainEvent(Intent intent);
 
 }

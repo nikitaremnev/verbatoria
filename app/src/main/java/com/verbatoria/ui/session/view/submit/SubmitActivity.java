@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.calendar.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.ui.session.presenter.submit.ISubmitPresenter;
 import com.verbatoria.ui.session.view.submit.questions.QuestionsAdapter;
@@ -26,8 +26,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.verbatoria.ui.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Экран отправки результатов
@@ -68,12 +66,6 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         return new Intent(mContext, SubmitActivity.class);
     }
 
-    public static Intent newInstance(Context mContext, EventModel eventModel) {
-        Intent intent = new Intent(mContext, SubmitActivity.class);
-        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
-        return intent;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +76,7 @@ public class SubmitActivity extends AppCompatActivity implements ISubmitView {
         //bind views
         VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         mSubmitPresenter.bindView(this);
-        mSubmitPresenter.obtainEvent(getIntent());
+//        mSubmitPresenter.obtainEvent(getIntent());
     }
 
     @Override

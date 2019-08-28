@@ -1,16 +1,13 @@
 package com.verbatoria.ui.session.presenter.writing;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import com.neurosky.connection.ConnectionStates;
 import com.remnev.verbatoria.R;
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.ui.session.view.writing.ActivityButtonState;
 import com.verbatoria.ui.session.view.writing.IWritingView;
 import static com.verbatoria.business.session.activities.ActivitiesCodes.*;
-import static com.verbatoria.ui.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Реализация презентера для экрана записи
@@ -29,7 +26,6 @@ public class WritingPresenter implements IWritingPresenter,
 
     private ISessionInteractor sessionInteractor;
     private IWritingView view;
-    private EventModel eventModel;
 
     public WritingPresenter(ISessionInteractor sessionInteractor) {
         this.sessionInteractor = sessionInteractor;
@@ -49,16 +45,6 @@ public class WritingPresenter implements IWritingPresenter,
     public void unbindView() {
         view = null;
         sessionInteractor.dropCallbacks();
-    }
-
-    @Override
-    public void obtainEvent(Intent intent) {
-        eventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
-    }
-
-    @Override
-    public EventModel getEvent() {
-        return eventModel;
     }
 
     @Override

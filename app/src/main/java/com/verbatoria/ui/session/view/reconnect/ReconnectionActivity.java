@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.ui.session.presenter.reconnect.IReconnectionPresenter;
 import com.verbatoria.ui.session.view.writing.WritingActivity;
@@ -27,8 +26,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.verbatoria.ui.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Экран пересоединения с BCI
@@ -79,10 +76,8 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
             R.drawable.ic_neurointerface_connecting_fourth
     };
 
-    public static Intent newInstance(Context mContext, EventModel eventModel) {
-        Logger.e(TAG, "eventModel: " + eventModel.toString());
+    public static Intent newInstance(Context mContext) {
         Intent intent = new Intent(mContext, ReconnectionActivity.class);
-        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
         return intent;
     }
 
@@ -98,7 +93,7 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
         //bind views
         VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         mReconnectionPresenter.bindView(this);
-        mReconnectionPresenter.obtainEvent(getIntent());
+//        mReconnectionPresenter.obtainEvent(getIntent());
         showDisconnectedState();
     }
 
@@ -202,7 +197,7 @@ public class ReconnectionActivity extends AppCompatActivity implements IReconnec
 
     @Override
     public void continueWriting() {
-        Intent intent = WritingActivity.newInstance(this, mReconnectionPresenter.getEvent());
+        Intent intent = WritingActivity.newInstance(this);
         startActivity(intent);
         finish();
     }

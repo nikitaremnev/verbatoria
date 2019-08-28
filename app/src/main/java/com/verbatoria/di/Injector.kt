@@ -7,12 +7,12 @@ import com.verbatoria.business.session.activities.UserInteractionTimerTask
 import com.verbatoria.business.session.manager.AudioPlayerManager
 import com.verbatoria.component.session.SessionService
 import com.verbatoria.data.repositories.late_send.LateSendRepository
-import com.verbatoria.di.calendar.CalendarComponent
-import com.verbatoria.di.calendar.CalendarModule
 import com.verbatoria.di.child.ChildComponent
 import com.verbatoria.di.client.ClientComponent
 import com.verbatoria.di.common.CommonModule
 import com.verbatoria.di.dashboard.DashboardComponent
+import com.verbatoria.di.dashboard.calendar.CalendarComponent
+import com.verbatoria.di.dashboard.calendar.CalendarModule
 import com.verbatoria.di.event.EventDetailComponent
 import com.verbatoria.di.late_send.LateSendComponent
 import com.verbatoria.di.login.LoginComponent
@@ -22,8 +22,6 @@ import com.verbatoria.di.schedule.ScheduleComponent
 import com.verbatoria.di.session.SessionComponent
 import com.verbatoria.di.session.SessionModule
 import com.verbatoria.di.splash.SplashComponent
-import com.verbatoria.ui.calendar.view.add.children.search.ClientsAdapter
-import com.verbatoria.ui.calendar.view.add.clients.search.ChildrenAdapter
 import com.verbatoria.ui.session.view.submit.questions.QuestionViewHolder
 import com.verbatoria.ui.session.view.submit.questions.QuestionsAdapter
 import dagger.BindsInstance
@@ -42,10 +40,6 @@ interface Injector {
 
     fun inject(lateSendRepository: LateSendRepository)
 
-    fun inject(clientsAdapter: ClientsAdapter)
-
-    fun inject(childrenAdapter: ChildrenAdapter)
-
     fun inject(activitiesTimerTask: ActivitiesTimerTask)
 
     fun inject(audioPlayerManager: AudioPlayerManager)
@@ -59,8 +53,6 @@ interface Injector {
     fun inject(sessionService: SessionService)
 
     fun addModule(sessionModule: SessionModule): SessionComponent
-
-    fun addModule(calendarModule: CalendarModule): CalendarComponent
 
     fun plusSplashComponent(): SplashComponent.Builder
 

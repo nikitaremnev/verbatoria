@@ -9,17 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
-import com.verbatoria.ui.dashboard.DashboardActivity;
 import com.verbatoria.ui.session.presenter.submit.school.ISchoolSubmitPresenter;
 import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.verbatoria.ui.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Экран отправки результатов для школьного режима
@@ -41,12 +37,7 @@ public class SchoolSubmitActivity extends AppCompatActivity implements ISchoolSu
     public View mLoadingView;
 
     public static Intent newInstance(Context mContext) {
-        return new Intent(mContext, SchoolSubmitActivity.class);
-    }
-
-    public static Intent newInstance(Context mContext, EventModel eventModel) {
         Intent intent = new Intent(mContext, SchoolSubmitActivity.class);
-        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
         return intent;
     }
 
@@ -60,7 +51,7 @@ public class SchoolSubmitActivity extends AppCompatActivity implements ISchoolSu
         //bind views
         VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         presenter.bindView(this);
-        presenter.obtainEvent(getIntent());
+//        presenter.obtainEvent(getIntent());
     }
 
     @Override

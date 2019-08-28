@@ -1,7 +1,6 @@
 package com.verbatoria.business.session;
 
 import com.neurosky.connection.EEGPower;
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.data.network.response.StartSessionResponseModel;
 
 import java.util.Map;
@@ -19,8 +18,6 @@ public interface ISessionInteractor {
     Observable<StartSessionResponseModel> startSession(String eventId);
     Completable finishSession(String eventId);
 
-    Completable updateHobbyValue(EventModel eventModel);
-
     Completable getAllMeasurements(Map<String, String> answers);
     Completable submitResults();
     Completable submitResults(String fileName);
@@ -31,8 +28,6 @@ public interface ISessionInteractor {
     Completable cleanUp();
 
     Completable sendReportToLocation(String reportId);
-
-    Completable backupReport(EventModel eventModel);
 
     void startConnection();
 

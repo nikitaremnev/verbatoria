@@ -1,17 +1,13 @@
 package com.verbatoria.ui.session.presenter.submit;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
-
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.ui.session.view.submit.ISubmitView;
 import com.verbatoria.utils.Logger;
 
 import java.util.Map;
 
-import static com.verbatoria.ui.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 import static com.verbatoria.ui.session.view.submit.questions.QuestionsAdapter.HOBBY_ANSWER_POSITION;
 
 /**
@@ -25,7 +21,6 @@ public class SubmitPresenter implements ISubmitPresenter {
 
     private ISessionInteractor mSessionInteractor;
     private ISubmitView mSubmitView;
-    private EventModel mEventModel;
 
     private boolean isHobbyUpdateRequired;
 
@@ -49,18 +44,13 @@ public class SubmitPresenter implements ISubmitPresenter {
         mSubmitView.showProgress();
 
         String hobbyValue = answers.get(Integer.toString(HOBBY_ANSWER_POSITION));
-        if (hobbyValue != null && !mEventModel.getHobby() && hobbyValue.equals("1")) {
-            mEventModel.setHobby(true);
-            isHobbyUpdateRequired = true;
-        }
+//        if (hobbyValue != null && !mEventModel.getHobby() && hobbyValue.equals("1")) {
+//            mEventModel.setHobby(true);
+//            isHobbyUpdateRequired = true;
+//        }
 
         mSessionInteractor.getAllMeasurements(answers)
                 .subscribe(this::handleMeasurementsReceived, this::handleError);
-    }
-
-    @Override
-    public void obtainEvent(Intent intent) {
-        mEventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
     }
 
     private void handleMeasurementsReceived() {
@@ -72,19 +62,19 @@ public class SubmitPresenter implements ISubmitPresenter {
     private void handleResultsSubmitted() {
         Log.e(TAG, "handleResultsSubmitted");
         mSessionInteractor.dropConnection();
-        if (isHobbyUpdateRequired) {
-            mSessionInteractor.updateHobbyValue(mEventModel)
-                    .subscribe(this::handleHobbyUpdatedReceived, this::handleError);
-        } else {
-            mSessionInteractor.finishSession(mEventModel.getId())
-                    .subscribe(this::handleSessionFinished, this::handleError);
-        }
+//        if (isHobbyUpdateRequired) {
+//            mSessionInteractor.updateHobbyValue(mEventModel)
+//                    .subscribe(this::handleHobbyUpdatedReceived, this::handleError);
+//        } else {
+//            mSessionInteractor.finishSession(mEventModel.getId())
+//                    .subscribe(this::handleSessionFinished, this::handleError);
+//        }
     }
 
     private void handleHobbyUpdatedReceived() {
         Log.e(TAG, "handleHobbyUpdatedReceived");
-        mSessionInteractor.finishSession(mEventModel.getId())
-                .subscribe(this::handleSessionFinished, this::handleError);
+//        mSessionInteractor.finishSession(mEventModel.getId())
+//                .subscribe(this::handleSessionFinished, this::handleError);
     }
 
     private void handleSessionFinished() {
@@ -116,8 +106,8 @@ public class SubmitPresenter implements ISubmitPresenter {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
         mSubmitView.showError(throwable.getLocalizedMessage());
-        mSessionInteractor.backupReport(mEventModel)
-                .subscribe(this::handleReportBackUp, this::handleReportBackUpError);
+//        mSessionInteractor.backupReport(mEventModel)
+//                .subscribe(this::handleReportBackUp, this::handleReportBackUpError);
     }
 
     private void handleCleanupAfterBackupFinished() {

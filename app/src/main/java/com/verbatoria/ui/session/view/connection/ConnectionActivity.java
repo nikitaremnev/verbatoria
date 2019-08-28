@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.infrastructure.BaseActivity;
 import com.verbatoria.infrastructure.BasePresenter;
@@ -79,10 +78,8 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
             R.drawable.ic_neurointerface_connecting_fourth
     };
 
-    public static Intent newInstance(Context mContext, EventModel eventModel) {
-        Logger.e(TAG, "eventModel: " + eventModel.toString());
+    public static Intent newInstance(Context mContext) {
         Intent intent = new Intent(mContext, ConnectionActivity.class);
-        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
         return intent;
     }
 
@@ -94,7 +91,7 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
         setContentView(R.layout.activity_connection);
 
         mConnectionPresenter.bindView(this);
-        mConnectionPresenter.obtainEvent(getIntent());
+//        mConnectionPresenter.obtainEvent(getIntent());
         setPresenter((BasePresenter) mConnectionPresenter);
 
         super.onCreate(savedInstanceState);
@@ -194,7 +191,7 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
 
     @Override
     public void startWriting() {
-        Intent intent = WritingActivity.newInstance(this, mConnectionPresenter.getEvent());
+        Intent intent = WritingActivity.newInstance(this);
         startActivity(intent);
         finish();
     }

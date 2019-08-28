@@ -3,7 +3,6 @@ package com.verbatoria.ui.session.presenter.submit.school;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.ui.session.view.submit.school.ISchoolSubmitView;
 import com.verbatoria.utils.Logger;
@@ -26,7 +25,6 @@ public class SchoolSubmitPresenter implements ISchoolSubmitPresenter {
 
     private ISessionInteractor sessionInteractor;
     private ISchoolSubmitView view;
-    private EventModel eventModel;
 
     public SchoolSubmitPresenter(ISessionInteractor sessionInteractor) {
         this.sessionInteractor = sessionInteractor;
@@ -50,11 +48,6 @@ public class SchoolSubmitPresenter implements ISchoolSubmitPresenter {
                 .subscribe(this::handleMeasurementsReceived, this::handleError);
     }
 
-    @Override
-    public void obtainEvent(Intent intent) {
-        eventModel = intent.getParcelableExtra(EXTRA_EVENT_MODEL);
-    }
-
     private void handleMeasurementsReceived() {
         sessionInteractor.submitResults()
                 .subscribe(this::handleResultsSubmitted, this::handleError);
@@ -62,8 +55,8 @@ public class SchoolSubmitPresenter implements ISchoolSubmitPresenter {
 
     private void handleResultsSubmitted() {
         sessionInteractor.dropConnection();
-        sessionInteractor.finishSession(eventModel.getId())
-                .subscribe(this::handleSessionFinished, this::handleError);
+//        sessionInteractor.finishSession(eventModel.getId())
+//                .subscribe(this::handleSessionFinished, this::handleError);
     }
 
     private void handleSessionFinished() {
@@ -92,8 +85,8 @@ public class SchoolSubmitPresenter implements ISchoolSubmitPresenter {
         throwable.printStackTrace();
         Logger.exc(TAG, throwable.getLocalizedMessage(), throwable);
         view.showError(throwable.getLocalizedMessage());
-        sessionInteractor.backupReport(eventModel)
-                .subscribe(this::handleReportBackUp, this::handleReportBackUpError);
+//        sessionInteractor.backupReport(eventModel)
+//                .subscribe(this::handleReportBackUp, this::handleReportBackUpError);
     }
 
 }

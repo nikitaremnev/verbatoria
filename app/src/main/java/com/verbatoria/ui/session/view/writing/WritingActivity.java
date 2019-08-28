@@ -21,7 +21,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.models.EventModel;
+import com.verbatoria.business.dashboard.calendar.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.ui.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.ui.session.view.reconnect.ReconnectionActivity;
@@ -106,10 +106,8 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     */
     private Handler mUiHandler;
 
-    public static Intent newInstance(Context mContext, EventModel eventModel) {
-        Logger.e(TAG, "eventModel: " + eventModel.toString());
+    public static Intent newInstance(Context mContext) {
         Intent intent = new Intent(mContext, WritingActivity.class);
-        intent.putExtra(EXTRA_EVENT_MODEL, eventModel);
         return intent;
     }
 
@@ -125,7 +123,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         //bind views
         VerbatoriaApplication.getInjector().addModule(new SessionModule()).inject(this);
         mWritingPresenter.bindView(this);
-        mWritingPresenter.obtainEvent(getIntent());
+//        mWritingPresenter.obtainEvent(getIntent());
     }
 
     @Override
@@ -187,14 +185,14 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
      */
     @Override
     public void setUpPlayMode() {
-        mPlayButton.setVisibility(View.VISIBLE);
-        mPauseButton.setVisibility(View.GONE);
+//        mPlayButton.setVisibility(View.VISIBLE);
+//        mPauseButton.setVisibility(View.GONE);
     }
 
     @Override
     public void setUpPauseMode() {
-        mPlayButton.setVisibility(View.GONE);
-        mPauseButton.setVisibility(View.VISIBLE);
+//        mPlayButton.setVisibility(View.GONE);
+//        mPauseButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -279,14 +277,14 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
 
     @Override
     public void finishSession() {
-        Intent intent = SubmitActivity.newInstance(this, mWritingPresenter.getEvent());
+        Intent intent = SubmitActivity.newInstance(this);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void finishSessionSchoolMode() {
-        Intent intent = SchoolSubmitActivity.newInstance(this, mWritingPresenter.getEvent());
+        Intent intent = SchoolSubmitActivity.newInstance(this);
         startActivity(intent);
         finish();
     }
@@ -420,7 +418,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     }
 
     private void startReconnection() {
-        Intent intent = ReconnectionActivity.newInstance(this, mWritingPresenter.getEvent());
+        Intent intent = ReconnectionActivity.newInstance(this);
         startActivity(intent);
         finish();
     }

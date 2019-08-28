@@ -1,14 +1,11 @@
 package com.verbatoria.ui.session.presenter.connection;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.neurosky.connection.ConnectionStates;
-import com.verbatoria.business.dashboard.models.EventModel;
 import com.verbatoria.business.session.ISessionInteractor;
 import com.verbatoria.infrastructure.BasePresenter;
-import com.verbatoria.ui.session.view.connection.ConnectionActivity;
 import com.verbatoria.ui.session.view.connection.IConnectionView;
 import com.verbatoria.utils.Logger;
 
@@ -23,8 +20,6 @@ public class ConnectionPresenter extends BasePresenter implements IConnectionPre
 
     private ISessionInteractor mSessionInteractor;
     private IConnectionView mConnectionView;
-    private EventModel mEventModel;
-
     public ConnectionPresenter(ISessionInteractor sessionInteractor) {
         this.mSessionInteractor = sessionInteractor;
     }
@@ -39,16 +34,6 @@ public class ConnectionPresenter extends BasePresenter implements IConnectionPre
     public void unbindView() {
         mConnectionView = null;
         mSessionInteractor.dropCallbacks();
-    }
-
-    @Override
-    public void obtainEvent(Intent intent) {
-        mEventModel = intent.getParcelableExtra(ConnectionActivity.EXTRA_EVENT_MODEL);
-    }
-
-    @Override
-    public EventModel getEvent() {
-        return mEventModel;
     }
 
     @Override
