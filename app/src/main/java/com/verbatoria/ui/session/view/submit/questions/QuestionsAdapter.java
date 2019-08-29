@@ -39,7 +39,7 @@ public class QuestionsAdapter extends PagerAdapter {
         mAnswersMap = new HashMap<>();
         mAnswerClickCallback = answerClickCallback;
         VerbatoriaApplication.getInjector().inject(this);
-        mQuestionsArray = mContext.getResources().getStringArray(R.array.session_questions);
+        mQuestionsArray = mContext.getResources().getStringArray(R.array.questionnaire_number_questions);
     }
 
     @Override

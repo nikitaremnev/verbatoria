@@ -21,8 +21,8 @@ class QuestionnaireConverter : DatabaseConverter<QuestionnaireEntity, Questionna
                 understandingPeopleAnswer = understandingPeopleAnswer.value,
                 understandingYourselfAnswer = understandingYourselfAnswer.value,
                 reportType = reportType.ordinal,
-                includeAttentionMemory = includeAttentionMemory.ordinal,
-                includeHobby = includeHobby.ordinal
+                includeAttentionMemory = includeAttentionMemory.value,
+                includeHobby = includeHobby.value
             )
         }
 

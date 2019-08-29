@@ -27,13 +27,17 @@ private const val EVENT_ID_EXTRA = "event_id_extra"
 
 interface QuestionnaireView : BaseView {
 
+    fun setNumberQuestionText(position: Int)
+
     fun setQuestionText(questionTextResourceId: Int)
 
     fun setNumberAnswer(answer: Int)
 
-    fun setNoAnswer()
+    fun setHasNoAnswer()
 
     fun setYesOrNoAnswer(isYesAnswer: Boolean)
+
+    fun setHasNoAnswerForYesOrNo()
 
     fun showNumberAnswers()
 
@@ -55,7 +59,7 @@ interface QuestionnaireView : BaseView {
 
     interface Callback {
 
-        fun onNumberAnswerClicked(value: Int)
+        fun onNumberAnswerClicked(answer: QuestionAnswer)
 
         fun onYesButtonClicked()
 
@@ -113,6 +117,8 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
     private lateinit var selectedAnswerDrawable: Drawable
     private lateinit var notSelectedAnswerDrawable: Drawable
 
+    private lateinit var numberQuestionsArray: Array<String>
+
     //region BasePresenterActivity
 
     override fun getLayoutResourceId(): Int = R.layout.activity_questionnaire
@@ -156,19 +162,19 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         }
 
         answer10Button.setOnClickListener {
-            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_10.value)
+            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_10)
         }
         answer20Button.setOnClickListener {
-            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_20.value)
+            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_20)
         }
         answer40Button.setOnClickListener {
-            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_40.value)
+            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_40)
         }
         answer60Button.setOnClickListener {
-            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_60.value)
+            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_60)
         }
         answer90Button.setOnClickListener {
-            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_90.value)
+            presenter.onNumberAnswerClicked(QuestionAnswer.ANSWER_90)
         }
 
         yesButton.setOnClickListener {
@@ -181,6 +187,8 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             presenter.onReportTypeSelected(checkedId)
         }
+
+        numberQuestionsArray = resources.getStringArray(R.array.questionnaire_number_questions)
 
     }
 
@@ -195,6 +203,10 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
     //endregion
 
     //region QuestionnaireView
+
+    override fun setNumberQuestionText(position: Int) {
+        questionTextView.text = numberQuestionsArray[position]
+    }
 
     override fun setQuestionText(questionTextResourceId: Int) {
         questionTextView.setText(questionTextResourceId)
@@ -214,7 +226,7 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         hasAnswerCheckbox.isChecked = false
     }
 
-    override fun setNoAnswer() {
+    override fun setHasNoAnswer() {
         dropNumberAnswersSelection()
 
         hasAnswerCheckbox.isChecked = true
@@ -228,6 +240,11 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
             yesButton.background = notSelectedAnswerDrawable
             noButton.background = selectedAnswerDrawable
         }
+    }
+
+    override fun setHasNoAnswerForYesOrNo() {
+        yesButton.background = notSelectedAnswerDrawable
+        noButton.background = notSelectedAnswerDrawable
     }
 
     override fun showNumberAnswers() {
@@ -279,7 +296,7 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
     }
 
     override fun close() {
-
+        finish()
     }
 
     //endregion

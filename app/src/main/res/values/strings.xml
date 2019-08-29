@@ -388,7 +388,7 @@
 
     <string name="session_connection_error_try">Восстановить соединение</string>
 
-    <string-array name="session_questions">
+    <string-array name="questionnaire_number_questions">
         <item>Лингвистический</item>
         <item>Логико-математический</item>
         <item>Музыкальный</item>
@@ -398,9 +398,9 @@
         <item>Понимание себя</item>
     </string-array>
 
-    <string name="session_include_attention_question">Включать ли отчет Внимание/Память?</string>
-    <string name="session_include_hobby_question">Включить модуль Хобби в отчет?</string>
-    <string name="session_report_type_question">Выберите тип отчета:</string>
+    <string name="questionnaire_include_memory_attention">Включать ли отчет Внимание/Память?</string>
+    <string name="questionnaire_include_hobby">Включить модуль Хобби в отчет?</string>
+    <string name="questionnaire_report_type_question">Выберите тип отчета:</string>
     <string name="session_report_type_0">Тип 0</string>
     <string name="session_report_type_1">1: только ВнП</string>
     <string name="session_report_type_2">Тип 2</string>

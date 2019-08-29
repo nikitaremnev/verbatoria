@@ -388,7 +388,7 @@
 
     <string name="session_connection_error_try">Reconnect</string>
 
-    <string-array name="session_questions">
+    <string-array name="questionnaire_number_questions">
         <item>Linguistic</item>
         <item>Logical and mathematical</item>
         <item>Musical</item>
@@ -398,9 +398,9 @@
         <item>Understanding yourself</item>
     </string-array>
 
-    <string name="session_include_attention_question">Should I include the Attention/Memory report?</string>
-    <string name="session_include_hobby_question">Should I include the Hobby module?</string>
-    <string name="session_report_type_question">Choose report type:</string>
+    <string name="questionnaire_include_memory_attention">Should I include the Attention/Memory report?</string>
+    <string name="questionnaire_include_hobby">Should I include the Hobby module?</string>
+    <string name="questionnaire_report_type_question">Choose report type:</string>
     <string name="session_report_type_0">Type 0</string>
     <string name="session_report_type_1">1: AnM only</string>
     <string name="session_report_type_2">Type 2</string>

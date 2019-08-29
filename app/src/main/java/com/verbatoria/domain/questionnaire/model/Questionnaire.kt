@@ -6,16 +6,16 @@ package com.verbatoria.domain.questionnaire.model
 
 class Questionnaire(
     val eventId: String,
-    val linguisticQuestionAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    val logicMathematicalAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    val musicAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    val spatialAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    val bodyKinestheticAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    val understandingPeopleAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    val understandingYourselfAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    val reportType: ReportType = ReportType.NOT_SELECTED,
-    val includeAttentionMemory: QuestionYesOrNoAnswer = QuestionYesOrNoAnswer.NO_ANSWER,
-    val includeHobby: QuestionYesOrNoAnswer = QuestionYesOrNoAnswer.NO_ANSWER
+    var linguisticQuestionAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
+    var logicMathematicalAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
+    var musicAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
+    var spatialAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
+    var bodyKinestheticAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
+    var understandingPeopleAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
+    var understandingYourselfAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
+    var reportType: ReportType = ReportType.NOT_SELECTED,
+    var includeAttentionMemory: QuestionYesOrNoAnswer = QuestionYesOrNoAnswer.NO_ANSWER,
+    var includeHobby: QuestionYesOrNoAnswer = QuestionYesOrNoAnswer.NO_ANSWER
 )
 
 enum class QuestionType {
@@ -63,7 +63,7 @@ enum class QuestionAnswer(val value: Int) {
 
 enum class QuestionYesOrNoAnswer(val value: Int) {
 
-    NO_ANSWER(0), ANSWER_YES(1), ANSWER_NO(0);
+    NO_ANSWER(-1), ANSWER_YES(1), ANSWER_NO(0);
 
     companion object {
 
