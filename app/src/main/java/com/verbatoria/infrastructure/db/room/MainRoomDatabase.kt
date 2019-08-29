@@ -8,6 +8,8 @@ import com.verbatoria.infrastructure.db.converter.DateRoomConverter
 import com.verbatoria.domain.late_send.LateSendEntity
 import com.verbatoria.domain.dashboard.info.repository.AgeGroupDao
 import com.verbatoria.domain.dashboard.info.model.AgeGroupEntity
+import com.verbatoria.domain.questionnaire.repository.QuestionnaireDao
+import com.verbatoria.domain.questionnaire.model.QuestionnaireEntity
 
 /**
  * @author n.remnev
@@ -16,7 +18,8 @@ import com.verbatoria.domain.dashboard.info.model.AgeGroupEntity
 @Database(
     entities = [
         LateSendEntity::class,
-        AgeGroupEntity::class
+        AgeGroupEntity::class,
+        QuestionnaireEntity::class
     ],
     version = BuildConfig.DATABASE_VERSION,
     exportSchema = false
@@ -27,5 +30,7 @@ import com.verbatoria.domain.dashboard.info.model.AgeGroupEntity
 abstract class MainRoomDatabase : RoomDatabase() {
 
     abstract fun ageGroupDao(): AgeGroupDao
+
+    abstract fun questionnaireDao(): QuestionnaireDao
 
 }

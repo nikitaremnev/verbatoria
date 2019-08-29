@@ -13,6 +13,9 @@ import com.verbatoria.domain.dashboard.info.repository.InfoRepository
 import com.verbatoria.domain.dashboard.info.repository.InfoRepositoryImpl
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.dashboard.settings.SettingsRepositoryImpl
+import com.verbatoria.domain.questionnaire.repository.QuestionnaireConverter
+import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepository
+import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepositoryImpl
 import com.verbatoria.infrastructure.db.room.MainRoomDatabase
 import dagger.Module
 import dagger.Provides
@@ -72,5 +75,11 @@ class DatabaseModule {
     @Singleton
     fun provideAgeGroupRepository(mainRoomDatabase: MainRoomDatabase): AgeGroupRepository =
         AgeGroupRepositoryImpl(mainRoomDatabase.ageGroupDao())
+
+    @Provides
+    @Singleton
+    fun provideQuestionnaireRepositoryImpl(mainRoomDatabase: MainRoomDatabase): QuestionnaireRepository =
+        QuestionnaireRepositoryImpl(mainRoomDatabase.questionnaireDao(), QuestionnaireConverter())
+
 
 }

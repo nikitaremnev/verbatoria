@@ -21,6 +21,9 @@ import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.dashboard.info.manager.InfoManagerImpl
 import com.verbatoria.domain.dashboard.info.repository.InfoRepository
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import com.verbatoria.domain.questionnaire.manager.QuestionnaireManager
+import com.verbatoria.domain.questionnaire.manager.QuestionnaireManagerImpl
+import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepository
 import com.verbatoria.domain.report.manager.ReportManager
 import com.verbatoria.domain.report.manager.ReportManagerImpl
 import com.verbatoria.domain.schedule.manager.ScheduleManager
@@ -185,6 +188,15 @@ class CommonModule {
     ): ReportManager =
         ReportManagerImpl(
             endpointsRegister.reportEndpoint
+        )
+
+    @Provides
+    @Singleton
+    fun provideQuestionnaireManager(
+        questionnaireRepository: QuestionnaireRepository
+    ): QuestionnaireManager =
+        QuestionnaireManagerImpl(
+            questionnaireRepository
         )
 
     //endregion
