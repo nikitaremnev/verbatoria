@@ -277,7 +277,7 @@ class EventDetailPresenter(
                 createNewEvent()
             }
             EventDetailMode.START -> {
-                view?.openStartSession()
+                view?.openStartSession(event?.id ?: throw IllegalStateException("try to start session while event is null"))
             }
         }
     }

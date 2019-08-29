@@ -42,7 +42,7 @@
             android:visibility="gone"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/session_submit_back"
+            android:text="@string/questionnaire_back"
             style="@style/ButtonBorderlessStyle" />
 
         <LinearLayout
@@ -58,7 +58,7 @@
             android:id="@+id/next_button"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:text="@string/session_submit_next"
+            android:text="@string/questionnaire_next"
             style="@style/ButtonBorderlessStyle" />
 
     </RelativeLayout>
@@ -68,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_height"
         android:layout_alignParentBottom="true"
-        android:text="@string/session_submit"
+        android:text="@string/questionnaire_finish"
         style="@style/ButtonStyle" />
 
     <include layout="@layout/view_loading"

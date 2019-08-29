@@ -24,6 +24,7 @@ import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
 import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.ui.common.dialog.ProgressDialog
+import com.verbatoria.ui.questionnaire.QuestionnaireActivity
 import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
 import javax.inject.Inject
@@ -83,7 +84,7 @@ interface EventDetailView : BaseView {
 
     fun hideProgress()
 
-    fun openStartSession()
+    fun openStartSession(eventId: String)
 
     fun close()
 
@@ -287,8 +288,8 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         progressDialog?.dismiss()
     }
 
-    override fun openStartSession() {
-        //empty
+    override fun openStartSession(eventId: String) {
+        startActivity(QuestionnaireActivity.createIntent(this, eventId))
     }
 
     override fun close() {

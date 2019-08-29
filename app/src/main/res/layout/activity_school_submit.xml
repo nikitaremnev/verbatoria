@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/school_submit_height"
         android:layout_alignParentBottom="true"
-        android:text="@string/session_submit"
+        android:text="@string/questionnaire_finish"
         style="@style/ButtonStyle" />
 
     <include layout="@layout/view_loading"

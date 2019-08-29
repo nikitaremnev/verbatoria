@@ -11,7 +11,6 @@
         android:layout_height="@dimen/event_detail_submit_button_height"
         android:layout_margin="@dimen/event_detail_submit_button_margin"
         android:background="@drawable/selector_common_button"
-        android:enabled="false"
         android:text="@string/event_detail_create_new_event"
         android:textColor="@drawable/selector_common_button_text"
         app:layout_constraintRight_toRightOf="parent"

@@ -367,12 +367,12 @@
 
     <string name="session_please_finish_load_error">It is necessary to turn off the load before ending the session!</string>
 
-    <string name="session_submit_back">Back</string>
-    <string name="session_submit_next">Next</string>
+    <string name="questionnaire_back">Back</string>
+    <string name="questionnaire_next">Next</string>
 
-    <string name="session_submit">Submit</string>
+    <string name="questionnaire_finish">Submit</string>
 
-    <string name="session_no_answer">No answer</string>
+    <string name="questionnaire_question_no_answer">No answer</string>
 
     <string name="session_question_variant_10">10</string>
     <string name="session_question_variant_20">20</string>

@@ -189,7 +189,8 @@ class EventDetailInteractorImpl(
             if (!event.report.isCanceled()) {
                 eventDetailItems.add(
                     EventDetailSubmitItem(
-                        mode = EventDetailMode.START
+                        mode = EventDetailMode.START,
+                        isAllFieldsFilled = true
                     )
                 )
             }

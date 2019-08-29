@@ -324,6 +324,29 @@
     <dimen name="schedule_row_header_width">70dp</dimen>
     <dimen name="schedule_row_header_height">70dp</dimen>
 
+    <!-- Questionnaire -->
+
+    <dimen name="questionnaire_question_text_size">22sp</dimen>
+    <dimen name="questionnaire_question_text_margin">16dp</dimen>
+    <dimen name="questionnaire_question_answer_first_margin_start">32dp</dimen>
+    <dimen name="questionnaire_question_answer_middle_margin_start">8dp</dimen>
+    <dimen name="questionnaire_question_answer_middle_margin_end">8dp</dimen>
+    <dimen name="questionnaire_question_answer_last_margin_end">32dp</dimen>
+    <dimen name="questionnaire_question_answer_margin_top">32dp</dimen>
+    <dimen name="questionnaire_question_answer_button_height">70dp</dimen>
+    <dimen name="questionnaire_question_answer_text_size">24sp</dimen>
+    <dimen name="questionnaire_question_no_answer_padding">16dp</dimen>
+    <dimen name="questionnaire_question_no_answer_margin_top">16dp</dimen>
+
+    <dimen name="questionnaire_navigation_button_text_size">16sp</dimen>
+    <dimen name="questionnaire_navigation_button_height">70dp</dimen>
+    <dimen name="questionnaire_navigation_button_margin_bottom">16dp</dimen>
+    <dimen name="questionnaire_navigation_button_margin_horizontal">16dp</dimen>
+
+    <dimen name="questionnaire_back_button_width">150dp</dimen>
+    <dimen name="questionnaire_next_button_width">150dp</dimen>
+    <dimen name="questionnaire_finish_button_width">300dp</dimen>
+
     <!-- Session -->
 
     <dimen name="connection_padding">16dp</dimen>

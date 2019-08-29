@@ -367,12 +367,12 @@
 
     <string name="session_please_finish_load_error">Необходимо выключить нагрузку перед завершением сеанса!</string>
 
-    <string name="session_submit_back">Назад</string>
-    <string name="session_submit_next">Далее</string>
+    <string name="questionnaire_back">Назад</string>
+    <string name="questionnaire_next">Далее</string>
 
-    <string name="session_submit">Закончить</string>
+    <string name="questionnaire_finish">Закончить</string>
 
-    <string name="session_no_answer">Нет ответа</string>
+    <string name="questionnaire_question_no_answer">Нет ответа</string>
 
     <string name="session_question_variant_10">10</string>
     <string name="session_question_variant_20">20</string>
