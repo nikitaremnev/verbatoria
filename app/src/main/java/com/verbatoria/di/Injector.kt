@@ -11,12 +11,11 @@ import com.verbatoria.di.child.ChildComponent
 import com.verbatoria.di.client.ClientComponent
 import com.verbatoria.di.common.CommonModule
 import com.verbatoria.di.dashboard.DashboardComponent
-import com.verbatoria.di.dashboard.calendar.CalendarComponent
-import com.verbatoria.di.dashboard.calendar.CalendarModule
 import com.verbatoria.di.event.EventDetailComponent
 import com.verbatoria.di.late_send.LateSendComponent
 import com.verbatoria.di.login.LoginComponent
 import com.verbatoria.di.login.sms.SMSLoginComponent
+import com.verbatoria.di.questionnaire.QuestionnaireComponent
 import com.verbatoria.di.recovery_password.RecoveryPasswordComponent
 import com.verbatoria.di.schedule.ScheduleComponent
 import com.verbatoria.di.session.SessionComponent
@@ -76,6 +75,8 @@ interface Injector {
     fun plusChildComponent(): ChildComponent.Builder
 
     fun plusWritingComponent(): WritingComponent.Builder
+
+    fun plusQuestionnaireComponent(): QuestionnaireComponent.Builder
 
     @Component.Builder
     interface Builder {
