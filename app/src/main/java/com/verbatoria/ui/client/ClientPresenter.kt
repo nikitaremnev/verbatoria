@@ -1,8 +1,7 @@
 package com.verbatoria.ui.client
 
 import com.verbatoria.business.client.ClientInteractor
-import com.verbatoria.domain.child.Child
-import com.verbatoria.domain.client.Client
+import com.verbatoria.domain.client.model.Client
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.EventDetailMode
 

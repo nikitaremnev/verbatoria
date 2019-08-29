@@ -3,7 +3,7 @@ package com.verbatoria.business.dashboard.info
 import com.verbatoria.business.dashboard.info.models.InfoModel
 import com.verbatoria.business.dashboard.info.models.LocationInfoModel
 import com.verbatoria.business.dashboard.info.models.PartnerInfoModel
-import com.verbatoria.domain.dashboard.info.InfoManager
+import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single

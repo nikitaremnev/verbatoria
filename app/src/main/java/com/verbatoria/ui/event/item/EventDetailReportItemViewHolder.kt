@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
 import com.remnev.verbatoria.R
-import com.verbatoria.domain.report.ReportStatus
+import com.verbatoria.domain.report.model.ReportStatus
 import com.verbatoria.domain.report.ReportStatusHelper
 
 /**

@@ -9,7 +9,7 @@ import android.support.v4.content.LocalBroadcastManager
 import android.util.Log
 import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.domain.authorization.model.Authorization
-import com.verbatoria.domain.session.SessionProvider
+import com.verbatoria.domain.session.repository.SessionProvider
 import com.verbatoria.domain.session.model.Session
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

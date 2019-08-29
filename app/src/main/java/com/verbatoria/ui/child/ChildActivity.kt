@@ -10,7 +10,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import com.remnev.verbatoria.R
-import com.verbatoria.domain.child.Child
+import com.verbatoria.domain.child.model.Child
 import com.verbatoria.di.Injector
 import com.verbatoria.di.child.ChildComponent
 import com.verbatoria.infrastructure.extensions.hide

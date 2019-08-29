@@ -1,7 +1,7 @@
 package com.verbatoria.di.event
 
 import com.verbatoria.di.BaseInjector
-import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.dashboard.calendar.model.Event
 import com.verbatoria.ui.event.EventDetailActivity
 import dagger.BindsInstance
 import dagger.Subcomponent

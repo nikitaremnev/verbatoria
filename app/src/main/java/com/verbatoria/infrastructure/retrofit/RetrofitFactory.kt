@@ -1,6 +1,6 @@
 package com.verbatoria.infrastructure.retrofit
 
-import com.verbatoria.domain.authorization.AuthorizationContext
+import com.verbatoria.domain.authorization.model.AuthorizationContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient

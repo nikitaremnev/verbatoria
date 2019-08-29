@@ -1,18 +1,10 @@
 package com.verbatoria.business.schedule
 
-import com.verbatoria.domain.schedule.ScheduleDataSource
-import com.verbatoria.domain.schedule.ScheduleDataSourceImpl
-import com.verbatoria.domain.schedule.ScheduleManager
-import com.verbatoria.infrastructure.extensions.*
-import com.verbatoria.infrastructure.retrofit.endpoints.schedule.ScheduleEndpoint
-import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.params.ClearScheduleParamsDto
-import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.params.SaveScheduleParamsDto
-import com.verbatoria.infrastructure.retrofit.endpoints.schedule.model.params.ScheduleItemParamsDto
+import com.verbatoria.domain.schedule.model.ScheduleDataSource
+import com.verbatoria.domain.schedule.manager.ScheduleManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
-import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import io.reactivex.Completable
 import io.reactivex.Single
-import java.util.*
 
 /**
  * @author n.remnev

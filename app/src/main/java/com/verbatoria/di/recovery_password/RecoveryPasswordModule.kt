@@ -2,7 +2,7 @@ package com.verbatoria.di.recovery_password
 
 import com.verbatoria.business.recovery_password.RecoveryPasswordInteractor
 import com.verbatoria.business.recovery_password.RecoveryPasswordInteractorImpl
-import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.authorization.manager.AuthorizationManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.recovery_password.RecoveryPasswordPresenter
 import dagger.Module

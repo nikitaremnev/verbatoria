@@ -1,6 +1,6 @@
 package com.verbatoria.di.client
 
-import com.verbatoria.domain.client.Client
+import com.verbatoria.domain.client.model.Client
 import com.verbatoria.di.BaseInjector
 import com.verbatoria.ui.client.ClientActivity
 import dagger.BindsInstance

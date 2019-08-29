@@ -1,6 +1,6 @@
 package com.verbatoria.business.dashboard
 
-import com.verbatoria.domain.dashboard.info.InfoManager
+import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Single
 

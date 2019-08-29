@@ -1,6 +1,6 @@
 package com.verbatoria.ui.child
 
-import com.verbatoria.domain.child.Child
+import com.verbatoria.domain.child.model.Child
 import com.verbatoria.business.child.ChildInteractor
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.event.EventDetailMode

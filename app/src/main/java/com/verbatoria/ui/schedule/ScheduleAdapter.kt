@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import com.remnev.verbatoria.R
-import com.verbatoria.domain.schedule.ScheduleDataSource
+import com.verbatoria.domain.schedule.model.ScheduleDataSource
 import com.verbatoria.infrastructure.extensions.formatToShortDate
 import com.verbatoria.infrastructure.extensions.formatToTime
 import com.verbatoria.ui.common.adaptivetablelayout.LinkedAdaptiveTableAdapter

@@ -1,8 +1,8 @@
 package com.verbatoria.business.client
 
-import com.verbatoria.domain.authorization.AuthorizationManager
-import com.verbatoria.domain.client.Client
-import com.verbatoria.domain.client.ClientManager
+import com.verbatoria.domain.authorization.manager.AuthorizationManager
+import com.verbatoria.domain.client.model.Client
+import com.verbatoria.domain.client.manager.ClientManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Single
 

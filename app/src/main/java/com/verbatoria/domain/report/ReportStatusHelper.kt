@@ -1,6 +1,7 @@
 package com.verbatoria.domain.report
 
 import com.remnev.verbatoria.R
+import com.verbatoria.domain.report.model.ReportStatus
 
 /**
  * @author nikitaremnev

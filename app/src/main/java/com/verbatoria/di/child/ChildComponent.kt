@@ -1,6 +1,6 @@
 package com.verbatoria.di.child
 
-import com.verbatoria.domain.child.Child
+import com.verbatoria.domain.child.model.Child
 import com.verbatoria.di.BaseInjector
 import com.verbatoria.ui.child.ChildActivity
 import dagger.BindsInstance

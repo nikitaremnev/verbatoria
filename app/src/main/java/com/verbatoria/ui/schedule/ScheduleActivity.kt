@@ -8,7 +8,7 @@ import android.widget.ProgressBar
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.schedule.ScheduleComponent
-import com.verbatoria.domain.schedule.ScheduleDataSource
+import com.verbatoria.domain.schedule.model.ScheduleDataSource
 import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.hideProgressDialogFragment
 import com.verbatoria.infrastructure.extensions.show

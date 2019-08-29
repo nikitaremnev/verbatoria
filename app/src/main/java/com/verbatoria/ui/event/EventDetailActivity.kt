@@ -10,12 +10,12 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.remnev.verbatoria.R
-import com.verbatoria.domain.child.Child
+import com.verbatoria.domain.child.model.Child
 import com.verbatoria.business.event.models.item.EventDetailItem
-import com.verbatoria.domain.client.Client
+import com.verbatoria.domain.client.model.Client
 import com.verbatoria.di.Injector
 import com.verbatoria.di.event.EventDetailComponent
-import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.dashboard.calendar.model.Event
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.child.ChildActivity

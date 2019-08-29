@@ -4,7 +4,7 @@ import android.os.Build
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
-import com.verbatoria.domain.session.SessionManager
+import com.verbatoria.domain.session.manager.SessionManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single

@@ -2,7 +2,7 @@ package com.verbatoria.di.login
 
 import com.verbatoria.business.login.LoginInteractor
 import com.verbatoria.business.login.LoginInteractorImpl
-import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.authorization.manager.AuthorizationManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.login.LoginPresenter
 import dagger.Module

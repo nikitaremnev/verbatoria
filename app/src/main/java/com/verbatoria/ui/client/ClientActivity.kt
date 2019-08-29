@@ -12,7 +12,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.R
-import com.verbatoria.domain.client.Client
+import com.verbatoria.domain.client.model.Client
 import com.verbatoria.di.Injector
 import com.verbatoria.di.client.ClientComponent
 import com.verbatoria.infrastructure.extensions.hide

@@ -1,6 +1,6 @@
 package com.verbatoria.infrastructure.retrofit
 
-import com.verbatoria.domain.authorization.AuthorizationContext
+import com.verbatoria.domain.authorization.model.AuthorizationContext
 import com.verbatoria.domain.authorization.model.OnlineAuthorization
 import okhttp3.Interceptor
 import okhttp3.Response

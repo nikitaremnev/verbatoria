@@ -1,6 +1,6 @@
 package com.verbatoria.business.recovery_password
 
-import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.authorization.manager.AuthorizationManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single

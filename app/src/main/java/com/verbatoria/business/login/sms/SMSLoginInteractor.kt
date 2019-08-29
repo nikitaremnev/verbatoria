@@ -1,6 +1,6 @@
 package com.verbatoria.business.login.sms
 
-import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.authorization.manager.AuthorizationManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Single
 import org.slf4j.LoggerFactory

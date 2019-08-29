@@ -98,129 +98,96 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/code_11_button" />
 
+
+    <LinearLayout
+        android:id="@+id/player_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/music_file_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/writing_player_file_name_margin"
+            android:textSize="@dimen/writing_player_file_name_text_size" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/play_floating_button"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:visibility="visible"
+            app:backgroundTint="@color/main"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_play" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/pause_floating_button"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:visibility="gone"
+            app:backgroundTint="@color/yellow"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_pause" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/stop_floating_button"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            android:visibility="gone"
+            app:backgroundTint="@color/red"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_stop" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/back_floating_button"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            app:backgroundTint="@color/back"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_back" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/next_floating_button"
+            android:layout_width="@dimen/writing_player_button_size"
+            android:layout_height="@dimen/writing_player_button_size"
+            android:layout_margin="@dimen/writing_player_button_margin"
+            app:backgroundTint="@color/next"
+            app:fabSize="normal"
+            app:srcCompat="@drawable/ic_next" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/timer_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/writing_timer_bottom_padding"
+        android:textColor="@color/black"
+        android:textSize="@dimen/writing_timer_text_size"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/finish_button"
+        android:layout_width="@dimen/writing_finish_button_size"
+        android:layout_height="@dimen/writing_finish_button_size"
+        android:layout_marginBottom="@dimen/writing_finish_button_margin"
+        android:visibility="visible"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/timer_text_view"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/ic_finish" />
+
 </android.support.constraint.ConstraintLayout>
-
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:background="@color/background"-->
-<!--    android:paddingLeft="@dimen/writing_horizontal_padding"-->
-<!--    android:paddingRight="@dimen/writing_horizontal_padding"-->
-<!--    android:paddingBottom="@dimen/writing_vertical_padding"-->
-<!--    android:paddingTop="@dimen/writing_vertical_padding">-->
-
-<!--    <LinearLayout-->
-<!--        android:id="@+id/buttons_layout"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="@dimen/writing_activities_button_height"-->
-<!--        android:layout_marginTop="@dimen/writing_activities_buttons_top_margin"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:weightSum="8">-->
-
-
-
-<!--    </LinearLayout>-->
-
-<!--    <com.github.mikephil.charting.charts.LineChart-->
-<!--        android:id="@+id/line_chart"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_marginTop="@dimen/writing_graph_top_margin"-->
-<!--        android:layout_below="@+id/buttons_layout" />-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:gravity="center"-->
-<!--        android:visibility="gone"-->
-<!--        android:id="@+id/player_buttons"-->
-<!--        android:layout_below="@+id/buttons_layout"-->
-<!--        android:layout_centerHorizontal="true">-->
-
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/music_file_name_text_view"-->
-<!--            android:textSize="@dimen/writing_player_file_name_text_size"-->
-<!--            android:layout_margin="@dimen/writing_player_file_name_margin"/>-->
-
-<!--        <android.support.design.widget.FloatingActionButton-->
-<!--            app:srcCompat="@drawable/ic_play"-->
-<!--            app:fabSize="normal"-->
-<!--            app:backgroundTint="@color/main"-->
-<!--            android:id="@+id/play_floating_button"-->
-<!--            android:visibility="visible"-->
-<!--            android:layout_margin="@dimen/writing_player_button_margin"-->
-<!--            android:layout_width="@dimen/writing_player_button_size"-->
-<!--            android:layout_height="@dimen/writing_player_button_size" />-->
-
-<!--        <android.support.design.widget.FloatingActionButton-->
-<!--            app:srcCompat="@drawable/ic_pause"-->
-<!--            app:fabSize="normal"-->
-<!--            app:backgroundTint="@color/yellow"-->
-<!--            android:id="@+id/pause_floating_button"-->
-<!--            android:visibility="gone"-->
-<!--            android:layout_margin="@dimen/writing_player_button_margin"-->
-<!--            android:layout_width="@dimen/writing_player_button_size"-->
-<!--            android:layout_height="@dimen/writing_player_button_size" />-->
-
-<!--        <android.support.design.widget.FloatingActionButton-->
-<!--            app:srcCompat="@drawable/ic_stop"-->
-<!--            app:fabSize="normal"-->
-<!--            app:backgroundTint="@color/red"-->
-<!--            android:id="@+id/stop_floating_button"-->
-<!--            android:visibility="gone"-->
-<!--            android:layout_margin="@dimen/writing_player_button_margin"-->
-<!--            android:layout_width="@dimen/writing_player_button_size"-->
-<!--            android:layout_height="@dimen/writing_player_button_size" />-->
-
-<!--        <android.support.design.widget.FloatingActionButton-->
-<!--            app:srcCompat="@drawable/ic_back"-->
-<!--            app:fabSize="normal"-->
-<!--            app:backgroundTint="@color/back"-->
-<!--            android:id="@+id/back_floating_button"-->
-<!--            android:visibility="visible"-->
-<!--            android:layout_margin="@dimen/writing_player_button_margin"-->
-<!--            android:layout_width="@dimen/writing_player_button_size"-->
-<!--            android:layout_height="@dimen/writing_player_button_size" />-->
-
-<!--        <android.support.design.widget.FloatingActionButton-->
-<!--            app:srcCompat="@drawable/ic_next"-->
-<!--            app:fabSize="normal"-->
-<!--            app:backgroundTint="@color/next"-->
-<!--            android:id="@+id/next_floating_button"-->
-<!--            android:visibility="visible"-->
-<!--            android:layout_margin="@dimen/writing_player_button_margin"-->
-<!--            android:layout_width="@dimen/writing_player_button_size"-->
-<!--            android:layout_height="@dimen/writing_player_button_size" />-->
-
-<!--    </LinearLayout>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/timer_text_view"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textSize="@dimen/writing_timer_text_size"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:paddingBottom="@dimen/writing_timer_bottom_padding"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_alignParentRight="true"/>-->
-
-<!--    <android.support.design.widget.FloatingActionButton-->
-<!--        android:layout_width="@dimen/writing_finish_button_size"-->
-<!--        android:layout_height="@dimen/writing_finish_button_size"-->
-<!--        android:layout_marginBottom="@dimen/writing_finish_button_margin"-->
-<!--        android:visibility="gone"-->
-<!--        android:id="@+id/finish_button"-->
-<!--        app:srcCompat="@drawable/ic_finish"-->
-<!--        android:layout_above="@+id/timer_text_view"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_alignParentEnd="true" />-->
-
-<!--    <include layout="@layout/view_loading"-->
-<!--        android:visibility="gone"/>-->
-
-<!--</RelativeLayout>-->

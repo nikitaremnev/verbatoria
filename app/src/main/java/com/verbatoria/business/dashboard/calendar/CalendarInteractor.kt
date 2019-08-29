@@ -1,8 +1,8 @@
 package com.verbatoria.business.dashboard.calendar
 
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
-import com.verbatoria.domain.dashboard.calendar.CalendarManager
-import com.verbatoria.domain.dashboard.calendar.Event
+import com.verbatoria.domain.dashboard.calendar.manager.CalendarManager
+import com.verbatoria.domain.dashboard.calendar.model.Event
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single

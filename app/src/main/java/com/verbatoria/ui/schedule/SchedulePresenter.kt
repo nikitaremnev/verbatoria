@@ -1,7 +1,7 @@
 package com.verbatoria.ui.schedule
 
 import com.verbatoria.business.schedule.ScheduleInteractor
-import com.verbatoria.domain.schedule.ScheduleDataSource
+import com.verbatoria.domain.schedule.model.ScheduleDataSource
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.common.adaptivetablelayout.OnItemClickListener
 

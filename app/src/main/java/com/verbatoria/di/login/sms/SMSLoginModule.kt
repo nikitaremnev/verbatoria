@@ -2,7 +2,7 @@ package com.verbatoria.di.login.sms
 
 import com.verbatoria.business.login.sms.SMSLoginInteractor
 import com.verbatoria.business.login.sms.SMSLoginInteractorImpl
-import com.verbatoria.domain.authorization.AuthorizationManager
+import com.verbatoria.domain.authorization.manager.AuthorizationManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.login.sms.SMSLoginPresenter
 import dagger.Module

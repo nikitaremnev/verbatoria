@@ -1,6 +1,6 @@
 package com.verbatoria.business.event.models.item
 
-import com.verbatoria.domain.report.ReportStatus
+import com.verbatoria.domain.report.model.ReportStatus
 import com.verbatoria.ui.event.EventDetailMode
 
 /**

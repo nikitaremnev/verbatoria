@@ -1,6 +1,6 @@
 package com.verbatoria.infrastructure.retrofit
 
-import com.verbatoria.domain.authorization.AuthorizationContext
+import com.verbatoria.domain.authorization.model.AuthorizationContext
 import com.verbatoria.infrastructure.retrofit.error.APIError
 import com.verbatoria.infrastructure.retrofit.error.APIResponseErrorHandler
 import com.verbatoria.infrastructure.retrofit.error.HttpStatusChecker.isServerError

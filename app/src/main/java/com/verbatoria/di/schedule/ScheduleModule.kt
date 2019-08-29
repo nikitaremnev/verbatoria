@@ -1,7 +1,7 @@
 package com.verbatoria.di.schedule
 
 import com.verbatoria.business.schedule.ScheduleInteractorImpl
-import com.verbatoria.domain.schedule.ScheduleManager
+import com.verbatoria.domain.schedule.manager.ScheduleManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.schedule.SchedulePresenter
 import dagger.Module

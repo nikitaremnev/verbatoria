@@ -1,15 +1,15 @@
 package com.verbatoria.business.event
 
 import com.remnev.verbatoria.R
-import com.verbatoria.domain.schedule.TimeSlot
-import com.verbatoria.domain.client.Client
+import com.verbatoria.domain.schedule.model.TimeSlot
+import com.verbatoria.domain.client.model.Client
 import com.verbatoria.business.event.models.item.*
-import com.verbatoria.domain.client.ClientManager
-import com.verbatoria.domain.dashboard.calendar.CalendarManager
-import com.verbatoria.domain.dashboard.calendar.Event
-import com.verbatoria.domain.dashboard.info.InfoManager
-import com.verbatoria.domain.report.ReportManager
-import com.verbatoria.domain.schedule.ScheduleManager
+import com.verbatoria.domain.client.manager.ClientManager
+import com.verbatoria.domain.dashboard.calendar.manager.CalendarManager
+import com.verbatoria.domain.dashboard.calendar.model.Event
+import com.verbatoria.domain.dashboard.info.manager.InfoManager
+import com.verbatoria.domain.report.manager.ReportManager
+import com.verbatoria.domain.schedule.manager.ScheduleManager
 import com.verbatoria.infrastructure.extensions.formatToTime
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.event.EventDetailMode
