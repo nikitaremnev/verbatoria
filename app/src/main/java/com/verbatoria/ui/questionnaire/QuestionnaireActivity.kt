@@ -13,6 +13,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.questionnaire.QuestionnaireComponent
 import com.verbatoria.domain.questionnaire.model.QuestionAnswer
+import com.verbatoria.domain.questionnaire.model.ReportType
 import com.verbatoria.infrastructure.extensions.getDrawableFromRes
 import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
@@ -33,11 +34,13 @@ interface QuestionnaireView : BaseView {
 
     fun setNumberAnswer(answer: Int)
 
-    fun setHasNoAnswer()
+    fun setHasNoAnswerForNumber()
 
     fun setYesOrNoAnswer(isYesAnswer: Boolean)
 
     fun setHasNoAnswerForYesOrNo()
+
+    fun setReportTypeAnswer(reportType: ReportType)
 
     fun showNumberAnswers()
 
@@ -50,6 +53,8 @@ interface QuestionnaireView : BaseView {
     fun hideBackButton()
 
     fun showNextButton()
+
+    fun hideNextButton()
 
     fun showFinishButton()
 
@@ -65,7 +70,7 @@ interface QuestionnaireView : BaseView {
 
         fun onNoButtonClicked()
 
-        fun onReportTypeSelected(checkedId: Int)
+        fun onReportTypeSelected(reportType: ReportType)
 
         fun onHasAnswerCheckedChanged(isChecked: Boolean)
 
@@ -117,6 +122,9 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
     private lateinit var selectedAnswerDrawable: Drawable
     private lateinit var notSelectedAnswerDrawable: Drawable
 
+    private lateinit var selectedYesOrNoAnswerDrawable: Drawable
+    private lateinit var notSelectedYesOrNoAnswerDrawable: Drawable
+
     private lateinit var numberQuestionsArray: Array<String>
 
     //region BasePresenterActivity
@@ -147,6 +155,9 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         selectedAnswerDrawable = getDrawableFromRes(R.drawable.background_button_selected)
         notSelectedAnswerDrawable = getDrawableFromRes(R.drawable.background_button_unselected)
 
+        selectedYesOrNoAnswerDrawable = getDrawableFromRes(R.drawable.background_button_selected)
+        notSelectedYesOrNoAnswerDrawable = getDrawableFromRes(R.drawable.background_button_unselected)
+
         backButton.setOnClickListener {
             presenter.onBackClicked()
         }
@@ -155,10 +166,6 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         }
         finishButton.setOnClickListener {
             presenter.onFinishClicked()
-        }
-
-        hasAnswerCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            presenter.onHasAnswerCheckedChanged(isChecked)
         }
 
         answer10Button.setOnClickListener {
@@ -185,7 +192,22 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         }
 
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            presenter.onReportTypeSelected(checkedId)
+            presenter.onReportTypeSelected(
+                when (checkedId) {
+                    R.id.type_0 -> ReportType.TYPE_0
+                    R.id.type_1 -> ReportType.TYPE_1
+                    R.id.type_2 -> ReportType.TYPE_2
+                    R.id.type_3 -> ReportType.TYPE_3
+                    R.id.type_4 -> ReportType.TYPE_4
+                    R.id.type_5 -> ReportType.TYPE_5
+                    R.id.type_6 -> ReportType.TYPE_6
+                    R.id.type_7 -> ReportType.TYPE_7
+                    R.id.type_8 -> ReportType.TYPE_8
+                    R.id.type_9 -> ReportType.TYPE_9
+                    R.id.type_10 -> ReportType.TYPE_10
+                    else -> ReportType.NOT_SELECTED
+                }
+            )
         }
 
         numberQuestionsArray = resources.getStringArray(R.array.questionnaire_number_questions)
@@ -223,28 +245,49 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
             QuestionAnswer.ANSWER_90.value -> answer90Button.background = selectedAnswerDrawable
         }
 
+        dropHasAnswerCheckedChangedListener()
         hasAnswerCheckbox.isChecked = false
+        setHasAnswerCheckedChangedListener()
     }
 
-    override fun setHasNoAnswer() {
+    override fun setHasNoAnswerForNumber() {
         dropNumberAnswersSelection()
 
+        dropHasAnswerCheckedChangedListener()
         hasAnswerCheckbox.isChecked = true
+        setHasAnswerCheckedChangedListener()
     }
 
     override fun setYesOrNoAnswer(isYesAnswer: Boolean) {
         if (isYesAnswer) {
-            yesButton.background = selectedAnswerDrawable
-            noButton.background = notSelectedAnswerDrawable
+            yesButton.background = selectedYesOrNoAnswerDrawable
+            noButton.background = notSelectedYesOrNoAnswerDrawable
         } else {
-            yesButton.background = notSelectedAnswerDrawable
-            noButton.background = selectedAnswerDrawable
+            yesButton.background = selectedYesOrNoAnswerDrawable
+            noButton.background = notSelectedYesOrNoAnswerDrawable
         }
     }
 
     override fun setHasNoAnswerForYesOrNo() {
-        yesButton.background = notSelectedAnswerDrawable
-        noButton.background = notSelectedAnswerDrawable
+        yesButton.background = notSelectedYesOrNoAnswerDrawable
+        noButton.background = notSelectedYesOrNoAnswerDrawable
+    }
+
+    override fun setReportTypeAnswer(reportType: ReportType) {
+        when (reportType) {
+            ReportType.NOT_SELECTED -> radioGroup.clearCheck()
+            ReportType.TYPE_0 -> radioGroup.check(R.id.type_0)
+            ReportType.TYPE_1 -> radioGroup.check(R.id.type_1)
+            ReportType.TYPE_2 -> radioGroup.check(R.id.type_2)
+            ReportType.TYPE_3 -> radioGroup.check(R.id.type_3)
+            ReportType.TYPE_4 -> radioGroup.check(R.id.type_4)
+            ReportType.TYPE_5 -> radioGroup.check(R.id.type_5)
+            ReportType.TYPE_6 -> radioGroup.check(R.id.type_6)
+            ReportType.TYPE_7 -> radioGroup.check(R.id.type_7)
+            ReportType.TYPE_8 -> radioGroup.check(R.id.type_8)
+            ReportType.TYPE_9 -> radioGroup.check(R.id.type_9)
+            ReportType.TYPE_10 -> radioGroup.check(R.id.type_10)
+        }
     }
 
     override fun showNumberAnswers() {
@@ -286,8 +329,11 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         nextButton.show()
     }
 
-    override fun showFinishButton() {
+    override fun hideNextButton() {
         nextButton.hide()
+    }
+
+    override fun showFinishButton() {
         finishButton.show()
     }
 
@@ -327,5 +373,14 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         reportTypeContainer.hide()
     }
 
+    private fun dropHasAnswerCheckedChangedListener() {
+        hasAnswerCheckbox.setOnCheckedChangeListener(null)
+    }
+
+    private fun setHasAnswerCheckedChangedListener() {
+        hasAnswerCheckbox.setOnCheckedChangeListener { _, isChecked ->
+            presenter.onHasAnswerCheckedChanged(isChecked)
+        }
+    }
 
 }

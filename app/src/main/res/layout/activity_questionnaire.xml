@@ -310,7 +310,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/questionnaire_question_text_margin"
         android:gravity="center"
-        android:text="Привет Привет Привет Привет Привет Привет Привет Привет Привет Привет"
         android:textColor="@color/black"
         android:textSize="@dimen/questionnaire_question_text_size"
         app:layout_constraintLeft_toLeftOf="parent"

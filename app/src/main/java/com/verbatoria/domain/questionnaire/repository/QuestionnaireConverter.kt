@@ -20,7 +20,7 @@ class QuestionnaireConverter : DatabaseConverter<QuestionnaireEntity, Questionna
                 bodyKinestheticAnswer = bodyKinestheticAnswer.value,
                 understandingPeopleAnswer = understandingPeopleAnswer.value,
                 understandingYourselfAnswer = understandingYourselfAnswer.value,
-                reportType = reportType.ordinal,
+                reportType = reportType.value,
                 includeAttentionMemory = includeAttentionMemory.value,
                 includeHobby = includeHobby.value
             )

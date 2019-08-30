@@ -2,17 +2,13 @@ package com.verbatoria.ui.questionnaire
 
 import com.remnev.verbatoria.R
 import com.verbatoria.business.questionnaire.QuestionnaireInteractor
-import com.verbatoria.domain.questionnaire.model.QuestionAnswer
-import com.verbatoria.domain.questionnaire.model.QuestionType
-import com.verbatoria.domain.questionnaire.model.QuestionYesOrNoAnswer
-import com.verbatoria.domain.questionnaire.model.Questionnaire
+import com.verbatoria.domain.questionnaire.model.*
 import com.verbatoria.ui.base.BasePresenter
 
 /**
  * @author n.remnev
  */
 
-private const val TOTAL_QUESTIONS_COUNT = 10
 private const val LAST_NUMBER_QUESTION_INDEX = 6
 private const val MEMORY_ATTENTION_QUESTION_INDEX = 7
 private const val HOBBY_QUESTION_INDEX = 8
@@ -27,6 +23,8 @@ class QuestionnairePresenter(
 
     private var questionnaire: Questionnaire = Questionnaire(eventId)
 
+    private var isQuestionnaireLoaded: Boolean = false
+
     private var currentQuestionPosition: Int = 0
 
     init {
@@ -35,25 +33,8 @@ class QuestionnairePresenter(
 
     override fun onAttachView(view: QuestionnaireView) {
         super.onAttachView(view)
-        when {
-            currentQuestionPosition <= LAST_NUMBER_QUESTION_INDEX -> {
-                setUpNumberQuestion()
-                view.showNextButton()
-                if (currentQuestionPosition == FIRST_QUESTION_POSITION) {
-                    view.hideBackButton()
-                }
-            }
-            currentQuestionPosition == MEMORY_ATTENTION_QUESTION_INDEX -> {
-                setUpYesOrNoQuestion(R.string.questionnaire_include_memory_attention)
-            }
-            currentQuestionPosition == HOBBY_QUESTION_INDEX -> {
-                setUpYesOrNoQuestion(R.string.questionnaire_include_hobby)
-            }
-            else -> {
-                view.showFinishButton()
-                view.setQuestionText(R.string.questionnaire_report_type_question)
-                view.showReportTypeAnswers()
-            }
+        if (isQuestionnaireLoaded) {
+            setUpCurrentQuestionnaireState()
         }
     }
 
@@ -62,76 +43,40 @@ class QuestionnairePresenter(
     override fun onNumberAnswerClicked(answer: QuestionAnswer) {
         view?.setNumberAnswer(answer.value)
         saveNumberAnswerForPosition(answer)
+        onNextClicked()
     }
 
     override fun onYesButtonClicked() {
         view?.setYesOrNoAnswer(true)
         saveYesOrNoAnswerForPosition(QuestionYesOrNoAnswer.ANSWER_YES)
+        onNextClicked()
     }
 
     override fun onNoButtonClicked() {
         view?.setYesOrNoAnswer(false)
         saveYesOrNoAnswerForPosition(QuestionYesOrNoAnswer.ANSWER_NO)
+        onNextClicked()
     }
 
-    override fun onReportTypeSelected(checkedId: Int) {
-
+    override fun onReportTypeSelected(reportType: ReportType) {
+        questionnaire.reportType = reportType
     }
 
     override fun onHasAnswerCheckedChanged(isChecked: Boolean) {
         if (isChecked) {
-            view?.setHasNoAnswer()
-            saveNumberAnswerForPosition(QuestionAnswer.NO_ANSWER)
-        } else {
-            saveNumberAnswerForPosition(QuestionAnswer.NO_ANSWER)
+            view?.setHasNoAnswerForNumber()
         }
+        saveNumberAnswerForPosition(QuestionAnswer.NO_ANSWER)
     }
 
     override fun onBackClicked() {
-        when {
-            currentQuestionPosition <= LAST_NUMBER_QUESTION_INDEX -> {
-                currentQuestionPosition --
-                setUpNumberQuestion()
-                if (currentQuestionPosition == FIRST_QUESTION_POSITION) {
-                    view?.hideBackButton()
-                }
-            }
-            currentQuestionPosition == MEMORY_ATTENTION_QUESTION_INDEX -> {
-                currentQuestionPosition --
-                setUpNumberQuestion()
-            }
-            currentQuestionPosition == HOBBY_QUESTION_INDEX -> {
-                currentQuestionPosition --
-                setUpYesOrNoQuestion(R.string.questionnaire_include_memory_attention)
-            }
-            currentQuestionPosition == LAST_QUESTION_INDEX -> {
-                currentQuestionPosition --
-                setUpYesOrNoQuestion(R.string.questionnaire_include_hobby)
-                view?.hideFinishButton()
-            }
-        }
+        currentQuestionPosition --
+        setUpCurrentQuestionnaireState()
     }
 
     override fun onNextClicked() {
-        when {
-            currentQuestionPosition < LAST_NUMBER_QUESTION_INDEX -> {
-                currentQuestionPosition ++
-                setUpNumberQuestion()
-            }
-            currentQuestionPosition == LAST_NUMBER_QUESTION_INDEX -> {
-                currentQuestionPosition ++
-                setUpYesOrNoQuestion(R.string.questionnaire_include_memory_attention)
-            }
-            currentQuestionPosition == MEMORY_ATTENTION_QUESTION_INDEX -> {
-                currentQuestionPosition ++
-                setUpYesOrNoQuestion(R.string.questionnaire_include_hobby)
-            }
-            currentQuestionPosition == HOBBY_QUESTION_INDEX -> {
-                view?.showFinishButton()
-                view?.setQuestionText(R.string.questionnaire_report_type_question)
-                view?.showReportTypeAnswers()
-            }
-        }
+        currentQuestionPosition ++
+        setUpCurrentQuestionnaireState()
     }
 
     override fun onBackPressed() {
@@ -148,6 +93,8 @@ class QuestionnairePresenter(
         questionnaireInteractor.getQuestionnaire(eventId)
             .subscribe({ questionnaire ->
                 this.questionnaire = questionnaire
+                isQuestionnaireLoaded = true
+                setUpCurrentQuestionnaireState()
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage)
             })
@@ -202,6 +149,54 @@ class QuestionnairePresenter(
             else -> QuestionYesOrNoAnswer.NO_ANSWER
         }
 
+    private fun setUpCurrentQuestionnaireState() {
+        //question state
+        when {
+
+            currentQuestionPosition <= LAST_NUMBER_QUESTION_INDEX -> {
+                setUpNumberQuestion()
+            }
+
+            currentQuestionPosition == MEMORY_ATTENTION_QUESTION_INDEX -> {
+                setUpYesOrNoQuestion(R.string.questionnaire_include_memory_attention)
+            }
+
+            currentQuestionPosition == HOBBY_QUESTION_INDEX -> {
+                setUpYesOrNoQuestion(R.string.questionnaire_include_hobby)
+            }
+
+            else -> {
+                setUpReportTypeQuestion()
+            }
+        }
+
+        //buttons state
+        when (currentQuestionPosition) {
+
+            FIRST_QUESTION_POSITION ->
+                view?.apply {
+                    hideBackButton()
+                    showNextButton()
+                }
+
+            in (FIRST_QUESTION_POSITION + 1 until LAST_QUESTION_INDEX) ->
+                view?.apply {
+                    showBackButton()
+                    hideFinishButton()
+                    showNextButton()
+                }
+
+            LAST_QUESTION_INDEX ->
+                view?.apply {
+                    showBackButton()
+                    hideNextButton()
+                    showFinishButton()
+                }
+        }
+
+    }
+
+
     private fun setUpNumberQuestion() {
         view?.apply {
             setNumberQuestionText(currentQuestionPosition)
@@ -209,7 +204,7 @@ class QuestionnairePresenter(
 
             val currentAnswer = getCurrentNumberQuestionAnswer()
             if (currentAnswer == QuestionAnswer.NO_ANSWER) {
-                setHasNoAnswer()
+                setHasNoAnswerForNumber()
             } else {
                 setNumberAnswer(currentAnswer.value)
             }
@@ -230,5 +225,12 @@ class QuestionnairePresenter(
         }
     }
 
+    private fun setUpReportTypeQuestion() {
+        view?.apply {
+            setQuestionText(R.string.questionnaire_report_type_question)
+            showReportTypeAnswers()
+            setReportTypeAnswer(questionnaire.reportType)
+        }
+    }
 
 }
