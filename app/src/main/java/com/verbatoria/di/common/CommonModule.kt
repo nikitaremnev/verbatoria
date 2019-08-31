@@ -6,6 +6,9 @@ import com.google.gson.GsonBuilder
 import com.verbatoria.component.event.EventManager
 import com.verbatoria.component.event.EventManagerImpl
 import com.verbatoria.component.session.SessionServiceControllerImpl
+import com.verbatoria.domain.activities.manager.ActivitiesManager
+import com.verbatoria.domain.activities.manager.ActivitiesManagerImpl
+import com.verbatoria.domain.activities.repository.ActivitiesRepository
 import com.verbatoria.domain.authorization.manager.AuthorizationManager
 import com.verbatoria.domain.authorization.manager.AuthorizationManagerImpl
 import com.verbatoria.domain.authorization.repository.AuthorizationRepository
@@ -197,6 +200,15 @@ class CommonModule {
     ): QuestionnaireManager =
         QuestionnaireManagerImpl(
             questionnaireRepository
+        )
+
+    @Provides
+    @Singleton
+    fun provideActivitiesManager(
+        activitiesRepository: ActivitiesRepository
+    ): ActivitiesManager =
+        ActivitiesManagerImpl(
+            activitiesRepository
         )
 
     //endregion

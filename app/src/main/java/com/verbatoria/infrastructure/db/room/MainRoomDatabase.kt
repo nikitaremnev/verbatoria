@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.remnev.verbatoria.BuildConfig
+import com.verbatoria.domain.activities.repository.ActivitiesDao
 import com.verbatoria.infrastructure.db.converter.DateRoomConverter
 import com.verbatoria.domain.late_send.LateSendEntity
 import com.verbatoria.domain.dashboard.info.repository.AgeGroupDao
@@ -32,5 +33,7 @@ abstract class MainRoomDatabase : RoomDatabase() {
     abstract fun ageGroupDao(): AgeGroupDao
 
     abstract fun questionnaireDao(): QuestionnaireDao
+
+    abstract fun activitiesDao(): ActivitiesDao
 
 }

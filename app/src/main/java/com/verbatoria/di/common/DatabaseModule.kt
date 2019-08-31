@@ -3,6 +3,9 @@ package com.verbatoria.di.common
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import com.verbatoria.domain.activities.repository.ActivitiesConverter
+import com.verbatoria.domain.activities.repository.ActivitiesRepository
+import com.verbatoria.domain.activities.repository.ActivitiesRepositoryImpl
 import com.verbatoria.domain.authorization.repository.AuthorizationRepository
 import com.verbatoria.domain.authorization.repository.AuthorizationRepositoryImpl
 import com.verbatoria.domain.dashboard.calendar.repository.CalendarRepository
@@ -78,8 +81,12 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideQuestionnaireRepositoryImpl(mainRoomDatabase: MainRoomDatabase): QuestionnaireRepository =
+    fun provideQuestionnaireRepository(mainRoomDatabase: MainRoomDatabase): QuestionnaireRepository =
         QuestionnaireRepositoryImpl(mainRoomDatabase.questionnaireDao(), QuestionnaireConverter())
 
+    @Provides
+    @Singleton
+    fun provideActivitiesRepository(mainRoomDatabase: MainRoomDatabase): ActivitiesRepository =
+        ActivitiesRepositoryImpl(mainRoomDatabase.activitiesDao(), ActivitiesConverter())
 
 }
