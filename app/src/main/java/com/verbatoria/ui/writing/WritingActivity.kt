@@ -1,7 +1,8 @@
 package com.verbatoria.ui.writing
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.widget.Button
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
@@ -12,6 +13,8 @@ import com.verbatoria.ui.base.BaseView
 /**
  * @author nikitaremnev
  */
+
+private const val EVENT_ID_EXTRA = "event_id_extra"
 
 interface WritingView : BaseView {
 
@@ -36,12 +39,24 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     private lateinit var code61Button: Button
     private lateinit var code71Button: Button
 
+    companion object {
+
+        fun createIntent(
+            context: Context,
+            eventId: String
+        ): Intent =
+            Intent(context, WritingActivity::class.java)
+                .putExtra(EVENT_ID_EXTRA, eventId)
+
+    }
+
     //region BasePresenterActivity
 
     override fun getLayoutResourceId(): Int = R.layout.activity_writing
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): WritingComponent =
         injector.plusWritingComponent()
+            .eventId(intent.getStringExtra(EVENT_ID_EXTRA))
             .build()
 
     override fun initViews(savedState: Bundle?) {

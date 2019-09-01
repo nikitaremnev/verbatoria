@@ -14,7 +14,7 @@ class WritingModule {
 
     @Provides
     @Reusable
-    fun provideWritingPresenter(): WritingPresenter =
-        WritingPresenter()
+    fun provideWritingPresenter(eventId: String): WritingPresenter =
+        WritingPresenter(eventId)
 
 }

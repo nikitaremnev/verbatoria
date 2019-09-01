@@ -25,6 +25,7 @@ import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
 import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.ui.common.dialog.ProgressDialog
 import com.verbatoria.ui.questionnaire.QuestionnaireActivity
+import com.verbatoria.ui.writing.WritingActivity
 import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
 import javax.inject.Inject
@@ -289,7 +290,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
     }
 
     override fun openStartSession(eventId: String) {
-        startActivity(QuestionnaireActivity.createIntent(this, eventId))
+        startActivity(WritingActivity.createIntent(this, eventId))
     }
 
     override fun close() {

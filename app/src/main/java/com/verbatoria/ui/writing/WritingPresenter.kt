@@ -7,7 +7,9 @@ import com.verbatoria.ui.base.BasePresenter
  */
 
 
-class WritingPresenter : BasePresenter<WritingView>(), WritingView.Callback {
+class WritingPresenter(
+    private val eventId: String
+) : BasePresenter<WritingView>(), WritingView.Callback {
 
     init {
 
