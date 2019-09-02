@@ -361,7 +361,9 @@
     <dimen name="writing_timer_bottom_padding">24dp</dimen>
 
     <dimen name="writing_timer_text_size">18sp</dimen>
-    <dimen name="writing_load_text_size">20sp</dimen>
+    <dimen name="writing_activity_text_size">20sp</dimen>
+    <dimen name="writing_activity_margin_start">8dp</dimen>
+
     <dimen name="writing_load_right_margin">8dp</dimen>
     <dimen name="writing_graph_top_margin">8dp</dimen>
 

@@ -3,14 +3,16 @@ package com.verbatoria.ui.writing
 import com.verbatoria.business.writing.WritingInteractor
 import com.verbatoria.domain.activities.model.ActivityCode
 import com.verbatoria.domain.activities.model.GroupedActivities
-import com.verbatoria.infrastructure.extensions.millisecondsToSeconds
 import com.verbatoria.ui.base.BasePresenter
 import java.lang.IllegalStateException
+import java.util.*
 
 /**
  * @author n.remnev
  */
 
+private const val TIMER_TASK_INTERVAL = 1000L
+private const val TIMER_TASK_INTERVAL_IN_SECONDS = 1
 
 class WritingPresenter(
     private val eventId: String,
@@ -25,6 +27,8 @@ class WritingPresenter(
 
     private var startActivityTime: Long = 0L
 
+    private var timerTask = createTimerTask()
+    private var timer = Timer()
 
     init {
         getGroupedActivities()
@@ -40,29 +44,27 @@ class WritingPresenter(
     //region WritingView.Callback
 
     override fun onCodeButtonClicked(activityCode: ActivityCode) {
+        timerTask.cancel()
+        timer.cancel()
+        timerTask = createTimerTask()
+        timer = Timer()
+
         groupedActivities.addActivityIfNotAdded(activityCode)
         val currentTimeInMillis = System.currentTimeMillis()
         when (selectedActivity) {
             activityCode -> {
                 saveActivity(currentTimeInMillis)
 
-                val timeWritten = (currentTimeInMillis - startActivityTime).millisecondsToSeconds()
-                groupedActivities.addTimeToActivity(activityCode, timeWritten)
-
                 selectedActivity = null
             }
             null -> {
                 selectedActivity = activityCode
                 startActivityTime = currentTimeInMillis
+
+                timer.schedule(timerTask, 0L, TIMER_TASK_INTERVAL)
             }
             else -> {
                 saveActivity(currentTimeInMillis)
-
-                val timeWritten = (currentTimeInMillis - startActivityTime).millisecondsToSeconds()
-                groupedActivities.addTimeToActivity(
-                    selectedActivity ?: throw IllegalStateException("trying to add time to activity while selectedActivity is null"),
-                    timeWritten
-                )
 
                 val previousSelectedActivity = selectedActivity
 
@@ -106,9 +108,8 @@ class WritingPresenter(
         val activityByCode = groupedActivities.getActivityByCode(activityCode)
         when {
             selectedActivity == activityCode -> view?.setActivitySelectedState(activityCode)
-            activityByCode == null -> view?.setActivityNewState(activityCode)
-            !activityByCode.isDone -> view?.setActivityNewState(activityCode)
-            activityByCode.isDone -> view?.setActivityDoneState(activityCode)
+            activityByCode?.isDone == true -> view?.setActivityDoneState(activityCode)
+            else -> view?.setActivityNewState(activityCode)
         }
     }
 
@@ -128,5 +129,16 @@ class WritingPresenter(
             .let(::addDisposable)
     }
 
+    private fun createTimerTask(): TimerTask =
+        object : TimerTask() {
+            override fun run() {
+                val activityByCode = groupedActivities.getActivityByCode(
+                    selectedActivity
+                        ?: throw IllegalStateException("trying to update timer time while selectedActivity is null")
+                )
+                view?.updateTimerTime(activityByCode?.totalTime ?: TIMER_TASK_INTERVAL_IN_SECONDS)
+                activityByCode?.addTime(TIMER_TASK_INTERVAL_IN_SECONDS)
+            }
+        }
 
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.writing.WritingComponent
@@ -27,6 +28,8 @@ interface WritingView : BaseView {
 
     fun setActivityDoneState(activityCode: ActivityCode)
 
+    fun updateTimerTime(totalLoadTime: Int)
+
     interface Callback {
 
         fun onCodeButtonClicked(activityCode: ActivityCode)
@@ -46,6 +49,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     private lateinit var code51Button: Button
     private lateinit var code61Button: Button
     private lateinit var code71Button: Button
+
+    private lateinit var timerTextView: TextView
 
     private lateinit var activityNewStateDrawable: Drawable
     private lateinit var activitySelectedStateDrawable: Drawable
@@ -80,6 +85,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         code51Button = findViewById(R.id.code_51_button)
         code61Button = findViewById(R.id.code_61_button)
         code71Button = findViewById(R.id.code_71_button)
+
+        timerTextView = findViewById(R.id.timer_text_view)
 
         activityNewStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_new)
         activitySelectedStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_selected)
@@ -125,6 +132,12 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun setActivityDoneState(activityCode: ActivityCode) {
         getButtonByActivityCode(activityCode).background = activityDoneStateDrawable
+    }
+
+    override fun updateTimerTime(totalLoadTime: Int) {
+        runOnUiThread {
+            timerTextView.text = "$totalLoadTime + секунд"
+        }
     }
 
     //endregion
