@@ -1,6 +1,6 @@
 package com.verbatoria.domain.activities.repository
 
-import com.verbatoria.domain.questionnaire.model.Questionnaire
+import com.verbatoria.domain.activities.model.ActivityEntity
 
 /**
  * @author n.remnev
@@ -8,27 +8,33 @@ import com.verbatoria.domain.questionnaire.model.Questionnaire
 
 interface ActivitiesRepository {
 
-    fun save(questionnaire: Questionnaire)
+    fun save(activities: List<ActivityEntity>)
 
-    fun findByEventId(eventId: String): Questionnaire?
+    fun save(activity: ActivityEntity)
+
+    fun getByEventId(eventId: String): List<ActivityEntity>
 
     fun deleteByEventId(eventId: String)
 
 }
 
 class ActivitiesRepositoryImpl(
-    private val dao: ActivitiesDao,
-    private val converter: ActivitiesConverter
+    private val dao: ActivitiesDao
 ) : ActivitiesRepository {
 
-    override fun save(questionnaire: Questionnaire) {
-        dao.save(converter.toEntity(questionnaire))
+    override fun save(activities: List<ActivityEntity>) {
+        dao.save(activities)
     }
 
-    override fun findByEventId(eventId: String): Questionnaire? =
-        dao.findByEventId(eventId)?.let(converter::toDomain)
+    override fun save(activity: ActivityEntity) {
+        dao.save(activity)
+    }
+
+    override fun getByEventId(eventId: String): List<ActivityEntity> =
+        dao.findByEventId(eventId)
 
     override fun deleteByEventId(eventId: String) {
         dao.deleteByEventId(eventId)
     }
+
 }

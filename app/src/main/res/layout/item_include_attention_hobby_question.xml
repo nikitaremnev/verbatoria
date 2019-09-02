@@ -37,7 +37,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginRight="@dimen/submit_last_question_answer_margin"
                 android:layout_weight="1"
-                android:background="@drawable/background_button_unselected"
+                android:background="@drawable/background_code_button_state_new"
                 android:text="@string/yes"
                 android:textColor="@color/white"
                 android:textSize="@dimen/submit_question_answer_text_size" />
@@ -48,7 +48,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginLeft="@dimen/submit_last_question_answer_margin"
                 android:layout_weight="1"
-                android:background="@drawable/background_button_unselected"
+                android:background="@drawable/background_code_button_state_new"
                 android:text="@string/no"
                 android:textColor="@color/white"
                 android:textSize="@dimen/submit_question_answer_text_size" />
@@ -84,7 +84,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginRight="@dimen/submit_last_question_answer_margin"
                 android:layout_weight="1"
-                android:background="@drawable/background_button_unselected"
+                android:background="@drawable/background_code_button_state_new"
                 android:text="@string/yes"
                 android:textColor="@color/white"
                 android:textSize="@dimen/submit_question_answer_text_size" />
@@ -95,7 +95,7 @@
                 android:layout_height="@dimen/button_height"
                 android:layout_marginLeft="@dimen/submit_last_question_answer_margin"
                 android:layout_weight="1"
-                android:background="@drawable/background_button_unselected"
+                android:background="@drawable/background_code_button_state_new"
                 android:text="@string/no"
                 android:textColor="@color/white"
                 android:textSize="@dimen/submit_question_answer_text_size" />

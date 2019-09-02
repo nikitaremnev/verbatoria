@@ -152,11 +152,11 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         nextButton = findViewById(R.id.next_button)
         finishButton = findViewById(R.id.finish_button)
 
-        selectedAnswerDrawable = getDrawableFromRes(R.drawable.background_button_selected)
-        notSelectedAnswerDrawable = getDrawableFromRes(R.drawable.background_button_unselected)
+        selectedAnswerDrawable = getDrawableFromRes(R.drawable.background_code_button_state_selected)
+        notSelectedAnswerDrawable = getDrawableFromRes(R.drawable.background_code_button_state_new)
 
-        selectedYesOrNoAnswerDrawable = getDrawableFromRes(R.drawable.background_button_selected)
-        notSelectedYesOrNoAnswerDrawable = getDrawableFromRes(R.drawable.background_button_unselected)
+        selectedYesOrNoAnswerDrawable = getDrawableFromRes(R.drawable.background_code_button_state_selected)
+        notSelectedYesOrNoAnswerDrawable = getDrawableFromRes(R.drawable.background_code_button_state_new)
 
         backButton.setOnClickListener {
             presenter.onBackClicked()

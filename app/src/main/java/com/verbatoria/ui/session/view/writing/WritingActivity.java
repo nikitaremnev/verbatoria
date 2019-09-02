@@ -21,7 +21,6 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.remnev.verbatoria.R;
 import com.verbatoria.VerbatoriaApplication;
-import com.verbatoria.business.dashboard.calendar.models.EventModel;
 import com.verbatoria.di.session.SessionModule;
 import com.verbatoria.ui.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.ui.session.view.reconnect.ReconnectionActivity;
@@ -42,7 +41,6 @@ import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_41
 import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_51;
 import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_61;
 import static com.verbatoria.business.session.activities.ActivitiesCodes.CODE_71;
-import static com.verbatoria.ui.session.view.connection.ConnectionActivity.EXTRA_EVENT_MODEL;
 
 /**
  * Экран записи
@@ -227,13 +225,13 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
         View buttonByCode = foundButtonByCode(code);
         switch (state) {
             case STATE_NEW:
-                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_button_unselected));
+                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_code_button_state_new));
                 break;
             case STATE_SELECTED:
-                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_button_selected));
+                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_code_button_state_selected));
                 break;
             case STATE_DONE:
-                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_button_done));
+                buttonByCode.setBackground(getResources().getDrawable(R.drawable.background_code_button_state_done));
                 break;
         }
     }

@@ -36,6 +36,6 @@ ext {
 
     slf4jVersion = "1.7.25"
 
-    databaseVersion = 2
+    databaseVersion = 3
 
 }

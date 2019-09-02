@@ -1,7 +1,7 @@
 package com.verbatoria.domain.activities.repository
 
 import android.arch.persistence.room.*
-import com.verbatoria.domain.questionnaire.model.QuestionnaireEntity
+import com.verbatoria.domain.activities.model.ActivityEntity
 
 /**
  * @author n.remnev
@@ -11,12 +11,15 @@ import com.verbatoria.domain.questionnaire.model.QuestionnaireEntity
 interface ActivitiesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun save(entity: QuestionnaireEntity)
+    fun save(entity: ActivityEntity)
 
-    @Query("DELETE FROM QuestionnaireEntity WHERE eventId = :eventId")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun save(entity: Iterable<ActivityEntity>)
+
+    @Query("DELETE FROM ActivityEntity WHERE eventId = :eventId")
     fun deleteByEventId(eventId: String)
 
-    @Query("SELECT * FROM QuestionnaireEntity  WHERE eventId = :eventId")
-    fun findByEventId(eventId: String): QuestionnaireEntity?
+    @Query("SELECT * FROM ActivityEntity WHERE eventId = :eventId")
+    fun findByEventId(eventId: String): List<ActivityEntity>
 
 }

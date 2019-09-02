@@ -49,10 +49,10 @@ public class IncludeAttentionHobbyQuestionViewHolder {
     @BindView(R.id.hobby_answer_no)
     public Button mHobbyAnswerNoButton;
 
-    @BindDrawable(R.drawable.background_button_selected)
+    @BindDrawable(R.drawable.background_code_button_state_selected)
     public Drawable mSelectedButtonDrawable;
 
-    @BindDrawable(R.drawable.background_button_unselected)
+    @BindDrawable(R.drawable.background_code_button_state_new)
     public Drawable mUnselectedButtonDrawable;
 
     private View mRootView;

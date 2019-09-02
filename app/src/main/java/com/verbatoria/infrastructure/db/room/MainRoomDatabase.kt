@@ -4,6 +4,7 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import com.remnev.verbatoria.BuildConfig
+import com.verbatoria.domain.activities.model.ActivityEntity
 import com.verbatoria.domain.activities.repository.ActivitiesDao
 import com.verbatoria.infrastructure.db.converter.DateRoomConverter
 import com.verbatoria.domain.late_send.LateSendEntity
@@ -20,7 +21,8 @@ import com.verbatoria.domain.questionnaire.model.QuestionnaireEntity
     entities = [
         LateSendEntity::class,
         AgeGroupEntity::class,
-        QuestionnaireEntity::class
+        QuestionnaireEntity::class,
+        ActivityEntity::class
     ],
     version = BuildConfig.DATABASE_VERSION,
     exportSchema = false

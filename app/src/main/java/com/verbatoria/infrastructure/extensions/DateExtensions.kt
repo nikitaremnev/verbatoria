@@ -3,6 +3,7 @@ package com.verbatoria.infrastructure.extensions
 import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 /***
  * @author n.remnev
@@ -164,6 +165,9 @@ fun Calendar.plusDays(days: Int) {
 fun Calendar.minusDays(days: Int) {
     set(Calendar.DAY_OF_YEAR, get(Calendar.DAY_OF_YEAR) - days)
 }
+
+fun Long.millisecondsToSeconds(): Int =
+    TimeUnit.MILLISECONDS.toSeconds(this).toInt()
 
 private fun format(date: Date, pattern: String): String {
     val formatter = SimpleDateFormat(pattern, Locale.getDefault())

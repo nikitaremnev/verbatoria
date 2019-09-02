@@ -7,7 +7,7 @@ package com.verbatoria.domain.activities.model
 const val MINIMUM_ACTIVITY_TIME = 15
 
 data class GroupedActivities(
-    private val activities: List<Activity>
+    private val activities: MutableList<Activity> = mutableListOf()
 ) {
 
     fun getActivityByCode(code: ActivityCode): Activity? =
@@ -15,8 +15,24 @@ data class GroupedActivities(
             activity.activityCode == code
         }
 
-    fun addTimeToActivity(code: ActivityCode, time: Int): Boolean =
-        getActivityByCode(code)?.addTime(time) ?: false
+    fun addTimeToActivity(code: ActivityCode, time: Int): Boolean {
+        val currentActivity = getActivityByCode(code)
+        return if (currentActivity == null) {
+            val newActivity = Activity(code)
+            activities.add(newActivity)
+            newActivity.addTime(time)
+        } else {
+            currentActivity.addTime(time)
+        }
+    }
+
+    fun addActivityIfNotAdded(code: ActivityCode) {
+        val currentActivity = getActivityByCode(code)
+        if (currentActivity == null) {
+            val newActivity = Activity(code)
+            activities.add(newActivity)
+        }
+    }
 
     fun isActivityDone(code: ActivityCode): Boolean =
         getActivityByCode(code)?.isDone ?: false

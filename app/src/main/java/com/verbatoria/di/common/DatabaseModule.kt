@@ -3,7 +3,6 @@ package com.verbatoria.di.common
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.verbatoria.domain.activities.repository.ActivitiesConverter
 import com.verbatoria.domain.activities.repository.ActivitiesRepository
 import com.verbatoria.domain.activities.repository.ActivitiesRepositoryImpl
 import com.verbatoria.domain.authorization.repository.AuthorizationRepository
@@ -87,6 +86,6 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideActivitiesRepository(mainRoomDatabase: MainRoomDatabase): ActivitiesRepository =
-        ActivitiesRepositoryImpl(mainRoomDatabase.activitiesDao(), ActivitiesConverter())
+        ActivitiesRepositoryImpl(mainRoomDatabase.activitiesDao())
 
 }

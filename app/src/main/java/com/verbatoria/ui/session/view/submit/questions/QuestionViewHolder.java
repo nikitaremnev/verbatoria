@@ -49,10 +49,10 @@ public class QuestionViewHolder {
     @BindView(R.id.has_answer_checkbox)
     public CheckBox mHasAnswerCheckBox;
 
-    @BindDrawable(R.drawable.background_button_selected)
+    @BindDrawable(R.drawable.background_code_button_state_selected)
     public Drawable mSelectedButtonDrawable;
 
-    @BindDrawable(R.drawable.background_button_unselected)
+    @BindDrawable(R.drawable.background_code_button_state_new)
     public Drawable mUnselectedButtonDrawable;
 
     private View mRootView;
