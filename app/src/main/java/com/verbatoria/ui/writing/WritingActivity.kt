@@ -9,21 +9,30 @@ import android.support.design.widget.FloatingActionButton
 import android.widget.Button
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.writing.WritingComponent
 import com.verbatoria.domain.activities.model.ActivityCode
-import com.verbatoria.infrastructure.extensions.getDrawableFromRes
-import com.verbatoria.infrastructure.extensions.hide
-import com.verbatoria.infrastructure.extensions.show
+import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.questionnaire.QuestionnaireActivity
 
 /**
  * @author nikitaremnev
  */
 
 private const val EVENT_ID_EXTRA = "event_id_extra"
+
+private const val Y_AXIS_MINIMUM = 0f
+private const val Y_AXIS_MAXIMUM = 100f
+private const val VISIBLE_RANGE_MAXIMUM = 20f
+private const val LINE_CHART_WIDTH = 3f
 
 interface WritingView : BaseView {
 
@@ -52,6 +61,10 @@ interface WritingView : BaseView {
     fun showMusicFileName(fileName: String)
 
     fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor?
+
+    fun addValueToGraph(attentionValue: Int)
+
+    fun openQuestionnaire(eventId: String)
 
     fun close()
 
@@ -191,6 +204,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         finishButton.setOnClickListener {
             presenter.onFinishClicked()
         }
+
+        setUpChart()
     }
 
     //endregion
@@ -224,7 +239,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     }
 
     override fun hideTimer() {
-        timerTextView.hide()
+        timerTextView.invisible()
     }
 
     override fun showFinishActivityFirstError() {
@@ -262,9 +277,107 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     override fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor =
         resources.openRawResourceFd(rawMusicFileResource)
 
+    override fun addValueToGraph(attentionValue: Int) {
+        var data: LineData? = lineChart.data
+        if (data == null) {
+            data = LineData()
+            data.setDrawValues(false)
+            lineChart.data = data
+        }
+        var set: ILineDataSet? = data.getDataSetByIndex(0)
+        if (set == null) {
+            set = createSet()
+            data.addDataSet(set)
+        }
+        data.addXValue(set.entryCount.toString())
+        data.addEntry(Entry(attentionValue.toFloat(), set.entryCount), 0)
+
+        lineChart.notifyDataSetChanged()
+        lineChart.moveViewToX((data.xValCount - 21).toFloat())
+
+    }
+
+    override fun openQuestionnaire(eventId: String) {
+        startActivity(QuestionnaireActivity.createIntent(this, eventId))
+        finish()
+    }
+
     override fun close() {
         finish()
     }
+
+    //endregion
+
+    //region LineChart
+
+    private fun setUpChart() {
+        lineChart.apply {
+            setDescription("")
+            setNoDataText(getString(R.string.writing_data_empty))
+
+            setDrawGridBackground(false)
+
+            legend.isEnabled = false
+
+            setBackgroundColor(getColorFromRes(R.color.font))
+
+            isScaleXEnabled = false
+            isScaleYEnabled = false
+
+            setVisibleXRangeMaximum(VISIBLE_RANGE_MAXIMUM)
+        }
+
+        setUpXAxis()
+        setUpYAxis()
+
+        addZeroLine()
+    }
+
+    private fun setUpXAxis() {
+        val xl = lineChart.xAxis
+        xl.textColor = getColorFromRes(R.color.main)
+        xl.setDrawGridLines(false)
+        xl.setDrawAxisLine(false)
+        xl.setDrawLabels(false)
+    }
+
+    private fun setUpYAxis() {
+        val leftAxis = lineChart.axisLeft
+        leftAxis.textColor = getColorFromRes(R.color.black)
+        leftAxis.axisMaxValue = Y_AXIS_MAXIMUM
+        leftAxis.axisMinValue = Y_AXIS_MINIMUM
+        leftAxis.setDrawGridLines(false)
+        leftAxis.setDrawAxisLine(false)
+        leftAxis.setDrawLabels(true)
+        val rightAxis = lineChart.axisRight
+        rightAxis.isEnabled = false
+    }
+
+    private fun addZeroLine() {
+        for (i in 0..19) {
+            addValueToGraph(1)
+        }
+        addValueToGraph(14)
+        addValueToGraph(24)
+        addValueToGraph(34)
+        addValueToGraph(24)
+        addValueToGraph(44)
+        addValueToGraph(64)
+        addValueToGraph(94)
+
+    }
+
+    private fun createSet(): LineDataSet =
+        LineDataSet(null, "").apply {
+            axisDependency = YAxis.AxisDependency.LEFT
+            color = getColorFromRes(R.color.main)
+            fillColor = getColorFromRes(R.color.main)
+            lineWidth = LINE_CHART_WIDTH
+            setDrawCircles(false)
+            setDrawCubic(true)
+            setDrawValues(false)
+            isHighlightEnabled = false
+        }
 
     //endregion
 

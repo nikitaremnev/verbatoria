@@ -38,6 +38,9 @@ data class GroupedActivities(
         getActivityByCode(code)?.isDone ?: false
 
     fun isAllActivitiesDone(): Boolean {
+        if (activities.size < ActivityCode.values().size) {
+            return false
+        }
         var isAllActivitiesDone = true
         activities.forEach { activity ->
             if (!activity.isDone) {

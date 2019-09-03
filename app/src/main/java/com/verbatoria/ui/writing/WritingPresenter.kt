@@ -65,9 +65,7 @@ class WritingPresenter(
         super.onAttachView(view)
         if (isGroupedActivitiesLoaded) {
             updateCodeButtonsState()
-            if (groupedActivities.isAllActivitiesDone()) {
-                view.showFinishButton()
-            }
+            updateFinishButtonState()
         }
     }
 
@@ -77,7 +75,7 @@ class WritingPresenter(
         if (selectedActivity != null) {
             view?.showFinishActivityFirstError()
         } else {
-            view?.close()
+            view?.openQuestionnaire(eventId)
         }
     }
 
@@ -119,7 +117,7 @@ class WritingPresenter(
         }
 
         updateSingleCodeButtonState(activityCode)
-
+        updateFinishButtonState()
 
         if (MUSIC_BUTTON_CODE == selectedActivity?.activityCode?.code) {
             view?.setUpPauseMode()
@@ -177,6 +175,58 @@ class WritingPresenter(
 
     //endregion
 
+    //region player methods
+
+    private fun setUpPlayer() {
+        mediaPlayer = MediaPlayer().apply {
+            setOnPreparedListener {
+                start()
+                view?.setUpPlayMode()
+            }
+            setOnCompletionListener {
+                view?.setUpPauseMode()
+                pausePlayer()
+            }
+        }
+    }
+
+    private fun preparePlayer(assetFileDescriptor: AssetFileDescriptor) {
+        try {
+            mediaPlayer?.setDataSource(
+                assetFileDescriptor.fileDescriptor,
+                assetFileDescriptor.startOffset,
+                assetFileDescriptor.length
+            )
+            assetFileDescriptor.close()
+            mediaPlayer?.prepare()
+        } catch (exception: IOException) {
+            exception.printStackTrace()
+            view?.showErrorSnackbar(exception.localizedMessage)
+        }
+    }
+
+    private fun pausePlayer() {
+        mediaPlayer?.let { player ->
+            player.stop()
+            player.reset()
+            player.release()
+            mediaPlayer = null
+
+            view?.setUpPauseMode()
+        }
+    }
+
+    private fun getAssetFileDescriptor(): AssetFileDescriptor? =
+        view?.getAssetFileDescriptor(musicFiles[currentMusicFileIndex - 1])
+
+    //endregion
+
+    private fun updateFinishButtonState() {
+        if (groupedActivities.isAllActivitiesDone()) {
+            view?.showFinishButton()
+        }
+    }
+
     private fun getGroupedActivities() {
         isGroupedActivitiesLoaded = false
         writingInteractor.getGroupedActivities(eventId)
@@ -184,9 +234,7 @@ class WritingPresenter(
                 this.groupedActivities = groupedActivities
                 isGroupedActivitiesLoaded = true
                 updateCodeButtonsState()
-                if (groupedActivities.isAllActivitiesDone()) {
-                    view?.showFinishButton()
-                }
+                updateFinishButtonState()
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage)
             })
@@ -247,52 +295,6 @@ class WritingPresenter(
         }
         view?.updateTimerTime(selectedActivity?.totalTime ?: TIMER_TASK_INTERVAL_IN_SECONDS)
     }
-
-    //region player methods
-
-    private fun setUpPlayer() {
-        mediaPlayer = MediaPlayer().apply {
-            setOnPreparedListener {
-                start()
-                view?.setUpPlayMode()
-            }
-            setOnCompletionListener {
-                view?.setUpPauseMode()
-                pausePlayer()
-            }
-        }
-    }
-
-    private fun preparePlayer(assetFileDescriptor: AssetFileDescriptor) {
-        try {
-            mediaPlayer?.setDataSource(
-                assetFileDescriptor.fileDescriptor,
-                assetFileDescriptor.startOffset,
-                assetFileDescriptor.length
-            )
-            assetFileDescriptor.close()
-            mediaPlayer?.prepare()
-        } catch (exception: IOException) {
-            exception.printStackTrace()
-            view?.showErrorSnackbar(exception.localizedMessage)
-        }
-    }
-
-    private fun pausePlayer() {
-        mediaPlayer?.let { player ->
-            player.stop()
-            player.reset()
-            player.release()
-            mediaPlayer = null
-
-            view?.setUpPauseMode()
-        }
-    }
-
-    private fun getAssetFileDescriptor(): AssetFileDescriptor? =
-        view?.getAssetFileDescriptor(musicFiles[currentMusicFileIndex - 1])
-
-    //endregion
 
 
 }

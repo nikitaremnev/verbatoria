@@ -26,7 +26,6 @@ import com.verbatoria.ui.session.presenter.writing.IWritingPresenter;
 import com.verbatoria.ui.session.view.reconnect.ReconnectionActivity;
 import com.verbatoria.ui.session.view.submit.SubmitActivity;
 import com.verbatoria.ui.session.view.submit.school.SchoolSubmitActivity;
-import com.verbatoria.utils.Helper;
 import com.verbatoria.utils.Logger;
 
 import javax.inject.Inject;
@@ -324,7 +323,7 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
 
     private void setUpChart() {
         mLineChart.setDescription("");
-        mLineChart.setNoDataText(getString(R.string.no_data));
+        mLineChart.setNoDataText(getString(R.string.writing_data_empty));
         mLineChart.setDrawGridBackground(false);
         mLineChart.setDrawMarkerViews(false);
         mLineChart.getLegend().setEnabled(false);
