@@ -358,7 +358,6 @@
 
     <dimen name="writing_activities_button_height">60dp</dimen>
     <dimen name="writing_activities_buttons_top_margin">8dp</dimen>
-    <dimen name="writing_timer_bottom_padding">24dp</dimen>
 
     <dimen name="writing_timer_text_size">18sp</dimen>
     <dimen name="writing_activity_text_size">20sp</dimen>
@@ -370,6 +369,21 @@
     <dimen name="writing_horizontal_padding">12dp</dimen>
     <dimen name="writing_vertical_padding">4dp</dimen>
 
+    <dimen name="writing_margin_top">16dp</dimen>
+    <dimen name="writing_margin_bottom">16dp</dimen>
+
+    <dimen name="writing_margin_start">16dp</dimen>
+    <dimen name="writing_margin_end">16dp</dimen>
+    <dimen name="writing_player_button_margin_start">8dp</dimen>
+    <dimen name="writing_player_button_first_margin_start">16dp</dimen>
+
+    <dimen name="writing_timer_padding">16dp</dimen>
+    <dimen name="writing_music_file_name_padding">16dp</dimen>
+    <dimen name="writing_music_file_name_text_size">18sp</dimen>
+    <dimen name="writing_music_file_name_height">72dp</dimen>
+
+    <dimen name="writing_button_corner_radius">3dp</dimen>
+
     <dimen name="writing_player_button_size">60dp</dimen>
 
     <dimen name="writing_player_file_name_text_size">25sp</dimen>
@@ -378,7 +392,7 @@
     <dimen name="writing_finish_button_margin">16dp</dimen>
     <dimen name="writing_finish_button_size">70dp</dimen>
 
-    <dimen name="writing_code_button_height">70dp</dimen>
+    <dimen name="writing_code_button_height">60dp</dimen>
 
     <dimen name="submit_padding">16dp</dimen>
 

@@ -120,7 +120,7 @@ public class ActivitiesTimerTask extends TimerTask {
 
         String timerString;
         if (mIsActivityActive) {
-            timerString = String.format(mContext.getString(R.string.session_timer_string_full),
+            timerString = String.format(mContext.getString(R.string.writing_timer),
                     DateUtils.timeToString(totalDate),
                     DateUtils.timeToString(allActivitiesDate),
                     DateUtils.timeToString(fullActivityDate),

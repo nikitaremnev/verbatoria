@@ -82,7 +82,7 @@ public class WritingPresenter implements IWritingPresenter,
                 view.showSomeActivitiesNotFinished(allNotEnoughTimeActivities);
             }
         } else {
-            view.showError(R.string.session_please_finish_load_error);
+            view.showError(R.string.writing_finish_activity_first_error);
         }
     }
 

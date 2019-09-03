@@ -2,15 +2,20 @@ package com.verbatoria.ui.writing
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.AssetFileDescriptor
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.widget.Button
 import android.widget.TextView
+import com.github.mikephil.charting.charts.LineChart
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.writing.WritingComponent
 import com.verbatoria.domain.activities.model.ActivityCode
 import com.verbatoria.infrastructure.extensions.getDrawableFromRes
+import com.verbatoria.infrastructure.extensions.hide
+import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 
@@ -30,9 +35,43 @@ interface WritingView : BaseView {
 
     fun updateTimerTime(totalLoadTime: Int)
 
+    fun showFinishButton()
+
+    fun showTimer()
+
+    fun hideTimer()
+
+    fun showFinishActivityFirstError()
+
+    fun setUpPlayMode()
+
+    fun setUpPauseMode()
+
+    fun hidePlayer()
+
+    fun showMusicFileName(fileName: String)
+
+    fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor?
+
+    fun close()
+
     interface Callback {
 
+        fun onFinishClicked()
+
         fun onCodeButtonClicked(activityCode: ActivityCode)
+
+    }
+
+    interface MusicPlayerCallback {
+
+        fun onPlayClicked()
+
+        fun onPauseClicked()
+
+        fun onNextClicked()
+
+        fun onBackClicked()
 
     }
 
@@ -50,7 +89,17 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     private lateinit var code61Button: Button
     private lateinit var code71Button: Button
 
+    private lateinit var finishButton: FloatingActionButton
+
+    private lateinit var playButton: FloatingActionButton
+    private lateinit var pauseButton: FloatingActionButton
+    private lateinit var backButton: FloatingActionButton
+    private lateinit var nextButton: FloatingActionButton
+
+    private lateinit var musicFileNameTextView: TextView
     private lateinit var timerTextView: TextView
+
+    private lateinit var lineChart: LineChart
 
     private lateinit var activityNewStateDrawable: Drawable
     private lateinit var activitySelectedStateDrawable: Drawable
@@ -86,7 +135,16 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         code61Button = findViewById(R.id.code_61_button)
         code71Button = findViewById(R.id.code_71_button)
 
+        finishButton = findViewById(R.id.finish_button)
+        playButton = findViewById(R.id.play_floating_button)
+        pauseButton = findViewById(R.id.pause_floating_button)
+        backButton = findViewById(R.id.back_floating_button)
+        nextButton = findViewById(R.id.next_floating_button)
+
+        musicFileNameTextView = findViewById(R.id.music_file_name_text_view)
         timerTextView = findViewById(R.id.timer_text_view)
+
+        lineChart = findViewById(R.id.line_chart)
 
         activityNewStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_new)
         activitySelectedStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_selected)
@@ -116,6 +174,23 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         code99Button.setOnClickListener {
             presenter.onCodeButtonClicked(ActivityCode.CODE_99)
         }
+
+        playButton.setOnClickListener {
+            presenter.onPlayClicked()
+        }
+        pauseButton.setOnClickListener {
+            presenter.onPauseClicked()
+        }
+        nextButton.setOnClickListener {
+            presenter.onNextClicked()
+        }
+        backButton.setOnClickListener {
+            presenter.onBackClicked()
+        }
+
+        finishButton.setOnClickListener {
+            presenter.onFinishClicked()
+        }
     }
 
     //endregion
@@ -136,8 +211,59 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun updateTimerTime(totalLoadTime: Int) {
         runOnUiThread {
-            timerTextView.text = "$totalLoadTime + секунд"
+            timerTextView.text = getString(R.string.writing_timer, totalLoadTime)
         }
+    }
+
+    override fun showFinishButton() {
+        finishButton.show()
+    }
+
+    override fun showTimer() {
+        timerTextView.show()
+    }
+
+    override fun hideTimer() {
+        timerTextView.hide()
+    }
+
+    override fun showFinishActivityFirstError() {
+        showErrorSnackbar(getString(R.string.writing_finish_activity_first_error))
+    }
+
+    override fun setUpPlayMode() {
+        musicFileNameTextView.show()
+        playButton.hide()
+        pauseButton.show()
+        backButton.show()
+        nextButton.show()
+    }
+
+    override fun setUpPauseMode() {
+        musicFileNameTextView.show()
+        pauseButton.hide()
+        playButton.show()
+        backButton.show()
+        nextButton.show()
+    }
+
+    override fun hidePlayer() {
+        musicFileNameTextView.hide()
+        playButton.hide()
+        pauseButton.hide()
+        backButton.hide()
+        nextButton.hide()
+    }
+
+    override fun showMusicFileName(fileName: String) {
+        musicFileNameTextView.text = fileName
+    }
+
+    override fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor =
+        resources.openRawResourceFd(rawMusicFileResource)
+
+    override fun close() {
+        finish()
     }
 
     //endregion

@@ -74,9 +74,6 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     @BindView(R.id.line_chart)
     public LineChart mLineChart;
 
-    @BindView(R.id.player_buttons)
-    public View mPlayerContainer;
-
     @BindView(R.id.music_file_name_text_view)
     public TextView mMusicFileNameTextView;
     @BindView(R.id.timer_text_view)
@@ -86,8 +83,6 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
     public FloatingActionButton mPlayButton;
     @BindView(R.id.pause_floating_button)
     public FloatingActionButton mPauseButton;
-    @BindView(R.id.stop_floating_button)
-    public FloatingActionButton mStopButton;
     @BindView(R.id.next_floating_button)
     public FloatingActionButton mNextButton;
     @BindView(R.id.back_floating_button)
@@ -200,24 +195,21 @@ public class WritingActivity extends AppCompatActivity implements IWritingView {
 
     @Override
     public void showPlayer() {
-        mPlayerContainer.setVisibility(View.VISIBLE);
         setUpPlayMode();
     }
 
     @Override
     public void hidePlayer() {
-        mPlayerContainer.setVisibility(View.GONE);
         mWritingPresenter.pauseClick();
     }
 
     @Override
     public void showError(String error) {
-        Helper.showErrorSnackBar(mPlayerContainer, error);
     }
 
     @Override
     public void showError(int errorStringResource) {
-        Helper.showErrorSnackBar(mPlayerContainer, getString(errorStringResource));
+
     }
 
     @Override

@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:paddingLeft="@dimen/writing_horizontal_padding"
-    android:paddingTop="@dimen/writing_vertical_padding"
-    android:paddingRight="@dimen/writing_horizontal_padding"
-    android:paddingBottom="@dimen/writing_vertical_padding">
+    android:background="@color/background">
 
     <Button
         android:id="@+id/code_99_button"
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
+        android:layout_marginStart="@dimen/writing_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_99"
         android:textColor="@color/white"
@@ -28,6 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
         android:layout_marginStart="@dimen/writing_activity_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_11"
         android:textColor="@color/white"
@@ -42,6 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
         android:layout_marginStart="@dimen/writing_activity_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_21"
         android:textColor="@color/white"
@@ -56,6 +56,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
         android:layout_marginStart="@dimen/writing_activity_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_31"
         android:textColor="@color/white"
@@ -70,6 +71,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
         android:layout_marginStart="@dimen/writing_activity_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_41"
         android:textColor="@color/white"
@@ -84,6 +86,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
         android:layout_marginStart="@dimen/writing_activity_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_51"
         android:textColor="@color/white"
@@ -98,6 +101,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
         android:layout_marginStart="@dimen/writing_activity_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_61"
         android:textColor="@color/white"
@@ -112,6 +116,8 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/writing_code_button_height"
         android:layout_marginStart="@dimen/writing_activity_margin_start"
+        android:layout_marginTop="@dimen/writing_margin_top"
+        android:layout_marginEnd="@dimen/writing_margin_end"
         android:background="@drawable/background_code_button_state_new"
         android:text="@string/writing_activity_code_71"
         android:textColor="@color/white"
@@ -121,95 +127,100 @@
         app:layout_constraintStart_toEndOf="@+id/code_61_button"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <LinearLayout
-        android:id="@+id/player_buttons"
+    <TextView
+        android:id="@+id/music_file_name_text_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:visibility="visible"
+        android:layout_height="@dimen/writing_music_file_name_height"
+        android:background="@drawable/background_writing_music_file_name"
+        android:padding="@dimen/writing_music_file_name_padding"
+        android:textColor="@color/white"
+        android:textSize="@dimen/writing_music_file_name_text_size"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-        <TextView
-            android:id="@+id/music_file_name_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/writing_player_file_name_margin"
-            android:textSize="@dimen/writing_player_file_name_text_size" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/play_floating_button"
-            android:layout_width="@dimen/writing_player_button_size"
-            android:layout_height="@dimen/writing_player_button_size"
-            android:layout_margin="@dimen/writing_player_button_margin"
-            android:visibility="visible"
-            app:backgroundTint="@color/main"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_play" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/pause_floating_button"
-            android:layout_width="@dimen/writing_player_button_size"
-            android:layout_height="@dimen/writing_player_button_size"
-            android:layout_margin="@dimen/writing_player_button_margin"
-            android:visibility="gone"
-            app:backgroundTint="@color/yellow"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_pause" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/stop_floating_button"
-            android:layout_width="@dimen/writing_player_button_size"
-            android:layout_height="@dimen/writing_player_button_size"
-            android:layout_margin="@dimen/writing_player_button_margin"
-            android:visibility="gone"
-            app:backgroundTint="@color/red"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_stop" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/back_floating_button"
-            android:layout_width="@dimen/writing_player_button_size"
-            android:layout_height="@dimen/writing_player_button_size"
-            android:layout_margin="@dimen/writing_player_button_margin"
-            app:backgroundTint="@color/back"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_back" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/next_floating_button"
-            android:layout_width="@dimen/writing_player_button_size"
-            android:layout_height="@dimen/writing_player_button_size"
-            android:layout_margin="@dimen/writing_player_button_margin"
-            app:backgroundTint="@color/next"
-            app:fabSize="normal"
-            app:srcCompat="@drawable/ic_next" />
-
-    </LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/timer_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/writing_timer_bottom_padding"
-        android:textColor="@color/black"
+        android:background="@drawable/background_writing_timer"
+        android:gravity="center"
+        android:padding="@dimen/writing_timer_padding"
+        android:textColor="@color/white"
         android:textSize="@dimen/writing_timer_text_size"
-        android:visibility="visible"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Время нагрузки: 10:40" />
+
+    <!-- Player -->
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/play_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/writing_player_button_first_margin_start"
+        android:layout_marginBottom="@dimen/writing_margin_bottom"
+        android:visibility="gone"
+        app:backgroundTint="@color/main"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/music_file_name_text_view"
+        app:srcCompat="@drawable/ic_play" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/pause_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/writing_player_button_first_margin_start"
+        android:layout_marginBottom="@dimen/writing_margin_bottom"
+        android:visibility="gone"
+        app:backgroundTint="@color/yellow"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/play_floating_button"
+        app:srcCompat="@drawable/ic_pause" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/back_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/writing_player_button_margin_start"
+        android:layout_marginBottom="@dimen/writing_margin_bottom"
+        android:visibility="gone"
+        app:backgroundTint="@color/back"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pause_floating_button"
+        app:srcCompat="@drawable/ic_back" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/next_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/writing_player_button_margin_start"
+        android:layout_marginBottom="@dimen/writing_margin_bottom"
+        android:visibility="gone"
+        app:backgroundTint="@color/next"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/back_floating_button"
+        app:srcCompat="@drawable/ic_next" />
+
+    <!-- End player -->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/finish_button"
-        android:layout_width="@dimen/writing_finish_button_size"
-        android:layout_height="@dimen/writing_finish_button_size"
-        android:layout_marginBottom="@dimen/writing_finish_button_margin"
-        android:visibility="visible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/writing_finish_button_margin"
+        android:visibility="gone"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/timer_text_view"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_finish" />
 
     <com.github.mikephil.charting.charts.LineChart
@@ -217,6 +228,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/writing_graph_top_margin"
+        android:layout_marginBottom="@dimen/writing_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/code_71_button" />

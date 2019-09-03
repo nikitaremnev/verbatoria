@@ -359,13 +359,13 @@
     <string name="writing_activity_code_61">61</string>
     <string name="writing_activity_code_71">71</string>
 
-    <string name="session_timer_string_full" formatted="false">Общее время: %s\nОбщее время нагрузок: %s\nОбщее время текущей нагрузки: %s\nВремя нагрузки: %s</string>
+    <string name="writing_timer" formatted="false">Время нагрузки: %s сек.</string>
     <string name="session_timer_string_only_full_and_loadings" formatted="false">Общее время: %s\nОбщее время нагрузок: %s</string>
     <string name="session_timer_string_only_full" formatted="false">Общее время: %s</string>
 
     <string name="session_player_error">Файлы для воспроизведения не найдены!</string>
 
-    <string name="session_please_finish_load_error">Необходимо выключить нагрузку перед завершением сеанса!</string>
+    <string name="writing_finish_activity_first_error">Необходимо выключить нагрузку перед завершением сеанса!</string>
 
     <string name="questionnaire_back">Назад</string>
     <string name="questionnaire_next">Далее</string>

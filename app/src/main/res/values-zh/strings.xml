@@ -359,13 +359,13 @@
     <string name="writing_activity_code_61">61</string>
     <string name="writing_activity_code_71">71</string>
 
-    <string name="session_timer_string_full" formatted="false">Total time: %s\nTotal loadings time: %s\nTotal time of the current load: %s\nLoading time: %s</string>
+    <string name="writing_timer" formatted="false">Load time: %s sec.</string>
     <string name="session_timer_string_only_full_and_loadings" formatted="false">Total time: %s\nTotal loadings time: %s</string>
     <string name="session_timer_string_only_full" formatted="false">Total time: %s</string>
 
     <string name="session_player_error">No files found for playback!</string>
 
-    <string name="session_please_finish_load_error">It is necessary to turn off the load before ending the session!</string>
+    <string name="writing_finish_activity_first_error">It is necessary to turn off the load before ending the session!</string>
 
     <string name="questionnaire_back">Back</string>
     <string name="questionnaire_next">Next</string>
