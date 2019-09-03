@@ -7,7 +7,7 @@ import com.neurosky.connection.TgStreamReader
  * @author n.remnev
  */
 
-interface NeurodataConnectionController {
+interface BCIConnectionController {
 
     fun startConnection()
 
@@ -15,9 +15,9 @@ interface NeurodataConnectionController {
 
 }
 
-class NeurodataConnectionControllerImpl(
-    private val neurodataConnectionHandler: NeurodataConnectionHandler
-) : NeurodataConnectionController {
+class BCIConnectionControllerImpl(
+    private val bciConnectionHandler: BCIConnectionHandler
+) : BCIConnectionController {
 
     private var bluetoothAdapter: BluetoothAdapter? = BluetoothAdapter.getDefaultAdapter()
 
@@ -30,11 +30,11 @@ class NeurodataConnectionControllerImpl(
                     streamReader.stop()
                     streamReader.close()
                 }
-                tgStreamReader = TgStreamReader(bluetoothAdapter, neurodataConnectionHandler)
+                tgStreamReader = TgStreamReader(bluetoothAdapter, bciConnectionHandler)
                 tgStreamReader?.connect()
             }
         } else {
-            neurodataConnectionHandler.bluetoothDisabled()
+            bciConnectionHandler.bluetoothDisabled()
         }
     }
 

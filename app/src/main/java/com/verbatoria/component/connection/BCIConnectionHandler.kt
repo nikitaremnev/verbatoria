@@ -9,33 +9,33 @@ import com.neurosky.connection.TgStreamHandler
  * @author n.remnev
  */
 
-interface NeurodataConnectionHandler : TgStreamHandler {
+interface BCIConnectionHandler : TgStreamHandler {
 
     fun bluetoothDisabled()
 
-    fun setDataCallback(dataCallback: NeurodataConnectionDataCallback?)
+    fun setDataCallback(dataCallback: BCIDataCallback?)
 
-    fun setStateCallback(stateCallback: NeurodataConnectionStateCallback?)
+    fun setStateCallback(stateCallback: BCIConnectionStateCallback?)
 
 }
 
-class NeurodataConnectionHandlerImpl: NeurodataConnectionHandler {
+class BCIConnectionHandlerImpl: BCIConnectionHandler {
 
-    private var dataCallback: NeurodataConnectionDataCallback? = null
+    private var dataCallback: BCIDataCallback? = null
 
-    private var stateCallback: NeurodataConnectionStateCallback? = null
+    private var stateCallback: BCIConnectionStateCallback? = null
 
-    //region NeurodataConnectionHandler
+    //region BCIConnectionHandler
 
     override fun bluetoothDisabled() {
         stateCallback?.onBluetoothDisabled()
     }
 
-    override fun setDataCallback(dataCallback: NeurodataConnectionDataCallback?) {
+    override fun setDataCallback(dataCallback: BCIDataCallback?) {
         this.dataCallback = dataCallback
     }
 
-    override fun setStateCallback(stateCallback: NeurodataConnectionStateCallback?) {
+    override fun setStateCallback(stateCallback: BCIConnectionStateCallback?) {
         this.stateCallback = stateCallback
     }
 

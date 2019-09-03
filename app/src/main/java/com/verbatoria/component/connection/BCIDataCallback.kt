@@ -6,7 +6,7 @@ import com.neurosky.connection.EEGPower
  * @author n.remnev
  */
 
-interface NeurodataConnectionDataCallback {
+interface BCIDataCallback {
 
     fun onAttentionDataReceived(attentionValue: Int)
 

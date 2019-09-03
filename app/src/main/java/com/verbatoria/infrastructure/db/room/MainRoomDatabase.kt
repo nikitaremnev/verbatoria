@@ -6,6 +6,8 @@ import android.arch.persistence.room.TypeConverters
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.domain.activities.model.ActivityEntity
 import com.verbatoria.domain.activities.repository.ActivitiesDao
+import com.verbatoria.domain.bci_data.model.BCIDataEntity
+import com.verbatoria.domain.bci_data.repository.BCIDataDao
 import com.verbatoria.infrastructure.db.converter.DateRoomConverter
 import com.verbatoria.domain.late_send.LateSendEntity
 import com.verbatoria.domain.dashboard.info.repository.AgeGroupDao
@@ -22,7 +24,8 @@ import com.verbatoria.domain.questionnaire.model.QuestionnaireEntity
         LateSendEntity::class,
         AgeGroupEntity::class,
         QuestionnaireEntity::class,
-        ActivityEntity::class
+        ActivityEntity::class,
+        BCIDataEntity::class
     ],
     version = BuildConfig.DATABASE_VERSION,
     exportSchema = false
@@ -37,5 +40,7 @@ abstract class MainRoomDatabase : RoomDatabase() {
     abstract fun questionnaireDao(): QuestionnaireDao
 
     abstract fun activitiesDao(): ActivitiesDao
+
+    abstract fun bciDataDao(): BCIDataDao
 
 }

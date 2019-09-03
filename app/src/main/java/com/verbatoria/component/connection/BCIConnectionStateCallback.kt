@@ -4,7 +4,7 @@ package com.verbatoria.component.connection
  * @author n.remnev
  */
 
-interface NeurodataConnectionStateCallback {
+interface BCIConnectionStateCallback {
 
     fun onConnecting()
 

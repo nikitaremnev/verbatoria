@@ -18,9 +18,9 @@ class VerbatoriaKtApplication : Application(),
 
     private val dependenciesContainer = ConcurrentHashMap<String, Any>()
 
-    private var neurodataConnectionController: NeurodataConnectionController? = null
+    private var bciConnectionController: BCIConnectionController? = null
 
-    private var neurodataConnectionHandler: NeurodataConnectionHandler = NeurodataConnectionHandlerImpl()
+    private var bciConnectionHandler: BCIConnectionHandler = BCIConnectionHandlerImpl()
 
     //region Application
 
@@ -33,23 +33,23 @@ class VerbatoriaKtApplication : Application(),
 
     //region BCI connection
 
-    fun setNeurodataDataCallback(presenter: NeurodataConnectionDataCallback?) {
-        neurodataConnectionHandler.setDataCallback(presenter)
+    fun setNeurodataDataCallback(presenter: BCIDataCallback?) {
+        bciConnectionHandler.setDataCallback(presenter)
     }
 
-    fun setNeurodataConnectionStateCallback(presenter: NeurodataConnectionStateCallback?) {
-        neurodataConnectionHandler.setStateCallback(presenter)
+    fun setNeurodataConnectionStateCallback(presenter: BCIConnectionStateCallback?) {
+        bciConnectionHandler.setStateCallback(presenter)
     }
 
     fun startConnection() {
-        if (neurodataConnectionController == null) {
-            neurodataConnectionController = NeurodataConnectionControllerImpl(neurodataConnectionHandler)
+        if (bciConnectionController == null) {
+            bciConnectionController = BCIConnectionControllerImpl(bciConnectionHandler)
         }
-        neurodataConnectionController?.startConnection()
+        bciConnectionController?.startConnection()
     }
 
     fun stopConnection() {
-        neurodataConnectionController?.stopConnection()
+        bciConnectionController?.stopConnection()
     }
 
     //endregion

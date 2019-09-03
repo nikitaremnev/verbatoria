@@ -6,8 +6,8 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaKtApplication
-import com.verbatoria.component.connection.NeurodataConnectionDataCallback
-import com.verbatoria.component.connection.NeurodataConnectionStateCallback
+import com.verbatoria.component.connection.BCIDataCallback
+import com.verbatoria.component.connection.BCIConnectionStateCallback
 import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.BaseInjector
 import com.verbatoria.di.Injector
@@ -50,8 +50,8 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
         presenter.onAttachView(this as V)
 
         (application as? VerbatoriaKtApplication)?.apply {
-            setNeurodataDataCallback(presenter as? NeurodataConnectionDataCallback)
-            setNeurodataConnectionStateCallback(presenter as? NeurodataConnectionStateCallback)
+            setNeurodataDataCallback(presenter as? BCIDataCallback)
+            setNeurodataConnectionStateCallback(presenter as? BCIConnectionStateCallback)
         }
     }
 

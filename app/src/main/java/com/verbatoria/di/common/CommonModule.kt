@@ -12,6 +12,9 @@ import com.verbatoria.domain.activities.repository.ActivitiesRepository
 import com.verbatoria.domain.authorization.manager.AuthorizationManager
 import com.verbatoria.domain.authorization.manager.AuthorizationManagerImpl
 import com.verbatoria.domain.authorization.repository.AuthorizationRepository
+import com.verbatoria.domain.bci_data.manager.BCIDataManager
+import com.verbatoria.domain.bci_data.manager.BCIDataManagerImpl
+import com.verbatoria.domain.bci_data.repository.BCIDataRepository
 import com.verbatoria.domain.child.manager.ChildManager
 import com.verbatoria.domain.child.manager.ChildManagerImpl
 import com.verbatoria.domain.client.manager.ClientManager
@@ -209,6 +212,15 @@ class CommonModule {
     ): ActivitiesManager =
         ActivitiesManagerImpl(
             activitiesRepository
+        )
+
+    @Provides
+    @Singleton
+    fun provideBCIDataManager(
+        bciDataRepository: BCIDataRepository
+    ): BCIDataManager =
+        BCIDataManagerImpl(
+            bciDataRepository
         )
 
     //endregion

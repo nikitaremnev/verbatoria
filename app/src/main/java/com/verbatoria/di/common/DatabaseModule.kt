@@ -7,6 +7,9 @@ import com.verbatoria.domain.activities.repository.ActivitiesRepository
 import com.verbatoria.domain.activities.repository.ActivitiesRepositoryImpl
 import com.verbatoria.domain.authorization.repository.AuthorizationRepository
 import com.verbatoria.domain.authorization.repository.AuthorizationRepositoryImpl
+import com.verbatoria.domain.bci_data.repository.BCIDataConverter
+import com.verbatoria.domain.bci_data.repository.BCIDataRepository
+import com.verbatoria.domain.bci_data.repository.BCIDataRepositoryImpl
 import com.verbatoria.domain.dashboard.calendar.repository.CalendarRepository
 import com.verbatoria.domain.dashboard.calendar.repository.CalendarRepositoryImpl
 import com.verbatoria.domain.dashboard.info.repository.AgeGroupRepository
@@ -87,5 +90,10 @@ class DatabaseModule {
     @Singleton
     fun provideActivitiesRepository(mainRoomDatabase: MainRoomDatabase): ActivitiesRepository =
         ActivitiesRepositoryImpl(mainRoomDatabase.activitiesDao())
+
+    @Provides
+    @Singleton
+    fun provideBCIDataRepository(mainRoomDatabase: MainRoomDatabase): BCIDataRepository =
+        BCIDataRepositoryImpl(mainRoomDatabase.bciDataDao(), BCIDataConverter())
 
 }
