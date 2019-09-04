@@ -40,6 +40,7 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
             ?: buildComponent((application as VerbatoriaKtApplication).injector, savedInstanceState)
 
         inject(component)
+        setBCIPresenterCallback()
 
         super.onCreate(savedInstanceState)
 
@@ -48,11 +49,6 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
 
         @Suppress("UNCHECKED_CAST")
         presenter.onAttachView(this as V)
-
-        (application as? VerbatoriaKtApplication)?.apply {
-            setNeurodataDataCallback(presenter as? BCIDataCallback)
-            setNeurodataConnectionStateCallback(presenter as? BCIConnectionStateCallback)
-        }
     }
 
     override fun onDestroy() {
@@ -61,6 +57,7 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
         if (!isFinishing) {
             dependencyHolder.put(getDependencyKey(), component)
         } else {
+            dropBCIPresenterCallback()
             presenter.onDestroy()
         }
 
@@ -140,5 +137,19 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
     }
 
     //endregion
+
+    private fun setBCIPresenterCallback() {
+        (application as? VerbatoriaKtApplication)?.apply {
+            setBCIDataCallback(presenter as? BCIDataCallback)
+            setBCIConnectionStateCallback(presenter as? BCIConnectionStateCallback)
+        }
+    }
+
+    private fun dropBCIPresenterCallback() {
+        (application as? VerbatoriaKtApplication)?.apply {
+            setBCIDataCallback(null)
+            setBCIConnectionStateCallback(null)
+        }
+    }
 
 }

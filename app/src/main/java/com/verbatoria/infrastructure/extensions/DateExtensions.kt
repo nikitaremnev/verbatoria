@@ -17,8 +17,9 @@ const val FORMAT_TIME_SHORT = "HH:mm"
 const val FORMAT_DATE_SHORT = "dd.MM"
 const val FORMAT_DATE_MONTH_AND_TIME_SHORT = "d MMMM HH:mm"
 const val DAYS_IN_WEEK = 7
-const val MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24L
-const val MILLISECONDS_IN_YEAR = 1000 * 60 * 60 * 24 * 365L
+const val MILLISECONDS_IN_SECOND = 1000
+const val MILLISECONDS_IN_DAY = MILLISECONDS_IN_SECOND * 60 * 60 * 24L
+const val MILLISECONDS_IN_YEAR = MILLISECONDS_IN_SECOND * 60 * 60 * 24 * 365L
 
 fun String.parseWithMillisecondsAndZeroOffset(): Date {
     val formatter = SimpleDateFormat(FORMAT_WITH_MILLISECONDS_AND_ZERO_OFFSET, Locale.getDefault())

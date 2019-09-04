@@ -13,7 +13,7 @@ class BCIDataConverter : DatabaseConverter<BCIDataEntity, BCIData>() {
     override fun toEntity(domain: BCIData): BCIDataEntity =
         with(domain) {
             BCIDataEntity(
-                id = id,
+                id = generateId(),
                 eventId = eventId,
                 timestamp = timestamp,
                 attention = attention,
@@ -32,7 +32,6 @@ class BCIDataConverter : DatabaseConverter<BCIDataEntity, BCIData>() {
     override fun toDomain(entity: BCIDataEntity): BCIData =
         with(entity) {
             BCIData(
-                id = id,
                 eventId = eventId,
                 timestamp = timestamp,
                 attention = attention,

@@ -178,9 +178,9 @@ public class ConnectionActivity extends BaseActivity implements IConnectionView 
 
     @Override
     public void showBluetoothDisabled() {
-        Snackbar snackbar = Snackbar.make(mConnectionStatusTextView, getString(R.string.session_bluetooth_disabled), Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(mConnectionStatusTextView, getString(R.string.writing_connection_bluetooth_disabled), Snackbar.LENGTH_SHORT);
         snackbar.getView().setBackgroundResource(R.color.error_color);
-        snackbar.setAction(getString(R.string.session_settings), view -> {
+        snackbar.setAction(getString(R.string.settings), view -> {
             Intent intent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

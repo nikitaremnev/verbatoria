@@ -350,11 +350,17 @@
     <!-- Session -->
 
     <dimen name="connection_padding">16dp</dimen>
-    <dimen name="connection_instruction_padding">32dp</dimen>
+    <dimen name="connection_instruction_padding_horizontal">16dp</dimen>
+    <dimen name="connection_instruction_padding_bottom">16dp</dimen>
+
     <dimen name="connection_status_text_left_margin">32dp</dimen>
     <dimen name="connection_status_text_top_margin">32dp</dimen>
     <dimen name="connection_status_image_left_margin">32dp</dimen>
     <dimen name="connection_status_image_top_margin">32dp</dimen>
+
+    <dimen name="connection_dialog_padding">16dp</dimen>
+
+    <dimen name="connection_instruction_size">16sp</dimen>
 
     <dimen name="writing_activities_button_height">60dp</dimen>
     <dimen name="writing_activities_buttons_top_margin">8dp</dimen>
@@ -393,6 +399,11 @@
     <dimen name="writing_player_button_margin">8dp</dimen>
     <dimen name="writing_finish_button_margin">16dp</dimen>
     <dimen name="writing_finish_button_size">70dp</dimen>
+
+    <dimen name="writing_connection_dialog_progress_bar_text_view_margin_top">16dp</dimen>
+    <dimen name="writing_connection_dialog_buttons_padding">16dp</dimen>
+
+    <dimen name="writing_connection_dialog_connection_state_image_view_size">80dp</dimen>
 
     <dimen name="writing_code_button_height">60dp</dimen>
 

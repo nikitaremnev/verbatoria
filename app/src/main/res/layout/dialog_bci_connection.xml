@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/connection_dialog_padding">
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/writing_connection_dialog_buttons_padding"
+        android:text="@string/exit"
+        android:textColor="@color/main_dark"
+        android:visibility="visible"
+        app:layout_constraintRight_toLeftOf="@id/start_button"
+        app:layout_constraintTop_toBottomOf="@+id/connection_instruction_text_view" />
+
+    <Button
+        android:id="@+id/start_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/writing_connection_dialog_buttons_padding"
+        android:text="@string/session_start_writing"
+        android:textColor="@color/main_dark"
+        android:visibility="gone"
+        app:layout_constraintRight_toLeftOf="@id/connect_button"
+        app:layout_constraintTop_toBottomOf="@+id/connection_instruction_text_view" />
+
+    <Button
+        android:id="@+id/connect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/writing_connection_dialog_buttons_padding"
+        android:text="@string/session_connect"
+        android:textColor="@color/main_dark"
+        android:visibility="visible"
+        app:layout_constraintRight_toLeftOf="@id/settings_button"
+        app:layout_constraintTop_toBottomOf="@+id/connection_instruction_text_view" />
+
+    <Button
+        android:id="@+id/settings_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/writing_connection_dialog_buttons_padding"
+        android:text="@string/settings"
+        android:textColor="@color/main_dark"
+        android:visibility="gone"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connection_instruction_text_view" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="@dimen/dialog_progress_bar_size"
+        android:layout_height="@dimen/dialog_progress_bar_size"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/progress_bar_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/writing_connection_dialog_progress_bar_text_view_margin_top"
+        android:gravity="center"
+        android:text="@string/session_connection_in_progress"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dialog_progress_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+
+    <ImageView
+        android:id="@+id/connection_state_image_view"
+        android:layout_width="@dimen/writing_connection_dialog_connection_state_image_view_size"
+        android:layout_height="@dimen/writing_connection_dialog_connection_state_image_view_size"
+        android:visibility="gone"
+        android:src="@drawable/ic_neurointerface_connected"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/connection_state_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/writing_connection_dialog_progress_bar_text_view_margin_top"
+        android:gravity="center"
+        android:text="@string/session_connected"
+        android:textColor="@color/black"
+        android:textSize="@dimen/dialog_progress_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connection_state_image_view" />
+
+    <TextView
+        android:id="@+id/connection_instruction_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingStart="@dimen/connection_instruction_padding_horizontal"
+        android:paddingEnd="@dimen/connection_instruction_padding_horizontal"
+        android:paddingBottom="@dimen/connection_instruction_padding_bottom"
+        android:text="@string/session_connection_instruction"
+        android:textSize="@dimen/connection_instruction_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

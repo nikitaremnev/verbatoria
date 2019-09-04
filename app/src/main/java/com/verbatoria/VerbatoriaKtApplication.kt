@@ -1,6 +1,7 @@
 package com.verbatoria
 
 import android.app.Application
+import android.util.Log
 import com.verbatoria.component.connection.*
 import com.verbatoria.di.DaggerInjector
 import com.verbatoria.di.DependencyHolder
@@ -33,15 +34,17 @@ class VerbatoriaKtApplication : Application(),
 
     //region BCI connection
 
-    fun setNeurodataDataCallback(presenter: BCIDataCallback?) {
+    fun setBCIDataCallback(presenter: BCIDataCallback?) {
         bciConnectionHandler.setDataCallback(presenter)
     }
 
-    fun setNeurodataConnectionStateCallback(presenter: BCIConnectionStateCallback?) {
+    fun setBCIConnectionStateCallback(presenter: BCIConnectionStateCallback?) {
         bciConnectionHandler.setStateCallback(presenter)
     }
 
     fun startConnection() {
+        Log.e("test", "VerbatoriaKtApplication startConnection")
+
         if (bciConnectionController == null) {
             bciConnectionController = BCIConnectionControllerImpl(bciConnectionHandler)
         }

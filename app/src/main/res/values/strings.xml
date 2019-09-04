@@ -18,6 +18,8 @@
     <string name="cancel">Отмена</string>
     <string name="confirmation">Подтверждение</string>
 
+    <string name="exit">Выйти</string>
+
     <string name="search">Поиск</string>
     <string name="edit">Редактировать</string>
     <string name="clear">Очистить</string>
@@ -347,8 +349,9 @@
         \n\n2. Нажмите на кнопку \"Соединить\" и дождитесь статуса \"Подключено\".
         \n\n3. Нажмите на кнопку \"Начать запись\" для начала работы.
     </string>
-    <string name="session_bluetooth_disabled">Bluetooth отключен</string>
-    <string name="session_settings">Настройки</string>
+
+    <string name="writing_connection_bluetooth_disabled">Bluetooth отключен</string>
+    <string name="settings">Настройки</string>
 
     <string name="writing_activity_code_99">99</string>
     <string name="writing_activity_code_11">11</string>

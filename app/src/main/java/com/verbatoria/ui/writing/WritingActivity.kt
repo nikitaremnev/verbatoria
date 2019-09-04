@@ -5,7 +5,9 @@ import android.content.Intent
 import android.content.res.AssetFileDescriptor
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.Settings
 import android.support.design.widget.FloatingActionButton
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
@@ -15,6 +17,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.remnev.verbatoria.R
+import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.di.Injector
 import com.verbatoria.di.writing.WritingComponent
 import com.verbatoria.domain.activities.model.ActivityCode
@@ -28,6 +31,7 @@ import com.verbatoria.ui.questionnaire.QuestionnaireActivity
  */
 
 private const val EVENT_ID_EXTRA = "event_id_extra"
+private const val BCI_CONNECTION_DIALOG_TAG = "BCI_CONNECTION_DIALOG_TAG"
 
 private const val Y_AXIS_MINIMUM = 0f
 private const val Y_AXIS_MAXIMUM = 100f
@@ -66,6 +70,24 @@ interface WritingView : BaseView {
 
     fun openQuestionnaire(eventId: String)
 
+    fun showBluetoothDisabledDialogState()
+
+    fun showConnectionErrorDialogState()
+
+    fun showConnectingDialogState()
+
+    fun showConnectedDialogState()
+
+    fun showBCIConnectionDialog()
+
+    fun dismissBCIConnectionDialog()
+
+    fun connectBCI()
+
+    fun disconnectBCI()
+
+    fun openSettings()
+
     fun close()
 
     interface Callback {
@@ -88,10 +110,22 @@ interface WritingView : BaseView {
 
     }
 
+    interface BCIConnectionDialogCallback {
+
+        fun onStartClicked()
+
+        fun onConnectClicked()
+
+        fun onExitClicked()
+
+        fun onSettingsClicked()
+
+    }
+
 }
 
 class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, WritingActivity, WritingComponent>(),
-    WritingView {
+    WritingView, BCIConnectionDialog.OnBCIConnectionDialogClickListener {
 
     private lateinit var code99Button: Button
     private lateinit var code11Button: Button
@@ -117,6 +151,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     private lateinit var activityNewStateDrawable: Drawable
     private lateinit var activitySelectedStateDrawable: Drawable
     private lateinit var activityDoneStateDrawable: Drawable
+
+    private var bciConnectionDialog: BCIConnectionDialog? = null
 
     companion object {
 
@@ -302,8 +338,70 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         finish()
     }
 
+    override fun showBluetoothDisabledDialogState() {
+        bciConnectionDialog?.showBluetoothDisabled()
+    }
+
+    override fun showConnectingDialogState() {
+        bciConnectionDialog?.showConnecting()
+    }
+
+    override fun showConnectedDialogState() {
+        bciConnectionDialog?.showConnected()
+    }
+
+    override fun showConnectionErrorDialogState() {
+        if (bciConnectionDialog == null) {
+            showBCIConnectionDialog()
+        }
+        bciConnectionDialog?.showConnectionError()
+    }
+
+    override fun showBCIConnectionDialog() {
+        bciConnectionDialog = BCIConnectionDialog()
+        bciConnectionDialog?.show(supportFragmentManager, BCI_CONNECTION_DIALOG_TAG)
+    }
+
+    override fun dismissBCIConnectionDialog() {
+        bciConnectionDialog?.dismiss()
+    }
+
+    override fun connectBCI() {
+        (application as? VerbatoriaKtApplication)?.startConnection()
+    }
+
+    override fun disconnectBCI() {
+        (application as? VerbatoriaKtApplication)?.stopConnection()
+    }
+
+    override fun openSettings() {
+        val intent = Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+    }
+
     override fun close() {
         finish()
+    }
+
+    //endregion
+
+    //region BCIConnectionDialog.OnBCIConnectionDialogClickListener
+
+    override fun onConnectClicked(tag: String?) {
+        presenter.onConnectClicked()
+    }
+
+    override fun onExitClicked(tag: String?) {
+        presenter.onExitClicked()
+    }
+
+    override fun onStartClicked(tag: String?) {
+        presenter.onStartClicked()
+    }
+
+    override fun onSettingsClicked(tag: String?) {
+        presenter.onSettingsClicked()
     }
 
     //endregion
