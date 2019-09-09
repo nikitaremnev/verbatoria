@@ -12,6 +12,10 @@ interface BCIConnectionController {
 
     fun startConnection()
 
+    fun startWriting()
+
+    fun stopWriting()
+
     fun stopConnection()
 
 }
@@ -38,9 +42,16 @@ class BCIConnectionControllerImpl(
             tgStreamReader?.connect()
         } else {
             Log.e("test", "BCIConnectionController bluetoothDisabled")
-
             bciConnectionHandler.bluetoothDisabled()
         }
+    }
+
+    override fun startWriting() {
+        tgStreamReader?.start()
+    }
+
+    override fun stopWriting() {
+        tgStreamReader?.stop()
     }
 
     override fun stopConnection() {

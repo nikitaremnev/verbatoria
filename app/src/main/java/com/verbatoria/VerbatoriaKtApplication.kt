@@ -1,7 +1,7 @@
 package com.verbatoria
 
 import android.app.Application
-import android.util.Log
+import com.facebook.stetho.Stetho
 import com.verbatoria.component.connection.*
 import com.verbatoria.di.DaggerInjector
 import com.verbatoria.di.DependencyHolder
@@ -28,6 +28,8 @@ class VerbatoriaKtApplication : Application(),
     override fun onCreate() {
         super.onCreate()
         initDependencies()
+
+        Stetho.initializeWithDefaults(this)
     }
 
     //endregion
@@ -43,12 +45,14 @@ class VerbatoriaKtApplication : Application(),
     }
 
     fun startConnection() {
-        Log.e("test", "VerbatoriaKtApplication startConnection")
-
         if (bciConnectionController == null) {
             bciConnectionController = BCIConnectionControllerImpl(bciConnectionHandler)
         }
         bciConnectionController?.startConnection()
+    }
+
+    fun startWriting() {
+        bciConnectionController?.startWriting()
     }
 
     fun stopConnection() {

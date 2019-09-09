@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.AssetFileDescriptor
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.support.design.widget.FloatingActionButton
 import android.util.Log
@@ -84,6 +85,8 @@ interface WritingView : BaseView {
 
     fun connectBCI()
 
+    fun startBCIWriting()
+
     fun disconnectBCI()
 
     fun openSettings()
@@ -153,6 +156,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     private lateinit var activityDoneStateDrawable: Drawable
 
     private var bciConnectionDialog: BCIConnectionDialog? = null
+    private var uiHandler = Handler()
 
     companion object {
 
@@ -261,7 +265,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     }
 
     override fun updateTimerTime(totalLoadTime: Int) {
-        runOnUiThread {
+        uiHandler.post {
             timerTextView.text = getString(R.string.writing_timer, totalLoadTime)
         }
     }
@@ -330,7 +334,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
         lineChart.notifyDataSetChanged()
         lineChart.moveViewToX((data.xValCount - 21).toFloat())
-
     }
 
     override fun openQuestionnaire(eventId: String) {
@@ -339,22 +342,37 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     }
 
     override fun showBluetoothDisabledDialogState() {
-        bciConnectionDialog?.showBluetoothDisabled()
+        uiHandler.post {
+            bciConnectionDialog?.showBluetoothDisabled()
+        }
     }
 
     override fun showConnectingDialogState() {
-        bciConnectionDialog?.showConnecting()
+        uiHandler.post {
+            bciConnectionDialog?.showConnecting()
+        }
     }
 
     override fun showConnectedDialogState() {
-        bciConnectionDialog?.showConnected()
+        uiHandler.post {
+            bciConnectionDialog?.showConnected()
+        }
     }
 
     override fun showConnectionErrorDialogState() {
-        if (bciConnectionDialog == null) {
-            showBCIConnectionDialog()
+        uiHandler.post {
+            Log.e("test", "WritingActivity showConnectionErrorDialogState runOnUiThread")
+            if (bciConnectionDialog == null) {
+                showBCIConnectionDialog()
+                Log.e(
+                    "test",
+                    "WritingActivity showConnectionErrorDialogState showBCIConnectionDialog"
+                )
+            } else {
+                bciConnectionDialog?.showConnectionError()
+            }
+            Log.e("test", "WritingActivity showConnectionErrorDialogState showConnectionError")
         }
-        bciConnectionDialog?.showConnectionError()
     }
 
     override fun showBCIConnectionDialog() {
@@ -364,10 +382,15 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun dismissBCIConnectionDialog() {
         bciConnectionDialog?.dismiss()
+        bciConnectionDialog = null
     }
 
     override fun connectBCI() {
         (application as? VerbatoriaKtApplication)?.startConnection()
+    }
+
+    override fun startBCIWriting() {
+        (application as? VerbatoriaKtApplication)?.startWriting()
     }
 
     override fun disconnectBCI() {
@@ -455,14 +478,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         for (i in 0..19) {
             addValueToGraph(1)
         }
-        addValueToGraph(14)
-        addValueToGraph(24)
-        addValueToGraph(34)
-        addValueToGraph(24)
-        addValueToGraph(44)
-        addValueToGraph(64)
-        addValueToGraph(94)
-
     }
 
     private fun createSet(): LineDataSet =

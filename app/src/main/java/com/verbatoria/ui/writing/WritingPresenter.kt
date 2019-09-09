@@ -203,6 +203,7 @@ class WritingPresenter(
         Log.e("test", "BCIConnectionDialogCallback onStartClicked")
 
         view?.dismissBCIConnectionDialog()
+        view?.startBCIWriting()
     }
 
     override fun onConnectClicked() {
@@ -228,6 +229,7 @@ class WritingPresenter(
     //region BCIDataCallback
 
     override fun onAttentionDataReceived(attentionValue: Int) {
+        Log.e("test", "onAttentionDataReceived $attentionValue")
         val currentTimeInMillis = System.currentTimeMillis()
 
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
@@ -236,9 +238,12 @@ class WritingPresenter(
         } else {
             addBCIDataToBlockWhenTimestampChanged()
         }
+
+        view?.addValueToGraph(attentionValue)
     }
 
     override fun onMediationDataReceived(mediationValue: Int) {
+        Log.e("test", "onMediationDataReceived $mediationValue")
         val currentTimeInMillis = System.currentTimeMillis()
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
             currentBCIData.mediation = mediationValue
@@ -249,6 +254,8 @@ class WritingPresenter(
     }
 
     override fun onEEGDataReceivedCallback(eegPower: EEGPower) {
+        Log.e("test", "onEEGDataReceivedCallback $eegPower")
+
         val currentTimeInMillis = System.currentTimeMillis()
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
             currentBCIData.delta = eegPower.delta
@@ -277,8 +284,8 @@ class WritingPresenter(
 
     override fun onConnected() {
         Log.e("test", "BCIConnectionStateCallback onConnected")
-
         view?.showConnectedDialogState()
+        isBCIConnected = true
     }
 
     override fun onWorking() {
@@ -289,18 +296,18 @@ class WritingPresenter(
 
     override fun onRecordingStarted() {
         Log.e("test", "BCIConnectionStateCallback onRecordingStarted")
-
-        view?.showConnectedDialogState()
+        //empty
     }
 
     override fun onConnectionFailed() {
         Log.e("test", "BCIConnectionStateCallback onConnectionFailed")
-
         view?.showConnectionErrorDialogState()
+        isBCIConnected = false
     }
 
     override fun onDisconnected() {
         Log.e("test", "BCIConnectionStateCallback onDisconnected")
+        isBCIConnected = false
     }
 
     override fun onBluetoothDisabled() {

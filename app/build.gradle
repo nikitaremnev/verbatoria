@@ -97,6 +97,8 @@ dependencies {
     api "com.squareup.retrofit2:converter-scalars:${rootProject.retrofitVersion}"
     api "com.squareup.retrofit2:converter-jackson:${rootProject.retrofitVersion}"
 
+    implementation "com.facebook.stetho:stetho:${rootProject.stethoVersion}"
+
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.butterKnifeVersion}"
     api "com.jakewharton.rxbinding:rxbinding:${rootProject.rxBindingVersion}"
     api "com.squareup.okhttp3:okhttp:${rootProject.okHttpVersion}"

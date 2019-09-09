@@ -38,4 +38,5 @@ ext {
 
     databaseVersion = 4
 
+    stethoVersion = "1.5.1"
 }

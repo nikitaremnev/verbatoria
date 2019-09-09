@@ -51,9 +51,9 @@ class BCIConnectionHandlerImpl: BCIConnectionHandler {
                 stateCallback?.onConnecting()
             ConnectionStates.STATE_CONNECTED ->
                 stateCallback?.onConnected()
-            ConnectionStates.STATE_DISCONNECTED, ConnectionStates.STATE_GET_DATA_TIME_OUT ->
+            ConnectionStates.STATE_DISCONNECTED ->
                 stateCallback?.onDisconnected()
-            ConnectionStates.STATE_ERROR, ConnectionStates.STATE_FAILED ->
+            ConnectionStates.STATE_ERROR, ConnectionStates.STATE_FAILED, ConnectionStates.STATE_GET_DATA_TIME_OUT ->
                 stateCallback?.onConnectionFailed()
             ConnectionStates.STATE_WORKING ->
                 stateCallback?.onWorking()
@@ -70,7 +70,8 @@ class BCIConnectionHandlerImpl: BCIConnectionHandler {
         //empty
     }
 
-    override fun onDataReceived(dataCode: Int, data: Int, eegPowerObject: Any) {
+    override fun onDataReceived(dataCode: Int, data: Int, eegPowerObject: Any?) {
+        Log.e("test", "onDataReceived dataCode $dataCode data $dataCode eegPowerObject $eegPowerObject")
         when (dataCode) {
             MindDataType.CODE_ATTENTION -> {
                 dataCallback?.onAttentionDataReceived(data)
