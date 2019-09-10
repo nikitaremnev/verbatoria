@@ -21,6 +21,7 @@ import com.verbatoria.di.schedule.ScheduleComponent
 import com.verbatoria.di.session.SessionComponent
 import com.verbatoria.di.session.SessionModule
 import com.verbatoria.di.splash.SplashComponent
+import com.verbatoria.di.submit.SubmitComponent
 import com.verbatoria.di.writing.WritingComponent
 import com.verbatoria.ui.session.view.submit.questions.QuestionViewHolder
 import com.verbatoria.ui.session.view.submit.questions.QuestionsAdapter
@@ -77,6 +78,8 @@ interface Injector {
     fun plusWritingComponent(): WritingComponent.Builder
 
     fun plusQuestionnaireComponent(): QuestionnaireComponent.Builder
+
+    fun plusSubmitComponent(): SubmitComponent.Builder
 
     @Component.Builder
     interface Builder {

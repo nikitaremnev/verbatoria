@@ -1,18 +1,5 @@
 package com.verbatoria.data.network.api;
 
-import com.verbatoria.data.network.common.ChildModel;
-import com.verbatoria.data.network.common.ClientModel;
-import com.verbatoria.data.network.request.AddEventRequestModel;
-import com.verbatoria.data.network.request.ChildRequestModel;
-import com.verbatoria.data.network.request.ClientRequestModel;
-import com.verbatoria.data.network.request.EditClientRequestModel;
-import com.verbatoria.data.network.request.EditEventRequestModel;
-import com.verbatoria.data.network.request.LocationLanguageRequestModel;
-import com.verbatoria.data.network.request.LoginRequestModel;
-import com.verbatoria.data.network.request.RecoveryPasswordRequestModel;
-import com.verbatoria.data.network.request.ResetPasswordRequestModel;
-import com.verbatoria.data.network.request.ScheduleDeleteRequestModel;
-import com.verbatoria.data.network.request.ScheduleRequestModel;
 import com.verbatoria.data.network.request.StartSessionRequestModel;
 import com.verbatoria.data.network.response.AgeGroupResponseModel;
 import com.verbatoria.data.network.response.ChildResponseModel;
@@ -66,108 +53,6 @@ import static com.verbatoria.data.network.api.APIConstants.TO_TIME_QUERY_KEY;
 public interface APIService {
 
     /*
-        Login
-     */
-
-    @POST(APIConstants.LOGIN_URL)
-    Observable<LoginResponseModel> loginRequest(@Body LoginRequestModel loginData);
-
-    @POST(APIConstants.RECOVERY_PASSWORD_URL)
-    Observable<MessageResponseModel> recoveryPassword(@Body RecoveryPasswordRequestModel recoveryPasswordRequestModel);
-
-    @POST(APIConstants.RESET_PASSWORD_URL)
-    Observable<MessageResponseModel> resetPassword(@Body ResetPasswordRequestModel resetPasswordRequestModel);
-
-    @GET(APIConstants.COUNTRIES_URL)
-    Observable<ResponseBody> getCountries(@Header(TOKEN_HEADER_KEY) String accessToken);
-
-    /*
-       Verbatolog info
-    */
-
-    @GET(APIConstants.VERBATOLOG_INFO_URL)
-    Observable<VerbatologInfoResponseModel> getVerbatologInfoRequest(@Header(TOKEN_HEADER_KEY) String accessToken);
-
-    @GET(APIConstants.GET_LOCATION_URL)
-    Observable<LocationResponseModel> getLocation(@Path(value = LOCATION_ID_PATH_KEY) String locationId,
-                                                  @Header(TOKEN_HEADER_KEY) String accessToken);
-
-    @PUT(APIConstants.SET_LOCATION_LANGUAGE_URL)
-    Completable setLocationLanguage(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                    @Path(value = LOCATION_ID_PATH_KEY) String locationId,
-                                    @Body LocationLanguageRequestModel locationLanguageRequestModel);
-
-    @GET(APIConstants.AGE_GROUPS_URL)
-    Observable<List<AgeGroupResponseModel>> getAgeGroupsForArchimed(@Header(TOKEN_HEADER_KEY) String accessToken);
-
-     /*
-        Calendar
-     */
-
-    @GET(APIConstants.GET_EVENTS_URL)
-    Observable<EventsResponseModel> getEventsRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                                     @Query(FROM_TIME_QUERY_KEY) String fromTime,
-                                                     @Query(TO_TIME_QUERY_KEY) String toTime);
-
-    @POST(APIConstants.ADD_EVENT_URL)
-    Observable<EventResponseModel> addEventRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                                   @Body AddEventRequestModel addEventRequestModel);
-
-    @PUT(APIConstants.EDIT_EVENT_URL)
-    Observable<EventResponseModel> editEventRequest(@Path(value = EVENT_ID_PATH_KEY) String eventId,
-                                              @Header(TOKEN_HEADER_KEY) String accessToken,
-                                             @Body EditEventRequestModel editEventRequestModel);
-
-    @DELETE(APIConstants.DELETE_EVENT_URL)
-    Observable<ResponseBody> deleteEventRequest(@Path(value = EVENT_ID_PATH_KEY) String eventId,
-                                              @Header(TOKEN_HEADER_KEY) String accessToken);
-    /*
-        Childs
-     */
-
-    @GET(APIConstants.SEARCH_CHILD_URL)
-    Observable<ChildrenResponseModel> findChildRequest(@Query(QUERY_PATH_KEY) String query,
-                                                       @Header(TOKEN_HEADER_KEY) String accessToken);
-
-
-    @POST(APIConstants.ADD_CHILD_URL)
-    Observable<ChildResponseModel> addChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
-                                                   @Header(TOKEN_HEADER_KEY) String accessToken,
-                                                   @Body ChildRequestModel child);
-
-    @PUT(APIConstants.EDIT_CHILD_URL)
-    Observable<ResponseBody> editChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
-                                              @Path(value = CHILD_ID_PATH_KEY) String childId,
-                                              @Header(TOKEN_HEADER_KEY) String accessToken,
-                                              @Body ChildRequestModel child);
-
-    @GET(APIConstants.GET_CHILD_URL)
-    Observable<ChildModel> getChildRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
-                                           @Path(value = CHILD_ID_PATH_KEY) String childId,
-                                           @Header(TOKEN_HEADER_KEY) String accessToken);
-
-    /*
-        Clients
-     */
-
-    @GET(APIConstants.SEARCH_CLIENT_URL)
-    Observable<ClientsResponseModel> findClientRequest(@Query(QUERY_PATH_KEY) String query,
-                                                       @Header(TOKEN_HEADER_KEY) String accessToken);
-
-    @POST(APIConstants.ADD_CLIENT_URL)
-    Observable<ClientModel> addClientRequest(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                              @Body ClientRequestModel client);
-
-    @PUT(APIConstants.EDIT_CLIENT_URL)
-    Observable<ClientModel> editClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
-                                               @Header(TOKEN_HEADER_KEY) String accessToken,
-                                               @Body EditClientRequestModel client);
-
-    @GET(APIConstants.GET_CLIENT_URL)
-    Observable<ClientModel> getClientRequest(@Path(value = CLIENT_ID_PATH_KEY) String clientId,
-                                             @Header(TOKEN_HEADER_KEY) String accessToken);
-
-    /*
         Session
      */
 
@@ -187,25 +72,6 @@ public interface APIService {
     @POST(APIConstants.INCLUDE_ATTENTION_MEMORY_URL)
     Observable<ResponseBody> includeAttentionMemoryRequest(@Path(value = REPORT_ID_PATH_KEY) String reportId,
                                                                 @Header(TOKEN_HEADER_KEY) String accessToken);
-
-    /*
-        Schedule
-     */
-
-    @GET(APIConstants.GET_SCHEDULE_URL)
-    Observable<ScheduleResponseModel> getSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                                  @Query(FROM_TIME_QUERY_KEY) String fromTime,
-                                                  @Query(TO_TIME_QUERY_KEY) String toTime,
-                                                  @Query(PER_PAGE_KEY) int perPage);
-
-    @POST(APIConstants.ADD_SCHEDULE_URL)
-    Observable<List<ScheduleItemResponseModel>> saveSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                                            @Body ScheduleRequestModel scheduleRequestModel);
-
-
-    @HTTP(method = "DELETE", path = APIConstants.DELETE_SCHEDULE_URL, hasBody = true)
-    Observable<List<ScheduleItemResponseModel>> deleteSchedule(@Header(TOKEN_HEADER_KEY) String accessToken,
-                                                              @Body ScheduleDeleteRequestModel scheduleDeleteRequestModel);
 
     /*
         Send report to location

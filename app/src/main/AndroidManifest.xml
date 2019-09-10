@@ -106,6 +106,10 @@
             android:name="com.verbatoria.ui.questionnaire.QuestionnaireActivity"
             android:screenOrientation="landscape"/>
 
+        <activity
+            android:name="com.verbatoria.ui.submit.SubmitActivity"
+            android:screenOrientation="landscape"/>
+
         <service android:name="com.verbatoria.component.session.SessionService"/>
 
     </application>

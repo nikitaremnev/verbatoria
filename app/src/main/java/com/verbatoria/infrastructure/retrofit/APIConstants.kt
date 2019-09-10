@@ -13,7 +13,6 @@ object APIConstants {
     const val API_PANEL_BASE_URL = "https://panel.verbatoria.ru/api/"
 
     const val VERBATOLOG_ID_PATH_KEY = "verbatolog"
-    const val TOKEN_HEADER_KEY = "token"
     const val LOCATION_ID_PATH_KEY = "location_id"
     const val CLIENT_ID_PATH_KEY = "client_id"
     const val CHILD_ID_PATH_KEY = "child_id"

@@ -430,6 +430,13 @@
     <dimen name="submit_question_has_answer_text_size">18sp</dimen>
     <dimen name="submit_question_report_type_padding">12dp</dimen>
 
+    <dimen name="submit_progress_bar_size">100dp</dimen>
+
+    <dimen name="submit_progress_status_margin_horizontal">32dp</dimen>
+    <dimen name="submit_progress_status_margin_top">16dp</dimen>
+
+    <dimen name="submit_progress_status_text_size">20sp</dimen>
+
     <!-- Schedule -->
 
     <dimen name="schedule_progress_bar_size">60dp</dimen>

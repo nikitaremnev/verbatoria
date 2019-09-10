@@ -32,7 +32,6 @@ interface ScheduleEndpoint {
         @Body params: SaveScheduleParamsDto
     ): List<ScheduleItemResponseDto>
 
-
     @HTTP(
         method = DELETE_HTTP_METHOD,
         path = APIConstants.DELETE_SCHEDULE_URL,
