@@ -13,6 +13,7 @@ class BCIDataEntity(
     val id: String,
     val eventId: String,
     val timestamp: Long,
+    val activityCode: Int,
     val attention: Int,
     val mediation: Int,
     var delta: Int,

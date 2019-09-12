@@ -16,6 +16,7 @@ class BCIDataConverter : DatabaseConverter<BCIDataEntity, BCIData>() {
                 id = generateId(),
                 eventId = eventId,
                 timestamp = timestamp,
+                activityCode = activityCode,
                 attention = attention,
                 mediation = mediation,
                 delta = delta,
@@ -34,6 +35,7 @@ class BCIDataConverter : DatabaseConverter<BCIDataEntity, BCIData>() {
             BCIData(
                 eventId = eventId,
                 timestamp = timestamp,
+                activityCode = activityCode,
                 attention = attention,
                 mediation = mediation,
                 delta = delta,

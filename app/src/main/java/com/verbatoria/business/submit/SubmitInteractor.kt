@@ -22,7 +22,6 @@ interface SubmitInteractor {
 class SubmitInteractorImpl(
     private val activitiesManager: ActivitiesManager,
     private val bciDataManager: BCIDataManager,
-    private val quest
     private val schedulersFactory: RxSchedulersFactory
 ) : SubmitInteractor {
 

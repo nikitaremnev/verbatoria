@@ -447,7 +447,8 @@ class WritingPresenter(
 
     private fun createNewCurrentBCIData(): BCIData =
         BCIData(
-            timestamp = System.currentTimeMillis()
+            timestamp = System.currentTimeMillis(),
+            activityCode = 6
         )
 
     private fun tryToAddBCIDataToBlock() {

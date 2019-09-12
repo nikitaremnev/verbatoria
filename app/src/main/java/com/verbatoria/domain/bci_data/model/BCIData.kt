@@ -9,6 +9,7 @@ private const val NO_DATA = -1
 data class BCIData(
     var eventId: String = "",
     val timestamp: Long,
+    val activityCode: Int,
     var attention: Int = NO_DATA,
     var mediation: Int = NO_DATA,
     var delta: Int = 0,
