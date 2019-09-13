@@ -18,6 +18,8 @@ interface ActivitiesManager {
 
     fun saveActivity(eventId: String, activityCode: ActivityCode, startTime: Long, endTime: Long)
 
+    fun deleteByEventId(eventId: String)
+
 }
 
 class ActivitiesManagerImpl(
@@ -62,6 +64,10 @@ class ActivitiesManagerImpl(
                 endTime = endTime
             )
         )
+    }
+
+    override fun deleteByEventId(eventId: String) {
+        activitiesRepository.deleteByEventId(eventId)
     }
 
     private fun generateId() = UUID.randomUUID().toString()

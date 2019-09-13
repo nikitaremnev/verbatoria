@@ -19,7 +19,7 @@ interface BCIDataDao {
     @Query("DELETE FROM BCIDataEntity WHERE eventId = :eventId")
     fun deleteByEventId(eventId: String)
 
-    @Query("SELECT * FROM BCIDataEntity WHERE eventId = :eventId")
-    fun findByEventId(eventId: String): List<BCIDataEntity>
+    @Query("SELECT * FROM BCIDataEntity WHERE eventId = :eventId ORDER BY timestamp ASC")
+    fun findAllByEventId(eventId: String): List<BCIDataEntity>
 
 }

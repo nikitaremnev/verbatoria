@@ -19,6 +19,7 @@ import com.verbatoria.infrastructure.extensions.hide
 import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.submit.SubmitActivity
 
 /**
  * @author nikitaremnev
@@ -59,6 +60,8 @@ interface QuestionnaireView : BaseView {
     fun showFinishButton()
 
     fun hideFinishButton()
+
+    fun openSubmit(eventId: String)
 
     fun close()
 
@@ -339,6 +342,11 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
 
     override fun hideFinishButton() {
         nextButton.hide()
+    }
+
+    override fun openSubmit(eventId: String) {
+        startActivity(SubmitActivity.createIntent(this, eventId))
+        finish()
     }
 
     override fun close() {

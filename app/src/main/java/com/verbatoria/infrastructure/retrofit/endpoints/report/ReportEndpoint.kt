@@ -2,7 +2,6 @@ package com.verbatoria.infrastructure.retrofit.endpoints.report
 
 import com.verbatoria.infrastructure.retrofit.APIConstants
 import com.verbatoria.infrastructure.retrofit.APIConstants.REPORT_ID_PATH_KEY
-import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.*
 

@@ -223,11 +223,13 @@
 
     <string name="settings_database_cleared">База данных была успешно очищена</string>
 
-    <string name="dashboard_session_finish">Сессия успешно завершена!</string>
+    <string name="submit_finished">Сессия успешно завершена!</string>
 
-    <string name="dashboard_session_finish_error_title">Сессия не завершена!</string>
+    <string name="submit_finished_message">Данные были успешно отправлены, а затем удалены с устройства.</string>
 
-    <string name="dashboard_session_finish_error_message">Необходимо отправить отчет через настройки.</string>
+    <string name="submit_error">Сессия не завершена!</string>
+
+    <string name="submit_error_message">Необходимо отправить отчет через настройки.</string>
 
     <string name="dashboard_status_green_hint">Работа в приложении доступна без ограничений</string>
     <string name="dashboard_status_yellow_hint">Работа в приложении доступна, однако в скором времени может быть заблокирована</string>
@@ -415,5 +417,9 @@
     <string name="session_report_type_8">Тип 8</string>
     <string name="session_report_type_9">Тип 9</string>
     <string name="session_report_type_10">Тип 10</string>
+
+    <string name="submit_progress_collect_and_send">Собираем и отправляем данные</string>
+    <string name="submit_progress_finish_session">Закрываем сессию</string>
+    <string name="submit_progress_clean_data">Очищаем данные</string>
 
 </resources>

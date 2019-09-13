@@ -104,7 +104,7 @@ class QuestionnairePresenter(
     private fun saveQuestionnaire() {
         questionnaireInteractor.saveQuestionnaire(questionnaire)
             .subscribe({
-                view?.close()
+                view?.openSubmit(eventId)
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage)
             })

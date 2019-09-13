@@ -1,13 +1,11 @@
 package com.verbatoria.business.submit
 
-import com.verbatoria.domain.activities.manager.ActivitiesManager
-import com.verbatoria.domain.activities.model.ActivityCode
-import com.verbatoria.domain.activities.model.GroupedActivities
-import com.verbatoria.domain.bci_data.manager.BCIDataManager
-import com.verbatoria.domain.bci_data.model.BCIData
+import com.remnev.verbatoria.R
+import com.verbatoria.domain.submit.SubmitManager
+import com.verbatoria.domain.submit.SubmitProgress
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
-import io.reactivex.Completable
-import io.reactivex.Single
+import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 
 /**
  * @author n.remnev
@@ -15,15 +13,27 @@ import io.reactivex.Single
 
 interface SubmitInteractor {
 
-
+    fun submitData(eventId: String): Observable<SubmitProgress>
 
 }
 
 class SubmitInteractorImpl(
-    private val activitiesManager: ActivitiesManager,
-    private val bciDataManager: BCIDataManager,
+    private val submitManager: SubmitManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : SubmitInteractor {
 
+    override fun submitData(eventId: String): Observable<SubmitProgress> =
+        BehaviorSubject.create<SubmitProgress> { emitter ->
+            emitter.onNext(SubmitProgress(R.string.session_connect))
+            submitManager.sendData(eventId)
+
+            emitter.onNext(SubmitProgress(R.string.session_connect))
+            submitManager.finishSession(eventId)
+
+            emitter.onNext(SubmitProgress(R.string.session_connect))
+            submitManager.cleanData(eventId)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
 }

@@ -423,7 +423,7 @@ public class SessionInteractor implements ISessionInteractor, ISessionInteractor
 //                        .setEndAt(DateUtils.toServerDateTimeWithoutConvertingString(eventModel.getEndAt().getTime()))
 //                        .setIsInstantReport(eventModel.isInstantReport())
 //                        .setArchimed(eventModel.getArchimed())
-//                        .setHobby(eventModel.getHobby()));
+//                        .setHobby(eventModel.getQuestionnaire()));
 //    }
 
 }

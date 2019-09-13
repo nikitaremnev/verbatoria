@@ -38,6 +38,8 @@ import com.verbatoria.domain.session.repository.PreferencesSessionProvider
 import com.verbatoria.domain.session.manager.SessionManager
 import com.verbatoria.domain.session.manager.SessionManagerImpl
 import com.verbatoria.domain.session.repository.SessionProvider
+import com.verbatoria.domain.submit.SubmitManager
+import com.verbatoria.domain.submit.SubmitManagerImpl
 import com.verbatoria.infrastructure.file.FileUtil
 import com.verbatoria.infrastructure.file.FileUtilImpl
 import com.verbatoria.infrastructure.retrofit.APIConstants
@@ -222,6 +224,22 @@ class CommonModule {
         BCIDataManagerImpl(
             bciDataRepository
         )
+
+    @Provides
+    @Singleton
+    fun provideSubmitManager(
+        bciDataManager: BCIDataManager,
+        questionnaireManager: QuestionnaireManager,
+        activitiesManager: ActivitiesManager,
+        endpointsRegister: EndpointsRegister
+    ): SubmitManager =
+        SubmitManagerImpl(
+            bciDataManager,
+            questionnaireManager,
+            activitiesManager,
+            endpointsRegister.submitEndpoint
+        )
+
 
     //endregion
 

@@ -44,7 +44,7 @@ public class SubmitPresenter implements ISubmitPresenter {
         mSubmitView.showProgress();
 
         String hobbyValue = answers.get(Integer.toString(HOBBY_ANSWER_POSITION));
-//        if (hobbyValue != null && !mEventModel.getHobby() && hobbyValue.equals("1")) {
+//        if (hobbyValue != null && !mEventModel.getQuestionnaire() && hobbyValue.equals("1")) {
 //            mEventModel.setHobby(true);
 //            isHobbyUpdateRequired = true;
 //        }

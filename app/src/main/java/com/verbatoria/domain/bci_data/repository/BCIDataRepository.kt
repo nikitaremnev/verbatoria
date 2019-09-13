@@ -12,7 +12,7 @@ interface BCIDataRepository {
 
     fun save(data: BCIData)
 
-    fun getByEventId(eventId: String): List<BCIData>
+    fun findAllByEventId(eventId: String): List<BCIData>
 
     fun deleteByEventId(eventId: String)
 
@@ -31,8 +31,8 @@ class BCIDataRepositoryImpl(
         dao.save(converter.toEntity(data))
     }
 
-    override fun getByEventId(eventId: String): List<BCIData> =
-        dao.findByEventId(eventId).map(converter::toDomain)
+    override fun findAllByEventId(eventId: String): List<BCIData> =
+        dao.findAllByEventId(eventId).map(converter::toDomain)
 
     override fun deleteByEventId(eventId: String) {
         dao.deleteByEventId(eventId)

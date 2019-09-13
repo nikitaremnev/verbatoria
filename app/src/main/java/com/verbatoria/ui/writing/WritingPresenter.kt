@@ -447,24 +447,31 @@ class WritingPresenter(
 
     private fun createNewCurrentBCIData(): BCIData =
         BCIData(
-            timestamp = System.currentTimeMillis(),
-            activityCode = 6
-        )
+            timestamp = System.currentTimeMillis()
+        ).apply {
+            selectedActivity?.activityCode?.let { selectedActivityCode ->
+                activityCode = selectedActivityCode.code
+            }
+        }
 
     private fun tryToAddBCIDataToBlock() {
-        if (currentBCIData.isFilled()) {
+        if (currentBCIData.isFilled() && currentBCIData.isUnderActivity()) {
             bciDataBlock.add(currentBCIData)
             if (bciDataBlock.size == MAXIMUM_BCI_DATA_BLOCK_SIZE) {
                 saveBCIDataBlock()
             }
             currentBCIData = createNewCurrentBCIData()
+        } else if (currentBCIData.isFilled() && !currentBCIData.isUnderActivity()) {
+            currentBCIData = createNewCurrentBCIData()
         }
     }
 
     private fun addBCIDataToBlockWhenTimestampChanged() {
-        bciDataBlock.add(currentBCIData)
-        if (bciDataBlock.size == MAXIMUM_BCI_DATA_BLOCK_SIZE) {
-            saveBCIDataBlock()
+        if (currentBCIData.isUnderActivity()) {
+            bciDataBlock.add(currentBCIData)
+            if (bciDataBlock.size == MAXIMUM_BCI_DATA_BLOCK_SIZE) {
+                saveBCIDataBlock()
+            }
         }
         currentBCIData = createNewCurrentBCIData()
     }
@@ -483,6 +490,5 @@ class WritingPresenter(
         currentBCIData.timestamp / MILLISECONDS_IN_DAY == timestampCurrent / MILLISECONDS_IN_DAY
 
     //endregion
-
 
 }

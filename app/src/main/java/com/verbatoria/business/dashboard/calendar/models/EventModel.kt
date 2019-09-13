@@ -25,7 +25,7 @@ data class EventModel(
 //val isInstantReport: Boolean,
 //@SerializedName("archimed")
 //val isArchimedIncluded: Boolean,
-//@SerializedName("hobby")
+//@SerializedName("questionnaire")
 //val isHobbyIncluded: Boolean,
 //@SerializedName("is_archimed_allowed")
 //val isArchimedAllowed: Boolean,

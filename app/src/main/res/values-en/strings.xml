@@ -223,11 +223,13 @@
 
     <string name="settings_database_cleared">The database has been successfully cleaned</string>
 
-    <string name="dashboard_session_finish">The session was successfully completed!</string>
+    <string name="submit_finished">The session was successfully completed!</string>
 
-    <string name="dashboard_session_finish_error_title">The session is not complete!</string>
+    <string name="submit_finished_message">The data was successfully sent and then deleted from devices.</string>
 
-    <string name="dashboard_session_finish_error_message">You must send the report through the settings.</string>
+    <string name="submit_error">The session is not complete!</string>
+
+    <string name="submit_error_message">You must send the report through the settings.</string>
 
     <string name="dashboard_status_green_hint">Work in the application is available without restrictions</string>
     <string name="dashboard_status_yellow_hint">Work in the application is available, but can be blocked soon</string>
@@ -415,5 +417,9 @@
     <string name="session_report_type_8">Type 8</string>
     <string name="session_report_type_9">Type 9</string>
     <string name="session_report_type_10">Type 10</string>
+
+    <string name="submit_progress_collect_and_send">Collecting and sending the data</string>
+    <string name="submit_progress_finish_session">Closing the session</string>
+    <string name="submit_progress_clean_data">Cleaning the data</string>
 
 </resources>

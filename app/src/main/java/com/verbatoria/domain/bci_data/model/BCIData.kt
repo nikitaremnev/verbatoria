@@ -5,24 +5,30 @@ package com.verbatoria.domain.bci_data.model
  */
 
 private const val NO_DATA = -1
+private const val EMPTY_DATA = 0
 
 data class BCIData(
     var eventId: String = "",
     val timestamp: Long,
-    val activityCode: Int,
+    var activityCode: Int = NO_DATA,
     var attention: Int = NO_DATA,
     var mediation: Int = NO_DATA,
-    var delta: Int = 0,
-    var theta: Int = 0,
-    var lowAlpha: Int = 0,
-    var highAlpha: Int = 0,
-    var lowBeta: Int = 0,
-    var highBeta: Int = 0,
-    var lowGamma: Int = 0,
-    var middleGamma: Int = 0
+    var delta: Int = EMPTY_DATA,
+    var theta: Int = EMPTY_DATA,
+    var lowAlpha: Int = EMPTY_DATA,
+    var highAlpha: Int = EMPTY_DATA,
+    var lowBeta: Int = EMPTY_DATA,
+    var highBeta: Int = EMPTY_DATA,
+    var lowGamma: Int = EMPTY_DATA,
+    var middleGamma: Int = EMPTY_DATA
 ) {
 
     fun isFilled(): Boolean =
-        attention != NO_DATA && mediation != NO_DATA && delta != 0 && theta != 0 && lowAlpha != 0 && highAlpha != 0 && lowBeta != 0 && highBeta != 0 && lowGamma != 0 && middleGamma != 0
+        attention != NO_DATA && mediation != NO_DATA && delta != EMPTY_DATA && theta != EMPTY_DATA
+                && lowAlpha != EMPTY_DATA && highAlpha != EMPTY_DATA && lowBeta != EMPTY_DATA &&
+                highBeta != EMPTY_DATA && lowGamma != EMPTY_DATA && middleGamma != EMPTY_DATA
+
+    fun isUnderActivity(): Boolean =
+        activityCode != NO_DATA
 
 }
