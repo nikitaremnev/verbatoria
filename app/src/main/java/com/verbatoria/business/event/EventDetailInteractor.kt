@@ -10,6 +10,7 @@ import com.verbatoria.domain.dashboard.calendar.model.Event
 import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.report.manager.ReportManager
 import com.verbatoria.domain.schedule.manager.ScheduleManager
+import com.verbatoria.domain.submit.SubmitManager
 import com.verbatoria.infrastructure.extensions.formatToTime
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.event.EventDetailMode
@@ -45,6 +46,8 @@ interface EventDetailInteractor {
 
     fun includeAttentionMemory(reportId: String): Completable
 
+    fun startSession(eventId: String): Single<String>
+
 }
 
 class EventDetailInteractorImpl(
@@ -53,6 +56,7 @@ class EventDetailInteractorImpl(
     private val clientManager: ClientManager,
     private val reportManager: ReportManager,
     private val infoManager: InfoManager,
+    private val submitManager: SubmitManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : EventDetailInteractor {
 
@@ -277,6 +281,13 @@ class EventDetailInteractorImpl(
     override fun includeAttentionMemory(reportId: String): Completable =
         Completable.fromCallable {
             reportManager.includeAttentionMemory(reportId)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+    override fun startSession(eventId: String): Single<String> =
+        Single.fromCallable {
+            submitManager.startSession(eventId)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

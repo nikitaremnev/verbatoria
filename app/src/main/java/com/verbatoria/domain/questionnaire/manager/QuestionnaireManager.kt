@@ -9,11 +9,11 @@ import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepository
 
 interface QuestionnaireManager {
 
-    fun getQuestionnaireByEventId(eventId: String): Questionnaire
+    fun getQuestionnaireBySessionId(sessionId: String): Questionnaire
 
     fun saveQuestionnaire(questionnaire: Questionnaire)
 
-    fun deleteQuestionnaireByEventId(eventId: String)
+    fun deleteQuestionnaireBySessionId(sessionId: String)
 
 }
 
@@ -21,15 +21,15 @@ class QuestionnaireManagerImpl(
     private val questionnaireRepository: QuestionnaireRepository
 ) : QuestionnaireManager {
 
-    override fun getQuestionnaireByEventId(eventId: String): Questionnaire =
-        questionnaireRepository.findByEventId(eventId) ?: Questionnaire(eventId)
+    override fun getQuestionnaireBySessionId(sessionId: String): Questionnaire =
+        questionnaireRepository.findBySessionId(sessionId) ?: Questionnaire(sessionId)
 
     override fun saveQuestionnaire(questionnaire: Questionnaire) {
         questionnaireRepository.save(questionnaire)
     }
 
-    override fun deleteQuestionnaireByEventId(eventId: String) {
-        questionnaireRepository.deleteByEventId(eventId)
+    override fun deleteQuestionnaireBySessionId(sessionId: String) {
+        questionnaireRepository.deleteBySessionId(sessionId)
     }
 
 }

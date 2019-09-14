@@ -13,7 +13,7 @@ import io.reactivex.Single
 
 interface QuestionnaireInteractor {
 
-    fun getQuestionnaire(eventId: String): Single<Questionnaire>
+    fun getQuestionnaire(sessionId: String): Single<Questionnaire>
 
     fun saveQuestionnaire(questionnaire: Questionnaire): Completable
 
@@ -24,9 +24,9 @@ class QuestionnaireInteractorImpl(
     private val schedulersFactory: RxSchedulersFactory
 ) : QuestionnaireInteractor {
 
-    override fun getQuestionnaire(eventId: String): Single<Questionnaire> =
+    override fun getQuestionnaire(sessionId: String): Single<Questionnaire> =
         Single.fromCallable {
-            questionnaireManager.getQuestionnaireByEventId(eventId)
+            questionnaireManager.getQuestionnaireBySessionId(sessionId)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

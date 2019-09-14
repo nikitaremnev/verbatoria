@@ -19,13 +19,13 @@ class WritingModule {
     @Provides
     @Reusable
     fun provideWritingPresenter(
-        eventId: String,
+        sessionId: String,
         activitiesManager: ActivitiesManager,
         bciDataManager: BCIDataManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): WritingPresenter =
         WritingPresenter(
-            eventId,
+            sessionId,
             WritingInteractorImpl(
                 activitiesManager,
                 bciDataManager,

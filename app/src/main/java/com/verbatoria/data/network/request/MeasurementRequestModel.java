@@ -108,13 +108,13 @@ public class MeasurementRequestModel {
 //    }
 
 //    @JsonGetter("event_id")
-//    public String getEventId() {
+//    public String getSessionId() {
 //        return mEventId;
 //    }
 //
 //    @JsonSetter("event_id")
-//    public MeasurementRequestModel setEventId(String eventId) {
-//        mEventId = eventId;
+//    public MeasurementRequestModel setSessionId(String sessionId) {
+//        mEventId = sessionId;
 //        return this;
 //    }
 

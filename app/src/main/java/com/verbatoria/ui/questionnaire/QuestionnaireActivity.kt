@@ -25,7 +25,7 @@ import com.verbatoria.ui.submit.SubmitActivity
  * @author nikitaremnev
  */
 
-private const val EVENT_ID_EXTRA = "event_id_extra"
+private const val SESSION_ID_EXTRA = "session_id_extra"
 
 interface QuestionnaireView : BaseView {
 
@@ -61,7 +61,7 @@ interface QuestionnaireView : BaseView {
 
     fun hideFinishButton()
 
-    fun openSubmit(eventId: String)
+    fun openSubmit(sessionId: String)
 
     fun close()
 
@@ -96,10 +96,10 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
 
         fun createIntent(
             context: Context,
-            eventId: String
+            sessionId: String
         ): Intent =
             Intent(context, QuestionnaireActivity::class.java)
-                .putExtra(EVENT_ID_EXTRA, eventId)
+                .putExtra(SESSION_ID_EXTRA, sessionId)
 
     }
 
@@ -136,7 +136,7 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): QuestionnaireComponent =
         injector.plusQuestionnaireComponent()
-            .eventId(intent.getStringExtra(EVENT_ID_EXTRA))
+            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
             .build()
 
     override fun initViews(savedState: Bundle?) {
@@ -344,8 +344,8 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         nextButton.hide()
     }
 
-    override fun openSubmit(eventId: String) {
-        startActivity(SubmitActivity.createIntent(this, eventId))
+    override fun openSubmit(sessionId: String) {
+        startActivity(SubmitActivity.createIntent(this, sessionId))
         finish()
     }
 

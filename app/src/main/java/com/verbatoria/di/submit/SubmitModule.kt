@@ -18,10 +18,10 @@ class SubmitModule {
     @Provides
     @Reusable
     fun provideSubmitPresenter(
-        eventId: String,
+        sessionId: String,
         submitManager: SubmitManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): SubmitPresenter =
-        SubmitPresenter(eventId, SubmitInteractorImpl(submitManager, rxSchedulersFactory))
+        SubmitPresenter(sessionId, SubmitInteractorImpl(submitManager, rxSchedulersFactory))
 
 }

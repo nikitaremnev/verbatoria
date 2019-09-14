@@ -12,9 +12,9 @@ interface ActivitiesRepository {
 
     fun save(activity: ActivityEntity)
 
-    fun getByEventId(eventId: String): List<ActivityEntity>
+    fun getBySessionId(sessionId: String): List<ActivityEntity>
 
-    fun deleteByEventId(eventId: String)
+    fun deleteBySessionId(sessionId: String)
 
 }
 
@@ -30,11 +30,11 @@ class ActivitiesRepositoryImpl(
         dao.save(activity)
     }
 
-    override fun getByEventId(eventId: String): List<ActivityEntity> =
-        dao.findByEventId(eventId)
+    override fun getBySessionId(sessionId: String): List<ActivityEntity> =
+        dao.findBySessionId(sessionId)
 
-    override fun deleteByEventId(eventId: String) {
-        dao.deleteByEventId(eventId)
+    override fun deleteBySessionId(sessionId: String) {
+        dao.deleteBySessionId(sessionId)
     }
 
 }

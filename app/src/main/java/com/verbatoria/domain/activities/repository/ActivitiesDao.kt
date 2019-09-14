@@ -16,10 +16,10 @@ interface ActivitiesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(entity: Iterable<ActivityEntity>)
 
-    @Query("DELETE FROM ActivityEntity WHERE eventId = :eventId")
-    fun deleteByEventId(eventId: String)
+    @Query("DELETE FROM ActivityEntity WHERE sessionId = :sessionId")
+    fun deleteBySessionId(sessionId: String)
 
-    @Query("SELECT * FROM ActivityEntity WHERE eventId = :eventId")
-    fun findByEventId(eventId: String): List<ActivityEntity>
+    @Query("SELECT * FROM ActivityEntity WHERE sessionId = :sessionId")
+    fun findBySessionId(sessionId: String): List<ActivityEntity>
 
 }

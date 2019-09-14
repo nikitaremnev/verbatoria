@@ -16,7 +16,7 @@ interface SubmitComponent : BaseInjector<SubmitActivity> {
     interface Builder {
 
         @BindsInstance
-        fun eventId(eventId: String): Builder
+        fun sessionId(sessionId: String): Builder
 
         fun build(): SubmitComponent
 

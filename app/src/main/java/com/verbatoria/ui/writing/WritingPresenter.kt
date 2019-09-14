@@ -28,7 +28,7 @@ private const val MUSIC_BUTTON_CODE = 31
 private const val MAXIMUM_BCI_DATA_BLOCK_SIZE = 10
 
 class WritingPresenter(
-    private val eventId: String,
+    private val sessionId: String,
     private val writingInteractor: WritingInteractor
 ) : BasePresenter<WritingView>(),
     WritingView.Callback,
@@ -97,7 +97,10 @@ class WritingPresenter(
         if (selectedActivity != null) {
             view?.showFinishActivityFirstError()
         } else {
-            view?.openQuestionnaire(eventId)
+            view?.apply {
+                disconnectBCI()
+                view?.openQuestionnaire(sessionId)
+            }
         }
     }
 
@@ -374,7 +377,7 @@ class WritingPresenter(
 
     private fun getGroupedActivities() {
         isGroupedActivitiesLoaded = false
-        writingInteractor.getGroupedActivities(eventId)
+        writingInteractor.getGroupedActivities(sessionId)
             .subscribe({ groupedActivities ->
                 this.groupedActivities = groupedActivities
                 isGroupedActivitiesLoaded = true
@@ -408,7 +411,7 @@ class WritingPresenter(
 
     private fun saveActivity(endActivityTime: Long) {
         writingInteractor.saveActivity(
-            eventId,
+            sessionId,
             selectedActivity?.activityCode ?: throw IllegalStateException("trying to save activity while activityCode is null"),
             startActivityTime,
             endActivityTime
@@ -477,7 +480,7 @@ class WritingPresenter(
     }
 
     private fun saveBCIDataBlock() {
-        writingInteractor.saveBCIDataBlock(eventId, bciDataBlock)
+        writingInteractor.saveBCIDataBlock(sessionId, bciDataBlock)
             .subscribe({
                 bciDataBlock.clear()
             }, { error ->

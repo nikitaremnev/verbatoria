@@ -26,12 +26,13 @@ import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.questionnaire.QuestionnaireActivity
+import com.verbatoria.ui.submit.SubmitActivity
 
 /**
  * @author nikitaremnev
  */
 
-private const val EVENT_ID_EXTRA = "event_id_extra"
+private const val SESSION_ID_EXTRA = "session_id_extra"
 private const val BCI_CONNECTION_DIALOG_TAG = "BCI_CONNECTION_DIALOG_TAG"
 
 private const val Y_AXIS_MINIMUM = 0f
@@ -69,7 +70,7 @@ interface WritingView : BaseView {
 
     fun addValueToGraph(attentionValue: Int)
 
-    fun openQuestionnaire(eventId: String)
+    fun openQuestionnaire(sessionId: String)
 
     fun showBluetoothDisabledDialogState()
 
@@ -162,10 +163,10 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
         fun createIntent(
             context: Context,
-            eventId: String
+            sessionId: String
         ): Intent =
-            Intent(context, WritingActivity::class.java)
-                .putExtra(EVENT_ID_EXTRA, eventId)
+            Intent(context, SubmitActivity::class.java)
+                .putExtra(SESSION_ID_EXTRA, sessionId)
 
     }
 
@@ -175,7 +176,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): WritingComponent =
         injector.plusWritingComponent()
-            .eventId(intent.getStringExtra(EVENT_ID_EXTRA))
+            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
             .build()
 
     override fun initViews(savedState: Bundle?) {
@@ -336,8 +337,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         lineChart.moveViewToX((data.xValCount - 21).toFloat())
     }
 
-    override fun openQuestionnaire(eventId: String) {
-        startActivity(QuestionnaireActivity.createIntent(this, eventId))
+    override fun openQuestionnaire(sessionId: String) {
+        startActivity(QuestionnaireActivity.createIntent(this, sessionId))
         finish()
     }
 

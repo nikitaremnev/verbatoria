@@ -13,7 +13,7 @@ import io.reactivex.subjects.BehaviorSubject
 
 interface SubmitInteractor {
 
-    fun submitData(eventId: String): Observable<SubmitProgress>
+    fun submitData(sessionId: String): Observable<SubmitProgress>
 
 }
 
@@ -22,16 +22,18 @@ class SubmitInteractorImpl(
     private val schedulersFactory: RxSchedulersFactory
 ) : SubmitInteractor {
 
-    override fun submitData(eventId: String): Observable<SubmitProgress> =
+    override fun submitData(sessionId: String): Observable<SubmitProgress> =
         BehaviorSubject.create<SubmitProgress> { emitter ->
-            emitter.onNext(SubmitProgress(R.string.session_connect))
-            submitManager.sendData(eventId)
+            emitter.onNext(SubmitProgress(R.string.submit_progress_collect_and_send))
+            submitManager.sendData(sessionId)
 
-            emitter.onNext(SubmitProgress(R.string.session_connect))
-            submitManager.finishSession(eventId)
+            emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))
+            submitManager.finishSession(sessionId)
 
-            emitter.onNext(SubmitProgress(R.string.session_connect))
-            submitManager.cleanData(eventId)
+            emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
+            submitManager.cleanData(sessionId)
+
+            emitter.onComplete()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName
 
 data class BCIDataItemParamsDto(
     @SerializedName("event_id")
-    var eventId: String = "",
+    var sessionId: String = "",
     @SerializedName("action_id")
     var activityCode: Int = 0,
     @SerializedName("reserve_blank2")

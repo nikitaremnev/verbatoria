@@ -13,10 +13,10 @@ interface QuestionnaireDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(entity: QuestionnaireEntity)
 
-    @Query("DELETE FROM QuestionnaireEntity WHERE eventId = :eventId")
-    fun deleteByEventId(eventId: String)
+    @Query("DELETE FROM QuestionnaireEntity WHERE sessionId = :sessionId")
+    fun deleteBySessionId(sessionId: String)
 
-    @Query("SELECT * FROM QuestionnaireEntity  WHERE eventId = :eventId")
-    fun findByEventId(eventId: String): QuestionnaireEntity?
+    @Query("SELECT * FROM QuestionnaireEntity  WHERE sessionId = :sessionId")
+    fun findBySessionId(sessionId: String): QuestionnaireEntity?
 
 }

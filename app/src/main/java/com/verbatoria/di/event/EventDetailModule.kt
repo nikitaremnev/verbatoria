@@ -9,6 +9,7 @@ import com.verbatoria.domain.dashboard.calendar.model.Event
 import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.report.manager.ReportManager
 import com.verbatoria.domain.schedule.manager.ScheduleManager
+import com.verbatoria.domain.submit.SubmitManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.infrastructure.utils.ViewInflater
 import com.verbatoria.ui.common.Adapter
@@ -136,12 +137,13 @@ class EventDetailModule {
         clientManager: ClientManager,
         reportManager: ReportManager,
         infoManager: InfoManager,
+        submitManager: SubmitManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): EventDetailPresenter =
         EventDetailPresenter(
             EventDetailMode.valueOf(eventDetailModeOrdinal),
             event,
-            EventDetailInteractorImpl(calendarManager, scheduleManager, clientManager, reportManager, infoManager, rxSchedulersFactory)
+            EventDetailInteractorImpl(calendarManager, scheduleManager, clientManager, reportManager, infoManager, submitManager, rxSchedulersFactory)
         )
 
 }

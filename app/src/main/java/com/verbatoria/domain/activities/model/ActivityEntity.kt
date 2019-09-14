@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey
 class ActivityEntity(
     @PrimaryKey
     val id: String,
-    val eventId: String,
+    val sessionId: String,
     val activityCode: Int,
     val startTime: Long,
     val endTime: Long

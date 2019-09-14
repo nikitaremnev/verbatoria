@@ -14,11 +14,11 @@ import java.util.*
 
 interface ActivitiesManager {
 
-    fun getByEventId(eventId: String): GroupedActivities
+    fun getBySessionId(sessionId: String): GroupedActivities
 
-    fun saveActivity(eventId: String, activityCode: ActivityCode, startTime: Long, endTime: Long)
+    fun saveActivity(sessionId: String, activityCode: ActivityCode, startTime: Long, endTime: Long)
 
-    fun deleteByEventId(eventId: String)
+    fun deleteBySessionId(sessionId: String)
 
 }
 
@@ -26,10 +26,10 @@ class ActivitiesManagerImpl(
     private val activitiesRepository: ActivitiesRepository
 ) : ActivitiesManager {
 
-    override fun getByEventId(eventId: String): GroupedActivities {
+    override fun getBySessionId(sessionId: String): GroupedActivities {
         val activitiesList = mutableListOf<Activity>()
         val groupedActivities = activitiesRepository
-            .getByEventId(eventId)
+            .getBySessionId(sessionId)
             .groupBy { activity ->
                 activity.activityCode
             }
@@ -50,7 +50,7 @@ class ActivitiesManagerImpl(
     }
 
     override fun saveActivity(
-        eventId: String,
+        sessionId: String,
         activityCode: ActivityCode,
         startTime: Long,
         endTime: Long
@@ -58,7 +58,7 @@ class ActivitiesManagerImpl(
         activitiesRepository.save(
             ActivityEntity(
                 id = generateId(),
-                eventId = eventId,
+                sessionId = sessionId,
                 activityCode = activityCode.code,
                 startTime = startTime,
                 endTime = endTime
@@ -66,8 +66,8 @@ class ActivitiesManagerImpl(
         )
     }
 
-    override fun deleteByEventId(eventId: String) {
-        activitiesRepository.deleteByEventId(eventId)
+    override fun deleteBySessionId(sessionId: String) {
+        activitiesRepository.deleteBySessionId(sessionId)
     }
 
     private fun generateId() = UUID.randomUUID().toString()

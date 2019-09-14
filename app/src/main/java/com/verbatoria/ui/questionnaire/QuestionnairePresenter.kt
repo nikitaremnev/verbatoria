@@ -17,11 +17,11 @@ private const val LAST_QUESTION_INDEX = 9
 private const val FIRST_QUESTION_POSITION = 0
 
 class QuestionnairePresenter(
-    private val eventId: String,
+    private val sessionId: String,
     private val questionnaireInteractor: QuestionnaireInteractor
 ) : BasePresenter<QuestionnaireView>(), QuestionnaireView.Callback {
 
-    private var questionnaire: Questionnaire = Questionnaire(eventId)
+    private var questionnaire: Questionnaire = Questionnaire(sessionId)
 
     private var isQuestionnaireLoaded: Boolean = false
 
@@ -90,7 +90,7 @@ class QuestionnairePresenter(
     //endregion
 
     private fun getQuestionnaire() {
-        questionnaireInteractor.getQuestionnaire(eventId)
+        questionnaireInteractor.getQuestionnaire(sessionId)
             .subscribe({ questionnaire ->
                 this.questionnaire = questionnaire
                 isQuestionnaireLoaded = true
@@ -104,7 +104,7 @@ class QuestionnairePresenter(
     private fun saveQuestionnaire() {
         questionnaireInteractor.saveQuestionnaire(questionnaire)
             .subscribe({
-                view?.openSubmit(eventId)
+                view?.openSubmit(sessionId)
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage)
             })

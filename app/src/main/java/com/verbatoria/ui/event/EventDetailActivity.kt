@@ -85,7 +85,7 @@ interface EventDetailView : BaseView {
 
     fun hideProgress()
 
-    fun openStartSession(eventId: String)
+    fun openWriting(eventId: String)
 
     fun close()
 
@@ -289,7 +289,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         progressDialog?.dismiss()
     }
 
-    override fun openStartSession(eventId: String) {
+    override fun openWriting(eventId: String) {
         startActivity(WritingActivity.createIntent(this, eventId))
     }
 

@@ -9,8 +9,8 @@ import com.verbatoria.infrastructure.extensions.formatToServerTime
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.SubmitEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.BCIDataFileParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.BCIDataItemParamsDto
+import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.StartSessionParamsDto
 import com.verbatoria.utils.FileUtils
-import com.verbatoria.utils.PreferencesStorage
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
@@ -28,11 +28,13 @@ private const val FIRST_POSITION_INDEX = 0
 
 interface SubmitManager {
 
-    fun sendData(eventId: String)
+    fun startSession(eventId: String): String
 
-    fun finishSession(eventId: String)
+    fun sendData(sessionId: String)
 
-    fun cleanData(eventId: String)
+    fun finishSession(sessionId: String)
+
+    fun cleanData(sessionId: String)
 
 }
 
@@ -43,15 +45,20 @@ class SubmitManagerImpl(
     private val submitEndpoint: SubmitEndpoint
 ) : SubmitManager {
 
-    override fun sendData(eventId: String) {
-        val bciData = bciDataManager.findAllByEventId(eventId)
+    override fun startSession(eventId: String): String =
+        submitEndpoint.startSession(
+            StartSessionParamsDto(eventId)
+        ).id
+
+    override fun sendData(sessionId: String) {
+        val bciData = bciDataManager.findAllBySessionId(sessionId)
         val versionName = BuildConfig.VERSION_NAME
-        val questionnaire = questionnaireManager.getQuestionnaireByEventId(eventId)
-        val currentLocale = PreferencesStorage.getInstance().currentLocale
+        val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId)
+        val currentLocale = "ru"//PreferencesStorage.getInstance().currentLocale
 
         val bciDataMutableList = bciData.map { bciData ->
             BCIDataItemParamsDto(
-                eventId = bciData.eventId,
+                sessionId = bciData.sessionId,
                 activityCode = bciData.activityCode,
                 questionnaire = "",
                 applicationVersion = versionName,
@@ -94,7 +101,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(questionnaire = questionnaire.linguisticQuestionAnswer.value.toString()))
 
-        val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(eventId))
+        val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(sessionId))
         if (!reportFile.exists()) {
             reportFile.createNewFile()
         }
@@ -106,25 +113,25 @@ class SubmitManagerImpl(
         }
 
         submitEndpoint.sendData(
-            sessionId = eventId,
+            sessionId = sessionId,
             body = RequestBody.create(MediaType.parse("application/json"), reportFile)
         )
     }
 
-    override fun finishSession(eventId: String) {
-        submitEndpoint.finishSession(eventId)
+    override fun finishSession(sessionId: String) {
+        submitEndpoint.finishSession(sessionId)
     }
 
-    override fun cleanData(eventId: String) {
-        bciDataManager.deleteAllByEventId(eventId)
-        activityManager.deleteByEventId(eventId)
-        val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(eventId))
+    override fun cleanData(sessionId: String) {
+        bciDataManager.deleteAllBySessionId(sessionId)
+        activityManager.deleteBySessionId(sessionId)
+        val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(sessionId))
         if (reportFile.exists()) {
             reportFile.delete()
         }
     }
 
-    private fun getReportFileName(eventId: String): String =
-        REPORT_FILE_NAME_PREFIX + eventId + JSON_FILE_EXTENSION
+    private fun getReportFileName(sessionId: String): String =
+        REPORT_FILE_NAME_PREFIX + sessionId + JSON_FILE_EXTENSION
 
 }

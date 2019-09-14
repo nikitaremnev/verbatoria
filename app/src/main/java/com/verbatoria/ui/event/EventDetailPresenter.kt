@@ -277,7 +277,7 @@ class EventDetailPresenter(
                 createNewEvent()
             }
             EventDetailMode.START -> {
-                view?.openStartSession(event?.id ?: throw IllegalStateException("try to start session while event is null"))
+                startSession()
             }
         }
     }
@@ -361,6 +361,7 @@ class EventDetailPresenter(
     }
 
     private fun createNewEvent() {
+        view?.showProgress()
         eventDetailInteractor.createNewEvent(
             childId = child?.id
                 ?: throw IllegalStateException("Try to create new event while child id is null"),
@@ -370,13 +371,17 @@ class EventDetailPresenter(
                 ?: throw IllegalStateException("Try to create new event while start time is null"),
             endAt = selectedTimeSlot?.endTime
                 ?: throw IllegalStateException("Try to create new event while start time is null")
-        ).subscribe({
-            view?.close()
-        }, { error ->
-            logger.error("create new event error occurred", error)
-            this.view?.showErrorSnackbar("create new event error occurred")
+        )
+            .doAfterTerminate {
+                view?.hideProgress()
+            }
+            .subscribe({
+                view?.close()
+            }, { error ->
+                logger.error("create new event error occurred", error)
+                this.view?.showErrorSnackbar("create new event error occurred")
 
-        })
+            })
             .let(::addDisposable)
     }
 
@@ -481,6 +486,22 @@ class EventDetailPresenter(
             }, { error ->
                 logger.error("delete event error occurred", error)
                 view?.showErrorSnackbar("delete event error occurred")
+            })
+            .let(::addDisposable)
+    }
+
+    private fun startSession() {
+        view?.showProgress()
+        eventDetailInteractor.startSession(event?.id ?: throw IllegalStateException("Try to start session while event is null"))
+            .doAfterTerminate {
+                view?.hideProgress()
+            }
+            .subscribe({ eventId ->
+                view?.openWriting(eventId ?: throw IllegalStateException("try to start session while event is null"))
+            }, { error ->
+                error.printStackTrace()
+                logger.error("start session error occurred", error)
+                view?.showErrorSnackbar("start session error occurred")
             })
             .let(::addDisposable)
     }

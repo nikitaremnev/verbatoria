@@ -8,13 +8,13 @@ import com.verbatoria.ui.base.BasePresenter
  */
 
 class SubmitPresenter(
-    private val eventId: String,
+    private val sessionId: String,
     private val submitInteractor: SubmitInteractor
 ) : BasePresenter<SubmitView>(), SubmitView.Callback {
 
     override fun onAttachView(view: SubmitView) {
         super.onAttachView(view)
-        submitInteractor.submitData(eventId)
+        submitInteractor.submitData(sessionId)
             .doOnComplete {
                 view.showSuccessDialog()
             }

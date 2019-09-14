@@ -15,16 +15,16 @@ import io.reactivex.Single
 
 interface WritingInteractor {
 
-    fun getGroupedActivities(eventId: String): Single<GroupedActivities>
+    fun getGroupedActivities(sessionId: String): Single<GroupedActivities>
 
     fun saveActivity(
-        eventId: String,
+        sessionId: String,
         activityCode: ActivityCode,
         startTime: Long,
         endTime: Long
     ): Completable
 
-    fun saveBCIDataBlock(eventId: String, bciData: List<BCIData>): Completable
+    fun saveBCIDataBlock(sessionId: String, bciData: List<BCIData>): Completable
 
 }
 
@@ -34,29 +34,29 @@ class WritingInteractorImpl(
     private val schedulersFactory: RxSchedulersFactory
 ) : WritingInteractor {
 
-    override fun getGroupedActivities(eventId: String): Single<GroupedActivities> =
+    override fun getGroupedActivities(sessionId: String): Single<GroupedActivities> =
         Single.fromCallable {
-            activitiesManager.getByEventId(eventId)
+            activitiesManager.getBySessionId(sessionId)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
     override fun saveActivity(
-        eventId: String,
+        sessionId: String,
         activityCode: ActivityCode,
         startTime: Long,
         endTime: Long
     ): Completable =
         Completable.fromCallable {
-            activitiesManager.saveActivity(eventId, activityCode, startTime, endTime)
+            activitiesManager.saveActivity(sessionId, activityCode, startTime, endTime)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun saveBCIDataBlock(eventId: String, bciData: List<BCIData>): Completable =
+    override fun saveBCIDataBlock(sessionId: String, bciData: List<BCIData>): Completable =
         Completable.fromCallable {
             bciData.forEach { bciDataItem ->
-                bciDataItem.eventId = eventId
+                bciDataItem.sessionId = sessionId
             }
             bciDataManager.save(bciData)
         }

@@ -16,7 +16,7 @@ interface WritingComponent : BaseInjector<WritingActivity> {
     interface Builder {
 
         @BindsInstance
-        fun eventId(eventId: String): Builder
+        fun sessionId(sessionId: String): Builder
 
         fun build(): WritingComponent
 

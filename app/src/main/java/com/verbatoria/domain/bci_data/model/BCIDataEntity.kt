@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey
 class BCIDataEntity(
     @PrimaryKey
     val id: String,
-    val eventId: String,
+    val sessionId: String,
     val timestamp: Long,
     val activityCode: Int,
     val attention: Int,

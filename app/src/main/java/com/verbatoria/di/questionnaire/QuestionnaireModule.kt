@@ -18,12 +18,12 @@ class QuestionnaireModule {
     @Provides
     @Reusable
     fun provideQuestionnairePresenter(
-        eventId: String,
+        sessionId: String,
         questionnaireManager: QuestionnaireManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): QuestionnairePresenter =
         QuestionnairePresenter(
-            eventId,
+            sessionId,
             QuestionnaireInteractorImpl(
                 questionnaireManager,
                 rxSchedulersFactory

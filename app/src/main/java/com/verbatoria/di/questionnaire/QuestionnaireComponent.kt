@@ -16,7 +16,7 @@ interface QuestionnaireComponent : BaseInjector<QuestionnaireActivity> {
     interface Builder {
 
         @BindsInstance
-        fun eventId(eventId: String): Builder
+        fun sessionId(sessionId: String): Builder
 
         fun build(): QuestionnaireComponent
 

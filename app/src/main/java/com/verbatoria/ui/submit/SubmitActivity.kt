@@ -16,7 +16,7 @@ import com.verbatoria.ui.common.dialog.FragmentSuggestDialog
  * @author nikitaremnev
  */
 
-private const val EVENT_ID_EXTRA = "event_id_extra"
+private const val SESSION_ID_EXTRA = "session_id_extra"
 
 private const val SUCCESS_DIALOG_TAG = "SUCCESS_DIALOG_TAG"
 private const val ERROR_DIALOG_TAG = "ERROR_DIALOG_TAG"
@@ -46,10 +46,10 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
 
         fun createIntent(
             context: Context,
-            eventId: String
+            sessionId: String
         ): Intent =
             Intent(context, SubmitActivity::class.java)
-                .putExtra(EVENT_ID_EXTRA, eventId)
+                .putExtra(SESSION_ID_EXTRA, sessionId)
 
     }
 
@@ -63,7 +63,7 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): SubmitComponent =
         injector.plusSubmitComponent()
-            .eventId(intent.getStringExtra(EVENT_ID_EXTRA))
+            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
             .build()
 
     override fun initViews(savedState: Bundle?) {

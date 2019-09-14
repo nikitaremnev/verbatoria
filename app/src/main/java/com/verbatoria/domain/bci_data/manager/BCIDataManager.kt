@@ -9,11 +9,11 @@ import com.verbatoria.domain.bci_data.repository.BCIDataRepository
 
 interface BCIDataManager {
 
-    fun findAllByEventId(eventId: String): List<BCIData>
+    fun findAllBySessionId(sessionId: String): List<BCIData>
 
     fun save(data: List<BCIData>)
 
-    fun deleteAllByEventId(eventId: String)
+    fun deleteAllBySessionId(sessionId: String)
 
 }
 
@@ -21,15 +21,15 @@ class BCIDataManagerImpl(
     private val bciDataRepository: BCIDataRepository
 ) : BCIDataManager {
 
-    override fun findAllByEventId(eventId: String): List<BCIData> =
-        bciDataRepository.findAllByEventId(eventId)
+    override fun findAllBySessionId(sessionId: String): List<BCIData> =
+        bciDataRepository.findAllBySessionId(sessionId)
 
     override fun save(data: List<BCIData>) {
         bciDataRepository.save(data)
     }
 
-    override fun deleteAllByEventId(eventId: String) {
-        bciDataRepository.deleteByEventId(eventId)
+    override fun deleteAllBySessionId(sessionId: String) {
+        bciDataRepository.deleteBySessionId(sessionId)
     }
 
 }

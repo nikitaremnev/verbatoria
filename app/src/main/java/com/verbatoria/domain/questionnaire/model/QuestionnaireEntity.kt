@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(tableName = "QuestionnaireEntity")
 class QuestionnaireEntity(
     @PrimaryKey
-    val eventId: String,
+    val sessionId: String,
     val linguisticQuestionAnswer: Int,
     val logicMathematicalAnswer: Int,
     val musicAnswer: Int,

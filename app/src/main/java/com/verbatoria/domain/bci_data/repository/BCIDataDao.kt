@@ -16,10 +16,10 @@ interface BCIDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(entity: Iterable<BCIDataEntity>)
 
-    @Query("DELETE FROM BCIDataEntity WHERE eventId = :eventId")
-    fun deleteByEventId(eventId: String)
+    @Query("DELETE FROM BCIDataEntity WHERE sessionId = :sessionId")
+    fun deleteBySessionId(sessionId: String)
 
-    @Query("SELECT * FROM BCIDataEntity WHERE eventId = :eventId ORDER BY timestamp ASC")
-    fun findAllByEventId(eventId: String): List<BCIDataEntity>
+    @Query("SELECT * FROM BCIDataEntity WHERE sessionId = :sessionId ORDER BY timestamp ASC")
+    fun findAllBySessionId(sessionId: String): List<BCIDataEntity>
 
 }

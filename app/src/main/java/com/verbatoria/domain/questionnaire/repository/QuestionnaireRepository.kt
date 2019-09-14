@@ -10,9 +10,9 @@ interface QuestionnaireRepository {
 
     fun save(questionnaire: Questionnaire)
 
-    fun findByEventId(eventId: String): Questionnaire?
+    fun findBySessionId(sessionId: String): Questionnaire?
 
-    fun deleteByEventId(eventId: String)
+    fun deleteBySessionId(sessionId: String)
 
 }
 
@@ -25,10 +25,10 @@ class QuestionnaireRepositoryImpl(
         dao.save(converter.toEntity(questionnaire))
     }
 
-    override fun findByEventId(eventId: String): Questionnaire? =
-        dao.findByEventId(eventId)?.let(converter::toDomain)
+    override fun findBySessionId(sessionId: String): Questionnaire? =
+        dao.findBySessionId(sessionId)?.let(converter::toDomain)
 
-    override fun deleteByEventId(eventId: String) {
-        dao.deleteByEventId(eventId)
+    override fun deleteBySessionId(sessionId: String) {
+        dao.deleteBySessionId(sessionId)
     }
 }
