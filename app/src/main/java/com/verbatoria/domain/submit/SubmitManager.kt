@@ -56,23 +56,23 @@ class SubmitManagerImpl(
         val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId)
         val currentLocale = "ru"//PreferencesStorage.getInstance().currentLocale
 
-        val bciDataMutableList = bciData.map { bciData ->
+        val bciDataMutableList = bciData.map { bciDataItem ->
             BCIDataItemParamsDto(
-                sessionId = bciData.sessionId,
-                activityCode = bciData.activityCode,
+                sessionId = bciDataItem.sessionId,
+                activityCode = bciDataItem.activityCode,
                 questionnaire = "",
                 applicationVersion = versionName,
-                createdAt = Date(bciData.timestamp).formatToServerTime(),
-                attention = bciData.attention,
-                mediation = bciData.mediation,
-                delta = bciData.delta,
-                theta = bciData.theta,
-                lowAlpha = bciData.lowAlpha,
-                highAlpha = bciData.highAlpha,
-                lowBeta = bciData.lowBeta,
-                highBeta = bciData.highBeta,
-                lowGamma = bciData.lowGamma,
-                middleGamma = bciData.middleGamma
+                createdAt = Date(bciDataItem.timestamp).formatToServerTime(),
+                attention = bciDataItem.attention,
+                mediation = bciDataItem.mediation,
+                delta = bciDataItem.delta,
+                theta = bciDataItem.theta,
+                lowAlpha = bciDataItem.lowAlpha,
+                highAlpha = bciDataItem.highAlpha,
+                lowBeta = bciDataItem.lowBeta,
+                highBeta = bciDataItem.highBeta,
+                lowGamma = bciDataItem.lowGamma,
+                middleGamma = bciDataItem.middleGamma
             )
         }.toMutableList()
 
@@ -125,6 +125,7 @@ class SubmitManagerImpl(
     override fun cleanData(sessionId: String) {
         bciDataManager.deleteAllBySessionId(sessionId)
         activityManager.deleteBySessionId(sessionId)
+        questionnaireManager.deleteQuestionnaireBySessionId(sessionId)
         val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(sessionId))
         if (reportFile.exists()) {
             reportFile.delete()

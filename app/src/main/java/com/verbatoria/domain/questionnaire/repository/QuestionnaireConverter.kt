@@ -12,7 +12,7 @@ class QuestionnaireConverter : DatabaseConverter<QuestionnaireEntity, Questionna
     override fun toEntity(domain: Questionnaire): QuestionnaireEntity =
         with(domain) {
             QuestionnaireEntity(
-                eventId = eventId,
+                sessionId = sessionId,
                 linguisticQuestionAnswer = linguisticQuestionAnswer.value,
                 logicMathematicalAnswer = logicMathematicalAnswer.value,
                 musicAnswer = musicAnswer.value,
@@ -29,7 +29,7 @@ class QuestionnaireConverter : DatabaseConverter<QuestionnaireEntity, Questionna
     override fun toDomain(entity: QuestionnaireEntity): Questionnaire =
         with(entity) {
             Questionnaire(
-                eventId = eventId,
+                sessionId = sessionId,
                 linguisticQuestionAnswer = QuestionAnswer.valueOf(linguisticQuestionAnswer),
                 logicMathematicalAnswer = QuestionAnswer.valueOf(logicMathematicalAnswer),
                 musicAnswer = QuestionAnswer.valueOf(musicAnswer),

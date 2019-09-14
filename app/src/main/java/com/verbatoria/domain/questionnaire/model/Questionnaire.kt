@@ -5,7 +5,7 @@ package com.verbatoria.domain.questionnaire.model
  */
 
 class Questionnaire(
-    val eventId: String,
+    val sessionId: String,
     var linguisticQuestionAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
     var logicMathematicalAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
     var musicAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,

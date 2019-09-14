@@ -165,7 +165,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
             context: Context,
             sessionId: String
         ): Intent =
-            Intent(context, SubmitActivity::class.java)
+            Intent(context, WritingActivity::class.java)
                 .putExtra(SESSION_ID_EXTRA, sessionId)
 
     }

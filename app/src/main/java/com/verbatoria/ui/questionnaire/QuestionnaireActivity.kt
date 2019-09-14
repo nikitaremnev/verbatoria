@@ -194,7 +194,7 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
             presenter.onNoButtonClicked()
         }
 
-        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
             presenter.onReportTypeSelected(
                 when (checkedId) {
                     R.id.type_0 -> ReportType.TYPE_0
