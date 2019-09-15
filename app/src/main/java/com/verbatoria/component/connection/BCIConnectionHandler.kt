@@ -1,6 +1,5 @@
 package com.verbatoria.component.connection
 
-import android.util.Log
 import com.neurosky.connection.ConnectionStates
 import com.neurosky.connection.DataType.MindDataType
 import com.neurosky.connection.EEGPower
@@ -45,7 +44,6 @@ class BCIConnectionHandlerImpl: BCIConnectionHandler {
     //region TgStreamHandler
 
     override fun onStatesChanged(connectionState: Int) {
-        Log.e("test", "BCIConnectionHandler connectionState $connectionState")
         when (connectionState) {
             ConnectionStates.STATE_CONNECTING ->
                 stateCallback?.onConnecting()
@@ -71,7 +69,6 @@ class BCIConnectionHandlerImpl: BCIConnectionHandler {
     }
 
     override fun onDataReceived(dataCode: Int, data: Int, eegPowerObject: Any?) {
-        Log.e("test", "onDataReceived dataCode $dataCode data $dataCode eegPowerObject $eegPowerObject")
         when (dataCode) {
             MindDataType.CODE_ATTENTION -> {
                 dataCallback?.onAttentionDataReceived(data)

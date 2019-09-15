@@ -407,8 +407,8 @@
     <string name="questionnaire_report_type_question">Choose report type:</string>
     <string name="session_report_type_0">Type 0</string>
     <string name="session_report_type_1">1: AnM only</string>
-    <string name="session_report_type_2">Type 2</string>
-    <string name="session_report_type_3">Type 3</string>
+    <string name="session_report_type_2">Electives</string>
+    <string name="session_report_type_3">My Destiny</string>
     <string name="session_report_type_4">Type 4</string>
     <string name="session_report_type_5">Type 5</string>
     <string name="session_report_type_6">Type 6</string>
@@ -420,5 +420,12 @@
     <string name="submit_progress_collect_and_send">Collecting and sending the data</string>
     <string name="submit_progress_finish_session">Closing the session</string>
     <string name="submit_progress_clean_data">Cleaning the data</string>
+
+    <string name="late_send_state_nothing">No neurodata and questionnaire</string>
+    <string name="late_send_state_has_data">No questionnaire data</string>
+    <string name="late_send_state_has_questionnaire">Neurodata and questionnaire were saved, sending required</string>
+    <string name="late_send_state_data_sent">Data is sent, but finish session required</string>
+    <string name="late_send_state_session_finished">Only data clean up left</string>
+    <string name="late_send_state_data_cleaned">Report is fully ready and sent</string>
 
 </resources>

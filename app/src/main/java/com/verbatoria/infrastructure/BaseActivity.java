@@ -7,10 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import com.remnev.verbatoria.R;
-import com.verbatoria.VerbatoriaApplication;
 import com.verbatoria.utils.LocaleHelper;
 import com.verbatoria.utils.Logger;
-import com.verbatoria.utils.PreferencesStorage;
 
 import butterknife.ButterKnife;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -93,7 +91,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onUserInteraction() {
         super.onUserInteraction();
         Logger.e(TAG, "onUserInteraction");
-        VerbatoriaApplication.onUserInteraction();
+//        VerbatoriaKtApplication.on();
     }
 
     protected void startProgress() {

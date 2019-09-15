@@ -492,12 +492,15 @@ class EventDetailPresenter(
 
     private fun startSession() {
         view?.showProgress()
-        eventDetailInteractor.startSession(event?.id ?: throw IllegalStateException("Try to start session while event is null"))
+        eventDetailInteractor.startSession(event?.id ?: throw IllegalStateException("Try to start session while event is null"),
+            child ?: throw IllegalStateException("Try to start session while child is null"),
+            selectedTimeSlot ?: throw IllegalStateException("Try to start session while selectedTimeSlot is null"))
             .doAfterTerminate {
                 view?.hideProgress()
             }
             .subscribe({ eventId ->
-                view?.openWriting(eventId ?: throw IllegalStateException("try to start session while event is null"))
+                view?.openWriting(eventId ?: throw IllegalStateException("try to start session while event is null"),
+                    child?.age ?: throw IllegalStateException("Try to start session while child is null"))
             }, { error ->
                 error.printStackTrace()
                 logger.error("start session error occurred", error)

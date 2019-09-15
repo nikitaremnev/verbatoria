@@ -1,9 +1,11 @@
 package com.verbatoria.di.late_send;
 
 import com.remnev.verbatoria.R
-import com.verbatoria.business.late_send.LateSendInteractor
-import com.verbatoria.business.late_send.LateSendItemModel
-import com.verbatoria.data.repositories.late_send.LateSendRepository
+import com.verbatoria.business.late_send.LateSendInteractorImpl
+import com.verbatoria.domain.late_send.manager.LateSendManager
+import com.verbatoria.domain.late_send.model.LateSend
+import com.verbatoria.domain.submit.SubmitManager
+import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.infrastructure.utils.ViewInflater
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.ItemAdapter
@@ -22,20 +24,13 @@ import dagger.Reusable
 class LateSendModule {
 
     @Provides
-    fun provideLateSendRepository(): LateSendRepository =
-        LateSendRepository()
-
-    @Provides
-    @Reusable
-    fun provideLateSendInteractor(lateSendRepository: LateSendRepository): LateSendInteractor =
-        LateSendInteractor(lateSendRepository)
-
-    @Provides
     @Reusable
     fun provideLateSendPresenter(
-        lateSendInteractor: LateSendInteractor
+        submitManager: SubmitManager,
+        lateSendManager: LateSendManager,
+        rxSchedulersFactory: RxSchedulersFactory
     ): LateSendPresenter =
-        LateSendPresenter(lateSendInteractor)
+        LateSendPresenter(LateSendInteractorImpl(submitManager, lateSendManager, rxSchedulersFactory))
 
     @Provides
     @Reusable
@@ -46,7 +41,7 @@ class LateSendModule {
             listOf(
                 ItemAdapter(
                     {
-                        it is LateSendItemModel
+                        it is LateSend
                     },
                     {
                         LateReportViewHolderImpl(

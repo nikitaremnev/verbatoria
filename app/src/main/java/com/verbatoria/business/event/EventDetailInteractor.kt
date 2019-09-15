@@ -4,6 +4,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.domain.schedule.model.TimeSlot
 import com.verbatoria.domain.client.model.Client
 import com.verbatoria.business.event.models.item.*
+import com.verbatoria.domain.child.model.Child
 import com.verbatoria.domain.client.manager.ClientManager
 import com.verbatoria.domain.dashboard.calendar.manager.CalendarManager
 import com.verbatoria.domain.dashboard.calendar.model.Event
@@ -46,7 +47,7 @@ interface EventDetailInteractor {
 
     fun includeAttentionMemory(reportId: String): Completable
 
-    fun startSession(eventId: String): Single<String>
+    fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): Single<String>
 
 }
 
@@ -285,9 +286,9 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun startSession(eventId: String): Single<String> =
+    override fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): Single<String> =
         Single.fromCallable {
-            submitManager.startSession(eventId)
+            submitManager.startSession(eventId, child, timeSlot)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

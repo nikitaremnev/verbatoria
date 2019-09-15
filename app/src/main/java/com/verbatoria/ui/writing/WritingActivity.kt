@@ -33,6 +33,8 @@ import com.verbatoria.ui.submit.SubmitActivity
  */
 
 private const val SESSION_ID_EXTRA = "session_id_extra"
+private const val CHILD_AGE_EXTRA = "child_age_extra"
+
 private const val BCI_CONNECTION_DIALOG_TAG = "BCI_CONNECTION_DIALOG_TAG"
 
 private const val Y_AXIS_MINIMUM = 0f
@@ -70,7 +72,9 @@ interface WritingView : BaseView {
 
     fun addValueToGraph(attentionValue: Int)
 
-    fun openQuestionnaire(sessionId: String)
+    fun openQuestionnaire(sessionId: String, childAge: Int)
+
+    fun openSubmit(sessionId: String)
 
     fun showBluetoothDisabledDialogState()
 
@@ -163,10 +167,12 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
         fun createIntent(
             context: Context,
-            sessionId: String
+            sessionId: String,
+            childAge: Int
         ): Intent =
             Intent(context, WritingActivity::class.java)
                 .putExtra(SESSION_ID_EXTRA, sessionId)
+                .putExtra(CHILD_AGE_EXTRA, childAge)
 
     }
 
@@ -177,6 +183,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     override fun buildComponent(injector: Injector, savedState: Bundle?): WritingComponent =
         injector.plusWritingComponent()
             .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
+            .childAge(intent.getIntExtra(CHILD_AGE_EXTRA, 0))
             .build()
 
     override fun initViews(savedState: Bundle?) {
@@ -337,8 +344,13 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         lineChart.moveViewToX((data.xValCount - 21).toFloat())
     }
 
-    override fun openQuestionnaire(sessionId: String) {
-        startActivity(QuestionnaireActivity.createIntent(this, sessionId))
+    override fun openQuestionnaire(sessionId: String, childAge: Int) {
+        startActivity(QuestionnaireActivity.createIntent(this, sessionId, childAge))
+        finish()
+    }
+
+    override fun openSubmit(sessionId: String) {
+        startActivity(SubmitActivity.createIntent(this, sessionId))
         finish()
     }
 

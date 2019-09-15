@@ -26,6 +26,7 @@ import com.verbatoria.ui.submit.SubmitActivity
  */
 
 private const val SESSION_ID_EXTRA = "session_id_extra"
+private const val CHILD_AGE_EXTRA = "child_age_extra"
 
 interface QuestionnaireView : BaseView {
 
@@ -96,10 +97,12 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
 
         fun createIntent(
             context: Context,
-            sessionId: String
+            sessionId: String,
+            childAge: Int
         ): Intent =
             Intent(context, QuestionnaireActivity::class.java)
                 .putExtra(SESSION_ID_EXTRA, sessionId)
+                .putExtra(CHILD_AGE_EXTRA, childAge)
 
     }
 
@@ -137,6 +140,7 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
     override fun buildComponent(injector: Injector, savedState: Bundle?): QuestionnaireComponent =
         injector.plusQuestionnaireComponent()
             .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
+            .childAge(intent.getIntExtra(CHILD_AGE_EXTRA, 0))
             .build()
 
     override fun initViews(savedState: Bundle?) {

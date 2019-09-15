@@ -18,6 +18,9 @@ import com.verbatoria.domain.dashboard.info.repository.InfoRepository
 import com.verbatoria.domain.dashboard.info.repository.InfoRepositoryImpl
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.dashboard.settings.SettingsRepositoryImpl
+import com.verbatoria.domain.late_send.repository.LateSendConverter
+import com.verbatoria.domain.late_send.repository.LateSendRepository
+import com.verbatoria.domain.late_send.repository.LateSendRepositoryImpl
 import com.verbatoria.domain.questionnaire.repository.QuestionnaireConverter
 import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepository
 import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepositoryImpl
@@ -95,5 +98,13 @@ class DatabaseModule {
     @Singleton
     fun provideBCIDataRepository(mainRoomDatabase: MainRoomDatabase): BCIDataRepository =
         BCIDataRepositoryImpl(mainRoomDatabase.bciDataDao(), BCIDataConverter())
+
+    @Provides
+    @Singleton
+    fun provideLateSendRepository(mainRoomDatabase: MainRoomDatabase): LateSendRepository =
+        LateSendRepositoryImpl(
+            mainRoomDatabase.lateSendDao(),
+            LateSendConverter()
+        )
 
 }

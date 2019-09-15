@@ -27,6 +27,9 @@ import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.dashboard.info.manager.InfoManagerImpl
 import com.verbatoria.domain.dashboard.info.repository.InfoRepository
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import com.verbatoria.domain.late_send.manager.LateSendManager
+import com.verbatoria.domain.late_send.manager.LateSendManagerImpl
+import com.verbatoria.domain.late_send.repository.LateSendRepository
 import com.verbatoria.domain.questionnaire.manager.QuestionnaireManager
 import com.verbatoria.domain.questionnaire.manager.QuestionnaireManagerImpl
 import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepository
@@ -231,15 +234,25 @@ class CommonModule {
         bciDataManager: BCIDataManager,
         questionnaireManager: QuestionnaireManager,
         activitiesManager: ActivitiesManager,
+        lateSendManager: LateSendManager,
         endpointsRegister: EndpointsRegister
     ): SubmitManager =
         SubmitManagerImpl(
             bciDataManager,
             questionnaireManager,
             activitiesManager,
+            lateSendManager,
             endpointsRegister.submitEndpoint
         )
 
+    @Provides
+    @Singleton
+    fun provideLateSendManager(
+        lateSendRepository: LateSendRepository
+    ): LateSendManager =
+        LateSendManagerImpl(
+            lateSendRepository
+        )
 
     //endregion
 

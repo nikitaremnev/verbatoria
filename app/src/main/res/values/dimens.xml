@@ -442,4 +442,9 @@
     <dimen name="schedule_progress_bar_size">60dp</dimen>
 
 
+    <!-- Late Send -->
+
+    <dimen name="late_send_item_margin_start">16dp</dimen>
+    <dimen name="late_send_item_margin_top">16dp</dimen>
+
 </resources>

@@ -29,6 +29,7 @@ private const val MAXIMUM_BCI_DATA_BLOCK_SIZE = 10
 
 class WritingPresenter(
     private val sessionId: String,
+    private val childAge: Int,
     private val writingInteractor: WritingInteractor
 ) : BasePresenter<WritingView>(),
     WritingView.Callback,
@@ -97,10 +98,7 @@ class WritingPresenter(
         if (selectedActivity != null) {
             view?.showFinishActivityFirstError()
         } else {
-            view?.apply {
-                disconnectBCI()
-                view?.openQuestionnaire(sessionId)
-            }
+            updateHasDataState()
         }
     }
 
@@ -384,6 +382,7 @@ class WritingPresenter(
                 updateCodeButtonsState()
                 updateFinishButtonState()
             }, { error ->
+                error.printStackTrace()
                 view?.showErrorSnackbar(error.localizedMessage)
             })
             .let(::addDisposable)
@@ -394,8 +393,8 @@ class WritingPresenter(
             val activityByCode = groupedActivities.getActivityByCode(activityCode)
             when {
                 activityByCode == null -> view?.setActivityNewState(activityCode)
-                activityByCode.isDone -> view?.setActivityDoneState(activityCode)
                 selectedActivity?.activityCode == activityCode -> view?.setActivitySelectedState(activityCode)
+                activityByCode.isDone -> view?.setActivityDoneState(activityCode)
             }
         }
     }
@@ -419,6 +418,7 @@ class WritingPresenter(
             .subscribe({
                 //empty
             }, { error ->
+                error.printStackTrace()
                 view?.showErrorSnackbar(error.localizedMessage)
             })
             .let(::addDisposable)
@@ -484,6 +484,23 @@ class WritingPresenter(
             .subscribe({
                 bciDataBlock.clear()
             }, { error ->
+                error.printStackTrace()
+                view?.showErrorSnackbar(error.localizedMessage)
+            })
+            .let(::addDisposable)
+    }
+
+    private fun updateHasDataState() {
+        writingInteractor.updateHasDataState(sessionId)
+            .subscribe({ isSchool ->
+                view?.disconnectBCI()
+                if (isSchool) {
+                    view?.openSubmit(sessionId)
+                } else {
+                    view?.openQuestionnaire(sessionId, childAge)
+                }
+            }, { error ->
+                error.printStackTrace()
                 view?.showErrorSnackbar(error.localizedMessage)
             })
             .let(::addDisposable)

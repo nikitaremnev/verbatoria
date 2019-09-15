@@ -85,7 +85,7 @@ interface EventDetailView : BaseView {
 
     fun hideProgress()
 
-    fun openWriting(eventId: String)
+    fun openWriting(eventId: String, childAge: Int)
 
     fun close()
 
@@ -289,8 +289,8 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
         progressDialog?.dismiss()
     }
 
-    override fun openWriting(eventId: String) {
-        startActivity(WritingActivity.createIntent(this, eventId))
+    override fun openWriting(eventId: String, childAge: Int) {
+        startActivity(WritingActivity.createIntent(this, eventId, childAge))
     }
 
     override fun close() {

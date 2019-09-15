@@ -1,10 +1,11 @@
 package com.verbatoria.ui.late_send.item
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import com.remnev.verbatoria.R
+import com.verbatoria.infrastructure.extensions.capitalizeFirstLetter
 
 /**
  * @author n.remnev
@@ -12,9 +13,11 @@ import com.remnev.verbatoria.R
 
 interface LateReportViewHolder {
 
-    fun setTitle(title: String)
+    fun setChildNameAndAge(name: String, age: Int)
 
-    fun setSubtitle(subtitle: String)
+    fun setState(stateResourceId: Int)
+
+    fun setPeriod(period: String)
 
     interface Callback {
 
@@ -29,12 +32,12 @@ class LateReportViewHolderImpl(
     callback: LateReportViewHolder.Callback
 ) : RecyclerView.ViewHolder(rootView), LateReportViewHolder {
 
-    private val titleTextView: TextView = rootView.findViewById(R.id.field_title)
-    private val subtitleTextView: TextView = rootView.findViewById(R.id.field_title)
-    private val logoImageView: ImageView = rootView.findViewById(R.id.field_image_view)
+    private val context: Context = rootView.context
+    private val childTextView: TextView = rootView.findViewById(R.id.child_text_view)
+    private val stateTextView: TextView = rootView.findViewById(R.id.state_text_view)
+    private val timePeriodTextView: TextView = rootView.findViewById(R.id.time_period_text_view)
 
     init {
-        logoImageView.setImageResource(R.drawable.ic_late_report)
         rootView.setOnClickListener {
             callback.onLateReportClicked(adapterPosition)
         }
@@ -42,12 +45,20 @@ class LateReportViewHolderImpl(
 
     //region LateReportViewHolder
 
-    override fun setTitle(title: String) {
-        titleTextView.text = title
+    override fun setChildNameAndAge(name: String, age: Int) {
+        childTextView.text = context.getString(
+            R.string.calendar_event_age_format,
+            name.capitalizeFirstLetter(),
+            age.toString()
+        )
     }
 
-    override fun setSubtitle(subtitle: String) {
-        subtitleTextView.text = subtitle
+    override fun setState(stateResourceId: Int) {
+        stateTextView.text = context.getString(stateResourceId)
+    }
+
+    override fun setPeriod(period: String) {
+        timePeriodTextView.text = period
     }
 
     //endregion

@@ -3,6 +3,7 @@ package com.verbatoria.ui.submit
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
@@ -10,6 +11,7 @@ import com.verbatoria.di.Injector
 import com.verbatoria.di.submit.SubmitComponent
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.ui.common.dialog.FragmentSuggestDialog
 
 /**
@@ -80,7 +82,7 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
     }
 
     override fun showSuccessDialog() {
-        FragmentSuggestDialog.build {
+        ActivitySuggestDialog.build {
             title = getString(R.string.submit_finished)
             message = getString(R.string.submit_finished_message)
             cancelable = true
@@ -89,7 +91,7 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
     }
 
     override fun showErrorDialog() {
-        FragmentSuggestDialog.build {
+        ActivitySuggestDialog.build {
             title = getString(R.string.submit_error)
             message = getString(R.string.submit_error_message)
             cancelable = true
@@ -106,10 +108,13 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
     //region FragmentSuggestDialog.OnClickSuggestDialogListener
 
     override fun onPositiveClicked(tag: String?) {
+        Log.e("test", "SubmitActivity onPositiveClicked")
         dialogDismissed()
     }
 
     override fun onNegativeClicked(tag: String?) {
+        Log.e("test", "SubmitActivity onNegativeClicked")
+
         dialogDismissed()
     }
 
@@ -118,6 +123,8 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
     //region FragmentSuggestDialog.OnCancelSuggestDialogListener
 
     override fun onCancelDialog(tag: String?) {
+        Log.e("test", "SubmitActivity onCancelDialog")
+
         dialogDismissed()
     }
 

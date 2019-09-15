@@ -18,12 +18,15 @@ private const val FIRST_QUESTION_POSITION = 0
 
 class QuestionnairePresenter(
     private val sessionId: String,
+    private val childAge: Int,
     private val questionnaireInteractor: QuestionnaireInteractor
 ) : BasePresenter<QuestionnaireView>(), QuestionnaireView.Callback {
 
     private var questionnaire: Questionnaire = Questionnaire(sessionId)
 
     private var isQuestionnaireLoaded: Boolean = false
+
+    private var isAgeAllowedForHobby: Boolean = false
 
     private var currentQuestionPosition: Int = 0
 
@@ -71,11 +74,17 @@ class QuestionnairePresenter(
 
     override fun onBackClicked() {
         currentQuestionPosition --
+        if (currentQuestionPosition == HOBBY_QUESTION_INDEX && !isAgeAllowedForHobby) {
+            currentQuestionPosition --
+        }
         setUpCurrentQuestionnaireState()
     }
 
     override fun onNextClicked() {
         currentQuestionPosition ++
+        if (currentQuestionPosition == HOBBY_QUESTION_INDEX && !isAgeAllowedForHobby) {
+            currentQuestionPosition ++
+        }
         setUpCurrentQuestionnaireState()
     }
 
@@ -90,10 +99,11 @@ class QuestionnairePresenter(
     //endregion
 
     private fun getQuestionnaire() {
-        questionnaireInteractor.getQuestionnaire(sessionId)
-            .subscribe({ questionnaire ->
+        questionnaireInteractor.getQuestionnaire(sessionId, childAge)
+            .subscribe({ (questionnaire, isAgeAllowedForHobby) ->
                 this.questionnaire = questionnaire
                 isQuestionnaireLoaded = true
+                this.isAgeAllowedForHobby = isAgeAllowedForHobby
                 setUpCurrentQuestionnaireState()
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage)
@@ -102,7 +112,7 @@ class QuestionnairePresenter(
     }
 
     private fun saveQuestionnaire() {
-        questionnaireInteractor.saveQuestionnaire(questionnaire)
+        questionnaireInteractor.saveQuestionnaire(sessionId, questionnaire)
             .subscribe({
                 view?.openSubmit(sessionId)
             }, { error ->

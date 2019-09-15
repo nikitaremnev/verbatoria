@@ -1,7 +1,9 @@
 package com.verbatoria.ui.late_send
 
+import com.remnev.verbatoria.R
 import com.verbatoria.business.late_send.LateSendInteractor
-import com.verbatoria.business.late_send.LateReportModel
+import com.verbatoria.domain.late_send.model.LateSend
+import com.verbatoria.domain.late_send.model.LateSendState
 import com.verbatoria.ui.base.BasePresenter
 import com.verbatoria.ui.late_send.item.LateReportViewHolder
 
@@ -9,15 +11,11 @@ import com.verbatoria.ui.late_send.item.LateReportViewHolder
  * @author n.remnev
  */
 
-private const val NO_POSITION = -1
-
 class LateSendPresenter(
     private var lateSendInteractor: LateSendInteractor
-) : BasePresenter<LateSendView>(), LateReportViewHolder.Callback {
+) : BasePresenter<LateSendView>(), LateReportViewHolder.Callback, LateSendView.Callback {
 
-    private val lateReportsList: MutableList<LateReportModel> = mutableListOf()
-
-    private var selectedPosition = NO_POSITION
+    private val lateSendList: MutableList<LateSend> = mutableListOf()
 
     private var isLateReportsLoaded = false
 
@@ -38,7 +36,41 @@ class LateSendPresenter(
     //region LateReportViewHolder.Callback
 
     override fun onLateReportClicked(position: Int) {
-        //empty
+        val lateSend = lateSendList[position]
+        if (lateSend.state == LateSendState.HAS_NOTHING) {
+            view?.showLateSendStateHint(R.string.late_send_state_nothing)
+            return
+        }
+        else if (lateSend.state == LateSendState.HAS_DATA) {
+            view?.showLateSendStateHint(R.string.late_send_state_has_data)
+            return
+        }
+        view?.showProgress()
+        lateSendInteractor
+            .sendLateSend(lateSendList[position])
+            .doOnComplete {
+                this.lateSendList.removeAt(position)
+                updateLateReportsList()
+                view?.hideProgress()
+            }
+            .subscribe(
+                { submitProgress ->
+                    view?.showSubmitProgress(submitProgress.progressResourceId)
+                },
+                { error ->
+                    loadLateReports()
+                    view?.showErrorSnackbar(error.localizedMessage)
+                }
+            )
+            .let(::addDisposable)
+    }
+
+    //endregion
+
+    //region LateSendView.Callback
+
+    override fun onNavigationClicked() {
+        view?.finish()
     }
 
     //endregion
@@ -46,79 +78,30 @@ class LateSendPresenter(
     private fun loadLateReports() {
         view?.showProgress()
         lateSendInteractor
-            .lateReports
+            .findAllLateSend()
+            .doAfterTerminate {
+                isLateReportsLoaded = true
+            }
             .subscribe(
-                { lateReports ->
-                    lateReportsList.addAll(lateReports)
+                { lateSendList ->
+                    this.lateSendList.addAll(lateSendList)
                     updateLateReportsList()
                     view?.hideProgress()
                 },
                 { error ->
-                    view?.showLateReportsIsEmpty()
+                    view?.showLateSendListIsEmpty()
                     view?.hideProgress()
                     view?.showErrorSnackbar(error.localizedMessage)
                 }
             )
-//            .let(::addDisposable)
-    }
-
-    private fun submitResults() {
-//        sessionInteractor
-//            .submitResults(lateReportsList[selectedPosition].reportFileName)
-//            .subscribe(
-//                {
-//                    finishSession()
-//                },
-//                { error ->
-//                    view?.hideLoadScheduleProgress()
-//                    view?.showErrorSnackbar(error.localizedMessage)
-//                }
-//            )
-        //            .let(::addDisposable)
-
-    }
-
-    private fun finishSession() {
-//        sessionInteractor
-//            .finishSession(lateReportsList[selectedPosition].sessionId)
-//            .subscribe(
-//                {
-//                    cleanUp()
-//                },
-//                { error ->
-//                    view?.hideLoadScheduleProgress()
-//                    view?.showErrorSnackbar(error.localizedMessage)
-//                }
-//            )
-        //            .let(::addDisposable)
-
-    }
-
-    private fun cleanUp() {
-//        sessionInteractor
-//            .cleanUp()
-//            .subscribe(
-//                {
-//                    lateReportsList.removeAt(selectedPosition)
-//                    view?.updateLateReportsList(lateReportsList)
-//                    if (lateReportsList.isEmpty()) {
-//                        view?.showLateReportsIsEmpty()
-//                    }
-//                    view?.hideLoadScheduleProgress()
-//                },
-//                { error ->
-//                    view?.hideLoadScheduleProgress()
-//                    view?.showErrorSnackbar(error.localizedMessage)
-//                }
-//            )
-        //            .let(::addDisposable)
+            .let(::addDisposable)
     }
 
     private fun updateLateReportsList() {
-        if (lateReportsList.isEmpty()) {
-            view?.showLateReportsIsEmpty()
+        if (lateSendList.isEmpty()) {
+            view?.showLateSendListIsEmpty()
         } else {
-            view?.updateLateReportsList(lateReportsList)
+            view?.updateLateSendList(lateSendList)
         }
     }
 

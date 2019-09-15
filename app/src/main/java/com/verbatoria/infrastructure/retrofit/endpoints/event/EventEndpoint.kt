@@ -1,6 +1,5 @@
 package com.verbatoria.infrastructure.retrofit.endpoints.event
 
-import com.verbatoria.data.network.response.EventResponseModel
 import com.verbatoria.infrastructure.retrofit.APIConstants.CREATE_NEW_EVENT_URL
 import com.verbatoria.infrastructure.retrofit.APIConstants.DELETE_EVENT_URL
 import com.verbatoria.infrastructure.retrofit.APIConstants.EDIT_EVENT_URL
@@ -26,7 +25,7 @@ interface EventEndpoint {
     fun editEvent(
         @Path(value = EVENT_ID_PATH_KEY) eventId: String,
         @Body params: CreateNewOrEditEventParamsDto
-    ): EventResponseModel
+    ): EventResponseDto
 
     @DELETE(DELETE_EVENT_URL)
     fun deleteEvent(

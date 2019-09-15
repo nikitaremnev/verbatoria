@@ -9,9 +9,10 @@ import com.verbatoria.domain.activities.repository.ActivitiesDao
 import com.verbatoria.domain.bci_data.model.BCIDataEntity
 import com.verbatoria.domain.bci_data.repository.BCIDataDao
 import com.verbatoria.infrastructure.db.converter.DateRoomConverter
-import com.verbatoria.domain.late_send.LateSendEntity
+import com.verbatoria.domain.late_send.model.LateSendEntity
 import com.verbatoria.domain.dashboard.info.repository.AgeGroupDao
 import com.verbatoria.domain.dashboard.info.model.AgeGroupEntity
+import com.verbatoria.domain.late_send.repository.LateSendDao
 import com.verbatoria.domain.questionnaire.repository.QuestionnaireDao
 import com.verbatoria.domain.questionnaire.model.QuestionnaireEntity
 
@@ -42,5 +43,7 @@ abstract class MainRoomDatabase : RoomDatabase() {
     abstract fun activitiesDao(): ActivitiesDao
 
     abstract fun bciDataDao(): BCIDataDao
+
+    abstract fun lateSendDao(): LateSendDao
 
 }

@@ -6,30 +6,48 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
 import com.remnev.verbatoria.R
-import com.verbatoria.business.late_send.LateReportModel
 import com.verbatoria.di.Injector
 import com.verbatoria.di.late_send.LateSendComponent
+import com.verbatoria.domain.late_send.model.LateSend
+import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
+import com.verbatoria.ui.common.dialog.ProgressDialog
+import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
 /**
  * @author n.remnev
  */
 
+private const val PROGRESS_DIALOG_TAG = "PROGRESS_DIALOG_TAG"
+
 interface LateSendView : BaseView {
 
-    fun updateLateReportsList(lateReportsList: MutableList<LateReportModel>)
+    fun updateLateSendList(lateSendList: List<LateSend>)
 
-    fun showLateReportsIsEmpty()
+    fun showLateSendListIsEmpty()
+
+    fun showLateSendStateHint(hintResourceId: Int)
+
+    fun showSubmitProgress(progressResourceId: Int)
 
     fun showProgress()
 
     fun hideProgress()
+
+    fun finish()
+
+    interface Callback {
+
+        fun onNavigationClicked()
+
+    }
 
 }
 
@@ -45,10 +63,13 @@ class LateSendActivity :
     }
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var noReportsTextView: TextView
+    private lateinit var lateSendEmptyTextView: TextView
+    private lateinit var toolbar: Toolbar
 
     @Inject
     lateinit var adapter: Adapter
+
+    private var progressDialog: ProgressDialog? = null
 
     //region BasePresenterActivity
 
@@ -60,7 +81,14 @@ class LateSendActivity :
 
     override fun initViews(savedState: Bundle?) {
         recyclerView = findViewById(R.id.late_send_reports_recycler_view)
-        noReportsTextView = findViewById(R.id.no_reports_text_view)
+        lateSendEmptyTextView = findViewById(R.id.late_send_empty_text_view)
+
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
+        toolbar.setTitle(R.string.late_send_title)
+        toolbar.setNavigationOnClickListener {
+            presenter.onNavigationClicked()
+        }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -71,20 +99,29 @@ class LateSendActivity :
 
     //region LateSendView
 
-    override fun updateLateReportsList(lateReportsList: MutableList<LateReportModel>) {
-        adapter.update(lateReportsList)
+    override fun updateLateSendList(lateSendList: List<LateSend>) {
+        adapter.update(lateSendList)
     }
 
-    override fun showLateReportsIsEmpty() {
-        noReportsTextView.visibility = View.VISIBLE
+    override fun showLateSendListIsEmpty() {
+        lateSendEmptyTextView.show()
+    }
+
+    override fun showLateSendStateHint(hintResourceId: Int) {
+        showErrorSnackbar(getString(hintResourceId))
+    }
+
+    override fun showSubmitProgress(progressResourceId: Int) {
+        showHintSnackbar(getString(progressResourceId))
     }
 
     override fun showProgress() {
-
+        progressDialog = ProgressDialog()
+        progressDialog?.show(supportFragmentManager, PROGRESS_DIALOG_TAG)
     }
 
     override fun hideProgress() {
-
+        progressDialog?.dismiss()
     }
 
     //endregion

@@ -4,7 +4,12 @@ import com.google.gson.Gson
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.domain.activities.manager.ActivitiesManager
 import com.verbatoria.domain.bci_data.manager.BCIDataManager
+import com.verbatoria.domain.child.model.Child
+import com.verbatoria.domain.late_send.manager.LateSendManager
 import com.verbatoria.domain.questionnaire.manager.QuestionnaireManager
+import com.verbatoria.domain.questionnaire.model.QuestionYesOrNoAnswer
+import com.verbatoria.domain.schedule.model.TimeSlot
+import com.verbatoria.infrastructure.extensions.MILLISECONDS_IN_SECOND
 import com.verbatoria.infrastructure.extensions.formatToServerTime
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.SubmitEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.BCIDataFileParamsDto
@@ -28,7 +33,7 @@ private const val FIRST_POSITION_INDEX = 0
 
 interface SubmitManager {
 
-    fun startSession(eventId: String): String
+    fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): String
 
     fun sendData(sessionId: String)
 
@@ -42,23 +47,40 @@ class SubmitManagerImpl(
     private val bciDataManager: BCIDataManager,
     private val questionnaireManager: QuestionnaireManager,
     private val activityManager: ActivitiesManager,
+    private val lateSendManager: LateSendManager,
     private val submitEndpoint: SubmitEndpoint
 ) : SubmitManager {
 
-    override fun startSession(eventId: String): String =
-        submitEndpoint.startSession(
+    override fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): String {
+        val sessionId = submitEndpoint.startSession(
             StartSessionParamsDto(eventId)
         ).id
+
+        if (lateSendManager.findLateSend(sessionId) == null) {
+            lateSendManager.createLateSend(
+                eventId = eventId,
+                sessionId = sessionId,
+                childName = child.name,
+                childAge = child.age,
+                startDate = timeSlot.startTime,
+                endDate = timeSlot.endTime
+            )
+        }
+
+        return sessionId
+    }
+
 
     override fun sendData(sessionId: String) {
         val bciData = bciDataManager.findAllBySessionId(sessionId)
         val versionName = BuildConfig.VERSION_NAME
         val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId)
         val currentLocale = "ru"//PreferencesStorage.getInstance().currentLocale
+        var firstTimeStamp = bciData.firstOrNull()?.timestamp ?: System.currentTimeMillis()
 
         val bciDataMutableList = bciData.map { bciDataItem ->
             BCIDataItemParamsDto(
-                sessionId = bciDataItem.sessionId,
+                sessionId = sessionId,
                 activityCode = bciDataItem.activityCode,
                 questionnaire = "",
                 applicationVersion = versionName,
@@ -76,30 +98,128 @@ class SubmitManagerImpl(
             )
         }.toMutableList()
 
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+
         bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = currentLocale))
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = currentLocale,
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.includeHobby.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto())
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.includeAttentionMemory.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.reportType.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.understandingYourselfAnswer.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.understandingPeopleAnswer.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.bodyKinestheticAnswer.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.spatialAnswer.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.musicAnswer.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.logicMathematicalAnswer.value.toString()))
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(questionnaire = questionnaire.linguisticQuestionAnswer.value.toString()))
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = if (questionnaire.includeHobby == QuestionYesOrNoAnswer.NO_ANSWER) {
+                    "0"
+                } else {
+                    questionnaire.includeHobby.value.toString()
+                },
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.includeAttentionMemory.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.reportType.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.understandingYourselfAnswer.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.understandingPeopleAnswer.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.bodyKinestheticAnswer.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.spatialAnswer.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.musicAnswer.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.logicMathematicalAnswer.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.linguisticQuestionAnswer.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
 
         val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(sessionId))
         if (!reportFile.exists()) {
@@ -126,6 +246,7 @@ class SubmitManagerImpl(
         bciDataManager.deleteAllBySessionId(sessionId)
         activityManager.deleteBySessionId(sessionId)
         questionnaireManager.deleteQuestionnaireBySessionId(sessionId)
+        lateSendManager.deleteLateSendBySessionId(sessionId)
         val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(sessionId))
         if (reportFile.exists()) {
             reportFile.delete()
