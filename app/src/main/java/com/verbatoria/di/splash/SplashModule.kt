@@ -1,5 +1,6 @@
 package com.verbatoria.di.splash
 
+import com.verbatoria.infrastructure.file.FileUtil
 import com.verbatoria.ui.splash.SplashPresenter
 import dagger.Module
 import dagger.Provides
@@ -14,7 +15,7 @@ class SplashModule {
 
     @Provides
     @Reusable
-    fun provideSplashPresenter(): SplashPresenter =
-        SplashPresenter()
+    fun provideSplashPresenter(fileUtil: FileUtil): SplashPresenter =
+        SplashPresenter(fileUtil)
 
 }

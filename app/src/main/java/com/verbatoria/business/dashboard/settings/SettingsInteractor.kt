@@ -25,7 +25,7 @@ interface SettingsInteractor {
 
     fun getAppLanguagesAvailability(): Single<Map<String, Boolean>>
 
-    fun clearDatabase(): Completable
+    fun setCurrentLanguage(language: String): Completable
 
     fun logout(): Completable
 
@@ -65,9 +65,9 @@ class SettingsInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun clearDatabase(): Completable =
+    override fun setCurrentLanguage(language: String): Completable =
         Completable.fromCallable {
-            Thread.sleep(5000)
+            settingsRepository.putCurrentLocale(language)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

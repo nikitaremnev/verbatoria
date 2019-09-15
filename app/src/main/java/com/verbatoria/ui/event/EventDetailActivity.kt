@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import com.remnev.verbatoria.R
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.domain.child.model.Child
 import com.verbatoria.business.event.models.item.EventDetailItem
 import com.verbatoria.domain.client.model.Client
@@ -24,9 +25,7 @@ import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
 import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.ui.common.dialog.ProgressDialog
-import com.verbatoria.ui.questionnaire.QuestionnaireActivity
 import com.verbatoria.ui.writing.WritingActivity
-import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
 import javax.inject.Inject
 
@@ -209,7 +208,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
     }
 
     override fun showDatePickerDialog() {
-        val now = Calendar.getInstance(Locale(LOCALE_RU))
+        val now = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE))
         val datePickerDialog = DatePickerDialog(
             this,
             presenter,

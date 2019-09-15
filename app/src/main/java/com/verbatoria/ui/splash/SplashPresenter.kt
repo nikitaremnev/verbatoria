@@ -1,8 +1,8 @@
 package com.verbatoria.ui.splash
 
 import android.os.Handler
+import com.verbatoria.infrastructure.file.FileUtil
 import com.verbatoria.ui.base.BasePresenter
-import com.verbatoria.utils.FileUtils
 
 /**
  * @author n.remnev
@@ -10,10 +10,12 @@ import com.verbatoria.utils.FileUtils
 
 private const val OPEN_LOGIN_DELAY = 2000L
 
-class SplashPresenter : BasePresenter<SplashView>(), SplashView.Callback {
+class SplashPresenter(
+    fileUtil: FileUtil
+) : BasePresenter<SplashView>(), SplashView.Callback {
 
     init {
-        FileUtils.createApplicationDirectory()
+        fileUtil.createApplicationDirectory()
     }
 
     override fun onAttachView(view: SplashView) {

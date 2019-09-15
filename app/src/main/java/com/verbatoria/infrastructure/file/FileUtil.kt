@@ -17,8 +17,13 @@ private const val PERCENT_100 = 100
 private const val BYTE_ARRAY_SIZE = 1024
 private const val VERBATORIA_PATH_NAME = "verbatoria"
 private const val BYTES_PER_MEGABYTE = 1048576f // 1 mb
+private const val APPLICATION_FILES_DIRECTORY = "Verbatoria"
 
 interface FileUtil {
+
+    fun createApplicationDirectory()
+
+    fun getApplicationDirectory(): File
 
     fun saveFile(filePath: String, fileName: String, data: ByteArray): String
 
@@ -65,6 +70,16 @@ class FileUtilImpl(
 ) : FileUtil {
 
     private val logger = LoggerFactory.getLogger("FileUtil")
+
+    override fun createApplicationDirectory() {
+        val applicationDirectory = getApplicationDirectory()
+        if (!applicationDirectory.exists()) {
+            applicationDirectory.mkdirs()
+        }
+    }
+
+    override fun getApplicationDirectory(): File =
+        File(Environment.getExternalStorageDirectory(), APPLICATION_FILES_DIRECTORY);
 
     override fun saveFile(filePath: String, fileName: String, data: ByteArray): String {
         val file = createFile(filePath, fileName)

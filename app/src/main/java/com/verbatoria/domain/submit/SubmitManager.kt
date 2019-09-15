@@ -5,17 +5,18 @@ import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.domain.activities.manager.ActivitiesManager
 import com.verbatoria.domain.bci_data.manager.BCIDataManager
 import com.verbatoria.domain.child.model.Child
+import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.late_send.manager.LateSendManager
 import com.verbatoria.domain.questionnaire.manager.QuestionnaireManager
 import com.verbatoria.domain.questionnaire.model.QuestionYesOrNoAnswer
 import com.verbatoria.domain.schedule.model.TimeSlot
 import com.verbatoria.infrastructure.extensions.MILLISECONDS_IN_SECOND
 import com.verbatoria.infrastructure.extensions.formatToServerTime
+import com.verbatoria.infrastructure.file.FileUtil
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.SubmitEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.BCIDataFileParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.BCIDataItemParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.StartSessionParamsDto
-import com.verbatoria.utils.FileUtils
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
@@ -48,7 +49,9 @@ class SubmitManagerImpl(
     private val questionnaireManager: QuestionnaireManager,
     private val activityManager: ActivitiesManager,
     private val lateSendManager: LateSendManager,
-    private val submitEndpoint: SubmitEndpoint
+    private val settingsRepository: SettingsRepository,
+    private val submitEndpoint: SubmitEndpoint,
+    private val fileUtil: FileUtil
 ) : SubmitManager {
 
     override fun startSession(eventId: String, reportId: String, child: Child, timeSlot: TimeSlot): String {
@@ -76,7 +79,7 @@ class SubmitManagerImpl(
         val bciData = bciDataManager.findAllBySessionId(sessionId)
         val versionName = BuildConfig.VERSION_NAME
         val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId)
-        val currentLocale = "ru"//PreferencesStorage.getInstance().currentLocale
+        val currentLocale = settingsRepository.getCurrentLocale()
         var firstTimeStamp = bciData.firstOrNull()?.timestamp ?: System.currentTimeMillis()
 
         val bciDataMutableList = bciData.map { bciDataItem ->
@@ -222,7 +225,7 @@ class SubmitManagerImpl(
             )
         )
 
-        val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(sessionId))
+        val reportFile = File(fileUtil.getApplicationDirectory(), getReportFileName(sessionId))
         if (!reportFile.exists()) {
             reportFile.createNewFile()
         }
@@ -248,7 +251,7 @@ class SubmitManagerImpl(
         activityManager.deleteBySessionId(sessionId)
         questionnaireManager.deleteQuestionnaireBySessionId(sessionId)
         lateSendManager.deleteLateSendBySessionId(sessionId)
-        val reportFile = File(FileUtils.getApplicationDirectory(), getReportFileName(sessionId))
+        val reportFile = File(fileUtil.getApplicationDirectory(), getReportFileName(sessionId))
         if (reportFile.exists()) {
             reportFile.delete()
         }

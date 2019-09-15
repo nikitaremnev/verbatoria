@@ -3,7 +3,6 @@ package com.verbatoria.ui.login
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.login.LoginInteractor
 import com.verbatoria.ui.base.BasePresenter
-import com.verbatoria.utils.CountryHelper
 import org.slf4j.LoggerFactory
 
 /**

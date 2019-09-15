@@ -1,18 +1,24 @@
 package com.verbatoria.domain.dashboard.settings
 
 import android.content.SharedPreferences
+import com.verbatoria.business.dashboard.LocalesAvailable
 
 /**
  * @author n.remnev
  */
 
 private const val LOCALES_KEY = "locales"
+private const val CURRENT_LOCALE_KEY = "current_locale"
 
 interface SettingsRepository {
 
     fun putLocales(locales: List<String>)
 
     fun getLocales(): List<String>
+
+    fun putCurrentLocale(locale: String)
+
+    fun getCurrentLocale(): String
 
     fun deleteAll()
 
@@ -31,6 +37,16 @@ class SettingsRepositoryImpl(
 
     override fun getLocales(): List<String> =
         sharedPreferences.getStringSet(LOCALES_KEY, setOf<String>()).toList()
+
+    override fun putCurrentLocale(locale: String) {
+        sharedPreferences.edit().apply {
+            putString(CURRENT_LOCALE_KEY, locale)
+            apply()
+        }
+    }
+
+    override fun getCurrentLocale(): String =
+        sharedPreferences.getString(CURRENT_LOCALE_KEY, LocalesAvailable.RUSSIAN_LOCALE)
 
     override fun deleteAll() {
         sharedPreferences

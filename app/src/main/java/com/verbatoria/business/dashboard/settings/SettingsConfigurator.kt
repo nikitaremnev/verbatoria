@@ -15,8 +15,6 @@ interface SettingsConfigurator {
 
         const val SETTINGS_LATE_SEND_ID = 1
 
-        const val SETTINGS_CLEAR_DATABASE_ID = 2
-
         const val SETTINGS_APP_LANGUAGE_ID = 3
 
         const val SETTINGS_ABOUT_APP_ID = 4
@@ -42,11 +40,6 @@ class SettingsConfiguratorImpl : SettingsConfigurator {
                 id = SettingsConfigurator.SETTINGS_LATE_SEND_ID,
                 titleResourceId = R.string.late_send_title,
                 logoResourceId = R.drawable.ic_report
-            ),
-            SettingsItemModel(
-                id = SettingsConfigurator.SETTINGS_CLEAR_DATABASE_ID,
-                titleResourceId = R.string.settings_item_clear,
-                logoResourceId = R.drawable.ic_clear
             ),
             SettingsItemModel(
                 id = SettingsConfigurator.SETTINGS_APP_LANGUAGE_ID,

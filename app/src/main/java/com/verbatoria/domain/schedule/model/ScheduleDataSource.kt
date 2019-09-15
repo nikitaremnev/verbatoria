@@ -1,10 +1,10 @@
 package com.verbatoria.domain.schedule.model
 
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.domain.schedule.model.ScheduleDataSource.Companion.COLUMN_COUNT
 import com.verbatoria.domain.schedule.model.ScheduleDataSource.Companion.ROWS_COUNT
 import com.verbatoria.infrastructure.extensions.dropToStartOfTheDay
 import com.verbatoria.utils.DateUtils
-import com.verbatoria.utils.LocaleHelper.LOCALE_RU
 import java.util.*
 
 /**
@@ -61,12 +61,12 @@ interface ScheduleDataSource {
 class ScheduleDataSourceImpl : ScheduleDataSource {
 
     private var originalCalendar: Calendar
-    private var currentCalendar: Calendar = Calendar.getInstance(Locale(LOCALE_RU))
+    private var currentCalendar: Calendar = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE))
 
     private var scheduleItems: MutableMap<Int, List<ScheduleCellItem>> = hashMapOf()
 
     constructor() {
-        originalCalendar = Calendar.getInstance(Locale(LOCALE_RU))
+        originalCalendar = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE))
         originalCalendar.dropToStartOfTheDay()
 
         var dayOfWeekIndex = 1
@@ -215,7 +215,7 @@ class ScheduleDataSourceImpl : ScheduleDataSource {
         scheduleItems
 
     override fun setWorkingInterval(date: Date) {
-        currentCalendar = Calendar.getInstance(Locale(LOCALE_RU))
+        currentCalendar = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE))
         currentCalendar.time = date
         val currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY)
         if (isHourInBorders(currentHour)) {

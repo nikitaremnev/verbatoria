@@ -1,5 +1,6 @@
 package com.verbatoria.domain.schedule.manager
 
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.domain.schedule.model.ScheduleDataSource
 import com.verbatoria.domain.schedule.model.ScheduleDataSourceImpl
 import com.verbatoria.domain.schedule.model.TimeSlot
@@ -77,7 +78,7 @@ class ScheduleManagerImpl(
         val currentSchedule = scheduleDataSource.getSchedule()
         val scheduleItemsToSave = mutableListOf<ScheduleItemParamsDto>()
 
-        val calendar = Calendar.getInstance(Locale(LocaleHelper.LOCALE_RU)).apply {
+        val calendar = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE)).apply {
             time = scheduleDataSource.getFirstDayOfCurrentWeek()
         }
 

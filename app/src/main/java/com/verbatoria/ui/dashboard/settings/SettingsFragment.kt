@@ -27,14 +27,11 @@ import javax.inject.Inject
 
 private const val APP_LANGUAGES_DIALOG_TAG = "APP_LANGUAGES_DIALOG_TAG"
 private const val ABOUT_APP_DIALOG_TAG = "ABOUT_APP_DIALOG_TAG"
-private const val CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG = "CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG"
 private const val PROGRESS_DIALOG_TAG = "PROGRESS_DIALOG_TAG"
 
 interface SettingsView : BaseView {
 
     fun showAboutAppDialog(appVersion: String, androidVersion: String)
-
-    fun showClearDatabaseConfirmationDialog()
 
     fun showAppLanguagesDialog(
         isRussianLanguageAvailable: Boolean,
@@ -59,8 +56,6 @@ interface SettingsView : BaseView {
 
     interface Callback {
 
-        fun onDatabaseClearConfirmed()
-
         fun onRussianLanguageSelected()
 
         fun onEnglishLanguageSelected()
@@ -75,7 +70,7 @@ interface SettingsView : BaseView {
 
 class SettingsFragment :
     BasePresenterFragment<SettingsView, DashboardComponent, SettingsFragment, SettingsComponent, SettingsPresenter>(),
-    SettingsView, FragmentSuggestDialog.OnClickSuggestDialogListener, AppLanguagesDialog.OnLanguageSelectedDialogListener {
+    SettingsView, AppLanguagesDialog.OnLanguageSelectedDialogListener {
 
     companion object {
 
@@ -116,15 +111,6 @@ class SettingsFragment :
             .show(activity?.supportFragmentManager, ABOUT_APP_DIALOG_TAG)
     }
 
-    override fun showClearDatabaseConfirmationDialog() {
-        FragmentSuggestDialog.build {
-            title = getString(R.string.settings_clear_database_confirm_title)
-            message = getString(R.string.settings_clear_database_confirm_message)
-            positiveTitleBtn = getString(R.string.settings_item_clear)
-            negativeTitleBtn = getString(R.string.cancel)
-        }.show(activity?.supportFragmentManager, CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG)
-    }
-
     override fun showAppLanguagesDialog(
         isRussianLanguageAvailable: Boolean,
         isEnglishLanguageAvailable: Boolean,
@@ -144,7 +130,7 @@ class SettingsFragment :
     }
 
     override fun setLanguage(locale: String) {
-        LocaleHelper.setLocale(activity, locale)
+        activity?.let { LocaleHelper.setLocale(it, locale) }
         activity?.recreate()
     }
 
@@ -173,20 +159,6 @@ class SettingsFragment :
         activity?.let { activity ->
             startActivity(LateSendActivity.createIntent(activity))
         }
-    }
-
-    //endregion
-
-    //region FragmentSuggestDialog.OnClickSuggestDialogListener
-
-    override fun onPositiveClicked(tag: String?) {
-        if (tag == CLEAR_DATABASE_CONFIRMATION_DIALOG_TAG) {
-            presenter.onDatabaseClearConfirmed()
-        }
-    }
-
-    override fun onNegativeClicked(tag: String?) {
-        //empty
     }
 
     //endregion

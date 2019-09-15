@@ -235,14 +235,18 @@ class CommonModule {
         questionnaireManager: QuestionnaireManager,
         activitiesManager: ActivitiesManager,
         lateSendManager: LateSendManager,
-        endpointsRegister: EndpointsRegister
+        settingsRepository: SettingsRepository,
+        endpointsRegister: EndpointsRegister,
+        fileUtil: FileUtil
     ): SubmitManager =
         SubmitManagerImpl(
             bciDataManager,
             questionnaireManager,
             activitiesManager,
             lateSendManager,
-            endpointsRegister.submitEndpoint
+            settingsRepository,
+            endpointsRegister.submitEndpoint,
+            fileUtil
         )
 
     @Provides
