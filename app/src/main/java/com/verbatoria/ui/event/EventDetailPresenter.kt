@@ -73,7 +73,7 @@ class EventDetailPresenter(
         } else {
             event?.let { event ->
                 view.setTitle(R.string.event_detail_start_mode_title)
-                if (!event.report.isSentOrReady() && !event.report.isCanceled()) {
+                if (!event.report.isNew()) {
                     view.showDeleteMenuItem()
                 }
             } ?: throw IllegalStateException("Event is null and event mode is not create new")
@@ -208,9 +208,6 @@ class EventDetailPresenter(
     //region EventDetailHobbyItemViewHolder.Callback
 
     override fun onHobbyClicked() {
-        if (currentMode.isViewOnly()) {
-            return
-        }
         findEventDetailItemInList<EventDetailHobbyItem>()
             ?.let { eventDetailHobbyItem ->
                 if (!eventDetailHobbyItem.isHobbyIncluded && !eventDetailHobbyItem.isLoading) {
@@ -224,9 +221,6 @@ class EventDetailPresenter(
     //region EventDetailIncludeAttentionMemoryItemViewHolder.Callback
 
     override fun onIncludeAttentionMemoryClicked() {
-        if (currentMode.isViewOnly()) {
-            return
-        }
         findEventDetailItemInList<EventDetailIncludeAttentionMemoryItem>()
             ?.let { eventDetailIncludeAttentionMemoryItem ->
                 if (!eventDetailIncludeAttentionMemoryItem.isAttentionMemoryIncluded && !eventDetailIncludeAttentionMemoryItem.isLoading) {
@@ -493,6 +487,8 @@ class EventDetailPresenter(
     private fun startSession() {
         view?.showProgress()
         eventDetailInteractor.startSession(event?.id ?: throw IllegalStateException("Try to start session while event is null"),
+            event?.report?.reportId ?: throw IllegalStateException("Try to start session while report id is null"),
+
             child ?: throw IllegalStateException("Try to start session while child is null"),
             selectedTimeSlot ?: throw IllegalStateException("Try to start session while selectedTimeSlot is null"))
             .doAfterTerminate {

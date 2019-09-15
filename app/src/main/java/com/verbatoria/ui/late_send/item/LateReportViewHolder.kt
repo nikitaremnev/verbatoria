@@ -19,6 +19,8 @@ interface LateReportViewHolder {
 
     fun setPeriod(period: String)
 
+    fun setReportId(reportId: String)
+
     interface Callback {
 
         fun onLateReportClicked(position: Int)
@@ -36,6 +38,7 @@ class LateReportViewHolderImpl(
     private val childTextView: TextView = rootView.findViewById(R.id.child_text_view)
     private val stateTextView: TextView = rootView.findViewById(R.id.state_text_view)
     private val timePeriodTextView: TextView = rootView.findViewById(R.id.time_period_text_view)
+    private val reportIdTextView: TextView = rootView.findViewById(R.id.report_id_text_view)
 
     init {
         rootView.setOnClickListener {
@@ -59,6 +62,10 @@ class LateReportViewHolderImpl(
 
     override fun setPeriod(period: String) {
         timePeriodTextView.text = period
+    }
+
+    override fun setReportId(reportId: String) {
+        reportIdTextView.text = reportId
     }
 
     //endregion

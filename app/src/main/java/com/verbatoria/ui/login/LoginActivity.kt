@@ -55,6 +55,8 @@ interface LoginView : BaseView {
 
     fun hideProgressForLoginWithError()
 
+    fun isCountryRequireSkipSMSConfirmation(country: String): Boolean
+
     fun openDashboard()
 
     fun openRecoveryPassword(phone: String)
@@ -279,6 +281,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         passwordClearButton.show()
         progressBar.hide()
     }
+
+    override fun isCountryRequireSkipSMSConfirmation(country: String): Boolean =
+        CountryHelper.isCountryRequireSkipSMSConfirmation(this, country)
 
     override fun openDashboard() {
         startActivity(DashboardActivity.createIntent(this))

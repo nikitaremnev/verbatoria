@@ -1,13 +1,10 @@
 package com.verbatoria.domain.activities.model
 
-import android.os.Build
-import com.remnev.verbatoria.BuildConfig
-
 /**
  * @author n.remnev
  */
 
-val MINIMUM_ACTIVITY_TIME = if (BuildConfig.DEBUG) 3 else 15
+const val MINIMUM_ACTIVITY_TIME = 15//if (BuildConfig.DEBUG) 3 else 15
 
 data class GroupedActivities(
     private val activities: MutableList<Activity> = mutableListOf()

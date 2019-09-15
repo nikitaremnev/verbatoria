@@ -47,7 +47,7 @@ interface EventDetailInteractor {
 
     fun includeAttentionMemory(reportId: String): Completable
 
-    fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): Single<String>
+    fun startSession(eventId: String, reportId: String, child: Child, timeSlot: TimeSlot): Single<String>
 
 }
 
@@ -191,7 +191,7 @@ class EventDetailInteractorImpl(
                 )
             }
 
-            if (!event.report.isCanceled()) {
+            if (event.report.isNew()) {
                 eventDetailItems.add(
                     EventDetailSubmitItem(
                         mode = EventDetailMode.START,
@@ -286,9 +286,9 @@ class EventDetailInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): Single<String> =
+    override fun startSession(eventId: String, reportId: String, child: Child, timeSlot: TimeSlot): Single<String> =
         Single.fromCallable {
-            submitManager.startSession(eventId, child, timeSlot)
+            submitManager.startSession(eventId, reportId, child, timeSlot)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

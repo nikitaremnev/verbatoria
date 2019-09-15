@@ -13,6 +13,7 @@ class LateSendEntity(
     @PrimaryKey
     val sessionId: String,
     val eventId: String,
+    val reportId: String,
     val childName: String,
     val childAge: Int,
     val startDate: Date,

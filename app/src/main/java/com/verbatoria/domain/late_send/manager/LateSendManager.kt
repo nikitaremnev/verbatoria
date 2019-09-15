@@ -15,7 +15,7 @@ interface LateSendManager {
 
     fun findAllLateSend(): List<LateSend>
 
-    fun createLateSend(eventId: String, sessionId: String, childName: String, childAge: Int,
+    fun createLateSend(eventId: String, sessionId: String, reportId: String, childName: String, childAge: Int,
                        startDate: Date, endDate: Date)
 
     fun updateLateSendState(sessionId: String, state: LateSendState)
@@ -37,6 +37,7 @@ class LateSendManagerImpl(
     override fun createLateSend(
         eventId: String,
         sessionId: String,
+        reportId: String,
         childName: String,
         childAge: Int,
         startDate: Date,
@@ -46,6 +47,7 @@ class LateSendManagerImpl(
             LateSend(
                 eventId = eventId,
                 sessionId = sessionId,
+                reportId = reportId,
                 childName = childName,
                 childAge = childAge,
                 startDate = startDate,

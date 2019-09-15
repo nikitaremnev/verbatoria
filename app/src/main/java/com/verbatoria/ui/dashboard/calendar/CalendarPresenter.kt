@@ -81,7 +81,7 @@ class CalendarPresenter(
             val event = eventsList[position]
             view?.openEventDetail(
                 event,
-                if (event.report.isCanceled()) {
+                if (!event.report.isNew()) {
                     EventDetailMode.VIEW_ONLY
                 } else {
                     EventDetailMode.START

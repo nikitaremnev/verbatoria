@@ -33,7 +33,7 @@ private const val FIRST_POSITION_INDEX = 0
 
 interface SubmitManager {
 
-    fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): String
+    fun startSession(eventId: String, reportId: String, child: Child, timeSlot: TimeSlot): String
 
     fun sendData(sessionId: String)
 
@@ -51,7 +51,7 @@ class SubmitManagerImpl(
     private val submitEndpoint: SubmitEndpoint
 ) : SubmitManager {
 
-    override fun startSession(eventId: String, child: Child, timeSlot: TimeSlot): String {
+    override fun startSession(eventId: String, reportId: String, child: Child, timeSlot: TimeSlot): String {
         val sessionId = submitEndpoint.startSession(
             StartSessionParamsDto(eventId)
         ).id
@@ -60,6 +60,7 @@ class SubmitManagerImpl(
             lateSendManager.createLateSend(
                 eventId = eventId,
                 sessionId = sessionId,
+                reportId = reportId,
                 childName = child.name,
                 childAge = child.age,
                 startDate = timeSlot.startTime,

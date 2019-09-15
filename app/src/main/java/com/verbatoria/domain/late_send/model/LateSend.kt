@@ -12,6 +12,7 @@ import java.util.*
 data class LateSend(
     var eventId: String,
     var sessionId: String,
+    val reportId: String,
     var childName: String,
     var childAge: Int,
     var startDate: Date,

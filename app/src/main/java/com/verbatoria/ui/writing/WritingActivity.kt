@@ -41,6 +41,7 @@ private const val Y_AXIS_MINIMUM = 0f
 private const val Y_AXIS_MAXIMUM = 100f
 private const val VISIBLE_RANGE_MAXIMUM = 20f
 private const val LINE_CHART_WIDTH = 3f
+private const val MAX_CHART_VALUES_SIZE = 21
 
 interface WritingView : BaseView {
 
@@ -274,7 +275,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun updateTimerTime(totalLoadTime: Int) {
         uiHandler.post {
-            timerTextView.text = getString(R.string.writing_timer, totalLoadTime)
+            timerTextView.text = getString(R.string.writing_timer, totalLoadTime.toString())
         }
     }
 
@@ -341,7 +342,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         data.addEntry(Entry(attentionValue.toFloat(), set.entryCount), 0)
 
         lineChart.notifyDataSetChanged()
-        lineChart.moveViewToX((data.xValCount - 21).toFloat())
+        lineChart.setVisibleXRangeMaximum(VISIBLE_RANGE_MAXIMUM)
+        lineChart.moveViewToX((data.xValCount - MAX_CHART_VALUES_SIZE).toFloat())
     }
 
     override fun openQuestionnaire(sessionId: String, childAge: Int) {
@@ -374,17 +376,11 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun showConnectionErrorDialogState() {
         uiHandler.post {
-            Log.e("test", "WritingActivity showConnectionErrorDialogState runOnUiThread")
             if (bciConnectionDialog == null) {
                 showBCIConnectionDialog()
-                Log.e(
-                    "test",
-                    "WritingActivity showConnectionErrorDialogState showBCIConnectionDialog"
-                )
             } else {
                 bciConnectionDialog?.showConnectionError()
             }
-            Log.e("test", "WritingActivity showConnectionErrorDialogState showConnectionError")
         }
     }
 
@@ -454,11 +450,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
             legend.isEnabled = false
 
             setBackgroundColor(getColorFromRes(R.color.font))
-
-            isScaleXEnabled = false
-            isScaleYEnabled = false
-
-            setVisibleXRangeMaximum(VISIBLE_RANGE_MAXIMUM)
         }
 
         setUpXAxis()

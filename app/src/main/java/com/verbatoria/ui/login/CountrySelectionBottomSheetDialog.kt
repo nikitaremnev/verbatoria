@@ -85,7 +85,14 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, R.string.country_swiss)
         }
-
+        view.findViewById<View>(R.id.indonesia_country_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_indonesia)
+        }
+        view.findViewById<View>(R.id.malaysia_country_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_malaysia)
+        }
         return view
     }
 

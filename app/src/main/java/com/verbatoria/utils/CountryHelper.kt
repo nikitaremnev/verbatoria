@@ -21,8 +21,15 @@ object CountryHelper {
             context.getString(R.string.country_azerbaijan) -> R.drawable.ic_flag_az
             context.getString(R.string.country_uae) -> R.drawable.ic_flag_ae
             context.getString(R.string.country_ukraine) -> R.drawable.ic_flag_ukr
+            context.getString(R.string.country_indonesia) -> R.drawable.ic_flag_id
+            context.getString(R.string.country_malaysia) -> R.drawable.ic_flag_my
             else -> R.drawable.ic_flag_ru
         }
+
+    fun isCountryRequireSkipSMSConfirmation(context: Context, country: String): Boolean =
+        country == context.getString(R.string.country_hong_kong) ||
+                country == context.getString(R.string.country_malaysia) ||
+                country == context.getString(R.string.country_indonesia)
 
     fun getPhoneFormatterByCountry(context: Context, country: String): String =
         when (country) {
@@ -36,6 +43,8 @@ object CountryHelper {
             context.getString(R.string.country_azerbaijan) -> context.getString(R.string.login_azerbaijan_phone_mask)
             context.getString(R.string.country_uae) -> context.getString(R.string.login_uae_phone_mask)
             context.getString(R.string.country_ukraine) -> context.getString(R.string.login_ukraine_phone_mask)
+            context.getString(R.string.country_indonesia) -> context.getString(R.string.login_indonesia_phone_mask)
+            context.getString(R.string.country_malaysia) -> context.getString(R.string.login_malaysia_phone_mask)
             else -> context.getString(R.string.login_russia_phone_mask)
         }
 

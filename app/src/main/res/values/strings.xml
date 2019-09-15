@@ -273,6 +273,8 @@
     <string name="login_uzbekistan_phone_mask">+ [000] [00] [0000000]</string>
     <string name="login_hong_kong_phone_mask">+ [000] [0000] [0000]</string>
     <string name="login_swiss_phone_mask">+ [00] [00] [000] [00] [00]</string>
+    <string name="login_malaysia_phone_mask">+ [00] [00] [0000000]</string>
+    <string name="login_indonesia_phone_mask">+ [00] [000] [00000000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
@@ -298,6 +300,8 @@
     <string name="country_uzbekistan">Узбекистан</string>
     <string name="country_hong_kong">Гонконг</string>
     <string name="country_swiss">Швейцария</string>
+    <string name="country_malaysia">Малайзия</string>
+    <string name="country_indonesia">Индонезия</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

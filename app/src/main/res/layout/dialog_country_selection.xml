@@ -277,6 +277,56 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/indonesia_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_id" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_indonesia" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/malaysia_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_my" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_malaysia" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

@@ -2,7 +2,6 @@ package com.verbatoria.ui.writing
 
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
-import android.util.Log
 import com.neurosky.connection.EEGPower
 import com.remnev.verbatoria.R
 import com.verbatoria.business.writing.WritingInteractor
@@ -86,6 +85,13 @@ class WritingPresenter(
         if (isGroupedActivitiesLoaded) {
             updateCodeButtonsState()
             updateFinishButtonState()
+            if (selectedActivity != null) {
+                view.showTimer()
+            }
+            if (MUSIC_BUTTON_CODE == selectedActivity?.activityCode?.code) {
+                view.setUpPauseMode()
+                view.showMusicFileName(currentMusicFileIndex.toString())
+            }
         }
         if (!isBCIConnected) {
             view.showBCIConnectionDialog()
@@ -201,20 +207,15 @@ class WritingPresenter(
     //region BCIConnectionDialogCallback
 
     override fun onStartClicked() {
-        Log.e("test", "BCIConnectionDialogCallback onStartClicked")
-
         view?.dismissBCIConnectionDialog()
         view?.startBCIWriting()
     }
 
     override fun onConnectClicked() {
-        Log.e("test", "BCIConnectionDialogCallback onConnectClicked")
         view?.connectBCI()
     }
 
     override fun onExitClicked() {
-        Log.e("test", "onExitClicked onStartClicked")
-
         view?.apply {
             dismissBCIConnectionDialog()
             close()
@@ -230,7 +231,6 @@ class WritingPresenter(
     //region BCIDataCallback
 
     override fun onAttentionDataReceived(attentionValue: Int) {
-        Log.e("test", "onAttentionDataReceived $attentionValue")
         val currentTimeInMillis = System.currentTimeMillis()
 
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
@@ -244,7 +244,6 @@ class WritingPresenter(
     }
 
     override fun onMediationDataReceived(mediationValue: Int) {
-        Log.e("test", "onMediationDataReceived $mediationValue")
         val currentTimeInMillis = System.currentTimeMillis()
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
             currentBCIData.mediation = mediationValue
@@ -255,8 +254,6 @@ class WritingPresenter(
     }
 
     override fun onEEGDataReceivedCallback(eegPower: EEGPower) {
-        Log.e("test", "onEEGDataReceivedCallback $eegPower")
-
         val currentTimeInMillis = System.currentTimeMillis()
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
             currentBCIData.delta = eegPower.delta
@@ -278,42 +275,32 @@ class WritingPresenter(
     //region BCIConnectionStateCallback
 
     override fun onConnecting() {
-        Log.e("test", "BCIConnectionStateCallback onConnecting")
-
         view?.showConnectingDialogState()
     }
 
     override fun onConnected() {
-        Log.e("test", "BCIConnectionStateCallback onConnected")
         view?.showConnectedDialogState()
         isBCIConnected = true
     }
 
     override fun onWorking() {
-        Log.e("test", "BCIConnectionStateCallback onWorking")
-
         //empty
     }
 
     override fun onRecordingStarted() {
-        Log.e("test", "BCIConnectionStateCallback onRecordingStarted")
         //empty
     }
 
     override fun onConnectionFailed() {
-        Log.e("test", "BCIConnectionStateCallback onConnectionFailed")
         view?.showConnectionErrorDialogState()
         isBCIConnected = false
     }
 
     override fun onDisconnected() {
-        Log.e("test", "BCIConnectionStateCallback onDisconnected")
         isBCIConnected = false
     }
 
     override fun onBluetoothDisabled() {
-        Log.e("test", "BCIConnectionStateCallback onBluetoothDisabled")
-
         view?.showBluetoothDisabledDialogState()
     }
 

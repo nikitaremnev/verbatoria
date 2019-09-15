@@ -19,6 +19,8 @@ data class Report(
     val updatedAt: Date
 ): Parcelable {
 
+    fun isNew() = status == ReportStatus.NEW
+
     fun isSent() = status == ReportStatus.SENT
 
     fun isSentOrReady() = status == ReportStatus.SENT || status == ReportStatus.READY

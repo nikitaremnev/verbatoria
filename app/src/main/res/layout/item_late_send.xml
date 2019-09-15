@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/event_item_height"
+    android:layout_height="wrap_content"
     android:foreground="?selectableItemBackground"
     android:background="@color/white"
     android:orientation="vertical">
@@ -39,12 +39,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/event_fields_margin_left"
         android:layout_marginBottom="@dimen/event_report_id_margin_bottom"
+        android:layout_marginTop="@dimen/late_send_item_margin_top"
         android:textSize="@dimen/event_report_id_text_size"
         android:maxLines="1"
+        android:text="@string/late_send_state_data_sent"
         android:ellipsize="end"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/status_image_view"
         app:layout_constraintTop_toBottomOf="@+id/child_text_view" />
+
+    <TextView
+        android:id="@+id/report_id_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/event_fields_margin_left"
+        android:layout_marginBottom="@dimen/event_report_id_margin_bottom"
+        android:layout_marginTop="@dimen/late_send_item_margin_top"
+        android:textSize="@dimen/event_report_id_text_size"
+        android:maxLines="1"
+        android:text="@string/late_send_state_data_sent"
+        android:ellipsize="end"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/status_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/state_text_view" />
 
     <TextView
         android:id="@+id/time_period_text_view"
@@ -52,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/event_fields_margin_left"
         android:layout_marginBottom="@dimen/event_period_margin_bottom"
+        android:layout_marginTop="@dimen/late_send_item_margin_top"
         android:drawableStart="@drawable/ic_timer"
         android:drawablePadding="@dimen/event_period_logo_padding"
         android:gravity="center_vertical"
@@ -60,6 +78,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/status_image_view"
+        app:layout_constraintTop_toBottomOf="@+id/report_id_text_view"
         tools:text="24.07 14:00 - 15:00" />
 
     <View

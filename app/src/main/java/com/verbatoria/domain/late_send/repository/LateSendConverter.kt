@@ -16,6 +16,7 @@ class LateSendConverter : DatabaseConverter<LateSendEntity, LateSend>() {
             LateSendEntity(
                 sessionId = sessionId,
                 eventId = eventId,
+                reportId = reportId,
                 childName = childName,
                 childAge = childAge,
                 startDate = startDate,
@@ -29,6 +30,7 @@ class LateSendConverter : DatabaseConverter<LateSendEntity, LateSend>() {
             LateSend(
                 sessionId = sessionId,
                 eventId = eventId,
+                reportId = reportId,
                 childName = childName,
                 childAge = childAge,
                 startDate = startDate,
