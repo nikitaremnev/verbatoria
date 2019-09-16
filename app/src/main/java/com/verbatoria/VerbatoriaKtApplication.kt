@@ -7,6 +7,7 @@ import com.verbatoria.component.connection.*
 import com.verbatoria.di.DaggerInjector
 import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.Injector
+import com.verbatoria.domain.authorization.manager.UserInteractionTimerTask
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
@@ -20,17 +21,19 @@ class VerbatoriaKtApplication : Application(),
 
     companion object {
 
+        lateinit var injector: Injector
+
         var currentLocale: String = LocalesAvailable.RUSSIAN_LOCALE
 
     }
-
-    lateinit var injector: Injector
 
     private val dependenciesContainer = ConcurrentHashMap<String, Any>()
 
     private var bciConnectionController: BCIConnectionController? = null
 
     private var bciConnectionHandler: BCIConnectionHandler = BCIConnectionHandlerImpl()
+
+    private var userInteractionTimerTask: UserInteractionTimerTask? = null
 
     @Inject
     lateinit var settingsRepository: SettingsRepository
@@ -77,8 +80,26 @@ class VerbatoriaKtApplication : Application(),
         currentLocale = locale
     }
 
-    fun getCurrentLocale(): String =
-        currentLocale
+    //endregion
+    
+    //region user activity
+
+    fun onUserInteraction() {
+        if (userInteractionTimerTask == null) {
+            userInteractionTimerTask = UserInteractionTimerTask()
+        } else {
+            userInteractionTimerTask?.updateLastInteractionTime()
+        }
+    }
+
+    fun onSmsConfirmationPassed() {
+        if (userInteractionTimerTask == null) {
+            userInteractionTimerTask = UserInteractionTimerTask()
+        } else {
+            userInteractionTimerTask?.dropTimerTaskState()
+        }
+    }
+
 
     //endregion
 

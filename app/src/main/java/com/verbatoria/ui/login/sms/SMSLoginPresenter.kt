@@ -126,7 +126,7 @@ class SMSLoginPresenter(
 
     private fun sendSMSCode() {
         view?.showProgressForSendCode()
-        smsLoginInteractor.sendSMSCode(phone, "test")
+        smsLoginInteractor.sendSMSCode(phone, "")
             .subscribe({ checkingCode ->
                 tryAgainSendCodeTimerStartTime = System.currentTimeMillis()
                 this.checkingCode = checkingCode

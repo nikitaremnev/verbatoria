@@ -17,6 +17,7 @@ import com.verbatoria.di.schedule.ScheduleComponent
 import com.verbatoria.di.splash.SplashComponent
 import com.verbatoria.di.submit.SubmitComponent
 import com.verbatoria.di.writing.WritingComponent
+import com.verbatoria.domain.authorization.manager.UserInteractionTimerTask
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -32,6 +33,8 @@ interface Injector {
     fun inject(application: VerbatoriaKtApplication)
 
     fun inject(sessionService: SessionService)
+
+    fun inject(userInteractionTimerTask: UserInteractionTimerTask)
 
     fun plusSplashComponent(): SplashComponent.Builder
 

@@ -33,11 +33,11 @@
         <activity
             android:name="com.verbatoria.ui.login.LoginActivity"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/FullScreenTheme"/>
+            android:theme="@style/FullScreenTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="com.verbatoria.ui.schedule.ScheduleActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <activity
             android:name="com.verbatoria.ui.late_send.LateSendActivity"
@@ -49,43 +49,43 @@
 
         <activity
             android:name="com.verbatoria.ui.client.ClientActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
             android:name="com.verbatoria.ui.child.ChildActivity"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <activity
             android:name="com.verbatoria.ui.login.sms.SMSLoginActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"/>
+            android:theme="@style/FullScreenTheme" />
 
         <activity
             android:name="com.verbatoria.ui.recovery_password.RecoveryPasswordActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"/>
+            android:theme="@style/FullScreenTheme" />
 
         <activity
             android:name="com.verbatoria.ui.dashboard.DashboardActivity"
-            android:screenOrientation="landscape"
             android:configChanges="locale"
-            android:theme="@style/FullScreenTheme"/>
+            android:screenOrientation="landscape"
+            android:theme="@style/FullScreenTheme" />
 
         <activity
             android:name="com.verbatoria.ui.event.EventDetailActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <activity
             android:name="com.verbatoria.ui.questionnaire.QuestionnaireActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
         <activity
             android:name="com.verbatoria.ui.submit.SubmitActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
 
-        <service android:name="com.verbatoria.component.session.SessionService"/>
+        <service android:name="com.verbatoria.component.session.SessionService" />
 
     </application>
 

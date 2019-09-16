@@ -13,7 +13,6 @@ import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.BaseInjector
 import com.verbatoria.di.Injector
 import com.verbatoria.utils.LocaleHelper
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import javax.inject.Inject
 
 /**
@@ -40,7 +39,7 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
 
         @Suppress("UNCHECKED_CAST")
         component = dependencyHolder.pop<Component>(getDependencyKey())
-            ?: buildComponent((application as VerbatoriaKtApplication).injector, savedInstanceState)
+            ?: buildComponent(VerbatoriaKtApplication.injector, savedInstanceState)
 
         inject(component)
         setBCIPresenterCallback()
@@ -56,6 +55,11 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(LocaleHelper.getLocaleContextWrapper(newBase))
+    }
+
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        (application as? VerbatoriaKtApplication)?.onUserInteraction()
     }
 
     override fun onDestroy() {

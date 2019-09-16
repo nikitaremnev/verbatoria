@@ -3,7 +3,6 @@ package com.verbatoria.ui.submit
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
@@ -108,13 +107,10 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
     //region FragmentSuggestDialog.OnClickSuggestDialogListener
 
     override fun onPositiveClicked(tag: String?) {
-        Log.e("test", "SubmitActivity onPositiveClicked")
         dialogDismissed()
     }
 
     override fun onNegativeClicked(tag: String?) {
-        Log.e("test", "SubmitActivity onNegativeClicked")
-
         dialogDismissed()
     }
 
@@ -123,8 +119,6 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
     //region FragmentSuggestDialog.OnCancelSuggestDialogListener
 
     override fun onCancelDialog(tag: String?) {
-        Log.e("test", "SubmitActivity onCancelDialog")
-
         dialogDismissed()
     }
 

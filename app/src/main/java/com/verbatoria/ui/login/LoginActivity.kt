@@ -173,12 +173,12 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         if (BuildConfig.DEBUG) {
             phoneEditText.setOnLongClickListener {
                 //maria
-                phoneEditText.setText("79268932040")
-                passwordEditText.setText("89268932040")
+//                phoneEditText.setText("79268932040")
+//                passwordEditText.setText("89268932040")
 
                 //my account
-//                phoneEditText.setText("79153974689")
-//                passwordEditText.setText("12345")
+                phoneEditText.setText("79153974689")
+                passwordEditText.setText("12345")
 
                 //school testing
 //                loginEditText.setText("81234567895")
@@ -187,6 +187,10 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
                 return@setOnLongClickListener true
             }
         }
+    }
+
+    override fun onUserInteraction() {
+        //empty
     }
 
     //endregion

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.verbatoria.di.Injector
@@ -263,6 +262,10 @@ class RecoveryPasswordActivity :
         }
     }
 
+    override fun onUserInteraction() {
+        //empty
+    }
+
     //region RecoveryPasswordView
 
     override fun setPhone(phone: String) {
@@ -358,12 +361,10 @@ class RecoveryPasswordActivity :
     }
 
     override fun setSubmitButtonEnabled() {
-        Log.e("test", "RecoveryPasswordActivity setSubmitButtonEnabled")
         submitButton.isEnabled = true
     }
 
     override fun setSubmitButtonDisabled() {
-        Log.e("test", "RecoveryPasswordActivity setSubmitButtonDisabled")
         submitButton.isEnabled = false
     }
 

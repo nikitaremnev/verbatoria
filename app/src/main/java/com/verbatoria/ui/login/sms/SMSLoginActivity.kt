@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.R
+import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.di.Injector
 import com.verbatoria.di.login.sms.SMSLoginComponent
 import com.verbatoria.infrastructure.extensions.hide
@@ -295,13 +296,13 @@ class SMSLoginActivity :
     }
 
     override fun openDashboard() {
-//        VerbatoriaApplication.onSmsConfirmationPassed()
+        (application as? VerbatoriaKtApplication)?.onSmsConfirmationPassed()
         startActivity(Intent(this, DashboardActivity::class.java))
         finish()
     }
 
     override fun close() {
-//        VerbatoriaApplication.onSmsConfirmationPassed()
+        (application as? VerbatoriaKtApplication)?.onSmsConfirmationPassed()
         finish()
     }
 

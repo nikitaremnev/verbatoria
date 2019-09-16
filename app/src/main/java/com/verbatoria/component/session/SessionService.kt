@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Handler
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
-import android.util.Log
 import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.domain.authorization.model.Authorization
 import com.verbatoria.domain.session.repository.SessionProvider
@@ -58,7 +57,6 @@ class SessionService : Service() {
     //region runnables
 
     private val stopSelfRunnable = Runnable {
-        Log.e("test", "SessionService stopSelfRunnable")
         stopSelf()
     }
 
@@ -68,14 +66,12 @@ class SessionService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.e("test", "SessionService onCreate")
         logger.debug("Create session service")
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
-        (application as VerbatoriaKtApplication).injector.inject(this)
+        VerbatoriaKtApplication.injector.inject(this)
     }
 
     override fun onDestroy() {
-        Log.e("test", "SessionService onDestroy")
         logger.debug("Destroy session service")
         super.onDestroy()
     }
@@ -83,7 +79,6 @@ class SessionService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.e("test", "SessionService onStartCommand")
         handleCommand(intent)
         return START_STICKY
     }
@@ -101,13 +96,11 @@ class SessionService : Service() {
     }
 
     private fun startSession(authorization: Authorization) {
-        Log.e("test", "SessionService startSession")
         sessionProvider.setSession(Session(authorization, false))
 //        localBroadcastManager.sendBroadcast(Intent(SESSION_STARTED))
     }
 
     private fun closeSession() {
-        Log.e("test", "SessionService closeSession")
         mainThreadHandler.removeCallbacksAndMessages(null)
         stopService()
     }

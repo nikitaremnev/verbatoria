@@ -48,6 +48,10 @@ class SplashActivity : BasePresenterActivity<SplashView, SplashPresenter, Splash
         //empty
     }
 
+    override fun onUserInteraction() {
+        //empty
+    }
+
     //endregion
 
     //region AppCompatActivity
