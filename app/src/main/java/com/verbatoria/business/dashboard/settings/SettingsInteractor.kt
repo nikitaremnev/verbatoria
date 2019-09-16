@@ -12,6 +12,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
+import com.verbatoria.domain.settings.SettingsManager
 
 /**
  * @author n.remnev
@@ -25,7 +26,7 @@ interface SettingsInteractor {
 
     fun getAppLanguagesAvailability(): Single<Map<String, Boolean>>
 
-    fun setCurrentLanguage(language: String): Completable
+    fun updateCurrentLocale(locale: String): Completable
 
     fun logout(): Completable
 
@@ -33,14 +34,13 @@ interface SettingsInteractor {
 
 class SettingsInteractorImpl(
     private val sessionManager: SessionManager,
-    private val settingsRepository: SettingsRepository,
-    private val settingsConfigurator: SettingsConfigurator,
+    private val settingsManager: SettingsManager,
     private val schedulersFactory: RxSchedulersFactory
 ) : SettingsInteractor {
 
     override fun getSettings(): Single<List<SettingsItemModel>> =
         Single.fromCallable {
-            settingsConfigurator.getSettingsItemModels()
+            settingsManager.getSettingsItemModels()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
@@ -54,7 +54,7 @@ class SettingsInteractorImpl(
 
     override fun getAppLanguagesAvailability(): Single<Map<String, Boolean>> =
         Single.fromCallable {
-            val localesAvailable = settingsRepository.getLocales()
+            val localesAvailable = settingsManager.getLocales()
             mapOf(
                 Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
                 Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
@@ -65,9 +65,9 @@ class SettingsInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun setCurrentLanguage(language: String): Completable =
+    override fun updateCurrentLocale(locale: String): Completable =
         Completable.fromCallable {
-            settingsRepository.putCurrentLocale(language)
+            settingsManager.updateCurrentLocale(locale)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

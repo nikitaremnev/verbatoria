@@ -14,6 +14,7 @@ const val SERVER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ"
 const val DATE_WITH_FULL_MONTH_FORMAT = "d MMMM"
 const val CLIENT_BIRTHDAY_FORMAT = "yyyy-MM-dd"
 const val FORMAT_TIME_SHORT = "HH:mm"
+const val FORMAT_TIME_TIMER = "mm:ss"
 const val FORMAT_DATE_SHORT = "dd.MM"
 const val FORMAT_DATE_MONTH_AND_TIME_SHORT = "d MMMM HH:mm"
 const val DAYS_IN_WEEK = 7
@@ -90,6 +91,12 @@ fun Date.formatToShortDate(): String =
     format(
         this,
         FORMAT_DATE_SHORT
+    )
+
+fun Date.formatToTimerTime(): String =
+    format(
+        this,
+        FORMAT_TIME_TIMER
     )
 
 fun Date.formatToDateMonthAndTime(): String =

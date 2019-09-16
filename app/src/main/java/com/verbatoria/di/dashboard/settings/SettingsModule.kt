@@ -1,12 +1,14 @@
 package com.verbatoria.di.dashboard.settings
 
 import com.remnev.verbatoria.R
-import com.verbatoria.business.dashboard.settings.SettingsConfiguratorImpl
+import com.verbatoria.domain.settings.SettingsManagerImpl
 import com.verbatoria.business.dashboard.settings.SettingsInteractorImpl
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.di.FragmentScope
+import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.session.manager.SessionManager
+import com.verbatoria.domain.settings.SettingsManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.infrastructure.utils.ViewInflater
 import com.verbatoria.ui.common.Adapter
@@ -28,14 +30,13 @@ class SettingsModule {
     @FragmentScope
     fun provideSettingsPresenter(
         sessionManager: SessionManager,
-        settingsRepository: SettingsRepository,
+        settingsManager: SettingsManager,
         schedulersFactory: RxSchedulersFactory
     ): SettingsPresenter =
         SettingsPresenter(
             SettingsInteractorImpl(
                 sessionManager,
-                settingsRepository,
-                SettingsConfiguratorImpl(),
+                settingsManager,
                 schedulersFactory
             )
         )

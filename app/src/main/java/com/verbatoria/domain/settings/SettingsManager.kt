@@ -1,13 +1,17 @@
-package com.verbatoria.business.dashboard.settings
+package com.verbatoria.domain.settings
 
 import com.remnev.verbatoria.R
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
+import com.verbatoria.domain.dashboard.info.manager.InfoManager
+import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import com.verbatoria.infrastructure.retrofit.endpoints.settings.SettingsEndpoint
+import com.verbatoria.infrastructure.retrofit.endpoints.settings.model.params.SetLocaltionLanguageParamsDto
 
 /**
  * @author n.remnev
  */
 
-interface SettingsConfigurator {
+interface SettingsManager {
 
     companion object {
 
@@ -25,37 +29,53 @@ interface SettingsConfigurator {
 
     fun getSettingsItemModels(): List<SettingsItemModel>
 
+    fun getLocales(): List<String>
+
+    fun updateCurrentLocale(locale: String)
+
 }
 
-class SettingsConfiguratorImpl : SettingsConfigurator {
+class SettingsManagerImpl(
+    private val settingsRepository: SettingsRepository,
+    private val infoManager: InfoManager,
+    private val settingsEndpoint: SettingsEndpoint
+) : SettingsManager {
 
     override fun getSettingsItemModels(): List<SettingsItemModel> =
         listOf(
             SettingsItemModel(
-                id = SettingsConfigurator.SETTINGS_SCHEDULE_ID,
+                id = SettingsManager.SETTINGS_SCHEDULE_ID,
                 titleResourceId = R.string.schedule_title,
                 logoResourceId = R.drawable.ic_schedule
             ),
             SettingsItemModel(
-                id = SettingsConfigurator.SETTINGS_LATE_SEND_ID,
+                id = SettingsManager.SETTINGS_LATE_SEND_ID,
                 titleResourceId = R.string.late_send_title,
                 logoResourceId = R.drawable.ic_report
             ),
             SettingsItemModel(
-                id = SettingsConfigurator.SETTINGS_APP_LANGUAGE_ID,
+                id = SettingsManager.SETTINGS_APP_LANGUAGE_ID,
                 titleResourceId = R.string.settings_item_locale,
                 logoResourceId = R.drawable.ic_location
             ),
             SettingsItemModel(
-                id = SettingsConfigurator.SETTINGS_ABOUT_APP_ID,
+                id = SettingsManager.SETTINGS_ABOUT_APP_ID,
                 titleResourceId = R.string.settings_item_developer,
                 logoResourceId = R.drawable.ic_developer_info
             ),
             SettingsItemModel(
-                id = SettingsConfigurator.SETTINGS_EXIT_ID,
+                id = SettingsManager.SETTINGS_EXIT_ID,
                 titleResourceId = R.string.settings_item_quit,
                 logoResourceId = R.drawable.ic_exit
             )
         )
+
+    override fun getLocales(): List<String> =
+        settingsRepository.getLocales()
+
+    override fun updateCurrentLocale(locale: String) {
+        settingsEndpoint.setLocationLanguage(infoManager.getLocationId(), SetLocaltionLanguageParamsDto(locale))
+        settingsRepository.putCurrentLocale(locale)
+    }
 
 }

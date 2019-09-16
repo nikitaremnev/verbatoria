@@ -1,5 +1,8 @@
 package com.verbatoria.ui.dashboard.calendar
 
+import android.app.DatePickerDialog
+import android.widget.DatePicker
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.business.dashboard.calendar.CalendarInteractor
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.domain.dashboard.calendar.model.Event
@@ -16,7 +19,7 @@ import java.util.*
 
 class CalendarPresenter(
     private val calendarInteractor: CalendarInteractor
-) : BasePresenter<CalendarView>(), CalendarView.Callback, EventItemViewHolder.Callback {
+) : BasePresenter<CalendarView>(), CalendarView.Callback, EventItemViewHolder.Callback, DatePickerDialog.OnDateSetListener {
 
     private val logger = LoggerFactory.getLogger("CalendarPresenter")
 
@@ -59,7 +62,7 @@ class CalendarPresenter(
     }
 
     override fun onCurrentDateClicked() {
-
+        view?.showDatePickerDialog(currentDate)
     }
 
     override fun onNextDateClicked() {
@@ -88,6 +91,20 @@ class CalendarPresenter(
                 }
             )
         }
+    }
+
+    //endregion
+
+    //region DatePickerDialog.OnDateSetListener
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        currentDate = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE)).apply {
+            set(Calendar.YEAR, year)
+            set(Calendar.MONTH, month)
+            set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        }.time
+        setCurrentDate()
+        getEvents()
     }
 
     //endregion

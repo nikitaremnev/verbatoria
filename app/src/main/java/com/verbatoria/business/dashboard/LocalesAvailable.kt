@@ -10,7 +10,7 @@ object LocalesAvailable {
 
     const val ENGLISH_LOCALE = "en"
 
-    const val HONG_KONG_LOCALE = "ch"
+    const val HONG_KONG_LOCALE = "zh"
 
     const val UKRAINIAN_LOCALE = "ukr"
 

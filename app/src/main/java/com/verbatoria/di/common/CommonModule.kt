@@ -41,6 +41,8 @@ import com.verbatoria.domain.session.repository.PreferencesSessionProvider
 import com.verbatoria.domain.session.manager.SessionManager
 import com.verbatoria.domain.session.manager.SessionManagerImpl
 import com.verbatoria.domain.session.repository.SessionProvider
+import com.verbatoria.domain.settings.SettingsManager
+import com.verbatoria.domain.settings.SettingsManagerImpl
 import com.verbatoria.domain.submit.SubmitManager
 import com.verbatoria.domain.submit.SubmitManagerImpl
 import com.verbatoria.infrastructure.file.FileUtil
@@ -49,6 +51,7 @@ import com.verbatoria.infrastructure.retrofit.APIConstants
 import com.verbatoria.infrastructure.retrofit.EndpointsRegister
 import com.verbatoria.infrastructure.retrofit.EndpointsRegisterImpl
 import com.verbatoria.infrastructure.retrofit.RetrofitFactory
+import com.verbatoria.infrastructure.retrofit.endpoints.settings.SettingsEndpoint
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -256,6 +259,19 @@ class CommonModule {
     ): LateSendManager =
         LateSendManagerImpl(
             lateSendRepository
+        )
+
+    @Provides
+    @Singleton
+    fun provideSettingsManager(
+        settingsRepository: SettingsRepository,
+        infoManager: InfoManager,
+        endpointsRegister: EndpointsRegister
+    ): SettingsManager =
+        SettingsManagerImpl(
+            settingsRepository,
+            infoManager,
+            endpointsRegister.settingsEndpoint
         )
 
     //endregion

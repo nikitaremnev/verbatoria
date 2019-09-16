@@ -1,5 +1,6 @@
 package com.verbatoria.ui.base
 
+import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.design.widget.Snackbar
@@ -11,6 +12,8 @@ import com.verbatoria.component.connection.BCIConnectionStateCallback
 import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.BaseInjector
 import com.verbatoria.di.Injector
+import com.verbatoria.utils.LocaleHelper
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import javax.inject.Inject
 
 /**
@@ -49,6 +52,10 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
 
         @Suppress("UNCHECKED_CAST")
         presenter.onAttachView(this as V)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LocaleHelper.getLocaleContextWrapper(newBase))
     }
 
     override fun onDestroy() {

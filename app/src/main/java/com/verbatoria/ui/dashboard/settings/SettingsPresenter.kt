@@ -1,15 +1,14 @@
 package com.verbatoria.ui.dashboard.settings
 
-import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
-import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_ABOUT_APP_ID
-import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_APP_LANGUAGE_ID
-import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_EXIT_ID
-import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_LATE_SEND_ID
-import com.verbatoria.business.dashboard.settings.SettingsConfigurator.Companion.SETTINGS_SCHEDULE_ID
+import com.verbatoria.domain.settings.SettingsManager.Companion.SETTINGS_ABOUT_APP_ID
+import com.verbatoria.domain.settings.SettingsManager.Companion.SETTINGS_APP_LANGUAGE_ID
+import com.verbatoria.domain.settings.SettingsManager.Companion.SETTINGS_EXIT_ID
+import com.verbatoria.domain.settings.SettingsManager.Companion.SETTINGS_LATE_SEND_ID
+import com.verbatoria.domain.settings.SettingsManager.Companion.SETTINGS_SCHEDULE_ID
 import com.verbatoria.business.dashboard.settings.SettingsInteractor
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.ui.base.BasePresenter
@@ -54,20 +53,19 @@ class SettingsPresenter(
     }
 
     override fun onRussianLanguageSelected() {
-        setCurrentLanguage(RUSSIAN_LOCALE)
+        setCurrentLocale(RUSSIAN_LOCALE)
     }
 
     override fun onEnglishLanguageSelected() {
-        setCurrentLanguage(ENGLISH_LOCALE)
+        setCurrentLocale(ENGLISH_LOCALE)
     }
 
     override fun onHongKongLanguageSelected() {
-        setCurrentLanguage(HONG_KONG_LOCALE)
-
+        setCurrentLocale(HONG_KONG_LOCALE)
     }
 
     override fun onUkrainianLanguageSelected() {
-        setCurrentLanguage(UKRAINIAN_LOCALE)
+        setCurrentLocale(UKRAINIAN_LOCALE)
     }
 
     //endregion
@@ -111,12 +109,12 @@ class SettingsPresenter(
             .let(::addDisposable)
     }
 
-    private fun setCurrentLanguage(currentLanguage: String) {
+    private fun setCurrentLocale(selectedLocale: String) {
         view?.showProgress()
-        settingsInteractor.setCurrentLanguage(currentLanguage)
+        settingsInteractor.updateCurrentLocale(selectedLocale)
             .subscribe({
                 view?.hideProgress()
-                view?.setLanguage(currentLanguage)
+                view?.setLocale(selectedLocale)
             }, { error ->
                 logger.error("set current language error occurred", error)
                 view?.hideProgress()

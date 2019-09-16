@@ -109,6 +109,7 @@ class InfoManagerImpl(
                 infoRepository.putLastLocationInfoUpdateTime(System.currentTimeMillis())
 
                 settingsRepository.putLocales(response.availableLocales)
+                settingsRepository.putCurrentLocale(response.locale)
 
                 Pair(responseLocationInfoConverted, responsePartnerInfoConverted)
             }

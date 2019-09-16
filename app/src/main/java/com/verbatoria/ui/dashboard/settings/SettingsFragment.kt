@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.remnev.verbatoria.R
+import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.settings.SettingsComponent
@@ -42,7 +43,7 @@ interface SettingsView : BaseView {
 
     fun setSettingsItems(settingsItemModels: List<SettingsItemModel>)
 
-    fun setLanguage(locale: String)
+    fun setLocale(locale: String)
 
     fun showProgress()
 
@@ -129,8 +130,11 @@ class SettingsFragment :
         adapter.update(settingsItemModels)
     }
 
-    override fun setLanguage(locale: String) {
-        activity?.let { LocaleHelper.setLocale(it, locale) }
+    override fun setLocale(locale: String) {
+        activity?.let { context ->
+            LocaleHelper.setLocale(context, locale)
+        }
+        (activity?.applicationContext as? VerbatoriaKtApplication)?.updateCurrentLocale(locale)
         activity?.recreate()
     }
 

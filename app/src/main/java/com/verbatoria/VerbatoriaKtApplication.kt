@@ -2,11 +2,14 @@ package com.verbatoria
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.component.connection.*
 import com.verbatoria.di.DaggerInjector
 import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.Injector
+import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Inject
 
 /***
  * @author n.remnev
@@ -14,6 +17,12 @@ import java.util.concurrent.ConcurrentHashMap
 
 class VerbatoriaKtApplication : Application(),
     DependencyHolder<Any?> {
+
+    companion object {
+
+        var currentLocale: String = LocalesAvailable.RUSSIAN_LOCALE
+
+    }
 
     lateinit var injector: Injector
 
@@ -23,11 +32,16 @@ class VerbatoriaKtApplication : Application(),
 
     private var bciConnectionHandler: BCIConnectionHandler = BCIConnectionHandlerImpl()
 
+    @Inject
+    lateinit var settingsRepository: SettingsRepository
+
     //region Application
 
     override fun onCreate() {
         super.onCreate()
         initDependencies()
+
+        currentLocale = settingsRepository.getCurrentLocale()
 
         Stetho.initializeWithDefaults(this)
     }
@@ -58,6 +72,13 @@ class VerbatoriaKtApplication : Application(),
     fun stopConnection() {
         bciConnectionController?.stopConnection()
     }
+
+    fun updateCurrentLocale(locale: String) {
+        currentLocale = locale
+    }
+
+    fun getCurrentLocale(): String =
+        currentLocale
 
     //endregion
 

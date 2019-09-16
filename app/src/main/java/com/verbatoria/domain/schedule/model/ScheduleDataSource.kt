@@ -4,7 +4,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.domain.schedule.model.ScheduleDataSource.Companion.COLUMN_COUNT
 import com.verbatoria.domain.schedule.model.ScheduleDataSource.Companion.ROWS_COUNT
 import com.verbatoria.infrastructure.extensions.dropToStartOfTheDay
-import com.verbatoria.utils.DateUtils
+import com.verbatoria.infrastructure.extensions.formatToShortDate
 import java.util.*
 
 /**
@@ -190,10 +190,8 @@ class ScheduleDataSourceImpl : ScheduleDataSource {
     }
 
     override fun getCurrentWeekTitle(): String =
-        DateUtils.datePeriodToString(
-            getRowHeaderDate(FIRST_DAY_OF_WEEK),
-            getRowHeaderDate(ROWS_COUNT - 1)
-        )
+        getRowHeaderDate(FIRST_DAY_OF_WEEK).formatToShortDate() + " - " +
+                getRowHeaderDate(ROWS_COUNT - 1).formatToShortDate()
 
     override fun getRowHeaderDate(row: Int): Date {
         currentCalendar.time = originalCalendar.time

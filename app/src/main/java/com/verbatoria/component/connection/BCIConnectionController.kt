@@ -1,7 +1,6 @@
 package com.verbatoria.component.connection
 
 import android.bluetooth.BluetoothAdapter
-import android.util.Log
 import com.neurosky.connection.TgStreamReader
 
 /**
@@ -29,8 +28,6 @@ class BCIConnectionControllerImpl(
     private var tgStreamReader: TgStreamReader? = null
 
     override fun startConnection() {
-        Log.e("test", "BCIConnectionController startConnection")
-
         if (bluetoothAdapter != null && bluetoothAdapter?.isEnabled == true) {
             tgStreamReader?.let { streamReader ->
                 if (streamReader.isBTConnected) {
@@ -41,7 +38,6 @@ class BCIConnectionControllerImpl(
             tgStreamReader = TgStreamReader(bluetoothAdapter, bciConnectionHandler)
             tgStreamReader?.connect()
         } else {
-            Log.e("test", "BCIConnectionController bluetoothDisabled")
             bciConnectionHandler.bluetoothDisabled()
         }
     }

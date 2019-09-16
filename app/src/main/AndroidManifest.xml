@@ -35,15 +35,6 @@
             android:screenOrientation="landscape"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/FullScreenTheme"/>
-
-        <activity
-            android:name="com.verbatoria.ui.session.view.connection.ConnectionActivity"
-            android:screenOrientation="landscape"/>
-
-        <activity
-            android:name="com.verbatoria.ui.session.view.reconnect.ReconnectionActivity"
-            android:screenOrientation="landscape"/>
-
         <activity
             android:name="com.verbatoria.ui.schedule.ScheduleActivity"
             android:screenOrientation="landscape"/>
@@ -67,25 +58,9 @@
             android:screenOrientation="landscape" />
 
         <activity
-            android:name="com.verbatoria.ui.session.view.writing.WritingActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"/>
-
-        <activity
-            android:name="com.verbatoria.ui.session.view.submit.SubmitActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme"/>
-
-        <activity
             android:name="com.verbatoria.ui.login.sms.SMSLoginActivity"
             android:screenOrientation="landscape"
             android:theme="@style/FullScreenTheme"/>
-
-        <activity
-            android:name="com.verbatoria.ui.session.view.submit.school.SchoolSubmitActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullScreenTheme">
-        </activity>
 
         <activity
             android:name="com.verbatoria.ui.recovery_password.RecoveryPasswordActivity"

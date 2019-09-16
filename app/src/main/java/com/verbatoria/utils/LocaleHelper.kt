@@ -2,7 +2,9 @@ package com.verbatoria.utils
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.ContextWrapper
 import android.os.Build
+import com.verbatoria.VerbatoriaKtApplication
 import java.util.Locale
 
 /**
@@ -25,6 +27,12 @@ object LocaleHelper {
         configuration.setLocale(locale)
 
         return context.createConfigurationContext(configuration)
+    }
+
+    fun getLocaleContextWrapper(context: Context): ContextWrapper {
+        val language = VerbatoriaKtApplication.currentLocale
+        val locale = Locale(language)
+        return UpdateLocaleContextWrapper.wrap(context, locale)
     }
 
     private fun updateResourcesLegacy(context: Context, language: String): Context {

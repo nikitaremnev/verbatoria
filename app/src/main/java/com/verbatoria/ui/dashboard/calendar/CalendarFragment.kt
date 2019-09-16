@@ -1,5 +1,6 @@
 package com.verbatoria.ui.dashboard.calendar
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -12,6 +13,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.business.dashboard.calendar.models.item.EventItemModel
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.calendar.CalendarComponent
@@ -23,6 +25,7 @@ import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.event.EventDetailActivity
 import com.verbatoria.ui.event.EventDetailMode
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -42,6 +45,8 @@ interface CalendarView : BaseView {
     fun setTomorrowCurrentDate()
 
     fun setCalendarItems(eventsList: List<EventItemModel>)
+
+    fun showDatePickerDialog(currentDate: Date)
 
     fun showEmptyEvents()
 
@@ -161,6 +166,19 @@ class CalendarFragment :
 
     override fun setCalendarItems(eventsList: List<EventItemModel>) {
         adapter.update(eventsList)
+    }
+
+    override fun showDatePickerDialog(currentDate: Date) {
+        val currentCalendar = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE))
+        currentCalendar.time = currentDate
+        val datePickerDialog = DatePickerDialog(
+            activity,
+            presenter,
+            currentCalendar.get(Calendar.YEAR),
+            currentCalendar.get(Calendar.MONTH),
+            currentCalendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
 
     override fun showEmptyEvents() {

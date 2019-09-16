@@ -1,8 +1,8 @@
 package com.verbatoria.ui.login.sms
 
 import com.verbatoria.business.login.sms.SMSLoginInteractor
+import com.verbatoria.infrastructure.extensions.formatToTimerTime
 import com.verbatoria.ui.base.BasePresenter
-import com.verbatoria.utils.DateUtils
 import org.slf4j.LoggerFactory
 import java.util.*
 
@@ -182,7 +182,7 @@ class SMSLoginPresenter(
     private fun updateTimerText() {
         val timeFromStartTimer = System.currentTimeMillis() - tryAgainSendCodeTimerStartTime
         if (timeFromStartTimer < TRY_AGAIN_SEND_CODE_INTERVAL) {
-            view?.setTimerText(DateUtils.timeToString(Date(TRY_AGAIN_SEND_CODE_INTERVAL - timeFromStartTimer)))
+            view?.setTimerText(Date(TRY_AGAIN_SEND_CODE_INTERVAL - timeFromStartTimer).formatToTimerTime())
         } else {
             tryAgainSendCodeTimer?.cancel()
             tryAgainSendCodeTimer = null

@@ -9,6 +9,7 @@ import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.InfoEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.event.EventEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.report.ReportEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.schedule.ScheduleEndpoint
+import com.verbatoria.infrastructure.retrofit.endpoints.settings.SettingsEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.SubmitEndpoint
 import retrofit2.Retrofit
 
@@ -37,6 +38,8 @@ interface EndpointsRegister {
     val reportEndpoint: ReportEndpoint
 
     val submitEndpoint: SubmitEndpoint
+
+    val settingsEndpoint: SettingsEndpoint
 
 }
 
@@ -75,4 +78,6 @@ class EndpointsRegisterImpl(
     override val submitEndpoint: SubmitEndpoint =
         retrofit.create(SubmitEndpoint::class.java)
 
+    override val settingsEndpoint: SettingsEndpoint =
+        retrofit.create(SettingsEndpoint::class.java)
 }
