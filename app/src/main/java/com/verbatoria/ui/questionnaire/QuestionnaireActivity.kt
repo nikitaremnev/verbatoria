@@ -270,8 +270,8 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
             yesButton.background = selectedYesOrNoAnswerDrawable
             noButton.background = notSelectedYesOrNoAnswerDrawable
         } else {
-            yesButton.background = selectedYesOrNoAnswerDrawable
-            noButton.background = notSelectedYesOrNoAnswerDrawable
+            yesButton.background = notSelectedYesOrNoAnswerDrawable
+            noButton.background = selectedYesOrNoAnswerDrawable
         }
     }
 

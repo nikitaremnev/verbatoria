@@ -1,6 +1,6 @@
 ext {
 
-    applicationId = "ru.verbatoria"
+    applicationId = "ru.verbatoria.beta"
     versionName = "11"
     versionCode = 40
 

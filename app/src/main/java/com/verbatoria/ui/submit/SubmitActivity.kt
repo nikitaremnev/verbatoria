@@ -41,7 +41,7 @@ interface SubmitView : BaseView {
 }
 
 class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, SubmitActivity, SubmitComponent>(),
-    SubmitView, FragmentSuggestDialog.OnClickSuggestDialogListener, FragmentSuggestDialog.OnCancelSuggestDialogListener {
+    SubmitView, ActivitySuggestDialog.OnClickSuggestDialogListener, ActivitySuggestDialog.OnCancelSuggestDialogListener {
 
     companion object {
 
