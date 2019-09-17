@@ -367,7 +367,7 @@
     <string name="writing_activity_code_61">61</string>
     <string name="writing_activity_code_71">71</string>
 
-    <string name="writing_timer" formatted="false">Load time: %s sec.</string>
+    <string name="writing_timer" formatted="false">Total load time: %s sec.</string>
     <string name="session_timer_string_only_full_and_loadings" formatted="false">Total time: %s\nTotal loadings time: %s</string>
     <string name="session_timer_string_only_full" formatted="false">Total time: %s</string>
 
