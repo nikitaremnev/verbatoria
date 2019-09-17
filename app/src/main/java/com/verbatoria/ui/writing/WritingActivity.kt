@@ -297,7 +297,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun setUpPlayMode() {
         musicFileNameTextView.show()
-        playButton.hide()
+        playButton.invisible()
         pauseButton.show()
         backButton.show()
         nextButton.show()
@@ -305,18 +305,18 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun setUpPauseMode() {
         musicFileNameTextView.show()
-        pauseButton.hide()
+        pauseButton.invisible()
         playButton.show()
         backButton.show()
         nextButton.show()
     }
 
     override fun hidePlayer() {
-        musicFileNameTextView.hide()
-        playButton.hide()
-        pauseButton.hide()
-        backButton.hide()
-        nextButton.hide()
+        musicFileNameTextView.invisible()
+        playButton.invisible()
+        pauseButton.invisible()
+        backButton.invisible()
+        nextButton.invisible()
     }
 
     override fun showMusicFileName(fileName: String) {

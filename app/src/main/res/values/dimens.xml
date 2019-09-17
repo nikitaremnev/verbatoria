@@ -376,7 +376,7 @@
     <dimen name="writing_vertical_padding">4dp</dimen>
 
     <dimen name="writing_margin_top">16dp</dimen>
-    <dimen name="writing_margin_bottom">16dp</dimen>
+    <dimen name="writing_margin_bottom">8dp</dimen>
 
     <dimen name="writing_chart_margin_bottom">8dp</dimen>
 

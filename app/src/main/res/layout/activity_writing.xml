@@ -136,7 +136,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/writing_music_file_name_text_size"
         android:textStyle="bold"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -163,10 +163,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/writing_player_button_first_margin_start"
         android:layout_marginBottom="@dimen/writing_margin_bottom"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:backgroundTint="@color/main"
         app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/back_floating_button"
         app:layout_constraintStart_toEndOf="@+id/music_file_name_text_view"
         app:srcCompat="@drawable/ic_play" />
 
@@ -174,26 +174,26 @@
         android:id="@+id/pause_floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/writing_player_button_first_margin_start"
+        android:layout_marginStart="@dimen/writing_player_button_margin_start"
         android:layout_marginBottom="@dimen/writing_margin_bottom"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:backgroundTint="@color/yellow"
         app:fabSize="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/play_floating_button"
+        app:layout_constraintBottom_toTopOf="@+id/back_floating_button"
+        app:layout_constraintStart_toEndOf="@+id/back_floating_button"
         app:srcCompat="@drawable/ic_pause" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/back_floating_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/writing_player_button_margin_start"
+        android:layout_marginStart="@dimen/writing_player_button_first_margin_start"
         android:layout_marginBottom="@dimen/writing_margin_bottom"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:backgroundTint="@color/back"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/pause_floating_button"
+        app:layout_constraintStart_toEndOf="@+id/music_file_name_text_view"
         app:srcCompat="@drawable/ic_back" />
 
     <android.support.design.widget.FloatingActionButton
@@ -202,11 +202,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/writing_player_button_margin_start"
         android:layout_marginBottom="@dimen/writing_margin_bottom"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:backgroundTint="@color/next"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/back_floating_button"
+        app:layout_constraintStart_toEndOf="@+id/play_floating_button"
         app:srcCompat="@drawable/ic_next" />
 
     <!-- End player -->
