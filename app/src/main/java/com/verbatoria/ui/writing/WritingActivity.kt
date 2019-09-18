@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.support.design.widget.FloatingActionButton
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
@@ -97,9 +96,11 @@ interface WritingView : BaseView {
 
     fun openSettings()
 
-    fun close()
+    fun finish()
 
     interface Callback {
+
+        fun onBackPressed()
 
         fun onFinishClicked()
 
@@ -257,6 +258,10 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         setUpChart()
     }
 
+    override fun onBackPressed() {
+        presenter.onBackPressed()
+    }
+
     //endregion
 
     //region WritingView
@@ -410,10 +415,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         val intent = Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-    }
-
-    override fun close() {
-        finish()
     }
 
     //endregion

@@ -93,12 +93,19 @@ class WritingPresenter(
                 view.showMusicFileName(currentMusicFileIndex.toString())
             }
         }
-        if (!isBCIConnected) {
-            view.showBCIConnectionDialog()
-        }
+//        if (!isBCIConnected) {
+//            view.showBCIConnectionDialog()
+//        }
     }
 
     //region WritingView.Callback
+
+    override fun onBackPressed() {
+        selectedActivity?.let { activity ->
+            onCodeButtonClicked(activity.activityCode)
+        }
+        view?.finish()
+    }
 
     override fun onFinishClicked() {
         if (selectedActivity != null) {
@@ -218,7 +225,7 @@ class WritingPresenter(
     override fun onExitClicked() {
         view?.apply {
             dismissBCIConnectionDialog()
-            close()
+            finish()
         }
     }
 
@@ -294,6 +301,9 @@ class WritingPresenter(
     override fun onConnectionFailed() {
         view?.showConnectionErrorDialogState()
         isBCIConnected = false
+        selectedActivity?.let { activity ->
+            onCodeButtonClicked(activity.activityCode)
+        }
     }
 
     override fun onDisconnected() {
