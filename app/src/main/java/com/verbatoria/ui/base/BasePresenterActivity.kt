@@ -151,15 +151,23 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
 
     private fun setBCIPresenterCallback() {
         (application as? VerbatoriaKtApplication)?.apply {
-            setBCIDataCallback(presenter as? BCIDataCallback)
-            setBCIConnectionStateCallback(presenter as? BCIConnectionStateCallback)
+            (presenter as? BCIDataCallback)?.apply {
+                setBCIDataCallback(this)
+            }
+            (presenter as? BCIConnectionStateCallback)?.apply {
+                setBCIConnectionStateCallback(this)
+            }
         }
     }
 
     private fun dropBCIPresenterCallback() {
         (application as? VerbatoriaKtApplication)?.apply {
-            setBCIDataCallback(null)
-            setBCIConnectionStateCallback(null)
+            (presenter as? BCIDataCallback)?.apply {
+                setBCIDataCallback(null)
+            }
+            (presenter as? BCIConnectionStateCallback)?.apply {
+                setBCIConnectionStateCallback(null)
+            }
         }
     }
 

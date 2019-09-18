@@ -14,7 +14,7 @@ import javax.inject.Inject
  * @author nikitaremnev
  */
 
-private const val USER_INTERACTION_INTERVAL = (MILLISECONDS_IN_SECOND * 60 * 1).toLong()
+private const val USER_INTERACTION_INTERVAL = (MILLISECONDS_IN_SECOND * 60 * 60).toLong()
 
 class UserInteractionTimerTask {
 
