@@ -40,10 +40,6 @@ interface SMSLoginView : BaseView {
 
     fun hideCodeField()
 
-    fun showClearPhoneButton()
-
-    fun hideClearPhoneButton()
-
     fun showClearCodeButton()
 
     fun hideClearCodeButton()
@@ -80,8 +76,6 @@ interface SMSLoginView : BaseView {
 
         fun onCodeTextChanged(code: String)
 
-        fun onPhoneClearClicked()
-
         fun onCodeClearClicked()
 
         fun onSendCodeButtonClicked()
@@ -112,7 +106,6 @@ class SMSLoginActivity :
     private lateinit var phoneEditText: EditText
     private lateinit var codeEditText: EditText
 
-    private lateinit var clearPhoneImageView: ImageView
     private lateinit var clearCodeImageView: ImageView
 
     private lateinit var timerTextView: TextView
@@ -134,7 +127,6 @@ class SMSLoginActivity :
         phoneEditText = findViewById(R.id.phone_edit_text)
         codeEditText = findViewById(R.id.code_edit_text)
 
-        clearPhoneImageView = findViewById(R.id.phone_clear_button)
         clearCodeImageView = findViewById(R.id.code_clear_button)
 
         sendCodeButton = findViewById(R.id.send_code_button)
@@ -159,9 +151,6 @@ class SMSLoginActivity :
         })
         sendCodeButton.setOnClickListener {
             presenter.onSendCodeButtonClicked()
-        }
-        clearPhoneImageView.setOnClickListener {
-            presenter.onPhoneClearClicked()
         }
         clearCodeImageView.setOnClickListener {
             presenter.onCodeClearClicked()
@@ -223,14 +212,6 @@ class SMSLoginActivity :
 
     override fun hideCodeField() {
         codeEditText.hide()
-    }
-
-    override fun showClearPhoneButton() {
-        clearPhoneImageView.show()
-    }
-
-    override fun hideClearPhoneButton() {
-        clearPhoneImageView.hide()
     }
 
     override fun showClearCodeButton() {

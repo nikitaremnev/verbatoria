@@ -15,6 +15,8 @@ interface SMSLoginInteractor {
 
     fun getCurrentCountry(): Single<String>
 
+    fun getCurrentPhone(): Single<String>
+
 }
 
 class SMSLoginInteractorImpl(
@@ -34,6 +36,14 @@ class SMSLoginInteractorImpl(
     override fun getCurrentCountry(): Single<String> =
         Single.fromCallable {
             authorizationManager.getCurrentCountry()
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+
+    override fun getCurrentPhone(): Single<String> =
+        Single.fromCallable {
+            authorizationManager.getLastLogin()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

@@ -129,15 +129,15 @@ class LoginPresenter(
         loginInteractor.login(phone, password)
             .subscribe({
                 view?.hideProgressForLoginWithSuccess()
-                if (BuildConfig.DEBUG) {
-                    view?.openDashboard()
-                } else {
+//                if (BuildConfig.DEBUG) {
+//                    view?.openDashboard()
+//                } else {
                     if (view?.isCountryRequireSkipSMSConfirmation(country) == true) {
                         view?.openDashboard()
                     } else {
                         view?.openSMSConfirmation(phone)
                     }
-                }
+//                }
             }, { error ->
                 logger.error("Login error occurred", error)
                 view?.apply {

@@ -35,6 +35,9 @@ class SMSLoginPresenter(
 
     init {
         getCurrentCountry()
+        if (phone.isBlank()) {
+            getCurrentPhone()
+        }
     }
 
     override fun onAttachView(view: SMSLoginView) {
@@ -44,10 +47,7 @@ class SMSLoginPresenter(
             setPhone(phone)
         }
         if (phone.isNotBlank()) {
-            view.apply {
-                setSendCodeButtonEnabled()
-                showClearPhoneButton()
-            }
+            view.setSendCodeButtonEnabled()
         }
         if (tryAgainSendCodeTimer != null) {
             view.apply {
@@ -67,11 +67,9 @@ class SMSLoginPresenter(
         this.phone = phone
         when {
             this.phone.isBlank() -> view?.apply {
-                hideClearPhoneButton()
                 setSendCodeButtonDisabled()
             }
             this.phone.isNotBlank() -> view?.apply {
-                showClearPhoneButton()
                 setSendCodeButtonEnabled()
             }
         }
@@ -86,15 +84,6 @@ class SMSLoginPresenter(
                 showClearCodeButton()
                 setSendCodeButtonEnabled()
             }
-        }
-    }
-
-    override fun onPhoneClearClicked() {
-        phone = ""
-        view?.apply {
-            setPhone(phone)
-            setSendCodeButtonDisabled()
-            hideClearPhoneButton()
         }
     }
 
@@ -157,6 +146,22 @@ class SMSLoginPresenter(
             })
             .let(::addDisposable)
     }
+
+    private fun getCurrentPhone() {
+        smsLoginInteractor.getCurrentPhone()
+            .subscribe({ phone ->
+                this.phone = phone
+                view?.setPhone(this.phone)
+                if (phone.isNotBlank()) {
+                    view?.setSendCodeButtonEnabled()
+                }
+            }, { error ->
+                logger.error("Get current phone error occurred", error)
+                view?.showErrorSnackbar(error.message ?: "Get current phone error occurred")
+            })
+            .let(::addDisposable)
+    }
+
 
     private fun createTryAgainSendCodeTimerTask(): TimerTask =
         object : TimerTask() {
