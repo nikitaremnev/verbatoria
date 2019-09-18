@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Вербатория v11</string>
+    <string name="app_name">Вербатория v11.0.1</string>
 
     <string name="loading_please_wait">Пожалуйста, подождите…</string>
 
@@ -368,7 +368,7 @@
     <string name="writing_activity_code_61">61</string>
     <string name="writing_activity_code_71">71</string>
 
-    <string name="writing_timer" formatted="false">Общее время нагрузки: %s сек.</string>
+    <string name="writing_timer" formatted="false">Общее время нагрузки %d: %d сек.</string>
     <string name="session_timer_string_only_full_and_loadings" formatted="false">Общее время: %s\nОбщее время нагрузок: %s</string>
     <string name="session_timer_string_only_full" formatted="false">Общее время: %s</string>
 

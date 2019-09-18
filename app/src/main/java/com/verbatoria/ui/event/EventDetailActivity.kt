@@ -290,6 +290,7 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
 
     override fun openWriting(eventId: String, childAge: Int) {
         startActivity(WritingActivity.createIntent(this, eventId, childAge))
+        finish()
     }
 
     override fun close() {

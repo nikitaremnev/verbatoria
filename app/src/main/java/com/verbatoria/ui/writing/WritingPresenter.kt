@@ -428,7 +428,7 @@ class WritingPresenter(
         if (withTimeUpdate) {
             selectedActivity?.addTime(TIMER_TASK_INTERVAL_IN_SECONDS)
         }
-        view?.updateTimerTime(selectedActivity?.totalTime ?: TIMER_TASK_INTERVAL_IN_SECONDS)
+        view?.updateTimerTime(selectedActivity?.activityCode?.code ?: 0, selectedActivity?.totalTime ?: TIMER_TASK_INTERVAL_IN_SECONDS)
     }
 
     //endregion

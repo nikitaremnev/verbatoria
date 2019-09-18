@@ -51,7 +51,7 @@ interface WritingView : BaseView {
 
     fun setActivityDoneState(activityCode: ActivityCode)
 
-    fun updateTimerTime(totalLoadTime: Int)
+    fun updateTimerTime(load: Int, totalLoadTime: Int)
 
     fun showFinishButton()
 
@@ -273,9 +273,9 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         getButtonByActivityCode(activityCode).background = activityDoneStateDrawable
     }
 
-    override fun updateTimerTime(totalLoadTime: Int) {
+    override fun updateTimerTime(load: Int, totalLoadTime: Int) {
         uiHandler.post {
-            timerTextView.text = getString(R.string.writing_timer, totalLoadTime.toString())
+            timerTextView.text = getString(R.string.writing_timer, load, totalLoadTime)
         }
     }
 

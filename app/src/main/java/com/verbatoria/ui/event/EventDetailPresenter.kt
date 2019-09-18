@@ -73,7 +73,7 @@ class EventDetailPresenter(
         } else {
             event?.let { event ->
                 view.setTitle(R.string.event_detail_start_mode_title)
-                if (!event.report.isNew()) {
+                if (event.report.isNew()) {
                     view.showDeleteMenuItem()
                 }
             } ?: throw IllegalStateException("Event is null and event mode is not create new")
