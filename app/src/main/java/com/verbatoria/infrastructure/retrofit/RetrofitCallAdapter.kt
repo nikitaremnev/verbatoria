@@ -30,7 +30,11 @@ class RetrofitCallAdapter<R>(
         try {
             execute(call)
         } catch (e: IOException) {
-            throw e
+            if (!call.isCanceled) {
+                throw e
+            } else {
+                //empty
+            }
         }
 
     override fun responseType(): Type =

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.*
-import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.di.Injector
@@ -16,7 +15,6 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.DashboardActivity
-import com.verbatoria.utils.CountryHelper
 
 /**
  * @author n.remnev
@@ -26,15 +24,7 @@ private const val PHONE_EXTRA = "phone_extra"
 
 interface SMSLoginView : BaseView {
 
-    fun setPhone(phone: String)
-
     fun setCode(code: String)
-
-    fun setPhoneFormatterBasedOnCountry(country: String)
-
-    fun showPhoneField()
-
-    fun hidePhoneField()
 
     fun showCodeField()
 
@@ -103,7 +93,6 @@ class SMSLoginActivity :
 
     }
 
-    private lateinit var phoneEditText: EditText
     private lateinit var codeEditText: EditText
 
     private lateinit var clearCodeImageView: ImageView
@@ -124,7 +113,6 @@ class SMSLoginActivity :
             .build()
 
     override fun initViews(savedState: Bundle?) {
-        phoneEditText = findViewById(R.id.phone_edit_text)
         codeEditText = findViewById(R.id.code_edit_text)
 
         clearCodeImageView = findViewById(R.id.code_clear_button)
@@ -172,38 +160,8 @@ class SMSLoginActivity :
 
     //region SMSLoginView
 
-    override fun setPhone(phone: String) {
-        phoneEditText.setText(phone)
-    }
-
     override fun setCode(code: String) {
         codeEditText.setText(code)
-    }
-
-    override fun setPhoneFormatterBasedOnCountry(country: String) {
-        phoneEditText.addTextChangedListener(
-            MaskedTextChangedListener(
-                CountryHelper.getPhoneFormatterByCountry(this, country),
-                true,
-                phoneEditText,
-                null,
-                object : MaskedTextChangedListener.ValueListener {
-
-                    override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
-                        presenter.onPhoneTextChanged(extractedValue)
-                    }
-
-                }
-            )
-        )
-    }
-
-    override fun showPhoneField() {
-        phoneEditText.show()
-    }
-
-    override fun hidePhoneField() {
-        phoneEditText.hide()
     }
 
     override fun showCodeField() {
@@ -251,13 +209,11 @@ class SMSLoginActivity :
     }
 
     override fun showProgressForSendCode() {
-        phoneEditText.isEnabled = false
         sendCodeButton.isEnabled = false
         progressBar.show()
     }
 
     override fun hideProgressForSendCode() {
-        phoneEditText.isEnabled = true
         sendCodeButton.isEnabled = true
         progressBar.hide()
     }

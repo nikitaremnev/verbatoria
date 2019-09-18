@@ -25,6 +25,7 @@ class LateReportBinder : ViewBinder<LateReportViewHolder, LateSend>() {
             }
         )
         view.setPeriod(data.startDate.formatToTime() + " - " + data.endDate.formatToTime())
+        view.setReportId(data.reportId)
     }
 
 }

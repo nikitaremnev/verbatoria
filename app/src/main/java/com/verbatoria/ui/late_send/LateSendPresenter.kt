@@ -19,6 +19,8 @@ class LateSendPresenter(
 
     private var isLateReportsLoaded = false
 
+    private var selectedForDeleteLateSendPosition = -1
+
     init {
         loadLateReports()
     }
@@ -65,9 +67,34 @@ class LateSendPresenter(
             .let(::addDisposable)
     }
 
+    override fun onLateReportDeleteClicked(position: Int) {
+        selectedForDeleteLateSendPosition = position
+        val lateSend = lateSendList[selectedForDeleteLateSendPosition]
+        view?.showDeleteConfirmationDialog(lateSend.reportId)
+    }
+
     //endregion
 
     //region LateSendView.Callback
+
+    override fun onDeleteConfirmed() {
+        val lateSend = lateSendList[selectedForDeleteLateSendPosition]
+        view?.showProgress()
+        lateSendInteractor
+            .deleteLateSend(lateSend)
+            .subscribe(
+                {
+                    this.lateSendList.removeAt(selectedForDeleteLateSendPosition)
+                    updateLateReportsList()
+                    view?.hideProgress()
+                },
+                { error ->
+                    view?.hideProgress()
+                    view?.showErrorSnackbar(error.localizedMessage)
+                }
+            )
+            .let(::addDisposable)
+    }
 
     override fun onNavigationClicked() {
         view?.finish()

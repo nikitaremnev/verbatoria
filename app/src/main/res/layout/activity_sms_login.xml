@@ -15,33 +15,11 @@
         android:scaleType="centerInside"
         android:src="@mipmap/logo_splash"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/phone_edit_text"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <EditText
-        android:id="@+id/phone_edit_text"
-        android:layout_width="@dimen/login_field_width"
-        android:layout_height="@dimen/login_field_height"
-        android:background="@drawable/background_login_field"
-        android:hint="@string/login_phone_hint"
-        android:imeOptions="flagNoExtractUi"
-        android:inputType="phone"
-        android:paddingStart="@dimen/login_field_padding"
-        android:paddingTop="@dimen/login_field_padding"
-        android:paddingEnd="@dimen/login_field_padding_right"
-        android:paddingBottom="@dimen/login_field_padding"
-        android:textColor="@color/login_field_text_color"
-        android:textSize="@dimen/login_field_text_size"
-        android:enabled="false"
         app:layout_constraintBottom_toTopOf="@+id/code_edit_text"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
@@ -64,7 +42,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_edit_text"
+        app:layout_constraintTop_toBottomOf="@+id/logo_image_view"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <ImageView

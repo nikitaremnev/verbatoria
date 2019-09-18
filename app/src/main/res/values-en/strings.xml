@@ -242,6 +242,7 @@
 
     <string name="late_send_title">Sending reports</string>
     <string name="late_send_no_reports">No reports to send</string>
+    <string name="late_send_delete_confirmation">Do you really want to delete report with id %s data? Neurodata and questionnaire will be deleted without recovery possibility.</string>
 
     <string name="language_russian">Русский</string>
     <string name="language_english">English</string>

@@ -3,6 +3,7 @@ package com.verbatoria.ui.late_send.item
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.remnev.verbatoria.R
 import com.verbatoria.infrastructure.extensions.capitalizeFirstLetter
@@ -25,6 +26,8 @@ interface LateReportViewHolder {
 
         fun onLateReportClicked(position: Int)
 
+        fun onLateReportDeleteClicked(position: Int)
+
     }
 
 }
@@ -39,10 +42,14 @@ class LateReportViewHolderImpl(
     private val stateTextView: TextView = rootView.findViewById(R.id.state_text_view)
     private val timePeriodTextView: TextView = rootView.findViewById(R.id.time_period_text_view)
     private val reportIdTextView: TextView = rootView.findViewById(R.id.report_id_text_view)
+    private val deleteImageView: ImageView = rootView.findViewById(R.id.delete_image_view)
 
     init {
         rootView.setOnClickListener {
             callback.onLateReportClicked(adapterPosition)
+        }
+        deleteImageView.setOnClickListener {
+            callback.onLateReportDeleteClicked(adapterPosition)
         }
     }
 

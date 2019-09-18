@@ -25,8 +25,6 @@ class SMSLoginPresenter(
 
     private var checkingCode: String = ""
 
-    private var country: String = ""
-
     private var tryAgainSendCodeTimer: Timer? = null
 
     private var tryAgainSendCodeTimerTask: TimerTask = createTryAgainSendCodeTimerTask()
@@ -34,29 +32,24 @@ class SMSLoginPresenter(
     private var tryAgainSendCodeTimerStartTime: Long = System.currentTimeMillis()
 
     init {
-        getCurrentCountry()
         if (phone.isBlank()) {
             getCurrentPhone()
+        } else {
+            sendSMSCode()
         }
     }
 
     override fun onAttachView(view: SMSLoginView) {
         super.onAttachView(view)
-        view.apply {
-            setPhoneFormatterBasedOnCountry(country)
-            setPhone(phone)
-        }
-        if (phone.isNotBlank()) {
-            view.setSendCodeButtonEnabled()
-        }
         if (tryAgainSendCodeTimer != null) {
             view.apply {
-                hidePhoneField()
                 hideSendCodeButton()
                 showCodeField()
                 updateTimerText()
                 showTimerText()
             }
+        } else {
+            view.showProgressForSendCode()
         }
     }
 
@@ -105,7 +98,6 @@ class SMSLoginPresenter(
             hideCodeField()
             hideTimerText()
             hideRepeatButton()
-            showPhoneField()
             showSendCodeButton()
         }
         sendSMSCode()
@@ -121,7 +113,6 @@ class SMSLoginPresenter(
                 this.checkingCode = checkingCode
                 view?.apply {
                     hideProgressForSendCode()
-                    hidePhoneField()
                     hideSendCodeButton()
                     showCodeField()
                     showTimerText()
@@ -135,25 +126,13 @@ class SMSLoginPresenter(
             .let(::addDisposable)
     }
 
-    private fun getCurrentCountry() {
-        smsLoginInteractor.getCurrentCountry()
-            .subscribe({ country ->
-                this.country = country
-                view?.setPhoneFormatterBasedOnCountry(this.country)
-            }, { error ->
-                logger.error("Get current country error occurred", error)
-                view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
-            })
-            .let(::addDisposable)
-    }
-
     private fun getCurrentPhone() {
         smsLoginInteractor.getCurrentPhone()
             .subscribe({ phone ->
                 this.phone = phone
-                view?.setPhone(this.phone)
                 if (phone.isNotBlank()) {
                     view?.setSendCodeButtonEnabled()
+                    sendSMSCode()
                 }
             }, { error ->
                 logger.error("Get current phone error occurred", error)

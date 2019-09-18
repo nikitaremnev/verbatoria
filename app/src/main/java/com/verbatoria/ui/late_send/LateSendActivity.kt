@@ -17,6 +17,7 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
+import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.ui.common.dialog.ProgressDialog
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
@@ -26,6 +27,7 @@ import javax.inject.Inject
  */
 
 private const val PROGRESS_DIALOG_TAG = "PROGRESS_DIALOG_TAG"
+private const val DELETE_CONFIRMATION_DIALOG_TAG = "DELETE_CONFIRMATION_DIALOG_TAG"
 
 interface LateSendView : BaseView {
 
@@ -37,6 +39,8 @@ interface LateSendView : BaseView {
 
     fun showSubmitProgress(progressResourceId: Int)
 
+    fun showDeleteConfirmationDialog(reportId: String)
+
     fun showProgress()
 
     fun hideProgress()
@@ -44,6 +48,8 @@ interface LateSendView : BaseView {
     fun finish()
 
     interface Callback {
+
+        fun onDeleteConfirmed()
 
         fun onNavigationClicked()
 
@@ -53,7 +59,7 @@ interface LateSendView : BaseView {
 
 class LateSendActivity :
     BasePresenterActivity<LateSendView, LateSendPresenter, LateSendActivity, LateSendComponent>(),
-    LateSendView {
+    LateSendView, ActivitySuggestDialog.OnClickSuggestDialogListener {
 
     companion object {
 
@@ -115,6 +121,16 @@ class LateSendActivity :
         showHintSnackbar(getString(progressResourceId))
     }
 
+    override fun showDeleteConfirmationDialog(reportId: String) {
+        ActivitySuggestDialog.build {
+            title = getString(R.string.confirmation)
+            message = getString(R.string.late_send_delete_confirmation, reportId)
+            positiveTitleBtn = getString(R.string.delete)
+            negativeTitleBtn = getString(R.string.cancel)
+            cancelable = false
+        }.show(supportFragmentManager, DELETE_CONFIRMATION_DIALOG_TAG)
+    }
+
     override fun showProgress() {
         progressDialog = ProgressDialog()
         progressDialog?.show(supportFragmentManager, PROGRESS_DIALOG_TAG)
@@ -122,6 +138,18 @@ class LateSendActivity :
 
     override fun hideProgress() {
         progressDialog?.dismiss()
+    }
+
+    //endregion
+
+    //region ActivitySuggestDialog.OnClickSuggestDialogListener
+
+    override fun onPositiveClicked(tag: String?) {
+        presenter.onDeleteConfirmed()
+    }
+
+    override fun onNegativeClicked(tag: String?) {
+        //empty
     }
 
     //endregion

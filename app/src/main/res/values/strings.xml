@@ -242,6 +242,7 @@
 
     <string name="late_send_title">Отправка отчетов</string>
     <string name="late_send_no_reports">Нет отчетов для отправки</string>
+    <string name="late_send_delete_confirmation">Вы уверены, что хотите удалить данные по отчету %s? Данные нейрометрии и опросника будут удалены без возможности восстановления.</string>
 
     <string name="language_russian">Русский</string>
     <string name="language_english">English</string>
