@@ -13,7 +13,7 @@ class Questionnaire(
     var bodyKinestheticAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
     var understandingPeopleAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
     var understandingYourselfAnswer: QuestionAnswer = QuestionAnswer.NO_ANSWER,
-    var reportType: ReportType = ReportType.NOT_SELECTED,
+    var reportType: ReportType = ReportType.TYPE_0,
     var includeAttentionMemory: QuestionYesOrNoAnswer = QuestionYesOrNoAnswer.NO_ANSWER,
     var includeHobby: QuestionYesOrNoAnswer = QuestionYesOrNoAnswer.NO_ANSWER
 )

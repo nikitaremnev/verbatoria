@@ -14,7 +14,7 @@ class ScheduleItemViewHolder(
 
     fun setChecked(isChecked: Boolean) {
         if (isChecked) {
-            backgroundView.setBackgroundResource(R.color.main_dark)
+            backgroundView.setBackgroundResource(R.color.main)
         } else {
             backgroundView.setBackgroundResource(R.color.background)
         }
