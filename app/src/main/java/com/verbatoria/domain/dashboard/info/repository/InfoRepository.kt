@@ -239,14 +239,12 @@ class InfoRepositoryImpl(
             putString(PHONE_KEY, info.phone)
             putString(EMAIL_KEY, info.email)
             putBoolean(IS_ARCHIMEDES_ALLOWED_KEY, info.isArchimedesAllowed)
-            putString(LOCATION_ID_KEY, info.locationId)
             apply()
         }
     }
 
     override fun saveLocationInfo(locationInfo: LocationInfoModel) {
         sharedPreferences.edit().apply {
-            putString(LOCATION_ID_KEY, locationInfo.id)
             putString(LOCATION_POINT_KEY, locationInfo.point)
             putString(LOCATION_ADDRESS_KEY, locationInfo.address)
             putString(LOCATION_NAME_KEY, locationInfo.name)
