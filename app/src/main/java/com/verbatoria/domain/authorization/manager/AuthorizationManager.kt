@@ -51,8 +51,6 @@ class AuthorizationManagerImpl(
                 password = password
             )
         )
-        infoRepository.deleteAll()
-        settingsRepository.deleteAll()
         infoRepository.putLocationId(response.locationId)
         sessionManager.startSession(OnlineAuthorization(response.accessToken))
     }

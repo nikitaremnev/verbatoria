@@ -1,6 +1,7 @@
 package com.verbatoria.domain.client.model
 
 import android.os.Parcelable
+import android.util.Patterns
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -25,6 +26,6 @@ data class Client(
         phone.isNotEmpty()
 
     fun hasEmail(): Boolean =
-        email.isNotEmpty()
+        email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
 }

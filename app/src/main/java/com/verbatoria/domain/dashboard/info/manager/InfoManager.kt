@@ -64,7 +64,9 @@ class InfoManagerImpl(
                 infoRepository.putLastInfoUpdateTime(System.currentTimeMillis())
                 responseConverted
             }
-            System.currentTimeMillis() - lastUpdateInfoTime < ONE_DAY_IN_MILLIS -> infoRepository.getInfo()
+            System.currentTimeMillis() - lastUpdateInfoTime < ONE_DAY_IN_MILLIS -> {
+                infoRepository.getInfo()
+            }
             else -> {
                 try {
                     val response = infoEndpoint.getInfo()
@@ -113,11 +115,12 @@ class InfoManagerImpl(
 
                 Pair(responseLocationInfoConverted, responsePartnerInfoConverted)
             }
-            System.currentTimeMillis() - lastUpdateLocationInfoTime < ONE_DAY_IN_MILLIS ->
+            System.currentTimeMillis() - lastUpdateLocationInfoTime < ONE_DAY_IN_MILLIS -> {
                 Pair(
                     infoRepository.getLocationInfo(),
                     infoRepository.getPartnerInfo()
                 )
+            }
             else -> {
                 try {
                     val response = infoEndpoint.getLocationInfo(locationId)

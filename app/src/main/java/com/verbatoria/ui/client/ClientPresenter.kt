@@ -19,6 +19,8 @@ class ClientPresenter(
 
     private var country: String = ""
 
+    private var isPhoneMaskFilled: Boolean = false
+
     init {
         getCurrentCountry()
     }
@@ -51,7 +53,8 @@ class ClientPresenter(
         }
     }
 
-    override fun onClientPhoneChanged(newClientPhone: String) {
+    override fun onClientPhoneChanged(maskFilled: Boolean, newClientPhone: String) {
+        isPhoneMaskFilled = maskFilled
         if (eventDetailMode.isStart()) {
             editedClient.phone = newClientPhone
             checkIsSomeFieldsChanged()
@@ -91,7 +94,7 @@ class ClientPresenter(
 
     private fun checkIsAllFieldsFilled() {
         if (client.hasName() &&
-            client.hasPhone()&&
+            client.hasPhone() && isPhoneMaskFilled &&
             client.hasEmail()) {
             view?.setSaveButtonEnabled()
         } else {

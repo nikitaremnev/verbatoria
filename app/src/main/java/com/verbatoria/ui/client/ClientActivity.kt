@@ -62,7 +62,7 @@ interface ClientView : BaseView {
 
         fun onClientNameChanged(newClientName: String)
 
-        fun onClientPhoneChanged(newClientPhone: String)
+        fun onClientPhoneChanged(maskFilled: Boolean, newClientPhone: String)
 
         fun onClientEmailChanged(newClientEmail: String)
 
@@ -206,7 +206,7 @@ class ClientActivity : BasePresenterActivity<ClientView, ClientPresenter, Client
                 object : MaskedTextChangedListener.ValueListener {
 
                     override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
-                        presenter.onClientPhoneChanged(extractedValue)
+                        presenter.onClientPhoneChanged(maskFilled, extractedValue)
                     }
 
                 }
