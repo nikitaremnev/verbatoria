@@ -239,7 +239,7 @@ class EventDetailPresenter(
                 view?.showReportHint(
                     when (eventDetailReportItem.reportStatus) {
                         ReportStatus.UPLOADED ->  R.string.report_status_uploaded_hint
-                        ReportStatus.READY ->  R.string.report_status_ready_hint
+                        ReportStatus.READY ->  R.string.report_status_uploaded_hint
                         ReportStatus.SENT ->  R.string.report_status_sent_hint
                         ReportStatus.CANCELED ->  R.string.report_status_sent_canceled
                         else -> R.string.report_status_new_hint
