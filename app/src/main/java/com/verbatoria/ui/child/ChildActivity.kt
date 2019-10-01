@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.*
 import com.remnev.verbatoria.R
 import com.verbatoria.domain.child.model.Child
@@ -27,6 +26,9 @@ private const val AGE_SELECTION_DIALOG_TAG = "AGE_SELECTION_DIALOG_TAG"
 
 private const val EVENT_DETAIL_MODE_EXTRA = "event_detail_mode_extra"
 private const val CLIENT_ID_EXTRA = "client_id_extra"
+
+private const val MALE_GENDER_POSITION = 0
+private const val FEMALE_GENDER_POSITION = 1
 
 interface ChildView : BaseView {
 
@@ -49,10 +51,6 @@ interface ChildView : BaseView {
     fun setSaveButtonEnabled()
 
     fun setSaveButtonDisabled()
-
-    fun showSaveButton()
-
-    fun hideSaveButton()
 
     fun close(child: Child?)
 
@@ -99,7 +97,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     private lateinit var toolbar: Toolbar
     private lateinit var childNameEditText: EditText
-    private lateinit var childGenderSpinner: Spinner
+    private lateinit var childGenderRadioGroup: RadioGroup
     private lateinit var childAgeTextView: TextView
     private lateinit var saveButton: Button
     private lateinit var progressBar: ProgressBar
@@ -119,7 +117,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
         toolbar = findViewById(R.id.toolbar)
 
         childNameEditText = findViewById(R.id.child_name_edit_text)
-        childGenderSpinner = findViewById(R.id.child_gender_spinner)
+        childGenderRadioGroup = findViewById(R.id.child_gender_radio_group)
         childAgeTextView = findViewById(R.id.child_age_text_view)
 
         saveButton = findViewById(R.id.save_button)
@@ -146,21 +144,13 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
             }
 
         })
-        childGenderSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                //empty
+        childGenderRadioGroup.setOnCheckedChangeListener { group, checkedId ->
+            if (checkedId == R.id.child_gender_male_radio_button) {
+                presenter.onChildGenderSelected(MALE_GENDER_POSITION)
+            } else if (checkedId == R.id.child_gender_female_radio_button) {
+                presenter.onChildGenderSelected(FEMALE_GENDER_POSITION)
             }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                presenter.onChildGenderSelected(position)
-            }
-
         }
 
         childAgeTextView.setOnClickListener {
@@ -205,7 +195,11 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
     }
 
     override fun setChildGender(childGender: Int) {
-        childGenderSpinner.setSelection(childGender)
+        if (childGender == MALE_GENDER_POSITION) {
+            childGenderRadioGroup.check(R.id.child_gender_male_radio_button)
+        } else if (childGender == FEMALE_GENDER_POSITION) {
+            childGenderRadioGroup.check(R.id.child_gender_female_radio_button)
+        }
     }
 
     override fun setChildAge(childAge: Int) {
@@ -219,7 +213,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     override fun setViewOnlyMode() {
         childNameEditText.isEnabled = false
-        childGenderSpinner.isEnabled = false
+        childGenderRadioGroup.isEnabled = false
         saveButton.hide()
     }
 
@@ -229,14 +223,6 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
 
     override fun setSaveButtonDisabled() {
         saveButton.isEnabled = false
-    }
-
-    override fun showSaveButton() {
-        saveButton.show()
-    }
-
-    override fun hideSaveButton() {
-        saveButton.hide()
     }
 
     override fun close(child: Child?) {

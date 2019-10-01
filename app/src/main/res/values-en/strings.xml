@@ -80,6 +80,9 @@
         <item>Female</item>
     </string-array>
 
+    <string name="child_gender_male">Male</string>
+    <string name="child_gender_female">Female</string>
+
     <string name="child_first_fill_client_error">It is required to fill client data first</string>
 
     <string name="event_detail_activity_child_name">Child name</string>

@@ -21,8 +21,14 @@ class ChildPresenter(
     override fun onAttachView(view: ChildView) {
         super.onAttachView(view)
         when {
-            eventDetailMode.isCreateNew() -> view.setEditableMode()
-            eventDetailMode.isStart() -> view.setEditableMode()
+            eventDetailMode.isCreateNew() -> {
+                view.setEditableMode()
+                checkIsAllFieldsFilled()
+            }
+            eventDetailMode.isStart() -> {
+                view.setEditableMode()
+                checkIsSomeFieldsChanged()
+            }
             else -> view.setViewOnlyMode()
         }
         view.apply {
@@ -30,7 +36,6 @@ class ChildPresenter(
             setChildGender(child.gender)
             setChildAge(child.age)
         }
-        checkIsAllFieldsFilled()
     }
 
     //region ChildView.Callback
@@ -51,6 +56,7 @@ class ChildPresenter(
             checkIsSomeFieldsChanged()
         } else if (eventDetailMode.isCreateNew()) {
             child.gender = newChildGender
+            checkIsAllFieldsFilled()
         }
     }
 
@@ -101,11 +107,10 @@ class ChildPresenter(
 
     private fun checkIsSomeFieldsChanged() {
         if (editedChild.hasName() && editedChild.hasGender() && editedChild.hasAge()
-            && (child.name != editedChild.name || child.gender != editedChild.gender || child.age != editedChild.age)
-        ) {
-            view?.showSaveButton()
+            && (child.name != editedChild.name || child.gender != editedChild.gender || child.age != editedChild.age)) {
+            view?.setSaveButtonEnabled()
         } else {
-            view?.hideSaveButton()
+            view?.setSaveButtonDisabled()
         }
     }
 

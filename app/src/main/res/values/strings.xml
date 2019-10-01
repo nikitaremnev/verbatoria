@@ -80,6 +80,9 @@
         <item>Женский</item>
     </string-array>
 
+    <string name="child_gender_male">Мужской</string>
+    <string name="child_gender_female">Женский</string>
+
     <string name="child_first_fill_client_error">Необходимо сначала заполнить данные о клиенте</string>
 
     <string name="event_detail_activity_child_name">Имя ребенка</string>
