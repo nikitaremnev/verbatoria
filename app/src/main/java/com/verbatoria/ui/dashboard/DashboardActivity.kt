@@ -66,6 +66,10 @@ class DashboardActivity :
         }
     }
 
+    override fun onBackPressed() {
+        //empty
+    }
+
     //region DashboardView
 
     override fun setInfoItemSelected() {
