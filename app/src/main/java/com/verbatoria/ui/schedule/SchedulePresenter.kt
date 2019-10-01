@@ -51,20 +51,7 @@ class SchedulePresenter(
     //region ScheduleView.Callback
 
     override fun onClearScheduleClicked() {
-        scheduleDataSource?.let { scheduleDataSource ->
-            view?.showClearScheduleProgressDialog()
-            scheduleInteractor.clearSchedule(scheduleDataSource)
-                .doAfterTerminate {
-                    view?.hideClearScheduleProgressDialog()
-                }
-                .subscribe({
-                    view?.updateScheduleAfterCleared()
-                }, { error ->
-                    error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage)
-                })
-                .let(::addDisposable)
-        }
+        view?.showClearScheduleConfirmationDialog()
     }
 
     override fun onNextWeekClicked() {
@@ -105,6 +92,23 @@ class SchedulePresenter(
 
     override fun onSaveScheduleClicked() {
         view?.showSaveScheduleConfirmationDialog()
+    }
+
+    override fun onClearScheduleConfirmed() {
+        scheduleDataSource?.let { scheduleDataSource ->
+            view?.showClearScheduleProgressDialog()
+            scheduleInteractor.clearSchedule(scheduleDataSource)
+                .doAfterTerminate {
+                    view?.hideClearScheduleProgressDialog()
+                }
+                .subscribe({
+                    view?.updateScheduleAfterCleared()
+                }, { error ->
+                    error.printStackTrace()
+                    view?.showErrorSnackbar(error.localizedMessage)
+                })
+                .let(::addDisposable)
+        }
     }
 
     override fun onNavigationClicked() {

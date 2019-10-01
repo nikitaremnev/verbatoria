@@ -16,6 +16,7 @@ import com.verbatoria.infrastructure.extensions.showProgressDialogFragment
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.adaptivetablelayout.AdaptiveTableLayout
+import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
 
 /**
@@ -23,6 +24,7 @@ import com.verbatoria.ui.common.dialog.SelectionBottomSheetDialog
  */
 
 private const val SAVE_SCHEDULE_CONFIRMATION_DIALOG_TAG = "SAVE_SCHEDULE_CONFIRMATION_DIALOG_TAG"
+private const val CLEAR_SCHEDULE_CONFIRMATION_DIALOG_TAG = "CLEAR_SCHEDULE_CONFIRMATION_DIALOG_TAG"
 private const val SAVE_SCHEDULE_PROGRESS_DIALOG_TAG = "SAVE_SCHEDULE_PROGRESS_DIALOG_TAG"
 private const val CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG = "CLEAR_SCHEDULE_PROGRESS_DIALOG_TAG"
 private const val LOAD_SCHEDULE_PROGRESS_DIALOG_TAG = "LOAD_SCHEDULE_PROGRESS_DIALOG_TAG"
@@ -36,6 +38,8 @@ interface ScheduleView : BaseView {
     fun updateScheduleAfterCleared()
 
     fun showSaveScheduleConfirmationDialog()
+
+    fun showClearScheduleConfirmationDialog()
 
     fun showInitialLoadScheduleProgress()
 
@@ -65,6 +69,8 @@ interface ScheduleView : BaseView {
 
         fun onSaveScheduleClicked()
 
+        fun onClearScheduleConfirmed()
+
         fun onNavigationClicked()
 
         fun onWeeksForwardSaveSelected(weeksForward: Int)
@@ -75,7 +81,7 @@ interface ScheduleView : BaseView {
 
 class ScheduleActivity :
     BasePresenterActivity<ScheduleView, SchedulePresenter, ScheduleActivity, ScheduleComponent>(),
-    ScheduleView, SelectionBottomSheetDialog.OnSelectedItemListener {
+    ScheduleView, SelectionBottomSheetDialog.OnSelectedItemListener, ActivitySuggestDialog.OnClickSuggestDialogListener {
 
     companion object {
 
@@ -175,6 +181,15 @@ class ScheduleActivity :
             .show(supportFragmentManager, SAVE_SCHEDULE_CONFIRMATION_DIALOG_TAG)
     }
 
+    override fun showClearScheduleConfirmationDialog() {
+        ActivitySuggestDialog.build {
+            title = getString(R.string.confirmation)
+            message = getString(R.string.schedule_clear_confirmation)
+            positiveTitleBtn = getString(R.string.delete)
+            negativeTitleBtn = getString(R.string.cancel)
+        }.show(supportFragmentManager, CLEAR_SCHEDULE_CONFIRMATION_DIALOG_TAG)
+    }
+
     override fun showInitialLoadScheduleProgress() {
         progressBar.show()
     }
@@ -209,6 +224,18 @@ class ScheduleActivity :
 
     override fun close() {
         finish()
+    }
+
+    //endregion
+
+    //region ActivitySuggestDialog.OnClickSuggestDialogListener
+
+    override fun onPositiveClicked(tag: String?) {
+        presenter.onClearScheduleConfirmed()
+    }
+
+    override fun onNegativeClicked(tag: String?) {
+        //empty
     }
 
     //endregion
