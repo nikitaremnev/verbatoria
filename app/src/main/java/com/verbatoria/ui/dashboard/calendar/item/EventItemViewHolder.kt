@@ -19,7 +19,9 @@ interface EventItemViewHolder {
 
     fun setStatusFromResourceId(statusTextResource: Int)
 
-    fun setClientNameAndAge(name: String, age: Int)
+    fun setChildNameAndAge(name: String, age: Int)
+
+    fun setChildNameAndAgeEmpty()
 
     fun setReportId(reportId: String)
 
@@ -64,12 +66,16 @@ class EventItemViewHolderImpl(
         statusTextView.text = context.getString(statusTextResource)
     }
 
-    override fun setClientNameAndAge(name: String, age: Int) {
+    override fun setChildNameAndAge(name: String, age: Int) {
         clientTextView.text = context.getString(
             R.string.calendar_event_age_format,
             name.capitalizeFirstLetter(),
             age.toString()
         )
+    }
+
+    override fun setChildNameAndAgeEmpty() {
+        clientTextView.text = context.getString(R.string.calendar_event_name_and_age_empty)
     }
 
     override fun setReportId(reportId: String) {

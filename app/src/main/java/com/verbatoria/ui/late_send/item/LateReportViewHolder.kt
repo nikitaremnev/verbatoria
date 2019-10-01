@@ -16,6 +16,8 @@ interface LateReportViewHolder {
 
     fun setChildNameAndAge(name: String, age: Int)
 
+    fun setChildNameAndAgeEmpty()
+
     fun setState(stateResourceId: Int)
 
     fun setPeriod(period: String)
@@ -73,6 +75,10 @@ class LateReportViewHolderImpl(
 
     override fun setReportId(reportId: String) {
         reportIdTextView.text = reportId
+    }
+
+    override fun setChildNameAndAgeEmpty() {
+        childTextView.text = context.getString(R.string.calendar_event_name_and_age_empty)
     }
 
     //endregion

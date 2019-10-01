@@ -18,10 +18,6 @@ class ChildPresenter(
 
     private var editedChild: Child = child.copy()
 
-    init {
-
-    }
-
     override fun onAttachView(view: ChildView) {
         super.onAttachView(view)
         when {
@@ -96,7 +92,7 @@ class ChildPresenter(
     //endregion
 
     private fun checkIsAllFieldsFilled() {
-        if (child.hasName() && child.hasAge()) {
+        if (child.hasName() && child.hasAge() && child.hasGender()) {
             view?.setSaveButtonEnabled()
         } else {
             view?.setSaveButtonDisabled()
@@ -104,9 +100,9 @@ class ChildPresenter(
     }
 
     private fun checkIsSomeFieldsChanged() {
-        if (child.name != editedChild.name ||
-            child.gender != editedChild.gender ||
-            child.age != editedChild.age) {
+        if (editedChild.hasName() && editedChild.hasGender() && editedChild.hasAge()
+            && (child.name != editedChild.name || child.gender != editedChild.gender || child.age != editedChild.age)
+        ) {
             view?.showSaveButton()
         } else {
             view?.hideSaveButton()

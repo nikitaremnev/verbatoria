@@ -1,6 +1,7 @@
 package com.verbatoria.ui.late_send.item
 
 import com.remnev.verbatoria.R
+import com.verbatoria.domain.child.model.Child
 import com.verbatoria.domain.late_send.model.LateSend
 import com.verbatoria.domain.late_send.model.LateSendState
 import com.verbatoria.infrastructure.extensions.formatToTime
@@ -13,7 +14,11 @@ import com.verbatoria.ui.common.ViewBinder
 class LateReportBinder : ViewBinder<LateReportViewHolder, LateSend>() {
 
     override fun bind(view: LateReportViewHolder, data: LateSend, position: Int) {
-        view.setChildNameAndAge(data.childName, data.childAge)
+        if (data.childName == Child.NAME_NOT_SELECTED || data.childAge == Child.AGE_NOT_SELECTED) {
+            view.setChildNameAndAgeEmpty()
+        } else {
+            view.setChildNameAndAge(data.childName, data.childAge)
+        }
         view.setState(
             when (data.state) {
                 LateSendState.HAS_NOTHING -> R.string.late_send_state_nothing

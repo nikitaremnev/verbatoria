@@ -191,6 +191,8 @@
 
     <string name="calendar_event_age_format">%s, %s</string>
 
+    <string name="calendar_event_name_and_age_empty">Имя и возраст не указаны</string>
+
     <!-- Dashboard -->
 
     <string name="dashboard_age" formatted="false">Возраст: %s</string>
@@ -277,6 +279,7 @@
     <string name="login_swiss_phone_mask">+ [00] [00] [000] [00] [00]</string>
     <string name="login_malaysia_phone_mask">+ [00] [00] [0000000]</string>
     <string name="login_indonesia_phone_mask">+ [00] [000] [00000000]</string>
+    <string name="login_india_phone_mask">+ [00] [00] [00000000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
@@ -304,6 +307,7 @@
     <string name="country_swiss">Швейцария</string>
     <string name="country_malaysia">Малайзия</string>
     <string name="country_indonesia">Индонезия</string>
+    <string name="country_india">Индия</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

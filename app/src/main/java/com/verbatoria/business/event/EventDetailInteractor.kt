@@ -110,8 +110,14 @@ class EventDetailInteractorImpl(
                 ),
                 EventDetailChildItem(
                     EventDetailMode.START,
-                    name = event.child.name,
-                    age = event.child.age
+                    name = if (event.child.name == Child.NAME_NOT_SELECTED)
+                        null
+                    else
+                        event.child.name,
+                    age = if (event.child.age == Child.AGE_NOT_SELECTED)
+                        null
+                    else
+                        event.child.age
                 ),
                 EventDetailHeaderItem(
                     mode = EventDetailMode.START,

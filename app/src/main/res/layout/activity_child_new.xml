@@ -173,7 +173,7 @@
             android:layout_height="@dimen/child_submit_button_height"
             android:layout_margin="@dimen/child_submit_button_margin"
             android:background="@drawable/selector_common_button"
-            android:enabled="false"
+            android:enabled="true"
             android:text="@string/save"
             android:textColor="@drawable/selector_common_button_text"
             app:layout_constraintRight_toRightOf="parent"

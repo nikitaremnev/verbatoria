@@ -38,12 +38,13 @@ class ChildManagerImpl(
         val childResponse = childEndpoint.getChild(clientId, childId)
         return Child(
             id = childId,
-            name = childResponse.name,
-            gender = if (childResponse.gender == MALE_GENDER)
-                MALE_GENDER_POSITION
-            else
-                FEMALE_GENDER_POSITION,
-            age = childResponse.birthday.parseBirthdayFormat().getYearsForCurrentMoment()
+            name = childResponse.name ?: Child.NAME_NOT_SELECTED,
+            gender = when (childResponse.gender) {
+                MALE_GENDER -> MALE_GENDER_POSITION
+                FEMALE_GENDER -> FEMALE_GENDER_POSITION
+                else -> Child.GENDER_NOT_SELECTED
+            },
+            age = childResponse.birthday?.parseBirthdayFormat()?.getYearsForCurrentMoment() ?: Child.AGE_NOT_SELECTED
         )
     }
 
@@ -88,12 +89,13 @@ class ChildManagerImpl(
         with(childDto) {
             Child(
                 id = id,
-                name = name,
-                gender = if (gender == MALE_GENDER)
-                    MALE_GENDER_POSITION
-                else
-                    FEMALE_GENDER_POSITION,
-                age = birthday.parseBirthdayFormat().getYearsForCurrentMoment()
+                name = name ?: Child.NAME_NOT_SELECTED,
+                gender = when (gender) {
+                    MALE_GENDER -> MALE_GENDER_POSITION
+                    FEMALE_GENDER -> FEMALE_GENDER_POSITION
+                    else -> Child.GENDER_NOT_SELECTED
+                },
+                age = birthday?.parseBirthdayFormat()?.getYearsForCurrentMoment() ?: Child.AGE_NOT_SELECTED
             )
         }
 

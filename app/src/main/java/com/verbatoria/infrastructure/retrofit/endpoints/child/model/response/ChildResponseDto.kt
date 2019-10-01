@@ -10,9 +10,9 @@ data class ChildResponseDto(
     val id: String,
     @SerializedName("client_id")
     val clientId: String,
-    val name: String,
+    val name: String?,
     @SerializedName("birth_day")
-    val birthday: String,
+    val birthday: String?,
     @SerializedName("gender")
-    val gender: String
+    val gender: String?
 )
