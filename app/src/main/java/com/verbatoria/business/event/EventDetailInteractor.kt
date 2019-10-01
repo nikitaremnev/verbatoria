@@ -64,24 +64,12 @@ class EventDetailInteractorImpl(
     override fun getCreateNewModeEventDetailItems(): Single<List<EventDetailItem>> =
         Single.fromCallable {
             listOf(
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.CREATE_NEW,
-                    headerStringResource = R.string.client
-                ),
                 EventDetailClientItem(
                     mode =EventDetailMode.CREATE_NEW,
                     isLoading = false
                 ),
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.CREATE_NEW,
-                    headerStringResource = R.string.child
-                ),
                 EventDetailChildItem(
                     EventDetailMode.CREATE_NEW
-                ),
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.CREATE_NEW,
-                    headerStringResource = R.string.time
                 ),
                 EventDetailTimeItem(
                     mode = EventDetailMode.CREATE_NEW
@@ -97,16 +85,8 @@ class EventDetailInteractorImpl(
     override fun getStartModeEventDetailItems(event: Event): Single<List<EventDetailItem>> =
         Single.fromCallable {
             val eventDetailItems = mutableListOf(
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.START,
-                    headerStringResource = R.string.client
-                ),
                 EventDetailClientItem(
                     EventDetailMode.START
-                ),
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.START,
-                    headerStringResource = R.string.child
                 ),
                 EventDetailChildItem(
                     EventDetailMode.START,
@@ -119,18 +99,10 @@ class EventDetailInteractorImpl(
                     else
                         event.child.age
                 ),
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.START,
-                    headerStringResource = R.string.time
-                ),
                 EventDetailTimeItem(
                     mode = EventDetailMode.START,
                     startDate = event.startDate,
                     endDate = event.endDate
-                ),
-                EventDetailHeaderItem(
-                    mode = EventDetailMode.START,
-                    headerStringResource = R.string.report
                 ),
                 EventDetailReportItem(
                     mode = EventDetailMode.START,
@@ -141,12 +113,6 @@ class EventDetailInteractorImpl(
 
             if (!infoManager.isSchool() && event.report.isSent()) {
                 eventDetailItems.add(
-                    EventDetailHeaderItem(
-                        mode = EventDetailMode.START,
-                        headerStringResource = R.string.event_detail_location
-                    )
-                )
-                eventDetailItems.add(
                     EventDetailSendToLocationItem(
                         mode = EventDetailMode.START
                     )
@@ -154,12 +120,6 @@ class EventDetailInteractorImpl(
             }
 
             if (!infoManager.isSchool() && event.report.isSentOrReady()) {
-                eventDetailItems.add(
-                    EventDetailHeaderItem(
-                        mode = EventDetailMode.START,
-                        headerStringResource = R.string.attention_memory
-                    )
-                )
                 eventDetailItems.add(
                     EventDetailIncludeAttentionMemoryItem(
                         mode = EventDetailMode.START
@@ -169,12 +129,6 @@ class EventDetailInteractorImpl(
 
             if (!infoManager.isSchool() && event.isArchimedesAllowed) {
                 eventDetailItems.add(
-                    EventDetailHeaderItem(
-                        mode = EventDetailMode.START,
-                        headerStringResource = R.string.arhimedes
-                    )
-                )
-                eventDetailItems.add(
                     EventDetailArchimedesItem(
                         mode = EventDetailMode.START,
                         isArchimedesIncluded = infoManager.isArchimedesAllowedForVerbatolog()
@@ -183,12 +137,6 @@ class EventDetailInteractorImpl(
             }
 
             if (!infoManager.isSchool() && event.child.age  >= MINIMUM_HOBBY_AGE) {
-                eventDetailItems.add(
-                    EventDetailHeaderItem(
-                        mode = EventDetailMode.START,
-                        headerStringResource = R.string.hobby
-                    )
-                )
                 eventDetailItems.add(
                     EventDetailHobbyItem(
                         mode = EventDetailMode.START,

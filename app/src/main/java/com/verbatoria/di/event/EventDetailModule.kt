@@ -35,15 +35,6 @@ class EventDetailModule {
         Adapter(
             listOf(
                 ItemAdapter(
-                    { it is EventDetailHeaderItem },
-                    {
-                        EventDetailHeaderItemViewHolderImpl(
-                            ViewInflater.inflate(R.layout.item_event_detail_header, it)
-                        )
-                    },
-                    EventDetailHeaderItemBinder()
-                ),
-                ItemAdapter(
                     { it is EventDetailArchimedesItem },
                     {
                         EventDetailArchimedesItemViewHolderImpl(

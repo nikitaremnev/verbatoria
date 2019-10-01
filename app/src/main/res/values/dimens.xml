@@ -225,6 +225,10 @@
     <dimen name="event_detail_item_hint_text_size">14sp</dimen>
     <dimen name="event_detail_item_hint_logo_padding">8dp</dimen>
 
+    <dimen name="event_detail_decorative_block_text_size">10sp</dimen>
+    <dimen name="event_detail_decorative_block_text_margin_top">4dp</dimen>
+    <dimen name="event_detail_decorative_block_width">80dp</dimen>
+
     <!-- Client -->
 
     <dimen name="client_header_text_size">12sp</dimen>

@@ -1,6 +1,5 @@
 package com.verbatoria.ui.questionnaire
 
-import android.util.Log
 import com.remnev.verbatoria.R
 import com.verbatoria.business.questionnaire.QuestionnaireInteractor
 import com.verbatoria.domain.questionnaire.model.*
@@ -57,7 +56,6 @@ class QuestionnairePresenter(
     }
 
     override fun onNoButtonClicked() {
-        Log.e("test", "QuestionnairePresenter onNoButtonClicked")
         view?.setYesOrNoAnswer(false)
         saveYesOrNoAnswerForPosition(QuestionYesOrNoAnswer.ANSWER_NO)
         onNextClicked()
@@ -136,13 +134,9 @@ class QuestionnairePresenter(
     private fun saveYesOrNoAnswerForPosition(answer: QuestionYesOrNoAnswer) {
         when (currentQuestionPosition) {
             MEMORY_ATTENTION_QUESTION_INDEX -> {
-                Log.e("test", "QuestionnairePresenter saveYesOrNoAnswerForPosition MEMORY_ATTENTION_QUESTION_INDEX")
-
                 questionnaire.includeAttentionMemory = answer
             }
             HOBBY_QUESTION_INDEX -> {
-                Log.e("test", "QuestionnairePresenter saveYesOrNoAnswerForPosition HOBBY_QUESTION_INDEX")
-
                 questionnaire.includeHobby = answer
             }
         }
@@ -161,13 +155,9 @@ class QuestionnairePresenter(
     private fun getCurrentYesOrNoQuestionAnswer(): QuestionYesOrNoAnswer =
         when (currentQuestionPosition) {
             MEMORY_ATTENTION_QUESTION_INDEX -> {
-                Log.e("test", "QuestionnairePresenter getCurrentYesOrNoQuestionAnswer MEMORY_ATTENTION_QUESTION_INDEX")
-
                 questionnaire.includeAttentionMemory
             }
             HOBBY_QUESTION_INDEX -> {
-                Log.e("test", "QuestionnairePresenter getCurrentYesOrNoQuestionAnswer HOBBY_QUESTION_INDEX")
-
                 questionnaire.includeHobby
             }
             else -> QuestionYesOrNoAnswer.NO_ANSWER
@@ -178,19 +168,14 @@ class QuestionnairePresenter(
         when {
 
             currentQuestionPosition <= LAST_NUMBER_QUESTION_INDEX -> {
-                Log.e("test", "QuestionnairePresenter currentQuestionPosition <= LAST_NUMBER_QUESTION_INDEX")
                 setUpNumberQuestion()
             }
 
             currentQuestionPosition == MEMORY_ATTENTION_QUESTION_INDEX -> {
-                Log.e("test", "QuestionnairePresenter currentQuestionPosition == MEMORY_ATTENTION_QUESTION_INDEX")
-
                 setUpYesOrNoQuestion(R.string.questionnaire_include_memory_attention)
             }
 
             currentQuestionPosition == HOBBY_QUESTION_INDEX -> {
-                Log.e("test", "QuestionnairePresenter currentQuestionPosition == HOBBY_QUESTION_INDEX")
-
                 setUpYesOrNoQuestion(R.string.questionnaire_include_hobby)
             }
 

@@ -93,9 +93,10 @@ class WritingPresenter(
                 view.showMusicFileName(currentMusicFileIndex.toString())
             }
         }
-//        if (!isBCIConnected) {
-//            view.showBCIConnectionDialog()
-//        }
+
+        if (!isBCIConnected) {
+            view.showBCIConnectionDialog()
+        }
     }
 
     //region WritingView.Callback

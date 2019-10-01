@@ -8,6 +8,33 @@
     android:background="@color/white"
     android:foreground="?selectableItemBackground">
 
+    <LinearLayout
+        android:id="@+id/decorative_block_layout"
+        android:layout_width="@dimen/event_detail_decorative_block_width"
+        android:layout_height="0dp"
+        android:background="@color/main"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_archimedes_white_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/event_detail_decorative_block_text_margin_top"
+            android:textSize="@dimen/event_detail_decorative_block_text_size"
+            android:text="@string/arhimedes" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/archimedes_state_text_view"
         android:layout_width="0dp"
@@ -23,19 +50,19 @@
         android:textColor="@color/black"
         android:textSize="@dimen/event_detail_client_name_text_size"
         android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/decorative_block_layout"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Вербатолог Вербатологов" />
 
     <View
         android:id="@+id/border_bottom_view"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/divider_height"
         android:layout_marginTop="@dimen/event_detail_client_bottom_border_margin_top"
         android:background="@color/divider_item_color"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/decorative_block_layout"
         app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

@@ -262,10 +262,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
             presenter.onFinishClicked()
         }
 
-        findViewById<View>(R.id.debug_button).setOnClickListener {
-            presenter.onConnectionFailed()
-        }
-
         setUpChart()
     }
 
