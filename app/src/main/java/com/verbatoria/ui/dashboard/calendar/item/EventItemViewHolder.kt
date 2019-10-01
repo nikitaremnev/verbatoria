@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.remnev.verbatoria.R
 import com.verbatoria.infrastructure.extensions.capitalizeFirstLetter
+import com.verbatoria.infrastructure.extensions.getColorFromRes
 
 /**
  * @author n.remnev
@@ -24,6 +25,10 @@ interface EventItemViewHolder {
 
     fun setPeriod(period: String)
 
+    fun setCompletedStatus()
+
+    fun setNotCompletedStatus()
+
     interface Callback {
 
         fun onEventItemClicked(position: Int)
@@ -38,6 +43,7 @@ class EventItemViewHolderImpl(
 ) : RecyclerView.ViewHolder(view), EventItemViewHolder {
 
     private val context = view.context
+    private val eventBackground: View = view.findViewById(R.id.event_background)
     private val statusImageView: ImageView = view.findViewById(R.id.status_image_view)
     private val statusTextView: TextView = view.findViewById(R.id.status_text_view)
     private val clientTextView: TextView = view.findViewById(R.id.client_text_view)
@@ -72,6 +78,14 @@ class EventItemViewHolderImpl(
 
     override fun setPeriod(period: String) {
         periodTextView.text = period
+    }
+
+    override fun setCompletedStatus() {
+        eventBackground.setBackgroundColor(context.getColorFromRes(R.color.main_shadowed))
+    }
+
+    override fun setNotCompletedStatus() {
+        eventBackground.setBackgroundColor(context.getColorFromRes(R.color.white))
     }
 
 }
