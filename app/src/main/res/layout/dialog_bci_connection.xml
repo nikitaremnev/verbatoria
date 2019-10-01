@@ -15,6 +15,19 @@
         android:text="@string/exit"
         android:textColor="@color/main_dark"
         android:visibility="visible"
+        app:layout_constraintRight_toLeftOf="@id/try_again_button"
+        app:layout_constraintTop_toBottomOf="@+id/connection_instruction_text_view" />
+
+    <Button
+        android:id="@+id/try_again_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:padding="@dimen/writing_connection_dialog_buttons_padding"
+        android:text="@string/session_try_again"
+        android:textColor="@color/main_dark"
+        android:visibility="gone"
         app:layout_constraintRight_toLeftOf="@id/start_button"
         app:layout_constraintTop_toBottomOf="@+id/connection_instruction_text_view" />
 

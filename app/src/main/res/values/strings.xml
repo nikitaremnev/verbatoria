@@ -355,6 +355,7 @@
 
     <string name="session_connection">Соединение</string>
     <string name="session_start_writing">Начать запись</string>
+    <string name="session_try_again">Попробовать снова</string>
     <string name="session_connect">Соединить</string>
     <string name="session_connected">Подключено</string>
     <string name="session_connection_in_progress">Идет соединение...</string>

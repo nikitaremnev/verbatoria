@@ -356,6 +356,7 @@
 
     <string name="session_connection">Connection</string>
     <string name="session_start_writing">Start record</string>
+    <string name="session_try_again">Try again</string>
     <string name="session_connect">Connect</string>
     <string name="session_connected">Connected</string>
     <string name="session_connection_in_progress">Connecting...</string>

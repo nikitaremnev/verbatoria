@@ -36,6 +36,7 @@ class BCIConnectionDialog : DialogFragment() {
     private lateinit var startButton: Button
     private lateinit var connectButton: Button
     private lateinit var settingsButton: Button
+    private lateinit var tryAgainButton: Button
 
     //region DialogFragment
 
@@ -56,6 +57,7 @@ class BCIConnectionDialog : DialogFragment() {
         startButton = rootView.findViewById(R.id.start_button)
         connectButton = rootView.findViewById(R.id.connect_button)
         settingsButton = rootView.findViewById(R.id.settings_button)
+        tryAgainButton = rootView.findViewById(R.id.try_again_button)
 
         progressBar.hide()
         progressBarTextView.hide()
@@ -71,6 +73,9 @@ class BCIConnectionDialog : DialogFragment() {
         }
         settingsButton.setOnClickListener {
             bciConnectionDialogClickListener?.onSettingsClicked(tag)
+        }
+        tryAgainButton.setOnClickListener {
+            bciConnectionDialogClickListener?.onTryAgainClicked(tag)
         }
 
         isCancelable = false
@@ -110,6 +115,7 @@ class BCIConnectionDialog : DialogFragment() {
 
         startButton.hide()
         connectButton.hide()
+        tryAgainButton.show()
         exitButton.show()
         settingsButton.show()
     }
@@ -123,6 +129,7 @@ class BCIConnectionDialog : DialogFragment() {
         progressBar.show()
         progressBarTextView.show()
 
+        tryAgainButton.hide()
         startButton.hide()
         settingsButton.hide()
         connectButton.show()
@@ -141,6 +148,7 @@ class BCIConnectionDialog : DialogFragment() {
         connectionStateTextView.setText(R.string.session_connection_error)
         connectionStateTextView.show()
 
+        tryAgainButton.hide()
         startButton.hide()
         settingsButton.hide()
         connectButton.show()
@@ -159,6 +167,7 @@ class BCIConnectionDialog : DialogFragment() {
         connectionStateTextView.setText(R.string.session_connected)
         connectionStateTextView.show()
 
+        tryAgainButton.hide()
         settingsButton.hide()
         connectButton.hide()
         exitButton.hide()
@@ -176,6 +185,8 @@ class BCIConnectionDialog : DialogFragment() {
         fun onStartClicked(tag: String?)
 
         fun onSettingsClicked(tag: String?)
+
+        fun onTryAgainClicked(tag: String?)
 
     }
 

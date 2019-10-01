@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.support.design.widget.FloatingActionButton
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
@@ -131,6 +132,8 @@ interface WritingView : BaseView {
         fun onExitClicked()
 
         fun onSettingsClicked()
+
+        fun onTryAgainClicked()
 
     }
 
@@ -257,6 +260,10 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
         finishButton.setOnClickListener {
             presenter.onFinishClicked()
+        }
+
+        findViewById<View>(R.id.debug_button).setOnClickListener {
+            presenter.onConnectionFailed()
         }
 
         setUpChart()
@@ -443,6 +450,10 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun onSettingsClicked(tag: String?) {
         presenter.onSettingsClicked()
+    }
+
+    override fun onTryAgainClicked(tag: String?) {
+        presenter.onTryAgainClicked()
     }
 
     //endregion

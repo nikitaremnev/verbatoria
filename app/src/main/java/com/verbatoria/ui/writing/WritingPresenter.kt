@@ -233,6 +233,10 @@ class WritingPresenter(
         view?.openSettings()
     }
 
+    override fun onTryAgainClicked() {
+        view?.connectBCI()
+    }
+
     //endregion
 
     //region BCIDataCallback
@@ -299,11 +303,11 @@ class WritingPresenter(
     }
 
     override fun onConnectionFailed() {
-        view?.showConnectionErrorDialogState()
-        isBCIConnected = false
         selectedActivity?.let { activity ->
             onCodeButtonClicked(activity.activityCode)
         }
+        isBCIConnected = false
+        view?.showConnectionErrorDialogState()
     }
 
     override fun onDisconnected() {
