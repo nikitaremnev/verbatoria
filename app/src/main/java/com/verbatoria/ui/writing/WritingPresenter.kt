@@ -392,6 +392,7 @@ class WritingPresenter(
                 activityByCode == null -> view?.setActivityNewState(activityCode)
                 selectedActivity?.activityCode == activityCode -> view?.setActivitySelectedState(activityCode)
                 activityByCode.isDone -> view?.setActivityDoneState(activityCode)
+                else -> view?.setActivityNotFinishedState(activityCode)
             }
         }
     }
@@ -399,9 +400,10 @@ class WritingPresenter(
     private fun updateSingleCodeButtonState(activityCode: ActivityCode) {
         val activityByCode = groupedActivities.getActivityByCode(activityCode)
         when {
+            activityByCode == null -> view?.setActivityNewState(activityCode)
             selectedActivity?.activityCode == activityCode -> view?.setActivitySelectedState(activityCode)
-            activityByCode?.isDone == true -> view?.setActivityDoneState(activityCode)
-            else -> view?.setActivityNewState(activityCode)
+            activityByCode.isDone -> view?.setActivityDoneState(activityCode)
+            else -> view?.setActivityNotFinishedState(activityCode)
         }
     }
 

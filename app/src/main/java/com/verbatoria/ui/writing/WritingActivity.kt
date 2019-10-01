@@ -48,6 +48,8 @@ interface WritingView : BaseView {
 
     fun setActivitySelectedState(activityCode: ActivityCode)
 
+    fun setActivityNotFinishedState(activityCode: ActivityCode)
+    
     fun setActivityDoneState(activityCode: ActivityCode)
 
     fun updateTimerTime(load: Int, totalLoadTime: Int)
@@ -160,6 +162,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     private lateinit var activityNewStateDrawable: Drawable
     private lateinit var activitySelectedStateDrawable: Drawable
+    private lateinit var activityNotFinishedStateDrawable: Drawable
     private lateinit var activityDoneStateDrawable: Drawable
 
     private var bciConnectionDialog: BCIConnectionDialog? = null
@@ -211,6 +214,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
         activityNewStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_new)
         activitySelectedStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_selected)
+        activityNotFinishedStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_not_finished)
         activityDoneStateDrawable = getDrawableFromRes(R.drawable.background_code_button_state_done)
 
         code11Button.setOnClickListener {
@@ -272,6 +276,10 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun setActivitySelectedState(activityCode: ActivityCode) {
         getButtonByActivityCode(activityCode).background = activitySelectedStateDrawable
+    }
+
+    override fun setActivityNotFinishedState(activityCode: ActivityCode) {
+        getButtonByActivityCode(activityCode).background = activityNotFinishedStateDrawable
     }
 
     override fun setActivityDoneState(activityCode: ActivityCode) {
