@@ -11,6 +11,7 @@ import com.verbatoria.infrastructure.retrofit.endpoints.dashboard.CalendarEndpoi
 import com.verbatoria.infrastructure.retrofit.endpoints.event.EventEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.event.model.params.CreateNewOrEditEventParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.event.model.params.EventParamsDto
+import java.lang.Exception
 import java.util.*
 
 /**
@@ -61,10 +62,14 @@ class CalendarManagerImpl(
     }
 
     override fun getEventsForDate(date: Date): List<Event> {
-        val eventsListDto = calendarEndpoint.getEvents(
-            fromTime = date.toStartDay().formatToServerTime(),
-            toTime = date.toEndDay().formatToServerTime()
-        )
+        val eventsListDto = try {
+            calendarEndpoint.getEvents(
+                fromTime = date.toStartDay().formatToServerTime(),
+                toTime = date.toEndDay().formatToServerTime()
+            )
+        } catch (exception: Exception) {
+            return emptyList()
+        }
         return eventsListDto.data.map { eventDto ->
             Event(
                 id = eventDto.id,
