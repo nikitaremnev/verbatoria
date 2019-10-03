@@ -24,6 +24,7 @@ object CountryHelper {
             context.getString(R.string.country_indonesia) -> R.drawable.ic_flag_id
             context.getString(R.string.country_malaysia) -> R.drawable.ic_flag_my
             context.getString(R.string.country_india) -> R.drawable.ic_flag_ind
+            context.getString(R.string.country_bulgaria) -> R.drawable.ic_flag_bg
             else -> R.drawable.ic_flag_ru
         }
 
@@ -47,6 +48,7 @@ object CountryHelper {
             context.getString(R.string.country_indonesia) -> context.getString(R.string.login_indonesia_phone_mask)
             context.getString(R.string.country_malaysia) -> context.getString(R.string.login_malaysia_phone_mask)
             context.getString(R.string.country_india) -> context.getString(R.string.login_india_phone_mask)
+            context.getString(R.string.country_bulgaria) -> context.getString(R.string.login_bulgaria_phone_mask)
             else -> context.getString(R.string.login_russia_phone_mask)
         }
 

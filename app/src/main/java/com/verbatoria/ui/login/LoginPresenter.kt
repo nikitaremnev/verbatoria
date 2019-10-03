@@ -153,9 +153,16 @@ class LoginPresenter(
             .subscribe({ lastLogin ->
                 phone = lastLogin
                 if (lastLogin.isNotBlank()) {
-                    view?.apply {
-                        setPhone(phone)
-                        showClearPhoneButton()
+                    try {
+                        view?.apply {
+                            setPhone(phone)
+                            showClearPhoneButton()
+                        }
+                    } catch (ex: Exception) {
+                        view?.apply {
+                            setPhone("")
+                            hideClearPhoneButton()
+                        }
                     }
                 }
             }, { error ->
