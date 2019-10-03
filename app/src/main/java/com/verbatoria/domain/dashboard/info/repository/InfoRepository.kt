@@ -280,9 +280,11 @@ class InfoRepositoryImpl(
         )
 
     override fun deleteAll() {
+        val saveLocationId = getLocationId()
         sharedPreferences
             .edit()
             .clear()
+            .putString(LOCATION_ID_KEY, saveLocationId)
             .apply()
     }
 
