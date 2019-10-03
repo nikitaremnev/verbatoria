@@ -2,6 +2,7 @@ package com.verbatoria.business.dashboard.settings
 
 import android.os.Build
 import com.remnev.verbatoria.BuildConfig
+import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.session.manager.SessionManager
@@ -59,7 +60,8 @@ class SettingsInteractorImpl(
                 Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
                 Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
                 Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE)),
-                Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINIAN_LOCALE))
+                Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINIAN_LOCALE)),
+                Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE))
             )
         }
             .subscribeOn(schedulersFactory.io)

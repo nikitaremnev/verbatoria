@@ -18,6 +18,7 @@ private const val IS_RUSSIAN_LANGUAGE_AVAILABLE_EXTRA = "is_russian_language_ava
 private const val IS_ENGLISH_LANGUAGE_AVAILABLE_EXTRA = "is_english_language_available"
 private const val IS_HONG_KONG_LANGUAGE_AVAILABLE_EXTRA = "is_hong_kong_language_available"
 private const val IS_UKRAINIAN_LANGUAGE_AVAILABLE_EXTRA = "is_ukrainian_language_available"
+private const val IS_BULGARIAN_LANGUAGE_AVAILABLE_EXTRA = "is_bulgarian_language_available"
 
 class AppLanguagesDialog : DialogFragment() {
 
@@ -38,6 +39,7 @@ class AppLanguagesDialog : DialogFragment() {
         val englishLanguageView = rootView.findViewById<View>(R.id.english_language_container)
         val hongKongLanguageView = rootView.findViewById<View>(R.id.hong_kong_language_container)
         val ukrainianLanguageView = rootView.findViewById<View>(R.id.ukrainian_language_container)
+        val bulgarianLanguageView = rootView.findViewById<View>(R.id.bulgarian_language_container)
 
         if (arguments?.get(IS_RUSSIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             russianLanguageView.setOnClickListener {
@@ -72,6 +74,15 @@ class AppLanguagesDialog : DialogFragment() {
             ukrainianLanguageView.hide()
         }
 
+        if (arguments?.get(IS_BULGARIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+            bulgarianLanguageView.setOnClickListener {
+                onLanguageSelectedListener?.onBulgarianLanguageSelected()
+                dismiss()
+            }
+        } else {
+            bulgarianLanguageView.hide()
+        }
+
         return AlertDialog.Builder(activity)
             .setView(rootView)
             .setNegativeButton(R.string.cancel, null)
@@ -93,6 +104,8 @@ class AppLanguagesDialog : DialogFragment() {
         var isHongKongLanguageAvailable: Boolean? = null
 
         var isUkrainianLanguageAvailable: Boolean? = null
+
+        var isBulgarianLanguageAvailable: Boolean? = null
 
         init {
             init()
@@ -118,6 +131,10 @@ class AppLanguagesDialog : DialogFragment() {
                             IS_UKRAINIAN_LANGUAGE_AVAILABLE_EXTRA,
                             isUkrainianLanguageAvailable ?: false
                         )
+                        args.putBoolean(
+                            IS_BULGARIAN_LANGUAGE_AVAILABLE_EXTRA,
+                            isBulgarianLanguageAvailable ?: false
+                        )
                         isCancelable = true
                     }
             }
@@ -133,6 +150,7 @@ class AppLanguagesDialog : DialogFragment() {
 
         fun onUkrainianLanguageSelected()
 
+        fun onBulgarianLanguageSelected()
     }
 
 }

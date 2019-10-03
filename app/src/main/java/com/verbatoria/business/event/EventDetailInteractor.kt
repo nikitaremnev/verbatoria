@@ -1,6 +1,5 @@
 package com.verbatoria.business.event
 
-import com.remnev.verbatoria.R
 import com.verbatoria.domain.schedule.model.TimeSlot
 import com.verbatoria.domain.client.model.Client
 import com.verbatoria.business.event.models.item.*

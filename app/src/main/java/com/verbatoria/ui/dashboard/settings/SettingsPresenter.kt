@@ -1,5 +1,6 @@
 package com.verbatoria.ui.dashboard.settings
 
+import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
@@ -68,6 +69,10 @@ class SettingsPresenter(
         setCurrentLocale(UKRAINIAN_LOCALE)
     }
 
+    override fun onBulgarianLanguageSelected() {
+        setCurrentLocale(BULGARIAN_LOCALE)
+    }
+
     //endregion
 
     private fun getSettings() {
@@ -101,7 +106,8 @@ class SettingsPresenter(
                     languagesMap[RUSSIAN_LOCALE] ?: false,
                     languagesMap[ENGLISH_LOCALE] ?: false,
                     languagesMap[HONG_KONG_LOCALE] ?: false,
-                    languagesMap[UKRAINIAN_LOCALE] ?: false
+                    languagesMap[UKRAINIAN_LOCALE] ?: false,
+                    languagesMap[BULGARIAN_LOCALE] ?: false
                 )
             }, { error ->
                 logger.error("get app languages availability error occurred", error)

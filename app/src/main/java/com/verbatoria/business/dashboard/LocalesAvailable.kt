@@ -14,4 +14,6 @@ object LocalesAvailable {
 
     const val UKRAINIAN_LOCALE = "ukr"
 
+    const val BULGARIAN_LOCALE = "bg"
+
 }

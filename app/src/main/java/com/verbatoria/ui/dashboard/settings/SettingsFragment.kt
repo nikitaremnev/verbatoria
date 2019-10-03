@@ -38,7 +38,8 @@ interface SettingsView : BaseView {
         isRussianLanguageAvailable: Boolean,
         isEnglishLanguageAvailable: Boolean,
         isHongKongLanguageAvailable: Boolean,
-        isUkrainianLanguageAvailable: Boolean
+        isUkrainianLanguageAvailable: Boolean,
+        isBulgarianLanguageAvailable: Boolean
     )
 
     fun setSettingsItems(settingsItemModels: List<SettingsItemModel>)
@@ -64,6 +65,8 @@ interface SettingsView : BaseView {
         fun onHongKongLanguageSelected()
 
         fun onUkrainianLanguageSelected()
+
+        fun onBulgarianLanguageSelected()
 
     }
 
@@ -116,13 +119,15 @@ class SettingsFragment :
         isRussianLanguageAvailable: Boolean,
         isEnglishLanguageAvailable: Boolean,
         isHongKongLanguageAvailable: Boolean,
-        isUkrainianLanguageAvailable: Boolean
+        isUkrainianLanguageAvailable: Boolean,
+        isBulgarianLanguageAvailable: Boolean
     ) {
         AppLanguagesDialog.build {
             this.isRussianLanguageAvailable = isRussianLanguageAvailable
             this.isEnglishLanguageAvailable = isEnglishLanguageAvailable
             this.isHongKongLanguageAvailable = isHongKongLanguageAvailable
             this.isUkrainianLanguageAvailable = isUkrainianLanguageAvailable
+            this.isBulgarianLanguageAvailable = isBulgarianLanguageAvailable
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
 
@@ -183,6 +188,10 @@ class SettingsFragment :
 
     override fun onUkrainianLanguageSelected() {
         presenter.onUkrainianLanguageSelected()
+    }
+
+    override fun onBulgarianLanguageSelected() {
+        presenter.onBulgarianLanguageSelected()
     }
 
     //endregion

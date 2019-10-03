@@ -254,6 +254,7 @@
     <string name="language_english">English</string>
     <string name="language_hong_kong">中文</string>
     <string name="language_ukrainian">Українська</string>
+    <string name="language_bulgarian">Български</string>
 
     <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
 
