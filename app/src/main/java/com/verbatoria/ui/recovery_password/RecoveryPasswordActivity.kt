@@ -287,7 +287,7 @@ class RecoveryPasswordActivity :
     override fun setPhoneFormatterBasedOnCountry(country: String) {
         phoneEditText.addTextChangedListener(
             MaskedTextChangedListener(
-                CountryHelper.getPhoneFormatterByCountry(this, country),
+                CountryHelper.getPhoneFormatterByCountryKey(this, country),
                 true,
                 phoneEditText,
                 null,

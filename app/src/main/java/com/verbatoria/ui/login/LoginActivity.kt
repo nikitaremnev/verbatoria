@@ -212,7 +212,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
             phoneEditText.removeTextChangedListener(maskedTextChangedListener)
         }
         maskedTextChangedListener = MaskedTextChangedListener(
-            CountryHelper.getPhoneFormatterByCountry(this, country),
+            CountryHelper.getPhoneFormatterByCountryKey(this, country),
             true,
             phoneEditText,
             null,
@@ -226,12 +226,8 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         )
         phoneEditText.addTextChangedListener(maskedTextChangedListener)
 
-        countryTextView.text = if (country.isEmpty()) {
-            getString(R.string.country_russia)
-        } else {
-            country
-        }
-        countryFlagImageView.setImageResource(CountryHelper.getFlagResourceByCountry(this, country))
+        countryTextView.text = CountryHelper.getCountryNameByCountryKey(this, country)
+        countryFlagImageView.setImageResource(CountryHelper.getFlagResourceByCountryKey(country))
     }
 
     override fun showCountrySelectionDialog() {
@@ -291,7 +287,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun isCountryRequireSkipSMSConfirmation(country: String): Boolean =
-        CountryHelper.isCountryRequireSkipSMSConfirmation(this, country)
+        CountryHelper.isCountryRequireSkipSMSConfirmation(country)
 
     override fun openDashboard() {
         startActivity(DashboardActivity.createIntent(this))
@@ -312,9 +308,9 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 
     //region CountrySelectionBottomSheetDialog.CountrySelectionListener
 
-    override fun onCountrySelected(tag: String?, languageStringResource: Int) {
+    override fun onCountrySelected(tag: String?, countryKey: String) {
         if (tag == LANGUAGE_SELECTION_DIALOG_TAG) {
-            presenter.onCountrySelected(getString(languageStringResource))
+            presenter.onCountrySelected(countryKey)
         }
     }
 

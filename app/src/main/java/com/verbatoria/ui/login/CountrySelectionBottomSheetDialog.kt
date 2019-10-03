@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.remnev.verbatoria.R
+import com.verbatoria.utils.CountryHelper
 
 /**
  * @author n.remnev
@@ -47,59 +48,59 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
 
         view.findViewById<View>(R.id.russia_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_russia)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.RUSSIAN_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.ukraine_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_ukraine)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.UKRAINE_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.azerbaijan_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_azerbaijan)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.AZERBAIJAN_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.uae_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_uae)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.UAE_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.thailand_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_thailand)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.THAILAND_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.israel_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_israel)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.ISRAEL_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.belarus_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_belarus)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.BELARUS_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.uzbekistan_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_uzbekistan)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.UZBEKISTAN_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.hong_kong_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_hong_kong)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.HONG_KONG_COUNTRY)
         }
         view.findViewById<View>(R.id.swiss_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_swiss)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.SWISS_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.indonesia_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_indonesia)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.INDONESIA_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.malaysia_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_malaysia)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.MALAYSIA_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.india_country_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_india)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.INDIA_COUNTRY_KEY)
         }
         view.findViewById<View>(R.id.bulgaria_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, R.string.country_bulgaria)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.BULGARIA_COUNTRY_KEY)
         }
         return view
     }
@@ -134,7 +135,7 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
 
     interface CountrySelectionListener {
 
-        fun onCountrySelected(tag: String?, languageStringResource: Int)
+        fun onCountrySelected(tag: String?, countryKey: String)
 
     }
 

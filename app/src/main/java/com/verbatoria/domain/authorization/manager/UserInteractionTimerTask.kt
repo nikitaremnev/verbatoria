@@ -34,7 +34,7 @@ class UserInteractionTimerTask {
     }
 
     fun updateLastInteractionTime() {
-        if (!CountryHelper.isCountryRequireSkipSMSConfirmation(context, currentCountry) && System.currentTimeMillis() - lastInteractionTime > USER_INTERACTION_INTERVAL) {
+        if (!CountryHelper.isCountryRequireSkipSMSConfirmation(currentCountry) && System.currentTimeMillis() - lastInteractionTime > USER_INTERACTION_INTERVAL) {
             startSMSConfirmation()
         } else {
             lastInteractionTime = System.currentTimeMillis()

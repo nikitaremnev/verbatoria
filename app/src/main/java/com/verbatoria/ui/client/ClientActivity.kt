@@ -199,7 +199,7 @@ class ClientActivity : BasePresenterActivity<ClientView, ClientPresenter, Client
     override fun setCurrentCountry(country: String) {
         clientPhoneEditText.addTextChangedListener(
             MaskedTextChangedListener(
-                CountryHelper.getPhoneFormatterByCountry(this, country),
+                CountryHelper.getPhoneFormatterByCountryKey(this, country),
                 true,
                 clientPhoneEditText,
                 null,
