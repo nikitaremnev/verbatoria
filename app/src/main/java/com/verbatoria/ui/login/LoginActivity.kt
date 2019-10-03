@@ -111,6 +111,8 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     private lateinit var progressBar: ProgressBar
     private lateinit var loginButton: Button
 
+    private var maskedTextChangedListener: MaskedTextChangedListener? = null
+
     //region BasePresenterActivity
 
     override fun getLayoutResourceId(): Int = R.layout.activity_login
@@ -206,21 +208,23 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun setCurrentCountry(country: String) {
-        phoneEditText.addTextChangedListener(
-            MaskedTextChangedListener(
-                CountryHelper.getPhoneFormatterByCountry(this, country),
-                true,
-                phoneEditText,
-                null,
-                object : MaskedTextChangedListener.ValueListener {
+        if (maskedTextChangedListener != null) {
+            phoneEditText.removeTextChangedListener(maskedTextChangedListener)
+        }
+        maskedTextChangedListener = MaskedTextChangedListener(
+            CountryHelper.getPhoneFormatterByCountry(this, country),
+            true,
+            phoneEditText,
+            null,
+            object : MaskedTextChangedListener.ValueListener {
 
-                    override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
-                        presenter.onPhoneTextChanged(extractedValue)
-                    }
-
+                override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
+                    presenter.onPhoneTextChanged(extractedValue)
                 }
-            )
+
+            }
         )
+        phoneEditText.addTextChangedListener(maskedTextChangedListener)
 
         countryTextView.text = if (country.isEmpty()) {
             getString(R.string.country_russia)

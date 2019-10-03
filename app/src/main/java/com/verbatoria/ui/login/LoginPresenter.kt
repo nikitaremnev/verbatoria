@@ -120,6 +120,10 @@ class LoginPresenter(
 
     override fun onCountrySelected(country: String) {
         saveCurrentCountry(country)
+        view?.apply {
+            setPhone("")
+            hideClearPhoneButton()
+        }
     }
 
     //endregion
