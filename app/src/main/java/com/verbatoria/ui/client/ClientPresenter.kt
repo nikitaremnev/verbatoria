@@ -29,8 +29,14 @@ class ClientPresenter(
         super.onAttachView(view)
         view.setCurrentCountry(country)
         when {
-            eventDetailMode.isCreateNew() -> view.setEditableMode()
-            eventDetailMode.isStart() -> view.setEditableMode()
+            eventDetailMode.isCreateNew() -> {
+                view.setEditableMode()
+                checkIsAllFieldsFilled()
+            }
+            eventDetailMode.isStart() || eventDetailMode.isChildRequired() -> {
+                view.setEditableMode()
+                checkIsSomeFieldsChanged()
+            }
             else -> view.setViewOnlyMode()
         }
         view.apply {
@@ -44,7 +50,7 @@ class ClientPresenter(
     //region ClientView.Callback
 
     override fun onClientNameChanged(newClientName: String) {
-        if (eventDetailMode.isStart()) {
+        if (eventDetailMode.isStart() || eventDetailMode.isChildRequired()) {
             editedClient.name = newClientName
             checkIsSomeFieldsChanged()
         } else if (eventDetailMode.isCreateNew()) {
@@ -55,7 +61,7 @@ class ClientPresenter(
 
     override fun onClientPhoneChanged(maskFilled: Boolean, newClientPhone: String) {
         isPhoneMaskFilled = maskFilled
-        if (eventDetailMode.isStart()) {
+        if (eventDetailMode.isStart() || eventDetailMode.isChildRequired()) {
             editedClient.phone = newClientPhone
             checkIsSomeFieldsChanged()
         } else if (eventDetailMode.isCreateNew()) {
@@ -65,7 +71,7 @@ class ClientPresenter(
     }
 
     override fun onClientEmailChanged(newClientEmail: String) {
-        if (eventDetailMode.isStart()) {
+        if (eventDetailMode.isStart() || eventDetailMode.isChildRequired()) {
             editedClient.email = newClientEmail
             checkIsSomeFieldsChanged()
         } else if (eventDetailMode.isCreateNew()) {
@@ -96,6 +102,15 @@ class ClientPresenter(
         if (client.hasName() &&
             client.hasPhone() && isPhoneMaskFilled &&
             client.hasEmail()) {
+            view?.setSaveButtonEnabled()
+        } else {
+            view?.setSaveButtonDisabled()
+        }
+    }
+
+    private fun checkIsSomeFieldsChanged() {
+        if (client.name != editedClient.name || client.phone != editedClient.phone ||
+            client.email != editedClient.email) {
             view?.setSaveButtonEnabled()
         } else {
             view?.setSaveButtonDisabled()
@@ -141,15 +156,6 @@ class ClientPresenter(
                 view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
-    }
-
-    private fun checkIsSomeFieldsChanged() {
-        if (client.name != editedClient.name || client.phone != editedClient.phone ||
-            client.email != editedClient.email) {
-            view?.showSaveButton()
-        } else {
-            view?.hideSaveButton()
-        }
     }
 
 }

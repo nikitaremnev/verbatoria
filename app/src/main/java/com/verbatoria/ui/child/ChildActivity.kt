@@ -214,6 +214,8 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
     override fun setViewOnlyMode() {
         childNameEditText.isEnabled = false
         childGenderRadioGroup.isEnabled = false
+        findViewById<RadioButton>(R.id.child_gender_female_radio_button).isEnabled = false
+        findViewById<RadioButton>(R.id.child_gender_male_radio_button).isEnabled = false
         saveButton.hide()
     }
 

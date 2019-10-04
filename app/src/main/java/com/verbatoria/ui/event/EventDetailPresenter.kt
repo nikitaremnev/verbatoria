@@ -40,7 +40,7 @@ class EventDetailPresenter(
 
     private var currentMode: EventDetailMode = eventDetailMode
 
-    private var eventDetailItemsList: List<EventDetailItem> = emptyList()
+    private var eventDetailItemsList: MutableList<EventDetailItem> = mutableListOf()
 
     private var timeSlots: List<TimeSlot> = emptyList()
 
@@ -57,6 +57,7 @@ class EventDetailPresenter(
                 endTime = event.endDate
             )
         }
+
         if (currentMode.isCreateNew()) {
             getCreateNewEventItems()
         } else {
@@ -159,6 +160,15 @@ class EventDetailPresenter(
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailChildItem))
             }
         checkIsAllFieldsFilled()
+        if (currentMode.isChildRequired()) {
+            eventDetailItemsList.add(
+                EventDetailSubmitItem(
+                    mode = EventDetailMode.START,
+                    isAllFieldsFilled = true
+                )
+            )
+            view?.setEventDetailItems(eventDetailItemsList)
+        }
     }
 
     override fun onNavigationClicked() {
@@ -273,6 +283,9 @@ class EventDetailPresenter(
             EventDetailMode.START -> {
                 startSession()
             }
+            EventDetailMode.CHILD_REQUIRED -> {
+                startSession()
+            }
         }
     }
 
@@ -311,7 +324,7 @@ class EventDetailPresenter(
     private fun getCreateNewEventItems() {
         eventDetailInteractor.getCreateNewModeEventDetailItems()
             .subscribe({ eventDetailItems ->
-                eventDetailItemsList = eventDetailItems
+                eventDetailItemsList = eventDetailItems.toMutableList()
                 view?.setEventDetailItems(eventDetailItemsList)
             }, { error ->
                 logger.error("get create new event items models", error)
@@ -323,7 +336,7 @@ class EventDetailPresenter(
     private fun getViewModeEventItems(event: Event) {
         eventDetailInteractor.getStartModeEventDetailItems(event)
             .subscribe({ eventDetailItems ->
-                eventDetailItemsList = eventDetailItems
+                eventDetailItemsList = eventDetailItems.toMutableList()
                 view?.setEventDetailItems(eventDetailItemsList)
             }, { error ->
                 logger.error("get view mode event items models", error)

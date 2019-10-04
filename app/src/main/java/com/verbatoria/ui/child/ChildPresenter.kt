@@ -25,7 +25,7 @@ class ChildPresenter(
                 view.setEditableMode()
                 checkIsAllFieldsFilled()
             }
-            eventDetailMode.isStart() -> {
+            eventDetailMode.isStart() || eventDetailMode.isChildRequired() -> {
                 view.setEditableMode()
                 checkIsSomeFieldsChanged()
             }
@@ -41,7 +41,7 @@ class ChildPresenter(
     //region ChildView.Callback
 
     override fun onChildNameChanged(newChildName: String) {
-        if (eventDetailMode.isStart()) {
+        if (eventDetailMode.isStart() || eventDetailMode.isChildRequired()) {
             editedChild.name = newChildName
             checkIsSomeFieldsChanged()
         } else if (eventDetailMode.isCreateNew()) {
@@ -51,7 +51,7 @@ class ChildPresenter(
     }
 
     override fun onChildGenderSelected(newChildGender: Int) {
-        if (eventDetailMode.isStart()) {
+        if (eventDetailMode.isStart() || eventDetailMode.isChildRequired()) {
             editedChild.gender = newChildGender
             checkIsSomeFieldsChanged()
         } else if (eventDetailMode.isCreateNew()) {
@@ -61,7 +61,7 @@ class ChildPresenter(
     }
 
     override fun onChildAgeSelected(newChildAge: Int) {
-        if (eventDetailMode.isStart()) {
+        if (eventDetailMode.isStart() || eventDetailMode.isChildRequired()) {
             editedChild.age = newChildAge
             view?.setChildAge(editedChild.age)
             checkIsSomeFieldsChanged()

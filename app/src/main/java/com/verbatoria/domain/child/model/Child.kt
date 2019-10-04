@@ -37,4 +37,7 @@ data class Child(
     fun hasGender(): Boolean =
         gender != GENDER_NOT_SELECTED
 
+    fun hasAnythingExceptId(): Boolean =
+        hasName() || hasAge() || hasGender()
+
 }

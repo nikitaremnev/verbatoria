@@ -86,8 +86,10 @@ class CalendarPresenter(
                 event,
                 if (!event.report.isNew()) {
                     EventDetailMode.VIEW_ONLY
-                } else {
+                } else if (event.child.hasAnythingExceptId()){
                     EventDetailMode.START
+                } else {
+                    EventDetailMode.CHILD_REQUIRED
                 }
             )
         }

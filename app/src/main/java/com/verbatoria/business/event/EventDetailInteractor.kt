@@ -144,7 +144,7 @@ class EventDetailInteractorImpl(
                 )
             }
 
-            if (event.report.isNew()) {
+            if (event.report.isNew() && event.child.hasAnythingExceptId()) {
                 eventDetailItems.add(
                     EventDetailSubmitItem(
                         mode = EventDetailMode.START,
