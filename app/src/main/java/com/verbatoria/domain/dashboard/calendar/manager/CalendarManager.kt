@@ -62,14 +62,10 @@ class CalendarManagerImpl(
     }
 
     override fun getEventsForDate(date: Date): List<Event> {
-        val eventsListDto = try {
-            calendarEndpoint.getEvents(
-                fromTime = date.toStartDay().formatToServerTime(),
-                toTime = date.toEndDay().formatToServerTime()
-            )
-        } catch (exception: Exception) {
-            return emptyList()
-        }
+        val eventsListDto = calendarEndpoint.getEvents(
+            fromTime = date.toStartDay().formatToServerTime(),
+            toTime = date.toEndDay().formatToServerTime()
+        )
         return eventsListDto.data.map { eventDto ->
             Event(
                 id = eventDto.id,

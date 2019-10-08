@@ -11,7 +11,6 @@ import retrofit2.CallAdapter
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.io.IOException
-import java.lang.Exception
 import java.lang.reflect.Type
 
 /**
@@ -30,12 +29,8 @@ class RetrofitCallAdapter<R>(
     override fun adapt(call: Call<R>): Any? =
         try {
             execute(call)
-        } catch (e: Exception) {
-            if (!call.isCanceled) {
-                throw e
-            } else {
-                //empty
-            }
+        } catch (e: IOException) {
+            throw e
         }
 
     override fun responseType(): Type =

@@ -9,6 +9,10 @@ import com.verbatoria.di.DependencyHolder
 import com.verbatoria.di.Injector
 import com.verbatoria.domain.authorization.manager.UserInteractionTimerTask
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
+import io.reactivex.exceptions.UndeliverableException
+import io.reactivex.plugins.RxJavaPlugins
+import java.io.IOException
+import java.net.SocketException
 import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Inject
 
@@ -43,6 +47,7 @@ class VerbatoriaKtApplication : Application(),
     override fun onCreate() {
         super.onCreate()
         initDependencies()
+        initRxJava()
 
         currentLocale = settingsRepository.getCurrentLocale()
 
@@ -125,4 +130,26 @@ class VerbatoriaKtApplication : Application(),
         injector.inject(this)
     }
 
+    private fun initRxJava() {
+        RxJavaPlugins.setErrorHandler { error ->
+            val exception = if (error is UndeliverableException) {
+                error.cause
+            } else {
+                error
+            }
+
+            when (exception) {
+                // fine, irrelevant network problem or API that throws on cancellation
+                is IOException, is SocketException,
+                    // fine, some blocking code was interrupted by a dispose call
+                is InterruptedException -> return@setErrorHandler
+
+                is NullPointerException, is IllegalArgumentException, is IllegalStateException -> {
+                    Thread.currentThread().uncaughtExceptionHandler
+                        .uncaughtException(Thread.currentThread(), exception)
+                    return@setErrorHandler
+                }
+            }
+        }
+    }
 }
