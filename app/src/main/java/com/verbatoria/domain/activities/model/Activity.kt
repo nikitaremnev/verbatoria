@@ -18,4 +18,12 @@ data class Activity(
         return isDone
     }
 
+    fun dropTime() {
+        if (activityCode == ActivityCode.CODE_99) {
+            totalTime = 0
+            residualTime = MINIMUM_ACTIVITY_TIME
+            isDone = false
+        }
+    }
+
 }

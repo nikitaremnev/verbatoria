@@ -76,6 +76,8 @@ class WritingPresenter(
     private val bciDataBlock = mutableListOf<BCIData>()
     private var currentBCIData = createNewCurrentBCIData()
 
+    private var isActivity99Dropped: Boolean = false
+
     init {
         getGroupedActivities()
     }
@@ -371,7 +373,15 @@ class WritingPresenter(
 
     private fun updateFinishButtonState() {
         if (groupedActivities.isAllActivitiesDone()) {
-            view?.showFinishButton()
+            if (!isActivity99Dropped) {
+                groupedActivities.getActivityByCode(ActivityCode.CODE_99)?.dropTime()
+                isActivity99Dropped = true
+                if (selectedActivity?.activityCode != ActivityCode.CODE_99) {
+                    updateSingleCodeButtonState(ActivityCode.CODE_99)
+                }
+            } else {
+                view?.showFinishButton()
+            }
         }
     }
 
