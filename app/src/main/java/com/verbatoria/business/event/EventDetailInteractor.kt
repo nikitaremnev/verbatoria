@@ -181,7 +181,14 @@ class EventDetailInteractorImpl(
         event: Event
     ): Completable =
         Completable.fromCallable {
-            calendarManager.editEvent(event.id, event.child.id ?: throw IllegalStateException("Try to edit event while event child id is null"), event.child.age, event.startDate, event.endDate, event.isHobbyIncluded)
+            calendarManager.editEvent(
+                event.id,
+                event.child.id ?: throw IllegalStateException("Try to edit event while event child id is null"),
+                event.child.age,
+                event.startDate,
+                event.endDate,
+                event.isHobbyIncluded
+            )
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

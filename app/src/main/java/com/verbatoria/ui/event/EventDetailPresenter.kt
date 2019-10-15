@@ -1,7 +1,6 @@
 package com.verbatoria.ui.event
 
 import android.app.DatePickerDialog
-import android.util.Log
 import android.widget.DatePicker
 import com.remnev.verbatoria.R
 import com.verbatoria.domain.child.model.Child
@@ -143,6 +142,7 @@ class EventDetailPresenter(
             ?.let { eventDetailClientItem ->
                 eventDetailClientItem.name = client?.name
                 eventDetailClientItem.phone = client?.phone
+                eventDetailClientItem.email = client?.email
                 eventDetailClientItem.isLoading = false
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
             }
@@ -353,6 +353,7 @@ class EventDetailPresenter(
                         ?.let { eventDetailClientItem ->
                             eventDetailClientItem.name = client?.name
                             eventDetailClientItem.phone = client?.phone
+                            eventDetailClientItem.email = client?.email
                             eventDetailClientItem.isLoading = false
                             view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
                         }

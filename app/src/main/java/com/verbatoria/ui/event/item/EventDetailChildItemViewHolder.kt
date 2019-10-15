@@ -1,6 +1,5 @@
 package com.verbatoria.ui.event.item
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
@@ -34,8 +33,6 @@ class EventDetailChildItemViewHolderImpl(
     callback: EventDetailChildItemViewHolder.Callback
 ) : RecyclerView.ViewHolder(view),
     EventDetailChildItemViewHolder {
-
-    private val context: Context = view.context
 
     private val nameTextView: TextView = view.findViewById(R.id.name_text_view)
     private val ageTextView: TextView = view.findViewById(R.id.age_text_view)

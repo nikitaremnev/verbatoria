@@ -1,6 +1,5 @@
 package com.verbatoria.ui.event.item
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ProgressBar
@@ -24,6 +23,8 @@ interface EventDetailClientItemViewHolder {
 
     fun hideLoading()
 
+    fun setEmailRequiredHint()
+
     fun showHint()
 
     interface Callback {
@@ -40,7 +41,7 @@ class EventDetailClientItemViewHolderImpl(
 ) : RecyclerView.ViewHolder(view),
     EventDetailClientItemViewHolder {
 
-    private val context: Context = view.context
+    private val context = view.context
 
     private val nameTextView: TextView = view.findViewById(R.id.name_text_view)
     private val phoneTextView: TextView = view.findViewById(R.id.phone_text_view)
@@ -73,10 +74,18 @@ class EventDetailClientItemViewHolderImpl(
         progressBar.hide()
     }
 
+    override fun setEmailRequiredHint() {
+        phoneTextView.invisible()
+        nameTextView.invisible()
+        hintTextView.show()
+        hintTextView.text = context.getString(R.string.event_detail_client_email_hint)
+    }
+
     override fun showHint() {
         phoneTextView.invisible()
         nameTextView.invisible()
         hintTextView.show()
+        hintTextView.text = context.getString(R.string.event_detail_client_hint)
     }
 
 }

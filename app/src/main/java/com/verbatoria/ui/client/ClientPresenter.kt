@@ -110,7 +110,7 @@ class ClientPresenter(
 
     private fun checkIsSomeFieldsChanged() {
         if (client.name != editedClient.name || client.phone != editedClient.phone ||
-            client.email != editedClient.email) {
+            client.email != editedClient.email && editedClient.hasEmail()) {
             view?.setSaveButtonEnabled()
         } else {
             view?.setSaveButtonDisabled()
