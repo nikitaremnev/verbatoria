@@ -461,6 +461,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
             setDescription("")
             setNoDataText(getString(R.string.writing_data_empty))
 
+            setScaleEnabled(false);
             setDrawGridBackground(false)
 
             legend.isEnabled = false
