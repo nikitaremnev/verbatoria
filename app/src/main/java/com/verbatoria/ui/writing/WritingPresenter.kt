@@ -104,10 +104,7 @@ class WritingPresenter(
     //region WritingView.Callback
 
     override fun onBackPressed() {
-        selectedActivity?.let { activity ->
-            onCodeButtonClicked(activity.activityCode)
-        }
-        view?.finish()
+        //empty
     }
 
     override fun onFinishClicked() {

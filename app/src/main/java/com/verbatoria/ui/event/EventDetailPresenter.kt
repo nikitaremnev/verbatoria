@@ -1,6 +1,7 @@
 package com.verbatoria.ui.event
 
 import android.app.DatePickerDialog
+import android.util.Log
 import android.widget.DatePicker
 import com.remnev.verbatoria.R
 import com.verbatoria.domain.child.model.Child
@@ -95,9 +96,6 @@ class EventDetailPresenter(
     }
 
     override fun onSendToLocationConfirmed() {
-        if (currentMode.isViewOnly()) {
-            return
-        }
         findEventDetailItemInList<EventDetailSendToLocationItem>()
             ?.let { eventDetailSendToLocationItem ->
                 eventDetailSendToLocationItem.isLoading = true
@@ -439,7 +437,7 @@ class EventDetailPresenter(
     }
 
     private fun sendReportToLocation() {
-        eventDetailInteractor.sendReportToLocation(event?.report?.reportId ?: throw IllegalStateException("Try to send report to location while event is null"))
+        eventDetailInteractor.sendReportToLocation(event?.report?.id ?: throw IllegalStateException("Try to send report to location while event is null"))
             .subscribe({
                 findEventDetailItemInList<EventDetailSendToLocationItem>()
                     ?.let { eventDetailSendToLocationItem ->
@@ -461,7 +459,7 @@ class EventDetailPresenter(
     }
 
     private fun includeAttentionMemoryModule() {
-        eventDetailInteractor.includeAttentionMemory(event?.report?.reportId ?: throw IllegalStateException("Try to include attention memory while event is null"))
+        eventDetailInteractor.includeAttentionMemory(event?.report?.id ?: throw IllegalStateException("Try to include attention memory while event is null"))
             .subscribe({
                 findEventDetailItemInList<EventDetailIncludeAttentionMemoryItem>()
                     ?.let { eventDetailIncludeAttentionMemoryItem ->
