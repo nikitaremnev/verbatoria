@@ -336,6 +336,7 @@ class EventDetailPresenter(
             .subscribe({ eventDetailItems ->
                 eventDetailItemsList = eventDetailItems.toMutableList()
                 view?.setEventDetailItems(eventDetailItemsList)
+                checkIsAllFieldsFilled()
             }, { error ->
                 logger.error("get view mode event items models", error)
                 view?.showErrorSnackbar("get view mode event items models error occurred")
@@ -355,7 +356,12 @@ class EventDetailPresenter(
                             eventDetailClientItem.phone = client?.phone
                             eventDetailClientItem.email = client?.email
                             eventDetailClientItem.isLoading = false
-                            view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
+                            view?.updateEventDetailItem(
+                                eventDetailItemsList.indexOf(
+                                    eventDetailClientItem
+                                )
+                            )
+                            checkIsAllFieldsFilled()
                         }
                 }
             }, { error ->
@@ -518,7 +524,7 @@ class EventDetailPresenter(
     }
 
     private fun checkIsAllFieldsFilled() {
-        if (client != null && child != null) {
+        if (client != null && !client?.email.isNullOrBlank() && child != null) {
             if (eventDetailItemsList.isNotEmpty()) {
                 findEventDetailItemInList<EventDetailSubmitItem>()
                     ?.let { eventDetailSubmitItem ->
