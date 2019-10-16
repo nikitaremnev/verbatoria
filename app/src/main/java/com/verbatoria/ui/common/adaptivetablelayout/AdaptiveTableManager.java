@@ -62,7 +62,7 @@ class AdaptiveTableManager {
 
     void checkForInit() {
         if (!mIsInited) {
-            throw new IllegalStateException("You need to init matrix before work!");
+//            throw new IllegalStateException("You need to init matrix before work!");
         }
     }
 

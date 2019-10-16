@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.schedule.ScheduleComponent
@@ -57,6 +59,10 @@ interface ScheduleView : BaseView {
 
     fun hideLoadScheduleProgress()
 
+    fun showTryAgain()
+
+    fun hideTryAgain()
+
     fun close()
 
     interface Callback {
@@ -72,6 +78,8 @@ interface ScheduleView : BaseView {
         fun onClearScheduleConfirmed()
 
         fun onNavigationClicked()
+
+        fun onTryAgainClicked()
 
         fun onWeeksForwardSaveSelected(weeksForward: Int)
 
@@ -92,6 +100,8 @@ class ScheduleActivity :
 
     private lateinit var toolbar: Toolbar
     private lateinit var progressBar: ProgressBar
+    private lateinit var loadingErrorTextView: TextView
+    private lateinit var tryAgainButton: Button
     private lateinit var adaptiveTableLayout: AdaptiveTableLayout
     private var scheduleAdapter: ScheduleAdapter? = null
 
@@ -106,17 +116,13 @@ class ScheduleActivity :
     override fun initViews(savedState: Bundle?) {
         toolbar = findViewById(R.id.toolbar)
         progressBar = findViewById(R.id.schedule_progress_bar)
-        adaptiveTableLayout = findViewById(R.id.schedule_adaptive_table_layout)
-        adaptiveTableLayout.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            scheduleAdapter?.apply {
-                updateWidthAndHeight(
-                    width = right - left,
-                    height = bottom - top
-                )
-            }
-            adaptiveTableLayout.setAdapter(scheduleAdapter)
-            scheduleAdapter?.notifyDataSetChanged()
+        loadingErrorTextView = findViewById(R.id.schedule_loading_error_text_view)
+        tryAgainButton = findViewById(R.id.schedule_loading_error_try_again_button)
+        tryAgainButton.setOnClickListener {
+            presenter.onTryAgainClicked()
         }
+
+        adaptiveTableLayout = findViewById(R.id.schedule_adaptive_table_layout)
 
         toolbar.setTitle(R.string.schedule_title)
         toolbar.inflateMenu(R.menu.menu_toolbar_schedule)
@@ -152,6 +158,17 @@ class ScheduleActivity :
     //region ScheduleView
 
     override fun setSchedule(scheduleDataSource: ScheduleDataSource) {
+        adaptiveTableLayout.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            scheduleAdapter?.apply {
+                updateWidthAndHeight(
+                    width = right - left,
+                    height = bottom - top
+                )
+            }
+            adaptiveTableLayout.setAdapter(scheduleAdapter)
+            scheduleAdapter?.notifyDataSetChanged()
+        }
+
         scheduleAdapter = ScheduleAdapter(this, adaptiveTableLayout.width, adaptiveTableLayout.height, scheduleDataSource)
         scheduleAdapter?.onItemClickListener = presenter
         adaptiveTableLayout.setAdapter(scheduleAdapter)
@@ -220,6 +237,16 @@ class ScheduleActivity :
 
     override fun hideLoadScheduleProgress() {
         hideProgressDialogFragment(supportFragmentManager, LOAD_SCHEDULE_PROGRESS_DIALOG_TAG)
+    }
+
+    override fun showTryAgain() {
+        loadingErrorTextView.show()
+        tryAgainButton.show()
+    }
+
+    override fun hideTryAgain() {
+        loadingErrorTextView.hide()
+        tryAgainButton.hide()
     }
 
     override fun close() {

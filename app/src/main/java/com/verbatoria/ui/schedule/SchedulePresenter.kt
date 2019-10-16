@@ -18,22 +18,7 @@ class SchedulePresenter(
     private var isLoadingSchedule: Boolean = false
 
     init {
-        scheduleInteractor.getSchedule()
-            .doAfterTerminate {
-                isLoadingSchedule = false
-                view?.hideInitialLoadScheduleProgress()
-            }
-            .doOnSubscribe {
-                isLoadingSchedule = true
-            }
-            .subscribe({ scheduleDataSource ->
-                this.scheduleDataSource = scheduleDataSource
-                view?.setSchedule(scheduleDataSource)
-            }, { error ->
-                error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
-            })
-            .let(::addDisposable)
+        loadSchedule()
     }
 
     override fun onAttachView(view: ScheduleView) {
@@ -115,6 +100,10 @@ class SchedulePresenter(
         view?.close()
     }
 
+    override fun onTryAgainClicked() {
+        loadSchedule()
+    }
+
     override fun onWeeksForwardSaveSelected(weeksForward: Int) {
         scheduleDataSource?.let { scheduleDataSource ->
             view?.showSaveScheduleProgressDialog()
@@ -155,5 +144,26 @@ class SchedulePresenter(
     }
 
     //endregion
+
+    private fun loadSchedule() {
+        scheduleInteractor.getSchedule()
+            .doAfterTerminate {
+                isLoadingSchedule = false
+                view?.hideInitialLoadScheduleProgress()
+            }
+            .doOnSubscribe {
+                isLoadingSchedule = true
+                view?.hideTryAgain()
+            }
+            .subscribe({ scheduleDataSource ->
+                this.scheduleDataSource = scheduleDataSource
+                view?.setSchedule(scheduleDataSource)
+            }, { error ->
+                error.printStackTrace()
+                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showTryAgain()
+            })
+            .let(::addDisposable)
+    }
 
 }

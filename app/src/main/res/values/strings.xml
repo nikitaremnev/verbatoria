@@ -247,6 +247,8 @@
     <string name="schedule_title">График работы</string>
     <string name="schedule_clear_confirmation">Вы уверены, что хотите удалить расписание на неделю?</string>
 
+    <string name="schedule_loading_error">Произошла ошибка при загрузке расписания</string>
+
     <string name="late_send_title">Отправка отчетов</string>
     <string name="late_send_no_reports">Нет отчетов для отправки</string>
     <string name="late_send_delete_confirmation">Вы уверены, что хотите удалить данные по отчету %s? Данные нейрометрии и опросника будут удалены без возможности восстановления.</string>

@@ -246,6 +246,7 @@
 
     <string name="schedule_title">Schedule</string>
     <string name="schedule_clear_confirmation">Do you really want to delete schedule for the week?</string>
+    <string name="schedule_loading_error">Error occurred while loading schedule</string>
 
     <string name="late_send_title">Sending reports</string>
     <string name="late_send_no_reports">No reports to send</string>
