@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.view.WindowManager
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.component.connection.BCIDataCallback
@@ -34,6 +35,8 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
     //region activity lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
         @Suppress("UNCHECKED_CAST")
         dependencyHolder = applicationContext as DependencyHolder<Any>
 

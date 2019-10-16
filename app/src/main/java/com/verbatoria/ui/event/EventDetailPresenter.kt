@@ -356,11 +356,7 @@ class EventDetailPresenter(
                             eventDetailClientItem.phone = client?.phone
                             eventDetailClientItem.email = client?.email
                             eventDetailClientItem.isLoading = false
-                            view?.updateEventDetailItem(
-                                eventDetailItemsList.indexOf(
-                                    eventDetailClientItem
-                                )
-                            )
+                            view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailClientItem))
                             checkIsAllFieldsFilled()
                         }
                 }
