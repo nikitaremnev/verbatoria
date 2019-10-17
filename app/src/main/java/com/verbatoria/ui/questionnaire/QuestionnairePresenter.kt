@@ -106,7 +106,7 @@ class QuestionnairePresenter(
                 this.isAgeAllowedForHobby = isAgeAllowedForHobby
                 setUpCurrentQuestionnaireState()
             }, { error ->
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Get questionnaire error occurred")
             })
             .let(::addDisposable)
     }
@@ -116,7 +116,7 @@ class QuestionnairePresenter(
             .subscribe({
                 view?.openSubmit(sessionId)
             }, { error ->
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Save questionnaire error occurred")
             })
             .let(::addDisposable)
     }

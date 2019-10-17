@@ -127,7 +127,7 @@ class ClientPresenter(
                 client.id = clientId
                 view?.close(client)
             }, { error ->
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Create new client error occurred")
             })
             .let(::addDisposable)
     }
@@ -142,7 +142,7 @@ class ClientPresenter(
                 client = editedClient
                 view?.close(editedClient)
             }, { error ->
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Edit client error occurred")
             })
             .let(::addDisposable)
     }

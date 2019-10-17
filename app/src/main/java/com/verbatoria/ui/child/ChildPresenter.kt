@@ -125,7 +125,7 @@ class ChildPresenter(
                 view?.close(child)
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Create new child error occurred")
             })
             .let(::addDisposable)
     }
@@ -140,7 +140,7 @@ class ChildPresenter(
                 view?.close(editedChild)
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Edit child error occurred")
             })
             .let(::addDisposable)
     }

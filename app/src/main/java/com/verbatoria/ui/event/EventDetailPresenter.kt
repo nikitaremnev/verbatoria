@@ -362,8 +362,7 @@ class EventDetailPresenter(
                 }
             }, { error ->
                 logger.error("get client error occurred", error)
-                this.view?.showErrorSnackbar("get client error occurred")
-
+                view?.showErrorSnackbar("get client error occurred")
             })
             .let(::addDisposable)
     }

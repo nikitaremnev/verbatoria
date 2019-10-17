@@ -61,7 +61,7 @@ class LateSendPresenter(
                 },
                 { error ->
                     loadLateReports()
-                    view?.showErrorSnackbar(error.localizedMessage)
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Send late send error occurred")
                 }
             )
             .let(::addDisposable)
@@ -90,7 +90,7 @@ class LateSendPresenter(
                 },
                 { error ->
                     view?.hideProgress()
-                    view?.showErrorSnackbar(error.localizedMessage)
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Delete late send error occurred")
                 }
             )
             .let(::addDisposable)
@@ -118,7 +118,7 @@ class LateSendPresenter(
                 { error ->
                     view?.showLateSendListIsEmpty()
                     view?.hideProgress()
-                    view?.showErrorSnackbar(error.localizedMessage)
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Load late sends error occurred")
                 }
             )
             .let(::addDisposable)

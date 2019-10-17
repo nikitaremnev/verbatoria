@@ -346,7 +346,7 @@ class WritingPresenter(
             mediaPlayer?.prepare()
         } catch (exception: IOException) {
             exception.printStackTrace()
-            view?.showErrorSnackbar(exception.localizedMessage)
+            view?.showErrorSnackbar(exception.localizedMessage ?: "Prepare player error occurred")
         }
     }
 
@@ -392,7 +392,7 @@ class WritingPresenter(
                 updateFinishButtonState()
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Get grouped activities error occurred")
             })
             .let(::addDisposable)
     }
@@ -430,7 +430,7 @@ class WritingPresenter(
                 //empty
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Save activity error occurred")
             })
             .let(::addDisposable)
     }
@@ -496,7 +496,7 @@ class WritingPresenter(
                 bciDataBlock.clear()
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Save BCI data block error occurred")
             })
             .let(::addDisposable)
     }
@@ -512,7 +512,7 @@ class WritingPresenter(
                 }
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
+                view?.showErrorSnackbar(error.localizedMessage ?: "Update has state error occurred")
             })
             .let(::addDisposable)
     }

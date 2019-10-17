@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -11,10 +12,7 @@ import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.schedule.ScheduleComponent
 import com.verbatoria.domain.schedule.model.ScheduleDataSource
-import com.verbatoria.infrastructure.extensions.hide
-import com.verbatoria.infrastructure.extensions.hideProgressDialogFragment
-import com.verbatoria.infrastructure.extensions.show
-import com.verbatoria.infrastructure.extensions.showProgressDialogFragment
+import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.adaptivetablelayout.AdaptiveTableLayout
@@ -59,9 +57,9 @@ interface ScheduleView : BaseView {
 
     fun hideLoadScheduleProgress()
 
-    fun showTryAgain()
+    fun showInitialLoadTryAgain()
 
-    fun hideTryAgain()
+    fun hideInitialLoadTryAgain()
 
     fun close()
 
@@ -239,14 +237,24 @@ class ScheduleActivity :
         hideProgressDialogFragment(supportFragmentManager, LOAD_SCHEDULE_PROGRESS_DIALOG_TAG)
     }
 
-    override fun showTryAgain() {
-        loadingErrorTextView.show()
-        tryAgainButton.show()
+    override fun showInitialLoadTryAgain() {
+        loadingErrorTextView.visibility = View.VISIBLE
+        tryAgainButton.visibility = View.VISIBLE
+
+        toolbar.menu.findItem(R.id.action_clear).isVisible = false
+        toolbar.menu.findItem(R.id.action_previous_week).isVisible = false
+        toolbar.menu.findItem(R.id.action_next_week).isVisible = false
+        toolbar.menu.findItem(R.id.action_save).isVisible = false
     }
 
-    override fun hideTryAgain() {
-        loadingErrorTextView.hide()
-        tryAgainButton.hide()
+    override fun hideInitialLoadTryAgain() {
+        loadingErrorTextView.visibility = View.GONE
+        tryAgainButton.visibility = View.GONE
+
+        toolbar.menu.findItem(R.id.action_clear).isVisible = true
+        toolbar.menu.findItem(R.id.action_previous_week).isVisible = true
+        toolbar.menu.findItem(R.id.action_next_week).isVisible = true
+        toolbar.menu.findItem(R.id.action_save).isVisible = true
     }
 
     override fun close() {

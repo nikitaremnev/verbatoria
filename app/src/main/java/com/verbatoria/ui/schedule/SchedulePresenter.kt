@@ -29,6 +29,8 @@ class SchedulePresenter(
             view.hideInitialLoadScheduleProgress()
             scheduleDataSource?.let { scheduleDataSource ->
                 view.setSchedule(scheduleDataSource)
+            } ?: run {
+                view.hideInitialLoadTryAgain()
             }
         }
     }
@@ -51,7 +53,7 @@ class SchedulePresenter(
                     view?.setSchedule(scheduleDataSourceLoaded)
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage)
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
                 })
                 .let(::addDisposable)
         }
@@ -69,7 +71,7 @@ class SchedulePresenter(
                     view?.setSchedule(scheduleDataSourceLoaded)
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage)
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
                 })
                 .let(::addDisposable)
         }
@@ -90,7 +92,7 @@ class SchedulePresenter(
                     view?.updateScheduleAfterCleared()
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage)
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while clear schedule occurred")
                 })
                 .let(::addDisposable)
         }
@@ -115,7 +117,7 @@ class SchedulePresenter(
                     //empty
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage)
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while save schedule occurred")
                 })
                 .let(::addDisposable)
         }
@@ -146,22 +148,27 @@ class SchedulePresenter(
     //endregion
 
     private fun loadSchedule() {
+        isLoadingSchedule = true
+        view?.apply {
+            showInitialLoadScheduleProgress()
+            hideInitialLoadTryAgain()
+        }
+
         scheduleInteractor.getSchedule()
-            .doAfterTerminate {
-                isLoadingSchedule = false
-                view?.hideInitialLoadScheduleProgress()
-            }
-            .doOnSubscribe {
-                isLoadingSchedule = true
-                view?.hideTryAgain()
-            }
             .subscribe({ scheduleDataSource ->
                 this.scheduleDataSource = scheduleDataSource
-                view?.setSchedule(scheduleDataSource)
+                isLoadingSchedule = false
+                this.view?.apply {
+                    hideInitialLoadScheduleProgress()
+                    setSchedule(scheduleDataSource)
+                }
             }, { error ->
-                error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage)
-                view?.showTryAgain()
+                isLoadingSchedule = false
+                this.view?.apply {
+                    hideInitialLoadScheduleProgress()
+                    showInitialLoadTryAgain()
+                    showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                }
             })
             .let(::addDisposable)
     }
