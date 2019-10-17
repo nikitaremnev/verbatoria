@@ -132,12 +132,24 @@ class ChildPresenter(
 
     private fun editChild() {
         view?.showSaveProgress()
-        childInteractor.editChild(clientId, editedChild)
+        childInteractor.editChild(clientId,
+            if (eventDetailMode.isCreateNew()) {
+                child
+            } else {
+                editedChild
+            }
+        )
             .doAfterTerminate {
                 view?.hideSaveProgress()
             }
             .subscribe({
-                view?.close(editedChild)
+                view?.close(
+                    if (eventDetailMode.isCreateNew()) {
+                        child
+                    } else {
+                        editedChild
+                    }
+                )
             }, { error ->
                 error.printStackTrace()
                 view?.showErrorSnackbar(error.localizedMessage ?: "Edit child error occurred")
