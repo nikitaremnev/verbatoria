@@ -22,7 +22,7 @@ class RxSchedulersModule {
 
     @Provides
     @Named(IO_SCHEDULER)
-    fun provideIoScheduler(): Scheduler = Schedulers.io()
+    fun provideIoScheduler(): Scheduler = Schedulers.newThread()
 
     @Provides
     @Named(MAIN_SCHEDULER)

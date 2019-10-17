@@ -22,7 +22,6 @@ class SubmitPresenter(
                 { submitProgress ->
                     view.setStatus(submitProgress.progressResourceId)
                 }, { error ->
-                    error.printStackTrace()
                     view.showErrorDialog()
                 }
             )
