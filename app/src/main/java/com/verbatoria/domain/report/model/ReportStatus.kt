@@ -19,7 +19,7 @@ enum class ReportStatus(
                 UPLOADED.serverStatus -> UPLOADED
                 READY.serverStatus -> READY
                 SENT.serverStatus -> SENT
-                else -> NEW
+                else -> UPLOADED
             }
 
     }
