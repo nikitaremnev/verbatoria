@@ -102,8 +102,8 @@ class SubmitManagerImpl(
             )
         }.toMutableList()
 
+        //11 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
-
         bciDataMutableList.add(FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
                 sessionId = sessionId,
@@ -112,6 +112,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //10 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
@@ -125,6 +127,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //9 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -134,16 +138,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
-        firstTimeStamp -= MILLISECONDS_IN_SECOND
-        bciDataMutableList.add(
-            FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(
-                sessionId = sessionId,
-                applicationVersion = versionName,
-                questionnaire = questionnaire.includeAttentionMemory.value.toString(),
-                createdAt = Date(firstTimeStamp).formatToServerTime()
-            )
-        )
+
+        //8 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -154,6 +150,20 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //7 index
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(
+            FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                sessionId = sessionId,
+                applicationVersion = versionName,
+                questionnaire = questionnaire.includeAttentionMemory.value.toString(),
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
+
+        //6 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -164,6 +174,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //5 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -174,6 +186,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //4 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -184,6 +198,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //3 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -194,6 +210,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //2 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -204,6 +222,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //1 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
@@ -214,6 +234,8 @@ class SubmitManagerImpl(
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )
+
+        //0 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
