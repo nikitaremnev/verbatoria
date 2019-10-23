@@ -9,7 +9,7 @@ import com.verbatoria.utils.CountryHelper
 import javax.inject.Inject
 
 /**
- * Таймер для неактивности - через 30 минут стартуем смс подтверждение
+ * Таймер для неактивности - через 60 минут стартуем смс подтверждение
  *
  * @author nikitaremnev
  */
