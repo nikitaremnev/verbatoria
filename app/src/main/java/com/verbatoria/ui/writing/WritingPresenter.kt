@@ -96,9 +96,9 @@ class WritingPresenter(
             }
         }
 
-        if (!isBCIConnected) {
-            view.showBCIConnectionDialog()
-        }
+//        if (!isBCIConnected) {
+//            view.showBCIConnectionDialog()
+//        }
     }
 
     //region WritingView.Callback
@@ -160,7 +160,9 @@ class WritingPresenter(
             view?.showMusicFileName(currentMusicFileIndex.toString())
         } else {
             pausePlayer()
-            view?.hidePlayer()
+            if (selectedActivity != null) {
+                view?.hidePlayer()
+            }
         }
     }
 
