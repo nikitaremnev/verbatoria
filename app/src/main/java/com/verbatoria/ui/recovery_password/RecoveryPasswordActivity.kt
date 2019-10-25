@@ -262,10 +262,6 @@ class RecoveryPasswordActivity :
         }
     }
 
-    override fun onUserInteraction() {
-        //empty
-    }
-
     //region RecoveryPasswordView
 
     override fun setPhone(phone: String) {

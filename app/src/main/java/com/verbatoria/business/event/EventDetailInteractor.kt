@@ -78,7 +78,7 @@ class EventDetailInteractorImpl(
                 )
             )
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun getStartModeEventDetailItems(event: Event): Single<List<EventDetailItem>> =
@@ -155,7 +155,7 @@ class EventDetailInteractorImpl(
 
             eventDetailItems.toList()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun getClient(cliendId: String): Single<Client> =

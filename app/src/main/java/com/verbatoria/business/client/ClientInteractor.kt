@@ -44,7 +44,7 @@ class ClientInteractorImpl(
         Single.fromCallable {
             authorizationManager.getCurrentCountry()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
 }

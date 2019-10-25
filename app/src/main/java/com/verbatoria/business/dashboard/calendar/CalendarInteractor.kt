@@ -31,14 +31,14 @@ class CalendarInteractorImpl(
         Single.fromCallable {
             calendarManager.getLastSelectedDate()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun saveLastSelectedDate(selectedDate: Date): Completable =
         Completable.fromCallable {
             calendarManager.saveLastSelectedDate(selectedDate)
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun getEventsForDate(date: Date): Single<Pair<List<Event>, List<EventItemModel>>> =

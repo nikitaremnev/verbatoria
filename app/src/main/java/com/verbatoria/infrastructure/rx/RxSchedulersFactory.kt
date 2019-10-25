@@ -12,9 +12,12 @@ interface RxSchedulersFactory {
 
     val main: Scheduler
 
+    val database: Scheduler
+
 }
 
 class RxSchedulersFactoryImpl(
     override val io: Scheduler,
-    override val main: Scheduler
+    override val main: Scheduler,
+    override val database: Scheduler
 ) : RxSchedulersFactory

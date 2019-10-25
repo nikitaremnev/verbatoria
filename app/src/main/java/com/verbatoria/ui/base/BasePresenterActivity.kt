@@ -35,7 +35,6 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
     //region activity lifecycle
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         @Suppress("UNCHECKED_CAST")
         dependencyHolder = applicationContext as DependencyHolder<Any>
@@ -48,6 +47,7 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
         setBCIPresenterCallback()
 
         super.onCreate(savedInstanceState)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         setContentView(getLayoutResourceId())
         initViews(savedInstanceState)

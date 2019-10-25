@@ -32,7 +32,7 @@ class QuestionnaireInteractorImpl(
         Single.fromCallable {
             Pair(questionnaireManager.getQuestionnaireBySessionId(sessionId), infoManager.isAgeAvailableForArchimedes(childAge))
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun saveQuestionnaire(sessionId: String, questionnaire: Questionnaire): Completable =
@@ -40,7 +40,7 @@ class QuestionnaireInteractorImpl(
             questionnaireManager.saveQuestionnaire(questionnaire)
             lateSendManager.updateLateSendState(sessionId, LateSendState.HAS_QUESTIONNAIRE)
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
 }

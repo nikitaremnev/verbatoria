@@ -41,21 +41,21 @@ class LoginInteractorImpl(
         Single.fromCallable {
             authorizationManager.getLastLogin()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun getCurrentCountry(): Single<String> =
         Single.fromCallable {
             authorizationManager.getCurrentCountry()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun saveCurrentCountry(country: String): Completable =
         Completable.fromCallable {
             authorizationManager.saveCurrentCountry(country)
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
 }

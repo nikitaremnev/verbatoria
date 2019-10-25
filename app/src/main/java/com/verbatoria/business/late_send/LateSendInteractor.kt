@@ -37,7 +37,7 @@ class LateSendInteractorImpl(
         Single.fromCallable {
             lateSendManager.findAllLateSend()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun sendLateSend(lateSend: LateSend): Observable<SubmitProgress> =
@@ -80,7 +80,7 @@ class LateSendInteractorImpl(
         Completable.fromCallable {
             submitManager.cleanData(lateSend.sessionId)
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
 }

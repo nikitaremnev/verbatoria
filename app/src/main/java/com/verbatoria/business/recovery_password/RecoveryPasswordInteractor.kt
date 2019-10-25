@@ -28,7 +28,7 @@ class RecoveryPasswordInteractorImpl(
         Single.fromCallable {
             authorizationManager.getCurrentCountry()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun recoveryPassword(phone: String): Completable =

@@ -43,7 +43,7 @@ class SettingsInteractorImpl(
         Single.fromCallable {
             settingsManager.getSettingsItemModels()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun getAppAndAndroidVersions(): Single<Pair<String, String>> =

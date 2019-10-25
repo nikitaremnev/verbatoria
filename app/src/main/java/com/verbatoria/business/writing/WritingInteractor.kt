@@ -45,7 +45,7 @@ class WritingInteractorImpl(
         Single.fromCallable {
             activitiesManager.getBySessionId(sessionId)
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun saveActivity(
@@ -57,7 +57,7 @@ class WritingInteractorImpl(
         Completable.fromCallable {
             activitiesManager.saveActivity(sessionId, activityCode, startTime, endTime)
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun saveBCIDataBlock(sessionId: String, bciData: List<BCIData>): Completable =
@@ -67,7 +67,7 @@ class WritingInteractorImpl(
             }
             bciDataManager.save(bciData)
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun updateHasDataState(sessionId: String): Single<Boolean> =
@@ -80,7 +80,7 @@ class WritingInteractorImpl(
                 false
             }
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
 }

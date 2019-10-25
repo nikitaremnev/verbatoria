@@ -25,14 +25,14 @@ class DashboardInteractorImpl(
         Single.fromCallable {
             infoManager.getStatus().isBlocked()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
     override fun updateInfo(): Single<Boolean> =
         Single.fromCallable {
             infoManager.updateInfo().isBlocked()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
 }

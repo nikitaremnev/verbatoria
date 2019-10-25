@@ -32,7 +32,7 @@ class SMSLoginInteractorImpl(
         Single.fromCallable {
             authorizationManager.getLastLogin()
         }
-            .subscribeOn(schedulersFactory.io)
+            .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
 }
