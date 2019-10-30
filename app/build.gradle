@@ -106,7 +106,7 @@ dependencies {
     api "com.android.support:multidex:${rootProject.multidexVersion}"
     api "com.redmadrobot:inputmask:${rootProject.inputMaskVersion}"
     api "uk.co.chrisjenx:calligraphy:${rootProject.calligraphyVersion}"
-//    implementation "com.cleveroad:adaptivetablelayout:${rootProject.adaptiveTableLayoutVersion}"
+
     implementation "com.android.support.constraint:constraint-layout:${rootProject.constraintLayoutVersion}"
 
 }
