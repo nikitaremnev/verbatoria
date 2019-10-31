@@ -3,254 +3,258 @@
 
     <!-- Common -->
 
-    <string name="app_name">Verbatoria v11.0.1</string>
+    <string name="app_name">Вербатория v11.0.1</string>
 
-    <string name="loading_please_wait">Please wait…</string>
+    <string name="loading_please_wait">Моля, изчакайте…</string>
 
-    <string name="ok">OK</string>
-    <string name="all_understand">Everything clear</string>
-    <string name="delete">Delete</string>
-    <string name="find">Find</string>
+    <string name="ok">ОК</string>
+    <string name="all_understand">Всичко е ясно</string>
+    <string name="delete">Изтривам</string>
+    <string name="find">Намеря</string>
 
-    <string name="writing_data_empty">No data</string>
+    <string name="writing_data_empty">Няма данни</string>
 
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="confirmation">Confirmation</string>
+    <string name="save">Запази</string>
+    <string name="cancel">Анулиране</string>
+    <string name="confirmation">Потвърждаване</string>
 
-    <string name="exit">Exit</string>
+    <string name="exit">Изход</string>
 
-    <string name="search">Search</string>
-    <string name="edit">Edit</string>
-    <string name="clear">Clear</string>
+    <string name="search">Търсене</string>
+    <string name="edit">Редактирам</string>
+    <string name="clear">Изчистя</string>
 
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Да</string>
+    <string name="no">Няма</string>
 
-    <string name="token_empty_error">Token not found!</string>
+    <string name="token_empty_error">Символът не е намерен!</string>
 
-    <string name="email_incorrect_error">Incorrect email-address!</string>
-    <string name="name_or_phone_empty_error">Please fill both name and phone fields</string>
+    <string name="email_incorrect_error">Посочили сте грешен email адрес!</string>
+    <string name="name_or_phone_empty_error">Моля, попълнете полетата име и телефонен номер</string>
 
     <!-- Calendar -->
 
-    <string name="event_detail_create_new_event">Create entry</string>
-    <string name="calendar_activity_child_title">Child entry</string>
-    <string name="calendar_possible_children">Possible variants</string>
-    <string name="calendar_activity_client_title">Client entry</string>
-    <string name="calendar_activity_search_client_title">Find client entry</string>
-    <string name="calendar_activity_search_child_title">Find child entry</string>
+    <string name="event_detail_create_new_event">Създаване на запис</string>
+    <string name="calendar_activity_child_title">Запис на бебето</string>
+    <string name="calendar_possible_children">Възможни опции</string>
+    <string name="calendar_activity_client_title">Клиентски запис</string>
+    <string name="calendar_activity_search_client_title">Търсене на клиентски запис</string>
+    <string name="calendar_activity_search_child_title">Търсене на запис на дете</string>
 
-    <string name="event_detail_activity_available_time">Available time</string>
-    <string name="event_detail_activity_confirm_override_message">The report has already been sent. By clicking \'Continue\', you agree that the data will be overwritten.</string>
-    <string name="event_detail_activity_continue">Continue</string>
+    <string name="event_detail_activity_available_time">Налично време</string>
+    <string name="event_detail_activity_confirm_override_message">Докладът вече е изпратен по-рано. Като кликнете върху Продължи, вие се съгласявате, че данните ще бъдат презаписани.</string>
+    <string name="event_detail_activity_continue">Продължа</string>
 
-    <string name="client">Client</string>
-    <string name="child">Child</string>
-    <string name="time">Time</string>
-    <string name="report">Report</string>
-    <string name="event_detail_send_to_location">Send report to branch</string>
-    <string name="event_detail_location">Branch office</string>
-    <string name="attention_memory">Attention/Memory</string>
-    <string name="event_detail_activity_attention_memory_include">Include Attention/Memory module to the report</string>
+    <string name="client">Клиент</string>
+    <string name="child">Дете</string>
+    <string name="time">Время</string>
+    <string name="report">Отчет</string>
+    <string name="event_detail_send_to_location">Изпращане на отчет до клон</string>
+    <string name="event_detail_location">Клон</string>
+    <string name="attention_memory">Внимание/памет</string>
+    <string name="event_detail_activity_attention_memory_include">Добавяне на модул Внимание / памет към отчет</string>
 
-    <string name="event_detail_activity_field_empty">Data not filled</string>
+    <string name="event_detail_activity_field_empty">Данните не са попълнени</string>
 
     <!-- Client -->
 
-    <string name="client_name_header_title">Client name</string>
-    <string name="client_phone_header_title">Phone</string>
+    <string name="client_name_header_title">Име на клиент</string>
+    <string name="client_phone_header_title">Телефон</string>
     <string name="client_email_header_title">Email</string>
 
-    <string name="client_name_field_hint">Ivan Ivanov</string>
+    <string name="client_name_field_hint">Иван Иванов</string>
     <string name="client_phone_field_hint">+7 123 456 78 90</string>
     <string name="client_email_field_hint">example@mail.ru</string>
 
     <!-- Child -->
 
-    <string name="child_name_header_title">Child name</string>
-    <string name="child_gender_header_title">Gender</string>
-    <string name="child_age_header_title">Age</string>
+    <string name="child_name_header_title">Име на бебето</string>
+    <string name="child_gender_header_title">Пол</string>
+    <string name="child_age_header_title">Възраст</string>
 
-    <string name="child_name_field_hint">Ivan Ivanov</string>
-    <string name="child_age_field_hint">5 years</string>
+    <string name="child_name_field_hint">Иван Иванов</string>
+    <string name="child_age_field_hint">5 години</string>
 
     <string-array name="child_genders">
-        <item>Male</item>
-        <item>Female</item>
+        <item>Мъжки</item>
+        <item>Женски</item>
     </string-array>
 
-    <string name="child_gender_male">Male</string>
-    <string name="child_gender_female">Female</string>
+    <string name="child_gender_male">Мъжки</string>
+    <string name="child_gender_female">Женски</string>
 
-    <string name="child_first_fill_client_error">It is required to fill client data first</string>
+    <string name="child_first_fill_client_error">Първо трябва да попълните данните за клиента</string>
 
-    <string name="event_detail_activity_child_name">Child name</string>
-    <string name="event_detail_activity_child_age">Age</string>
+    <string name="event_detail_activity_child_name">Име на бебето</string>
+    <string name="event_detail_activity_child_age">Възраст</string>
 
-    <string name="event_detail_activity_client_name_editable_hint">Client name</string>
-    <string name="event_detail_activity_client_phone_editable_hint">Phone</string>
-    <string name="event_detail_activity_client_email_editable_hint">Email</string>
-    <string name="event_detail_activity_child_name_editable_hint">Child name</string>
+    <string name="event_detail_activity_client_name_editable_hint">Име на клиент</string>
+    <string name="event_detail_activity_client_phone_editable_hint">Телефон</string>
+    <string name="event_detail_activity_client_email_editable_hint">Пощенски адрес</string>
+    <string name="event_detail_activity_child_name_editable_hint">Име на бебето</string>
 
-    <string name="event_detail_add_client_first">You must first enter client information!</string>
-    <string name="event_detail_event_added">The recording was successfully created!</string>
-    <string name="event_detail_event_edited">The recording was successfully changed!</string>
+    <string name="event_detail_add_client_first">Първо трябва да направите данните за клиента!</string>
+    <string name="event_detail_event_added">Записът е създаден успешно!</string>
+    <string name="event_detail_event_edited">Записът е променен успешно!</string>
 
-    <string name="event_detail_create_new_mode_title">New entry</string>
+    <string name="event_detail_create_new_mode_title">Нов записване</string>
 
-    <string name="event_detail_date_hint">Choose date</string>
-    <string name="event_detail_child_hint">Child data is required</string>
-    <string name="event_detail_client_hint">Client data is required</string>
-    <string name="event_detail_client_email_hint">Client email is required</string>
+    <string name="event_detail_date_hint">Изберете дата</string>
+    <string name="event_detail_child_hint">Трябва да посочите данните на детето</string>
+    <string name="event_detail_client_hint">Трябва да посочите клиентски данни</string>
+    <string name="event_detail_client_email_hint">Трябва да посочите email на клиента</string>
 
-    <string name="client_added">The entry was successfully created!</string>
-    <string name="client_edited">The entry was successfully changed!</string>
+    <string name="client_added">Записът е създаден успешно!</string>
+    <string name="client_edited">Записът е променен успешно!</string>
 
-    <string name="child_added">The entry was successfully created!</string>
-    <string name="child_edited">The entry was successfully changed!</string>
+    <string name="child_added">Записът е създаден успешно!</string>
+    <string name="child_edited">Записът е променен успешно!</string>
 
-    <string name="event_deleted">The recording was deleted</string>
+    <string name="event_deleted">Записът е изтрит</string>
 
-    <string name="search_by_name_email_phone">Name, phone or email</string>
-    <string name="search_by_child_name">Child name</string>
+    <string name="search_by_name_email_phone">Име, телефонен номер или email</string>
+    <string name="search_by_child_name">Име на бебето</string>
 
-    <string name="client_data_is_not_full">Client data is incomplete</string>
-    <string name="child_data_is_not_full">Child data is incomplete</string>
-    <string name="child_age_not_set">Specify the age!</string>
-    <string name="child_name_not_set">Specify the name!</string>
-    <string name="child_gender_not_set">Specify the gender!</string>
+    <string name="client_data_is_not_full">Данните за клиента не са изброени напълно</string>
+    <string name="child_data_is_not_full">Данните за детето не са напълно посочени</string>
+    <string name="child_age_not_set">Посочете възрастта!</string>
+    <string name="child_name_not_set">Въведете име!</string>
+    <string name="child_gender_not_set">Посочете пола на детето!</string>
 
-    <string name="time_is_not_set">You must specify a recording time</string>
+    <string name="time_is_not_set">Трябва да зададете време за запис</string>
 
-    <string name="action_next_week">Next week</string>
-    <string name="action_prev_week">Previous week</string>
+    <string name="action_next_week">Следващата седмица</string>
+    <string name="action_prev_week">Предишна седмица</string>
 
-    <string name="report_status_new_hint">The recording has not yet been started</string>
-    <string name="report_status_ready_hint">The measurement results are processed and the report is ready</string>
-    <string name="report_status_sent_hint">The report was sent to the client</string>
-    <string name="report_status_uploaded_hint">The measurement results were uploaded</string>
-    <string name="report_status_sent_canceled">The recording was cancelled</string>
+    <string name="report_status_new_hint">Записът все още не е направен</string>
+    <string name="report_status_ready_hint">Резултатите от измерванията са обработени и отчет готов</string>
+    <string name="report_status_sent_hint">Отчет изпратен на клиента
+</string>
+    <string name="report_status_sent_canceled">Записът е отменен</string>
 
-    <string name="event_detail_time_intervals_empty">There is no available time at selected date. Please, check your schedule</string>
+    <string name="event_detail_time_intervals_empty">Няма възможност за запис в избрания ден. Проверете графика си</string>
 
-    <string name="calendar_add_event">CREATE</string>
+    <string name="report_status_uploaded_hint">Резултатите от измерванията са качени</string>
 
-    <string name="event_detail_activity_choose_date_hint">Showing recordings for %s</string>
+    <string name="calendar_add_event">създам</string>
 
-    <string name="children_activity_edit_hint">You are now in edit mode</string>
-    <string name="children_activity_cancel_edit_hint">You canceled editing the recording</string>
+    <string name="event_detail_activity_choose_date_hint">Показване на събитията зад %s</string>
 
-    <string name="client_activity_edit_hint">You are now in edit mode</string>
-    <string name="client_activity_cancel_edit_hint">You canceled editing the recording</string>
+    <string name="children_activity_edit_hint">Преминахте към режим за редактиране на запис</string>
+    <string name="children_activity_cancel_edit_hint">Отменихте редактирането на записа</string>
 
-    <string name="report_status_new">New</string>
-    <string name="report_status_cancelled">Cancelled</string>
-    <string name="report_status_uploaded">Uploaded</string>
-    <string name="report_status_ready">Ready</string>
-    <string name="report_status_sent">Sent</string>
+    <string name="client_activity_edit_hint">Преминахте към режим за редактиране на запис</string>
+    <string name="client_activity_cancel_edit_hint">Отменихте редактирането на записа</string>
 
-    <string name="event_detail_delete_event_confirmation_dialog_message">Are you sure you want to delete the entry?</string>
-    <string name="calendar_confirm_delete_title">Confirmation</string>
+    <string name="report_status_new">Нов</string>
+    <string name="report_status_cancelled">Отменя</string>
+    <string name="report_status_uploaded">Изтегля</string>
+    <string name="report_status_ready">Готов</string>
+    <string name="report_status_sent">Изпращам</string>
 
-    <string name="child_age_selection_title">Choose age:</string>
+    <string name="event_detail_delete_event_confirmation_dialog_message">Наистина ли искате да изтриете записа?</string>
+    <string name="calendar_confirm_delete_title">Потвърждаване</string>
 
-    <string name="event_detail_send_to_location_message">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
-    <string name="event_detail_send_to_location_send">Send</string>
-    <string name="event_detail_send_to_location_complete">A copy of the report was sent to the branch office</string>
+    <string name="child_age_selection_title">Изберете възраст:</string>
 
-    <string name="event_detail_include_attention_memory_complete">Module added to report</string>
+    <string name="event_detail_send_to_location_message">Получих съгласието на клиента да получи копие от доклада за целите на консултацията, времето е договорено</string>
+    <string name="event_detail_send_to_location_send">Изпратя</string>
+    <string name="event_detail_send_to_location_complete">Копие от отчета е изпратено до клона</string>
 
-    <string name="arhimedes">ARCHIMEDES</string>
-    <string name="event_detail_archimedes_included">The report will include the Archimedes panel if there is a suitable</string>
-    <string name="event_detail_archimedes_not_included">CUSTOMER WILL NOT RECEIVE PANEL ARCHEMED - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
+    <string name="event_detail_include_attention_memory_complete">Модулът е добавен към отчет</string>
 
-    <string name="hobby">HOBBY</string>
+    <string name="arhimedes">АРХИМЕД</string>
+    <string name="event_detail_archimedes_included">В отчет ще бъде включен панел Архимед при наличие на подходяща</string>
+    <string name="event_detail_archimedes_not_included">КЛИЕНТЪТ НЯМА ДА ПОЛУЧИ ПАНЕЛ АРХИМЕД – ПРОФИЛЪТ ВИ В СИСТЕМАТА НЕ Е АКТИВЕН
+</string>
 
-    <string name="event_detail_hobby_panel_included">Panel included</string>
-    <string name="event_detail_hobby_panel_not_included">Panel not included</string>
+    <string name="hobby">ХОБИ</string>
+    <string name="event_detail_hobby_panel_included">Панел включен</string>
+    <string name="event_detail_hobby_panel_not_included">Панелът не е включен</string>
 
-    <string name="event_detail_hobby_included_status">The report will include the Hobby panel</string>
-    <string name="event_detail_hobby_not_included_status">The report will NOT include the Hobby panel</string>
+    <string name="event_detail_hobby_included_status">Отчетът ще включва панел за хоби</string>
+    <string name="event_detail_hobby_not_included_status">Отчетът няма да включва панел за хоби</string>
 
-    <string name="event_detail_include_attention_memory_confirmation_dialog_message">Do you want to include the Attention/Memory module in the report?</string>
-    <string name="include">Include</string>
-    <string name="event_confirm_attention_memory_include_success">The Attention/Memory module has been added in the report</string>
+    <string name="event_detail_include_attention_memory_confirmation_dialog_message">Включване на модула Внимание/памет в отчет?
+</string>
+    <string name="include">Включить</string>
+    <string name="event_confirm_attention_memory_include_success">Модуль Внимание/Память добавлен в отчет</string>
 
-    <string name="event_confirm_clear_database">Database contains some data. Clear it before the writing new data?</string>
-    <string name="event_confirm_clear">Clear</string>
-    <string name="event_confirm_clear_database_title">Data found</string>
+    <string name="event_confirm_clear_database">Базата данни съдържа записи, трябва ли да се изчисти преди приема?</string>
+    <string name="event_confirm_clear">Изчистя</string>
+    <string name="event_confirm_clear_database_title">Данните са открити</string>
 
-    <string name="event_detail_include_hobby_confirmation_dialog_title">Hobby Module</string>
-    <string name="event_detail_include_hobby_confirmation_dialog_message">Do you want to include the Hobby module in the report?</string>
-    <string name="event_detail_include_hobby_confirmation_dialog_include">Include</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_title">Хоби Модул</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_message">Включване на модула за хоби в отчет?</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_include">Включа</string>
 
-    <string name="school_mode_submit_hint">All data has been recorded. Now you can finish the session.</string>
+    <string name="school_mode_submit_hint">Всички данни са записани. Сега можете да завършите сесията.</string>
 
-    <string name="event_detail_intervals_selection_dialog_title">Choose time interval</string>
+    <string name="event_detail_intervals_selection_dialog_title">Изберете време за запис</string>
 
-    <string name="calendar_report_yesterday">Yesterday</string>
-    <string name="calendar_report_today">Today</string>
-    <string name="calendar_report_tomorrow">Tomorrow</string>
+    <string name="calendar_report_yesterday">Вчера</string>
+    <string name="calendar_report_today">Днес</string>
+    <string name="calendar_report_tomorrow">Утре</string>
 
     <string name="calendar_event_age_format">%s, %s</string>
 
-    <string name="calendar_event_name_and_age_empty">Name and age are not specified</string>
+    <string name="calendar_event_name_and_age_empty">Няма име и възраст</string>
 
     <!-- Dashboard -->
 
-    <string name="dashboard_age" formatted="false">Age: %s</string>
-    <string name="dashboard_no_events_title">There are no recordings for this date</string>
+    <string name="dashboard_age" formatted="false">Възраст: %s</string>
+    <string name="dashboard_no_events_title">На посочената дата няма записи</string>
 
-    <string name="dashboard_bottom_item_main">Main</string>
-    <string name="dashboard_bottom_item_calendar">Calendar</string>
-    <string name="dashboard_bottom_item_settings">Settings</string>
+    <string name="dashboard_bottom_item_main">Основен</string>
+    <string name="dashboard_bottom_item_calendar">Календар</string>
+    <string name="dashboard_bottom_item_settings">Настройка</string>
 
-    <string name="dashboard_add_event">Create recording</string>
-    <string name="event_detail_start_session">Start session</string>
-    <string name="event_detail_start_mode_title">Recording</string>
+    <string name="dashboard_add_event">Добавяне на запис</string>
+    <string name="event_detail_start_session">Стартиране на сесия</string>
+    <string name="event_detail_start_mode_title">Записване</string>
 
-    <string name="dashboard_unknown">Unknown</string>
+    <string name="dashboard_unknown">Неизвестен</string>
 
-    <string name="settings_item_developer">About app</string>
+    <string name="settings_item_developer">За приложението</string>
 
-    <string name="settings_clear_database_confirm_title">Confirmation</string>
-    <string name="settings_clear_database_confirm_message">Are you sure you want to clean up the database? Usually this is necessary before the first real recording after training.</string>
+    <string name="settings_clear_database_confirm_title">Потвърждаване</string>
+    <string name="settings_clear_database_confirm_message">Сигурни ли сте, че искате да изчистите базата данни? Това обикновено е необходимо, преди да се проведе първият истински запис след обучението.</string>
 
-    <string name="dashboard_neurometrist">Neurometrist</string>
-    <string name="dashboard_cabinet">Cabinet</string>
-    <string name="dashboard_partner">Partner</string>
+    <string name="dashboard_neurometrist">Нейрометрист</string>
+    <string name="dashboard_cabinet">Кабинет</string>
+    <string name="dashboard_partner">Партньор</string>
 
-    <string name="dashboard_blocked">Your account has been suspended. Contact the partner for details.</string>
+    <string name="dashboard_blocked">Профилът ви е бил блокиран. Свържете се с партньора си за подробности.</string>
 
-    <string name="settings_item_quit">Exit</string>
-    <string name="settings_item_clear">Clear database</string>
-    <string name="settings_item_locale">App language</string>
+    <string name="settings_item_quit">Изляза</string>
+    <string name="settings_item_clear">Изчистване на базата данни</string>
+    <string name="settings_item_locale">Език на приложението</string>
 
-    <string name="settings_database_cleared">The database has been successfully cleaned</string>
+    <string name="settings_database_cleared">Базата данни беше успешно изчистена</string>
 
-    <string name="submit_finished">The session was successfully completed!</string>
+    <string name="submit_finished">Сесията приключи успешно!</string>
 
-    <string name="submit_finished_message">The data was successfully sent and then deleted from devices.</string>
+    <string name="submit_finished_message">Данните бяха успешно изпратени и след това изтрити от устройството.</string>
 
-    <string name="submit_error">The session is not complete!</string>
+    <string name="submit_error">Сесията не е завършена!</string>
 
-    <string name="submit_error_message">You must send the report through the settings.</string>
+    <string name="submit_error_message">Трябва да изпратите отчет чрез настройките.</string>
 
-    <string name="dashboard_status_green_hint">Work in the application is available without restrictions</string>
-    <string name="dashboard_status_yellow_hint">Work in the application is available, but can be blocked soon</string>
-    <string name="dashboard_status_red_hint">The application is locked, please contact the partner to restore access</string>
+    <string name="dashboard_status_green_hint">Работата в приложението е достъпна без ограничения</string>
+    <string name="dashboard_status_yellow_hint">Работата в приложението е на разположение, но скоро може да бъде блокиран</string>
+    <string name="dashboard_status_red_hint">Работата в приложението е блокирана, обърнете се към партера за възстановяване на достъпа</string>
 
-    <string name="developer_info_android_version">Android version</string>
-    <string name="developer_info_application_version">App version</string>
+    <string name="developer_info_android_version">Версия Android</string>
+    <string name="developer_info_application_version">Версия на приложението</string>
 
-    <string name="schedule_title">Schedule</string>
-    <string name="schedule_clear_confirmation">Do you really want to delete schedule for the week?</string>
-    <string name="schedule_loading_error">Error occurred while loading schedule</string>
+    <string name="schedule_title">График на работа</string>
+    <string name="schedule_clear_confirmation">Сигурни ли сте, че искате да изтриете седмичния график?</string>
 
-    <string name="late_send_title">Sending reports</string>
-    <string name="late_send_no_reports">No reports to send</string>
-    <string name="late_send_delete_confirmation">Do you really want to delete report with id %s data? Neurodata and questionnaire will be deleted without recovery possibility.</string>
+    <string name="schedule_loading_error">Възникна грешка при зареждане на график</string>
+
+    <string name="late_send_title">Изпращане на отчет</string>
+    <string name="late_send_no_reports">Няма отчети за изпращане</string>
+    <string name="late_send_delete_confirmation">Сигурни ли сте, че искате да изтриете данните от отчета %s? Данните от нейрометрии и въпросника ще бъдат изтрити без възможност за възстановяване.</string>
 
     <string name="language_russian">Русский</string>
     <string name="language_english">English</string>
@@ -258,19 +262,21 @@
     <string name="language_ukrainian">Українська</string>
     <string name="language_bulgarian">Български</string>
 
-    <string name="dashboard_update_language_error">Error during updating language occurred</string>
+    <string name="dashboard_update_language_error">Възникна грешка при актуализиране на езика на приложението</string>
 
-    <string name="dashboard_gender">Child\'s sex</string>
-    <string name="dashboard_gender_male">Male</string>
-    <string name="dashboard_gender_female">Female</string>
+    <string name="dashboard_gender">Пол на бебето</string>
 
-    <string name="dashboard_archimedes_available">ARCHIMEDES is available</string>
-    <string name="dashboard_archimedes_not_available">ARCHIMEDES is NOT available</string>
+    <string name="dashboard_gender_male">Мъжки</string>
+    <string name="dashboard_gender_female">Женски</string>
+
+    <string name="dashboard_archimedes_available">АРХИМЕД е на разположение</string>
+    <string name="dashboard_archimedes_not_available">АРХИМЕД не е наличен</string>
 
     <!-- Login -->
 
-    <string name="login_submit">Login</string>
-    <string name="login_phone_hint">Phone</string>
+    <string name="login_submit">Вляза</string>
+    <string name="login_phone_hint">Телефонен номер</string>
+
     <string name="login_russia_phone_mask">+ [0] [000] [000] [00] [00]</string>
     <string name="login_ukraine_phone_mask">+ [000] [00] [000] [00] [00]</string>
     <string name="login_azerbaijan_phone_mask">+ [000] [00] [000] [00] [00]</string>
@@ -286,93 +292,91 @@
     <string name="login_india_phone_mask">+ [00] [00] [00000000]</string>
     <string name="login_bulgaria_phone_mask">+ [000] [00] [000] [0000]</string>
 
-    <string name="login_password_hint">Password</string>
-    <string name="login_forgot_password">Forgot password?</string>
+    <string name="login_password_hint">Парола</string>
+    <string name="login_forgot_password">Забравена парола?</string>
 
-    <string name="login_country_selection_title">Select the country of the branch</string>
+    <string name="login_country_selection_title">Изберете държава на клон</string>
 
-    <string name="recovery_password_confirmation_code">Confirmation code</string>
-    <string name="recovery_password_new_password">New password</string>
-    <string name="recovery_password_new_password_repeat">Repeat password</string>
+    <string name="recovery_password_confirmation_code">Код за потвърждение</string>
+    <string name="recovery_password_new_password">Новый парола</string>
+    <string name="recovery_password_new_password_repeat">Повторете паролата</string>
+    <string name="recovery_password_check_code">Изпрати код</string>
+    <string name="recovery_password_next">Напред</string>
+    <string name="recovery_password_send_new_password">Задаване на нова парола</string>
+    <string name="recovery_password_remember_password">Спомних си паролата!</string>
+    <string name="recovery_password_reset_success">Паролата е променена успешно</string>
 
-    <string name="recovery_password_next">Next</string>
-    <string name="recovery_password_check_code">Send code</string>
-    <string name="recovery_password_send_new_password">Set new password</string>
-    <string name="recovery_password_remember_password">I remembered password!</string>
-    <string name="recovery_password_reset_success">Password successfully changed</string>
+    <string name="country_russia">Россия</string>
+    <string name="country_belarus">Беларусь</string>
+    <string name="country_ukraine">Украина</string>
+    <string name="country_azerbaijan">Азербайджан</string>
+    <string name="country_uae">ОАЭ</string>
+    <string name="country_thailand">Таиланд</string>
+    <string name="country_israel">Израиль</string>
+    <string name="country_uzbekistan">Узбекистан</string>
+    <string name="country_hong_kong">Гонконг</string>
+    <string name="country_swiss">Швейцария</string>
+    <string name="country_malaysia">Малайзия</string>
+    <string name="country_indonesia">Индонезия</string>
+    <string name="country_india">Индия</string>
+    <string name="country_bulgaria">Болгария</string>
 
-    <string name="country_russia">Russia</string>
-    <string name="country_belarus">Belarus</string>
-    <string name="country_ukraine">Ukraine</string>
-    <string name="country_azerbaijan">Azerbaijan</string>
-    <string name="country_uae">UAE</string>
-    <string name="country_thailand">Thailand</string>
-    <string name="country_israel">Israel</string>
-    <string name="country_uzbekistan">Uzbekistan</string>
-    <string name="country_hong_kong">Hong Kong</string>
-    <string name="country_swiss">Switzerland</string>
-    <string name="country_malaysia">Malaysia</string>
-    <string name="country_indonesia">Indonesia</string>
-    <string name="country_india">India</string>
-    <string name="country_bulgaria">Bulgaria</string>
+    <string name="sms_confirmation_confirm">Подтвердить</string>
 
-    <string name="sms_confirmation_confirm">Confirm</string>
-
-    <string name="sms_confirmation_code_sent">Code sent successfully</string>
-    <string name="sms_confirmation_code_incorrect">Incorrect code</string>
-    <string name="sms_confirmation_code_sent_error">Error occurred while sending SMS code</string>
-    <string name="sms_confirmation_code_phone_not_full">Phone is not fully specified</string>
-
-    <string name="sms_login_repeat">Send SMS again</string>
-    <string name="sms_login_time_before_repeat">Send SMS again will be available in %s</string>
+    <string name="sms_confirmation_code_sent">Кодът за потвърждение е изпратен успешно</string>
+    <string name="sms_confirmation_code_incorrect">Кодът за втвърдяване е въведен неправилно</string>
+    <string name="sms_confirmation_code_sent_error">Грешка при изпращане на кода за потвърждение</string>
+    <string name="sms_confirmation_code_phone_not_full">Телефонният Номер Не е посочен напълно</string>
+    <string name="sms_login_repeat">Повторно изпращане на SMS</string>
+    <string name="sms_login_time_before_repeat">Повторното изпращане на SMS ще стане достъпно чрез %s</string>
 
     <!-- Schedule -->
 
     <string-array name="rows_names">
-        <item>MON, %s</item>
-        <item>TUE, %s</item>
-        <item>WED, %s</item>
-        <item>THU, %s</item>
-        <item>FRI, %s</item>
-        <item>SAT, %s</item>
-        <item>SUN, %s</item>
+        <item>ПН, %s</item>
+        <item>ВТ, %s</item>
+        <item>СР, %s</item>
+        <item>ЧТ, %s</item>
+        <item>ПТ, %s</item>
+        <item>СБ, %s</item>
+        <item>ВС, %s</item>
     </string-array>
 
-    <string name="schedule_clear_confirm_message">Are you sure you want to clear the schedule?</string>
+    <string name="schedule_clear_confirm_message">Сигурни ли сте, че искате да изчистите графика?</string>
 
-    <string name="schedule_saved">Schedule saved successfully!</string>
-    <string name="schedule_loaded_by_period" formatted="false">Showing the schedule for the period %s</string>
-    <string name="schedule_cleared">Schedule was cleared!</string>
+    <string name="schedule_saved">Графикът е записан успешно!</string>
+    <string name="schedule_cleared">Графикът е изчистен!</string>
 
-    <string name="schedule_save_confirmation_title">Choose the period to save selected schedule?</string>
+    <string name="schedule_save">Запазване на график…</string>
+    <string name="schedule_clear">Изчистете графика…</string>
+    <string name="schedule_load">Изтеглете график…</string>
 
-    <string name="schedule_save">Saving the schedule…</string>
-    <string name="schedule_clear">Clearing the schedule…</string>
-    <string name="schedule_load">Loading the schedule…</string>
+    <string name="schedule_save_confirmation_title">За какъв период да запазите посочения график?</string>
 
-    <string name="schedule_only_this_week">only this week</string>
-    <string name="schedule_save_1_week">1 week</string>
-    <string name="schedule_save_2_weeks">2 weeks</string>
-    <string name="schedule_save_3_weeks">3 weeks</string>
-    <string name="schedule_save_4_weeks">4 weeks</string>
-    <string name="schedule_save_5_weeks">5 weeks</string>
+    <string name="schedule_only_this_week">само тази седмица</string>
+    <string name="schedule_save_1_week">1  седмица</string>
+    <string name="schedule_save_2_weeks">2 седмица</string>
+    <string name="schedule_save_3_weeks">3 седмица</string>
+    <string name="schedule_save_4_weeks">4 седмица</string>
+    <string name="schedule_save_5_weeks">5 седмица</string>
 
     <!-- Session -->
 
-    <string name="session_connection">Connection</string>
-    <string name="session_start_writing">Start record</string>
-    <string name="session_try_again">Try again</string>
-    <string name="session_connect">Connect</string>
-    <string name="session_connected">Connected</string>
-    <string name="session_connection_in_progress">Connecting...</string>
-    <string name="session_not_connected">Not connected</string>
+    <string name="session_connection">Връзка</string>
+    <string name="session_start_writing">Стартиране на запис</string>
+    <string name="session_try_again">Попробовать сновОпитайте отновоа</string>
+    <string name="session_connect">Свържа</string>
+    <string name="session_connected">Свързан</string>
+    <string name="session_connection_in_progress">Имаме връзка...</string>
+    <string name="session_not_connected">Не е свързан</string>
     <string name="session_connection_instruction">
-        1. Turn on the power on the interface, make sure it\'s working.
-        \n\n2. Click the \"Connect\" button and wait for the status \"Connected\".
-        \n\n3. Click the \"Start recording\" button to get started.
+        1. Включете захранването на нейроинтерфейсе, уверете се, че работи.
+        \n\n2. Кликнете върху бутона \ " Свържете\ "и изчакайте състоянието \"свързан\".
+        \n\n3. Кликнете върху бутона \ " стартиране на запис\", за да започнете.
     </string>
-    <string name="writing_connection_bluetooth_disabled">Bluetooth отключен</string>
-    <string name="settings">Settings</string>
+
+    <string name="writing_connection_bluetooth_disabled">Bluetooth изключен</string>
+    <string name="settings">Настройки</string>
 
     <string name="writing_activity_code_99">99</string>
     <string name="writing_activity_code_11">11</string>
@@ -383,20 +387,20 @@
     <string name="writing_activity_code_61">61</string>
     <string name="writing_activity_code_71">71</string>
 
-    <string name="writing_timer" formatted="false">Total load %d time: %d sec.</string>
-    <string name="session_timer_string_only_full_and_loadings" formatted="false">Total time: %s\nTotal loadings time: %s</string>
-    <string name="session_timer_string_only_full" formatted="false">Total time: %s</string>
+    <string name="writing_timer" formatted="false">Общо време на натоварване %d: %d сек.</string>
+    <string name="session_timer_string_only_full_and_loadings" formatted="false">Общо време: %s\допълнително време товари:%s</string>
+    <string name="session_timer_string_only_full" formatted="false">Общо време: %s</string>
 
-    <string name="session_player_error">No files found for playback!</string>
+    <string name="session_player_error">Не са намерени файлове за възпроизвеждане!</string>
 
-    <string name="writing_finish_activity_first_error">It is necessary to turn off the load before ending the session!</string>
+    <string name="writing_finish_activity_first_error">Трябва да изключите товара, преди да завършите сесията!</string>
 
-    <string name="questionnaire_back">Back</string>
-    <string name="questionnaire_next">Next</string>
+    <string name="questionnaire_back">Преди</string>
+    <string name="questionnaire_next">Напред</string>
 
-    <string name="questionnaire_finish">Submit</string>
+    <string name="questionnaire_finish">Завърша</string>
 
-    <string name="questionnaire_question_no_answer">No answer</string>
+    <string name="questionnaire_question_no_answer">Няма отговор</string>
 
     <string name="session_question_variant_10">10</string>
     <string name="session_question_variant_20">20</string>
@@ -404,48 +408,48 @@
     <string name="session_question_variant_60">60</string>
     <string name="session_question_variant_90">90</string>
 
-    <string name="session_some_activities_not_finished">Loading codes %s are not recorded enough</string>
-    <string name="session_activity_not_finished">Loading code %s is not recorded enough</string>
-    <string name="session_continue">Continue</string>
+    <string name="session_some_activities_not_finished">Кодовете за натоварване %s са записани в недостатъчен обем</string>
+    <string name="session_activity_not_finished">Код нагрузки %s записан в недостаточном объеме</string>
+    <string name="session_continue">Продължа</string>
 
-    <string name="session_connection_error">There was a problem with the connection to the neurointerface. Please resume the connection.</string>
+    <string name="session_connection_error">Има проблем с връзката с невроинтерфейса. Моля, възобновете връзката.</string>
 
-    <string name="session_connection_error_try">Reconnect</string>
+    <string name="session_connection_error_try">Възстановяване на връзката</string>
 
     <string-array name="questionnaire_number_questions">
-        <item>Linguistic</item>
-        <item>Logical and mathematical</item>
-        <item>Musical</item>
-        <item>Spatial</item>
-        <item>Body-Kinesthetic</item>
-        <item>Understanding people</item>
-        <item>Understanding yourself</item>
+        <item>Езиков</item>
+        <item>Логико-математически</item>
+        <item>Музикален</item>
+        <item>Пространствен</item>
+        <item>Телесно-кинестетичен</item>
+        <item>Разбиране на хората</item>
+        <item>Разбиране на себе си</item>
     </string-array>
 
-    <string name="questionnaire_include_memory_attention">Should I include the Attention/Memory report?</string>
-    <string name="questionnaire_include_hobby">Should I include the Hobby module?</string>
-    <string name="questionnaire_report_type_question">Choose report type:</string>
-    <string name="session_report_type_0">Type 0</string>
-    <string name="session_report_type_1">1: AnM only</string>
-    <string name="session_report_type_2">Electives</string>
-    <string name="session_report_type_3">My Destiny</string>
-    <string name="session_report_type_4">Type 4</string>
-    <string name="session_report_type_5">Type 5</string>
-    <string name="session_report_type_6">Type 6</string>
-    <string name="session_report_type_7">Type 7</string>
-    <string name="session_report_type_8">Type 8</string>
-    <string name="session_report_type_9">Type 9</string>
-    <string name="session_report_type_10">Type 10</string>
+    <string name="questionnaire_include_memory_attention">Дали отчет включва Внимание / памет?</string>
+    <string name="questionnaire_include_hobby">Включване на модула за хоби в доклада?</string>
+    <string name="questionnaire_report_type_question">Изберете типа отчета:</string>
+    <string name="session_report_type_0">Тип 0</string>
+    <string name="session_report_type_1">1: Само ВнП</string>
+    <string name="session_report_type_2">Кружки</string>
+    <string name="session_report_type_3">Мое призвание</string>
+    <string name="session_report_type_4">Тип 4</string>
+    <string name="session_report_type_5">Тип 5</string>
+    <string name="session_report_type_6">Тип 6</string>
+    <string name="session_report_type_7">Тип 7</string>
+    <string name="session_report_type_8">Тип 8</string>
+    <string name="session_report_type_9">Тип 9</string>
+    <string name="session_report_type_10">Тип 10</string>
 
-    <string name="submit_progress_collect_and_send">Collecting and sending the data</string>
-    <string name="submit_progress_finish_session">Closing the session</string>
-    <string name="submit_progress_clean_data">Cleaning the data</string>
+    <string name="submit_progress_collect_and_send">Мы собираем и отправляем данные</string>
+    <string name="submit_progress_finish_session">Затваряне на сесията</string>
+    <string name="submit_progress_clean_data">Изчистваме данните</string>
 
-    <string name="late_send_state_nothing">No neurodata and questionnaire</string>
-    <string name="late_send_state_has_data">No questionnaire data</string>
-    <string name="late_send_state_has_questionnaire">Neurodata and questionnaire were saved, sending required</string>
-    <string name="late_send_state_data_sent">Data is sent, but finish session required</string>
-    <string name="late_send_state_session_finished">Only data clean up left</string>
-    <string name="late_send_state_data_cleaned">Report is fully ready and sent</string>
+    <string name="late_send_state_nothing">Няма данни за нейроматерии и въпросника</string>
+    <string name="late_send_state_has_data">Липсват данни от въпросника</string>
+    <string name="late_send_state_has_questionnaire">Данните от нейроматерии и въпросника са записани, трябва да бъдат изпратени</string>
+    <string name="late_send_state_data_sent">Данните са изпратени, трябва да завършите сесията</string>
+    <string name="late_send_state_session_finished">Остава само да изчистите данните</string>
+    <string name="late_send_state_data_cleaned">Отчет е напълно готов и изпратен</string>
 
 </resources>
