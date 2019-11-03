@@ -53,7 +53,13 @@ class SchedulePresenter(
                     view?.setSchedule(scheduleDataSourceLoaded)
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                    if (isViewVisible) {
+                        view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                    } else {
+                        addOperationToPending(Runnable {
+                            view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                        })
+                    }
                 })
                 .let(::addDisposable)
         }
@@ -71,7 +77,17 @@ class SchedulePresenter(
                     view?.setSchedule(scheduleDataSourceLoaded)
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                    if (isViewVisible) {
+                        view?.showErrorSnackbar(
+                            error.localizedMessage ?: "Error while loading schedule occurred"
+                        )
+                    } else {
+                        addOperationToPending(Runnable {
+                            view?.showErrorSnackbar(
+                                error.localizedMessage ?: "Error while loading schedule occurred"
+                            )
+                        })
+                    }
                 })
                 .let(::addDisposable)
         }
@@ -92,7 +108,14 @@ class SchedulePresenter(
                     view?.updateScheduleAfterCleared()
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while clear schedule occurred")
+                    if (isViewVisible) {
+                        view?.showErrorSnackbar(error.localizedMessage ?: "Error while clear schedule occurred")
+                    } else {
+                        addOperationToPending(Runnable {
+                            view?.showErrorSnackbar(error.localizedMessage ?: "Error while clear schedule occurred")
+
+                        })
+                    }
                 })
                 .let(::addDisposable)
         }
@@ -117,7 +140,13 @@ class SchedulePresenter(
                     //empty
                 }, { error ->
                     error.printStackTrace()
-                    view?.showErrorSnackbar(error.localizedMessage ?: "Error while save schedule occurred")
+                    if (isViewVisible) {
+                        view?.showErrorSnackbar(error.localizedMessage ?: "Error while save schedule occurred")
+                    } else {
+                        addOperationToPending(Runnable {
+                            view?.showErrorSnackbar(error.localizedMessage ?: "Error while save schedule occurred")
+                        })
+                    }
                 })
                 .let(::addDisposable)
         }
@@ -167,7 +196,13 @@ class SchedulePresenter(
                 this.view?.apply {
                     hideInitialLoadScheduleProgress()
                     showInitialLoadTryAgain()
-                    showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                    if (isViewVisible) {
+                        showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                    } else {
+                        addOperationToPending(Runnable {
+                            showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                        })
+                    }
                 }
             })
             .let(::addDisposable)

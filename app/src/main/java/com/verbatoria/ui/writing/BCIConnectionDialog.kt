@@ -20,6 +20,8 @@ import com.verbatoria.infrastructure.extensions.show
  * @author n.remnev
  */
 
+private const val IS_CONNECTION_ERROR_STATE_EXTRA = "IS_CONNECTION_ERROR_STATE_EXTRA"
+
 class BCIConnectionDialog : DialogFragment() {
 
     private var bciConnectionDialogClickListener: OnBCIConnectionDialogClickListener? = null
@@ -38,7 +40,30 @@ class BCIConnectionDialog : DialogFragment() {
     private lateinit var settingsButton: Button
     private lateinit var tryAgainButton: Button
 
+    private var isConnectionErrorState: Boolean = false
+
+    companion object {
+
+        fun newInstance(isConnectionErrorState: Boolean = false): BCIConnectionDialog {
+            val fragmentDialog = BCIConnectionDialog()
+
+            val arguments = Bundle()
+            arguments.putBoolean(IS_CONNECTION_ERROR_STATE_EXTRA, isConnectionErrorState)
+
+            fragmentDialog.arguments = arguments
+
+            return fragmentDialog
+        }
+
+    }
+
     //region DialogFragment
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        isConnectionErrorState = arguments?.getBoolean(IS_CONNECTION_ERROR_STATE_EXTRA, false)
+            ?: false
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         bciConnectionDialogClickListener = activity as? OnBCIConnectionDialogClickListener
@@ -79,6 +104,10 @@ class BCIConnectionDialog : DialogFragment() {
         }
 
         isCancelable = false
+
+        if (isConnectionErrorState) {
+            showConnectionError()
+        }
 
         return AlertDialog.Builder(activity)
             .setTitle(R.string.session_connection)
