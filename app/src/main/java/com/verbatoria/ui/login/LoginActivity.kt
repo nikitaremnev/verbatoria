@@ -183,7 +183,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
 //                passwordEditText.setText("12345")
 
                 //school testing
-//                loginEditText.setText("81234567895")
+//                phoneEditText.setText("81234567895")
 //                passwordEditText.setText("1234748a")
 
                 return@setOnLongClickListener true
