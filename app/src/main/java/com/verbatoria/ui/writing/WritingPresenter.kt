@@ -45,6 +45,8 @@ class WritingPresenter(
 
     private var isBCIConnected: Boolean = false
 
+    private var isBCIConnectionDialogShown: Boolean = false
+
     private var startActivityTime: Long = 0L
 
     //timer
@@ -96,9 +98,19 @@ class WritingPresenter(
             }
         }
 
-//        if (!isBCIConnected) {
-//            view.showBCIConnectionDialog()
-//        }
+        if (!isBCIConnected && !isBCIConnectionDialogShown) {
+            view.showBCIConnectionDialog()
+            isBCIConnectionDialogShown = true
+        }
+    }
+
+    override fun onDetachView() {
+        super.onDetachView()
+        if (isBCIConnected) {
+            view?.disconnectBCI()
+            isBCIConnected = false
+            isBCIConnectionDialogShown = false
+        }
     }
 
     //region WritingView.Callback
@@ -218,6 +230,7 @@ class WritingPresenter(
     override fun onStartClicked() {
         view?.dismissBCIConnectionDialog()
         view?.startBCIWriting()
+        isBCIConnectionDialogShown = false
     }
 
     override fun onConnectClicked() {
@@ -228,6 +241,7 @@ class WritingPresenter(
         view?.apply {
             dismissBCIConnectionDialog()
             finish()
+            isBCIConnectionDialogShown = false
         }
     }
 
@@ -308,8 +322,17 @@ class WritingPresenter(
         selectedActivity?.let { activity ->
             onCodeButtonClicked(activity.activityCode)
         }
+
         isBCIConnected = false
-        view?.showConnectionErrorDialogState()
+        isBCIConnectionDialogShown = true
+
+        if (isViewVisible) {
+            view?.showConnectionErrorDialogState()
+        } else {
+            addOperationToPending(Runnable {
+                view?.showConnectionErrorDialogState()
+            })
+        }
     }
 
     override fun onDisconnected() {

@@ -65,6 +65,16 @@ abstract class BasePresenterActivity<V : BaseView, Presenter : BasePresenter<V>,
         (application as? VerbatoriaKtApplication)?.onUserInteraction()
     }
 
+    override fun onStart() {
+        super.onStart()
+        presenter.onStart()
+    }
+
+    override fun onStop() {
+        presenter.onStop()
+        super.onStop()
+    }
+
     override fun onDestroy() {
         presenter.onDetachView()
 

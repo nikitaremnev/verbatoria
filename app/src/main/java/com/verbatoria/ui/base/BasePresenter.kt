@@ -15,6 +15,10 @@ open class BasePresenter<View : BaseView>: EventManager.Subscriber {
 
     private val compositeDisposable = CompositeDisposable()
 
+    protected var isViewVisible: Boolean = false
+
+    private val pendingRunnables: MutableList<Runnable> = mutableListOf()
+
     @CallSuper
     open fun onAttachView(view: View) {
         this.view = view
@@ -26,8 +30,28 @@ open class BasePresenter<View : BaseView>: EventManager.Subscriber {
     }
 
     @CallSuper
+    open fun onStart() {
+        isViewVisible = true
+        if (pendingRunnables.isNotEmpty()) {
+            pendingRunnables.forEach { runnable ->
+                runnable.run()
+            }
+            pendingRunnables.clear()
+        }
+    }
+
+    @CallSuper
+    open fun onStop() {
+        isViewVisible = false
+    }
+
+    @CallSuper
     open fun onDestroy() {
         clearDisposables()
+    }
+
+    protected fun addOperationToPending(runnable: Runnable) {
+        pendingRunnables.add(runnable)
     }
 
     protected fun addDisposable(disposable: Disposable) {

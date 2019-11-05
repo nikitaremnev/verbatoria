@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.support.design.widget.FloatingActionButton
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
@@ -263,6 +262,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         }
 
         setUpChart()
+
+        bciConnectionDialog = supportFragmentManager.findFragmentByTag(BCI_CONNECTION_DIALOG_TAG) as? BCIConnectionDialog
     }
 
     override fun onBackPressed() {
@@ -274,19 +275,27 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     //region WritingView
 
     override fun setActivityNewState(activityCode: ActivityCode) {
-        getButtonByActivityCode(activityCode).background = activityNewStateDrawable
+        uiHandler.post {
+            getButtonByActivityCode(activityCode).background = activityNewStateDrawable
+        }
     }
 
     override fun setActivitySelectedState(activityCode: ActivityCode) {
-        getButtonByActivityCode(activityCode).background = activitySelectedStateDrawable
+        uiHandler.post {
+            getButtonByActivityCode(activityCode).background = activitySelectedStateDrawable
+        }
     }
 
     override fun setActivityNotFinishedState(activityCode: ActivityCode) {
-        getButtonByActivityCode(activityCode).background = activityNotFinishedStateDrawable
+        uiHandler.post {
+            getButtonByActivityCode(activityCode).background = activityNotFinishedStateDrawable
+        }
     }
 
     override fun setActivityDoneState(activityCode: ActivityCode) {
-        getButtonByActivityCode(activityCode).background = activityDoneStateDrawable
+        uiHandler.post {
+            getButtonByActivityCode(activityCode).background = activityDoneStateDrawable
+        }
     }
 
     override fun updateTimerTime(load: Int, totalLoadTime: Int) {
@@ -296,15 +305,21 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     }
 
     override fun showFinishButton() {
-        finishButton.show()
+        uiHandler.post {
+            finishButton.show()
+        }
     }
 
     override fun showTimer() {
-        timerTextView.show()
+        uiHandler.post {
+            timerTextView.show()
+        }
     }
 
     override fun hideTimer() {
-        timerTextView.invisible()
+        uiHandler.post {
+            timerTextView.invisible()
+        }
     }
 
     override fun showFinishActivityFirstError() {
@@ -312,31 +327,39 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     }
 
     override fun setUpPlayMode() {
-        musicFileNameTextView.show()
-        playButton.invisible()
-        pauseButton.show()
-        backButton.show()
-        nextButton.show()
+        uiHandler.post {
+            musicFileNameTextView.show()
+            playButton.invisible()
+            pauseButton.show()
+            backButton.show()
+            nextButton.show()
+        }
     }
 
     override fun setUpPauseMode() {
-        musicFileNameTextView.show()
-        pauseButton.invisible()
-        playButton.show()
-        backButton.show()
-        nextButton.show()
+        uiHandler.post {
+            musicFileNameTextView.show()
+            pauseButton.invisible()
+            playButton.show()
+            backButton.show()
+            nextButton.show()
+        }
     }
 
     override fun hidePlayer() {
-        musicFileNameTextView.invisible()
-        playButton.invisible()
-        pauseButton.invisible()
-        backButton.invisible()
-        nextButton.invisible()
+        uiHandler.post {
+            musicFileNameTextView.invisible()
+            playButton.invisible()
+            pauseButton.invisible()
+            backButton.invisible()
+            nextButton.invisible()
+        }
     }
 
     override fun showMusicFileName(fileName: String) {
-        musicFileNameTextView.text = fileName
+        uiHandler.post {
+            musicFileNameTextView.text = fileName
+        }
     }
 
     override fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor =
@@ -393,7 +416,8 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     override fun showConnectionErrorDialogState() {
         uiHandler.post {
             if (bciConnectionDialog == null) {
-                showBCIConnectionDialog()
+                bciConnectionDialog = BCIConnectionDialog.newInstance(true)
+                bciConnectionDialog?.show(supportFragmentManager, BCI_CONNECTION_DIALOG_TAG)
             } else {
                 bciConnectionDialog?.showConnectionError()
             }
@@ -401,8 +425,10 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     }
 
     override fun showBCIConnectionDialog() {
-        bciConnectionDialog = BCIConnectionDialog()
-        bciConnectionDialog?.show(supportFragmentManager, BCI_CONNECTION_DIALOG_TAG)
+        if (bciConnectionDialog == null) {
+            bciConnectionDialog = BCIConnectionDialog.newInstance()
+            bciConnectionDialog?.show(supportFragmentManager, BCI_CONNECTION_DIALOG_TAG)
+        }
     }
 
     override fun dismissBCIConnectionDialog() {
