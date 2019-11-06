@@ -79,7 +79,7 @@ class FileUtilImpl(
     }
 
     override fun getApplicationDirectory(): File =
-        File(Environment.getExternalStorageDirectory(), APPLICATION_FILES_DIRECTORY);
+        File(Environment.getExternalStorageDirectory(), APPLICATION_FILES_DIRECTORY)
 
     override fun saveFile(filePath: String, fileName: String, data: ByteArray): String {
         val file = createFile(filePath, fileName)

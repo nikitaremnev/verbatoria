@@ -17,6 +17,7 @@ class ProgressDialog : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
         AlertDialog.Builder(activity)
             .setView(LayoutInflater.from(context).inflate(R.layout.dialog_progress, null))
+            .setCancelable(false)
             .create()
 
     override fun show(manager: FragmentManager?, tag: String?) {

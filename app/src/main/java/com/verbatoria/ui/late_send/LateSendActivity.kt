@@ -3,6 +3,7 @@ package com.verbatoria.ui.late_send
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -53,6 +54,8 @@ interface LateSendView : BaseView {
 
         fun onNavigationClicked()
 
+        fun onTestButtonClicked()
+
     }
 
 }
@@ -71,6 +74,7 @@ class LateSendActivity :
     private lateinit var recyclerView: RecyclerView
     private lateinit var lateSendEmptyTextView: TextView
     private lateinit var toolbar: Toolbar
+    private lateinit var floatingActionButton: FloatingActionButton
 
     @Inject
     lateinit var adapter: Adapter
@@ -94,6 +98,11 @@ class LateSendActivity :
         toolbar.setTitle(R.string.late_send_title)
         toolbar.setNavigationOnClickListener {
             presenter.onNavigationClicked()
+        }
+
+        floatingActionButton = findViewById(R.id.test_button)
+        floatingActionButton.setOnClickListener {
+            presenter.onTestButtonClicked()
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)

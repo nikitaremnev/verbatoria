@@ -23,6 +23,8 @@ interface LateSendInteractor {
 
     fun sendLateSend(lateSend: LateSend): Observable<SubmitProgress>
 
+    fun sendLateSend(sessionId: String): Observable<SubmitProgress>
+
     fun deleteLateSend(lateSend: LateSend): Completable
 
 }
@@ -42,35 +44,54 @@ class LateSendInteractorImpl(
 
     override fun sendLateSend(lateSend: LateSend): Observable<SubmitProgress> =
         BehaviorSubject.create<SubmitProgress> { emitter ->
-            if (lateSend.state == LateSendState.HAS_QUESTIONNAIRE) {
-                emitter.onNext(SubmitProgress(R.string.submit_progress_collect_and_send))
-                submitManager.sendData(lateSend.sessionId)
-                lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_SENT)
+            when {
+                lateSend.state == LateSendState.HAS_QUESTIONNAIRE -> {
+                    emitter.onNext(SubmitProgress(R.string.submit_progress_collect_and_send))
+                    submitManager.sendData(lateSend.sessionId)
+                    lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_SENT)
 
-                emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))
-                submitManager.finishSession(lateSend.sessionId)
-                lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.SESSION_FINISHED)
+                    emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))
+                    submitManager.finishSession(lateSend.sessionId)
+                    lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.SESSION_FINISHED)
 
-                emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
-                submitManager.cleanData(lateSend.sessionId)
-                lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_CLEANED)
+                    emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
+                    submitManager.cleanData(lateSend.sessionId)
+                    lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_CLEANED)
+                }
+                lateSend.state == LateSendState.DATA_SENT -> {
+                    emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))
+                    submitManager.finishSession(lateSend.sessionId)
+                    lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.SESSION_FINISHED)
+
+                    emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
+                    submitManager.cleanData(lateSend.sessionId)
+                    lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_CLEANED)
+                }
+                lateSend.state == LateSendState.SESSION_FINISHED -> {
+                    emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
+                    submitManager.cleanData(lateSend.sessionId)
+                    lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_CLEANED)
+                }
             }
+            emitter.onComplete()
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
 
-            if (lateSend.state == LateSendState.DATA_SENT) {
-                emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))
-                submitManager.finishSession(lateSend.sessionId)
-                lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.SESSION_FINISHED)
+    override fun sendLateSend(sessionId: String): Observable<SubmitProgress> =
+        BehaviorSubject.create<SubmitProgress> { emitter ->
+            emitter.onNext(SubmitProgress(R.string.submit_progress_collect_and_send))
 
-                emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
-                submitManager.cleanData(lateSend.sessionId)
-                lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_CLEANED)
-            }
+            submitManager.sendDataFromReadyFile(sessionId)
+            lateSendManager.updateLateSendState(sessionId, LateSendState.DATA_SENT)
 
-            if (lateSend.state == LateSendState.SESSION_FINISHED) {
-                emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
-                submitManager.cleanData(lateSend.sessionId)
-                lateSendManager.updateLateSendState(lateSend.sessionId, LateSendState.DATA_CLEANED)
-            }
+            emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))
+            submitManager.finishSession(sessionId)
+            lateSendManager.updateLateSendState(sessionId, LateSendState.SESSION_FINISHED)
+
+            emitter.onNext(SubmitProgress(R.string.submit_progress_clean_data))
+            submitManager.cleanData(sessionId)
+            lateSendManager.updateLateSendState(sessionId, LateSendState.DATA_CLEANED)
             emitter.onComplete()
         }
             .subscribeOn(schedulersFactory.io)

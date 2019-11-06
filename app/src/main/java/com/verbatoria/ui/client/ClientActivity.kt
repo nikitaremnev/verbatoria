@@ -204,11 +204,13 @@ class ClientActivity : BasePresenterActivity<ClientView, ClientPresenter, Client
                 clientPhoneEditText,
                 null,
                 object : MaskedTextChangedListener.ValueListener {
-
-                    override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
+                    override fun onTextChanged(
+                        maskFilled: Boolean,
+                        extractedValue: String,
+                        formattedValue: String
+                    ) {
                         presenter.onClientPhoneChanged(maskFilled, extractedValue)
                     }
-
                 }
             )
         )

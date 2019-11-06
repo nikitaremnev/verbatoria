@@ -38,6 +38,8 @@ interface SubmitManager {
 
     fun sendData(sessionId: String)
 
+    fun sendDataFromReadyFile(sessionId: String)
+
     fun finishSession(sessionId: String)
 
     fun cleanData(sessionId: String)
@@ -73,7 +75,6 @@ class SubmitManagerImpl(
 
         return sessionId
     }
-
 
     override fun sendData(sessionId: String) {
         val bciData = bciDataManager.findAllBySessionId(sessionId)
@@ -258,6 +259,17 @@ class SubmitManagerImpl(
             }
         }
 
+        submitEndpoint.sendData(
+            sessionId = sessionId,
+            body = RequestBody.create(MediaType.parse("application/json"), reportFile)
+        )
+    }
+
+    override fun sendDataFromReadyFile(sessionId: String) {
+        val reportFile = File(fileUtil.getApplicationDirectory(), getReportFileName(sessionId))
+        if (!reportFile.exists()) {
+            reportFile.createNewFile()
+        }
         submitEndpoint.sendData(
             sessionId = sessionId,
             body = RequestBody.create(MediaType.parse("application/json"), reportFile)

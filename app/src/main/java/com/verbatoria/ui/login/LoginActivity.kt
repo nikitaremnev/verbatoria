@@ -217,8 +217,11 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
             phoneEditText,
             null,
             object : MaskedTextChangedListener.ValueListener {
-
-                override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
+                override fun onTextChanged(
+                    maskFilled: Boolean,
+                    extractedValue: String,
+                    formattedValue: String
+                ) {
                     presenter.onPhoneTextChanged(extractedValue)
                 }
 

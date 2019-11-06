@@ -6,6 +6,6 @@ package com.verbatoria.infrastructure.retrofit
 
 object APIConfig {
 
-    const val CONNECTION_TIMEOUT = 10000L
+    const val CONNECTION_TIMEOUT = 60000L
 
 }

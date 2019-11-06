@@ -288,11 +288,13 @@ class RecoveryPasswordActivity :
                 phoneEditText,
                 null,
                 object : MaskedTextChangedListener.ValueListener {
-
-                    override fun onTextChanged(maskFilled: Boolean, extractedValue: String) {
+                    override fun onTextChanged(
+                        maskFilled: Boolean,
+                        extractedValue: String,
+                        formattedValue: String
+                    ) {
                         presenter.onPhoneTextChanged(extractedValue)
                     }
-
                 }
             )
         )

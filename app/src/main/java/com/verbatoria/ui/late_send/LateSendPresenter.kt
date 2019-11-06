@@ -60,8 +60,9 @@ class LateSendPresenter(
                     view?.showSubmitProgress(submitProgress.progressResourceId)
                 },
                 { error ->
-                    loadLateReports()
+                    view?.hideProgress()
                     view?.showErrorSnackbar(error.localizedMessage ?: "Send late send error occurred")
+                    loadLateReports()
                 }
             )
             .let(::addDisposable)
@@ -71,6 +72,26 @@ class LateSendPresenter(
         selectedForDeleteLateSendPosition = position
         val lateSend = lateSendList[selectedForDeleteLateSendPosition]
         view?.showDeleteConfirmationDialog(lateSend.reportId)
+    }
+
+    override fun onTestButtonClicked() {
+        view?.showProgress()
+        lateSendInteractor
+            .sendLateSend("14892")
+            .doOnComplete {
+                view?.hideProgress()
+            }
+            .subscribe(
+                { submitProgress ->
+                    view?.showSubmitProgress(submitProgress.progressResourceId)
+                },
+                { error ->
+                    view?.hideProgress()
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Send late send error occurred")
+                    error.printStackTrace()
+                }
+            )
+            .let(::addDisposable)
     }
 
     //endregion
@@ -111,6 +132,7 @@ class LateSendPresenter(
             }
             .subscribe(
                 { lateSendList ->
+                    this.lateSendList.clear()
                     this.lateSendList.addAll(lateSendList)
                     updateLateReportsList()
                     view?.hideProgress()

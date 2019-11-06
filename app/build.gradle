@@ -104,7 +104,7 @@ dependencies {
     api "com.squareup.okhttp3:okhttp:${rootProject.okHttpVersion}"
     api "com.squareup.okhttp3:logging-interceptor:${rootProject.okHttpVersion}"
     api "com.android.support:multidex:${rootProject.multidexVersion}"
-    api "com.redmadrobot:inputmask:${rootProject.inputMaskVersion}"
+    api "com.redmadrobot:input-mask-android:${rootProject.inputMaskVersion}"
     api "uk.co.chrisjenx:calligraphy:${rootProject.calligraphyVersion}"
 
     implementation "com.android.support.constraint:constraint-layout:${rootProject.constraintLayoutVersion}"
