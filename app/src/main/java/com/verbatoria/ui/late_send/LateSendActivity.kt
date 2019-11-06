@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.TextView
+import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
 import com.verbatoria.di.Injector
 import com.verbatoria.di.late_send.LateSendComponent
@@ -103,6 +104,10 @@ class LateSendActivity :
         floatingActionButton = findViewById(R.id.test_button)
         floatingActionButton.setOnClickListener {
             presenter.onTestButtonClicked()
+        }
+
+        if (BuildConfig.DEBUG) {
+            floatingActionButton.show()
         }
 
         recyclerView.layoutManager = LinearLayoutManager(this)
