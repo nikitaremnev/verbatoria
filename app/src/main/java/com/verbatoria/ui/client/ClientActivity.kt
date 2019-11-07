@@ -99,6 +99,7 @@ class ClientActivity : BasePresenterActivity<ClientView, ClientPresenter, Client
     private lateinit var clientEmailEditText: EditText
     private lateinit var saveButton: Button
     private lateinit var progressBar: ProgressBar
+    private var maskedTextChangedListener: MaskedTextChangedListener? = null
 
     //region BasePresenterActivity
 
@@ -197,24 +198,25 @@ class ClientActivity : BasePresenterActivity<ClientView, ClientPresenter, Client
     }
 
     override fun setCurrentCountry(country: String) {
-        clientPhoneEditText.addTextChangedListener(
-            MaskedTextChangedListener(
-                CountryHelper.getPhoneFormatterByCountryKey(this, country),
-                true,
-                clientPhoneEditText,
-                null,
-                object : MaskedTextChangedListener.ValueListener {
-                    override fun onTextChanged(
-                        maskFilled: Boolean,
-                        extractedValue: String,
-                        formattedValue: String
-                    ) {
-                        presenter.onClientPhoneChanged(maskFilled, extractedValue)
-                    }
+        if (maskedTextChangedListener != null) {
+            clientPhoneEditText.removeTextChangedListener(maskedTextChangedListener)
+        }
+        maskedTextChangedListener = MaskedTextChangedListener(
+            CountryHelper.getPhoneFormatterByCountryKey(this, country),
+            true,
+            clientPhoneEditText,
+            null,
+            object : MaskedTextChangedListener.ValueListener {
+                override fun onTextChanged(
+                    maskFilled: Boolean,
+                    extractedValue: String,
+                    formattedValue: String
+                ) {
+                    presenter.onClientPhoneChanged(maskFilled, extractedValue)
                 }
-            )
+            }
         )
-
+        clientPhoneEditText.addTextChangedListener(maskedTextChangedListener)
     }
 
     override fun setEditableMode() {

@@ -8,6 +8,7 @@ private const val NO_DATA = -1
 private const val EMPTY_DATA = 0
 
 data class BCIData(
+    var guid: String = "",
     var sessionId: String = "",
     val timestamp: Long,
     var activityCode: Int = NO_DATA,

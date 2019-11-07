@@ -85,6 +85,7 @@ class SubmitManagerImpl(
 
         val bciDataMutableList = bciData.map { bciDataItem ->
             BCIDataItemParamsDto(
+                guid = bciDataItem.guid,
                 sessionId = sessionId,
                 activityCode = bciDataItem.activityCode,
                 questionnaire = "",
@@ -107,6 +108,7 @@ class SubmitManagerImpl(
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = currentLocale,
@@ -118,6 +120,7 @@ class SubmitManagerImpl(
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = if (questionnaire.includeHobby == QuestionYesOrNoAnswer.NO_ANSWER) {
@@ -134,6 +137,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -145,6 +149,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.reportType.value.toString(),
@@ -157,6 +162,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.includeAttentionMemory.value.toString(),
@@ -169,6 +175,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.understandingYourselfAnswer.value.toString(),
@@ -181,6 +188,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.understandingPeopleAnswer.value.toString(),
@@ -193,6 +201,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.bodyKinestheticAnswer.value.toString(),
@@ -205,6 +214,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.spatialAnswer.value.toString(),
@@ -217,6 +227,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.musicAnswer.value.toString(),
@@ -229,6 +240,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.logicMathematicalAnswer.value.toString(),
@@ -241,6 +253,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.linguisticQuestionAnswer.value.toString(),
