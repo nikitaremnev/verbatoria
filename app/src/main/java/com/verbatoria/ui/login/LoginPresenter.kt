@@ -18,7 +18,7 @@ class LoginPresenter(
     private var phone: String = ""
     private var password: String = ""
 
-    private var country: String = ""
+    private var country: String? = null
 
     init {
         getLastLoginAndCurrentCountry()
@@ -26,9 +26,8 @@ class LoginPresenter(
 
     override fun onAttachView(view: LoginView) {
         super.onAttachView(view)
-        if (country.isNotEmpty()) {
-            view.setCurrentCountry(country)
-        }
+
+        country?.let(view::setCurrentCountry)
 
         if (phone.isNotBlank()) {
             view.setPhone(phone)
@@ -137,7 +136,7 @@ class LoginPresenter(
                 if (BuildConfig.DEBUG) {
                     view?.openDashboard()
                 } else {
-                    if (view?.isCountryRequireSkipSMSConfirmation(country) == true) {
+                    if (view?.isCountryRequireSkipSMSConfirmation(country ?: "") == true) {
                         view?.openDashboard()
                     } else {
                         view?.openSMSConfirmation(phone)
@@ -157,7 +156,7 @@ class LoginPresenter(
         loginInteractor.getLastLoginAndCurrentCountry()
             .subscribe({ (lastLogin, country) ->
                 this.country = country
-                view?.setCurrentCountry(this.country)
+                view?.setCurrentCountry(country)
 
                 phone = lastLogin
                 if (lastLogin.isNotBlank()) {
@@ -187,7 +186,7 @@ class LoginPresenter(
         loginInteractor.saveCurrentCountry(country)
             .subscribe({
                 this.country = country
-                view?.setCurrentCountry(this.country)
+                view?.setCurrentCountry(country)
                 view?.setPhone(this.phone)
             }, { error ->
                 logger.error("Save current country error occurred", error)

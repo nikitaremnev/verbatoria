@@ -17,7 +17,7 @@ class ClientPresenter(
 
     private var editedClient: Client = client.copy()
 
-    private var country: String = ""
+    private var country: String? = null
 
     init {
         getCurrentCountry()
@@ -25,9 +25,7 @@ class ClientPresenter(
 
     override fun onAttachView(view: ClientView) {
         super.onAttachView(view)
-        if (country.isNotEmpty()) {
-            view.setCurrentCountry(country)
-        }
+        country?.let(view::setCurrentCountry)
         when {
             eventDetailMode.isCreateNew() -> {
                 view.setEditableMode()
@@ -150,9 +148,7 @@ class ClientPresenter(
         clientInteractor.getCurrentCountry()
             .subscribe({ country ->
                 this.country = country
-                if (country.isNotEmpty()) {
-                    view?.setCurrentCountry(this.country)
-                }
+                view?.setCurrentCountry(country)
             }, { error ->
                 view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
             })

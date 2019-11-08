@@ -13,13 +13,15 @@ class EventDetailClientItemBinder: ViewBinder<EventDetailClientItemViewHolder, E
     override fun bind(view: EventDetailClientItemViewHolder, data: EventDetailClientItem, position: Int) {
         if (data.isLoading) {
             view.showLoading()
-        } else if (data.email == null || !Patterns.EMAIL_ADDRESS.matcher(data.email).matches()) {
-            view.hideLoading()
-            view.setEmailRequiredHint()
         } else if (data.name != null && data.phone != null) {
-            view.hideLoading()
-            view.setName(data.name ?: "")
-            view.setPhone(data.phone ?: "")
+            if (data.email == null || !Patterns.EMAIL_ADDRESS.matcher(data.email).matches()) {
+                view.hideLoading()
+                view.setEmailRequiredHint()
+            } else {
+                view.hideLoading()
+                view.setName(data.name ?: "")
+                view.setPhone(data.phone ?: "")
+            }
         } else {
             view.hideLoading()
             view.showHint()
