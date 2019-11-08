@@ -57,6 +57,7 @@ object APIConstants {
 
     const val START_SESSION_URL = "reports$JSON_PATH"
     const val INCLUDE_ATTENTION_MEMORY_URL = "reports/{$REPORT_ID_PATH_KEY}/add_vnp$JSON_PATH"
+    const val INCLUDE_HOBBY_URL = "reports/{$REPORT_ID_PATH_KEY}/add_hobby$JSON_PATH"
     const val ADD_RESULTS_TO_SESSION_URL = "reports/{$SESSION_ID_PATH_KEY}/measurements/upload$JSON_PATH"
     const val FINISH_SESSION_URL = "reports/{$SESSION_ID_PATH_KEY}/finalize$JSON_PATH"
     const val SEND_REPORT_TO_LOCATION_URL = "reports/{$REPORT_ID_PATH_KEY}/send_to_location$JSON_PATH"

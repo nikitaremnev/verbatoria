@@ -108,7 +108,7 @@ class EventDetailPresenter(
             ?.let { eventDetailHobbyItem ->
                 eventDetailHobbyItem.isLoading = true
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
-                editEventForHobby()
+                includeHobby()
             }
     }
 
@@ -392,30 +392,6 @@ class EventDetailPresenter(
             .let(::addDisposable)
     }
 
-    private fun editEventForHobby() {
-        event?.isHobbyIncluded = true
-        eventDetailInteractor.editEvent(event ?: throw IllegalStateException("Try to edit event while event object is null"))
-            .subscribe({
-                findEventDetailItemInList<EventDetailHobbyItem>()
-                    ?.let { eventDetailHobbyItem ->
-                        eventDetailHobbyItem.isLoading = false
-                        eventDetailHobbyItem.isHobbyIncluded = true
-                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
-                    }
-
-            }, { error ->
-                logger.error("edit event for hobby event error occurred", error)
-                this.view?.showErrorSnackbar("edit event for hobby event error occurred")
-                findEventDetailItemInList<EventDetailHobbyItem>()
-                    ?.let { eventDetailHobbyItem ->
-                        event?.isHobbyIncluded = false
-                        eventDetailHobbyItem.isLoading = false
-                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
-                    }
-            })
-            .let(::addDisposable)
-    }
-
     private fun editEventForTimeInterval() {
         event?.startDate = selectedTimeSlot?.startTime ?: throw IllegalStateException("Try to edit event for time interval while selected time slot is null")
         event?.endDate = selectedTimeSlot?.endTime ?: throw IllegalStateException("Try to edit event for time interval while selected time slot is null")
@@ -477,6 +453,28 @@ class EventDetailPresenter(
                         eventDetailIncludeAttentionMemoryItem.isLoading = false
                         eventDetailIncludeAttentionMemoryItem.isAttentionMemoryIncluded = false
                         view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailIncludeAttentionMemoryItem))
+                    }
+            })
+            .let(::addDisposable)
+    }
+
+    private fun includeHobby() {
+        eventDetailInteractor.includeHobby(event?.report?.id ?: throw IllegalStateException("Try to include hobby while event is null"))
+            .subscribe({
+                findEventDetailItemInList<EventDetailHobbyItem>()
+                    ?.let { eventDetailHobbyItem ->
+                        eventDetailHobbyItem.isLoading = false
+                        eventDetailHobbyItem.isHobbyIncluded = true
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
+                    }
+            }, { error ->
+                logger.error("include hobby event error occurred", error)
+                this.view?.showErrorSnackbar("include hobby event error occurred")
+                findEventDetailItemInList<EventDetailHobbyItem>()
+                    ?.let { eventDetailHobbyItem ->
+                        event?.isHobbyIncluded = false
+                        eventDetailHobbyItem.isLoading = false
+                        view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailHobbyItem))
                     }
             })
             .let(::addDisposable)

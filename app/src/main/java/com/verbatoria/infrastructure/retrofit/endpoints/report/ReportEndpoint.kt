@@ -21,4 +21,9 @@ interface ReportEndpoint {
         @Path(value = REPORT_ID_PATH_KEY) reportId: String
     ): ResponseBody
 
+    @POST(APIConstants.INCLUDE_HOBBY_URL)
+    fun includeHobby(
+        @Path(value = REPORT_ID_PATH_KEY) reportId: String
+    ): ResponseBody
+
 }

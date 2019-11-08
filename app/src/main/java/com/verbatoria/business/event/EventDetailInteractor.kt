@@ -46,6 +46,8 @@ interface EventDetailInteractor {
 
     fun includeAttentionMemory(reportId: String): Completable
 
+    fun includeHobby(reportId: String): Completable
+
     fun startSession(eventId: String, reportId: String, child: Child, timeSlot: TimeSlot): Single<String>
 
 }
@@ -242,6 +244,13 @@ class EventDetailInteractorImpl(
     override fun includeAttentionMemory(reportId: String): Completable =
         Completable.fromCallable {
             reportManager.includeAttentionMemory(reportId)
+        }
+            .subscribeOn(schedulersFactory.io)
+            .observeOn(schedulersFactory.main)
+
+    override fun includeHobby(reportId: String): Completable =
+        Completable.fromCallable {
+            reportManager.includeHobby(reportId)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

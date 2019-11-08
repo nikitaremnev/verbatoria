@@ -12,6 +12,8 @@ interface ReportManager {
 
     fun includeAttentionMemory(reportId: String)
 
+    fun includeHobby(reportId: String)
+
 }
 
 class ReportManagerImpl(
@@ -24,6 +26,10 @@ class ReportManagerImpl(
 
     override fun includeAttentionMemory(reportId: String) {
         reportEndpoint.includeAttentionMemory(reportId)
+    }
+
+    override fun includeHobby(reportId: String) {
+        reportEndpoint.includeHobby(reportId)
     }
 
 }
