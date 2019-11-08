@@ -1,7 +1,6 @@
 package com.verbatoria.domain.dashboard.settings
 
 import android.content.SharedPreferences
-import com.verbatoria.business.dashboard.LocalesAvailable
 
 /**
  * @author n.remnev
@@ -46,7 +45,7 @@ class SettingsRepositoryImpl(
     }
 
     override fun getCurrentLocale(): String =
-        sharedPreferences.getString(CURRENT_LOCALE_KEY, LocalesAvailable.RUSSIAN_LOCALE)
+        sharedPreferences.getString(CURRENT_LOCALE_KEY, "")
 
     override fun deleteAll() {
         sharedPreferences

@@ -104,7 +104,8 @@ class InfoManagerImpl(
                     id = response.id,
                     name = response.name,
                     address = response.address,
-                    point = response.city.country.name + " " + response.city.name
+                    point = response.city.country.name + " " + response.city.name,
+                    updatedLocale = response.locale
                 )
                 val responsePartnerInfoConverted = PartnerInfoModel(
                     name = response.partner.name
@@ -114,15 +115,21 @@ class InfoManagerImpl(
                 infoRepository.saveLocationInfo(responseLocationInfoConverted)
                 infoRepository.savePartnerInfo(responsePartnerInfoConverted)
                 infoRepository.putLastLocationInfoUpdateTime(System.currentTimeMillis())
+                infoRepository.putLocationCurrentLocale(response.locale)
 
                 settingsRepository.putLocales(response.availableLocales)
+
+                responseLocationInfoConverted.currentLocale = settingsRepository.getCurrentLocale()
+
                 settingsRepository.putCurrentLocale(response.locale)
 
                 Pair(responseLocationInfoConverted, responsePartnerInfoConverted)
             }
             System.currentTimeMillis() - lastUpdateLocationInfoTime < ONE_DAY_IN_MILLIS -> {
                 Pair(
-                    infoRepository.getLocationInfo(),
+                    infoRepository.getLocationInfo().apply {
+                        currentLocale = settingsRepository.getCurrentLocale()
+                    },
                     infoRepository.getPartnerInfo()
                 )
             }
@@ -133,23 +140,30 @@ class InfoManagerImpl(
                         id = response.id,
                         name = response.name,
                         address = response.address,
-                        point = response.city.country.name + ", " + response.city.name
+                        point = response.city.country.name + ", " + response.city.name,
+                        updatedLocale = response.locale
                     )
                     val responsePartnerInfoConverted = PartnerInfoModel(
                         name = response.partner.name
                     )
 
+                    infoRepository.putIsSchool(response.isSchool == IS_SCHOOL)
                     infoRepository.saveLocationInfo(responseLocationInfoConverted)
                     infoRepository.savePartnerInfo(responsePartnerInfoConverted)
                     infoRepository.putLastLocationInfoUpdateTime(System.currentTimeMillis())
+                    infoRepository.putLocationCurrentLocale(response.locale)
 
                     settingsRepository.putLocales(response.availableLocales)
 
+                    responseLocationInfoConverted.currentLocale = settingsRepository.getCurrentLocale()
+                    settingsRepository.putCurrentLocale(response.locale)
+
                     Pair(responseLocationInfoConverted, responsePartnerInfoConverted)
                 } catch (error: Exception) {
-                    error.printStackTrace()
                     Pair(
-                        infoRepository.getLocationInfo(),
+                        infoRepository.getLocationInfo().apply {
+                            currentLocale = settingsRepository.getCurrentLocale()
+                        },
                         infoRepository.getPartnerInfo()
                     )
                 }

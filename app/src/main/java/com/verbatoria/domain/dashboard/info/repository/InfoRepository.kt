@@ -23,6 +23,7 @@ private const val LOCATION_ID_KEY = "location_id"
 private const val LOCATION_NAME_KEY = "location_name"
 private const val LOCATION_ADDRESS_KEY = "location_address"
 private const val LOCATION_POINT_KEY = "location_point"
+private const val LOCATION_CURRENT_LOCALE_KEY = "location_current_locale"
 
 private const val PARTNER_NAME_KEY = "partner_name"
 
@@ -50,6 +51,8 @@ interface InfoRepository {
 
     fun putLocationPoint(locationPoint: String)
 
+    fun putLocationCurrentLocale(currentLocale: String)
+
     fun putPartnerName(partnerName: String)
 
     fun putLastInfoUpdateTime(time: Long)
@@ -75,6 +78,8 @@ interface InfoRepository {
     fun getLocationAddress(): String
 
     fun getLocationPoint(): String
+
+    fun getLocationCurrentLocale(): String
 
     fun getPartnerName(): String
 
@@ -172,6 +177,13 @@ class InfoRepositoryImpl(
         }
     }
 
+    override fun putLocationCurrentLocale(currentLocale: String) {
+        sharedPreferences.edit().apply {
+            putString(LOCATION_CURRENT_LOCALE_KEY, currentLocale)
+            apply()
+        }
+    }
+
     override fun putPartnerName(partnerName: String) {
         sharedPreferences.edit().apply {
             putString(PARTNER_NAME_KEY, partnerName)
@@ -223,6 +235,9 @@ class InfoRepositoryImpl(
     override fun getLocationPoint(): String =
         sharedPreferences.getString(LOCATION_POINT_KEY, "")
 
+    override fun getLocationCurrentLocale(): String =
+        sharedPreferences.getString(LOCATION_CURRENT_LOCALE_KEY, "")
+
     override fun getPartnerName(): String =
         sharedPreferences.getString(PARTNER_NAME_KEY, "")
 
@@ -271,7 +286,8 @@ class InfoRepositoryImpl(
             id = getLocationId(),
             name = getLocationName(),
             address = getLocationAddress(),
-            point = getLocationPoint()
+            point = getLocationPoint(),
+            updatedLocale = getLocationCurrentLocale()
         )
 
     override fun getPartnerInfo(): PartnerInfoModel =

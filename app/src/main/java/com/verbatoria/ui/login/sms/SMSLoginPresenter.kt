@@ -12,6 +12,7 @@ import java.util.*
 
 private const val TRY_AGAIN_SEND_CODE_INTERVAL = 180000L
 private const val TRY_AGAIN_SEND_CODE_UPDATE_TEXT_INTERVAL = 1000L
+private const val SEND_SMS_CODE_TEXT = "VERBATORIA code: "
 
 class SMSLoginPresenter(
     val phoneFromLogin: String,
@@ -107,7 +108,7 @@ class SMSLoginPresenter(
 
     private fun sendSMSCode() {
         view?.showProgressForSendCode()
-        smsLoginInteractor.sendSMSCode(phone, "")
+        smsLoginInteractor.sendSMSCode(phone, SEND_SMS_CODE_TEXT)
             .subscribe({ checkingCode ->
                 tryAgainSendCodeTimerStartTime = System.currentTimeMillis()
                 this.checkingCode = checkingCode

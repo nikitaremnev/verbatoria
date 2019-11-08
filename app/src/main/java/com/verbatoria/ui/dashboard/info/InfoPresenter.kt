@@ -51,6 +51,11 @@ class InfoPresenter(
                     setLocationAddress(locationInfo.address)
                     setLocationPoint(locationInfo.point)
 
+                    if (locationInfo.currentLocale != locationInfo.updatedLocale &&
+                        locationInfo.updatedLocale.isNotEmpty()) {
+                        setLocale(locationInfo.updatedLocale)
+                    }
+
                     hidePartnerInfoLoadingProgress()
                     setPartnerName(partnerInfo.name)
                 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
+import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.di.dashboard.DashboardComponent
 import com.verbatoria.di.dashboard.info.InfoComponent
 import com.verbatoria.infrastructure.extensions.hide
@@ -14,6 +15,7 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterFragment
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.dialog.ProgressDialog
+import com.verbatoria.utils.LocaleHelper
 
 /**
  * @author n.remnev
@@ -44,6 +46,8 @@ interface InfoView : BaseView {
     fun setLocationAddress(locationAddress: String)
 
     fun setLocationPoint(locationPoint: String)
+
+    fun setLocale(locale: String)
 
     fun setPartnerName(partnerName: String)
 
@@ -160,6 +164,14 @@ class InfoFragment :
 
     override fun setLocationPoint(locationPoint: String) {
         locationPointTextView.text = locationPoint
+    }
+
+    override fun setLocale(locale: String) {
+        activity?.let { context ->
+            LocaleHelper.setLocale(context, locale)
+        }
+        (activity?.applicationContext as? VerbatoriaKtApplication)?.updateCurrentLocale(locale)
+        activity?.recreate()
     }
 
     override fun setPartnerName(partnerName: String) {
