@@ -14,9 +14,7 @@ interface LoginInteractor {
 
     fun login(phone: String, password: String): Completable
 
-    fun getLastLogin(): Single<String>
-
-    fun getCurrentCountry(): Single<String>
+    fun getLastLoginAndCurrentCountry(): Single<Pair<String, String>>
 
     fun saveCurrentCountry(country: String): Completable
 
@@ -37,16 +35,9 @@ class LoginInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getLastLogin(): Single<String> =
+    override fun getLastLoginAndCurrentCountry(): Single<Pair<String, String>> =
         Single.fromCallable {
-            authorizationManager.getLastLogin()
-        }
-            .subscribeOn(schedulersFactory.database)
-            .observeOn(schedulersFactory.main)
-
-    override fun getCurrentCountry(): Single<String> =
-        Single.fromCallable {
-            authorizationManager.getCurrentCountry()
+            Pair(authorizationManager.getLastLogin(), authorizationManager.getCurrentCountry())
         }
             .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)

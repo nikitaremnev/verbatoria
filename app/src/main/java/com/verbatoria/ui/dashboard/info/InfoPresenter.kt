@@ -17,7 +17,6 @@ class InfoPresenter(
 
     init {
         getInfo()
-        loadAndSaveAgeGroupsForArchimedes()
     }
 
     private fun getInfo() {
@@ -56,17 +55,8 @@ class InfoPresenter(
                     setPartnerName(partnerInfo.name)
                 }
             }, { error ->
+                error.printStackTrace()
                 logger.error("get location and partner info error occurred", error)
-            }
-            ).let(::addDisposable)
-    }
-
-    private fun loadAndSaveAgeGroupsForArchimedes() {
-        infoInteractor.loadAndSaveAgeGroupsForArchimedes()
-            .subscribe({
-                //empty
-            }, { error ->
-                logger.error("load and save age groups for archimedes", error)
             }
             ).let(::addDisposable)
     }

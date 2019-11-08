@@ -17,6 +17,7 @@ import java.lang.Exception
 
 private const val NOT_LOADED_TIME = 0L
 private const val ONE_DAY_IN_MILLIS = 1000 * 60 * 60 * 24
+private const val IS_SCHOOL = 1
 
 interface InfoManager {
 
@@ -29,8 +30,6 @@ interface InfoManager {
     fun updateInfo(): UserStatus
 
     fun getLocationId(): String
-
-    fun loadAndSaveAgeGroupsForArchimedes()
 
     fun isAgeAvailableForArchimedes(age: Int): Boolean
 
@@ -62,6 +61,9 @@ class InfoManagerImpl(
                 )
                 infoRepository.saveInfo(responseConverted)
                 infoRepository.putLastInfoUpdateTime(System.currentTimeMillis())
+
+                loadAndSaveAgeGroupsForArchimedes()
+
                 responseConverted
             }
             System.currentTimeMillis() - lastUpdateInfoTime < ONE_DAY_IN_MILLIS -> {
@@ -80,6 +82,9 @@ class InfoManagerImpl(
                     )
                     infoRepository.saveInfo(responseConverted)
                     infoRepository.putLastInfoUpdateTime(System.currentTimeMillis())
+
+                    loadAndSaveAgeGroupsForArchimedes()
+
                     responseConverted
                 } catch (error: Exception) {
                     error.printStackTrace()
@@ -105,7 +110,7 @@ class InfoManagerImpl(
                     name = response.partner.name
                 )
 
-                infoRepository.putIsSchool(response.isSchool ?: false)
+                infoRepository.putIsSchool(response.isSchool == IS_SCHOOL)
                 infoRepository.saveLocationInfo(responseLocationInfoConverted)
                 infoRepository.savePartnerInfo(responsePartnerInfoConverted)
                 infoRepository.putLastLocationInfoUpdateTime(System.currentTimeMillis())
@@ -173,7 +178,16 @@ class InfoManagerImpl(
     override fun getLocationId(): String =
             infoRepository.getLocationId()
 
-    override fun loadAndSaveAgeGroupsForArchimedes() {
+    override fun isAgeAvailableForArchimedes(age: Int): Boolean =
+        ageGroupRepository.isAgeAvailableForArchimedes(age)
+
+    override fun isArchimedesAllowedForVerbatolog(): Boolean =
+        infoRepository.getIsArchimedesAllowed()
+
+    override fun isSchool(): Boolean =
+        infoRepository.getIsSchool()
+
+    private fun loadAndSaveAgeGroupsForArchimedes() {
         val responseConverted = infoEndpoint.getAgeGroupsForArchimedes().map { dto ->
             AgeGroupEntity(
                 id = System.currentTimeMillis().toString(),
@@ -186,12 +200,4 @@ class InfoManagerImpl(
         ageGroupRepository.saveAll(responseConverted)
     }
 
-    override fun isAgeAvailableForArchimedes(age: Int): Boolean =
-        ageGroupRepository.isAgeAvailableForArchimedes(age)
-
-    override fun isArchimedesAllowedForVerbatolog(): Boolean =
-        infoRepository.getIsArchimedesAllowed()
-
-    override fun isSchool(): Boolean =
-        infoRepository.getIsSchool()
 }

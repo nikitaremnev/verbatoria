@@ -18,8 +18,6 @@ interface InfoInteractor {
 
     fun getLocationAndPartnerInfo(locationId: String): Single<Pair<LocationInfoModel, PartnerInfoModel>>
 
-    fun loadAndSaveAgeGroupsForArchimedes(): Completable
-
 }
 
 class InfoInteractorImpl(
@@ -37,13 +35,6 @@ class InfoInteractorImpl(
     override fun getLocationAndPartnerInfo(locationId: String): Single<Pair<LocationInfoModel, PartnerInfoModel>> =
         Single.fromCallable {
             infoManager.getLocationAndPartnerInfo()
-        }
-            .subscribeOn(schedulersFactory.io)
-            .observeOn(schedulersFactory.main)
-
-    override fun loadAndSaveAgeGroupsForArchimedes(): Completable =
-        Completable.fromCallable {
-            infoManager.loadAndSaveAgeGroupsForArchimedes()
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

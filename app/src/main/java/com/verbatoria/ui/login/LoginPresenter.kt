@@ -21,13 +21,14 @@ class LoginPresenter(
     private var country: String = ""
 
     init {
-        getCurrentCountry()
-        getLastLogin()
+        getLastLoginAndCurrentCountry()
     }
 
     override fun onAttachView(view: LoginView) {
         super.onAttachView(view)
-        view.setCurrentCountry(country)
+        if (country.isNotEmpty()) {
+            view.setCurrentCountry(country)
+        }
 
         if (phone.isNotBlank()) {
             view.setPhone(phone)
@@ -152,9 +153,12 @@ class LoginPresenter(
             .let(::addDisposable)
     }
 
-    private fun getLastLogin() {
-        loginInteractor.getLastLogin()
-            .subscribe({ lastLogin ->
+    private fun getLastLoginAndCurrentCountry() {
+        loginInteractor.getLastLoginAndCurrentCountry()
+            .subscribe({ (lastLogin, country) ->
+                this.country = country
+                view?.setCurrentCountry(this.country)
+
                 phone = lastLogin
                 if (lastLogin.isNotBlank()) {
                     try {
@@ -170,23 +174,11 @@ class LoginPresenter(
                     }
                 }
             }, { error ->
-                logger.error("Get last login error occurred", error)
+                logger.error("Get last login and current country error occurred", error)
                 view?.apply {
                     hideProgressForLoginWithError()
-                    showErrorSnackbar(error.message ?: "Get last login error occurred")
+                    showErrorSnackbar(error.message ?: "Get last login and current country error occurred")
                 }
-            })
-            .let(::addDisposable)
-    }
-
-    private fun getCurrentCountry() {
-        loginInteractor.getCurrentCountry()
-            .subscribe({ country ->
-                this.country = country
-                view?.setCurrentCountry(this.country)
-            }, { error ->
-                logger.error("Get current country error occurred", error)
-                view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
             })
             .let(::addDisposable)
     }

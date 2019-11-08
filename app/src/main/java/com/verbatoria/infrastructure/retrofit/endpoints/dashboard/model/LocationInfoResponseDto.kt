@@ -10,7 +10,7 @@ data class LocationInfoResponseDto(
     val id: String,
     val name: String,
     @SerializedName("school")
-    val isSchool: Boolean?,
+    val isSchool: Int?,
     val address: String,
     val locale: String,
     @SerializedName("available_locales_array")
