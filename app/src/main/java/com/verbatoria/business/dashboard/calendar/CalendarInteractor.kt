@@ -43,7 +43,7 @@ class CalendarInteractorImpl(
 
     override fun getEventsForDate(date: Date): Single<Pair<List<Event>, List<EventItemModel>>> =
         Single.fromCallable {
-            val events = calendarManager.getEventsForDate(date)
+            val events = calendarManager.getEventsForDate(date).sortedBy { it.startDate }
             Pair(events, events.map { event ->
                 EventItemModel(
                     clientName = event.child.name,
