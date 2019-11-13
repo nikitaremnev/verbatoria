@@ -121,7 +121,7 @@ class SMSLoginPresenter(
                 restartTryAgainSendCodeTimer()
             }, { error ->
                 logger.error("Send sms code error occurred", error)
-                view?.showErrorSnackbar(error.message ?: "Send sms code error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                 view?.hideProgressForSendCode()
             })
             .let(::addDisposable)
@@ -137,7 +137,7 @@ class SMSLoginPresenter(
                 }
             }, { error ->
                 logger.error("Get current phone error occurred", error)
-                view?.showErrorSnackbar(error.message ?: "Get current phone error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Get current phone error occurred")
             })
             .let(::addDisposable)
     }

@@ -54,10 +54,10 @@ class SchedulePresenter(
                 }, { error ->
                     error.printStackTrace()
                     if (isViewVisible) {
-                        view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                        view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                     } else {
                         addOperationToPending(Runnable {
-                            view?.showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                            view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                         })
                     }
                 })
@@ -79,12 +79,12 @@ class SchedulePresenter(
                     error.printStackTrace()
                     if (isViewVisible) {
                         view?.showErrorSnackbar(
-                            error.localizedMessage ?: "Error while loading schedule occurred"
+                            error.localizedMessage ?: "Internet connection error occurred"
                         )
                     } else {
                         addOperationToPending(Runnable {
                             view?.showErrorSnackbar(
-                                error.localizedMessage ?: "Error while loading schedule occurred"
+                                error.localizedMessage ?: "Internet connection error occurred"
                             )
                         })
                     }
@@ -109,10 +109,10 @@ class SchedulePresenter(
                 }, { error ->
                     error.printStackTrace()
                     if (isViewVisible) {
-                        view?.showErrorSnackbar(error.localizedMessage ?: "Error while clear schedule occurred")
+                        view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                     } else {
                         addOperationToPending(Runnable {
-                            view?.showErrorSnackbar(error.localizedMessage ?: "Error while clear schedule occurred")
+                            view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
 
                         })
                     }
@@ -141,10 +141,10 @@ class SchedulePresenter(
                 }, { error ->
                     error.printStackTrace()
                     if (isViewVisible) {
-                        view?.showErrorSnackbar(error.localizedMessage ?: "Error while save schedule occurred")
+                        view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                     } else {
                         addOperationToPending(Runnable {
-                            view?.showErrorSnackbar(error.localizedMessage ?: "Error while save schedule occurred")
+                            view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                         })
                     }
                 })
@@ -197,10 +197,10 @@ class SchedulePresenter(
                     hideInitialLoadScheduleProgress()
                     showInitialLoadTryAgain()
                     if (isViewVisible) {
-                        showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                        showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                     } else {
                         addOperationToPending(Runnable {
-                            showErrorSnackbar(error.localizedMessage ?: "Error while loading schedule occurred")
+                            showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                         })
                     }
                 }

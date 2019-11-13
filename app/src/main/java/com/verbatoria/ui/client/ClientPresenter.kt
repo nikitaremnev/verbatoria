@@ -124,7 +124,7 @@ class ClientPresenter(
                 client.id = clientId
                 view?.close(client)
             }, { error ->
-                view?.showErrorSnackbar(error.localizedMessage ?: "Create new client error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
             })
             .let(::addDisposable)
     }
@@ -139,7 +139,7 @@ class ClientPresenter(
                 client = editedClient
                 view?.close(editedClient)
             }, { error ->
-                view?.showErrorSnackbar(error.localizedMessage ?: "Edit client error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
             })
             .let(::addDisposable)
     }
@@ -150,7 +150,7 @@ class ClientPresenter(
                 this.country = country
                 view?.setCurrentCountry(country)
             }, { error ->
-                view?.showErrorSnackbar(error.message ?: "Get current country error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Get current country error occurred")
             })
             .let(::addDisposable)
     }

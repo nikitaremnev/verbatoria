@@ -144,9 +144,11 @@ class LoginPresenter(
                 }
             }, { error ->
                 logger.error("Login error occurred", error)
+                error.printStackTrace()
                 view?.apply {
                     hideProgressForLoginWithError()
-                    showErrorSnackbar(error.message ?: "Login error occurred")
+
+                    showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                 }
             })
             .let(::addDisposable)
@@ -176,7 +178,7 @@ class LoginPresenter(
                 logger.error("Get last login and current country error occurred", error)
                 view?.apply {
                     hideProgressForLoginWithError()
-                    showErrorSnackbar(error.message ?: "Get last login and current country error occurred")
+                    showErrorSnackbar(error.localizedMessage ?: "Get last login and current country error occurred")
                 }
             })
             .let(::addDisposable)
@@ -190,7 +192,7 @@ class LoginPresenter(
                 view?.setPhone(this.phone)
             }, { error ->
                 logger.error("Save current country error occurred", error)
-                view?.showErrorSnackbar(error.message ?: "Save current country error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Save current country error occurred")
             })
             .let(::addDisposable)
     }

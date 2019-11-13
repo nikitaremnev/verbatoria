@@ -30,7 +30,7 @@ class QuestionnaireInteractorImpl(
 
     override fun getQuestionnaire(sessionId: String, childAge: Int): Single<Pair<Questionnaire, Boolean>> =
         Single.fromCallable {
-            Pair(questionnaireManager.getQuestionnaireBySessionId(sessionId), infoManager.isAgeAvailableForArchimedes(childAge))
+            Pair(questionnaireManager.getQuestionnaireBySessionId(sessionId), infoManager.isAgeAvailableForHobby(childAge))
         }
             .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)

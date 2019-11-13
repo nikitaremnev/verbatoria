@@ -61,7 +61,7 @@ class LateSendPresenter(
                 },
                 { error ->
                     view?.hideProgress()
-                    view?.showErrorSnackbar(error.localizedMessage ?: "Send late send error occurred")
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                     loadLateReports()
                 }
             )
@@ -87,7 +87,7 @@ class LateSendPresenter(
                 },
                 { error ->
                     view?.hideProgress()
-                    view?.showErrorSnackbar(error.localizedMessage ?: "Send late send error occurred")
+                    view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
                     error.printStackTrace()
                 }
             )

@@ -165,7 +165,11 @@ class SubmitManagerImpl(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
-                questionnaire = questionnaire.includeAttentionMemory.value.toString(),
+                questionnaire = if (questionnaire.includeAttentionMemory == QuestionYesOrNoAnswer.NO_ANSWER) {
+                    "0"
+                } else {
+                    questionnaire.includeAttentionMemory.value.toString()
+                },
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )

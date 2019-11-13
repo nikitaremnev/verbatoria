@@ -125,7 +125,7 @@ class ChildPresenter(
                 view?.close(child)
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage ?: "Create new child error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
             })
             .let(::addDisposable)
     }
@@ -152,7 +152,7 @@ class ChildPresenter(
                 )
             }, { error ->
                 error.printStackTrace()
-                view?.showErrorSnackbar(error.localizedMessage ?: "Edit child error occurred")
+                view?.showErrorSnackbar(error.localizedMessage ?: "Internet connection error occurred")
             })
             .let(::addDisposable)
     }

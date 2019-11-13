@@ -178,7 +178,7 @@ class RecoveryPasswordPresenter(
                 view?.setPhoneFormatterBasedOnCountry(this.country)
             }, { error ->
                 logger.error("Get current country error occurred", error)
-                view?.showError(error.message ?: "Get current country error occurred")
+                view?.showError(error.localizedMessage ?: "Get current country error occurred")
             })
             .let(::addDisposable)
     }
@@ -191,9 +191,9 @@ class RecoveryPasswordPresenter(
                 view?.hideProgressForRecoveryPassword()
                 setConfirmationCodeRecoveryPasswordState()
             }, { error ->
-                logger.error("Recovery password error occurred", error.message)
+                logger.error("Recovery password error occurred", error.localizedMessage)
                 view?.apply {
-                    showError(error.message ?: "Recovery password error occurred")
+                    showError(error.localizedMessage ?: "Internet connection error occurred")
                     hideProgressForRecoveryPassword()
                 }
             })
@@ -212,7 +212,7 @@ class RecoveryPasswordPresenter(
                 logger.error("Reset password error occurred", error)
                 confirmationCode = ""
                 view?.apply {
-                    showError(error.message ?: "Reset password error occurred")
+                    showError(error.localizedMessage ?: "Internet connection error occurred")
                     hideProgressForResetPassword()
                     hideClearConfirmationCodeButton()
                     setConfirmationCode(confirmationCode)

@@ -18,6 +18,7 @@ import java.lang.Exception
 private const val NOT_LOADED_TIME = 0L
 private const val ONE_DAY_IN_MILLIS = 1000 * 60 * 60 * 24
 private const val IS_SCHOOL = 1
+private const val MINIMUM_HOBBY_AGE = 18
 
 interface InfoManager {
 
@@ -32,6 +33,8 @@ interface InfoManager {
     fun getLocationId(): String
 
     fun isAgeAvailableForArchimedes(age: Int): Boolean
+
+    fun isAgeAvailableForHobby(age: Int): Boolean
 
     fun isArchimedesAllowedForVerbatolog(): Boolean
 
@@ -194,6 +197,9 @@ class InfoManagerImpl(
 
     override fun isAgeAvailableForArchimedes(age: Int): Boolean =
         ageGroupRepository.isAgeAvailableForArchimedes(age)
+
+    override fun isAgeAvailableForHobby(age: Int): Boolean =
+        age >= MINIMUM_HOBBY_AGE
 
     override fun isArchimedesAllowedForVerbatolog(): Boolean =
         infoRepository.getIsArchimedesAllowed()
