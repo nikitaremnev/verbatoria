@@ -98,10 +98,10 @@ class WritingPresenter(
             }
         }
 
-//        if (!isBCIConnected && !isBCIConnectionDialogShown) {
-//            view.showBCIConnectionDialog()
-//            isBCIConnectionDialogShown = true
-//        }
+        if (!isBCIConnected && !isBCIConnectionDialogShown) {
+            view.showBCIConnectionDialog()
+            isBCIConnectionDialogShown = true
+        }
     }
 
     override fun onDetachView() {

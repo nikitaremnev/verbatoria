@@ -1,12 +1,10 @@
 package com.verbatoria.domain.activities.model
 
-import com.remnev.verbatoria.BuildConfig
-
 /**
  * @author n.remnev
  */
 
-const val MINIMUM_ACTIVITY_TIME = 3
+const val MINIMUM_ACTIVITY_TIME = 15
 
 data class GroupedActivities(
     private val activities: MutableList<Activity> = mutableListOf()
