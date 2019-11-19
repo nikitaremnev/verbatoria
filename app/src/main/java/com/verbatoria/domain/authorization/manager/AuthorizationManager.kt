@@ -52,6 +52,7 @@ class AuthorizationManagerImpl(
             )
         )
         infoRepository.putLocationId(response.locationId)
+        infoRepository.putStatus(response.status)
         sessionManager.startSession(OnlineAuthorization(response.accessToken))
     }
 

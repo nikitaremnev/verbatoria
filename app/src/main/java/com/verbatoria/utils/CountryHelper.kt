@@ -46,7 +46,8 @@ object CountryHelper {
     fun isCountryRequireSkipSMSConfirmation(countryKey: String): Boolean =
         countryKey == HONG_KONG_COUNTRY ||
                 countryKey == MALAYSIA_COUNTRY_KEY ||
-                countryKey == INDONESIA_COUNTRY_KEY
+                countryKey == INDONESIA_COUNTRY_KEY ||
+                countryKey == BULGARIA_COUNTRY_KEY
 
     fun getPhoneFormatterByCountryKey(context: Context, countryKey: String): String =
         when (countryKey) {
