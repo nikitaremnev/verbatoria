@@ -285,6 +285,8 @@
     <string name="login_indonesia_phone_mask">+ [00] [000] [00000000]</string>
     <string name="login_india_phone_mask">+ [00] [00] [00000000]</string>
     <string name="login_bulgaria_phone_mask">+ [000] [00] [000] [0000]</string>
+    <string name="login_macau_phone_mask">+ [00] [0000] [0000]</string>
+    <string name="login_singapore_phone_mask">+ [00] [0000] [0000]</string>
 
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
@@ -315,6 +317,8 @@
     <string name="country_indonesia">Indonesia</string>
     <string name="country_india">India</string>
     <string name="country_bulgaria">Bulgaria</string>
+    <string name="country_macau">Macau</string>
+    <string name="country_singapore">Singapore</string>
 
     <string name="sms_confirmation_confirm">Confirm</string>
 
