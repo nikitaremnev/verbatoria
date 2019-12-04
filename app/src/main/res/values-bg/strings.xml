@@ -293,6 +293,8 @@
     <string name="login_bulgaria_phone_mask">+ [000] [00] [000] [0000]</string>
     <string name="login_macau_phone_mask">+ [00] [0000] [0000]</string>
     <string name="login_singapore_phone_mask">+ [00] [0000] [0000]</string>
+    <string name="login_egypt_phone_mask">+ [00] [000] [000] [0000]</string>
+    <string name="login_ethiopia_phone_mask">+ [000] [00] [000] [0000]</string>
 
     <string name="login_password_hint">Парола</string>
     <string name="login_forgot_password">Забравена парола?</string>
@@ -324,6 +326,8 @@
     <string name="country_bulgaria">Болгария</string>
     <string name="country_macau">Макао</string>
     <string name="country_singapore">Сингапур</string>
+    <string name="country_egypt">Египет</string>
+    <string name="country_ethiopia">Эфиопия</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

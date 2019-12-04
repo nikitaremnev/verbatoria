@@ -25,6 +25,8 @@ object CountryHelper {
     const val BULGARIA_COUNTRY_KEY = "bul"
     const val MACAU_COUNTRY_KEY = "mo"
     const val SINGAPORE_COUNTRY_KEY = "sg"
+    const val EGYPT_COUNTRY_KEY = "eg"
+    const val ETHIOPIA_COUNTRY_KEY = "et"
 
     fun getFlagResourceByCountryKey(countryKey: String): Int =
         when (countryKey) {
@@ -44,6 +46,8 @@ object CountryHelper {
             BULGARIA_COUNTRY_KEY -> R.drawable.ic_flag_bg
             MACAU_COUNTRY_KEY -> R.drawable.ic_flag_mo
             SINGAPORE_COUNTRY_KEY -> R.drawable.ic_flag_sg
+            EGYPT_COUNTRY_KEY -> R.drawable.ic_flag_eg
+            ETHIOPIA_COUNTRY_KEY -> R.drawable.ic_flag_et
             else -> R.drawable.ic_flag_ru
         }
 
@@ -53,7 +57,9 @@ object CountryHelper {
                 countryKey == INDONESIA_COUNTRY_KEY ||
                 countryKey == BULGARIA_COUNTRY_KEY  ||
                 countryKey == MACAU_COUNTRY_KEY ||
-                countryKey == SINGAPORE_COUNTRY_KEY
+                countryKey == SINGAPORE_COUNTRY_KEY ||
+                countryKey == EGYPT_COUNTRY_KEY ||
+                countryKey == ETHIOPIA_COUNTRY_KEY
 
     fun getPhoneFormatterByCountryKey(context: Context, countryKey: String): String =
         when (countryKey) {
@@ -73,6 +79,8 @@ object CountryHelper {
             BULGARIA_COUNTRY_KEY -> context.getString(R.string.login_bulgaria_phone_mask)
             MACAU_COUNTRY_KEY -> context.getString(R.string.login_macau_phone_mask)
             SINGAPORE_COUNTRY_KEY -> context.getString(R.string.login_singapore_phone_mask)
+            EGYPT_COUNTRY_KEY -> context.getString(R.string.login_egypt_phone_mask)
+            ETHIOPIA_COUNTRY_KEY -> context.getString(R.string.login_ethiopia_phone_mask)
             else -> context.getString(R.string.login_russia_phone_mask)
         }
 
@@ -94,6 +102,8 @@ object CountryHelper {
             BULGARIA_COUNTRY_KEY -> context.getString(R.string.country_bulgaria)
             MACAU_COUNTRY_KEY -> context.getString(R.string.country_macau)
             SINGAPORE_COUNTRY_KEY -> context.getString(R.string.country_singapore)
+            EGYPT_COUNTRY_KEY -> context.getString(R.string.country_egypt)
+            ETHIOPIA_COUNTRY_KEY -> context.getString(R.string.country_ethiopia)
             else -> context.getString(R.string.country_russia)
         }
 
