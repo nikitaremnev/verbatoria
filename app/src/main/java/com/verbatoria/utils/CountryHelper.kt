@@ -52,14 +52,11 @@ object CountryHelper {
         }
 
     fun isCountryRequireSkipSMSConfirmation(countryKey: String): Boolean =
-        countryKey == HONG_KONG_COUNTRY ||
-                countryKey == MALAYSIA_COUNTRY_KEY ||
-                countryKey == INDONESIA_COUNTRY_KEY ||
-                countryKey == BULGARIA_COUNTRY_KEY  ||
-                countryKey == MACAU_COUNTRY_KEY ||
-                countryKey == SINGAPORE_COUNTRY_KEY ||
-                countryKey == EGYPT_COUNTRY_KEY ||
-                countryKey == ETHIOPIA_COUNTRY_KEY
+        countryKey != RUSSIAN_COUNTRY_KEY &&
+                countryKey != UZBEKISTAN_COUNTRY_KEY &&
+                countryKey != UKRAINE_COUNTRY_KEY &&
+                countryKey != AZERBAIJAN_COUNTRY_KEY  &&
+                countryKey != BELARUS_COUNTRY_KEY
 
     fun getPhoneFormatterByCountryKey(context: Context, countryKey: String): String =
         when (countryKey) {
