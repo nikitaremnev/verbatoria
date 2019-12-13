@@ -13,6 +13,7 @@ import com.verbatoria.domain.schedule.model.TimeSlot
 import com.verbatoria.infrastructure.extensions.MILLISECONDS_IN_SECOND
 import com.verbatoria.infrastructure.extensions.formatToServerTime
 import com.verbatoria.infrastructure.file.FileUtil
+import com.verbatoria.infrastructure.retrofit.endpoints.report.ReportEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.SubmitEndpoint
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.BCIDataFileParamsDto
 import com.verbatoria.infrastructure.retrofit.endpoints.submit.model.params.BCIDataItemParamsDto
@@ -53,6 +54,7 @@ class SubmitManagerImpl(
     private val lateSendManager: LateSendManager,
     private val settingsRepository: SettingsRepository,
     private val submitEndpoint: SubmitEndpoint,
+    private val reportEndpoint: ReportEndpoint,
     private val fileUtil: FileUtil
 ) : SubmitManager {
 
@@ -280,6 +282,10 @@ class SubmitManagerImpl(
             sessionId = sessionId,
             body = RequestBody.create(MediaType.parse("application/json"), reportFile)
         )
+
+        if (questionnaire.includeHobby == QuestionYesOrNoAnswer.ANSWER_YES) {
+            reportEndpoint.includeHobby(sessionId)
+        }
     }
 
     override fun sendDataFromReadyFile(sessionId: String) {

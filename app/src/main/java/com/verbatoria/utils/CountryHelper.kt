@@ -56,7 +56,8 @@ object CountryHelper {
                 countryKey != UZBEKISTAN_COUNTRY_KEY &&
                 countryKey != UKRAINE_COUNTRY_KEY &&
                 countryKey != AZERBAIJAN_COUNTRY_KEY  &&
-                countryKey != BELARUS_COUNTRY_KEY
+                countryKey != BELARUS_COUNTRY_KEY &&
+                countryKey != ""
 
     fun getPhoneFormatterByCountryKey(context: Context, countryKey: String): String =
         when (countryKey) {

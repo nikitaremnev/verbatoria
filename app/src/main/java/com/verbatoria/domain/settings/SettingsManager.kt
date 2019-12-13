@@ -5,7 +5,7 @@ import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.infrastructure.retrofit.endpoints.settings.SettingsEndpoint
-import com.verbatoria.infrastructure.retrofit.endpoints.settings.model.params.SetLocaltionLanguageParamsDto
+import com.verbatoria.infrastructure.retrofit.endpoints.settings.model.params.SetLocationLanguageParamsDto
 
 /**
  * @author n.remnev
@@ -74,7 +74,7 @@ class SettingsManagerImpl(
         settingsRepository.getLocales()
 
     override fun updateCurrentLocale(locale: String) {
-        settingsEndpoint.setLocationLanguage(infoManager.getLocationId(), SetLocaltionLanguageParamsDto(locale))
+        settingsEndpoint.setLocationLanguage(infoManager.getLocationId(), SetLocationLanguageParamsDto(locale))
         settingsRepository.putCurrentLocale(locale)
     }
 

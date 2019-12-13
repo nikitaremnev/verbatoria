@@ -70,6 +70,8 @@ interface EventDetailView : BaseView {
 
     fun showIncludeHobbyConfirmationDialog()
 
+    fun showIncludeHobbyMinimumReportSentStatusRequired()
+
     fun showSendToLocationConfirmationDialog()
 
     fun showIncludeAttentionMemoryConfirmationDialog()
@@ -242,6 +244,11 @@ class EventDetailActivity : BasePresenterActivity<EventDetailView, EventDetailPr
             positiveTitleBtn = getString(R.string.event_detail_include_hobby_confirmation_dialog_include)
             negativeTitleBtn = getString(R.string.cancel)
         }.show(supportFragmentManager, INCLUDE_HOBBY_CONFIRMATION_DIALOG_TAG)
+    }
+
+    override fun showIncludeHobbyMinimumReportSentStatusRequired() {
+
+
     }
 
     override fun showSendToLocationConfirmationDialog() {

@@ -137,7 +137,7 @@ class EventDetailInteractorImpl(
                 )
             }
 
-            if (!infoManager.isSchool() && event.child.age  >= MINIMUM_HOBBY_AGE) {
+            if (!infoManager.isSchool() && event.child.age  >= MINIMUM_HOBBY_AGE && (event.isHobbyIncluded || (!event.isHobbyIncluded && event.report.isSentOrReady()))) {
                 eventDetailItems.add(
                     EventDetailHobbyItem(
                         mode = EventDetailMode.START,

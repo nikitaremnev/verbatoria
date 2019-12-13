@@ -249,6 +249,7 @@ class CommonModule {
             lateSendManager,
             settingsRepository,
             endpointsRegister.submitEndpoint,
+            endpointsRegister.reportEndpoint,
             fileUtil
         )
 
