@@ -48,6 +48,8 @@ class WritingPresenter(
 
     private var isBCIConnectionDialogShown: Boolean = false
 
+    private var isNonZeroValuesObtained = false
+
     private var startActivityTime: Long = 0L
 
     private var currentZerosCount = 0
@@ -265,17 +267,23 @@ class WritingPresenter(
     //region BCIDataCallback
 
     override fun onAttentionDataReceived(attentionValue: Int) {
-        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-            return
+        if (attentionValue != 0) {
+            isNonZeroValuesObtained = true
         }
 
-        if (attentionValue == 0) {
-            currentZerosCount ++
+        if (isNonZeroValuesObtained) {
             if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-                view?.showZerosErrorDialog()
+                return
             }
-        } else {
-            currentZerosCount = 0
+
+            if (attentionValue == 0) {
+                currentZerosCount++
+                if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+                    view?.showZerosErrorDialog()
+                }
+            } else {
+                currentZerosCount = 0
+            }
         }
 
         val currentTimeInMillis = System.currentTimeMillis()
