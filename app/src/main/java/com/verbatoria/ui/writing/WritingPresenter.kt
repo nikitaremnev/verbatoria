@@ -25,6 +25,7 @@ private const val TIMER_TASK_INTERVAL_IN_SECONDS = 1
 private const val FIRST_MUSIC_FILE_INDEX = 1
 private const val MUSIC_BUTTON_CODE = 31
 private const val MAXIMUM_BCI_DATA_BLOCK_SIZE = 10
+private const val ZEROS_VALUES_ERROR_COUNT = 5
 
 class WritingPresenter(
     private val sessionId: String,
@@ -48,6 +49,8 @@ class WritingPresenter(
     private var isBCIConnectionDialogShown: Boolean = false
 
     private var startActivityTime: Long = 0L
+
+    private var currentZerosCount = 0
 
     //timer
 
@@ -178,6 +181,10 @@ class WritingPresenter(
         }
     }
 
+    override fun onZerosErrorDialogClosed() {
+        currentZerosCount = 0
+    }
+
     //endregion
 
     //region WritingView.MusicPlayerCallback
@@ -258,6 +265,19 @@ class WritingPresenter(
     //region BCIDataCallback
 
     override fun onAttentionDataReceived(attentionValue: Int) {
+        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+            return
+        }
+
+        if (attentionValue == 0) {
+            currentZerosCount ++
+            if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+                view?.showZerosErrorDialog()
+            }
+        } else {
+            currentZerosCount = 0
+        }
+
         val currentTimeInMillis = System.currentTimeMillis()
 
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
@@ -271,6 +291,10 @@ class WritingPresenter(
     }
 
     override fun onMediationDataReceived(mediationValue: Int) {
+        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+            return
+        }
+
         val currentTimeInMillis = System.currentTimeMillis()
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
             currentBCIData.mediation = mediationValue
@@ -281,6 +305,10 @@ class WritingPresenter(
     }
 
     override fun onEEGDataReceivedCallback(eegPower: EEGPower) {
+        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+            return
+        }
+
         val currentTimeInMillis = System.currentTimeMillis()
         if (isCurrentAndNewValueSameSecond(currentTimeInMillis)) {
             currentBCIData.delta = eegPower.delta

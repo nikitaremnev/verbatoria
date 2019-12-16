@@ -11,6 +11,7 @@
     <string name="all_understand">Всичко е ясно</string>
     <string name="delete">Изтривам</string>
     <string name="find">Намеря</string>
+    <string name="error">Грешка</string>
 
     <string name="writing_data_empty">Няма данни</string>
 
@@ -419,6 +420,8 @@
     <string name="session_some_activities_not_finished">Кодовете за натоварване %s са записани в недостатъчен обем</string>
     <string name="session_activity_not_finished">Код нагрузки %s записан в недостаточном объеме</string>
     <string name="session_continue">Продължа</string>
+
+    <string name="session_zeros_error">Имаше проблем с невронния интерфейс. Моля, проверете как се носи сензорът</string>
 
     <string name="session_connection_error">Има проблем с връзката с невроинтерфейса. Моля, възобновете връзката.</string>
 

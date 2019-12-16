@@ -24,6 +24,7 @@ import com.verbatoria.domain.activities.model.ActivityCode
 import com.verbatoria.infrastructure.extensions.*
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
+import com.verbatoria.ui.common.dialog.ActivitySuggestDialog
 import com.verbatoria.ui.questionnaire.QuestionnaireActivity
 import com.verbatoria.ui.submit.SubmitActivity
 
@@ -35,6 +36,7 @@ private const val SESSION_ID_EXTRA = "session_id_extra"
 private const val CHILD_AGE_EXTRA = "child_age_extra"
 
 private const val BCI_CONNECTION_DIALOG_TAG = "BCI_CONNECTION_DIALOG_TAG"
+private const val ZEROS_ERROR_DIALOG_TAG = "ZEROS_ERROR_DIALOG_TAG"
 
 private const val Y_AXIS_MINIMUM = 0f
 private const val Y_AXIS_MAXIMUM = 100f
@@ -88,6 +90,8 @@ interface WritingView : BaseView {
 
     fun showBCIConnectionDialog()
 
+    fun showZerosErrorDialog()
+
     fun dismissBCIConnectionDialog()
 
     fun connectBCI()
@@ -107,6 +111,8 @@ interface WritingView : BaseView {
         fun onFinishClicked()
 
         fun onCodeButtonClicked(activityCode: ActivityCode)
+
+        fun onZerosErrorDialogClosed()
 
     }
 
@@ -139,7 +145,8 @@ interface WritingView : BaseView {
 }
 
 class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, WritingActivity, WritingComponent>(),
-    WritingView, BCIConnectionDialog.OnBCIConnectionDialogClickListener {
+    WritingView, BCIConnectionDialog.OnBCIConnectionDialogClickListener,
+    ActivitySuggestDialog.OnClickSuggestDialogListener {
 
     private lateinit var code99Button: Button
     private lateinit var code11Button: Button
@@ -431,6 +438,15 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         }
     }
 
+    override fun showZerosErrorDialog() {
+        ActivitySuggestDialog.build {
+            title = getString(R.string.error)
+            message = getString(R.string.session_zeros_error)
+            positiveTitleBtn = getString(R.string.session_continue)
+            cancelable = false
+        }.show(supportFragmentManager, ZEROS_ERROR_DIALOG_TAG)
+    }
+
     override fun dismissBCIConnectionDialog() {
         bciConnectionDialog?.dismiss()
         bciConnectionDialog = null
@@ -452,6 +468,20 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         val intent = Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+    }
+
+    //endregion
+
+    //region ActivitySuggestDialog.OnClickSuggestDialogListener
+
+    override fun onPositiveClicked(tag: String?) {
+        if (tag == ZEROS_ERROR_DIALOG_TAG) {
+            presenter.onZerosErrorDialogClosed()
+        }
+    }
+
+    override fun onNegativeClicked(tag: String?) {
+        //empty
     }
 
     //endregion

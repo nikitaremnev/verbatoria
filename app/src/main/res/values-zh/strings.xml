@@ -11,6 +11,7 @@
     <string name="all_understand">Everything clear</string>
     <string name="delete">Delete</string>
     <string name="find">Find</string>
+    <string name="error">Error</string>
 
     <string name="writing_data_empty">No data</string>
 
@@ -414,6 +415,8 @@
     <string name="session_some_activities_not_finished">Loading codes %s are not recorded enough</string>
     <string name="session_activity_not_finished">Loading code %s is not recorded enough</string>
     <string name="session_continue">Continue</string>
+
+    <string name="session_zeros_error">The problem with the neurointerface occurred. Please check how the neurointerface is worn</string>
 
     <string name="session_connection_error">There was a problem with the connection to the neurointerface. Please resume the connection.</string>
 

@@ -11,6 +11,7 @@
     <string name="all_understand">Все понятно</string>
     <string name="delete">Удалить</string>
     <string name="find">Найти</string>
+    <string name="error">Ошибка</string>
 
     <string name="writing_data_empty">Нет данных</string>
 
@@ -416,6 +417,8 @@
     <string name="session_some_activities_not_finished">Коды нагрузки %s записаны в недостаточном объеме</string>
     <string name="session_activity_not_finished">Код нагрузки %s записан в недостаточном объеме</string>
     <string name="session_continue">Продолжить</string>
+
+    <string name="session_zeros_error">Возникли неполадки с нейроинтерфейсом. Пожалуйста, проверьте как надет датчик</string>
 
     <string name="session_connection_error">Возникли неполадки с соединением с нейроинтерфейсом. Пожалуйста, возобновите подключение.</string>
 
