@@ -51,6 +51,7 @@ class WritingPresenter(
     private var startActivityTime: Long = 0L
 
     private var currentZerosCount = 0
+    private var pendingZerosActivity: Activity? = null
 
     //timer
 
@@ -182,6 +183,10 @@ class WritingPresenter(
     }
 
     override fun onZerosErrorDialogClosed() {
+        pendingZerosActivity?.let { activity ->
+            onCodeButtonClicked(activity.activityCode)
+            pendingZerosActivity = null
+        }
         currentZerosCount = 0
     }
 
@@ -272,7 +277,21 @@ class WritingPresenter(
         if (attentionValue == 0) {
             currentZerosCount++
             if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-                view?.showZerosErrorDialog()
+                if (isViewVisible) {
+                    selectedActivity?.let { activity ->
+                        pendingZerosActivity = activity
+                        onCodeButtonClicked(activity.activityCode)
+                    }
+                    view?.showZerosErrorDialog()
+                } else {
+                    addOperationToPending(Runnable {
+                        selectedActivity?.let { activity ->
+                            pendingZerosActivity = activity
+                            onCodeButtonClicked(activity.activityCode)
+                        }
+                        view?.showZerosErrorDialog()
+                    })
+                }
             }
         } else {
             currentZerosCount = 0

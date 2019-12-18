@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.support.design.widget.FloatingActionButton
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.github.mikephil.charting.charts.LineChart
@@ -16,6 +17,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
 import com.verbatoria.VerbatoriaKtApplication
 import com.verbatoria.di.Injector
@@ -156,6 +158,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     private lateinit var code51Button: Button
     private lateinit var code61Button: Button
     private lateinit var code71Button: Button
+    private lateinit var testButton: Button
 
     private lateinit var finishButton: FloatingActionButton
 
@@ -209,6 +212,13 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         code51Button = findViewById(R.id.code_51_button)
         code61Button = findViewById(R.id.code_61_button)
         code71Button = findViewById(R.id.code_71_button)
+        testButton = findViewById(R.id.test_button)
+
+        if (BuildConfig.DEBUG) {
+            testButton.visibility = View.VISIBLE
+        } else {
+            testButton.visibility = View.GONE
+        }
 
         finishButton = findViewById(R.id.finish_button)
         playButton = findViewById(R.id.play_floating_button)
@@ -266,6 +276,15 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
         finishButton.setOnClickListener {
             presenter.onFinishClicked()
+        }
+
+        testButton.setOnClickListener {
+            presenter.onAttentionDataReceived(0)
+            presenter.onAttentionDataReceived(0)
+            presenter.onAttentionDataReceived(0)
+            presenter.onAttentionDataReceived(0)
+            presenter.onAttentionDataReceived(0)
+            presenter.onAttentionDataReceived(0)
         }
 
         setUpChart()
