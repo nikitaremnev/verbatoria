@@ -2,7 +2,9 @@ package com.verbatoria.ui.writing
 
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
+import android.os.Handler
 import com.neurosky.connection.EEGPower
+import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
 import com.verbatoria.business.writing.WritingInteractor
 import com.verbatoria.component.connection.BCIConnectionStateCallback
@@ -102,7 +104,7 @@ class WritingPresenter(
             }
         }
 
-        if (!isBCIConnected && !isBCIConnectionDialogShown) {
+        if (!BuildConfig.DEBUG && !isBCIConnected && !isBCIConnectionDialogShown) {
             view.showBCIConnectionDialog()
             isBCIConnectionDialogShown = true
         }
@@ -180,14 +182,6 @@ class WritingPresenter(
                 view?.hidePlayer()
             }
         }
-    }
-
-    override fun onZerosErrorDialogClosed() {
-        pendingZerosActivity?.let { activity ->
-            onCodeButtonClicked(activity.activityCode)
-            pendingZerosActivity = null
-        }
-        currentZerosCount = 0
     }
 
     //endregion
@@ -270,6 +264,15 @@ class WritingPresenter(
     //region BCIDataCallback
 
     override fun onAttentionDataReceived(attentionValue: Int) {
+        if (attentionValue != 0 && currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+            view?.hideZerosErrorDialog()
+            pendingZerosActivity?.let { activity ->
+                onCodeButtonClicked(activity.activityCode)
+                pendingZerosActivity = null
+            }
+            currentZerosCount = 0
+        }
+
         if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
             return
         }
@@ -293,8 +296,6 @@ class WritingPresenter(
                     })
                 }
             }
-        } else {
-            currentZerosCount = 0
         }
 
         val currentTimeInMillis = System.currentTimeMillis()

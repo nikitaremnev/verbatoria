@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.app.DialogFragment
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -94,6 +95,8 @@ interface WritingView : BaseView {
 
     fun showZerosErrorDialog()
 
+    fun hideZerosErrorDialog()
+
     fun dismissBCIConnectionDialog()
 
     fun connectBCI()
@@ -113,8 +116,6 @@ interface WritingView : BaseView {
         fun onFinishClicked()
 
         fun onCodeButtonClicked(activityCode: ActivityCode)
-
-        fun onZerosErrorDialogClosed()
 
     }
 
@@ -147,8 +148,7 @@ interface WritingView : BaseView {
 }
 
 class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, WritingActivity, WritingComponent>(),
-    WritingView, BCIConnectionDialog.OnBCIConnectionDialogClickListener,
-    ActivitySuggestDialog.OnClickSuggestDialogListener {
+    WritingView, BCIConnectionDialog.OnBCIConnectionDialogClickListener  {
 
     private lateinit var code99Button: Button
     private lateinit var code11Button: Button
@@ -461,9 +461,12 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         ActivitySuggestDialog.build {
             title = getString(R.string.error)
             message = getString(R.string.session_zeros_error)
-            positiveTitleBtn = getString(R.string.session_continue)
             cancelable = false
         }.show(supportFragmentManager, ZEROS_ERROR_DIALOG_TAG)
+    }
+
+    override fun hideZerosErrorDialog() {
+        (supportFragmentManager.findFragmentByTag(ZEROS_ERROR_DIALOG_TAG) as? DialogFragment)?.dismiss()
     }
 
     override fun dismissBCIConnectionDialog() {
@@ -487,20 +490,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         val intent = Intent(Settings.ACTION_BLUETOOTH_SETTINGS)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
-    }
-
-    //endregion
-
-    //region ActivitySuggestDialog.OnClickSuggestDialogListener
-
-    override fun onPositiveClicked(tag: String?) {
-        if (tag == ZEROS_ERROR_DIALOG_TAG) {
-            presenter.onZerosErrorDialogClosed()
-        }
-    }
-
-    override fun onNegativeClicked(tag: String?) {
-        //empty
     }
 
     //endregion
