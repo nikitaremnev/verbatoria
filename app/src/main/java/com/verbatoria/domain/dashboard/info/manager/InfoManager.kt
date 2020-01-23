@@ -40,6 +40,8 @@ interface InfoManager {
 
     fun isSchool(): Boolean
 
+    fun dropLastLocationInfoUpdateTime()
+
 }
 
 class InfoManagerImpl(
@@ -123,7 +125,6 @@ class InfoManagerImpl(
                 settingsRepository.putLocales(response.availableLocales)
 
                 responseLocationInfoConverted.currentLocale = settingsRepository.getCurrentLocale()
-
                 settingsRepository.putCurrentLocale(response.locale)
 
                 Pair(responseLocationInfoConverted, responsePartnerInfoConverted)
@@ -131,7 +132,7 @@ class InfoManagerImpl(
             System.currentTimeMillis() - lastUpdateLocationInfoTime < ONE_DAY_IN_MILLIS -> {
                 Pair(
                     infoRepository.getLocationInfo().apply {
-                        currentLocale = settingsRepository.getCurrentLocale()
+                        currentLocale = updatedLocale
                     },
                     infoRepository.getPartnerInfo()
                 )
@@ -206,6 +207,11 @@ class InfoManagerImpl(
 
     override fun isSchool(): Boolean =
         infoRepository.getIsSchool()
+
+    override fun dropLastLocationInfoUpdateTime() {
+        infoRepository.putLastInfoUpdateTime(0L)
+        infoRepository.putLastLocationInfoUpdateTime(0L)
+    }
 
     private fun loadAndSaveAgeGroupsForArchimedes() {
         val responseConverted = infoEndpoint.getAgeGroupsForArchimedes().map { dto ->

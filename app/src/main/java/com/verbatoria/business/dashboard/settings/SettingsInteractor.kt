@@ -4,7 +4,6 @@ import android.os.Build
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
-import com.verbatoria.domain.dashboard.settings.SettingsRepository
 import com.verbatoria.domain.session.manager.SessionManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
@@ -18,6 +17,8 @@ import com.verbatoria.domain.settings.SettingsManager
 /**
  * @author n.remnev
  */
+
+private const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
 
 interface SettingsInteractor {
 
@@ -59,7 +60,7 @@ class SettingsInteractorImpl(
             mapOf(
                 Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
                 Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
-                Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE)),
+                Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE_FROM_SERVER)),
                 Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINIAN_LOCALE)),
                 Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE))
             )
@@ -69,7 +70,11 @@ class SettingsInteractorImpl(
 
     override fun updateCurrentLocale(locale: String): Completable =
         Completable.fromCallable {
-            settingsManager.updateCurrentLocale(locale)
+            if (locale == HONG_KONG_LOCALE) {
+                settingsManager.updateCurrentLocale(HONG_KONG_LOCALE_FROM_SERVER)
+            } else {
+                settingsManager.updateCurrentLocale(locale)
+            }
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)

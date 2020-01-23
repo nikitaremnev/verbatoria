@@ -76,6 +76,7 @@ class SettingsManagerImpl(
     override fun updateCurrentLocale(locale: String) {
         settingsEndpoint.setLocationLanguage(infoManager.getLocationId(), SetLocationLanguageParamsDto(locale))
         settingsRepository.putCurrentLocale(locale)
+        infoManager.dropLastLocationInfoUpdateTime()
     }
 
 }

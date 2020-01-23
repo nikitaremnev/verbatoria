@@ -1,5 +1,6 @@
 package com.verbatoria.ui.dashboard.info
 
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.business.dashboard.info.InfoInteractor
 import com.verbatoria.business.user.UserStatus
 import com.verbatoria.ui.base.BasePresenter
@@ -8,6 +9,8 @@ import org.slf4j.LoggerFactory
 /**
  * @author n.remnev
  */
+
+private const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
 
 class InfoPresenter(
     private val infoInteractor: InfoInteractor
@@ -50,8 +53,8 @@ class InfoPresenter(
                     setLocationName(locationInfo.name)
                     setLocationAddress(locationInfo.address)
                     setLocationPoint(locationInfo.point)
-
-                    if (locationInfo.currentLocale != locationInfo.updatedLocale &&
+                    if (!(locationInfo.currentLocale == LocalesAvailable.HONG_KONG_LOCALE && locationInfo.updatedLocale == HONG_KONG_LOCALE_FROM_SERVER) &&
+                        locationInfo.currentLocale != locationInfo.updatedLocale &&
                         locationInfo.updatedLocale.isNotEmpty()) {
                         setLocale(locationInfo.updatedLocale)
                     }
