@@ -105,10 +105,12 @@ class InfoManagerImpl(
         return when {
             lastUpdateLocationInfoTime == NOT_LOADED_TIME -> {
                 val response = infoEndpoint.getLocationInfo(locationId)
+                val isSchool = response.isSchool == IS_SCHOOL
                 val responseLocationInfoConverted = LocationInfoModel(
                     id = response.id,
                     name = response.name,
                     address = response.address,
+                    isSchool = isSchool,
                     point = response.city.country.name + " " + response.city.name,
                     updatedLocale = response.locale
                 )
@@ -116,7 +118,7 @@ class InfoManagerImpl(
                     name = response.partner.name
                 )
 
-                infoRepository.putIsSchool(response.isSchool == IS_SCHOOL)
+                infoRepository.putIsSchool(isSchool)
                 infoRepository.saveLocationInfo(responseLocationInfoConverted)
                 infoRepository.savePartnerInfo(responsePartnerInfoConverted)
                 infoRepository.putLastLocationInfoUpdateTime(System.currentTimeMillis())
@@ -140,10 +142,12 @@ class InfoManagerImpl(
             else -> {
                 try {
                     val response = infoEndpoint.getLocationInfo(locationId)
+                    val isSchool = response.isSchool == IS_SCHOOL
                     val responseLocationInfoConverted = LocationInfoModel(
                         id = response.id,
                         name = response.name,
                         address = response.address,
+                        isSchool = isSchool,
                         point = response.city.country.name + ", " + response.city.name,
                         updatedLocale = response.locale
                     )
@@ -151,7 +155,7 @@ class InfoManagerImpl(
                         name = response.partner.name
                     )
 
-                    infoRepository.putIsSchool(response.isSchool == IS_SCHOOL)
+                    infoRepository.putIsSchool(isSchool)
                     infoRepository.saveLocationInfo(responseLocationInfoConverted)
                     infoRepository.savePartnerInfo(responsePartnerInfoConverted)
                     infoRepository.putLastLocationInfoUpdateTime(System.currentTimeMillis())

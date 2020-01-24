@@ -145,6 +145,8 @@ class RecoveryPasswordActivity :
     private lateinit var progressBar: ProgressBar
     private lateinit var submitButton: Button
 
+    private var maskedTextChangedListener: MaskedTextChangedListener? = null
+
     //region BasePresenterActivity
 
     override fun getLayoutResourceId(): Int = R.layout.activity_recovery_password
@@ -281,23 +283,25 @@ class RecoveryPasswordActivity :
     }
 
     override fun setPhoneFormatterBasedOnCountry(country: String) {
-        phoneEditText.addTextChangedListener(
-            MaskedTextChangedListener(
-                CountryHelper.getPhoneFormatterByCountryKey(this, country),
-                true,
-                phoneEditText,
-                null,
-                object : MaskedTextChangedListener.ValueListener {
-                    override fun onTextChanged(
-                        maskFilled: Boolean,
-                        extractedValue: String,
-                        formattedValue: String
-                    ) {
-                        presenter.onPhoneTextChanged(extractedValue)
-                    }
+        if (maskedTextChangedListener != null) {
+            phoneEditText.removeTextChangedListener(maskedTextChangedListener)
+        }
+        maskedTextChangedListener = MaskedTextChangedListener(
+            CountryHelper.getPhoneFormatterByCountryKey(this, country),
+            true,
+            phoneEditText,
+            null,
+            object : MaskedTextChangedListener.ValueListener {
+                override fun onTextChanged(
+                    maskFilled: Boolean,
+                    extractedValue: String,
+                    formattedValue: String
+                ) {
+                    presenter.onPhoneTextChanged(extractedValue)
                 }
-            )
+            }
         )
+        phoneEditText.addTextChangedListener(maskedTextChangedListener)
     }
 
     override fun showPhoneField() {

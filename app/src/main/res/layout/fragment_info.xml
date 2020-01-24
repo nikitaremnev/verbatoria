@@ -150,16 +150,30 @@
 
         <TextView
             android:id="@+id/location_name_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/info_location_name_margin_start"
+            android:layout_marginEnd="@dimen/info_location_name_margin_end"
             android:layout_marginTop="@dimen/info_text_between_margin"
             android:textColor="@color/black"
             android:textSize="@dimen/info_location_name_text_size"
             android:textStyle="bold"
+            app:layout_constraintRight_toLeftOf="@+id/location_school_image_view"
             app:layout_constraintLeft_toRightOf="@+id/location_id_text_view"
             app:layout_constraintTop_toTopOf="@+id/location_id_text_view"
             tools:text="Вербатория Остоженка" />
+
+        <ImageView
+            android:id="@+id/location_school_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/info_location_school_margin_end"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/location_id_text_view"
+            android:background="@drawable/background_school"
+            android:src="@drawable/ic_school_white_24dp"/>
 
         <TextView
             android:id="@+id/location_address_text_view"

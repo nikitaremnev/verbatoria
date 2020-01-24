@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import com.remnev.verbatoria.R
@@ -57,11 +58,15 @@ interface InfoView : BaseView {
 
     fun showPartnerInfoLoadingProgress()
 
+    fun showSchoolMode()
+
     fun hideInfoLoadingProgress()
 
     fun hideLocationInfoLoadingProgress()
 
     fun hidePartnerInfoLoadingProgress()
+
+    fun hideSchoolMode()
 
 }
 
@@ -84,6 +89,7 @@ class InfoFragment :
     private lateinit var locationNameTextView: TextView
     private lateinit var locationAddressTextView: TextView
     private lateinit var locationPointTextView: TextView
+    private lateinit var locationSchoolImageView: ImageView
     private lateinit var partnerNameTextView: TextView
     private lateinit var infoProgressBar: ProgressBar
     private lateinit var locationInfoProgressBar: ProgressBar
@@ -108,6 +114,7 @@ class InfoFragment :
             locationNameTextView = findViewById(R.id.location_name_text_view)
             locationAddressTextView = findViewById(R.id.location_address_text_view)
             locationPointTextView = findViewById(R.id.location_point_text_view)
+            locationSchoolImageView = findViewById(R.id.location_school_image_view)
             partnerNameTextView = findViewById(R.id.partner_name_text_view)
             infoProgressBar = findViewById(R.id.info_progress_bar)
             locationInfoProgressBar = findViewById(R.id.location_info_progress_bar)
@@ -190,6 +197,10 @@ class InfoFragment :
         partnerInfoProgressBar.show()
     }
 
+    override fun showSchoolMode() {
+        locationSchoolImageView.show()
+    }
+
     override fun hideInfoLoadingProgress() {
         infoProgressBar.hide()
     }
@@ -200,6 +211,10 @@ class InfoFragment :
 
     override fun hidePartnerInfoLoadingProgress() {
         partnerInfoProgressBar.hide()
+    }
+
+    override fun hideSchoolMode() {
+        locationSchoolImageView.hide()
     }
 
     //endregion

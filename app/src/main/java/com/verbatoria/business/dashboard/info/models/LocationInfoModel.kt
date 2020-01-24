@@ -9,6 +9,7 @@ data class LocationInfoModel(
     val name: String,
     val address: String,
     val point: String,
+    val isSchool: Boolean,
     var currentLocale: String = "",
     val updatedLocale: String
 )

@@ -53,6 +53,11 @@ class InfoPresenter(
                     setLocationName(locationInfo.name)
                     setLocationAddress(locationInfo.address)
                     setLocationPoint(locationInfo.point)
+                    if (locationInfo.isSchool) {
+                        showSchoolMode()
+                    } else {
+                        hideSchoolMode()
+                    }
                     if (!(locationInfo.currentLocale == LocalesAvailable.HONG_KONG_LOCALE && locationInfo.updatedLocale == HONG_KONG_LOCALE_FROM_SERVER) &&
                         locationInfo.currentLocale != locationInfo.updatedLocale &&
                         locationInfo.updatedLocale.isNotEmpty()) {

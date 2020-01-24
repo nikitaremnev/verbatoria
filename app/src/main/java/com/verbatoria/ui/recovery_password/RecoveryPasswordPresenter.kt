@@ -175,7 +175,10 @@ class RecoveryPasswordPresenter(
         recoveryPasswordInteractor.getCurrentCountry()
             .subscribe({ country ->
                 this.country = country
-                view?.setPhoneFormatterBasedOnCountry(this.country)
+                view?.apply {
+                    setPhoneFormatterBasedOnCountry(country)
+                    setPhone(phone)
+                }
             }, { error ->
                 logger.error("Get current country error occurred", error)
                 view?.showError(error.localizedMessage ?: "Get current country error occurred")

@@ -165,9 +165,12 @@
     <dimen name="info_location_id_text_size">40sp</dimen>
 
     <dimen name="info_location_name_margin_start">24dp</dimen>
+    <dimen name="info_location_name_margin_end">24dp</dimen>
     <dimen name="info_location_name_text_size">15sp</dimen>
     <dimen name="info_location_address_text_size">13sp</dimen>
     <dimen name="info_location_point_text_size">13sp</dimen>
+    <dimen name="info_location_school_size">40dp</dimen>
+    <dimen name="info_location_school_margin_end">16dp</dimen>
 
     <dimen name="info_partner_name_margin_top">16dp</dimen>
     <dimen name="info_partner_name_margin_start">16dp</dimen>

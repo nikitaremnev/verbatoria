@@ -286,6 +286,7 @@ class InfoRepositoryImpl(
             id = getLocationId(),
             name = getLocationName(),
             address = getLocationAddress(),
+            isSchool = getIsSchool(),
             point = getLocationPoint(),
             updatedLocale = getLocationCurrentLocale()
         )

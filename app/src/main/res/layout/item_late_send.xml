@@ -24,7 +24,7 @@
         android:layout_height="@dimen/event_status_logo_height"
         android:layout_centerHorizontal="true"
         android:scaleType="centerInside"
-        android:src="@drawable/ic_delete_green"
+        android:src="@drawable/ic_delete_green_24dp"
         android:layout_marginTop="@dimen/event_status_logo_margin_top"
         android:background="?selectableItemBackground"
         app:layout_constraintRight_toRightOf="parent"
