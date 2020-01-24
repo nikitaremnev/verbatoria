@@ -12,7 +12,7 @@ object LocalesAvailable {
 
     const val HONG_KONG_LOCALE = "zh"
 
-    const val UKRAINIAN_LOCALE = "ukr"
+    const val UKRAINIAN_LOCALE = "uk"
 
     const val BULGARIAN_LOCALE = "bg"
 

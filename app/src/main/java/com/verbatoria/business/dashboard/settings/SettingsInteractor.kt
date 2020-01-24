@@ -19,6 +19,7 @@ import com.verbatoria.domain.settings.SettingsManager
  */
 
 private const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
+private const val UKRAINE_LOCALE_FROM_SERVER = "ua"
 
 interface SettingsInteractor {
 
@@ -61,7 +62,7 @@ class SettingsInteractorImpl(
                 Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
                 Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
                 Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE_FROM_SERVER)),
-                Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINIAN_LOCALE)),
+                Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINE_LOCALE_FROM_SERVER)),
                 Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE))
             )
         }
@@ -70,10 +71,16 @@ class SettingsInteractorImpl(
 
     override fun updateCurrentLocale(locale: String): Completable =
         Completable.fromCallable {
-            if (locale == HONG_KONG_LOCALE) {
-                settingsManager.updateCurrentLocale(HONG_KONG_LOCALE_FROM_SERVER)
-            } else {
-                settingsManager.updateCurrentLocale(locale)
+            when (locale) {
+                HONG_KONG_LOCALE -> {
+                    settingsManager.updateCurrentLocale(HONG_KONG_LOCALE_FROM_SERVER)
+                }
+                UKRAINIAN_LOCALE -> {
+                    settingsManager.updateCurrentLocale(UKRAINE_LOCALE_FROM_SERVER)
+                }
+                else -> {
+                    settingsManager.updateCurrentLocale(locale)
+                }
             }
         }
             .subscribeOn(schedulersFactory.io)
