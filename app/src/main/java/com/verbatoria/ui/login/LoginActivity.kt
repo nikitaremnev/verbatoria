@@ -223,7 +223,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
                     extractedValue: String,
                     formattedValue: String
                 ) {
-                    presenter.onPhoneTextChanged(extractedValue)
+                    presenter.onPhoneTextChanged(formattedValue.replace("[^0-9]",""))
                 }
 
             }

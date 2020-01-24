@@ -148,7 +148,10 @@ class ClientPresenter(
         clientInteractor.getCurrentCountry()
             .subscribe({ country ->
                 this.country = country
-                view?.setCurrentCountry(country)
+                view?.apply {
+                    setCurrentCountry(country)
+                    setClientPhone(client.phone)
+                }
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage ?: "Get current country error occurred")
             })

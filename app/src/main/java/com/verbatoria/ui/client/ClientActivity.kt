@@ -212,7 +212,7 @@ class ClientActivity : BasePresenterActivity<ClientView, ClientPresenter, Client
                     extractedValue: String,
                     formattedValue: String
                 ) {
-                    presenter.onClientPhoneChanged(maskFilled, extractedValue)
+                    presenter.onClientPhoneChanged(maskFilled, formattedValue.replace("[^0-9]",""))
                 }
             }
         )

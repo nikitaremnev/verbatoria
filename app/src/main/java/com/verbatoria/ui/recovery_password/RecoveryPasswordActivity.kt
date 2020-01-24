@@ -297,7 +297,7 @@ class RecoveryPasswordActivity :
                     extractedValue: String,
                     formattedValue: String
                 ) {
-                    presenter.onPhoneTextChanged(extractedValue)
+                    presenter.onPhoneTextChanged(formattedValue.replace("[^0-9]",""))
                 }
             }
         )

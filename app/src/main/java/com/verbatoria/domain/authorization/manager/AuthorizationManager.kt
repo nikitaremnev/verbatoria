@@ -99,6 +99,6 @@ class AuthorizationManagerImpl(
     }
 
     private fun processPhone(phone: String): String =
-        "+" + phone.replace("[-,. )(]".toRegex(), "")
+        phone.replace("[-,. )(]".toRegex(), "")
 
 }
