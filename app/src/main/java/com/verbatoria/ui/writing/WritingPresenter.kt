@@ -12,6 +12,7 @@ import com.verbatoria.component.connection.BCIDataCallback
 import com.verbatoria.domain.activities.model.Activity
 import com.verbatoria.domain.activities.model.ActivityCode
 import com.verbatoria.domain.activities.model.GroupedActivities
+import com.verbatoria.domain.activities.model.MINIMUM_ACTIVITY_TIME
 import com.verbatoria.domain.bci_data.model.BCIData
 import com.verbatoria.infrastructure.extensions.MILLISECONDS_IN_DAY
 import com.verbatoria.ui.base.BasePresenter
@@ -524,6 +525,10 @@ class WritingPresenter(
     private fun updateTimerTime(withTimeUpdate: Boolean = true) {
         if (withTimeUpdate) {
             selectedActivity?.addTime(TIMER_TASK_INTERVAL_IN_SECONDS)
+            if (selectedActivity?.activityCode == ActivityCode.CODE_99 &&
+                (selectedActivity?.totalTime?.rem(MINIMUM_ACTIVITY_TIME) == 0)) {
+                onCodeButtonClicked(ActivityCode.CODE_99)
+            }
         }
         view?.updateTimerTime(selectedActivity?.activityCode?.code ?: 0, selectedActivity?.totalTime ?: TIMER_TASK_INTERVAL_IN_SECONDS)
     }
