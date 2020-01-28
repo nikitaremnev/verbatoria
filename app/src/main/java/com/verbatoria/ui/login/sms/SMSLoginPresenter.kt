@@ -108,6 +108,7 @@ class SMSLoginPresenter(
 
     private fun sendSMSCode() {
         view?.showProgressForSendCode()
+        val phone = phone.replace(" ", "")
         smsLoginInteractor.sendSMSCode(phone, SEND_SMS_CODE_TEXT)
             .subscribe({ checkingCode ->
                 tryAgainSendCodeTimerStartTime = System.currentTimeMillis()
