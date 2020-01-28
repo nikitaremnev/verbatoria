@@ -131,14 +131,6 @@ class InfoManagerImpl(
 
                 Pair(responseLocationInfoConverted, responsePartnerInfoConverted)
             }
-            System.currentTimeMillis() - lastUpdateLocationInfoTime < ONE_DAY_IN_MILLIS -> {
-                Pair(
-                    infoRepository.getLocationInfo().apply {
-                        currentLocale = updatedLocale
-                    },
-                    infoRepository.getPartnerInfo()
-                )
-            }
             else -> {
                 try {
                     val response = infoEndpoint.getLocationInfo(locationId)
