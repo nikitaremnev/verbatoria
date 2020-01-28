@@ -31,6 +31,8 @@ interface SettingsManager {
 
     fun getLocales(): List<String>
 
+    fun getCurrentLocale(): String
+
     fun updateCurrentLocale(locale: String)
 
 }
@@ -72,6 +74,9 @@ class SettingsManagerImpl(
 
     override fun getLocales(): List<String> =
         settingsRepository.getLocales()
+
+    override fun getCurrentLocale(): String =
+        settingsRepository.getCurrentLocale()
 
     override fun updateCurrentLocale(locale: String) {
         settingsEndpoint.setLocationLanguage(infoManager.getLocationId(), SetLocationLanguageParamsDto(locale))

@@ -101,13 +101,14 @@ class SettingsPresenter(
 
     private fun getAppLanguagesAvailability() {
         settingsInteractor.getAppLanguagesAvailability()
-            .subscribe({ languagesMap ->
+            .subscribe({ (languagesMap, currentLocale) ->
                 view?.showAppLanguagesDialog(
                     languagesMap[RUSSIAN_LOCALE] ?: false,
                     languagesMap[ENGLISH_LOCALE] ?: false,
                     languagesMap[HONG_KONG_LOCALE] ?: false,
                     languagesMap[UKRAINIAN_LOCALE] ?: false,
-                    languagesMap[BULGARIAN_LOCALE] ?: false
+                    languagesMap[BULGARIAN_LOCALE] ?: false,
+                    currentLocale
                 )
             }, { error ->
                 logger.error("get app languages availability error occurred", error)

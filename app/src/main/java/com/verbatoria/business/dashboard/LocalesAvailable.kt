@@ -16,4 +16,8 @@ object LocalesAvailable {
 
     const val BULGARIAN_LOCALE = "bg"
 
+    const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
+
+    const val UKRAINE_LOCALE_FROM_SERVER = "ua"
+
 }

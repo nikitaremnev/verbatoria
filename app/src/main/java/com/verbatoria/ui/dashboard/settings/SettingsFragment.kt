@@ -39,7 +39,8 @@ interface SettingsView : BaseView {
         isEnglishLanguageAvailable: Boolean,
         isHongKongLanguageAvailable: Boolean,
         isUkrainianLanguageAvailable: Boolean,
-        isBulgarianLanguageAvailable: Boolean
+        isBulgarianLanguageAvailable: Boolean,
+        currentLocale: String
     )
 
     fun setSettingsItems(settingsItemModels: List<SettingsItemModel>)
@@ -120,7 +121,8 @@ class SettingsFragment :
         isEnglishLanguageAvailable: Boolean,
         isHongKongLanguageAvailable: Boolean,
         isUkrainianLanguageAvailable: Boolean,
-        isBulgarianLanguageAvailable: Boolean
+        isBulgarianLanguageAvailable: Boolean,
+        currentLocale: String
     ) {
         AppLanguagesDialog.build {
             this.isRussianLanguageAvailable = isRussianLanguageAvailable
@@ -128,6 +130,7 @@ class SettingsFragment :
             this.isHongKongLanguageAvailable = isHongKongLanguageAvailable
             this.isUkrainianLanguageAvailable = isUkrainianLanguageAvailable
             this.isBulgarianLanguageAvailable = isBulgarianLanguageAvailable
+            this.currentLocale = currentLocale
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
 

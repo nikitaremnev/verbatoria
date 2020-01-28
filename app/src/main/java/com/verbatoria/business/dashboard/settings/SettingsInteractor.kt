@@ -10,7 +10,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINE_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
 import com.verbatoria.domain.settings.SettingsManager
 
@@ -18,16 +20,13 @@ import com.verbatoria.domain.settings.SettingsManager
  * @author n.remnev
  */
 
-private const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
-private const val UKRAINE_LOCALE_FROM_SERVER = "ua"
-
 interface SettingsInteractor {
 
     fun getSettings(): Single<List<SettingsItemModel>>
 
     fun getAppAndAndroidVersions(): Single<Pair<String, String>>
 
-    fun getAppLanguagesAvailability(): Single<Map<String, Boolean>>
+    fun getAppLanguagesAvailability(): Single<Pair<Map<String, Boolean>, String>>
 
     fun updateCurrentLocale(locale: String): Completable
 
@@ -55,16 +54,17 @@ class SettingsInteractorImpl(
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
 
-    override fun getAppLanguagesAvailability(): Single<Map<String, Boolean>> =
+    override fun getAppLanguagesAvailability(): Single<Pair<Map<String, Boolean>, String>> =
         Single.fromCallable {
             val localesAvailable = settingsManager.getLocales()
-            mapOf(
+            val currentLocale = settingsManager.getCurrentLocale()
+            Pair(mapOf(
                 Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
                 Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
                 Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE_FROM_SERVER)),
                 Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINE_LOCALE_FROM_SERVER)),
                 Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE))
-            )
+            ), currentLocale)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
