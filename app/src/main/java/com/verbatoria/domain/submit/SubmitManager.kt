@@ -31,6 +31,8 @@ import java.util.*
 
 private const val REPORT_FILE_NAME_PREFIX = "report_"
 private const val JSON_FILE_EXTENSION = ".json"
+private const val APPLICATION_JSON_MEDIA_TYPE = "application/json"
+
 private const val FIRST_POSITION_INDEX = 0
 
 interface SubmitManager {
@@ -280,7 +282,7 @@ class SubmitManagerImpl(
 
         submitEndpoint.sendData(
             sessionId = sessionId,
-            body = RequestBody.create(MediaType.parse("application/json"), reportFile)
+            body = RequestBody.create(MediaType.parse(APPLICATION_JSON_MEDIA_TYPE), reportFile)
         )
 
         if (questionnaire.includeHobby == QuestionYesOrNoAnswer.ANSWER_YES) {
@@ -295,7 +297,7 @@ class SubmitManagerImpl(
         }
         submitEndpoint.sendData(
             sessionId = sessionId,
-            body = RequestBody.create(MediaType.parse("application/json"), reportFile)
+            body = RequestBody.create(MediaType.parse(APPLICATION_JSON_MEDIA_TYPE), reportFile)
         )
     }
 
