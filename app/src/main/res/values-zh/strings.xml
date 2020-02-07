@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Verbatoria v11.2</string>
+    <string name="app_name">Verbatoria v11.2.1</string>
 
     <string name="loading_please_wait">Please wait…</string>
 
@@ -290,6 +290,9 @@
     <string name="login_singapore_phone_mask">+ 65 [0000] [0000]</string>
     <string name="login_egypt_phone_mask">+ 20 [000] [000] [0000]</string>
     <string name="login_ethiopia_phone_mask">+ 251 [00] [000] [0000]</string>
+    <string name="login_saudi_arabia_phone_mask">+ 966 [00] [000] [0000]</string>
+    <string name="login_serbia_phone_mask">+ 381 [00] [000] [0000]</string>
+    <string name="login_mongolia_phone_mask">+ 976 [00] [000] [000]</string>
 
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
@@ -324,6 +327,9 @@
     <string name="country_singapore">Singapore</string>
     <string name="country_egypt">Egypt</string>
     <string name="country_ethiopia">Ethiopia</string>
+    <string name="country_saudi_arabia">Saudi Arabia</string>
+    <string name="country_serbia">Serbia</string>
+    <string name="country_mongolia">Mongolia</string>
 
     <string name="sms_confirmation_confirm">Confirm</string>
 
