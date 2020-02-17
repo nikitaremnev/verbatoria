@@ -293,6 +293,7 @@
     <string name="login_saudi_arabia_phone_mask">+ 966 [00] [000] [0000]</string>
     <string name="login_serbia_phone_mask">+ 381 [00] [000] [0000]</string>
     <string name="login_mongolia_phone_mask">+ 976 [00] [000] [000]</string>
+    <string name="login_kazakhstan_phone_mask">+ 7 [000] [000] [00] [00]</string>
 
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
@@ -330,6 +331,7 @@
     <string name="country_saudi_arabia">Saudi Arabia</string>
     <string name="country_serbia">Serbia</string>
     <string name="country_mongolia">Mongolia</string>
+    <string name="country_kazakhstan">Kazakhstan</string>
 
     <string name="sms_confirmation_confirm">Confirm</string>
 
