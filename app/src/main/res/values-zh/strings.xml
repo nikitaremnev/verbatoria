@@ -266,7 +266,7 @@
     <string name="dashboard_gender_female">Female</string>
 
     <string name="dashboard_archimedes_available">ARCHIMEDES is available</string>
-    <string name="dashboard_archimedes_not_available">ARCHIMEDES is NOT available</string>
+    <string name="dashboard_archimedes_not_available">ARCHIMEDES using panel.verbatoria.ru</string>
 
     <!-- Login -->
 

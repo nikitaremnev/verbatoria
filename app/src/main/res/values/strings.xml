@@ -268,7 +268,7 @@
     <string name="dashboard_gender_female">Женский</string>
 
     <string name="dashboard_archimedes_available">АРХИМЕД доступен</string>
-    <string name="dashboard_archimedes_not_available">АРХИМЕД не доступен</string>
+    <string name="dashboard_archimedes_not_available">Архимед через panel.verbatoria.ru</string>
 
     <!-- Login -->
 
