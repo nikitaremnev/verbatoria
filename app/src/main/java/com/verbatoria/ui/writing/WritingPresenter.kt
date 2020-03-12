@@ -1,7 +1,10 @@
 package com.verbatoria.ui.writing
 
+import android.bluetooth.BluetoothGatt
+import android.bluetooth.BluetoothProfile
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
+import android.util.Log
 import com.neurosky.connection.EEGPower
 import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
@@ -30,6 +33,12 @@ private const val MUSIC_BUTTON_CODE = 31
 private const val MAXIMUM_BCI_DATA_BLOCK_SIZE = 10
 private const val ZEROS_VALUES_ERROR_COUNT = 5
 
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1 = "mind"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2 = "brain"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3 = "bci"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4 = "link"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5 = "wave"
+
 class WritingPresenter(
     private val sessionId: String,
     private val childAge: Int,
@@ -57,6 +66,8 @@ class WritingPresenter(
     private var pendingZerosActivity: Activity? = null
 
     private var isAllActivitiesDone: Boolean = false
+
+    private var connectedDeviceMacAddress: String = ""
 
     //timer
 
@@ -366,6 +377,26 @@ class WritingPresenter(
     override fun onConnected() {
         view?.showConnectedDialogState()
         isBCIConnected = true
+
+        view?.getBluetoothManager()?.let { bluetoothManager ->
+            val connectedDevices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
+            connectedDevices.forEach { device ->
+                val deviceName = device.name
+                Log.e("test", "WritingPresenter onConnected $deviceName")
+                if (deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1, ignoreCase = true) ||
+                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
+                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
+                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
+                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true)) {
+                    connectedDeviceMacAddress = device.address
+                }
+            }
+        }
+
+        Log.e("test",
+            "WritingPresenter onConnected connectedDeviceMacAddress$connectedDeviceMacAddress"
+        )
+
     }
 
     override fun onWorking() {
@@ -579,7 +610,7 @@ class WritingPresenter(
     }
 
     private fun saveBCIDataBlock() {
-        writingInteractor.saveBCIDataBlock(sessionId, bciDataBlock)
+        writingInteractor.saveBCIDataBlock(sessionId, connectedDeviceMacAddress, bciDataBlock)
             .subscribe({
                 bciDataBlock.clear()
             }, { error ->

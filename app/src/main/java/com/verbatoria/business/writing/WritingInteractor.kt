@@ -27,7 +27,7 @@ interface WritingInteractor {
         endTime: Long
     ): Completable
 
-    fun saveBCIDataBlock(sessionId: String, bciData: List<BCIData>): Completable
+    fun saveBCIDataBlock(sessionId: String,  connectedDeviceMacAddress: String, bciData: List<BCIData>): Completable
 
     fun updateHasDataState(sessionId: String): Single<Boolean>
 
@@ -60,9 +60,10 @@ class WritingInteractorImpl(
             .subscribeOn(schedulersFactory.database)
             .observeOn(schedulersFactory.main)
 
-    override fun saveBCIDataBlock(sessionId: String, bciData: List<BCIData>): Completable =
+    override fun saveBCIDataBlock(sessionId: String, connectedDeviceMacAddress: String, bciData: List<BCIData>): Completable =
         Completable.fromCallable {
             bciData.forEach { bciDataItem ->
+                bciDataItem.activityCode
                 bciDataItem.sessionId = sessionId
             }
             bciDataManager.save(bciData)

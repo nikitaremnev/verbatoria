@@ -35,7 +35,7 @@ ext {
 
     slf4jVersion = "1.7.25"
 
-    databaseVersion = 5
+    databaseVersion = 6
 
     stethoVersion = "1.5.1"
 }

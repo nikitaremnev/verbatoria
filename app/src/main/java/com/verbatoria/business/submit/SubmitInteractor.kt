@@ -31,8 +31,6 @@ class SubmitInteractorImpl(
             submitManager.sendData(sessionId)
             lateSendManager.updateLateSendState(sessionId, LateSendState.DATA_SENT)
 
-
-
             emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))
             submitManager.finishSession(sessionId)
             lateSendManager.updateLateSendState(sessionId, LateSendState.SESSION_FINISHED)

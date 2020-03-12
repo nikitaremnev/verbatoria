@@ -10,6 +10,7 @@ private const val EMPTY_DATA = 0
 data class BCIData(
     var guid: String = "",
     var sessionId: String = "",
+    var connectedDeviceMacAddress: String = "",
     val timestamp: Long,
     var activityCode: Int = NO_DATA,
     var attention: Int = NO_DATA,
