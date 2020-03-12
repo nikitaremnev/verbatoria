@@ -79,8 +79,6 @@ interface WritingView : BaseView {
 
     fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor?
 
-    fun getBluetoothManager(): BluetoothManager?
-
     fun addValueToGraph(attentionValue: Int)
 
     fun openQuestionnaire(sessionId: String, childAge: Int)
@@ -394,9 +392,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor =
         resources.openRawResourceFd(rawMusicFileResource)
-
-    override fun getBluetoothManager(): BluetoothManager? =
-        getSystemService(Context.BLUETOOTH_SERVICE) as? BluetoothManager
 
     override fun addValueToGraph(attentionValue: Int) {
         var data: LineData? = lineChart.data

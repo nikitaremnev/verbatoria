@@ -1,5 +1,6 @@
 package com.verbatoria.ui.writing
 
+import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothGatt
 import android.bluetooth.BluetoothProfile
 import android.content.res.AssetFileDescriptor
@@ -118,10 +119,10 @@ class WritingPresenter(
             }
         }
 
-        if (!BuildConfig.DEBUG && !isBCIConnected && !isBCIConnectionDialogShown) {
+//        if (!BuildConfig.DEBUG && !isBCIConnected && !isBCIConnectionDialogShown) {
             view.showBCIConnectionDialog()
             isBCIConnectionDialogShown = true
-        }
+//        }
     }
 
     override fun onDetachView() {
@@ -279,45 +280,45 @@ class WritingPresenter(
 
     override fun onAttentionDataReceived(attentionValue: Int) {
         //прячем диалоговое окно, когда показываются нули
-        if (attentionValue != 0 && currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-            view?.hideZerosErrorDialog()
-            pendingZerosActivity?.let { activity ->
-                onCodeButtonClicked(activity.activityCode)
-                pendingZerosActivity = null
-            }
-            currentZerosCount = 0
-        }
-
-        //выходим - диалоговое окно показано
-        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-            return
-        }
-
-        //пришел ноль - делаем проверку и показываем диалоговое окно
-        if (attentionValue == 0) {
-            currentZerosCount++
-            if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-                if (isViewVisible) {
-                    selectedActivity?.let { activity ->
-                        pendingZerosActivity = activity
-                        onCodeButtonClicked(activity.activityCode)
-                    }
-                    if (!isAllActivitiesDone) {
-                        view?.showZerosErrorDialog()
-                    }
-                } else {
-                    addOperationToPending(Runnable {
-                        selectedActivity?.let { activity ->
-                            pendingZerosActivity = activity
-                            onCodeButtonClicked(activity.activityCode)
-                        }
-                        if (!isAllActivitiesDone) {
-                            view?.showZerosErrorDialog()
-                        }
-                    })
-                }
-            }
-        }
+//        if (attentionValue != 0 && currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+//            view?.hideZerosErrorDialog()
+//            pendingZerosActivity?.let { activity ->
+//                onCodeButtonClicked(activity.activityCode)
+//                pendingZerosActivity = null
+//            }
+//            currentZerosCount = 0
+//        }
+//
+//        //выходим - диалоговое окно показано
+//        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+//            return
+//        }
+//
+//        //пришел ноль - делаем проверку и показываем диалоговое окно
+//        if (attentionValue == 0) {
+//            currentZerosCount++
+//            if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+//                if (isViewVisible) {
+//                    selectedActivity?.let { activity ->
+//                        pendingZerosActivity = activity
+//                        onCodeButtonClicked(activity.activityCode)
+//                    }
+//                    if (!isAllActivitiesDone) {
+//                        view?.showZerosErrorDialog()
+//                    }
+//                } else {
+//                    addOperationToPending(Runnable {
+//                        selectedActivity?.let { activity ->
+//                            pendingZerosActivity = activity
+//                            onCodeButtonClicked(activity.activityCode)
+//                        }
+//                        if (!isAllActivitiesDone) {
+//                            view?.showZerosErrorDialog()
+//                        }
+//                    })
+//                }
+//            }
+//        }
 
         val currentTimeInMillis = System.currentTimeMillis()
 
@@ -378,21 +379,18 @@ class WritingPresenter(
         view?.showConnectedDialogState()
         isBCIConnected = true
 
-        view?.getBluetoothManager()?.let { bluetoothManager ->
-            val connectedDevices = bluetoothManager.getConnectedDevices(BluetoothProfile.GATT)
-            connectedDevices.forEach { device ->
-                val deviceName = device.name
-                Log.e("test", "WritingPresenter onConnected $deviceName")
-                if (deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1, ignoreCase = true) ||
-                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
-                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
-                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
-                    deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true)) {
-                    connectedDeviceMacAddress = device.address
-                }
+        val boundedDevices = BluetoothAdapter.getDefaultAdapter().bondedDevices
+        boundedDevices.forEach { device ->
+            val deviceName = device.name
+            Log.e("test", "WritingPresenter onConnected $deviceName")
+            if (deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true)) {
+                connectedDeviceMacAddress = device.address
             }
         }
-
         Log.e("test",
             "WritingPresenter onConnected connectedDeviceMacAddress$connectedDeviceMacAddress"
         )
