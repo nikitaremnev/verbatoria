@@ -1,5 +1,6 @@
 package com.verbatoria.domain.submit
 
+import android.bluetooth.BluetoothAdapter
 import com.google.gson.Gson
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.domain.activities.manager.ActivitiesManager
@@ -32,6 +33,12 @@ import java.util.*
 private const val REPORT_FILE_NAME_PREFIX = "report_"
 private const val JSON_FILE_EXTENSION = ".json"
 private const val APPLICATION_JSON_MEDIA_TYPE = "application/json"
+
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1 = "mind"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2 = "brain"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3 = "bci"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4 = "link"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5 = "wave"
 
 private const val FIRST_POSITION_INDEX = 0
 
@@ -86,6 +93,19 @@ class SubmitManagerImpl(
         val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId)
         val currentLocale = settingsRepository.getCurrentLocale()
         var firstTimeStamp = bciData.firstOrNull()?.timestamp ?: System.currentTimeMillis()
+        var bciMacAddress = ""
+        val bondedDevices = BluetoothAdapter.getDefaultAdapter().bondedDevices
+        for (device in bondedDevices) {
+            val deviceName = device.name
+            if (deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true)) {
+                bciMacAddress = device.address
+                break
+            }
+        }
 
         val bciDataMutableList = bciData.map { bciDataItem ->
             BCIDataItemParamsDto(
@@ -104,7 +124,8 @@ class SubmitManagerImpl(
                 lowBeta = bciDataItem.lowBeta,
                 highBeta = bciDataItem.highBeta,
                 lowGamma = bciDataItem.lowGamma,
-                middleGamma = bciDataItem.middleGamma
+                middleGamma = bciDataItem.middleGamma,
+                bciMacAddress = bciMacAddress
             )
         }.toMutableList()
 

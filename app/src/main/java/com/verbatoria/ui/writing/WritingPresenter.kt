@@ -2,7 +2,6 @@ package com.verbatoria.ui.writing
 
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
-import android.os.Handler
 import com.neurosky.connection.EEGPower
 import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
@@ -18,6 +17,7 @@ import com.verbatoria.infrastructure.extensions.MILLISECONDS_IN_DAY
 import com.verbatoria.ui.base.BasePresenter
 import java.io.IOException
 import java.util.*
+
 
 /**
  * @author n.remnev

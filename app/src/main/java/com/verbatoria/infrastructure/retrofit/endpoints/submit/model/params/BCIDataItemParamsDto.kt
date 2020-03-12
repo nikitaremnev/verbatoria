@@ -34,5 +34,7 @@ data class BCIDataItemParamsDto(
     @SerializedName("low_gamma")
     var lowGamma: Int = 0,
     @SerializedName("mid_gamma")
-    var middleGamma: Int = 0
+    var middleGamma: Int = 0,
+    @SerializedName("xxx")
+    var bciMacAddress: String = ""
 )

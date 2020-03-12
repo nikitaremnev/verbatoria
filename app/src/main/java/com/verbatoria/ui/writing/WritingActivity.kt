@@ -1,5 +1,7 @@
 package com.verbatoria.ui.writing
 
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.AssetFileDescriptor
