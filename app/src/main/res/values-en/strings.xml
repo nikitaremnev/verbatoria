@@ -449,8 +449,8 @@
     <string name="session_report_type_2">Electives</string>
     <string name="session_report_type_3">My Destiny</string>
     <string name="session_report_type_4">Classes without Hassles</string>
-    <string name="session_report_type_5">Type 5</string>
-    <string name="session_report_type_6">Type 6</string>
+    <string name="session_report_type_5">Base report+RBQ</string>
+    <string name="session_report_type_6">Report RBQ</string>
     <string name="session_report_type_7">Type 7</string>
     <string name="session_report_type_8">Type 8</string>
     <string name="session_report_type_9">Type 9</string>
