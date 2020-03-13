@@ -379,7 +379,9 @@ class WritingPresenter(
         view?.showConnectedDialogState()
         isBCIConnected = true
 
+        val bluetoothManager = view?.getBluetoothManager()
         val boundedDevices = BluetoothAdapter.getDefaultAdapter().bondedDevices
+        bluetoothManager?.getConnectionState()
         boundedDevices.forEach { device ->
             val deviceName = device.name
             Log.e("test", "WritingPresenter onConnected $deviceName")

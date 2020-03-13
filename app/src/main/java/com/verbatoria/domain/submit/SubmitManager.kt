@@ -105,10 +105,21 @@ class SubmitManagerImpl(
                 lowBeta = bciDataItem.lowBeta,
                 highBeta = bciDataItem.highBeta,
                 lowGamma = bciDataItem.lowGamma,
-                middleGamma = bciDataItem.middleGamma,
-                bciMacAddress = bciDataItem.connectedDeviceMacAddress
+                middleGamma = bciDataItem.middleGamma
             )
         }.toMutableList()
+
+        //12 index
+        firstTimeStamp -= MILLISECONDS_IN_SECOND
+        bciDataMutableList.add(FIRST_POSITION_INDEX,
+            BCIDataItemParamsDto(
+                guid = firstTimeStamp.toString(),
+                sessionId = sessionId,
+                applicationVersion = versionName,
+//                questionnaire = bciDataItem.connectedDeviceMacAddress,
+                createdAt = Date(firstTimeStamp).formatToServerTime()
+            )
+        )
 
         //11 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND

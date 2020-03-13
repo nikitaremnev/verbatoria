@@ -36,6 +36,7 @@ class BCIConnectionControllerImpl(
                 }
             }
             tgStreamReader = TgStreamReader(bluetoothAdapter, bciConnectionHandler)
+            t
             tgStreamReader?.connect()
         } else {
             bciConnectionHandler.bluetoothDisabled()
