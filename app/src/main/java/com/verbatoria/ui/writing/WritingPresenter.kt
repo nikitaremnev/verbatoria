@@ -3,6 +3,7 @@ package com.verbatoria.ui.writing
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
 import com.neurosky.connection.EEGPower
+import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
 import com.verbatoria.business.writing.WritingInteractor
 import com.verbatoria.component.connection.BCIConnectionStateCallback
@@ -114,10 +115,10 @@ class WritingPresenter(
             }
         }
 
-//        if (!BuildConfig.DEBUG && !isBCIConnected && !isBCIConnectionDialogShown) {
+        if (!BuildConfig.DEBUG && !isBCIConnected && !isBCIConnectionDialogShown) {
             view.showBCIConnectionDialog()
             isBCIConnectionDialogShown = true
-//        }
+        }
     }
 
     override fun onDetachView() {
@@ -285,45 +286,45 @@ class WritingPresenter(
 
     override fun onAttentionDataReceived(attentionValue: Int) {
         //прячем диалоговое окно, когда показываются нули
-//        if (attentionValue != 0 && currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-//            view?.hideZerosErrorDialog()
-//            pendingZerosActivity?.let { activity ->
-//                onCodeButtonClicked(activity.activityCode)
-//                pendingZerosActivity = null
-//            }
-//            currentZerosCount = 0
-//        }
-//
-//        //выходим - диалоговое окно показано
-//        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-//            return
-//        }
-//
-//        //пришел ноль - делаем проверку и показываем диалоговое окно
-//        if (attentionValue == 0) {
-//            currentZerosCount++
-//            if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
-//                if (isViewVisible) {
-//                    selectedActivity?.let { activity ->
-//                        pendingZerosActivity = activity
-//                        onCodeButtonClicked(activity.activityCode)
-//                    }
-//                    if (!isAllActivitiesDone) {
-//                        view?.showZerosErrorDialog()
-//                    }
-//                } else {
-//                    addOperationToPending(Runnable {
-//                        selectedActivity?.let { activity ->
-//                            pendingZerosActivity = activity
-//                            onCodeButtonClicked(activity.activityCode)
-//                        }
-//                        if (!isAllActivitiesDone) {
-//                            view?.showZerosErrorDialog()
-//                        }
-//                    })
-//                }
-//            }
-//        }
+        if (attentionValue != 0 && currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+            view?.hideZerosErrorDialog()
+            pendingZerosActivity?.let { activity ->
+                onCodeButtonClicked(activity.activityCode)
+                pendingZerosActivity = null
+            }
+            currentZerosCount = 0
+        }
+
+        //выходим - диалоговое окно показано
+        if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+            return
+        }
+
+        //пришел ноль - делаем проверку и показываем диалоговое окно
+        if (attentionValue == 0) {
+            currentZerosCount++
+            if (currentZerosCount == ZEROS_VALUES_ERROR_COUNT) {
+                if (isViewVisible) {
+                    selectedActivity?.let { activity ->
+                        pendingZerosActivity = activity
+                        onCodeButtonClicked(activity.activityCode)
+                    }
+                    if (!isAllActivitiesDone) {
+                        view?.showZerosErrorDialog()
+                    }
+                } else {
+                    addOperationToPending(Runnable {
+                        selectedActivity?.let { activity ->
+                            pendingZerosActivity = activity
+                            onCodeButtonClicked(activity.activityCode)
+                        }
+                        if (!isAllActivitiesDone) {
+                            view?.showZerosErrorDialog()
+                        }
+                    })
+                }
+            }
+        }
 
         val currentTimeInMillis = System.currentTimeMillis()
 

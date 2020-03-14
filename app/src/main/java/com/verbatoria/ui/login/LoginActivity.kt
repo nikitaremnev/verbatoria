@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.*
 import com.redmadrobot.inputmask.MaskedTextChangedListener
@@ -300,7 +299,6 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     }
 
     override fun openRecoveryPassword(phone: String) {
-        Log.e("test", "LoginActivity openRecoveryPassword phone $phone")
         startActivity(RecoveryPasswordActivity.createIntent(this, phone))
         finish()
     }
