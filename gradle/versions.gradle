@@ -2,7 +2,7 @@ ext {
 
     applicationId = "ru.verbatoria"
     versionName = "11.3.0"
-    versionCode = 63
+    versionCode = 64
 
     kotlinVersion = "1.3.41"
 
@@ -35,7 +35,7 @@ ext {
 
     slf4jVersion = "1.7.25"
 
-    databaseVersion = 6
+    databaseVersion = 8
 
     stethoVersion = "1.5.1"
 }

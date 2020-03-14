@@ -1,13 +1,8 @@
 package com.verbatoria.ui.writing
 
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothGatt
-import android.bluetooth.BluetoothProfile
 import android.content.res.AssetFileDescriptor
 import android.media.MediaPlayer
-import android.util.Log
 import com.neurosky.connection.EEGPower
-import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
 import com.verbatoria.business.writing.WritingInteractor
 import com.verbatoria.component.connection.BCIConnectionStateCallback
@@ -68,7 +63,7 @@ class WritingPresenter(
 
     private var isAllActivitiesDone: Boolean = false
 
-    private var connectedDeviceMacAddress: String = ""
+    private var bluetoothDeviceAddress: String = ""
 
     //timer
 
@@ -135,6 +130,16 @@ class WritingPresenter(
     }
 
     //region WritingView.Callback
+
+    override fun onBluetoothDeviceAddressReceived(deviceName: String, deviceAddress: String) {
+        if (deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1, ignoreCase = true) ||
+            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
+            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
+            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
+            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true)) {
+            bluetoothDeviceAddress = deviceAddress
+        }
+    }
 
     override fun onBackPressed() {
         //empty
@@ -378,25 +383,6 @@ class WritingPresenter(
     override fun onConnected() {
         view?.showConnectedDialogState()
         isBCIConnected = true
-
-        val bluetoothManager = view?.getBluetoothManager()
-        val boundedDevices = BluetoothAdapter.getDefaultAdapter().bondedDevices
-        bluetoothManager?.getConnectionState()
-        boundedDevices.forEach { device ->
-            val deviceName = device.name
-            Log.e("test", "WritingPresenter onConnected $deviceName")
-            if (deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1, ignoreCase = true) ||
-                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
-                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
-                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
-                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true)) {
-                connectedDeviceMacAddress = device.address
-            }
-        }
-        Log.e("test",
-            "WritingPresenter onConnected connectedDeviceMacAddress$connectedDeviceMacAddress"
-        )
-
     }
 
     override fun onWorking() {
@@ -610,7 +596,7 @@ class WritingPresenter(
     }
 
     private fun saveBCIDataBlock() {
-        writingInteractor.saveBCIDataBlock(sessionId, connectedDeviceMacAddress, bciDataBlock)
+        writingInteractor.saveBCIDataBlock(sessionId, bciDataBlock)
             .subscribe({
                 bciDataBlock.clear()
             }, { error ->
@@ -625,9 +611,9 @@ class WritingPresenter(
             .subscribe({ isSchool ->
                 view?.disconnectBCI()
                 if (isSchool) {
-                    view?.openSubmit(sessionId)
+                    view?.openSubmit(sessionId, bluetoothDeviceAddress)
                 } else {
-                    view?.openQuestionnaire(sessionId, childAge)
+                    view?.openQuestionnaire(sessionId, bluetoothDeviceAddress, childAge)
                 }
             }, { error ->
                 error.printStackTrace()

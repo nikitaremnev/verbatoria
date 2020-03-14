@@ -4,6 +4,7 @@ import com.verbatoria.di.BaseInjector
 import com.verbatoria.ui.submit.SubmitActivity
 import dagger.BindsInstance
 import dagger.Subcomponent
+import javax.inject.Named
 
 /**
  * @author n.remnev
@@ -16,7 +17,10 @@ interface SubmitComponent : BaseInjector<SubmitActivity> {
     interface Builder {
 
         @BindsInstance
-        fun sessionId(sessionId: String): Builder
+        fun sessionId(@Named("sessionId") sessionId: String): Builder
+
+        @BindsInstance
+        fun bluetoothDeviceAddress(@Named("bluetoothDeviceAddress") bluetoothDeviceAddress: String): Builder
 
         fun build(): SubmitComponent
 

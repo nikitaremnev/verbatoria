@@ -12,7 +12,6 @@ class BCIDataEntity(
     @PrimaryKey
     val id: String,
     val sessionId: String,
-    var connectedDeviceMacAddress: String,
     val timestamp: Long,
     val activityCode: Int,
     val attention: Int,

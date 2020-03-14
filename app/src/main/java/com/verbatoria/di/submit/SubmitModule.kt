@@ -8,6 +8,7 @@ import com.verbatoria.ui.submit.SubmitPresenter
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import javax.inject.Named
 
 /**
  * @author n.remnev
@@ -19,11 +20,16 @@ class SubmitModule {
     @Provides
     @Reusable
     fun provideSubmitPresenter(
-        sessionId: String,
+        @Named("sessionId") sessionId: String,
+        @Named("bluetoothDeviceAddress") bluetoothDeviceAddress: String,
         submitManager: SubmitManager,
         lateSendManager: LateSendManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): SubmitPresenter =
-        SubmitPresenter(sessionId, SubmitInteractorImpl(submitManager, lateSendManager, rxSchedulersFactory))
+        SubmitPresenter(
+            sessionId,
+            bluetoothDeviceAddress,
+            SubmitInteractorImpl(submitManager, lateSendManager, rxSchedulersFactory)
+        )
 
 }

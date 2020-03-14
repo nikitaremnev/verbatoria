@@ -18,11 +18,12 @@ private const val FIRST_QUESTION_POSITION = 0
 
 class QuestionnairePresenter(
     private val sessionId: String,
+    private val bluetoothDeviceAddress: String,
     private val childAge: Int,
     private val questionnaireInteractor: QuestionnaireInteractor
 ) : BasePresenter<QuestionnaireView>(), QuestionnaireView.Callback {
 
-    private var questionnaire: Questionnaire = Questionnaire(sessionId)
+    private var questionnaire: Questionnaire = Questionnaire(sessionId, bluetoothDeviceAddress)
 
     private var isQuestionnaireLoaded: Boolean = false
 
@@ -99,7 +100,7 @@ class QuestionnairePresenter(
     //endregion
 
     private fun getQuestionnaire() {
-        questionnaireInteractor.getQuestionnaire(sessionId, childAge)
+        questionnaireInteractor.getQuestionnaire(sessionId, bluetoothDeviceAddress, childAge)
             .subscribe({ (questionnaire, isAgeAllowedForHobby) ->
                 this.questionnaire = questionnaire
                 isQuestionnaireLoaded = true
@@ -114,7 +115,7 @@ class QuestionnairePresenter(
     private fun saveQuestionnaire() {
         questionnaireInteractor.saveQuestionnaire(sessionId, questionnaire)
             .subscribe({
-                view?.openSubmit(sessionId)
+                view?.openSubmit(sessionId, bluetoothDeviceAddress)
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage ?: "Save questionnaire error occurred")
             })

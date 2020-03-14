@@ -1,6 +1,5 @@
 package com.verbatoria.domain.submit
 
-import android.bluetooth.BluetoothAdapter
 import com.google.gson.Gson
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.domain.activities.manager.ActivitiesManager
@@ -42,6 +41,8 @@ interface SubmitManager {
 
     fun sendData(sessionId: String)
 
+    fun sendData(sessionId: String, bluetoothDeviceAddress: String)
+
     fun sendDataFromReadyFile(sessionId: String)
 
     fun finishSession(sessionId: String)
@@ -82,9 +83,14 @@ class SubmitManagerImpl(
     }
 
     override fun sendData(sessionId: String) {
+        val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId, "")
+        sendData(sessionId, questionnaire.bluetoothDeviceAddress)
+    }
+
+    override fun sendData(sessionId: String, bluetoothDeviceAddress: String) {
         val bciData = bciDataManager.findAllBySessionId(sessionId)
         val versionName = BuildConfig.VERSION_NAME
-        val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId)
+        val questionnaire = questionnaireManager.getQuestionnaireBySessionId(sessionId, bluetoothDeviceAddress)
         val currentLocale = settingsRepository.getCurrentLocale()
         var firstTimeStamp = bciData.firstOrNull()?.timestamp ?: System.currentTimeMillis()
 
@@ -116,7 +122,7 @@ class SubmitManagerImpl(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
                 applicationVersion = versionName,
-//                questionnaire = bciDataItem.connectedDeviceMacAddress,
+                questionnaire = bluetoothDeviceAddress,
                 createdAt = Date(firstTimeStamp).formatToServerTime()
             )
         )

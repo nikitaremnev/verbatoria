@@ -9,7 +9,7 @@ import com.verbatoria.domain.questionnaire.repository.QuestionnaireRepository
 
 interface QuestionnaireManager {
 
-    fun getQuestionnaireBySessionId(sessionId: String): Questionnaire
+    fun getQuestionnaireBySessionId(sessionId: String, bluetoothDeviceAddress: String): Questionnaire
 
     fun saveQuestionnaire(questionnaire: Questionnaire)
 
@@ -21,8 +21,8 @@ class QuestionnaireManagerImpl(
     private val questionnaireRepository: QuestionnaireRepository
 ) : QuestionnaireManager {
 
-    override fun getQuestionnaireBySessionId(sessionId: String): Questionnaire =
-        questionnaireRepository.findBySessionId(sessionId) ?: Questionnaire(sessionId)
+    override fun getQuestionnaireBySessionId(sessionId: String, bluetoothDeviceAddress: String): Questionnaire =
+        questionnaireRepository.findBySessionId(sessionId) ?: Questionnaire(sessionId, bluetoothDeviceAddress)
 
     override fun saveQuestionnaire(questionnaire: Questionnaire) {
         questionnaireRepository.save(questionnaire)

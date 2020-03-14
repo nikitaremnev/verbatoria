@@ -15,7 +15,7 @@ import io.reactivex.subjects.BehaviorSubject
 
 interface SubmitInteractor {
 
-    fun submitData(sessionId: String): Observable<SubmitProgress>
+    fun submitData(sessionId: String, bluetoothDeviceAddress: String): Observable<SubmitProgress>
 
 }
 
@@ -25,10 +25,10 @@ class SubmitInteractorImpl(
     private val schedulersFactory: RxSchedulersFactory
 ) : SubmitInteractor {
 
-    override fun submitData(sessionId: String): Observable<SubmitProgress> =
+    override fun submitData(sessionId: String, bluetoothDeviceAddress: String): Observable<SubmitProgress> =
         BehaviorSubject.create<SubmitProgress> { emitter ->
             emitter.onNext(SubmitProgress(R.string.submit_progress_collect_and_send))
-            submitManager.sendData(sessionId)
+            submitManager.sendData(sessionId, bluetoothDeviceAddress)
             lateSendManager.updateLateSendState(sessionId, LateSendState.DATA_SENT)
 
             emitter.onNext(SubmitProgress(R.string.submit_progress_finish_session))

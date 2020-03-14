@@ -13,6 +13,7 @@ class QuestionnaireConverter : DatabaseConverter<QuestionnaireEntity, Questionna
         with(domain) {
             QuestionnaireEntity(
                 sessionId = sessionId,
+                bluetoothDeviceAddress = bluetoothDeviceAddress,
                 linguisticQuestionAnswer = linguisticQuestionAnswer.value,
                 logicMathematicalAnswer = logicMathematicalAnswer.value,
                 musicAnswer = musicAnswer.value,
@@ -30,6 +31,7 @@ class QuestionnaireConverter : DatabaseConverter<QuestionnaireEntity, Questionna
         with(entity) {
             Questionnaire(
                 sessionId = sessionId,
+                bluetoothDeviceAddress = bluetoothDeviceAddress,
                 linguisticQuestionAnswer = QuestionAnswer.valueOf(linguisticQuestionAnswer),
                 logicMathematicalAnswer = QuestionAnswer.valueOf(logicMathematicalAnswer),
                 musicAnswer = QuestionAnswer.valueOf(musicAnswer),

@@ -18,6 +18,7 @@ import com.verbatoria.ui.common.dialog.FragmentSuggestDialog
  */
 
 private const val SESSION_ID_EXTRA = "session_id_extra"
+private const val BLUETOOTH_DEVICE_ADDRESS_EXTRA = "bluetooth_device_address_extra"
 
 private const val SUCCESS_DIALOG_TAG = "SUCCESS_DIALOG_TAG"
 private const val ERROR_DIALOG_TAG = "ERROR_DIALOG_TAG"
@@ -47,10 +48,12 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
 
         fun createIntent(
             context: Context,
-            sessionId: String
+            sessionId: String,
+            bluetoothDeviceAddress: String
         ): Intent =
             Intent(context, SubmitActivity::class.java)
                 .putExtra(SESSION_ID_EXTRA, sessionId)
+                .putExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA, bluetoothDeviceAddress)
 
     }
 
@@ -65,6 +68,7 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
     override fun buildComponent(injector: Injector, savedState: Bundle?): SubmitComponent =
         injector.plusSubmitComponent()
             .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
+            .bluetoothDeviceAddress(intent.getStringExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA))
             .build()
 
     override fun initViews(savedState: Bundle?) {

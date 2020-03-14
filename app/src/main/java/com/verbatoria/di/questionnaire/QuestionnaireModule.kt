@@ -9,6 +9,7 @@ import com.verbatoria.ui.questionnaire.QuestionnairePresenter
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import javax.inject.Named
 
 /**
  * @author n.remnev
@@ -20,7 +21,8 @@ class QuestionnaireModule {
     @Provides
     @Reusable
     fun provideQuestionnairePresenter(
-        sessionId: String,
+        @Named("sessionId") sessionId: String,
+        @Named("bluetoothDeviceAddress") bluetoothDeviceAddress: String,
         childAge: Int,
         questionnaireManager: QuestionnaireManager,
         lateSendManager: LateSendManager,
@@ -29,6 +31,7 @@ class QuestionnaireModule {
     ): QuestionnairePresenter =
         QuestionnairePresenter(
             sessionId,
+            bluetoothDeviceAddress,
             childAge,
             QuestionnaireInteractorImpl(
                 questionnaireManager,

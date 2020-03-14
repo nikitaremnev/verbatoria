@@ -11,6 +11,7 @@ import android.arch.persistence.room.PrimaryKey
 class QuestionnaireEntity(
     @PrimaryKey
     val sessionId: String,
+    val bluetoothDeviceAddress: String,
     val linguisticQuestionAnswer: Int,
     val logicMathematicalAnswer: Int,
     val musicAnswer: Int,

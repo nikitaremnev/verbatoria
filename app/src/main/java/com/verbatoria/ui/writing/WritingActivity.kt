@@ -1,9 +1,10 @@
 package com.verbatoria.ui.writing
 
 import android.bluetooth.BluetoothDevice
-import android.bluetooth.BluetoothManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.AssetFileDescriptor
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -79,13 +80,11 @@ interface WritingView : BaseView {
 
     fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor?
 
-    fun getBluetoothManager(): BluetoothManager?
-
     fun addValueToGraph(attentionValue: Int)
 
-    fun openQuestionnaire(sessionId: String, childAge: Int)
+    fun openQuestionnaire(sessionId: String, bluetoothDeviceAddress: String, childAge: Int)
 
-    fun openSubmit(sessionId: String)
+    fun openSubmit(sessionId: String, bluetoothDeviceAddress: String)
 
     fun showBluetoothDisabledDialogState()
 
@@ -114,6 +113,8 @@ interface WritingView : BaseView {
     fun finish()
 
     interface Callback {
+
+        fun onBluetoothDeviceAddressReceived(deviceName: String, deviceAddress: String)
 
         fun onBackPressed()
 
@@ -183,6 +184,15 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     private var bciConnectionDialog: BCIConnectionDialog? = null
     private var uiHandler = Handler()
+
+    private val bluetoothConnectionReceiver = object : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            (intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE) as? BluetoothDevice)?.let { device ->
+                presenter.onBluetoothDeviceAddressReceived(device.name, device.address)
+            }
+        }
+    }
 
     companion object {
 
@@ -296,6 +306,17 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         bciConnectionDialog = supportFragmentManager.findFragmentByTag(BCI_CONNECTION_DIALOG_TAG) as? BCIConnectionDialog
     }
 
+    override fun onStart() {
+        super.onStart()
+        val bluetoothConnectionIntentFilter = IntentFilter(BluetoothDevice.ACTION_ACL_CONNECTED)
+        registerReceiver(bluetoothConnectionReceiver, bluetoothConnectionIntentFilter)
+    }
+
+    override fun onStop() {
+        unregisterReceiver(bluetoothConnectionReceiver)
+        super.onStop()
+    }
+
     override fun onBackPressed() {
         presenter.onBackPressed()
     }
@@ -395,9 +416,6 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
     override fun getAssetFileDescriptor(rawMusicFileResource: Int): AssetFileDescriptor =
         resources.openRawResourceFd(rawMusicFileResource)
 
-    override fun getBluetoothManager(): BluetoothManager? =
-        getSystemService(Context.BLUETOOTH_SERVICE) as? BluetoothManager
-
     override fun addValueToGraph(attentionValue: Int) {
         var data: LineData? = lineChart.data
         if (data == null) {
@@ -418,13 +436,13 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
         lineChart.moveViewToX((data.xValCount - MAX_CHART_VALUES_SIZE).toFloat())
     }
 
-    override fun openQuestionnaire(sessionId: String, childAge: Int) {
-        startActivity(QuestionnaireActivity.createIntent(this, sessionId, childAge))
+    override fun openQuestionnaire(sessionId: String, bluetoothDeviceAddress: String, childAge: Int) {
+        startActivity(QuestionnaireActivity.createIntent(this, sessionId, bluetoothDeviceAddress, childAge))
         finish()
     }
 
-    override fun openSubmit(sessionId: String) {
-        startActivity(SubmitActivity.createIntent(this, sessionId))
+    override fun openSubmit(sessionId: String, bluetoothDeviceAddress: String) {
+        startActivity(SubmitActivity.createIntent(this, sessionId, bluetoothDeviceAddress))
         finish()
     }
 

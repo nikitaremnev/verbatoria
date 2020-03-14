@@ -27,6 +27,7 @@ import com.verbatoria.ui.submit.SubmitActivity
 
 private const val SESSION_ID_EXTRA = "session_id_extra"
 private const val CHILD_AGE_EXTRA = "child_age_extra"
+private const val BLUETOOTH_DEVICE_ADDRESS_EXTRA = "bluetooth_device_address_extra"
 
 interface QuestionnaireView : BaseView {
 
@@ -62,7 +63,7 @@ interface QuestionnaireView : BaseView {
 
     fun hideFinishButton()
 
-    fun openSubmit(sessionId: String)
+    fun openSubmit(sessionId: String, bluetoothDeviceAddress: String)
 
     fun close()
 
@@ -98,10 +99,12 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         fun createIntent(
             context: Context,
             sessionId: String,
+            bluetoothDeviceAddress: String,
             childAge: Int
         ): Intent =
             Intent(context, QuestionnaireActivity::class.java)
                 .putExtra(SESSION_ID_EXTRA, sessionId)
+                .putExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA, bluetoothDeviceAddress)
                 .putExtra(CHILD_AGE_EXTRA, childAge)
 
     }
@@ -140,6 +143,7 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
     override fun buildComponent(injector: Injector, savedState: Bundle?): QuestionnaireComponent =
         injector.plusQuestionnaireComponent()
             .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
+            .bluetoothDeviceAddress(intent.getStringExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA))
             .childAge(intent.getIntExtra(CHILD_AGE_EXTRA, 0))
             .build()
 
@@ -348,8 +352,8 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
         nextButton.hide()
     }
 
-    override fun openSubmit(sessionId: String) {
-        startActivity(SubmitActivity.createIntent(this, sessionId))
+    override fun openSubmit(sessionId: String, bluetoothDeviceAddress: String) {
+        startActivity(SubmitActivity.createIntent(this, sessionId, bluetoothDeviceAddress))
         finish()
     }
 
