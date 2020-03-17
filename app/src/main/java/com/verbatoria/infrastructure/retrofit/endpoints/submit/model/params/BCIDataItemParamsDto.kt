@@ -13,6 +13,8 @@ data class BCIDataItemParamsDto(
     var sessionId: String = "",
     @SerializedName("action_id")
     var activityCode: Int = 0,
+    @SerializedName("device_id")
+    var deviceId: String = "",
     @SerializedName("reserve_blank2")
     val questionnaire: String = "",
     @SerializedName("mistake")

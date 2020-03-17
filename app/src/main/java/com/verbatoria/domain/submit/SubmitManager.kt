@@ -99,6 +99,7 @@ class SubmitManagerImpl(
                 guid = bciDataItem.guid,
                 sessionId = sessionId,
                 activityCode = bciDataItem.activityCode,
+                deviceId = bluetoothDeviceAddress,
                 questionnaire = "",
                 applicationVersion = versionName,
                 createdAt = Date(bciDataItem.timestamp).formatToServerTime(),
@@ -115,23 +116,12 @@ class SubmitManagerImpl(
             )
         }.toMutableList()
 
-        //12 index
-        firstTimeStamp -= MILLISECONDS_IN_SECOND
-        bciDataMutableList.add(FIRST_POSITION_INDEX,
-            BCIDataItemParamsDto(
-                guid = firstTimeStamp.toString(),
-                sessionId = sessionId,
-                applicationVersion = versionName,
-                questionnaire = bluetoothDeviceAddress,
-                createdAt = Date(firstTimeStamp).formatToServerTime()
-            )
-        )
-
         //11 index
         firstTimeStamp -= MILLISECONDS_IN_SECOND
         bciDataMutableList.add(FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
+                deviceId = bluetoothDeviceAddress,
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = currentLocale,
@@ -144,6 +134,7 @@ class SubmitManagerImpl(
         bciDataMutableList.add(FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
+                deviceId = bluetoothDeviceAddress,
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = if (questionnaire.includeHobby == QuestionYesOrNoAnswer.NO_ANSWER) {
@@ -161,6 +152,7 @@ class SubmitManagerImpl(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
+                deviceId = bluetoothDeviceAddress,
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -173,6 +165,7 @@ class SubmitManagerImpl(
             FIRST_POSITION_INDEX,
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
+                deviceId = bluetoothDeviceAddress,
                 sessionId = sessionId,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.reportType.value.toString(),
@@ -187,6 +180,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = if (questionnaire.includeAttentionMemory == QuestionYesOrNoAnswer.NO_ANSWER) {
                     "0"
@@ -204,6 +198,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.understandingYourselfAnswer.value.toString(),
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -217,6 +212,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.understandingPeopleAnswer.value.toString(),
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -230,6 +226,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.bodyKinestheticAnswer.value.toString(),
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -243,6 +240,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.spatialAnswer.value.toString(),
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -256,6 +254,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.musicAnswer.value.toString(),
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -269,6 +268,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.logicMathematicalAnswer.value.toString(),
                 createdAt = Date(firstTimeStamp).formatToServerTime()
@@ -282,6 +282,7 @@ class SubmitManagerImpl(
             BCIDataItemParamsDto(
                 guid = firstTimeStamp.toString(),
                 sessionId = sessionId,
+                deviceId = bluetoothDeviceAddress,
                 applicationVersion = versionName,
                 questionnaire = questionnaire.linguisticQuestionAnswer.value.toString(),
                 createdAt = Date(firstTimeStamp).formatToServerTime()
