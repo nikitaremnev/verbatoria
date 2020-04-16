@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Verbatoria v11.3.1</string>
+    <string name="app_name">Verbatoria v11.3.2</string>
 
     <string name="loading_please_wait">Please wait…</string>
 
@@ -448,8 +448,8 @@
     <string name="session_report_type_2">Electives</string>
     <string name="session_report_type_3">My Destiny</string>
     <string name="session_report_type_4">Classes without Hassles</string>
-    <string name="session_report_type_5">Base report+RBQ</string>
-    <string name="session_report_type_6">Report RBQ</string>
+    <string name="session_report_type_5">Base report+PQ</string>
+    <string name="session_report_type_6">PQ</string>
     <string name="session_report_type_7">Type 7</string>
     <string name="session_report_type_8">Type 8</string>
     <string name="session_report_type_9">Type 9</string>
