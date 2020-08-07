@@ -1,8 +1,8 @@
 ext {
 
     applicationId = "ru.verbatoria"
-    versionName = "11.3.3"
-    versionCode = 67
+    versionName = "11.3.4"
+    versionCode = 68
 
     kotlinVersion = "1.3.41"
 
