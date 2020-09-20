@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common -->
+
+    <string name="app_name">Verbatoria v11.3.4</string>
+
+    <string name="loading_please_wait">Lütfen bekleyiniz…</string>
+
+    <string name="ok">OK</string>
+    <string name="all_understand">Hepsini temizle</string>
+    <string name="delete">Sil</string>
+    <string name="find">Bul</string>
+    <string name="error">Hata</string>
+
+    <string name="writing_data_empty">Veri yok</string>
+
+    <string name="save">Kaydet</string>
+    <string name="cancel">İptal</string>
+    <string name="confirmation">Onayla</string>
+
+    <string name="exit">Çıkış</string>
+
+    <string name="search">Arama</string>
+    <string name="edit">Düzenle</string>
+    <string name="clear">Temizle</string>
+
+    <string name="yes">Evet</string>
+    <string name="no">Hayır</string>
+
+    <string name="token_empty_error">Token bulunamadı!</string>
+
+    <string name="email_incorrect_error">Hatalı e-posta adresi!</string>
+    <string name="name_or_phone_empty_error">Lütfen hem ad hem de telefon alanlarını doldurun</string>
+
+    <!-- Calendar -->
+
+    <string name="event_detail_create_new_event">Yeni Randevu</string>
+    <string name="calendar_activity_child_title">Çocuk ayrıntıları</string>
+    <string name="calendar_possible_children">Olası varyantlar</string>
+    <string name="calendar_activity_client_title">Ebeveyn ayrıntıları</string>
+    <string name="calendar_activity_search_client_title">Ebeveyn ayrıntılarını bul</string>
+    <string name="calendar_activity_search_child_title">Çocuk ayrıntılarını bulun</string>
+
+    <string name="event_detail_activity_available_time">Kullanılabilir alanlar</string>
+    <string name="event_detail_activity_confirm_override_message">Rapor zaten gönderildi. \ \'Devam \' ı tıklayarak verilerin üzerine yazılacağını kabul edersiniz.</string>
+    <string name="event_detail_activity_continue">Devam</string>
+
+    <string name="client">Ebeveyn</string>
+    <string name="child">Çocuk</string>
+    <string name="time">Zaman</string>
+    <string name="report">Rapor</string>
+    <string name="event_detail_send_to_location">Rapor kopyasını konuma gönder</string>
+    <string name="event_detail_location">Konum ayrıntıları</string>
+    <string name="attention_memory">Dikkat-ve-Hafıza</string>
+    <string name="event_detail_activity_attention_memory_include">Dikkat ve Hafıza\'yı Rapora eklemek için tıkla</string>
+
+    <string name="event_detail_activity_field_empty">Buraya ayrıntıları ekleyin</string>
+
+    <!-- Client -->
+
+    <string name="client_name_header_title">Ebeveyn adı (herhangi biri)</string>
+    <string name="client_phone_header_title">Cep telefonu (aktif)</string>
+    <string name="client_email_header_title">E-posta (aktif)</string>
+
+    <string name="client_name_field_hint">Sıla Erçavuşoğlu</string>
+    <string name="client_phone_field_hint">+90 532 123 34 56</string>
+    <string name="client_email_field_hint">sila@gmail.com</string>
+
+    <!-- Child -->
+
+    <string name="child_name_header_title">Çocuğun adı</string>
+    <string name="child_gender_header_title">Çocuğun cinsiyeti</string>
+    <string name="child_age_header_title">Child age (full years)</string>
+
+    <string name="child_name_field_hint">Sıla Erçavuşoğlu</string>
+    <string name="child_age_field_hint">5 yaş</string>
+
+    <string-array name="child_genders">
+        <item>Erkek</item>
+        <item>Kadın</item>
+    </string-array>
+
+    <string name="child_gender_male">Erkek</string>
+    <string name="child_gender_female">Kadın</string>
+
+    <string name="child_first_fill_client_error">Lütfen önce ebeveyn ayrıntılarını doldurun</string>
+
+    <string name="event_detail_activity_child_name">Çocuğun adı</string>
+    <string name="event_detail_activity_child_age">Çocuğun yaş</string>
+
+    <string name="event_detail_activity_client_name_editable_hint">Ebeveyn adı</string>
+    <string name="event_detail_activity_client_phone_editable_hint">Cep telefonu</string>
+    <string name="event_detail_activity_client_email_editable_hint">E-posta</string>
+    <string name="event_detail_activity_child_name_editable_hint">Çocuğun adı</string>
+
+    <string name="event_detail_add_client_first">Lütfen önce ebeveyn ayrıntılarını doldurun!</string>
+    <string name="event_detail_event_added">KAYDEDİLDİ: Randevu eklendi</string>
+    <string name="event_detail_event_edited">DEĞİŞTİRİLDİ: Randevu değiştirildi</string>
+
+    <string name="event_detail_create_new_mode_title">Yeni Randevu</string>
+
+    <string name="event_detail_date_hint">Randevu tarihi, saati</string>
+    <string name="event_detail_child_hint">Lütfen çocuk bilgilerini doldurun</string>
+    <string name="event_detail_client_hint">Lütfen ebeveyn ayrıntılarını doldurun</string>
+    <string name="event_detail_client_email_hint">Ebeveyn için geçerli e-posta gerekli</string>
+
+    <string name="client_added">KAYDEDİLDİ: Ebeveyn ayrıntıları kaydedildi</string>
+    <string name="client_edited">DEĞİŞTİRİLDİ: Ebeveyn ayrıntıları değişiklikler kaydedildi</string>
+
+    <string name="child_added">KAYDEDİLDİ: Çocuk ayrıntıları kaydedildi</string>
+    <string name="child_edited">DEĞİŞTİRİLDİ: Çocuk ayrıntıları değişiklikleri kaydedildi</string>
+
+    <string name="event_deleted">ARŞİVLENDİ: Randevu arşivlendi</string>
+
+    <string name="search_by_name_email_phone">İsim, telefon veya e-posta girin</string>
+    <string name="search_by_child_name">Çocuk adını girin</string>
+
+    <string name="client_data_is_not_full">DİKKAT: Eksik Ebeveyn ayrıntıları</string>
+    <string name="child_data_is_not_full">DİKKAT: Eksik Çocuk ayrıntıları</string>
+    <string name="child_age_not_set">GEREKLİ: Çocuk yaşını seçin</string>
+    <string name="child_name_not_set">GEREKLİ: Ad ekle</string>
+    <string name="child_gender_not_set">GEREKLİ: Cinsiyet seçin</string>
+
+    <string name="time_is_not_set">GEREKLİ: Lütfen randevu tarihini ve saatini seçin</string>
+
+    <string name="action_next_week">Gelecek hafta</string>
+    <string name="action_prev_week">Geçmiş hafta</string>
+
+    <string name="report_status_new_hint">Randevu için henüz nöro-veriler kaydedilmedi</string>
+    <string name="report_status_ready_hint">Sunucu tarafından işlenen nöro-veriler ve rapor gönderime hazır</string>
+    <string name="report_status_sent_hint">Rapor ebeveyn e-postasına ve konuma gönderildi</string>
+    <string name="report_status_uploaded_hint">Nöro-veri işleme için sunucuya yüklendi</string>
+    <string name="report_status_sent_canceled">İptal edilen randevu</string>
+
+    <string name="event_detail_time_intervals_empty">Bu tarih için boş alan yok. Ayarlar/Program\'a git</string>
+
+    <string name="calendar_add_event">Oluştur</string>
+
+    <string name="event_detail_activity_choose_date_hint">Randevu %s</string>
+
+    <string name="children_activity_edit_hint">Şimdi düzenleme modundasınız</string>
+    <string name="children_activity_cancel_edit_hint">Randevuyu düzenlemeyi iptal ettiniz</string>
+
+    <string name="client_activity_edit_hint">Şimdi düzenleme modundasınız</string>
+    <string name="client_activity_cancel_edit_hint">Randevuyu düzenlemeyi iptal ettiniz</string>
+
+    <string name="report_status_new">Yeni</string>
+    <string name="report_status_cancelled">İptal edilen</string>
+    <string name="report_status_uploaded">Sunucudaki Veriler</string>
+    <string name="report_status_ready">Hazır raporlar</string>
+    <string name="report_status_sent">Gönderilen raporlar</string>
+
+    <string name="event_detail_delete_event_confirmation_dialog_message">ONAYLA: Girişi silmek mi istiyorsunuz?</string>
+    <string name="calendar_confirm_delete_title">Onayla</string>
+
+    <string name="child_age_selection_title">Yaşı seç:</string>
+
+    <string name="event_detail_send_to_location_message">Danışmak amacıyla raporun bir kopyasını almak için müşterinin onayı alındı, zaman konusunda anlaşmaya varıldı</string>
+    <string name="event_detail_send_to_location_send">Gönder</string>
+    <string name="event_detail_send_to_location_complete">Raporun bir kopyası konuma gönderildi</string>
+
+    <string name="event_detail_include_attention_memory_complete">Modül Rapora eklendi, lütfen e-postayla almak için 5-15 dakika bekleyin</string>
+
+    <string name="arhimedes">ARCHIMEDES</string>
+    <string name="event_detail_archimedes_included">Rapor uygun bir araç varsa ARCHIMEDES panelini içerecektir.</string>
+    <string name="event_detail_archimedes_not_included">MÜŞTERİ PANEL ARCHIMEDES ALMAYACAK - SİSTEMDEKİ PROFİLİNİZ AKTİF DEĞİL</string>
+
+    <string name="hobby">Hobi</string>
+
+    <string name="event_detail_hobby_panel_included">HOBİ modülü dahildir</string>
+    <string name="event_detail_hobby_panel_not_included">HOBİ modülü dahil değildir</string>
+
+    <string name="event_detail_hobby_included_status">Rapor HOBİ modülünü içerir</string>
+    <string name="event_detail_hobby_not_included_status">Rapor HOBİ modülünü İÇERMEZ</string>
+
+    <string name="event_detail_include_attention_memory_confirmation_dialog_message">ONAYLA: Dikkat ve Hafıza modülü Rapora dahil edilsin mi?</string>
+    <string name="include">Dahil et</string>
+    <string name="event_confirm_attention_memory_include_success">MODÜL EKLENDİ: Dikkat ve Hafıza modülü Rapora eklendi</string>
+
+    <string name="event_confirm_clear_database">Veritabanı önceden kaydedilmiş nöro verileri içerir. Yeni verileri yazmadan önce silinsin mi?</string>
+    <string name="event_confirm_clear">Temizle</string>
+    <string name="event_confirm_clear_database_title">Nöro veri kayıtları bulundu</string>
+
+    <string name="event_detail_include_hobby_confirmation_dialog_title">Hobi Modülü</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_message">ONAYLA: Rapora 7 alan HOBBY modülü dahil edilsin mi?</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_include">HOBİ EKLE</string>
+
+    <string name="school_mode_submit_hint">Tüm nöro veriler kaydedildi. Şimdi seansı bitirebilirsiniz.</string>
+
+    <string name="event_detail_intervals_selection_dialog_title">Zaman aralığını seçin</string>
+
+    <string name="calendar_report_yesterday">DÜN</string>
+    <string name="calendar_report_today">BUGÜN</string>
+    <string name="calendar_report_tomorrow">YARIN</string>
+
+    <string name="calendar_event_age_format" formatted="false">%s, %s</string>
+
+    <string name="calendar_event_name_and_age_empty">İsim ve yaş belirtilmedi</string>
+
+    <!-- Dashboard -->
+
+    <string name="dashboard_age" formatted="false">Yaş: %s</string>
+    <string name="dashboard_no_events_title">Bu tarih için randevu yok</string>
+
+    <string name="dashboard_bottom_item_main">Genel</string>
+    <string name="dashboard_bottom_item_calendar">RANDEVULAR</string>
+    <string name="dashboard_bottom_item_settings">Ayarlar</string>
+
+    <string name="dashboard_add_event">Yeni Randevu</string>
+    <string name="event_detail_start_session">Test Başla</string>
+    <string name="event_detail_start_mode_title">Nero verileri kaydet</string>
+
+    <string name="dashboard_unknown">Bilinmeyen</string>
+
+    <string name="settings_item_developer">Bu uygulama hakkında</string>
+
+    <string name="settings_clear_database_confirm_title">Onayla</string>
+    <string name="settings_clear_database_confirm_message">Veritabanını temizlemek istediğinizden emin misiniz?</string>
+
+    <string name="dashboard_neurometrist">Lisans ayrıntılarınız</string>
+    <string name="dashboard_cabinet">Konum</string>
+    <string name="dashboard_partner">Ortaklık grubu</string>
+
+    <string name="dashboard_blocked">Lisans askıya alındı. İletişim zakaz@verbatoria.ru</string>
+
+    <string name="settings_item_quit">Uygulamadan çık</string>
+    <string name="settings_item_clear">Veritabanını temizle</string>
+    <string name="settings_item_locale">Rapor dilini seçin</string>
+
+    <string name="settings_database_cleared">Veritabanı başarıyla temizlendi</string>
+
+    <string name="submit_finished">BAŞARI: Test oturumu başarıyla tamamlandı</string>
+
+    <string name="submit_finished_message">BAŞARI: Nöro verileri başarıyla gönderildi</string>
+
+    <string name="submit_error">DİKKAT: Oturum tamamlanmadı!</string>
+
+    <string name="submit_error_message">DİKKAT: Nöro verileri manuel olarak yeniden gönderin. Ayarlar/Gönderilen raporlar bölümünden.</string>
+
+    <string name="dashboard_status_green_hint">Lisansınız tamamen aktif</string>
+    <string name="dashboard_status_yellow_hint">Lisansınızla ilgilenmeniz gerekiyor, zakaz@verbatoria.ru ile iletişime geçin</string>
+    <string name="dashboard_status_red_hint">Lisans engellendi, zakaz@verbatoria.ru ile iletişime geçin</string>
+
+    <string name="developer_info_android_version">Android versiyonu</string>
+    <string name="developer_info_application_version">Uygulama sürümü</string>
+
+    <string name="schedule_title">Çalışma Programınız</string>
+    <string name="schedule_clear_confirmation">ONAYLA: Haftalık programı silmek istiyor musunuz?</string>
+    <string name="schedule_loading_error">DİKKAT: Program yüklenirken hata oluştu</string>
+
+    <string name="late_send_title">Manuel gönder</string>
+    <string name="late_send_no_reports">Gönderilecek veri yok</string>
+    <string name="late_send_delete_confirmation">%s kimliğine sahip raporu gerçekten silmek istiyor musunuz? Nöro-data ve anket, iyileşme olasılığı olmaksızın silinecektir.</string>
+
+    <string name="language_russian">Rusça</string>
+    <string name="language_english">İngilizce</string>
+    <string name="language_hong_kong">Çince</string>
+    <string name="language_ukrainian">Ukraynaca</string>
+    <string name="language_bulgarian">Bulgarca</string>
+    <string name="language_turkey">Türkçe</string>
+
+    <string name="dashboard_update_language_error">DİKKAT: Dil güncelleme hatası oluştu</string>
+
+    <string name="dashboard_gender">Çocuğun cinsiyeti</string>
+    <string name="dashboard_gender_male">Erkek</string>
+    <string name="dashboard_gender_female">Kadın</string>
+
+    <string name="dashboard_archimedes_available">ARCHIMEDES mevcut</string>
+    <string name="dashboard_archimedes_not_available">Başkalarının lisansını kullanmaktan kaçının</string>
+
+    <!-- Login -->
+
+    <string name="login_submit">Giriş</string>
+    <string name="login_phone_hint">Telefon</string>
+    <string name="login_russia_phone_mask">+ 7 [000] [000] [00] [00]</string>
+    <string name="login_ukraine_phone_mask">+ 380 [00] [000] [00] [00]</string>
+    <string name="login_azerbaijan_phone_mask">+ 994 [00] [000] [00] [00]</string>
+    <string name="login_uae_phone_mask">+ 971 [00] [0000000]</string>
+    <string name="login_thailand_phone_mask">+ 66 [00] [00000000]</string>
+    <string name="login_belarus_phone_mask">+ 375 [00] [000] [00] [00]</string>
+    <string name="login_israel_phone_mask">+ 972 [00] [0000000]</string>
+    <string name="login_uzbekistan_phone_mask">+ 998 [00] [0000000]</string>
+    <string name="login_hong_kong_phone_mask">+ 852 [0000] [0000]</string>
+    <string name="login_swiss_phone_mask">+ 41 [00] [000] [00] [00]</string>
+    <string name="login_malaysia_phone_mask">+ 60 [00] [00000000]</string>
+    <string name="login_indonesia_phone_mask">+ 62 [000] [00000000]</string>
+    <string name="login_india_phone_mask">+ 91 [00] [00000000]</string>
+    <string name="login_bulgaria_phone_mask">+ 359 [00] [000] [0000]</string>
+    <string name="login_macau_phone_mask">+ 853 [0000] [0000]</string>
+    <string name="login_singapore_phone_mask">+ 65 [0000] [0000]</string>
+    <string name="login_egypt_phone_mask">+ 20 [000] [000] [0000]</string>
+    <string name="login_ethiopia_phone_mask">+ 251 [00] [000] [0000]</string>
+    <string name="login_saudi_arabia_phone_mask">+ 966 [00] [000] [0000]</string>
+    <string name="login_serbia_phone_mask">+ 381 [00] [000] [0000]</string>
+    <string name="login_mongolia_phone_mask">+ 976 [00] [000] [000]</string>
+    <string name="login_kazakhstan_phone_mask">+ 7 [000] [000] [00] [00]</string>
+    <string name="login_estonia_phone_mask">+ 372 [00] [000000]</string>
+    <string name="login_jordan_phone_mask">+ 962 [00] [000] [0000]</string>
+    <string name="login_turkey_phone_mask">+ 90 [000] [000] [0000]</string>
+
+    <string name="login_password_hint">Parola</string>
+    <string name="login_forgot_password">Parolamı unuttum?</string>
+
+    <string name="login_country_selection_title">Konumun bulunduğu ülkeyi seçin</string>
+
+    <string name="recovery_password_confirmation_code">SMS kodu</string>
+    <string name="recovery_password_new_password">Yeni parola</string>
+    <string name="recovery_password_new_password_repeat">Tekrar parola</string>
+
+    <string name="recovery_password_next">Sonraki</string>
+    <string name="recovery_password_check_code">SMS kodu gönder</string>
+    <string name="recovery_password_send_new_password">Yeni şifre belirleyin</string>
+    <string name="recovery_password_remember_password">Şifreyi hatırladım!</string>
+    <string name="recovery_password_reset_success">Şifre başarıyla değiştirildi</string>
+
+    <string name="country_russia">Rusya</string>
+    <string name="country_belarus">Belarus</string>
+    <string name="country_ukraine">Ukrayna</string>
+    <string name="country_azerbaijan">Azerbaycan</string>
+    <string name="country_uae">Dubai</string>
+    <string name="country_thailand">Taylan</string>
+    <string name="country_israel">İsrail</string>
+    <string name="country_uzbekistan">Özbekistan</string>
+    <string name="country_hong_kong">Hong Kong</string>
+    <string name="country_swiss">İsviçre</string>
+    <string name="country_malaysia">Malezya</string>
+    <string name="country_indonesia">Endonezya</string>
+    <string name="country_india">Hindistan</string>
+    <string name="country_bulgaria">Bulgaristan</string>
+    <string name="country_macau">Makau</string>
+    <string name="country_singapore">Singapur</string>
+    <string name="country_egypt">Mısır</string>
+    <string name="country_ethiopia">Etiyopya</string>
+    <string name="country_saudi_arabia">Suudi Arabistan</string>
+    <string name="country_serbia">Sırbistan</string>
+    <string name="country_mongolia">Moğolistan</string>
+    <string name="country_kazakhstan">Kazakistan</string>
+    <string name="country_jordan">Ürdün</string>
+    <string name="country_estonia">Estonya</string>
+    <string name="country_turkey">Türkiye</string>
+
+    <string name="sms_confirmation_confirm">Onayla</string>
+
+    <string name="sms_confirmation_code_sent">SMS kodu başarıyla gönderildi</string>
+    <string name="sms_confirmation_code_incorrect">Yanlış kod</string>
+    <string name="sms_confirmation_code_sent_error">SMS kodu gönderilirken hata oluştu</string>
+    <string name="sms_confirmation_code_phone_not_full">Telefon tam olarak belirtilmedi</string>
+
+    <string name="sms_login_repeat">Tekrar SMS gönder</string>
+    <string name="sms_login_time_before_repeat">Tekrar SMS gönder,%s içinde kullanılabilir olacak</string>
+
+    <!-- Schedule -->
+
+    <string-array name="rows_names">
+        <item>PZT, %s</item>
+        <item>SAL, %s</item>
+        <item>ÇRŞ, %s</item>
+        <item>PRŞ, %s</item>
+        <item>CUM, %s</item>
+        <item>CMT, %s</item>
+        <item>PAZ, %s</item>
+    </string-array>
+
+    <string name="schedule_clear_confirm_message">ONAYLA: Programı temizlemek mi istiyorsunuz?</string>
+
+    <string name="schedule_saved">BAŞARI: Program başarıyla kaydedildi!</string>
+    <string name="schedule_loaded_by_period" formatted="false">%s dönemi için program gösteriliyor</string>
+    <string name="schedule_cleared">Program temizlendi!</string>
+
+    <string name="schedule_save_confirmation_title">Seçili programı kaydetmek için dönem seçin.</string>
+
+    <string name="schedule_save">Program kaydediliyor…</string>
+    <string name="schedule_clear">Program temizleniyor…</string>
+    <string name="schedule_load">Program yükleniyor…</string>
+
+    <string name="schedule_only_this_week">sadece bu hafta</string>
+    <string name="schedule_save_1_week">+1 hafta</string>
+    <string name="schedule_save_2_weeks">+2 hafta</string>
+    <string name="schedule_save_3_weeks">+3 hafta</string>
+    <string name="schedule_save_4_weeks">+4 hafta</string>
+    <string name="schedule_save_5_weeks">+5 hafta</string>
+
+    <!-- Session -->
+
+    <string name="session_connection">Bağlantı</string>
+    <string name="session_start_writing">Yetenek teşhisi kaydını başlat</string>
+    <string name="session_try_again">Tekrar dene</string>
+    <string name="session_connect">Sensör ile bağlantı kurun</string>
+    <string name="session_connected">Sensöre bağlandı</string>
+    <string name="session_connection_in_progress">Sensör bağlanıyor...</string>
+    <string name="session_not_connected">Sensör ile bağlı değil</string>
+    <string name="session_connection_instruction">
+        1. Arabirimdeki gücü açın, çalıştığından emin olun.
+         \ n \ n2. \ "Bağlan \" düğmesine tıklayın ve \ "Bağlandı \" durumunu bekleyin.
+         \ n \ n3. Başlamak için \ "Kaydı başlat \" düğmesini tıklayın.
+    </string>
+    <string name="writing_connection_bluetooth_disabled">Bluetooth kapalıysa</string>
+    <string name="settings">Ayarlar</string>
+
+    <string name="writing_activity_code_99">99</string>
+    <string name="writing_activity_code_11">11</string>
+    <string name="writing_activity_code_21">21</string>
+    <string name="writing_activity_code_31">31</string>
+    <string name="writing_activity_code_41">41</string>
+    <string name="writing_activity_code_51">51</string>
+    <string name="writing_activity_code_61">61</string>
+    <string name="writing_activity_code_71">71</string>
+
+    <string name="writing_timer" formatted="false">Toplam Yetenek Teşhisi kaydı %d süresi: %d sn.</string>
+    <string name="session_timer_string_only_full_and_loadings" formatted="false">Toplam zaman: %s\nToplam yükleme süresi: %s</string>
+    <string name="session_timer_string_only_full" formatted="false">Toplam zaman: %s</string>
+
+    <string name="session_player_error">Oynatma için dosya bulunamadı!</string>
+
+    <string name="writing_finish_activity_first_error">Seansı bitirmeden önce yüklemeyi kapatın!</string>
+
+    <string name="questionnaire_back">Geri</string>
+    <string name="questionnaire_next">İleri</string>
+
+    <string name="questionnaire_finish">Gönder</string>
+
+    <string name="questionnaire_question_no_answer">Cevap yok</string>
+
+    <string name="session_question_variant_10">10</string>
+    <string name="session_question_variant_20">20</string>
+    <string name="session_question_variant_40">40</string>
+    <string name="session_question_variant_60">60</string>
+    <string name="session_question_variant_90">90</string>
+
+    <string name="session_some_activities_not_finished">%s test grubu yeterince kaydedilmedi</string>
+    <string name="session_activity_not_finished">%s test grubu yeterince kaydedilmedi</string>
+    <string name="session_continue">Devam et</string>
+
+    <string name="session_zeros_error">DİKKAT: Düşük kalite veya sensörden sinyal gelmiyor. Deri  ile teması kontrol edin.</string>
+
+    <string name="session_connection_error">DİKKAT: Sensöre bağlanmada sorun. Tekrar bağlanın.</string>
+
+    <string name="session_connection_error_try">Sensöre yeniden bağlan</string>
+
+    <string-array name="questionnaire_number_questions">
+        <item>Sözel-Dilsel ebeveyn görüşü: karmaşık cümlelerin kullanım kolaylığı vb.</item>
+        <item>Mantıksal-Matematiksel ebeveyn görüşü: testten hoşlanır, kesin niceleme açıklamaları kullanır vb.</item>
+        <item>Müziksel-Ritmik ebeveyn görüşü: dinlemeyi sever, duyguları hisseder ve dinlerken sahneleri hayal eder</item>
+        <item>Mekansal-Zamansal ebeveyn görüşü: Bir şeylerin asla olmadığını hayal eder, yerleri, yolları vb. hatırlar.</item>
+        <item>Bedensel-Kinesitetik ebeveyn  görüşü: jestler, duruşlar, hareketler keskin ve alakalı</item>
+        <item>İnsanları anlamak - Empati</item>
+        <item>Kendini anlamak</item>
+    </string-array>
+
+    <string name="questionnaire_include_memory_attention">Müşteriye SORUN: Hiç anlaşılan konuları ezberlemede zorluk yaşadınız mı? Modül Dikkat ve Hafıza, ayrıntıları anlamaya ve ezberleme etkinliğini artırmaya yardımcı olabilir mi?</string>
+    <string name="questionnaire_include_hobby">Müşteriye SORUN: Her 7 kaynak alanı için, algoritma en uygun hobiyi önerebilir. Hobi modülünü eklemeli miyim?</string>
+    <string name="questionnaire_report_type_question">Rapor içeriği tipi:</string>
+    <string name="session_report_type_5">ANA KULLANIM: Yetenek Teşhisi, Kişisel Özellikler dahil</string>
+    <string name="session_report_type_0">Yetenek Teşhisi, Kişisel Özellikler hariç</string>
+    <string name="session_report_type_6">Yalnızca Kişisel özellik sayfaları: Risk, Stres, Farkındalık</string>
+    <string name="session_report_type_1">Bir sayfa AnM</string>
+    <string name="session_report_type_4">Ücretsiz: Sorunsuz Sınıflar</string>
+    <string name="session_report_type_2">(kullanım yok)</string>
+    <string name="session_report_type_3">(kullanım yok)</string>
+    <string name="session_report_type_7">(kullanım yok)</string>
+    <string name="session_report_type_8">(kullanım yok)</string>
+    <string name="session_report_type_9">(kullanım yok)</string>
+    <string name="session_report_type_10">(kullanım yok)</string>
+
+    <string name="submit_progress_collect_and_send">Paket oluştur ve nöro verileri gönder</string>
+    <string name="submit_progress_finish_session">Oturumu kapat</string>
+    <string name="submit_progress_clean_data">Verileri temizle</string>
+
+    <string name="late_send_state_nothing">Kaydedilmiş nörolojik veri ve ebeveyn anketi yok</string>
+    <string name="late_send_state_has_data">Ebeveyn anket verisi yok</string>
+    <string name="late_send_state_has_questionnaire">Nörodata ve anket kaydedildi, manuel gönderme gerekli</string>
+    <string name="late_send_state_data_sent">Veriler gönderilir ancak oturumun tamamlanması gerekir</string>
+    <string name="late_send_state_session_finished">Yalnızca veri temizliği kaldı</string>
+    <string name="late_send_state_data_cleaned">Rapor tamamen hazır ve gönderildi</string>
+
+</resources>

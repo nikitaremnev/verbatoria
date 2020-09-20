@@ -194,7 +194,7 @@
     <string name="calendar_report_today">Сегодня</string>
     <string name="calendar_report_tomorrow">Завтра</string>
 
-    <string name="calendar_event_age_format">%s, %s</string>
+    <string name="calendar_event_age_format" formatted="false">%s, %s</string>
 
     <string name="calendar_event_name_and_age_empty">Имя и возраст не указаны</string>
 
@@ -259,6 +259,7 @@
     <string name="language_hong_kong">中文</string>
     <string name="language_ukrainian">Українська</string>
     <string name="language_bulgarian">Български</string>
+    <string name="language_turkey">Türkçe</string>
 
     <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
 

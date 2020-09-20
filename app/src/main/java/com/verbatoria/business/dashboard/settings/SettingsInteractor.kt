@@ -12,6 +12,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.TURKEY_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINE_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
 import com.verbatoria.domain.settings.SettingsManager
@@ -63,7 +64,8 @@ class SettingsInteractorImpl(
                 Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
                 Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE_FROM_SERVER)),
                 Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINE_LOCALE_FROM_SERVER)),
-                Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE))
+                Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE)),
+                Pair(TURKEY_LOCALE, localesAvailable.contains(TURKEY_LOCALE))
             ), currentLocale)
         }
             .subscribeOn(schedulersFactory.io)
