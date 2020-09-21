@@ -134,6 +134,7 @@ class SettingsFragment :
             this.isHongKongLanguageAvailable = isHongKongLanguageAvailable
             this.isUkrainianLanguageAvailable = isUkrainianLanguageAvailable
             this.isBulgarianLanguageAvailable = isBulgarianLanguageAvailable
+            this.isTurkeyLanguageAvailable = isTurkeyLanguageAvailable
             this.currentLocale = currentLocale
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
