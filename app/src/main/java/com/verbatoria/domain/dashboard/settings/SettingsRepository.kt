@@ -35,7 +35,7 @@ class SettingsRepositoryImpl(
     }
 
     override fun getLocales(): List<String> =
-        sharedPreferences.getStringSet(LOCALES_KEY, setOf<String>()).toList()
+        (sharedPreferences.getStringSet(LOCALES_KEY, emptySet()) ?: emptySet()).toList()
 
     override fun putCurrentLocale(locale: String) {
         sharedPreferences.edit().apply {
@@ -45,7 +45,7 @@ class SettingsRepositoryImpl(
     }
 
     override fun getCurrentLocale(): String =
-        sharedPreferences.getString(CURRENT_LOCALE_KEY, "")
+        sharedPreferences.getString(CURRENT_LOCALE_KEY, "") ?: ""
 
     override fun deleteAll() {
         sharedPreferences

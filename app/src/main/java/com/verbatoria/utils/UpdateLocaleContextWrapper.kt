@@ -18,18 +18,18 @@ class UpdateLocaleContextWrapper(base: Context) : ContextWrapper(base) {
             val res = context.resources
             val configuration = res.configuration
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 configuration.setLocale(newLocale)
 
                 val localeList = LocaleList(newLocale)
                 LocaleList.setDefault(localeList)
-                configuration.locales = localeList
+                configuration.setLocales(localeList)
 
-                context = context.createConfigurationContext(configuration)
+                context.createConfigurationContext(configuration)
 
             } else {
                 configuration.setLocale(newLocale)
-                context = context.createConfigurationContext(configuration)
+                context.createConfigurationContext(configuration)
 
             }
 

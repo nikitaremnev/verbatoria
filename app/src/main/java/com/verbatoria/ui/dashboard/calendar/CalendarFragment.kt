@@ -172,7 +172,7 @@ class CalendarFragment :
         val currentCalendar = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE))
         currentCalendar.time = currentDate
         val datePickerDialog = DatePickerDialog(
-            activity,
+            requireActivity(),
             presenter,
             currentCalendar.get(Calendar.YEAR),
             currentCalendar.get(Calendar.MONTH),

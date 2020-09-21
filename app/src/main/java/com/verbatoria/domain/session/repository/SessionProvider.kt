@@ -89,7 +89,7 @@ class PreferencesSessionProvider(
 
     private fun createOnlineSession(): Session =
         Session(
-            OnlineAuthorization(preferences.getString(KEY_TOKEN, "")),
+            OnlineAuthorization(preferences.getString(KEY_TOKEN, "") ?: ""),
             preferences.getBoolean(KEY_REMOVED, false)
         )
 

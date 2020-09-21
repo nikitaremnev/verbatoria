@@ -206,16 +206,16 @@ class InfoRepositoryImpl(
     }
 
     override fun getStatus(): UserStatus =
-        UserStatus.valueOfWithDefault(sharedPreferences.getString(STATUS_KEY, ""))
+        UserStatus.valueOfWithDefault(sharedPreferences.getString(STATUS_KEY, "") ?: "")
 
     override fun getName(): String =
-        sharedPreferences.getString(NAME_KEY, "")
+        sharedPreferences.getString(NAME_KEY, "") ?: ""
 
     override fun getPhone(): String =
-        sharedPreferences.getString(PHONE_KEY, "")
+        sharedPreferences.getString(PHONE_KEY, "") ?: ""
 
     override fun getEmail(): String =
-        sharedPreferences.getString(EMAIL_KEY, "")
+        sharedPreferences.getString(EMAIL_KEY, "") ?: ""
 
     override fun getIsArchimedesAllowed(): Boolean =
         sharedPreferences.getBoolean(IS_ARCHIMEDES_ALLOWED_KEY, false)
@@ -224,22 +224,22 @@ class InfoRepositoryImpl(
         sharedPreferences.getBoolean(IS_SCHOOL_KEY, false)
 
     override fun getLocationId(): String =
-        sharedPreferences.getString(LOCATION_ID_KEY, "")
+        sharedPreferences.getString(LOCATION_ID_KEY, "") ?: ""
 
     override fun getLocationName(): String =
-        sharedPreferences.getString(LOCATION_NAME_KEY, "")
+        sharedPreferences.getString(LOCATION_NAME_KEY, "") ?: ""
 
     override fun getLocationAddress(): String =
-        sharedPreferences.getString(LOCATION_ADDRESS_KEY, "")
+        sharedPreferences.getString(LOCATION_ADDRESS_KEY, "") ?: ""
 
     override fun getLocationPoint(): String =
-        sharedPreferences.getString(LOCATION_POINT_KEY, "")
+        sharedPreferences.getString(LOCATION_POINT_KEY, "") ?: ""
 
     override fun getLocationCurrentLocale(): String =
-        sharedPreferences.getString(LOCATION_CURRENT_LOCALE_KEY, "")
+        sharedPreferences.getString(LOCATION_CURRENT_LOCALE_KEY, "") ?: ""
 
     override fun getPartnerName(): String =
-        sharedPreferences.getString(PARTNER_NAME_KEY, "")
+        sharedPreferences.getString(PARTNER_NAME_KEY, "") ?: ""
 
     override fun getLastInfoUpdateTime(): Long =
         sharedPreferences.getLong(LAST_INFO_UPDATE_TIME, 0L)

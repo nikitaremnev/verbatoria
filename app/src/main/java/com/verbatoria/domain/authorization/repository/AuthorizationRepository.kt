@@ -33,7 +33,7 @@ class AuthorizationRepositoryImpl(
     }
 
     override fun getLastLogin(): String =
-        sharedPreferences.getString(LAST_LOGIN_KEY, "")
+        sharedPreferences.getString(LAST_LOGIN_KEY, "") ?: ""
 
     override fun putCurrentCountry(country: String) {
         sharedPreferences.edit().apply {
@@ -43,6 +43,6 @@ class AuthorizationRepositoryImpl(
     }
 
     override fun getCurrentCountry(): String =
-        sharedPreferences.getString(CURRENT_COUNTRY_KEY, "")
+        sharedPreferences.getString(CURRENT_COUNTRY_KEY, "") ?: ""
 
 }

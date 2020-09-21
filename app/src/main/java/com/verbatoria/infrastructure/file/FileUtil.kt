@@ -206,10 +206,10 @@ class FileUtilImpl(
         File(context.externalCacheDir, VERBATORIA_PATH_NAME).apply { mkdirs() }.absolutePath
 
     override fun getExternalDirPath(): String =
-        context.externalCacheDir.absolutePath
+        context.externalCacheDir?.absolutePath ?: ""
 
     override fun getExternalFilesDir(type: String?): File =
-        context.getExternalFilesDir(type)
+        context.getExternalFilesDir(type) ?: context.filesDir
 
     override fun createFile(filePath: String, fileName: String): File {
         val dir = File(filePath)
@@ -223,7 +223,7 @@ class FileUtilImpl(
             deleteFile(file.absolutePath)
         }
         if (!file.createNewFile()) {
-            throw RuntimeException("failed creating file: " + filePath + fileName)
+            throw RuntimeException("failed creating file: $filePath$fileName")
         }
         return file
     }
@@ -235,6 +235,6 @@ class FileUtilImpl(
     }
 
     private fun getExternalFilesDir(): File =
-        context.getExternalFilesDir(null)
+        context.getExternalFilesDir(null) ?: context.filesDir
 
 }
