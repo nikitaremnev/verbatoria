@@ -185,22 +185,6 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/type_2"
-                android:padding="@dimen/submit_question_report_type_padding"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="@string/session_report_type_2"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/type_3"
-                android:padding="@dimen/submit_question_report_type_padding"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:text="@string/session_report_type_3"/>
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/type_4"
                 android:padding="@dimen/submit_question_report_type_padding"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
@@ -222,6 +206,23 @@
                 android:padding="@dimen/submit_question_report_type_padding"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:text="@string/session_report_type_6"/>
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/type_2"
+                android:padding="@dimen/submit_question_report_type_padding"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="@string/session_report_type_2"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/type_3"
+                android:padding="@dimen/submit_question_report_type_padding"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="@string/session_report_type_3"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
