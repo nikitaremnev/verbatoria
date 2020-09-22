@@ -365,7 +365,6 @@
     <string name="schedule_clear_confirm_message">ONAYLA: Programı temizlemek mi istiyorsunuz?</string>
 
     <string name="schedule_saved">BAŞARI: Program başarıyla kaydedildi!</string>
-    <string name="schedule_loaded_by_period" formatted="false">%s dönemi için program gösteriliyor</string>
     <string name="schedule_cleared">Program temizlendi!</string>
 
     <string name="schedule_save_confirmation_title">Seçili programı kaydetmek için dönem seçin.</string>

@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Вербатория v11.3.6</string>
+    <string name="app_name">Вербатория v11.3.4</string>
 
     <string name="loading_please_wait">Пожалуйста, подождите…</string>
 
@@ -30,8 +30,8 @@
 
     <string name="token_empty_error">Токен не найден!</string>
 
-    <string name="email_incorrect_error">Вы указали некорректный email-адрес!</string>
-    <string name="name_or_phone_empty_error">Пожалуйста, заполните поля имя и номер телефона</string>
+    <string name="email_incorrect_error">ОШИБКА: некорректный email-адрес</string>
+    <string name="name_or_phone_empty_error">ОШИБКА: заполните поля имя и номер телефона</string>
 
     <!-- Calendar -->
 
@@ -194,7 +194,7 @@
     <string name="calendar_report_today">Сегодня</string>
     <string name="calendar_report_tomorrow">Завтра</string>
 
-    <string name="calendar_event_age_format" formatted="false">%s, %s</string>
+    <string name="calendar_event_age_format">%s, %s</string>
 
     <string name="calendar_event_name_and_age_empty">Имя и возраст не указаны</string>
 
@@ -259,7 +259,7 @@
     <string name="language_hong_kong">中文</string>
     <string name="language_ukrainian">Українська</string>
     <string name="language_bulgarian">Български</string>
-    <string name="language_turkey">Türkçe</string>
+    <string name="language_turkey">Turk</string>
 
     <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
 
@@ -451,18 +451,18 @@
 
     <string name="questionnaire_include_memory_attention">Включать ли отчет Внимание/Память?</string>
     <string name="questionnaire_include_hobby">Включить модуль Хобби в отчет?</string>
-    <string name="questionnaire_report_type_question">Выберите тип отчета:</string>
-    <string name="session_report_type_0">Тип 0</string>
-    <string name="session_report_type_1">1: только ВнП</string>
-    <string name="session_report_type_2">Кружки</string>
-    <string name="session_report_type_3">Мое призвание</string>
-    <string name="session_report_type_4">Уроки без Мороки</string>
-    <string name="session_report_type_5">Базовый отчет+ЛК</string>
-    <string name="session_report_type_6">ЛК</string>
-    <string name="session_report_type_7">Тип 7</string>
-    <string name="session_report_type_8">Тип 8</string>
-    <string name="session_report_type_9">Тип 9</string>
-    <string name="session_report_type_10">Тип 10</string>
+    <string name="questionnaire_report_type_question">Выберите состав отчета:</string>
+    <string name="session_report_type_5">ОСНОВНОЙ: TQ отчет + ЛК</string>
+    <string name="session_report_type_0">ЭКОНОМ: TQ отчет без ЛК</string>
+    <string name="session_report_type_1">ПРОМО: Одна страница ВнП</string>
+    <string name="session_report_type_6">ПРОМО: Только страницы ЛК</string>
+    <string name="session_report_type_4">БЕСПЛАТНЫЙ: Уроки без Мороки</string>
+    <string name="session_report_type_2">(не используется)</string>
+    <string name="session_report_type_3">(не используется)</string>
+    <string name="session_report_type_7">(не используется)</string>
+    <string name="session_report_type_8">(не используется)</string>
+    <string name="session_report_type_9">(не используется)</string>
+    <string name="session_report_type_10">(не используется)</string>
 
     <string name="submit_progress_collect_and_send">Собираем и отправляем данные</string>
     <string name="submit_progress_finish_session">Закрываем сессию</string>
