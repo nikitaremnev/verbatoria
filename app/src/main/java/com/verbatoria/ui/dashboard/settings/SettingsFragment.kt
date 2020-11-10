@@ -41,6 +41,7 @@ interface SettingsView : BaseView {
         isUkrainianLanguageAvailable: Boolean,
         isBulgarianLanguageAvailable: Boolean,
         isTurkeyLanguageAvailable: Boolean,
+        isArabicLanguageAvailable: Boolean,
         currentLocale: String
     )
 
@@ -71,6 +72,8 @@ interface SettingsView : BaseView {
         fun onBulgarianLanguageSelected()
 
         fun onTurkeyLanguageSelected()
+
+        fun onArabicLanguageSelected()
 
     }
 
@@ -126,6 +129,7 @@ class SettingsFragment :
         isUkrainianLanguageAvailable: Boolean,
         isBulgarianLanguageAvailable: Boolean,
         isTurkeyLanguageAvailable: Boolean,
+        isArabicLanguageAvailable: Boolean,
         currentLocale: String
     ) {
         AppLanguagesDialog.build {
@@ -135,6 +139,7 @@ class SettingsFragment :
             this.isUkrainianLanguageAvailable = isUkrainianLanguageAvailable
             this.isBulgarianLanguageAvailable = isBulgarianLanguageAvailable
             this.isTurkeyLanguageAvailable = isTurkeyLanguageAvailable
+            this.isArabicLanguageAvailable = isArabicLanguageAvailable
             this.currentLocale = currentLocale
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
@@ -204,6 +209,10 @@ class SettingsFragment :
 
     override fun onTurkeyLanguageSelected() {
         presenter.onTurkeyLanguageSelected()
+    }
+
+    override fun onArabicLanguageSelected() {
+        presenter.onArabicLanguageSelected()
     }
 
     //endregion

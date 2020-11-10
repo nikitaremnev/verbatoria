@@ -18,6 +18,8 @@ object LocalesAvailable {
 
     const val TURKEY_LOCALE = "tr"
 
+    const val ARABIC_LOCALE = "ar"
+
     const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
 
     const val UKRAINE_LOCALE_FROM_SERVER = "ua"

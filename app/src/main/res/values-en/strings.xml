@@ -259,6 +259,7 @@
     <string name="language_ukrainian">Українська</string>
     <string name="language_bulgarian">Български</string>
     <string name="language_turkey">Turk</string>
+    <string name="language_arabic">العربية</string>
 
     <string name="dashboard_update_language_error">ATTENTION: Error updating language occurred</string>
 
@@ -298,6 +299,7 @@
     <string name="login_estonia_phone_mask">+ 372 [00] [000000]</string>
     <string name="login_jordan_phone_mask">+ 962 [00] [000] [0000]</string>
     <string name="login_turkey_phone_mask">+ 90 [000] [000] [0000]</string>
+    <string name="login_tanzania_phone_mask">+ 255 [000] [000] [000]</string>
 
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
@@ -339,6 +341,7 @@
     <string name="country_jordan">Jordan</string>
     <string name="country_estonia">Estonia</string>
     <string name="country_turkey">Turkey</string>
+    <string name="country_tanzania">Tanzania</string>
 
     <string name="sms_confirmation_confirm">Confirm</string>
 
