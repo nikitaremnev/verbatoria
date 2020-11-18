@@ -303,6 +303,7 @@
     <string name="login_jordan_phone_mask">+ 962 [00] [000] [0000]</string>
     <string name="login_turkey_phone_mask">+ 90 [000] [000] [0000]</string>
     <string name="login_tanzania_phone_mask">+ 255 [000] [000] [000]</string>
+    <string name="login_usa_phone_mask">+ 1 [000] [000] [0000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
@@ -344,6 +345,7 @@
     <string name="country_estonia">Эстония</string>
     <string name="country_turkey">Турция</string>
     <string name="country_tanzania">Танзания</string>
+    <string name="country_usa">США</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

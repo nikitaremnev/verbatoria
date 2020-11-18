@@ -150,6 +150,10 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.TANZANIA_COUNTRY_KEY)
         }
+        view.findViewById<View>(R.id.usa_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.USA_COUNTRY_KEY)
+        }
         return view
     }
 
