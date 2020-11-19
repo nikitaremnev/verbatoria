@@ -133,12 +133,11 @@ class SettingsPresenter(
         settingsInteractor.updateCurrentLocale(selectedLocale)
             .subscribe({
                 view?.hideProgress()
-//                if (selectedLocale == ARABIC_LOCALE) {
-//                    view?.setLocale(ENGLISH_LOCALE)
-//                } else {
+                if (selectedLocale == ARABIC_LOCALE) {
+                    view?.setLocale(ENGLISH_LOCALE)
+                } else {
                     view?.setLocale(selectedLocale)
-
-//                }
+                }
             }, { error ->
                 logger.error("set current language error occurred", error)
                 view?.hideProgress()

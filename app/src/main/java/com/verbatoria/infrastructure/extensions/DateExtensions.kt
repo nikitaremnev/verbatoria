@@ -178,7 +178,7 @@ fun Long.millisecondsToSeconds(): Int =
     TimeUnit.MILLISECONDS.toSeconds(this).toInt()
 
 private fun format(date: Date, pattern: String): String {
-    val formatter = SimpleDateFormat(pattern, Locale.ENGLISH)
+    val formatter = SimpleDateFormat(pattern, Locale.getDefault())
     return formatter.format(date)
 }
 
