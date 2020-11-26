@@ -23,17 +23,17 @@ const val MILLISECONDS_IN_DAY = MILLISECONDS_IN_SECOND * 60 * 60 * 24L
 const val MILLISECONDS_IN_YEAR = MILLISECONDS_IN_SECOND * 60 * 60 * 24 * 365L
 
 fun String.parseWithMillisecondsAndZeroOffset(): Date {
-    val formatter = SimpleDateFormat(FORMAT_WITH_MILLISECONDS_AND_ZERO_OFFSET, Locale.getDefault())
+    val formatter = SimpleDateFormat(FORMAT_WITH_MILLISECONDS_AND_ZERO_OFFSET, getLocale())
     return formatter.parse(this)
 }
 
 fun String.parseBirthdayFormat(): Date {
-    val formatter = SimpleDateFormat(CLIENT_BIRTHDAY_FORMAT, Locale.getDefault())
+    val formatter = SimpleDateFormat(CLIENT_BIRTHDAY_FORMAT, getLocale())
     return formatter.parse(this)
 }
 
 fun String.parseServerFormat(): Date {
-    val formatter = SimpleDateFormat(SERVER_DATETIME_FORMAT, Locale.getDefault())
+    val formatter = SimpleDateFormat(SERVER_DATETIME_FORMAT, getLocale())
     return formatter.parse(this)
 }
 
@@ -58,14 +58,14 @@ fun Calendar.setHour(hour: Int) {
 }
 
 fun Int.birthdayDateFromAge(): Date {
-    val calendar = Calendar.getInstance(Locale(LocalesAvailable.RUSSIAN_LOCALE))
+    val calendar = Calendar.getInstance(getLocale())
     calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - this)
     calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) - DAYS_IN_WEEK)
     return calendar.time
 }
 
 fun Date.formatWithMillisecondsAndZeroOffset(): String {
-    val formatter = SimpleDateFormat(FORMAT_WITH_MILLISECONDS_AND_ZERO_OFFSET, Locale.getDefault())
+    val formatter = SimpleDateFormat(FORMAT_WITH_MILLISECONDS_AND_ZERO_OFFSET, getLocale())
     return formatter.format(this)
 }
 
@@ -178,13 +178,8 @@ fun Long.millisecondsToSeconds(): Int =
     TimeUnit.MILLISECONDS.toSeconds(this).toInt()
 
 private fun format(date: Date, pattern: String): String {
-    val formatter = SimpleDateFormat(pattern, Locale.getDefault())
+    val formatter = SimpleDateFormat(pattern, getLocale())
     return formatter.format(date)
-}
-
-private fun parse(time: String, pattern: String): Date {
-    val formatter = SimpleDateFormat(pattern, Locale.getDefault())
-    return formatter.parse(time)
 }
 
 fun Date.toCalendar() = createCalendarFromDate(this)
@@ -194,4 +189,12 @@ fun createCalendarFromDate(date: Date = createDate()): Calendar =
 
 fun createDate(): Date = createCalendar().time
 
-fun createCalendar(): Calendar = Calendar.getInstance()
+fun createCalendar(): Calendar = Calendar.getInstance(getLocale())
+
+private fun getLocale(): Locale {
+    val defaultLocale = Locale.getDefault()
+    if (defaultLocale.language == LocalesAvailable.ARABIC_LOCALE) {
+        return Locale.ENGLISH
+    }
+    return defaultLocale
+}
