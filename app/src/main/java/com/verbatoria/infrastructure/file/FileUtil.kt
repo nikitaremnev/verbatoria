@@ -3,6 +3,7 @@ package com.verbatoria.infrastructure.file
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Environment
+import android.os.Environment.getExternalStorageDirectory
 import android.os.StatFs
 import org.slf4j.LoggerFactory
 import java.io.*
@@ -79,7 +80,7 @@ class FileUtilImpl(
     }
 
     override fun getApplicationDirectory(): File =
-        File(Environment.getExternalStorageDirectory(), APPLICATION_FILES_DIRECTORY)
+        File(context.getExternalFilesDir(null), APPLICATION_FILES_DIRECTORY)
 
     override fun saveFile(filePath: String, fileName: String, data: ByteArray): String {
         val file = createFile(filePath, fileName)
