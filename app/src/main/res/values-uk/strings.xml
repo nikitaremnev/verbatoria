@@ -304,6 +304,8 @@
     <string name="login_turkey_phone_mask">+ 90 [000] [000] [0000]</string>
     <string name="login_tanzania_phone_mask">+ 255 [000] [000] [000]</string>
     <string name="login_usa_phone_mask">+ 1 [000] [000] [0000]</string>
+    <string name="login_cyprus_phone_mask">+ 357 [00] [000000]</string>
+    <string name="login_bosnia_phone_mask">+ 387 [00] [000000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
@@ -346,6 +348,8 @@
     <string name="country_turkey">Турция</string>
     <string name="country_tanzania">Tanzania</string>
     <string name="country_usa">USA</string>
+    <string name="country_cyprus">Кипр</string>
+    <string name="country_bosnia">Босния и Герцеговина</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 
