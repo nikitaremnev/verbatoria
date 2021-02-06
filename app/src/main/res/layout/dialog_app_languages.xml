@@ -268,6 +268,42 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/bosnia_language_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dialog_selectable_item_height"
+            android:background="?attr/selectableItemBackground"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/settings_dialog_margin_start">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:visibility="invisible"
+                android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                android:src="@drawable/ic_flag_ba" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                android:text="@string/language_bosnia"
+                android:textColor="@color/dialog_selectable_item_text_color"
+                android:textSize="@dimen/dialog_selectable_item_text_size" />
+
+            <ImageView
+                android:id="@+id/bosnia_selected_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/dialog_selectable_item_selected_margin_start"
+                android:src="@drawable/ic_ok"
+                android:layout_gravity="center_vertical|end" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

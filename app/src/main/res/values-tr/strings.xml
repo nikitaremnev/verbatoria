@@ -260,6 +260,7 @@
     <string name="language_bulgarian">Bulgarca</string>
     <string name="language_turkey">Türkçe</string>
     <string name="language_arabic">العربية</string>
+    <string name="language_bosnian">Bosnian</string>
 
     <string name="dashboard_update_language_error">DİKKAT: Dil güncelleme hatası oluştu</string>
 

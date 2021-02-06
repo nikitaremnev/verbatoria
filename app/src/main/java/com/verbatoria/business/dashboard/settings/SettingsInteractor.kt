@@ -3,6 +3,7 @@ package com.verbatoria.business.dashboard.settings
 import android.os.Build
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.dashboard.LocalesAvailable.ARABIC_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.domain.session.manager.SessionManager
@@ -67,7 +68,8 @@ class SettingsInteractorImpl(
                 Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINE_LOCALE_FROM_SERVER)),
                 Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE)),
                 Pair(TURKEY_LOCALE, localesAvailable.contains(TURKEY_LOCALE)),
-                Pair(ARABIC_LOCALE, localesAvailable.contains(ARABIC_LOCALE))
+                Pair(ARABIC_LOCALE, localesAvailable.contains(ARABIC_LOCALE)),
+                Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIA_LOCALE))
             ), currentLocale)
         }
             .subscribeOn(schedulersFactory.io)
