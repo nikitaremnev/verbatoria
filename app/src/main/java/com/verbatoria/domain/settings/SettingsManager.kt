@@ -1,6 +1,7 @@
 package com.verbatoria.domain.settings
 
 import com.remnev.verbatoria.R
+import com.verbatoria.business.dashboard.LocalesAvailable
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.dashboard.settings.SettingsRepository
@@ -34,6 +35,8 @@ interface SettingsManager {
     fun getCurrentLocale(): String
 
     fun updateCurrentLocale(locale: String)
+
+    fun isNotRussianLocale(): Boolean
 
 }
 
@@ -82,6 +85,11 @@ class SettingsManagerImpl(
         settingsEndpoint.setLocationLanguage(infoManager.getLocationId(), SetLocationLanguageParamsDto(locale))
         settingsRepository.putCurrentLocale(locale)
         infoManager.dropLastLocationInfoUpdateTime()
+    }
+
+    override fun isNotRussianLocale(): Boolean {
+        val currentLocale = settingsRepository.getCurrentLocale()
+        return currentLocale != LocalesAvailable.RUSSIAN_LOCALE && currentLocale != LocalesAvailable.UKRAINIAN_LOCALE
     }
 
 }

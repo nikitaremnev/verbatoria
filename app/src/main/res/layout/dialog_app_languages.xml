@@ -289,7 +289,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                android:text="@string/language_bosnia"
+                android:text="@string/language_bosnian"
                 android:textColor="@color/dialog_selectable_item_text_color"
                 android:textSize="@dimen/dialog_selectable_item_text_size" />
 
