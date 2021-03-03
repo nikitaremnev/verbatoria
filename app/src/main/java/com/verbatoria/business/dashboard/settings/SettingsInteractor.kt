@@ -3,6 +3,7 @@ package com.verbatoria.business.dashboard.settings
 import android.os.Build
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.dashboard.LocalesAvailable.ARABIC_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIAN_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
@@ -62,14 +63,15 @@ class SettingsInteractorImpl(
             val localesAvailable = settingsManager.getLocales()
             val currentLocale = settingsManager.getCurrentLocale()
             Pair(mapOf(
-                Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
-                Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
-                Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE_FROM_SERVER)),
-                Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINE_LOCALE_FROM_SERVER)),
-                Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE)),
-                Pair(TURKEY_LOCALE, localesAvailable.contains(TURKEY_LOCALE)),
-                Pair(ARABIC_LOCALE, localesAvailable.contains(ARABIC_LOCALE)),
-                Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIA_LOCALE))
+                    Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
+                    Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
+                    Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE_FROM_SERVER)),
+                    Pair(UKRAINIAN_LOCALE, localesAvailable.contains(UKRAINE_LOCALE_FROM_SERVER)),
+                    Pair(BULGARIAN_LOCALE, localesAvailable.contains(BULGARIAN_LOCALE)),
+                    Pair(TURKEY_LOCALE, localesAvailable.contains(TURKEY_LOCALE)),
+                    Pair(ARABIC_LOCALE, localesAvailable.contains(ARABIC_LOCALE)),
+                    Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIA_LOCALE)),
+                    Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIAN_LOCALE_FROM_SERVER))
             ), currentLocale)
         }
             .subscribeOn(schedulersFactory.io)
@@ -83,6 +85,9 @@ class SettingsInteractorImpl(
                 }
                 UKRAINIAN_LOCALE -> {
                     settingsManager.updateCurrentLocale(UKRAINE_LOCALE_FROM_SERVER)
+                }
+                BOSNIA_LOCALE -> {
+                    settingsManager.updateCurrentLocale(BOSNIAN_LOCALE_FROM_SERVER)
                 }
                 else -> {
                     settingsManager.updateCurrentLocale(locale)

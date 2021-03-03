@@ -26,4 +26,6 @@ object LocalesAvailable {
 
     const val UKRAINE_LOCALE_FROM_SERVER = "ua"
 
+    const val BOSNIAN_LOCALE_FROM_SERVER = "bs"
+
 }
