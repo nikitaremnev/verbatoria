@@ -28,56 +28,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/russia_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_ru" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_russia" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ukraine_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_ukr" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_ukraine" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/azerbaijan_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
@@ -99,81 +49,6 @@
                     android:textColor="@color/dialog_selectable_item_text_color"
                     android:textSize="@dimen/dialog_selectable_item_text_size"
                     android:text="@string/country_azerbaijan" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/uae_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_ae" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_uae" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/thailand_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_th" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_thailand" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/israel_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_isr" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_israel" />
 
             </LinearLayout>
 
@@ -203,57 +78,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/uzbekistan_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_uz" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_uzbekistan" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/hong_kong_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_hk" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_hong_kong" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/swiss_country_item_container"
+                android:id="@+id/bosnia_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -264,7 +89,7 @@
                     android:layout_height="@dimen/login_country_selection_icon_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_ch" />
+                    android:src="@drawable/ic_flag_ba" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -273,82 +98,7 @@
                     android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
                     android:textColor="@color/dialog_selectable_item_text_color"
                     android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_swiss" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/indonesia_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_id" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_indonesia" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/malaysia_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_my" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_malaysia" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/india_country_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_ind" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_india" />
+                    android:text="@string/country_bosnia" />
 
             </LinearLayout>
 
@@ -378,7 +128,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/macau_item_container"
+                android:id="@+id/cyprus_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -389,7 +139,7 @@
                     android:layout_height="@dimen/login_country_selection_icon_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_mo" />
+                    android:src="@drawable/ic_flag_cy" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -398,32 +148,7 @@
                     android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
                     android:textColor="@color/dialog_selectable_item_text_color"
                     android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_macau" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/singapore_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_sg" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_singapore" />
+                    android:text="@string/country_cyprus" />
 
             </LinearLayout>
 
@@ -453,6 +178,31 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/estonia_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_ee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_estonia" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/ethiopia_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
@@ -474,6 +224,281 @@
                     android:textColor="@color/dialog_selectable_item_text_color"
                     android:textSize="@dimen/dialog_selectable_item_text_size"
                     android:text="@string/country_ethiopia" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hong_kong_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_hk" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_hong_kong" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/india_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_ind" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_india" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/indonesia_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_id" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_indonesia" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/israel_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_isr" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_israel" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/jordan_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_jo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_jordan" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/kazakhstan_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_kz" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_kazakhstan" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/macau_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_mo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_macau" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/malaysia_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_my" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_malaysia" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/mongolia_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_mn" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_mongolia" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nepal_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_np" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_nepal" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/russia_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_ru" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_russia" />
 
             </LinearLayout>
 
@@ -528,7 +553,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/mongolia_item_container"
+                android:id="@+id/singapore_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -539,7 +564,7 @@
                     android:layout_height="@dimen/login_country_selection_icon_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_mn" />
+                    android:src="@drawable/ic_flag_sg" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -548,12 +573,12 @@
                     android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
                     android:textColor="@color/dialog_selectable_item_text_color"
                     android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_mongolia" />
+                    android:text="@string/country_singapore" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/kazakhstan_item_container"
+                android:id="@+id/swiss_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
@@ -564,7 +589,7 @@
                     android:layout_height="@dimen/login_country_selection_icon_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_kz" />
+                    android:src="@drawable/ic_flag_ch" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -573,82 +598,7 @@
                     android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
                     android:textColor="@color/dialog_selectable_item_text_color"
                     android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_kazakhstan" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/estonia_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_ee" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_estonia" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/jordan_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_jo" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_jordan" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/turkey_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_tur" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_turkey" />
+                    android:text="@string/country_swiss" />
 
             </LinearLayout>
 
@@ -678,6 +628,106 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/thailand_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_th" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_thailand" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/turkey_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/login_country_selection_icon_width"
+                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_tur" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_turkey" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/uae_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_ae" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_uae" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ukraine_country_item_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dialog_selectable_item_height"
+                android:background="?attr/selectableItemBackground"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
+                    android:src="@drawable/ic_flag_ukr" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
+                    android:textColor="@color/dialog_selectable_item_text_color"
+                    android:textSize="@dimen/dialog_selectable_item_text_size"
+                    android:text="@string/country_ukraine" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/usa_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
@@ -703,18 +753,18 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/cyprus_item_container"
+                android:id="@+id/uzbekistan_country_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dialog_selectable_item_height"
                 android:background="?attr/selectableItemBackground"
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_cy" />
+                    android:src="@drawable/ic_flag_uz" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -723,57 +773,7 @@
                     android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
                     android:textColor="@color/dialog_selectable_item_text_color"
                     android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_cyprus" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/bosnia_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_ba" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_bosnia" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/nepal_item_container"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dialog_selectable_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/login_country_selection_icon_width"
-                    android:layout_height="@dimen/login_country_selection_icon_height"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_np" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dialog_selectable_item_text_margin_left"
-                    android:textColor="@color/dialog_selectable_item_text_color"
-                    android:textSize="@dimen/dialog_selectable_item_text_size"
-                    android:text="@string/country_nepal" />
+                    android:text="@string/country_uzbekistan" />
 
             </LinearLayout>
 

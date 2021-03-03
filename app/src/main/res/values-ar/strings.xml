@@ -260,6 +260,7 @@
     <string name="language_bulgarian">Български</string>
     <string name="language_turkey">Turk</string>
     <string name="language_arabic">العربية</string>
+    <string name="language_bosnian">Bosnian</string>
 
     <string name="dashboard_update_language_error">ATTENTION: Error updating language occurred</string>
 
@@ -301,6 +302,9 @@
     <string name="login_turkey_phone_mask">+ 90 [000] [000] [0000]</string>
     <string name="login_tanzania_phone_mask">+ 255 [000] [000] [000]</string>
     <string name="login_usa_phone_mask">+ 1 [000] [000] [0000]</string>
+    <string name="login_cyprus_phone_mask">+ 357 [00] [000000]</string>
+    <string name="login_bosnia_phone_mask">+ 387 [00] [000000]</string>
+    <string name="login_nepal_phone_mask">+ 977 [00] [000] [000]</string>
 
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
@@ -317,33 +321,36 @@
     <string name="recovery_password_remember_password">I remembered password!</string>
     <string name="recovery_password_reset_success">Password successfully changed</string>
 
-    <string name="country_russia">Russia</string>
-    <string name="country_belarus">Belarus</string>
-    <string name="country_ukraine">Ukraine</string>
     <string name="country_azerbaijan">Azerbaijan</string>
-    <string name="country_uae">UAE</string>
-    <string name="country_thailand">Thailand</string>
-    <string name="country_israel">Israel</string>
-    <string name="country_uzbekistan">Uzbekistan</string>
-    <string name="country_hong_kong">Hong Kong</string>
-    <string name="country_swiss">Switzerland</string>
-    <string name="country_malaysia">Malaysia</string>
-    <string name="country_indonesia">Indonesia</string>
-    <string name="country_india">India</string>
+    <string name="country_belarus">Belarus</string>
+    <string name="country_bosnia">Bosnia and Herzegovina</string>
     <string name="country_bulgaria">Bulgaria</string>
-    <string name="country_macau">Macau</string>
-    <string name="country_singapore">Singapore</string>
+    <string name="country_cyprus">Cyprus</string>
     <string name="country_egypt">Egypt</string>
+    <string name="country_estonia">Estonia</string>
     <string name="country_ethiopia">Ethiopia</string>
+    <string name="country_hong_kong">Hong Kong</string>
+    <string name="country_india">India</string>
+    <string name="country_indonesia">Indonesia</string>
+    <string name="country_israel">Israel</string>
+    <string name="country_jordan">Jordan</string>
+    <string name="country_kazakhstan">Kazakhstan</string>
+    <string name="country_macau">Macau</string>
+    <string name="country_malaysia">Malaysia</string>
+    <string name="country_mongolia">Mongolia</string>
+    <string name="country_nepal">Nepal</string>
+    <string name="country_russia">Russia</string>
     <string name="country_saudi_arabia">Saudi Arabia</string>
     <string name="country_serbia">Serbia</string>
-    <string name="country_mongolia">Mongolia</string>
-    <string name="country_kazakhstan">Kazakhstan</string>
-    <string name="country_jordan">Jordan</string>
-    <string name="country_estonia">Estonia</string>
-    <string name="country_turkey">Turkey</string>
+    <string name="country_singapore">Singapore</string>
+    <string name="country_swiss">Switzerland</string>
     <string name="country_tanzania">Tanzania</string>
+    <string name="country_thailand">Thailand</string>
+    <string name="country_turkey">Turkey</string>
+    <string name="country_uae">UAE</string>
+    <string name="country_ukraine">Ukraine</string>
     <string name="country_usa">USA</string>
+    <string name="country_uzbekistan">Uzbekistan</string>
 
     <string name="sms_confirmation_confirm">Confirm</string>
 
