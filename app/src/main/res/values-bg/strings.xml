@@ -310,6 +310,7 @@
     <string name="login_usa_phone_mask">+ 1 [000] [000] [0000]</string>
     <string name="login_cyprus_phone_mask">+ 357 [00] [000000]</string>
     <string name="login_bosnia_phone_mask">+ 387 [00] [000000]</string>
+    <string name="login_nepal_phone_mask">+ 977 [00] [000] [000]</string>
 
     <string name="login_password_hint">Парола</string>
     <string name="login_forgot_password">Забравена парола?</string>
@@ -354,6 +355,7 @@
     <string name="country_usa">USA</string>
     <string name="country_cyprus">Cyprus</string>
     <string name="country_bosnia">Bosnia and Herzegovina</string>
+    <string name="country_nepal">Nepal</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 
