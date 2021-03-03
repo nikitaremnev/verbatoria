@@ -30,14 +30,14 @@
 
     <string name="token_empty_error">Token not found!</string>
 
-    <string name="email_incorrect_error">Incorrect email-address!</string>
-    <string name="name_or_phone_empty_error">Please fill both name and phone fields</string>
+    <string name="email_incorrect_error">Incorrect email!</string>
+    <string name="name_or_phone_empty_error">Please fill both name, phone</string>
 
     <!-- Calendar -->
 
-    <string name="event_detail_create_new_event">New appointment</string>
+    <string name="event_detail_create_new_event">Create</string>
     <string name="calendar_activity_child_title">Child details</string>
-    <string name="calendar_possible_children">Possible variants</string>
+    <string name="calendar_possible_children">Available slots</string>
     <string name="calendar_activity_client_title">Parent details</string>
     <string name="calendar_activity_search_client_title">Find parent details</string>
     <string name="calendar_activity_search_child_title">Find child details</string>
@@ -94,7 +94,7 @@
     <string name="event_detail_activity_client_email_editable_hint">Email</string>
     <string name="event_detail_activity_child_name_editable_hint">Child name</string>
 
-    <string name="event_detail_add_client_first">Please fill parent details first!</string>
+    <string name="event_detail_add_client_first">Please fill parent details first</string>
     <string name="event_detail_event_added">SAVED: Appointment added</string>
     <string name="event_detail_event_edited">CHANGED: Appointment modified</string>
 
@@ -147,9 +147,9 @@
 
     <string name="report_status_new">New</string>
     <string name="report_status_cancelled">Cancelled</string>
-    <string name="report_status_uploaded">Data on Server</string>
-    <string name="report_status_ready">Report is Ready</string>
-    <string name="report_status_sent">Report is Sent</string>
+    <string name="report_status_uploaded">On server</string>
+    <string name="report_status_ready">Ready</string>
+    <string name="report_status_sent">Sent</string>
 
     <string name="event_detail_delete_event_confirmation_dialog_message">CONFIRM: You want to delete the entry?</string>
     <string name="calendar_confirm_delete_title">Confirmation</string>
@@ -213,7 +213,7 @@
 
     <string name="dashboard_unknown">Unknown</string>
 
-    <string name="settings_item_developer">About this app</string>
+    <string name="settings_item_developer">Versions</string>
 
     <string name="settings_clear_database_confirm_title">Confirmation</string>
     <string name="settings_clear_database_confirm_message">Are you sure you want to clean up the database?</string>
@@ -222,7 +222,7 @@
     <string name="dashboard_cabinet">Location</string>
     <string name="dashboard_partner">Partnership group</string>
 
-    <string name="dashboard_blocked">License suspended. Contact zakaz@verbatoria.ru</string>
+    <string name="dashboard_blocked">License suspended. Contact t.me/VerbatoriaSupport_bot</string>
 
     <string name="settings_item_quit">Exit app</string>
     <string name="settings_item_clear">Clear database</string>
@@ -239,8 +239,8 @@
     <string name="submit_error_message">ATTENTION: Re-send manually neuro-data through Setting-Sending Reports.</string>
 
     <string name="dashboard_status_green_hint">Your License fully active</string>
-    <string name="dashboard_status_yellow_hint">Your Licence need attention, contact zakaz@verbatoria.ru</string>
-    <string name="dashboard_status_red_hint">License is blocked, contact zakaz@verbatoria.ru</string>
+    <string name="dashboard_status_yellow_hint">Your Licence need attention, contact t.me/VerbatoriaSupport_bot</string>
+    <string name="dashboard_status_red_hint">License is blocked, contact t.me/VerbatoriaSupport_bot</string>
 
     <string name="developer_info_android_version">Android version</string>
     <string name="developer_info_application_version">App version</string>
@@ -260,7 +260,6 @@
     <string name="language_bulgarian">Български</string>
     <string name="language_turkey">Turk</string>
     <string name="language_arabic">العربية</string>
-    <string name="language_bosnian">Bosnian</string>
 
     <string name="dashboard_update_language_error">ATTENTION: Error updating language occurred</string>
 
@@ -302,14 +301,11 @@
     <string name="login_turkey_phone_mask">+ 90 [000] [000] [0000]</string>
     <string name="login_tanzania_phone_mask">+ 255 [000] [000] [000]</string>
     <string name="login_usa_phone_mask">+ 1 [000] [000] [0000]</string>
-    <string name="login_cyprus_phone_mask">+ 357 [00] [000000]</string>
-    <string name="login_bosnia_phone_mask">+ 387 [00] [000000]</string>
-    <string name="login_nepal_phone_mask">+ 977 [00] [000] [000]</string>
 
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
 
-    <string name="login_country_selection_title">Select the country of the location</string>
+    <string name="login_country_selection_title">Select the location country</string>
 
     <string name="recovery_password_confirmation_code">SMS-code</string>
     <string name="recovery_password_new_password">New password</string>
@@ -348,9 +344,6 @@
     <string name="country_turkey">Turkey</string>
     <string name="country_tanzania">Tanzania</string>
     <string name="country_usa">USA</string>
-    <string name="country_cyprus">Cyprus</string>
-    <string name="country_bosnia">Bosnia and Herzegovina</string>
-    <string name="country_nepal">Nepal</string>
 
     <string name="sms_confirmation_confirm">Confirm</string>
 

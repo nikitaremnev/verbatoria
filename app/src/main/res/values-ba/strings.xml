@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- Common -->
 
     <string name="app_name">Verbatoria v11.4.2</string>
 
-    <string name="loading_please_wait">Please wait…</string>
+    <string name="loading_please_wait">Molimo sačekajte…</string>
 
     <string name="ok">OK</string>
-    <string name="all_understand">Everything clear</string>
-    <string name="delete">Delete</string>
-    <string name="find">Find</string>
-    <string name="error">Error</string>
+    <string name="all_understand">Sve je jasno</string>
+    <string name="delete">Izbrisati</string>
+    <string name="find">Pronaći</string>
+    <string name="error">Greška</string>
 
-    <string name="writing_data_empty">No data</string>
+    <string name="writing_data_empty">Nema sadržaja</string>
 
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="confirmation">Confirmation</string>
+    <string name="save">Sačuvati</string>
+    <string name="cancel">Otkazati</string>
+    <string name="confirmation">Potvrditi</string>
 
-    <string name="exit">Exit</string>
+    <string name="exit">Izaći</string>
 
-    <string name="search">Search</string>
-    <string name="edit">Edit</string>
-    <string name="clear">Clear</string>
+    <string name="search">Pretražiti</string>
+    <string name="edit">Izmijeniti</string>
+    <string name="clear">Jasno</string>
 
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
 
-    <string name="token_empty_error">Token not found!</string>
+    <string name="token_empty_error">Token nije pronađen!</string>
 
-    <string name="email_incorrect_error">Incorrect email-address!</string>
-    <string name="name_or_phone_empty_error">Please fill both name and phone fields</string>
+    <string name="email_incorrect_error">Netačan e-mail!</string>
+    <string name="name_or_phone_empty_error">Popunite ime i prezime, telefon</string>
 
     <!-- Calendar -->
 
-    <string name="event_detail_create_new_event">New appointment</string>
-    <string name="calendar_activity_child_title">Child details</string>
-    <string name="calendar_possible_children">Possible variants</string>
-    <string name="calendar_activity_client_title">Parent details</string>
-    <string name="calendar_activity_search_client_title">Find parent details</string>
-    <string name="calendar_activity_search_child_title">Find child details</string>
+    <string name="event_detail_create_new_event">Kreiraj</string>
+    <string name="calendar_activity_child_title">Informacije o djetetu</string>
+    <string name="calendar_possible_children">Dostupni termini</string>
+    <string name="calendar_activity_client_title">Informacije o roditelju</string>
+    <string name="calendar_activity_search_client_title">Pronađi informacije o roditelju</string>
+    <string name="calendar_activity_search_child_title">Pronađi informacije o djetetu</string>
 
-    <string name="event_detail_activity_available_time">Available slots</string>
-    <string name="event_detail_activity_confirm_override_message">The report has already been sent. By clicking \'Continue\', you agree that the data will be overwritten.</string>
-    <string name="event_detail_activity_continue">Continue</string>
+    <string name="event_detail_activity_available_time">Dostupni termini</string>
+    <string name="event_detail_activity_confirm_override_message">Izvještaj je već poslan. Klikom na \'Nastavi\', slažete se da će podaci biti prepisani.</string>
+    <string name="event_detail_activity_continue">Nastavi</string>
 
-    <string name="client">Parent</string>
-    <string name="child">Child</string>
-    <string name="time">Time</string>
-    <string name="report">Report</string>
-    <string name="event_detail_send_to_location">Send report copy to location</string>
-    <string name="event_detail_location">Location details</string>
-    <string name="attention_memory">Attention-and-Memory</string>
-    <string name="event_detail_activity_attention_memory_include">Click to ADD Attention-and-Memory to the report</string>
+    <string name="client">Roditelj</string>
+    <string name="child">Dijete</string>
+    <string name="time">Vrijeme</string>
+    <string name="report">Izvještaj</string>
+    <string name="event_detail_send_to_location">Pošaljite kopiju izvještaja na lokaciju</string>
+    <string name="event_detail_location">Informacije o lokaciji</string>
+    <string name="attention_memory">Pažnja-i-memorija</string>
+    <string name="event_detail_activity_attention_memory_include">Kliknite na DODAJTE Pažnju-i-memoriju u izvještaj</string>
 
-    <string name="event_detail_activity_field_empty">Add details here</string>
+    <string name="event_detail_activity_field_empty">Dodaj informacije ovdje</string>
 
     <!-- Client -->
 
-    <string name="client_name_header_title">Parent name (any)</string>
-    <string name="client_phone_header_title">Mobile phone (active)</string>
-    <string name="client_email_header_title">Email (active)</string>
+    <string name="client_name_header_title">Ime roditelja (bilo kojeg)</string>
+    <string name="client_phone_header_title">Broj mobitela (aktivan)</string>
+    <string name="client_email_header_title">E-mail (aktivan)</string>
 
     <string name="client_name_field_hint">John Appleseed</string>
     <string name="client_phone_field_hint">+7 123 456 78 90</string>
@@ -69,212 +70,211 @@
 
     <!-- Child -->
 
-    <string name="child_name_header_title">Child name</string>
-    <string name="child_gender_header_title">Child gender</string>
-    <string name="child_age_header_title">Child age (full years)</string>
+    <string name="child_name_header_title">Ime djeteta</string>
+    <string name="child_gender_header_title">Spol djeteta</string>
+    <string name="child_age_header_title">Dob djeteta (pune godine)</string>
 
     <string name="child_name_field_hint">John Appleseed</string>
     <string name="child_age_field_hint">5 years</string>
 
     <string-array name="child_genders">
-        <item>Boy or Male</item>
-        <item>Girl or Female</item>
+        <item>Dječak ili Muškarac</item>
+        <item>Djevojčica ili Žena</item>
     </string-array>
 
-    <string name="child_gender_male">Boy or Male</string>
-    <string name="child_gender_female">Girl or Female</string>
+    <string name="child_gender_male">Dječak ili Muškarac</string>
+    <string name="child_gender_female">Djevojčica ili Žena</string>
 
-    <string name="child_first_fill_client_error">Please fill parent details first</string>
+    <string name="child_first_fill_client_error">Molimo prvo popunite informacije o roditelju</string>
 
-    <string name="event_detail_activity_child_name">Child name</string>
-    <string name="event_detail_activity_child_age">Child age</string>
+    <string name="event_detail_activity_child_name">Ime djeteta</string>
+    <string name="event_detail_activity_child_age">Dob djeteta</string>
 
-    <string name="event_detail_activity_client_name_editable_hint">Parent name</string>
-    <string name="event_detail_activity_client_phone_editable_hint">Mobile Phone</string>
-    <string name="event_detail_activity_client_email_editable_hint">Email</string>
-    <string name="event_detail_activity_child_name_editable_hint">Child name</string>
+    <string name="event_detail_activity_client_name_editable_hint">Ime roditelja</string>
+    <string name="event_detail_activity_client_phone_editable_hint">Broj mobitela</string>
+    <string name="event_detail_activity_client_email_editable_hint">E-mail</string>
+    <string name="event_detail_activity_child_name_editable_hint">Ime djeteta</string>
 
-    <string name="event_detail_add_client_first">Please fill parent details first!</string>
-    <string name="event_detail_event_added">SAVED: Appointment added</string>
-    <string name="event_detail_event_edited">CHANGED: Appointment modified</string>
+    <string name="event_detail_add_client_first">Molimo prvo popunite informacije o roditelju</string>
+    <string name="event_detail_event_added">SAČUVANO: Termin dodan</string>
+    <string name="event_detail_event_edited">IZMIJENJENO: Termin izmijenjen</string>
 
-    <string name="event_detail_create_new_mode_title">New appointment</string>
+    <string name="event_detail_create_new_mode_title">Novi termin</string>
 
-    <string name="event_detail_date_hint">Date, time for appointment</string>
-    <string name="event_detail_child_hint">Please fill child details</string>
-    <string name="event_detail_client_hint">Please fill parent details</string>
-    <string name="event_detail_client_email_hint">Parent valid email required</string>
+    <string name="event_detail_date_hint">Datum, vrijeme termina</string>
+    <string name="event_detail_child_hint">Molimo popunite informacije o djetetu</string>
+    <string name="event_detail_client_hint">Molimo popunite informacije o roditelju</string>
+    <string name="event_detail_client_email_hint">Potreban je ispravan e-mail od roditelja</string>
 
-    <string name="client_added">SAVED: Parent details saved</string>
-    <string name="client_edited">CHANGED: Parent details changes saved</string>
+    <string name="client_added">SAČUVANO: Informacije o roditelju sačuvane</string>
+    <string name="client_edited">IZMIJENJENO: Izmjene informacija o roditelju sačuvane</string>
 
-    <string name="child_added">SAVED: Child details saved</string>
-    <string name="child_edited">CHANGED: Child details changes saved</string>
+    <string name="child_added">SAČUVANO: Informacije o djetetu sačuvane</string>
+    <string name="child_edited">IZMIJENJENO: Izmjene infromacija o djetetu sačuvane</string>
 
-    <string name="event_deleted">ARCHIVED: Appointment archived</string>
+    <string name="event_deleted">ARHIVIRANO: Termin arhiviran</string>
 
-    <string name="search_by_name_email_phone">Enter Name, phone or email</string>
-    <string name="search_by_child_name">Enter Child name</string>
+    <string name="search_by_name_email_phone">Unesi ime, telefon ili e-mail</string>
+    <string name="search_by_child_name">Unesi ime djeteta</string>
 
-    <string name="client_data_is_not_full">ATTENTION: Parent details incomplete</string>
-    <string name="child_data_is_not_full">ATTENTION: Child details incomplete</string>
-    <string name="child_age_not_set">REQUIRED: select child age</string>
-    <string name="child_name_not_set">REQUIRED: add name</string>
-    <string name="child_gender_not_set">REQUIRED: select gender</string>
+    <string name="client_data_is_not_full">PAŽNJA: Informacije o roditelju nepotpune</string>
+    <string name="child_data_is_not_full">PAŽNJA: Informacije o djetetu nepotpune</string>
+    <string name="child_age_not_set">POTREBNO: označi dob djeteta</string>
+    <string name="child_name_not_set">POTREBNO: dodaj ime</string>
+    <string name="child_gender_not_set">POTREBNO: označi spol</string>
 
-    <string name="time_is_not_set">REQUIRED: Please select appointment date, time</string>
+    <string name="time_is_not_set">POTREBNO: Molimo označite datum termina, vrijeme</string>
 
-    <string name="action_next_week">NEXT week</string>
-    <string name="action_prev_week">PREV week</string>
+    <string name="action_next_week">NAREDNA sedmica</string>
+    <string name="action_prev_week">PRETHODNA sedmica</string>
 
-    <string name="report_status_new_hint">Neuro-data not yet recorded for the appointment</string>
-    <string name="report_status_ready_hint">Neuro-data processed by server and report ready to send</string>
-    <string name="report_status_sent_hint">TQ report sent to parent email and to location</string>
-    <string name="report_status_uploaded_hint">Neuro-data uploaded to server for processing</string>
-    <string name="report_status_sent_canceled">Cancelled appoitment</string>
+    <string name="report_status_new_hint">Neuro-podaci nisu još zabilježeni za termin</string>
+    <string name="report_status_ready_hint">Neuro-podaci obrađeni na serveru i izvještaj je spreman za slanje</string>
+    <string name="report_status_sent_hint">TQ izvještaj poslan na e-mail adresu roditelja i na lokaciju</string>
+    <string name="report_status_uploaded_hint">Neuro-podaci preneseni na server radi obrade</string>
+    <string name="report_status_sent_canceled">Otkazan termin</string>
 
-    <string name="event_detail_time_intervals_empty">No available slots for this date, check Setting-Schedule</string>
+    <string name="event_detail_time_intervals_empty">Nema slobodnih termina za ovaj datum, provjeriti Postavke-Raspored</string>
 
-    <string name="calendar_add_event">CREATE</string>
+    <string name="calendar_add_event">KREIRAJ</string>
 
-    <string name="event_detail_activity_choose_date_hint">Appointments for %s</string>
+    <string name="event_detail_activity_choose_date_hint">Termini za %s</string>
 
-    <string name="children_activity_edit_hint">You are now in edit mode</string>
-    <string name="children_activity_cancel_edit_hint">You canceled editing the appointment</string>
+    <string name="children_activity_edit_hint">Sada ste u načinu uređivanja</string>
+    <string name="children_activity_cancel_edit_hint">Otkazali ste uređivanje termina</string>
 
-    <string name="client_activity_edit_hint">You are now in edit mode</string>
-    <string name="client_activity_cancel_edit_hint">You canceled editing the appointment</string>
+    <string name="client_activity_edit_hint">Sada ste u načinu uređivanja</string>
+    <string name="client_activity_cancel_edit_hint">Otkazali ste uređivanje termina</string>
 
-    <string name="report_status_new">New</string>
-    <string name="report_status_cancelled">Cancelled</string>
-    <string name="report_status_uploaded">Data on Server</string>
-    <string name="report_status_ready">Report is Ready</string>
-    <string name="report_status_sent">Report is Sent</string>
+    <string name="report_status_new">Novi</string>
+    <string name="report_status_cancelled">Otkazan</string>
+    <string name="report_status_uploaded">Na serveru</string>
+    <string name="report_status_ready">Spreman</string>
+    <string name="report_status_sent">Poslan</string>
 
-    <string name="event_detail_delete_event_confirmation_dialog_message">CONFIRM: You want to delete the entry?</string>
-    <string name="calendar_confirm_delete_title">Confirmation</string>
+    <string name="event_detail_delete_event_confirmation_dialog_message">POTVRDITI: Želite li izbrisati unos?</string>
+    <string name="calendar_confirm_delete_title">Potvrda</string>
 
-    <string name="child_age_selection_title">Choose age:</string>
+    <string name="child_age_selection_title">Odaberi dob:</string>
 
-    <string name="event_detail_send_to_location_message">I have received the client\'s consent to receive a copy of the report for the purpose of consultation, the time has been agreed upon</string>
-    <string name="event_detail_send_to_location_send">Send</string>
-    <string name="event_detail_send_to_location_complete">A copy of the report was sent to the location</string>
+    <string name="event_detail_send_to_location_message">Dobio sam pristanak klijenta da dobijem kopiju izvještaja u svrhu konsultacija, vrijeme je dogovoreno</string>
+    <string name="event_detail_send_to_location_send">Pošalji</string>
+    <string name="event_detail_send_to_location_complete">Kopija izvještaja je poslana na lokaciju</string>
 
-    <string name="event_detail_include_attention_memory_complete">Module added to report, please wait for 5-15 minutes to get it in email</string>
+    <string name="event_detail_include_attention_memory_complete">Modul dodan u izvještaj, molimo sačekajte 5 do 15 minuta da stigne na e-mail</string>
 
-    <string name="arhimedes">ARCHIMEDES</string>
-    <string name="event_detail_archimedes_included">The report will include the Archimedes panel if there is a suitable</string>
-    <string name="event_detail_archimedes_not_included">CUSTOMER WILL NOT RECEIVE PANEL ARCHIMEDES - YOUR PROFILE IN THE SYSTEM IS NOT ACTIVE</string>
+    <string name="arhimedes">ARHIMED</string>
+    <string name="event_detail_archimedes_included">Izvještaj će sadržavati Arhimedov panel ako postoji odgovarajući</string>
+    <string name="event_detail_archimedes_not_included">KUPAC NEĆE PRIMITI ARHIMEDOV PANEL - VAŠ PROFIL NIJE AKTIVAN U SISTEMU</string>
 
-    <string name="hobby">HOBBY</string>
+    <string name="hobby">HOBI</string>
 
-    <string name="event_detail_hobby_panel_included">HOBBY module included</string>
-    <string name="event_detail_hobby_panel_not_included">HOBBY module not included</string>
+    <string name="event_detail_hobby_panel_included">HOBI modul uključen</string>
+    <string name="event_detail_hobby_panel_not_included">HOBI modul nije uključen</string>
 
-    <string name="event_detail_hobby_included_status">TQ report includes HOBBY module</string>
-    <string name="event_detail_hobby_not_included_status">TQ report NOT includes HOBBY module</string>
+    <string name="event_detail_hobby_included_status">TQ izvještaj uključuje HOBI modul</string>
+    <string name="event_detail_hobby_not_included_status">TQ izvještaj ne uključuje HOBI modul</string>
 
-    <string name="event_detail_include_attention_memory_confirmation_dialog_message">CONFIRM: Include Attention-and-Memory module into TQ report?</string>
+    <string name="event_detail_include_attention_memory_confirmation_dialog_message">POTVRDI: Uključi modul za Pažnju-i-Memoriju u TQ izvještaj?</string>
     <string name="include">Include</string>
-    <string name="event_confirm_attention_memory_include_success">MODULE ADDED: The Attention-and-Memory module added in TQ report</string>
+    <string name="event_confirm_attention_memory_include_success">MODUL DODAN: Modul Pažnja-i-Memorija dodan u TQ izvještaj</string>
 
-    <string name="event_confirm_clear_database">Database contains previouse recorded neuro-data. Erase it before the writing new data?</string>
-    <string name="event_confirm_clear">Clear</string>
-    <string name="event_confirm_clear_database_title">Neuro-data recordings found</string>
+    <string name="event_confirm_clear_database">Baza podataka sadrži prethodno snimljene neuro-podatke. Izbrišite ih prije pisanja novih podataka?</string>
+    <string name="event_confirm_clear">Očišćeno</string>
+    <string name="event_confirm_clear_database_title">Pronađeni snimci neuro-podataka</string>
 
-    <string name="event_detail_include_hobby_confirmation_dialog_title">Hobby Module</string>
-    <string name="event_detail_include_hobby_confirmation_dialog_message">CONFIRM: Include 7 areas HOBBY module in the report?</string>
-    <string name="event_detail_include_hobby_confirmation_dialog_include">ADD HOBBY</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_title">Hobi Modul</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_message">POTVRDI: U izvještaj uključi / područja HOBI modula?</string>
+    <string name="event_detail_include_hobby_confirmation_dialog_include">DODAJ HOBI</string>
 
-    <string name="school_mode_submit_hint">All neuro-data has been recorded. Now you can finish the session.</string>
+    <string name="school_mode_submit_hint">Svi neuro-podaci su zabilježeni. Sada možete završiti sesiju</string>
 
-    <string name="event_detail_intervals_selection_dialog_title">Choose time-slot</string>
+    <string name="event_detail_intervals_selection_dialog_title">Odaberite vremenski interval</string>
 
-    <string name="calendar_report_yesterday">YESTERDAY</string>
-    <string name="calendar_report_today">TODAY</string>
-    <string name="calendar_report_tomorrow">TOMORROW</string>
+    <string name="calendar_report_yesterday">JUČER</string>
+    <string name="calendar_report_today">DANAS</string>
+    <string name="calendar_report_tomorrow">SUTRA</string>
 
     <string name="calendar_event_age_format">%s, %s</string>
 
-    <string name="calendar_event_name_and_age_empty">Name and age are not specified</string>
+    <string name="calendar_event_name_and_age_empty">Ime i dob nisu navedeni</string>
 
     <!-- Dashboard -->
 
-    <string name="dashboard_age" formatted="false">Age: %s</string>
-    <string name="dashboard_no_events_title">No appointments for this date</string>
+    <string name="dashboard_age" formatted="false">Dob: %s</string>
+    <string name="dashboard_no_events_title">Nema termina za ovaj datum</string>
 
-    <string name="dashboard_bottom_item_main">General</string>
-    <string name="dashboard_bottom_item_calendar">APPOINTMENTS</string>
-    <string name="dashboard_bottom_item_settings">Settings</string>
+    <string name="dashboard_bottom_item_main">Generalno</string>
+    <string name="dashboard_bottom_item_calendar">TERMINI</string>
+    <string name="dashboard_bottom_item_settings">Postavke</string>
 
-    <string name="dashboard_add_event">New appointment</string>
-    <string name="event_detail_start_session">Start testing</string>
-    <string name="event_detail_start_mode_title">Recording nero-data</string>
+    <string name="dashboard_add_event">Novi termin</string>
+    <string name="event_detail_start_session">Počnite testiranje</string>
+    <string name="event_detail_start_mode_title">Snimanje neuro-podataka</string>
 
-    <string name="dashboard_unknown">Unknown</string>
+    <string name="dashboard_unknown">Nepoznato</string>
 
-    <string name="settings_item_developer">About this app</string>
+    <string name="settings_item_developer">Verzije</string>
 
-    <string name="settings_clear_database_confirm_title">Confirmation</string>
-    <string name="settings_clear_database_confirm_message">Are you sure you want to clean up the database?</string>
+    <string name="settings_clear_database_confirm_title">Potvrda</string>
+    <string name="settings_clear_database_confirm_message">Jeste li sigurni da želite očistiti bazu podataka?</string>
 
-    <string name="dashboard_neurometrist">Your license details</string>
-    <string name="dashboard_cabinet">Location</string>
-    <string name="dashboard_partner">Partnership group</string>
+    <string name="dashboard_neurometrist">Informacije o licenci</string>
+    <string name="dashboard_cabinet">Lokacija</string>
+    <string name="dashboard_partner">Partnerska grupa</string>
 
-    <string name="dashboard_blocked">License suspended. Contact zakaz@verbatoria.ru</string>
+    <string name="dashboard_blocked">licenca suspendirana. Kontaktirajte t.me/VerbatoriaSupport_bot</string>
 
-    <string name="settings_item_quit">Exit app</string>
-    <string name="settings_item_clear">Clear database</string>
-    <string name="settings_item_locale">Choose TQ report language</string>
+    <string name="settings_item_quit">Izađi iz aplikacije</string>
+    <string name="settings_item_clear"> Izbriši bazu podataka</string>
+    <string name="settings_item_locale">Izaberi jezik za TQ izvještaj</string>
 
-    <string name="settings_database_cleared">Database successfully cleaned</string>
+    <string name="settings_database_cleared">Baza podataka uspješno izbrisana</string>
 
-    <string name="submit_finished">SUCCESS: TQ testing session successfully completed</string>
+    <string name="submit_finished">USPJEH: TQ sesija testiranja je uspješno završena</string>
 
-    <string name="submit_finished_message">SUCCESS: TQ neuro-data successfully sent</string>
+    <string name="submit_finished_message">USPJEH: TQ neuro-podaci uspješno poslani</string>
 
-    <string name="submit_error">ATTENTION: Session is not complete!</string>
+    <string name="submit_error">PAŽNJA: Sesija nije završena!</string>
 
-    <string name="submit_error_message">ATTENTION: Re-send manually neuro-data through Setting-Sending Reports.</string>
+    <string name="submit_error_message">PAŽNJA: Ponovo pošaljite ručno neuro-podatke putem Postavke-Slanje izvještaja.</string>
 
-    <string name="dashboard_status_green_hint">Your License fully active</string>
-    <string name="dashboard_status_yellow_hint">Your Licence need attention, contact zakaz@verbatoria.ru</string>
-    <string name="dashboard_status_red_hint">License is blocked, contact zakaz@verbatoria.ru</string>
+    <string name="dashboard_status_green_hint">Licenca potpuno aktivna</string>
+    <string name="dashboard_status_yellow_hint">Obratiti pažnju na licencu, contact t.me/VerbatoriaSupport_bot</string>
+    <string name="dashboard_status_red_hint">Licenca je blokirana, contact t.me/VerbatoriaSupport_bot</string>
 
-    <string name="developer_info_android_version">Android version</string>
-    <string name="developer_info_application_version">App version</string>
+    <string name="developer_info_android_version">Android verzija</string>
+    <string name="developer_info_application_version">App verzija</string>
 
-    <string name="schedule_title">Your Work Schedule</string>
-    <string name="schedule_clear_confirmation">CONFIRM: Do you want to delete schedule for the week?</string>
-    <string name="schedule_loading_error">ATTENTION: Error occurred while loading schedule</string>
+    <string name="schedule_title">Raspored</string>
+    <string name="schedule_clear_confirmation">POTVRDI: Da li želite da izbrišete raspored za sedmicu?</string>
+    <string name="schedule_loading_error">PAŽNJA: Pojavila se greška prilikom učitavanja rasporeda</string>
 
-    <string name="late_send_title">Manual send</string>
-    <string name="late_send_no_reports">No data to send</string>
-    <string name="late_send_delete_confirmation">Do you really want to delete report with id %s data? Neurodata and questionnaire will be deleted without recovery possibility.</string>
+    <string name="late_send_title">Ručno slanje</string>
+    <string name="late_send_no_reports">Nema podataka za slanje</string>
+    <string name="late_send_delete_confirmation">Da li zaista želite izbrisati izvještaj sa id %s podacima? Neuro-podaci i upitnik će biti izbrisani bez mogućnosti povratka.</string>
 
-    <string name="language_russian">Русский</string>
-    <string name="language_english">English</string>
-    <string name="language_hong_kong">中文</string>
-    <string name="language_ukrainian">Українська</string>
-    <string name="language_bulgarian">Български</string>
-    <string name="language_turkey">Turk</string>
-    <string name="language_arabic">العربية</string>
-    <string name="language_bosnian">Bosnian</string>
+    <string name="language_russian">Ruski</string>
+    <string name="language_english">Engleski</string>
+    <string name="language_hong_kong">Kineski</string>
+    <string name="language_ukrainian">Ukrajinski</string>
+    <string name="language_bulgarian">Bugarski</string>
+    <string name="language_turkey">Turski</string>
+    <string name="language_arabic">Arapski</string>
 
-    <string name="dashboard_update_language_error">ATTENTION: Error updating language occurred</string>
+    <string name="dashboard_update_language_error">PAŽNJA: Došlo je do greške prilikom ažuriranja jezika</string>
 
-    <string name="dashboard_gender">Child\'s gender</string>
-    <string name="dashboard_gender_male">Boy or Male</string>
-    <string name="dashboard_gender_female">Girl or Female</string>
+    <string name="dashboard_gender">Spol djeteta</string>
+    <string name="dashboard_gender_male">Dječak ili Muškarac</string>
+    <string name="dashboard_gender_female">Djevojčica ili Žena</string>
 
-    <string name="dashboard_archimedes_available">ARCHIMEDES is available</string>
-    <string name="dashboard_archimedes_not_available">Avoid using others license</string>
+    <string name="dashboard_archimedes_available">ARHIMED je dostupan</string>
+    <string name="dashboard_archimedes_not_available">Izbjegavajte korištenje drugih licenci</string>
 
     <!-- Login -->
 
-    <string name="login_submit">Login</string>
-    <string name="login_phone_hint">Phone</string>
+    <string name="login_submit">Prijava</string>
+    <string name="login_phone_hint">Telefon</string>
     <string name="login_russia_phone_mask">+ 7 [000] [000] [00] [00]</string>
     <string name="login_ukraine_phone_mask">+ 380 [00] [000] [00] [00]</string>
     <string name="login_azerbaijan_phone_mask">+ 994 [00] [000] [00] [00]</string>
@@ -302,24 +302,21 @@
     <string name="login_turkey_phone_mask">+ 90 [000] [000] [0000]</string>
     <string name="login_tanzania_phone_mask">+ 255 [000] [000] [000]</string>
     <string name="login_usa_phone_mask">+ 1 [000] [000] [0000]</string>
-    <string name="login_cyprus_phone_mask">+ 357 [00] [000000]</string>
-    <string name="login_bosnia_phone_mask">+ 387 [00] [000000]</string>
-    <string name="login_nepal_phone_mask">+ 977 [00] [000] [000]</string>
 
-    <string name="login_password_hint">Password</string>
-    <string name="login_forgot_password">Forgot password?</string>
+    <string name="login_password_hint">Šifra</string>
+    <string name="login_forgot_password">Zaboravili ste šifru?</string>
 
-    <string name="login_country_selection_title">Select the country of the location</string>
+    <string name="login_country_selection_title">Označite lokaciju zemlje</string>
 
-    <string name="recovery_password_confirmation_code">SMS-code</string>
-    <string name="recovery_password_new_password">New password</string>
-    <string name="recovery_password_new_password_repeat">Repeat password</string>
+    <string name="recovery_password_confirmation_code">SMS-kod</string>
+    <string name="recovery_password_new_password">Nova šifra</string>
+    <string name="recovery_password_new_password_repeat">Ponovite šifru</string>
 
-    <string name="recovery_password_next">Next</string>
-    <string name="recovery_password_check_code">Send SMS-code</string>
-    <string name="recovery_password_send_new_password">Set new password</string>
-    <string name="recovery_password_remember_password">I remembered password!</string>
-    <string name="recovery_password_reset_success">Password successfully changed</string>
+    <string name="recovery_password_next">Dalje</string>
+    <string name="recovery_password_check_code">Pošaljite SMS-kod</string>
+    <string name="recovery_password_send_new_password">Postavite novu šifru</string>
+    <string name="recovery_password_remember_password">Sjećam se šifre!</string>
+    <string name="recovery_password_reset_success">Šifra uspješno izmijenjena</string>
 
     <string name="country_russia">Russia</string>
     <string name="country_belarus">Belarus</string>
@@ -348,66 +345,63 @@
     <string name="country_turkey">Turkey</string>
     <string name="country_tanzania">Tanzania</string>
     <string name="country_usa">USA</string>
-    <string name="country_cyprus">Cyprus</string>
-    <string name="country_bosnia">Bosnia and Herzegovina</string>
-    <string name="country_nepal">Nepal</string>
 
-    <string name="sms_confirmation_confirm">Confirm</string>
+    <string name="sms_confirmation_confirm">Potvrdi</string>
 
-    <string name="sms_confirmation_code_sent">SMS-code sent successfully</string>
-    <string name="sms_confirmation_code_incorrect">Incorrect code</string>
-    <string name="sms_confirmation_code_sent_error">Error occurred while sending SMS code</string>
-    <string name="sms_confirmation_code_phone_not_full">Phone is not fully specified</string>
+    <string name="sms_confirmation_code_sent">SMS-kod uspješno poslan</string>
+    <string name="sms_confirmation_code_incorrect">Netačan kod</string>
+    <string name="sms_confirmation_code_sent_error">Došlo je do greške tokom slanja SMS-a</string>
+    <string name="sms_confirmation_code_phone_not_full">Telefon nije u potpunosti naveden</string>
 
-    <string name="sms_login_repeat">Send SMS again</string>
-    <string name="sms_login_time_before_repeat">Send SMS again will be available in %s</string>
+    <string name="sms_login_repeat">Pošalji ponovo SMS</string>
+    <string name="sms_login_time_before_repeat">Slanje SMS-a će biti dostupno ponovo za %s</string>
 
     <!-- Schedule -->
 
     <string-array name="rows_names">
-        <item>MON, %s</item>
-        <item>TUE, %s</item>
-        <item>WED, %s</item>
-        <item>THU, %s</item>
-        <item>FRI, %s</item>
-        <item>SAT, %s</item>
-        <item>SUN, %s</item>
+        <item>PON, %s</item>
+        <item>UTO, %s</item>
+        <item>SRI, %s</item>
+        <item>ČET, %s</item>
+        <item>PET, %s</item>
+        <item>SUB, %s</item>
+        <item>NED, %s</item>
     </string-array>
 
-    <string name="schedule_clear_confirm_message">CONFIRM: Want to clear the schedule?</string>
+    <string name="schedule_clear_confirm_message">POTVRDA: Želite izbrisati raspored?</string>
 
-    <string name="schedule_saved">SUCCESS: Schedule saved successfully!</string>
-    <string name="schedule_cleared">Schedule was cleared!</string>
+    <string name="schedule_saved">USPJEH: Raspored uspješno sačuvan!</string>
+    <string name="schedule_cleared">Raspored je izbrisan!</string>
 
-    <string name="schedule_save_confirmation_title">Choose the period to save selected schedule?</string>
+    <string name="schedule_save_confirmation_title">Odaberite period da sačuvate označeni raspored?</string>
 
-    <string name="schedule_save">Saving the schedule…</string>
-    <string name="schedule_clear">Clearing the schedule…</string>
-    <string name="schedule_load">Loading the schedule…</string>
+    <string name="schedule_save">Spašavanje rasporeda…</string>
+    <string name="schedule_clear">Brisanje rasporeda…</string>
+    <string name="schedule_load">Učitavanje rasporeda…</string>
 
-    <string name="schedule_only_this_week">this week only</string>
-    <string name="schedule_save_1_week">+1 week</string>
-    <string name="schedule_save_2_weeks">+2 weeks</string>
-    <string name="schedule_save_3_weeks">+3 weeks</string>
-    <string name="schedule_save_4_weeks">+4 weeks</string>
-    <string name="schedule_save_5_weeks">+5 weeks</string>
+    <string name="schedule_only_this_week">samo ova sedmica</string>
+    <string name="schedule_save_1_week">+1 sedmica</string>
+    <string name="schedule_save_2_weeks">+2 sedmice</string>
+    <string name="schedule_save_3_weeks">+3 sedmice</string>
+    <string name="schedule_save_4_weeks">+4 sedmice</string>
+    <string name="schedule_save_5_weeks">+5 sedmica</string>
 
     <!-- Session -->
 
-    <string name="session_connection">Connection</string>
-    <string name="session_start_writing">Start TQ recording</string>
-    <string name="session_try_again">Try again</string>
-    <string name="session_connect">Connect with sensor</string>
-    <string name="session_connected">Connected with sensor</string>
-    <string name="session_connection_in_progress">Connecting sensor...</string>
-    <string name="session_not_connected">Not connected with sensor</string>
+    <string name="session_connection">Konekcija</string>
+    <string name="session_start_writing">Počni TQ snimanje</string>
+    <string name="session_try_again">Pokušaj ponovo</string>
+    <string name="session_connect">Konektuj se sa senzorom</string>
+    <string name="session_connected">Konektovano sa senzorom</string>
+    <string name="session_connection_in_progress">Konektovanje senzora...</string>
+    <string name="session_not_connected">Nije konektovano sa senzorom</string>
     <string name="session_connection_instruction">
-        1. Turn on the power on the interface, make sure it\'s working.
+        1. Turn on the power of the interface, make sure it\'s working...
         \n\n2. Click the \"Connect\" button and wait for the status \"Connected\".
         \n\n3. Click the \"Start recording\" button to get started.
     </string>
-    <string name="writing_connection_bluetooth_disabled">Bluetooth if off</string>
-    <string name="settings">Settings</string>
+    <string name="writing_connection_bluetooth_disabled">Bluetooth ako je isključen</string>
+    <string name="settings">Postavke</string>
 
     <string name="writing_activity_code_99">99</string>
     <string name="writing_activity_code_11">11</string>
@@ -418,20 +412,20 @@
     <string name="writing_activity_code_61">61</string>
     <string name="writing_activity_code_71">71</string>
 
-    <string name="writing_timer" formatted="false">Total TQ record %d time: %d sec.</string>
-    <string name="session_timer_string_only_full_and_loadings" formatted="false">Total time: %s\nTotal loadings time: %s</string>
-    <string name="session_timer_string_only_full" formatted="false">Total time: %s</string>
+    <string name="writing_timer" formatted="false">Ukupni TQ snimak %d vrijeme: %d sek.</string>
+    <string name="session_timer_string_only_full_and_loadings" formatted="false">Total vrijeme: %s\nTotal vrijeme učitavanja: %s</string>
+    <string name="session_timer_string_only_full" formatted="false">Total vrijeme: %s</string>
 
-    <string name="session_player_error">No files found for playback!</string>
+    <string name="session_player_error">Nije pronađena nijedna datoteka za reprodukciju</string>
 
-    <string name="writing_finish_activity_first_error">It is necessary to turn off the load before ending the session!</string>
+    <string name="writing_finish_activity_first_error">Prije završetka sesije potrebno je isključiti učitavanje!</string>
 
-    <string name="questionnaire_back">Back</string>
-    <string name="questionnaire_next">Next</string>
+    <string name="questionnaire_back">Nazad</string>
+    <string name="questionnaire_next">Dalje</string>
 
-    <string name="questionnaire_finish">Submit</string>
+    <string name="questionnaire_finish">Pošalji</string>
 
-    <string name="questionnaire_question_no_answer">No answer</string>
+    <string name="questionnaire_question_no_answer">Nema odgovora</string>
 
     <string name="session_question_variant_10">10</string>
     <string name="session_question_variant_20">20</string>
@@ -439,50 +433,50 @@
     <string name="session_question_variant_60">60</string>
     <string name="session_question_variant_90">90</string>
 
-    <string name="session_some_activities_not_finished">Test group %s not recorded enough</string>
-    <string name="session_activity_not_finished">Test group %s not recorded enough</string>
-    <string name="session_continue">Continue</string>
+    <string name="session_some_activities_not_finished">Test grupa %s nije zabilježena dovoljno</string>
+    <string name="session_activity_not_finished">Test grupa %s nije zabilježena dovoljno</string>
+    <string name="session_continue">Nastavi</string>
 
-    <string name="session_zeros_error">ATTENTION: Low quality or no signal from sensor. Check contact with skin</string>
+    <string name="session_zeros_error">PAŽNJA: Loša kvaliteta ili nema signala od senzora. Provjeriti kontakt sa kožom</string>
 
-    <string name="session_connection_error">ATTENTION: Problem connecting to the sensor. Reconnect again.</string>
+    <string name="session_connection_error">PAŽNJA: Problem sa konekcijom sa senzorom. Rekonektovati opet.</string>
 
-    <string name="session_connection_error_try">Reconnect with sensor</string>
+    <string name="session_connection_error_try">Rekonekcija sa senzorom</string>
 
     <string-array name="questionnaire_number_questions">
-        <item>VERBAL parent opinion: ease of use complex sentences etc</item>
-        <item>MATH-n-LOGIC parent opinion: enjoys quiz, uses precise quantifying descriptions etc</item>
-        <item>MUSIC parent opinion: enjoys listening, feels emotions and imagines scenes while listens </item>
-        <item>CREATIVITY parent opinion: imagines things never exist, memorise places, routes etc</item>
-        <item>KINESTHETIC parent opinion: gestures, poses, movements are sharp and relevant</item>
-        <item>Understanding people</item>
-        <item>Understanding yourself</item>
+        <item>VERBALNO mišljenje roditelja: jednostavna upotreba složenih rečenica, itd.</item>
+        <item>MATEMATIKA-i-LOGIKA mišljenje roditelja: uživa u kvizu, koristi precizne opise, itd.</item>
+        <item>MUZIKA mišljenje roditelja: uživa u slušanju, osjeća emocije i zamišlja scene dok sluša </item>
+        <item>KREATIVNOST mišljenje roditelja: zamišlja stvari koje ne postoje, pamti mjesta, rute, itd.</item>
+        <item>KINESTETIKA mišljenje roditelja: geste, poze, pokreti su oštri i relevantni</item>
+        <item>Razumijevanje ljudi</item>
+        <item>Razumijevanje sebe</item>
     </string-array>
 
-    <string name="questionnaire_include_memory_attention">ASK: Ever experienced memorising difficulty of understood subjects? Module Attention-and-Memory could help understand specifics and improve memorising effectiveness?</string>
-    <string name="questionnaire_include_hobby">ASK: in every 7 resource areas algorithm may advise best matching Hobby. Should I include the Hobby module?</string>
-    <string name="questionnaire_report_type_question">Report content type:</string>
-    <string name="session_report_type_5">MAIN USE: TQ report with PQ</string>
-    <string name="session_report_type_0">TQ report without PQ</string>
-    <string name="session_report_type_6">PQ pages only: Risk, Stress, Mindfulness</string>
-    <string name="session_report_type_1">One page AnM</string>
-    <string name="session_report_type_4">Free of charge: Classes without Hassles</string>
-    <string name="session_report_type_2">(no use)</string>
-    <string name="session_report_type_3">(no use)</string>
-    <string name="session_report_type_7">(no use)</string>
-    <string name="session_report_type_8">(no use)</string>
-    <string name="session_report_type_9">(no use)</string>
-    <string name="session_report_type_10">(no use)</string>
+    <string name="questionnaire_include_memory_attention">PITAJ: Jeste li ikad iskusili poteškoće u razumijevanju predmeta? Modul Pažnja-i-Pamćenje mogao bi pomoći u razumijevanju specifičnosti i poboljšati efikasnost memorisanja?</string>
+    <string name="questionnaire_include_hobby">PITAJ: u svakih 7 područja algoritam može savjetovati hobi koji najbolje odgovara. Da li da uključim modul Hobi?</string>
+    <string name="questionnaire_report_type_question">Izvještaj o vrsti sadržaja:</string>
+    <string name="session_report_type_5">GLAVNA UPOTREBA: TQ izvještaj sa PQ</string>
+    <string name="session_report_type_0">TQ izvještaj bez PQ</string>
+    <string name="session_report_type_6">PQ stranice samo: Rizik, Stres, Samosvijest</string>
+    <string name="session_report_type_1">Jedna strana AnM</string>
+    <string name="session_report_type_4">Besplatno: Časovi bez gnjavaže</string>
+    <string name="session_report_type_2">(nema koristi)</string>
+    <string name="session_report_type_3">(nema koristi)</string>
+    <string name="session_report_type_7">(nema koristi)</string>
+    <string name="session_report_type_8">(nema koristi)</string>
+    <string name="session_report_type_9">(nema koristi)</string>
+    <string name="session_report_type_10">(nema koristi)</string>
 
-    <string name="submit_progress_collect_and_send">Building package and sending the neuro-data</string>
-    <string name="submit_progress_finish_session">Closing the session</string>
-    <string name="submit_progress_clean_data">Cleaning the data</string>
+    <string name="submit_progress_collect_and_send">Izrada paketa i slanje neuro-podataka</string>
+    <string name="submit_progress_finish_session">Zatvaranje sesije</string>
+    <string name="submit_progress_clean_data">Brisanje baze podataka</string>
 
-    <string name="late_send_state_nothing">No recorded neurodata and parent questionnaire</string>
-    <string name="late_send_state_has_data">No parent questionnaire data</string>
-    <string name="late_send_state_has_questionnaire">Neurodata and questionnaire were saved, manual sending required</string>
-    <string name="late_send_state_data_sent">Data is sent, but finish session required</string>
-    <string name="late_send_state_session_finished">Only data clean up left</string>
-    <string name="late_send_state_data_cleaned">Report is fully ready and sent</string>
+    <string name="late_send_state_nothing">Nema zabilježenih neuro-podataka i upitnika za roditelje</string>
+    <string name="late_send_state_has_data">Nema podataka iz upitnika za roditelje</string>
+    <string name="late_send_state_has_questionnaire">Neuro-podaci i upitnik su sačuvani, potrebno je ručno slanje</string>
+    <string name="late_send_state_data_sent">Podaci se šalju, ali potrebna je završna sesija</string>
+    <string name="late_send_state_session_finished">Preostalo je samo brisanje podataka</string>
+    <string name="late_send_state_data_cleaned">Izvještaj je u potpunosti spreman i poslan</string>
 
 </resources>
