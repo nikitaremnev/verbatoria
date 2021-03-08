@@ -305,6 +305,7 @@
     <string name="login_cyprus_phone_mask">+ 357 [00] [000000]</string>
     <string name="login_bosnia_phone_mask">+ 387 [00] [000000]</string>
     <string name="login_nepal_phone_mask">+ 977 [00] [000] [000]</string>
+    <string name="login_france_phone_mask">+ 33 [0] [00] [00] [00] [00]</string>
 
     <string name="login_password_hint">Parola</string>
     <string name="login_forgot_password">Parolamı unuttum?</string>
@@ -345,6 +346,7 @@
     <string name="country_kazakhstan">Kazakistan</string>
     <string name="country_jordan">Ürdün</string>
     <string name="country_estonia">Estonya</string>
+    <string name="country_france">France</string>
     <string name="country_turkey">Türkiye</string>
     <string name="country_tanzania">Tanzanya</string>
     <string name="country_usa">USA</string>
