@@ -306,6 +306,7 @@
     <string name="login_bosnia_phone_mask">+ 387 [00] [000000]</string>
     <string name="login_nepal_phone_mask">+ 977 [00] [000] [000]</string>
     <string name="login_france_phone_mask">+ 33 [0] [00] [00] [00] [00]</string>
+    <string name="login_uganda_phone_mask">+ 256 [000] [000000]</string>
 
     <string name="login_password_hint">Password</string>
     <string name="login_forgot_password">Forgot password?</string>
@@ -331,7 +332,6 @@
     <string name="country_estonia">Estonia</string>
     <string name="country_ethiopia">Ethiopia</string>
     <string name="country_france">France</string>
-
     <string name="country_hong_kong">Hong Kong</string>
     <string name="country_india">India</string>
     <string name="country_indonesia">Indonesia</string>
@@ -351,6 +351,7 @@
     <string name="country_thailand">Thailand</string>
     <string name="country_turkey">Turkey</string>
     <string name="country_uae">UAE</string>
+    <string name="country_uganda">Uganda</string>
     <string name="country_ukraine">Ukraine</string>
     <string name="country_usa">USA</string>
     <string name="country_uzbekistan">Uzbekistan</string>
