@@ -292,6 +292,7 @@
     <string name="login_indonesia_phone_mask">+ 62 [000] [00000000]</string>
     <string name="login_india_phone_mask">+ 91 [00] [00000000]</string>
     <string name="login_bulgaria_phone_mask">+ 359 [00] [000] [0000]</string>
+    <string name="login_china_phone_mask">+ 86 [0000] [0000000]</string>
     <string name="login_macau_phone_mask">+ 853 [0000] [0000]</string>
     <string name="login_singapore_phone_mask">+ 65 [0000] [0000]</string>
     <string name="login_egypt_phone_mask">+ 20 [000] [000] [0000]</string>
@@ -353,6 +354,7 @@
     <string name="country_turkey">Турция</string>
     <string name="country_tanzania">Tanzania</string>
     <string name="country_usa">USA</string>
+    <string name="country_china">Китай</string>
     <string name="country_cyprus">Кипр</string>
     <string name="country_bosnia">Босния и Герцеговина</string>
     <string name="country_nepal">Непал</string>

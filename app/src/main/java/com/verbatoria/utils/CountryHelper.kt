@@ -23,6 +23,7 @@ object CountryHelper {
     const val MALAYSIA_COUNTRY_KEY = "mal"
     const val INDIA_COUNTRY_KEY = "ind"
     const val BULGARIA_COUNTRY_KEY = "bul"
+    const val CHINA_COUNTRY_KEY = "cn"
     const val MACAU_COUNTRY_KEY = "mo"
     const val SINGAPORE_COUNTRY_KEY = "sg"
     const val EGYPT_COUNTRY_KEY = "eg"
@@ -58,6 +59,7 @@ object CountryHelper {
             MALAYSIA_COUNTRY_KEY -> R.drawable.ic_flag_my
             INDIA_COUNTRY_KEY -> R.drawable.ic_flag_ind
             BULGARIA_COUNTRY_KEY -> R.drawable.ic_flag_bg
+            CHINA_COUNTRY_KEY -> R.drawable.ic_flag_cn
             MACAU_COUNTRY_KEY -> R.drawable.ic_flag_mo
             SINGAPORE_COUNTRY_KEY -> R.drawable.ic_flag_sg
             EGYPT_COUNTRY_KEY -> R.drawable.ic_flag_eg
@@ -101,6 +103,7 @@ object CountryHelper {
             INDONESIA_COUNTRY_KEY -> context.getString(R.string.login_indonesia_phone_mask)
             MALAYSIA_COUNTRY_KEY -> context.getString(R.string.login_malaysia_phone_mask)
             INDIA_COUNTRY_KEY -> context.getString(R.string.login_india_phone_mask)
+            CHINA_COUNTRY_KEY -> context.getString(R.string.login_china_phone_mask)
             BULGARIA_COUNTRY_KEY -> context.getString(R.string.login_bulgaria_phone_mask)
             MACAU_COUNTRY_KEY -> context.getString(R.string.login_macau_phone_mask)
             SINGAPORE_COUNTRY_KEY -> context.getString(R.string.login_singapore_phone_mask)
@@ -139,6 +142,7 @@ object CountryHelper {
             MALAYSIA_COUNTRY_KEY -> context.getString(R.string.country_malaysia)
             INDIA_COUNTRY_KEY -> context.getString(R.string.country_india)
             BULGARIA_COUNTRY_KEY -> context.getString(R.string.country_bulgaria)
+            CHINA_COUNTRY_KEY -> context.getString(R.string.country_china)
             MACAU_COUNTRY_KEY -> context.getString(R.string.country_macau)
             SINGAPORE_COUNTRY_KEY -> context.getString(R.string.country_singapore)
             EGYPT_COUNTRY_KEY -> context.getString(R.string.country_egypt)

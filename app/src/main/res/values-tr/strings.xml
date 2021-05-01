@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Verbatoria v11.4.4</string>
+    <string name="app_name">Verbatoria v11.4.5</string>
 
     <string name="loading_please_wait">Lütfen bekleyiniz…</string>
 
@@ -289,6 +289,7 @@
     <string name="login_indonesia_phone_mask">+ 62 [000] [00000000]</string>
     <string name="login_india_phone_mask">+ 91 [00] [00000000]</string>
     <string name="login_bulgaria_phone_mask">+ 359 [00] [000] [0000]</string>
+    <string name="login_china_phone_mask">+ 86 [0000] [0000000]</string>
     <string name="login_macau_phone_mask">+ 853 [0000] [0000]</string>
     <string name="login_singapore_phone_mask">+ 65 [0000] [0000]</string>
     <string name="login_egypt_phone_mask">+ 20 [000] [000] [0000]</string>
@@ -352,6 +353,7 @@
     <string name="country_turkey">Türkiye</string>
     <string name="country_tanzania">Tanzanya</string>
     <string name="country_usa">USA</string>
+    <string name="country_china">China</string>
     <string name="country_cyprus">Cyprus</string>
     <string name="country_bosnia">Bosnia and Herzegovina</string>
     <string name="country_nepal">Nepal</string>
