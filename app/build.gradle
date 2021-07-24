@@ -82,7 +82,8 @@ dependencies {
     //room
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
     kapt "android.arch.persistence.room:compiler:$rootProject.roomVersion"
-
+    compileOnly 'com.github.pengrad:jdk9-deps:1.0'
+    
     //rx
     implementation "io.reactivex.rxjava2:rxandroid:${rootProject.rxAndroidVersion}"
     implementation "io.reactivex.rxjava2:rxjava:${rootProject.rxJavaVersion}"
