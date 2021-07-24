@@ -311,6 +311,7 @@
     <string name="login_nepal_phone_mask">+ 977 [000] [000] [00] [00]</string>
     <string name="login_france_phone_mask">+ 33 [0] [00] [00] [00] [00]</string>
     <string name="login_uganda_phone_mask">+ 256 [000] [000000]</string>
+    <string name="login_new_zealand_phone_mask">+ [000] [0000] [0000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
@@ -359,6 +360,7 @@
     <string name="country_bosnia">Босния и Герцеговина</string>
     <string name="country_nepal">Непал</string>
     <string name="country_france">Франция</string>
+    <string name="country_new_zealand">Новая Зеландия</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

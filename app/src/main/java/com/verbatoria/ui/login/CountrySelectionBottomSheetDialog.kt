@@ -178,6 +178,10 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.NEPAL_COUNTRY_KEY)
         }
+        view.findViewById<View>(R.id.new_zealand_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.NEW_ZEALAND_COUNTRY_KEY)
+        }
         return view
     }
 
