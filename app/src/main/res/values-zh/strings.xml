@@ -261,6 +261,7 @@
     <string name="language_turkey">Turk</string>
     <string name="language_arabic">العربية</string>
     <string name="language_bosnian">Bosnian</string>
+    <string name="language_greece">Greece</string>
 
     <string name="dashboard_update_language_error">ATTENTION: Error updating language occurred</string>
 

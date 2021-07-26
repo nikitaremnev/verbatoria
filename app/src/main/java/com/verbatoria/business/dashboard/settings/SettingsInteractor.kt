@@ -12,6 +12,8 @@ import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import io.reactivex.Completable
 import io.reactivex.Single
 import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.GREECE_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.GREECE_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
@@ -71,7 +73,8 @@ class SettingsInteractorImpl(
                     Pair(TURKEY_LOCALE, localesAvailable.contains(TURKEY_LOCALE)),
                     Pair(ARABIC_LOCALE, localesAvailable.contains(ARABIC_LOCALE)),
                     Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIA_LOCALE)),
-                    Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIAN_LOCALE_FROM_SERVER))
+                    Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIAN_LOCALE_FROM_SERVER)),
+                    Pair(GREECE_LOCALE, localesAvailable.contains(GREECE_LOCALE_FROM_SERVER))
             ), currentLocale)
         }
             .subscribeOn(schedulersFactory.io)
@@ -88,6 +91,9 @@ class SettingsInteractorImpl(
                 }
                 BOSNIA_LOCALE -> {
                     settingsManager.updateCurrentLocale(BOSNIAN_LOCALE_FROM_SERVER)
+                }
+                GREECE_LOCALE -> {
+                    settingsManager.updateCurrentLocale(GREECE_LOCALE_FROM_SERVER)
                 }
                 else -> {
                     settingsManager.updateCurrentLocale(locale)

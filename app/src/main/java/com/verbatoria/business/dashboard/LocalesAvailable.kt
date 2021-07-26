@@ -22,10 +22,14 @@ object LocalesAvailable {
 
     const val BOSNIA_LOCALE = "ba"
 
+    const val GREECE_LOCALE = "el"
+
     const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
 
     const val UKRAINE_LOCALE_FROM_SERVER = "ua"
 
     const val BOSNIAN_LOCALE_FROM_SERVER = "bs"
+
+    const val GREECE_LOCALE_FROM_SERVER = "bs"
 
 }
