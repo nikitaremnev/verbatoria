@@ -148,7 +148,7 @@ class AppLanguagesDialog : DialogFragment() {
         }
 
         if (arguments?.get(IS_GREECE_LANGUAGE_AVAILABLE_EXTRA) == true) {
-            if (currentLocale == LocalesAvailable.GREECE_LOCALE || currentLocale == LocalesAvailable.GREECE_LOCALE_FROM_SERVER) {
+            if (currentLocale == LocalesAvailable.GREECE_LOCALE) {
                 greeceLanguageView.findViewById<View>(R.id.greece_selected_image_view).visibility = View.VISIBLE
             }
             greeceLanguageView.setOnClickListener {

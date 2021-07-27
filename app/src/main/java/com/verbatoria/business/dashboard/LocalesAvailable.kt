@@ -30,6 +30,4 @@ object LocalesAvailable {
 
     const val BOSNIAN_LOCALE_FROM_SERVER = "bs"
 
-    const val GREECE_LOCALE_FROM_SERVER = "bs"
-
 }
