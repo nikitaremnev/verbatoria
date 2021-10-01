@@ -157,7 +157,6 @@ class EventDetailPresenter(
                 eventDetailChildItem.age = child?.age
                 view?.updateEventDetailItem(eventDetailItemsList.indexOf(eventDetailChildItem))
             }
-        checkIsAllFieldsFilled()
         if (currentMode.isChildRequired()) {
             eventDetailItemsList.add(
                 EventDetailSubmitItem(
@@ -167,6 +166,7 @@ class EventDetailPresenter(
             )
             view?.setEventDetailItems(eventDetailItemsList)
         }
+        checkIsAllFieldsFilled()
     }
 
     override fun onNavigationClicked() {
@@ -387,7 +387,6 @@ class EventDetailPresenter(
             }, { error ->
                 logger.error("create new event error occurred", error)
                 this.view?.showErrorSnackbar("create new event error occurred")
-
             })
             .let(::addDisposable)
     }
@@ -517,7 +516,7 @@ class EventDetailPresenter(
     }
 
     private fun checkIsAllFieldsFilled() {
-        if (client != null && !client?.email.isNullOrBlank() && child != null) {
+        if (client != null && !client?.email.isNullOrBlank() && child != null && selectedTimeSlot != null) {
             if (eventDetailItemsList.isNotEmpty()) {
                 findEventDetailItemInList<EventDetailSubmitItem>()
                     ?.let { eventDetailSubmitItem ->
