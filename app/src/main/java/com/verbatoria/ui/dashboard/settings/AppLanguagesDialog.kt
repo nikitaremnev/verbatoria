@@ -24,6 +24,7 @@ private const val IS_TURKEY_LANGUAGE_AVAILABLE_EXTRA = "is_turkey_language_avail
 private const val IS_ARABIC_LANGUAGE_AVAILABLE_EXTRA = "is_arabic_language_available"
 private const val IS_BOSNIAN_LANGUAGE_AVAILABLE_EXTRA = "is_bosnian_language_available"
 private const val IS_GREECE_LANGUAGE_AVAILABLE_EXTRA = "is_greece_language_available"
+private const val IS_MONGOLIAN_LANGUAGE_AVAILABLE_EXTRA = "is_mongolian_language_available"
 
 private const val CURRENT_LOCALE_EXTRA = "current_locale"
 
@@ -51,6 +52,7 @@ class AppLanguagesDialog : DialogFragment() {
         val arabicLanguageView = rootView.findViewById<View>(R.id.arabic_language_container)
         val bosnianLanguageView = rootView.findViewById<View>(R.id.bosnia_language_container)
         val greeceLanguageView = rootView.findViewById<View>(R.id.greece_language_container)
+        val mongoliaLanguageView = rootView.findViewById<View>(R.id.mongolia_language_container)
 
         val currentLocale = arguments?.get(CURRENT_LOCALE_EXTRA)
 
@@ -159,6 +161,18 @@ class AppLanguagesDialog : DialogFragment() {
             greeceLanguageView.hide()
         }
 
+        if (arguments?.get(IS_MONGOLIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+            if (currentLocale == LocalesAvailable.MONGOLIAN_LOCALE) {
+                greeceLanguageView.findViewById<View>(R.id.mongolia_selected_image_view).visibility = View.VISIBLE
+            }
+            mongoliaLanguageView.setOnClickListener {
+                onLanguageSelectedListener?.onMongolianLanguageSelected()
+                dismiss()
+            }
+        } else {
+            mongoliaLanguageView.hide()
+        }
+
         return AlertDialog.Builder(activity)
             .setView(rootView)
             .setNegativeButton(R.string.cancel, null)
@@ -190,6 +204,8 @@ class AppLanguagesDialog : DialogFragment() {
         var isBosniaLanguageAvailable: Boolean? = null
 
         var isGreeceLanguageAvailable: Boolean? = null
+
+        var isMongolianLanguageAvailable: Boolean? = null
 
         var currentLocale: String? = null
 
@@ -237,6 +253,10 @@ class AppLanguagesDialog : DialogFragment() {
                                 IS_GREECE_LANGUAGE_AVAILABLE_EXTRA,
                                 isGreeceLanguageAvailable ?: false
                         )
+                        args.putBoolean(
+                                IS_MONGOLIAN_LANGUAGE_AVAILABLE_EXTRA,
+                                isMongolianLanguageAvailable ?: false
+                        )
                         args.putString(
                             CURRENT_LOCALE_EXTRA,
                             currentLocale
@@ -265,6 +285,8 @@ class AppLanguagesDialog : DialogFragment() {
         fun onBosnianLanguageSelected()
 
         fun onGreeceLanguageSelected()
+
+        fun onMongolianLanguageSelected()
 
     }
 

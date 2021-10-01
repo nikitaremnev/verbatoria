@@ -44,6 +44,7 @@ interface SettingsView : BaseView {
         isArabicLanguageAvailable: Boolean,
         isBosniaLanguageAvailable: Boolean,
         isGreeceLanguageAvailable: Boolean,
+        isMongolianLanguageAvailable: Boolean,
         currentLocale: String
     )
 
@@ -80,6 +81,8 @@ interface SettingsView : BaseView {
         fun onBosnianLanguageSelected()
 
         fun onGreeceLanguageSelected()
+
+        fun onMongolianLanguageSelected()
 
     }
 
@@ -138,6 +141,7 @@ class SettingsFragment :
         isArabicLanguageAvailable: Boolean,
         isBosniaLanguageAvailable: Boolean,
         isGreeceLanguageAvailable: Boolean,
+        isMongolianLanguageAvailable: Boolean,
         currentLocale: String
     ) {
         AppLanguagesDialog.build {
@@ -150,6 +154,7 @@ class SettingsFragment :
             this.isArabicLanguageAvailable = isArabicLanguageAvailable
             this.isBosniaLanguageAvailable = isBosniaLanguageAvailable
             this.isGreeceLanguageAvailable = isGreeceLanguageAvailable
+            this.isMongolianLanguageAvailable = isMongolianLanguageAvailable
             this.currentLocale = currentLocale
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
@@ -231,6 +236,10 @@ class SettingsFragment :
 
     override fun onGreeceLanguageSelected() {
         presenter.onGreeceLanguageSelected()
+    }
+
+    override fun onMongolianLanguageSelected() {
+        presenter.onMongolianLanguageSelected()
     }
 
     //endregion
