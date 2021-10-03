@@ -163,7 +163,7 @@ class AppLanguagesDialog : DialogFragment() {
 
         if (arguments?.get(IS_MONGOLIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.MONGOLIAN_LOCALE) {
-                greeceLanguageView.findViewById<View>(R.id.mongolia_selected_image_view).visibility = View.VISIBLE
+                mongoliaLanguageView.findViewById<View>(R.id.mongolia_selected_image_view).visibility = View.VISIBLE
             }
             mongoliaLanguageView.setOnClickListener {
                 onLanguageSelectedListener?.onMongolianLanguageSelected()
