@@ -213,7 +213,7 @@ class WritingActivity : BasePresenterActivity<WritingView, WritingPresenter, Wri
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): WritingComponent =
         injector.plusWritingComponent()
-            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
+            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA) ?: "")
             .childAge(intent.getIntExtra(CHILD_AGE_EXTRA, 0))
             .build()
 

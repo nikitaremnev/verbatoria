@@ -142,8 +142,8 @@ class QuestionnaireActivity : BasePresenterActivity<QuestionnaireView, Questionn
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): QuestionnaireComponent =
         injector.plusQuestionnaireComponent()
-            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
-            .bluetoothDeviceAddress(intent.getStringExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA))
+            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA) ?: "")
+            .bluetoothDeviceAddress(intent.getStringExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA) ?: "")
             .childAge(intent.getIntExtra(CHILD_AGE_EXTRA, 0))
             .build()
 

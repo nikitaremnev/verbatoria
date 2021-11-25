@@ -67,8 +67,8 @@ class SubmitActivity : BasePresenterActivity<SubmitView, SubmitPresenter, Submit
 
     override fun buildComponent(injector: Injector, savedState: Bundle?): SubmitComponent =
         injector.plusSubmitComponent()
-            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA))
-            .bluetoothDeviceAddress(intent.getStringExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA))
+            .sessionId(intent.getStringExtra(SESSION_ID_EXTRA)?: "")
+            .bluetoothDeviceAddress(intent.getStringExtra(BLUETOOTH_DEVICE_ADDRESS_EXTRA)?: "")
             .build()
 
     override fun initViews(savedState: Bundle?) {

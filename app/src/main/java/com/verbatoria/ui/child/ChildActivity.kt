@@ -110,7 +110,7 @@ class ChildActivity : BasePresenterActivity<ChildView, ChildPresenter, ChildActi
         injector.plusChildComponent()
             .eventDetailMode(intent.getIntExtra(EVENT_DETAIL_MODE_EXTRA, EventDetailMode.CREATE_NEW.ordinal))
             .child(intent.getParcelableExtra(CHILD_EXTRA))
-            .clientId(intent.getStringExtra(CLIENT_ID_EXTRA))
+            .clientId(intent.getStringExtra(CLIENT_ID_EXTRA) ?: "")
             .build()
 
     override fun initViews(savedState: Bundle?) {
