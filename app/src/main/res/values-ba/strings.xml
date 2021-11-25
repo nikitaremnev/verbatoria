@@ -263,6 +263,7 @@
     <string name="language_bosnian">Bosnian</string>
     <string name="language_greece">Greece</string>
     <string name="language_mongolia">Mongolian</string>
+    <string name="language_macedonia">Macedonian</string>
 
     <string name="dashboard_update_language_error">PAŽNJA: Došlo je do greške prilikom ažuriranja jezika</string>
 
@@ -311,6 +312,7 @@
     <string name="login_france_phone_mask">+ 33 [0] [00] [00] [00] [00]</string>
     <string name="login_uganda_phone_mask">+ 256 [000] [000000]</string>
     <string name="login_new_zealand_phone_mask">+ 64 [0000] [00000]</string>
+    <string name="login_macedonia_phone_mask">+ 389 [00] [000000]</string>
 
     <string name="login_password_hint">Šifra</string>
     <string name="login_forgot_password">Zaboravili ste šifru?</string>
@@ -344,6 +346,7 @@
     <string name="country_jordan">Jordan</string>
     <string name="country_kazakhstan">Kazakhstan</string>
     <string name="country_macau">Macau</string>
+    <string name="country_macedonia">Macedonia</string>
     <string name="country_malaysia">Malaysia</string>
     <string name="country_mongolia">Mongolia</string>
     <string name="country_nepal">Nepal</string>

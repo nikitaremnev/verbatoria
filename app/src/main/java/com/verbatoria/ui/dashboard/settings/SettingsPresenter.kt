@@ -6,6 +6,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.ENGLISH_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.GREECE_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.MACEDONIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.MONGOLIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.TURKEY_LOCALE
@@ -98,6 +99,10 @@ class SettingsPresenter(
         setCurrentLocale(MONGOLIAN_LOCALE)
     }
 
+    override fun onMacedonianLanguageSelected() {
+        setCurrentLocale(MACEDONIA_LOCALE)
+    }
+
     //endregion
 
     private fun getSettings() {
@@ -138,7 +143,8 @@ class SettingsPresenter(
                     languagesMap[BOSNIA_LOCALE] ?: false,
                         languagesMap[GREECE_LOCALE] ?: false,
                         languagesMap[MONGOLIAN_LOCALE] ?: false,
-                    currentLocale
+                        languagesMap[MACEDONIA_LOCALE] ?: false,
+                        currentLocale
                 )
             }, { error ->
                 logger.error("get app languages availability error occurred", error)

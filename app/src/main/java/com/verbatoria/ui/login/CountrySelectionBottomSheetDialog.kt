@@ -110,6 +110,10 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.MACAU_COUNTRY_KEY)
         }
+        view.findViewById<View>(R.id.macedonia_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.MACEDONIA_COUNTRY_KEY)
+        }
         view.findViewById<View>(R.id.singapore_item_container).setOnClickListener {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.SINGAPORE_COUNTRY_KEY)
