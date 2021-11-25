@@ -29,13 +29,10 @@ class QuestionnairePresenter(
 
     private var isAgeAllowedForHobby: Boolean = false
 
-    private var isShortQuestionnaire: Boolean = false
-
     private var currentQuestionPosition: Int = 0
 
     init {
         getQuestionnaire()
-        getIsShortQuestionnaire()
     }
 
     override fun onAttachView(view: QuestionnaireView) {
@@ -50,7 +47,7 @@ class QuestionnairePresenter(
     override fun onNumberAnswerClicked(answer: QuestionAnswer) {
         view?.setNumberAnswer(answer.value)
         saveNumberAnswerForPosition(answer)
-        if (!isShortQuestionnaire || currentQuestionPosition != LAST_NUMBER_QUESTION_INDEX) {
+        if (currentQuestionPosition != LAST_NUMBER_QUESTION_INDEX) {
             onNextClicked()
         }
     }
@@ -123,16 +120,6 @@ class QuestionnairePresenter(
                 view?.openSubmit(sessionId, bluetoothDeviceAddress)
             }, { error ->
                 view?.showErrorSnackbar(error.localizedMessage ?: "Save questionnaire error occurred")
-            })
-            .let(::addDisposable)
-    }
-
-    private fun getIsShortQuestionnaire() {
-        questionnaireInteractor.isShortQuestionnaire()
-            .subscribe({
-                this.isShortQuestionnaire = it
-            }, { error ->
-                view?.showErrorSnackbar(error.localizedMessage ?: "Get is short questionnaire error occurred")
             })
             .let(::addDisposable)
     }
@@ -212,7 +199,7 @@ class QuestionnairePresenter(
 
 
             in (FIRST_QUESTION_POSITION + 1 until LAST_QUESTION_INDEX) -> {
-                if (currentQuestionPosition == LAST_NUMBER_QUESTION_INDEX && isShortQuestionnaire) {
+                if (currentQuestionPosition == LAST_NUMBER_QUESTION_INDEX) {
                     setUpLastQuestionButtonsState()
                 } else {
                     view?.apply {

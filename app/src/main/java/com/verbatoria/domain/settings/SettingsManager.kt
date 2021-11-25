@@ -36,8 +36,6 @@ interface SettingsManager {
 
     fun updateCurrentLocale(locale: String)
 
-    fun isNotRussianLocale(): Boolean
-
 }
 
 class SettingsManagerImpl(
@@ -85,11 +83,6 @@ class SettingsManagerImpl(
         settingsEndpoint.setLocationLanguage(infoManager.getLocationId(), SetLocationLanguageParamsDto(locale))
         settingsRepository.putCurrentLocale(locale)
         infoManager.dropLastLocationInfoUpdateTime()
-    }
-
-    override fun isNotRussianLocale(): Boolean {
-        val currentLocale = settingsRepository.getCurrentLocale()
-        return currentLocale != LocalesAvailable.RUSSIAN_LOCALE && currentLocale != LocalesAvailable.UKRAINIAN_LOCALE
     }
 
 }

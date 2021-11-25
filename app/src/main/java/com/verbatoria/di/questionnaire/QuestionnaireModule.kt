@@ -4,7 +4,6 @@ import com.verbatoria.business.questionnaire.QuestionnaireInteractorImpl
 import com.verbatoria.domain.dashboard.info.manager.InfoManager
 import com.verbatoria.domain.late_send.manager.LateSendManager
 import com.verbatoria.domain.questionnaire.manager.QuestionnaireManager
-import com.verbatoria.domain.settings.SettingsManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
 import com.verbatoria.ui.questionnaire.QuestionnairePresenter
 import dagger.Module
@@ -28,7 +27,6 @@ class QuestionnaireModule {
         questionnaireManager: QuestionnaireManager,
         lateSendManager: LateSendManager,
         infoManager: InfoManager,
-        settingsManager: SettingsManager,
         rxSchedulersFactory: RxSchedulersFactory
     ): QuestionnairePresenter =
         QuestionnairePresenter(
@@ -39,7 +37,6 @@ class QuestionnaireModule {
                 questionnaireManager,
                 lateSendManager,
                 infoManager,
-                settingsManager,
                 childAge,
                 rxSchedulersFactory
             )
