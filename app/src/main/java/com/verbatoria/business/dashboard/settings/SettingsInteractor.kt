@@ -3,7 +3,6 @@ package com.verbatoria.business.dashboard.settings
 import android.os.Build
 import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.dashboard.LocalesAvailable.ARABIC_LOCALE
-import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIAN_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
@@ -74,7 +73,6 @@ class SettingsInteractorImpl(
                     Pair(TURKEY_LOCALE, localesAvailable.contains(TURKEY_LOCALE)),
                     Pair(ARABIC_LOCALE, localesAvailable.contains(ARABIC_LOCALE)),
                     Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIA_LOCALE)),
-                    Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIAN_LOCALE_FROM_SERVER)),
                     Pair(GREECE_LOCALE, localesAvailable.contains(GREECE_LOCALE)),
                     Pair(MONGOLIAN_LOCALE, localesAvailable.contains(MONGOLIAN_LOCALE)),
                     Pair(MACEDONIA_LOCALE, localesAvailable.contains(MACEDONIA_LOCALE))
@@ -93,7 +91,7 @@ class SettingsInteractorImpl(
                     settingsManager.updateCurrentLocale(UKRAINE_LOCALE_FROM_SERVER)
                 }
                 BOSNIA_LOCALE -> {
-                    settingsManager.updateCurrentLocale(BOSNIAN_LOCALE_FROM_SERVER)
+                    settingsManager.updateCurrentLocale(BOSNIA_LOCALE)
                 }
                 GREECE_LOCALE -> {
                     settingsManager.updateCurrentLocale(GREECE_LOCALE)

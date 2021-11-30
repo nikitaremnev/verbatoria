@@ -20,7 +20,7 @@ object LocalesAvailable {
 
     const val ARABIC_LOCALE = "ar"
 
-    const val BOSNIA_LOCALE = "ba"
+    const val BOSNIA_LOCALE = "bs"
 
     const val GREECE_LOCALE = "el"
 
@@ -31,7 +31,5 @@ object LocalesAvailable {
     const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
 
     const val UKRAINE_LOCALE_FROM_SERVER = "ua"
-
-    const val BOSNIAN_LOCALE_FROM_SERVER = "bs"
 
 }

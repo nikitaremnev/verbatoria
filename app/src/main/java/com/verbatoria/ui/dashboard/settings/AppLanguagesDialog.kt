@@ -140,7 +140,7 @@ class AppLanguagesDialog : DialogFragment() {
         }
 
         if (arguments?.get(IS_BOSNIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
-            if (currentLocale == LocalesAvailable.BOSNIA_LOCALE || currentLocale == LocalesAvailable.BOSNIAN_LOCALE_FROM_SERVER) {
+            if (currentLocale == LocalesAvailable.BOSNIA_LOCALE) {
                 bosnianLanguageView.findViewById<View>(R.id.bosnia_selected_image_view).visibility = View.VISIBLE
             }
             bosnianLanguageView.setOnClickListener {
