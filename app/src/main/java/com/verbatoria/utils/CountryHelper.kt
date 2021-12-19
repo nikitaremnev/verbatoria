@@ -44,6 +44,9 @@ object CountryHelper {
     const val UGANDA_COUNTRY_KEY = "ug"
     const val NEW_ZEALAND_COUNTRY_KEY = "nz"
     const val MACEDONIA_COUNTRY_KEY = "mk"
+    const val ARGENTINA_COUNTRY_KEY = "ar"
+    const val SLOVAKIA_COUNTRY_KEY = "svk"
+    const val GREECE_COUNTRY_KEY = "gre"
 
     fun getFlagResourceByCountryKey(countryKey: String): Int =
         when (countryKey) {
@@ -82,6 +85,9 @@ object CountryHelper {
             UGANDA_COUNTRY_KEY -> R.drawable.ic_flag_ug
             NEW_ZEALAND_COUNTRY_KEY -> R.drawable.ic_flag_nz
             MACEDONIA_COUNTRY_KEY -> R.drawable.ic_flag_mk
+            GREECE_COUNTRY_KEY -> R.drawable.ic_flag_gr
+            ARGENTINA_COUNTRY_KEY -> R.drawable.ic_flag_ar
+            SLOVAKIA_COUNTRY_KEY -> R.drawable.ic_flag_sk
             else -> R.drawable.ic_flag_ru
         }
 
@@ -129,6 +135,9 @@ object CountryHelper {
             UGANDA_COUNTRY_KEY -> context.getString(R.string.login_uganda_phone_mask)
             NEW_ZEALAND_COUNTRY_KEY -> context.getString(R.string.login_new_zealand_phone_mask)
             MACEDONIA_COUNTRY_KEY -> context.getString(R.string.login_macedonia_phone_mask)
+            GREECE_COUNTRY_KEY -> context.getString(R.string.login_greece_phone_mask)
+            ARGENTINA_COUNTRY_KEY -> context.getString(R.string.login_argentina_phone_mask)
+            SLOVAKIA_COUNTRY_KEY -> context.getString(R.string.login_slovakia_phone_mask)
             else -> context.getString(R.string.login_russia_phone_mask)
         }
 
@@ -169,6 +178,9 @@ object CountryHelper {
             UGANDA_COUNTRY_KEY -> context.getString(R.string.country_uganda)
             NEW_ZEALAND_COUNTRY_KEY -> context.getString(R.string.country_new_zealand)
             MACEDONIA_COUNTRY_KEY -> context.getString(R.string.country_macedonia)
+            GREECE_COUNTRY_KEY -> context.getString(R.string.country_greece)
+            ARGENTINA_COUNTRY_KEY -> context.getString(R.string.country_argentina)
+            SLOVAKIA_COUNTRY_KEY -> context.getString(R.string.country_slovakia)
             else -> context.getString(R.string.country_russia)
         }
 

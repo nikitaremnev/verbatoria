@@ -284,10 +284,13 @@
     <string name="login_submit">Вляза</string>
     <string name="login_phone_hint">Телефонен номер</string>
 
+    <string name="login_slovakia_phone_mask">+ 421 [000] [000] [000]</string>
+    <string name="login_argentina_phone_mask">+ 54 [000] [000] [0000]</string>
     <string name="login_russia_phone_mask">+ 7 [000] [000] [00] [00]</string>
     <string name="login_ukraine_phone_mask">+ 380 [00] [000] [00] [00]</string>
     <string name="login_azerbaijan_phone_mask">+ 994 [00] [000] [00] [00]</string>
     <string name="login_uae_phone_mask">+ 971 [00] [0000000]</string>
+    <string name="login_greece_phone_mask">+ 30 [000] [000] [00] [00]</string>
     <string name="login_thailand_phone_mask">+ 66 [00] [00000000]</string>
     <string name="login_belarus_phone_mask">+ 375 [00] [000] [00] [00]</string>
     <string name="login_israel_phone_mask">+ 972 [00] [0000000]</string>
@@ -369,6 +372,9 @@
     <string name="country_bosnia">Bosnia and Herzegovina</string>
     <string name="country_nepal">Nepal</string>
     <string name="country_new_zealand">New Zealand</string>
+    <string name="country_argentina">Argentina</string>
+    <string name="country_slovakia">Slovakia</string>
+    <string name="country_greece">Greece</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 
