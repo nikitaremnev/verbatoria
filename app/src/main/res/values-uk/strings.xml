@@ -319,6 +319,7 @@
     <string name="login_uganda_phone_mask">+ 256 [000] [000000]</string>
     <string name="login_new_zealand_phone_mask">+ 64 [0000] [00000]</string>
     <string name="login_macedonia_phone_mask">+ 389 [00] [000000]</string>
+    <string name="login_mozambique_phone_mask">+ 258 [000] [000000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
@@ -372,6 +373,7 @@
     <string name="country_argentina">Аргентина</string>
     <string name="country_slovakia">Словакия</string>
     <string name="country_greece">Греция</string>
+    <string name="country_mozambique">Мозамбик</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

@@ -47,6 +47,7 @@ object CountryHelper {
     const val ARGENTINA_COUNTRY_KEY = "ar"
     const val SLOVAKIA_COUNTRY_KEY = "svk"
     const val GREECE_COUNTRY_KEY = "gre"
+    const val MOZAMBIQUE_COUNTRY_KEY = "mz"
 
     fun getFlagResourceByCountryKey(countryKey: String): Int =
         when (countryKey) {
@@ -88,6 +89,7 @@ object CountryHelper {
             GREECE_COUNTRY_KEY -> R.drawable.ic_flag_gr
             ARGENTINA_COUNTRY_KEY -> R.drawable.ic_flag_ar
             SLOVAKIA_COUNTRY_KEY -> R.drawable.ic_flag_sk
+            MOZAMBIQUE_COUNTRY_KEY -> R.drawable.ic_flag_mz
             else -> R.drawable.ic_flag_ru
         }
 
@@ -138,6 +140,7 @@ object CountryHelper {
             GREECE_COUNTRY_KEY -> context.getString(R.string.login_greece_phone_mask)
             ARGENTINA_COUNTRY_KEY -> context.getString(R.string.login_argentina_phone_mask)
             SLOVAKIA_COUNTRY_KEY -> context.getString(R.string.login_slovakia_phone_mask)
+            MOZAMBIQUE_COUNTRY_KEY -> context.getString(R.string.login_mozambique_phone_mask)
             else -> context.getString(R.string.login_russia_phone_mask)
         }
 
@@ -181,6 +184,7 @@ object CountryHelper {
             GREECE_COUNTRY_KEY -> context.getString(R.string.country_greece)
             ARGENTINA_COUNTRY_KEY -> context.getString(R.string.country_argentina)
             SLOVAKIA_COUNTRY_KEY -> context.getString(R.string.country_slovakia)
+            MOZAMBIQUE_COUNTRY_KEY -> context.getString(R.string.country_mozambique)
             else -> context.getString(R.string.country_russia)
         }
 
