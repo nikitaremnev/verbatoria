@@ -35,6 +35,7 @@ private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2 = "brain"
 private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3 = "bci"
 private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4 = "link"
 private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5 = "wave"
+private const val BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_6 = "lite"
 
 class WritingPresenter(
     private val sessionId: String,
@@ -134,10 +135,11 @@ class WritingPresenter(
 
     override fun onBluetoothDeviceAddressReceived(deviceName: String, deviceAddress: String) {
         if (deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_1, ignoreCase = true) ||
-            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
-            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
-            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
-            deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true)) {
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_2, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_3, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_4, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_5, ignoreCase = true) ||
+                deviceName.contains(BCI_DEVICE_BLUETOOTH_NAME_PART_VARIANT_6, ignoreCase = true)) {
             bluetoothDeviceAddress = deviceAddress
         }
     }
