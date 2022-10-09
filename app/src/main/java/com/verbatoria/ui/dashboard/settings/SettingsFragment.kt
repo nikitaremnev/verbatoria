@@ -15,7 +15,6 @@ import com.verbatoria.ui.base.BasePresenterFragment
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.common.Adapter
 import com.verbatoria.ui.common.dialog.ProgressDialog
-import com.verbatoria.ui.common.dialog.FragmentSuggestDialog
 import com.verbatoria.ui.late_send.LateSendActivity
 import com.verbatoria.ui.login.LoginActivity
 import com.verbatoria.ui.schedule.ScheduleActivity
@@ -46,6 +45,7 @@ interface SettingsView : BaseView {
         isGreeceLanguageAvailable: Boolean,
         isMongolianLanguageAvailable: Boolean,
         isMacedonianLanguageAvailable: Boolean,
+        isSlovakianLanguageAvailable: Boolean,
         currentLocale: String
     )
 
@@ -87,6 +87,7 @@ interface SettingsView : BaseView {
 
         fun onMacedonianLanguageSelected()
 
+        fun onSlovakianLanguageSelected()
     }
 
 }
@@ -146,6 +147,7 @@ class SettingsFragment :
         isGreeceLanguageAvailable: Boolean,
         isMongolianLanguageAvailable: Boolean,
         isMacedonianLanguageAvailable: Boolean,
+        isSlovakianLanguageAvailable: Boolean,
         currentLocale: String
     ) {
         AppLanguagesDialog.build {
@@ -160,6 +162,7 @@ class SettingsFragment :
             this.isGreeceLanguageAvailable = isGreeceLanguageAvailable
             this.isMongolianLanguageAvailable = isMongolianLanguageAvailable
             this.isMacedonianLanguageAvailable = isMacedonianLanguageAvailable
+            this.isSlovakianLanguageAvailable = isSlovakianLanguageAvailable
             this.currentLocale = currentLocale
         }.show(activity?.supportFragmentManager, APP_LANGUAGES_DIALOG_TAG)
     }
@@ -249,6 +252,10 @@ class SettingsFragment :
 
     override fun onMacedonianLanguageSelected() {
         presenter.onMacedonianLanguageSelected()
+    }
+
+    override fun onSlovakianLanguageSelected() {
+        presenter.onSlovakianLanguageSelected()
     }
 
     //endregion

@@ -198,9 +198,21 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.SLOVAKIA_COUNTRY_KEY)
         }
-        view.findViewById<View>(R.id.mozambique_item_container).setOnClickListener {
+        view.findViewById<View>(R.id.croatia_item_container).setOnClickListener {
             dismiss()
-            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.MOZAMBIQUE_COUNTRY_KEY)
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.CROATIA_COUNTRY_KEY)
+        }
+        view.findViewById<View>(R.id.latvia_country_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.LATVIA_COUNTRY_KEY)
+        }
+        view.findViewById<View>(R.id.australia_country_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.AUSTRALIA_COUNTRY_KEY)
+        }
+        view.findViewById<View>(R.id.mexico_country_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.MEXICO_COUNTRY_KEY)
         }
         return view
     }

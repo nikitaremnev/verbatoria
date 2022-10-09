@@ -17,6 +17,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.HONG_KONG_LOCALE_FROM_
 import com.verbatoria.business.dashboard.LocalesAvailable.MACEDONIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.MONGOLIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.SLOVAKIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.TURKEY_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINE_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
@@ -75,8 +76,9 @@ class SettingsInteractorImpl(
                     Pair(BOSNIA_LOCALE, localesAvailable.contains(BOSNIA_LOCALE)),
                     Pair(GREECE_LOCALE, localesAvailable.contains(GREECE_LOCALE)),
                     Pair(MONGOLIAN_LOCALE, localesAvailable.contains(MONGOLIAN_LOCALE)),
-                    Pair(MACEDONIA_LOCALE, localesAvailable.contains(MACEDONIA_LOCALE))
-            ), currentLocale)
+                    Pair(MACEDONIA_LOCALE, localesAvailable.contains(MACEDONIA_LOCALE)),
+                    Pair(SLOVAKIA_LOCALE, localesAvailable.contains(SLOVAKIA_LOCALE))
+                    ), currentLocale)
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
@@ -101,6 +103,9 @@ class SettingsInteractorImpl(
                 }
                 MACEDONIA_LOCALE -> {
                     settingsManager.updateCurrentLocale(MACEDONIA_LOCALE)
+                }
+                SLOVAKIA_LOCALE -> {
+                    settingsManager.updateCurrentLocale(SLOVAKIA_LOCALE)
                 }
                 else -> {
                     settingsManager.updateCurrentLocale(locale)

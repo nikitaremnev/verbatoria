@@ -28,6 +28,8 @@ object LocalesAvailable {
 
     const val MACEDONIA_LOCALE = "mk"
 
+    const val SLOVAKIA_LOCALE = "sk"
+
     const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
 
     const val UKRAINE_LOCALE_FROM_SERVER = "ua"

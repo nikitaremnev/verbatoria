@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Verbatoria v11.4.13</string>
+    <string name="app_name">Verbatoria v11.4.18</string>
 
     <string name="loading_please_wait">Molimo sačekajte…</string>
 
@@ -264,6 +264,7 @@
     <string name="language_greece">Greece</string>
     <string name="language_mongolia">Mongolian</string>
     <string name="language_macedonia">Macedonian</string>
+    <string name="language_slovakia">Slovak</string>
 
     <string name="dashboard_update_language_error">PAŽNJA: Došlo je do greške prilikom ažuriranja jezika</string>
 
@@ -318,6 +319,10 @@
     <string name="login_new_zealand_phone_mask">+ 64 [0000] [00000]</string>
     <string name="login_macedonia_phone_mask">+ 389 [00] [000000]</string>
     <string name="login_mozambique_phone_mask">+ 258 [000] [000000]</string>
+    <string name="login_mexico_phone_mask">+ 52 [000] [000] [0000]</string>
+    <string name="login_australia_phone_mask">+ 61 [000] [0000] [00]</string>
+    <string name="login_latvia_phone_mask">+ 371 [00] [000] [000]</string>
+    <string name="login_croatia_phone_mask">+ 385 [000] [000000]</string>
 
     <string name="login_password_hint">Šifra</string>
     <string name="login_forgot_password">Zaboravili ste šifru?</string>
@@ -373,6 +378,10 @@
     <string name="country_slovakia">Slovakia</string>
     <string name="country_greece">Greece</string>
     <string name="country_mozambique">Mozambique</string>
+    <string name="country_mexico">Mexico</string>
+    <string name="country_australia">Australia</string>
+    <string name="country_latvia">Latvia</string>
+    <string name="country_croatia">Croatia</string>
 
     <string name="sms_confirmation_confirm">Potvrdi</string>
 
