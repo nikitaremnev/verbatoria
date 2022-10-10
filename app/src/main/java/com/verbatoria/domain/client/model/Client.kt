@@ -8,6 +8,8 @@ import kotlinx.android.parcel.Parcelize
  * @author n.remnev
  */
 
+private const val MINIMUM_PHONE_SIZE = 6
+
 @Parcelize
 data class Client(
     var id: String? = null,
@@ -23,7 +25,7 @@ data class Client(
         name.isNotEmpty()
 
     fun hasPhone(): Boolean =
-        phone.isNotEmpty()
+        phone.isNotEmpty() && phone.length > MINIMUM_PHONE_SIZE
 
     fun hasEmail(): Boolean =
         email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
