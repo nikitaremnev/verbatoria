@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Вербатория v11.4.19</string>
+    <string name="app_name">Вербатория v11.4.20</string>
 
     <string name="loading_please_wait">Моля, изчакайте…</string>
 
@@ -269,6 +269,7 @@
     <string name="language_mongolia">Mongolian</string>
     <string name="language_macedonia">Macedonian</string>
     <string name="language_slovakia">Slovak</string>
+    <string name="language_spain">Spanish</string>
 
     <string name="dashboard_update_language_error">Възникна грешка при актуализиране на езика на приложението</string>
 

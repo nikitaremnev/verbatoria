@@ -18,6 +18,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.MACEDONIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.MONGOLIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.SLOVAKIA_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.SPAIN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.TURKEY_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINE_LOCALE_FROM_SERVER
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
@@ -65,7 +66,8 @@ class SettingsInteractorImpl(
         Single.fromCallable {
             val localesAvailable = settingsManager.getLocales()
             val currentLocale = settingsManager.getCurrentLocale()
-            Pair(mapOf(
+            Pair(
+                mapOf(
                     Pair(RUSSIAN_LOCALE, localesAvailable.contains(RUSSIAN_LOCALE)),
                     Pair(ENGLISH_LOCALE, localesAvailable.contains(ENGLISH_LOCALE)),
                     Pair(HONG_KONG_LOCALE, localesAvailable.contains(HONG_KONG_LOCALE_FROM_SERVER)),
@@ -77,8 +79,10 @@ class SettingsInteractorImpl(
                     Pair(GREECE_LOCALE, localesAvailable.contains(GREECE_LOCALE)),
                     Pair(MONGOLIAN_LOCALE, localesAvailable.contains(MONGOLIAN_LOCALE)),
                     Pair(MACEDONIA_LOCALE, localesAvailable.contains(MACEDONIA_LOCALE)),
-                    Pair(SLOVAKIA_LOCALE, localesAvailable.contains(SLOVAKIA_LOCALE))
-                    ), currentLocale)
+                    Pair(SLOVAKIA_LOCALE, localesAvailable.contains(SLOVAKIA_LOCALE)),
+                    Pair(SPAIN_LOCALE, localesAvailable.contains(SPAIN_LOCALE))
+                ), currentLocale
+            )
         }
             .subscribeOn(schedulersFactory.io)
             .observeOn(schedulersFactory.main)
@@ -106,6 +110,9 @@ class SettingsInteractorImpl(
                 }
                 SLOVAKIA_LOCALE -> {
                     settingsManager.updateCurrentLocale(SLOVAKIA_LOCALE)
+                }
+                SPAIN_LOCALE -> {
+                    settingsManager.updateCurrentLocale(SPAIN_LOCALE)
                 }
                 else -> {
                     settingsManager.updateCurrentLocale(locale)

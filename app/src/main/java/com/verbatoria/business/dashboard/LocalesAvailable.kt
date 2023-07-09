@@ -34,4 +34,6 @@ object LocalesAvailable {
 
     const val UKRAINE_LOCALE_FROM_SERVER = "ua"
 
+    const val SPAIN_LOCALE = "es"
+
 }

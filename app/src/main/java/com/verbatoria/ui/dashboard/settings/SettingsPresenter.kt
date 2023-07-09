@@ -10,6 +10,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.MACEDONIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.MONGOLIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.SLOVAKIA_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.SPAIN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.TURKEY_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
 import com.verbatoria.domain.settings.SettingsManager.Companion.SETTINGS_ABOUT_APP_ID
@@ -108,6 +109,10 @@ class SettingsPresenter(
         setCurrentLocale(SLOVAKIA_LOCALE)
     }
 
+    override fun onSpainLanguageSelected() {
+        setCurrentLocale(SPAIN_LOCALE)
+    }
+
     //endregion
 
     private fun getSettings() {
@@ -146,11 +151,12 @@ class SettingsPresenter(
                     languagesMap[TURKEY_LOCALE] ?: false,
                     languagesMap[ARABIC_LOCALE] ?: false,
                     languagesMap[BOSNIA_LOCALE] ?: false,
-                        languagesMap[GREECE_LOCALE] ?: false,
-                        languagesMap[MONGOLIAN_LOCALE] ?: false,
-                        languagesMap[MACEDONIA_LOCALE] ?: false,
-                        languagesMap[SLOVAKIA_LOCALE] ?: false,
-                        currentLocale
+                    languagesMap[GREECE_LOCALE] ?: false,
+                    languagesMap[MONGOLIAN_LOCALE] ?: false,
+                    languagesMap[MACEDONIA_LOCALE] ?: false,
+                    languagesMap[SLOVAKIA_LOCALE] ?: false,
+                    languagesMap[SPAIN_LOCALE] ?: false,
+                    currentLocale
                 )
             }, { error ->
                 logger.error("get app languages availability error occurred", error)

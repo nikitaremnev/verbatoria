@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/ic_flag_aus.xml" value="0.1735" />
+        <entry key="app/src/main/res/drawable/ic_flag_bg.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable/ic_flag_cn.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable/ic_flag_cr.xml" value="0.157" />
         <entry key="app/src/main/res/drawable/ic_flag_cro.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/ic_flag_ind.xml" value="0.1735" />
         <entry key="app/src/main/res/drawable/ic_flag_lat.xml" value="0.1735" />
@@ -59,7 +62,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

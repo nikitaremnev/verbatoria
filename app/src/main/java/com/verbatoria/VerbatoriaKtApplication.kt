@@ -20,8 +20,7 @@ import javax.inject.Inject
  * @author n.remnev
  */
 
-class VerbatoriaKtApplication : Application(),
-    DependencyHolder<Any?> {
+class VerbatoriaKtApplication : Application(), DependencyHolder<Any?> {
 
     companion object {
 
