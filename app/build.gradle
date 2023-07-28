@@ -100,7 +100,7 @@ dependencies {
 
     implementation "com.facebook.stetho:stetho:${rootProject.stethoVersion}"
 
-    annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.butterKnifeVersion}"
+    kapt "com.jakewharton:butterknife-compiler:${rootProject.butterKnifeVersion}"
     api "com.jakewharton.rxbinding:rxbinding:${rootProject.rxBindingVersion}"
     api "com.squareup.okhttp3:okhttp:${rootProject.okHttpVersion}"
     api "com.squareup.okhttp3:logging-interceptor:${rootProject.okHttpVersion}"
