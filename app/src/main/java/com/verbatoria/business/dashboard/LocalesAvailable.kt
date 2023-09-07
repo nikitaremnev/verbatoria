@@ -36,4 +36,6 @@ object LocalesAvailable {
 
     const val SPAIN_LOCALE = "es"
 
+    const val CROATIA_LOCALE = "hr"
+
 }

@@ -270,6 +270,7 @@
     <string name="language_macedonia">Macedonian</string>
     <string name="language_slovakia">Slovak</string>
     <string name="language_spain">Spanish</string>
+    <string name="language_croatia">Hrvatski</string>
 
     <string name="dashboard_update_language_error">Възникна грешка при актуализиране на езика на приложението</string>
 

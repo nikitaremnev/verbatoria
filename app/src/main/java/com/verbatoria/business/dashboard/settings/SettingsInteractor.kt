@@ -5,6 +5,7 @@ import com.remnev.verbatoria.BuildConfig
 import com.verbatoria.business.dashboard.LocalesAvailable.ARABIC_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.CROATIA_LOCALE
 import com.verbatoria.business.dashboard.settings.model.item.SettingsItemModel
 import com.verbatoria.domain.session.manager.SessionManager
 import com.verbatoria.infrastructure.rx.RxSchedulersFactory
@@ -80,7 +81,8 @@ class SettingsInteractorImpl(
                     Pair(MONGOLIAN_LOCALE, localesAvailable.contains(MONGOLIAN_LOCALE)),
                     Pair(MACEDONIA_LOCALE, localesAvailable.contains(MACEDONIA_LOCALE)),
                     Pair(SLOVAKIA_LOCALE, localesAvailable.contains(SLOVAKIA_LOCALE)),
-                    Pair(SPAIN_LOCALE, localesAvailable.contains(SPAIN_LOCALE))
+                    Pair(SPAIN_LOCALE, localesAvailable.contains(SPAIN_LOCALE)),
+                    Pair(CROATIA_LOCALE, localesAvailable.contains(CROATIA_LOCALE))
                 ), currentLocale
             )
         }
@@ -113,6 +115,9 @@ class SettingsInteractorImpl(
                 }
                 SPAIN_LOCALE -> {
                     settingsManager.updateCurrentLocale(SPAIN_LOCALE)
+                }
+                CROATIA_LOCALE -> {
+                    settingsManager.updateCurrentLocale(CROATIA_LOCALE)
                 }
                 else -> {
                     settingsManager.updateCurrentLocale(locale)
