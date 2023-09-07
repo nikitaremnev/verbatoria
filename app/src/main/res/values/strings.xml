@@ -327,6 +327,8 @@
     <string name="login_australia_phone_mask">+ 61 [000] [0000] [00]</string>
     <string name="login_latvia_phone_mask">+ 371 [00] [000] [000]</string>
     <string name="login_croatia_phone_mask">+ 385 [000] [000000]</string>
+    <string name="login_kenya_phone_mask">+ 254 [000] [000000]</string>
+    <string name="login_japan_phone_mask">+ 81 [000] [000] [0000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
@@ -385,6 +387,8 @@
     <string name="country_australia">Australia</string>
     <string name="country_latvia">Latvia</string>
     <string name="country_croatia">Croatia</string>
+    <string name="country_kenya">Kenya</string>
+    <string name="country_japan">Japan</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

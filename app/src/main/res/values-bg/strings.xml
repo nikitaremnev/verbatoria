@@ -388,6 +388,8 @@
     <string name="country_australia">Australia</string>
     <string name="country_latvia">Latvia</string>
     <string name="country_croatia">Croatia</string>
+    <string name="country_kenya">Kenya</string>
+    <string name="country_japan">Japan</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 

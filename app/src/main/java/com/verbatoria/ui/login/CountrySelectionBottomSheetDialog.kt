@@ -206,6 +206,14 @@ class CountrySelectionBottomSheetDialog : BottomSheetDialogFragment() {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.CROATIA_COUNTRY_KEY)
         }
+        view.findViewById<View>(R.id.japan_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.JAPAN_COUNTRY_KEY)
+        }
+        view.findViewById<View>(R.id.kenya_item_container).setOnClickListener {
+            dismiss()
+            onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.KENYA_COUNTRY_KEY)
+        }
         view.findViewById<View>(R.id.latvia_country_item_container).setOnClickListener {
             dismiss()
             onCountrySelectionListener?.onCountrySelected(tag, CountryHelper.LATVIA_COUNTRY_KEY)
