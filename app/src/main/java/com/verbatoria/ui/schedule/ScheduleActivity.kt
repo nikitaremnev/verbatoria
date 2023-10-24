@@ -156,7 +156,7 @@ class ScheduleActivity :
     //region ScheduleView
 
     override fun setSchedule(scheduleDataSource: ScheduleDataSource) {
-        adaptiveTableLayout.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+        adaptiveTableLayout.addOnLayoutChangeListener { _, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             scheduleAdapter?.apply {
                 updateWidthAndHeight(
                     width = right - left,

@@ -88,7 +88,10 @@
             android:name="com.verbatoria.ui.submit.SubmitActivity"
             android:screenOrientation="landscape" />
 
-        <service android:name="com.verbatoria.component.session.SessionService" />
+        <service
+            android:name="com.verbatoria.component.session.SessionService"
+            android:exported="false"
+            />
 
     </application>
 

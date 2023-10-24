@@ -62,9 +62,9 @@ class AppLanguagesDialog : DialogFragment() {
         val spainLanguageView = rootView.findViewById<View>(R.id.spanish_language_container)
         val croatianLanguageView = rootView.findViewById<View>(R.id.croatian_language_container)
 
-        val currentLocale = arguments?.get(CURRENT_LOCALE_EXTRA)
+        val currentLocale = arguments?.getString(CURRENT_LOCALE_EXTRA)
 
-        if (arguments?.get(IS_RUSSIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_RUSSIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.RUSSIAN_LOCALE) {
                 russianLanguageView.findViewById<View>(R.id.russian_selected_image_view).visibility = View.VISIBLE
             }
@@ -75,7 +75,7 @@ class AppLanguagesDialog : DialogFragment() {
         } else {
             russianLanguageView.hide()
         }
-        if (arguments?.get(IS_ENGLISH_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_ENGLISH_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.ENGLISH_LOCALE) {
                 englishLanguageView.findViewById<View>(R.id.english_selected_image_view).visibility = View.VISIBLE
             }
@@ -86,7 +86,7 @@ class AppLanguagesDialog : DialogFragment() {
         } else {
             englishLanguageView.hide()
         }
-        if (arguments?.get(IS_HONG_KONG_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_HONG_KONG_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.HONG_KONG_LOCALE_FROM_SERVER) {
                 hongKongLanguageView.findViewById<View>(R.id.hong_kong_selected_image_view).visibility = View.VISIBLE
             }
@@ -97,7 +97,7 @@ class AppLanguagesDialog : DialogFragment() {
         } else {
             hongKongLanguageView.hide()
         }
-        if (arguments?.get(IS_UKRAINIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_UKRAINIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.UKRAINE_LOCALE_FROM_SERVER) {
                 ukrainianLanguageView.findViewById<View>(R.id.ukrainian_selected_image_view).visibility = View.VISIBLE
             }
@@ -109,7 +109,7 @@ class AppLanguagesDialog : DialogFragment() {
             ukrainianLanguageView.hide()
         }
 
-        if (arguments?.get(IS_BULGARIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_BULGARIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.BULGARIAN_LOCALE) {
                 bulgarianLanguageView.findViewById<View>(R.id.bulgarian_selected_image_view).visibility = View.VISIBLE
             }
@@ -121,7 +121,7 @@ class AppLanguagesDialog : DialogFragment() {
             bulgarianLanguageView.hide()
         }
 
-        if (arguments?.get(IS_TURKEY_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_TURKEY_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.TURKEY_LOCALE) {
                 turkeyLanguageView.findViewById<View>(R.id.turkey_selected_image_view).visibility = View.VISIBLE
             }
@@ -133,7 +133,7 @@ class AppLanguagesDialog : DialogFragment() {
             turkeyLanguageView.hide()
         }
 
-        if (arguments?.get(IS_ARABIC_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_ARABIC_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.ARABIC_LOCALE) {
                 arabicLanguageView.findViewById<View>(R.id.arabic_selected_image_view).visibility = View.VISIBLE
             }
@@ -145,7 +145,7 @@ class AppLanguagesDialog : DialogFragment() {
             arabicLanguageView.hide()
         }
 
-        if (arguments?.get(IS_BOSNIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_BOSNIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.BOSNIA_LOCALE) {
                 bosnianLanguageView.findViewById<View>(R.id.bosnia_selected_image_view).visibility = View.VISIBLE
             }
@@ -157,7 +157,7 @@ class AppLanguagesDialog : DialogFragment() {
             bosnianLanguageView.hide()
         }
 
-        if (arguments?.get(IS_GREECE_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_GREECE_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.GREECE_LOCALE) {
                 greeceLanguageView.findViewById<View>(R.id.greece_selected_image_view).visibility = View.VISIBLE
             }
@@ -169,7 +169,7 @@ class AppLanguagesDialog : DialogFragment() {
             greeceLanguageView.hide()
         }
 
-        if (arguments?.get(IS_MONGOLIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_MONGOLIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.MONGOLIAN_LOCALE) {
                 mongoliaLanguageView.findViewById<View>(R.id.mongolia_selected_image_view).visibility = View.VISIBLE
             }
@@ -181,7 +181,7 @@ class AppLanguagesDialog : DialogFragment() {
             mongoliaLanguageView.hide()
         }
 
-        if (arguments?.get(IS_MACEDONIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_MACEDONIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.MACEDONIA_LOCALE) {
                 macedoniaLanguageView.findViewById<View>(R.id.macedonia_selected_image_view).visibility = View.VISIBLE
             }
@@ -193,7 +193,7 @@ class AppLanguagesDialog : DialogFragment() {
             macedoniaLanguageView.hide()
         }
 
-        if (arguments?.get(IS_SLOVAKIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_SLOVAKIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.SLOVAKIA_LOCALE) {
                 slovakiaLanguageView.findViewById<View>(R.id.slovakia_selected_image_view).visibility = View.VISIBLE
             }
@@ -205,7 +205,7 @@ class AppLanguagesDialog : DialogFragment() {
             slovakiaLanguageView.hide()
         }
 
-        if (arguments?.get(IS_SPANISH_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_SPANISH_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.SPAIN_LOCALE) {
                 spainLanguageView.findViewById<View>(R.id.spanish_selected_image_view).visibility = View.VISIBLE
             }
@@ -217,7 +217,7 @@ class AppLanguagesDialog : DialogFragment() {
             spainLanguageView.hide()
         }
 
-        if (arguments?.get(IS_CROATIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
+        if (arguments?.getBoolean(IS_CROATIAN_LANGUAGE_AVAILABLE_EXTRA) == true) {
             if (currentLocale == LocalesAvailable.CROATIA_LOCALE) {
                 croatianLanguageView.findViewById<View>(R.id.croatian_selected_image_view).visibility = View.VISIBLE
             }
