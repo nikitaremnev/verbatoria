@@ -327,6 +327,7 @@
     <string name="login_croatia_phone_mask">+ 385 [000] [000000]</string>
     <string name="login_kenya_phone_mask">+ 254 [000] [000000]</string>
     <string name="login_japan_phone_mask">+ 81 [000] [000] [0000]</string>
+    <string name="login_montenegro_phone_mask">+ 382 [000] [00000]</string>
 
     <string name="login_password_hint">Parola</string>
     <string name="login_forgot_password">Parolamı unuttum?</string>
@@ -366,6 +367,7 @@
     <string name="country_saudi_arabia">Suudi Arabistan</string>
     <string name="country_serbia">Sırbistan</string>
     <string name="country_mongolia">Moğolistan</string>
+    <string name="country_montenegro">Montenegro</string>
     <string name="country_kazakhstan">Kazakistan</string>
     <string name="country_jordan">Ürdün</string>
     <string name="country_estonia">Estonya</string>
