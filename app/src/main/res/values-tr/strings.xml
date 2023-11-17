@@ -3,7 +3,7 @@
 
     <!-- Common -->
 
-    <string name="app_name">Verbatoria v11.4.26</string>
+    <string name="app_name">Verbatoria v11.4.27</string>
 
     <string name="loading_please_wait">Lütfen bekleyiniz…</string>
 
@@ -331,7 +331,7 @@
 
     <string name="login_password_hint">Parola</string>
     <string name="login_forgot_password">Parolamı unuttum?</string>
-
+    <string name="login_confidentiality_policy">Confidentiality policy</string>
     <string name="login_country_selection_title">Konumun bulunduğu ülkeyi seçin</string>
 
     <string name="recovery_password_confirmation_code">SMS kodu</string>

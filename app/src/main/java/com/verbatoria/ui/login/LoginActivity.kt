@@ -2,11 +2,16 @@ package com.verbatoria.ui.login
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import com.remnev.verbatoria.BuildConfig
 import com.remnev.verbatoria.R
@@ -17,9 +22,10 @@ import com.verbatoria.infrastructure.extensions.show
 import com.verbatoria.ui.base.BasePresenterActivity
 import com.verbatoria.ui.base.BaseView
 import com.verbatoria.ui.dashboard.DashboardActivity
-import com.verbatoria.ui.recovery_password.RecoveryPasswordActivity
 import com.verbatoria.ui.login.sms.SMSLoginActivity
+import com.verbatoria.ui.recovery_password.RecoveryPasswordActivity
 import com.verbatoria.utils.CountryHelper
+
 
 /**
  * @author n.remnev
@@ -105,6 +111,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
     private lateinit var phoneClearButton: ImageView
     private lateinit var passwordClearButton: ImageView
     private lateinit var forgotPasswordTextView: TextView
+    private lateinit var confidentialityPolicyTextView: TextView
     private lateinit var countryContainerView: View
     private lateinit var countryTextView: TextView
     private lateinit var countryFlagImageView: ImageView
@@ -127,6 +134,7 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         phoneClearButton = findViewById(R.id.phone_clear_button)
         passwordClearButton = findViewById(R.id.password_clear_button)
         forgotPasswordTextView = findViewById(R.id.forgot_password_text_view)
+        confidentialityPolicyTextView = findViewById(R.id.confidentiality_politics_text_view)
         countryContainerView = findViewById(R.id.country_container_layout)
         countryFlagImageView = findViewById(R.id.country_flag_image_view)
         countryTextView = findViewById(R.id.country_text_view)
@@ -170,6 +178,14 @@ class LoginActivity: BasePresenterActivity<LoginView, LoginPresenter, LoginActiv
         }
         countryContainerView.setOnClickListener {
             presenter.onSelectCountryClicked()
+        }
+
+        confidentialityPolicyTextView.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+            intent.addCategory(Intent.CATEGORY_BROWSABLE)
+            intent.data = Uri.parse("https://verbatoria.ru/privacy")
+            startActivity(intent)
         }
 
         if (BuildConfig.DEBUG) {

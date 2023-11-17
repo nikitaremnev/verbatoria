@@ -331,7 +331,7 @@
 
     <string name="login_password_hint">Šifra</string>
     <string name="login_forgot_password">Zaboravili ste šifru?</string>
-
+    <string name="login_confidentiality_policy">Confidentiality policy</string>
     <string name="login_country_selection_title">Označite lokaciju zemlje</string>
 
     <string name="recovery_password_confirmation_code">SMS-kod</string>
