@@ -269,6 +269,7 @@
     <string name="language_mongolia">Mongolian</string>
     <string name="language_macedonia">Macedonian</string>
     <string name="language_slovakia">Slovak</string>
+    <string name="language_slovenia">Slovene</string>
     <string name="language_spain">Spanish</string>
     <string name="language_croatia">Hrvatski</string>
 
@@ -333,6 +334,7 @@
     <string name="login_kenya_phone_mask">+ 254 [000] [000000]</string>
     <string name="login_japan_phone_mask">+ 81 [000] [000] [0000]</string>
     <string name="login_montenegro_phone_mask">+ 382 [000] [00000]</string>
+    <string name="login_slovenia_phone_mask">+ 386 [000] [00000]</string>
 
     <string name="login_password_hint">Парола</string>
     <string name="login_forgot_password">Забравена парола?</string>
@@ -372,6 +374,7 @@
     <string name="country_serbia">Serbia</string>
     <string name="country_mongolia">Mongolia</string>
     <string name="country_montenegro">Montenegro</string>
+    <string name="country_slovenia">Slovenia</string>
     <string name="country_kazakhstan">Kazakhstan</string>
     <string name="country_jordan">Jordan</string>
     <string name="country_estonia">Estonia</string>

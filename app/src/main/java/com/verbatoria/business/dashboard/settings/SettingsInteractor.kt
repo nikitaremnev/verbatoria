@@ -19,6 +19,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.MACEDONIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.MONGOLIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.SLOVAKIA_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.SLOVENIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.SPAIN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.TURKEY_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINE_LOCALE_FROM_SERVER
@@ -81,6 +82,7 @@ class SettingsInteractorImpl(
                     Pair(MONGOLIAN_LOCALE, localesAvailable.contains(MONGOLIAN_LOCALE)),
                     Pair(MACEDONIA_LOCALE, localesAvailable.contains(MACEDONIA_LOCALE)),
                     Pair(SLOVAKIA_LOCALE, localesAvailable.contains(SLOVAKIA_LOCALE)),
+                    Pair(SLOVENIA_LOCALE, localesAvailable.contains(SLOVENIA_LOCALE)),
                     Pair(SPAIN_LOCALE, localesAvailable.contains(SPAIN_LOCALE)),
                     Pair(CROATIA_LOCALE, localesAvailable.contains(CROATIA_LOCALE))
                 ), currentLocale
@@ -112,6 +114,9 @@ class SettingsInteractorImpl(
                 }
                 SLOVAKIA_LOCALE -> {
                     settingsManager.updateCurrentLocale(SLOVAKIA_LOCALE)
+                }
+                SLOVENIA_LOCALE -> {
+                    settingsManager.updateCurrentLocale(SLOVENIA_LOCALE)
                 }
                 SPAIN_LOCALE -> {
                     settingsManager.updateCurrentLocale(SPAIN_LOCALE)

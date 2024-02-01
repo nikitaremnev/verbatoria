@@ -11,6 +11,7 @@ import com.verbatoria.business.dashboard.LocalesAvailable.MACEDONIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.MONGOLIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.RUSSIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.SLOVAKIA_LOCALE
+import com.verbatoria.business.dashboard.LocalesAvailable.SLOVENIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.SPAIN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.TURKEY_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.UKRAINIAN_LOCALE
@@ -118,6 +119,10 @@ class SettingsPresenter(
         setCurrentLocale(CROATIA_LOCALE)
     }
 
+    override fun onSloveneLanguageSelected() {
+        setCurrentLocale(SLOVENIA_LOCALE)
+    }
+
     //endregion
 
     private fun getSettings() {
@@ -162,6 +167,7 @@ class SettingsPresenter(
                     languagesMap[SLOVAKIA_LOCALE] ?: false,
                     languagesMap[SPAIN_LOCALE] ?: false,
                     languagesMap[CROATIA_LOCALE] ?: false,
+                    languagesMap[SLOVENIA_LOCALE] ?: false,
                     currentLocale
                 )
             }, { error ->
