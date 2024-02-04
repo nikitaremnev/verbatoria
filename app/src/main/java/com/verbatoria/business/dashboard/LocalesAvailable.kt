@@ -30,7 +30,7 @@ object LocalesAvailable {
 
     const val SLOVAKIA_LOCALE = "sk"
 
-    const val SLOVENIA_LOCALE = "si"
+    const val SLOVENIA_LOCALE = "sl"
 
     const val HONG_KONG_LOCALE_FROM_SERVER = "zh-CN"
 

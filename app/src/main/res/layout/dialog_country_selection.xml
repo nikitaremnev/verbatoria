@@ -989,7 +989,7 @@
                     android:layout_height="@dimen/login_country_selection_icon_height"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/dialog_selectable_item_logo_margin_left"
-                    android:src="@drawable/ic_flag_si" />
+                    android:src="@drawable/ic_flag_sl" />
 
                 <TextView
                     android:layout_width="wrap_content"

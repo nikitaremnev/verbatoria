@@ -282,7 +282,7 @@ class SettingsFragment :
     }
 
     override fun onSloveneLanguageSelected() {
-        presenter.onSlovakianLanguageSelected()
+        presenter.onSloveneLanguageSelected()
     }
 
     //endregion
