@@ -30,8 +30,8 @@
 
     <string name="token_empty_error">Токен не найден!</string>
 
-    <string name="email_incorrect_error">Вы указали некорректный email-адрес!</string>
-    <string name="name_or_phone_empty_error">Пожалуйста, заполните поля имя и номер телефона</string>
+    <string name="email_incorrect_error">ОШИБКА: некорректный email-адрес</string>
+    <string name="name_or_phone_empty_error">ОШИБКА: заполните поля имя и номер телефона</string>
 
     <!-- Calendar -->
 
@@ -194,7 +194,7 @@
     <string name="calendar_report_today">Сегодня</string>
     <string name="calendar_report_tomorrow">Завтра</string>
 
-    <string name="calendar_event_age_format" formatted="false">%s, %s</string>
+    <string name="calendar_event_age_format">%s, %s</string>
 
     <string name="calendar_event_name_and_age_empty">Имя и возраст не указаны</string>
 
@@ -259,7 +259,7 @@
     <string name="language_hong_kong">中文</string>
     <string name="language_ukrainian">Українська</string>
     <string name="language_bulgarian">Български</string>
-    <string name="language_turkey">Türkçe</string>
+    <string name="language_turkey">Turk</string>
     <string name="language_arabic">العربية</string>
     <string name="language_bosnian">Bosnian</string>
     <string name="language_greece">Greece</string>
@@ -269,6 +269,7 @@
     <string name="language_slovenia">Slovene</string>
     <string name="language_spain">Spanish</string>
     <string name="language_croatia">Hrvatski</string>
+    <string name="language_albanian" translatable="false">Shqiptare</string>
 
     <string name="dashboard_update_language_error">Произошла ошибка при обновлении языка приложения</string>
 
@@ -332,10 +333,12 @@
     <string name="login_japan_phone_mask">+ 81 [000] [000] [0000]</string>
     <string name="login_montenegro_phone_mask">+ 382 [000] [00000]</string>
     <string name="login_slovenia_phone_mask">+ 386 [000] [00000]</string>
+    <string name="login_kosovo_phone_mask" translatable="false">+ 383 [000] [00000]</string>
 
     <string name="login_password_hint">Пароль</string>
     <string name="login_forgot_password">Забыли пароль?</string>
-    <string name="login_confidentiality_policy">Confidentiality policy</string>
+    <string name="login_confidentiality_policy">Политика конфиденциальности</string>
+
     <string name="login_country_selection_title">Выберите страну филиала</string>
 
     <string name="recovery_password_confirmation_code">Код подтверждения</string>
@@ -347,53 +350,54 @@
     <string name="recovery_password_remember_password">Я вспомнил пароль!</string>
     <string name="recovery_password_reset_success">Пароль успешно изменен</string>
 
-    <string name="country_russia">Россия</string>
-    <string name="country_belarus">Беларусь</string>
-    <string name="country_ukraine">Украина</string>
-    <string name="country_azerbaijan">Азербайджан</string>
-    <string name="country_uae">ОАЭ</string>
-    <string name="country_uganda">Уганда</string>
-    <string name="country_thailand">Таиланд</string>
-    <string name="country_israel">Израиль</string>
-    <string name="country_uzbekistan">Узбекистан</string>
-    <string name="country_hong_kong">Гонконг</string>
-    <string name="country_swiss">Швейцария</string>
-    <string name="country_malaysia">Малайзия</string>
-    <string name="country_indonesia">Индонезия</string>
-    <string name="country_india">Индия</string>
-    <string name="country_bulgaria">Болгария</string>
-    <string name="country_macau">Макао</string>
-    <string name="country_macedonia">Македония</string>
-    <string name="country_singapore">Сингапур</string>
-    <string name="country_egypt">Египет</string>
-    <string name="country_ethiopia">Эфиопия</string>
-    <string name="country_saudi_arabia">Саудовская Аравия</string>
-    <string name="country_serbia">Сербия</string>
-    <string name="country_mongolia">Монголия</string>
-    <string name="country_montenegro">Черногория</string>
-    <string name="country_slovenia">Словения</string>
-    <string name="country_kazakhstan">Казахстан</string>
-    <string name="country_jordan">Иордания</string>
-    <string name="country_estonia">Эстония</string>
-    <string name="country_turkey">Турция</string>
+    <string name="country_azerbaijan">Azerbaijan</string>
+    <string name="country_belarus">Belarus</string>
+    <string name="country_bosnia">Bosnia and Herzegovina</string>
+    <string name="country_bulgaria">Bulgaria</string>
+    <string name="country_china">China</string>
+    <string name="country_cyprus">Cyprus</string>
+    <string name="country_egypt">Egypt</string>
+    <string name="country_estonia">Estonia</string>
+    <string name="country_ethiopia">Ethiopia</string>
+    <string name="country_france">France</string>
+    <string name="country_hong_kong">Hong Kong</string>
+    <string name="country_india">India</string>
+    <string name="country_indonesia">Indonesia</string>
+    <string name="country_israel">Israel</string>
+    <string name="country_jordan">Jordan</string>
+    <string name="country_kazakhstan">Kazakhstan</string>
+    <string name="country_macau">Macau</string>
+    <string name="country_macedonia">Macedonia</string>
+    <string name="country_malaysia">Malaysia</string>
+    <string name="country_mongolia">Mongolia</string>
+    <string name="country_montenegro">Montenegro</string>
+    <string name="country_slovenia">Slovenia</string>
+    <string name="country_nepal">Nepal</string>
+    <string name="country_new_zealand">New Zealand</string>
+    <string name="country_russia">Russia</string>
+    <string name="country_saudi_arabia">Saudi Arabia</string>
+    <string name="country_serbia">Serbia</string>
+    <string name="country_singapore">Singapore</string>
+    <string name="country_swiss">Switzerland</string>
     <string name="country_tanzania">Tanzania</string>
+    <string name="country_thailand">Thailand</string>
+    <string name="country_turkey">Turkey</string>
+    <string name="country_uae">UAE</string>
+    <string name="country_uganda">Uganda</string>
+    <string name="country_ukraine">Ukraine</string>
     <string name="country_usa">USA</string>
-    <string name="country_china">Китай</string>
-    <string name="country_cyprus">Кипр</string>
-    <string name="country_bosnia">Босния и Герцеговина</string>
-    <string name="country_nepal">Непал</string>
-    <string name="country_france">Франция</string>
-    <string name="country_new_zealand">Новая Зеландия</string>
-    <string name="country_argentina">Аргентина</string>
-    <string name="country_slovakia">Словакия</string>
-    <string name="country_greece">Греция</string>
-    <string name="country_mozambique">Мозамбик</string>
-    <string name="country_mexico">Мексика</string>
-    <string name="country_australia">Австралия</string>
-    <string name="country_latvia">Латвия</string>
-    <string name="country_croatia">Хорватия</string>
+    <string name="country_uzbekistan">Uzbekistan</string>
+    <string name="country_argentina">Argentina</string>
+    <string name="country_slovakia">Slovakia</string>
+    <string name="country_greece">Greece</string>
+    <string name="country_mozambique">Mozambique</string>
+    <string name="country_mexico">Mexico</string>
+    <string name="country_australia">Australia</string>
+    <string name="country_latvia">Latvia</string>
+    <string name="country_croatia">Croatia</string>
     <string name="country_kenya">Kenya</string>
     <string name="country_japan">Japan</string>
+    <string name="country_kosovo" translatable="false">Kosovo</string>
 
     <string name="sms_confirmation_confirm">Подтвердить</string>
 
@@ -504,18 +508,18 @@
 
     <string name="questionnaire_include_memory_attention">Включать ли отчет Внимание/Память?</string>
     <string name="questionnaire_include_hobby">Включить модуль Хобби в отчет?</string>
-    <string name="questionnaire_report_type_question">Выберите тип отчета:</string>
-    <string name="session_report_type_0">Тип 0</string>
-    <string name="session_report_type_1">1: только ВнП</string>
-    <string name="session_report_type_2">Кружки</string>
-    <string name="session_report_type_3">Мое призвание</string>
-    <string name="session_report_type_4">Уроки без Мороки</string>
-    <string name="session_report_type_5">Базовый отчет+PQ</string>
-    <string name="session_report_type_6">PQ</string>
-    <string name="session_report_type_7">Тип 7</string>
-    <string name="session_report_type_8">Тип 8</string>
-    <string name="session_report_type_9">Тип 9</string>
-    <string name="session_report_type_10">Тип 10</string>
+    <string name="questionnaire_report_type_question">Выберите состав отчета:</string>
+    <string name="session_report_type_5">ОСНОВНОЙ: TQ отчет + ЛК</string>
+    <string name="session_report_type_0">ЭКОНОМ: TQ отчет без ЛК</string>
+    <string name="session_report_type_1">ПРОМО: Одна страница ВнП</string>
+    <string name="session_report_type_6">ПРОМО: Только страницы ЛК</string>
+    <string name="session_report_type_4">БЕСПЛАТНЫЙ: Уроки без Мороки</string>
+    <string name="session_report_type_2">(не используется)</string>
+    <string name="session_report_type_3">(не используется)</string>
+    <string name="session_report_type_7">(не используется)</string>
+    <string name="session_report_type_8">(не используется)</string>
+    <string name="session_report_type_9">(не используется)</string>
+    <string name="session_report_type_10">(не используется)</string>
 
     <string name="submit_progress_collect_and_send">Собираем и отправляем данные</string>
     <string name="submit_progress_finish_session">Закрываем сессию</string>

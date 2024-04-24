@@ -1,5 +1,6 @@
 package com.verbatoria.ui.dashboard.settings
 
+import com.verbatoria.business.dashboard.LocalesAvailable.ALBANIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.ARABIC_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
@@ -123,6 +124,10 @@ class SettingsPresenter(
         setCurrentLocale(SLOVENIA_LOCALE)
     }
 
+    override fun onAlbanianLanguageSelected() {
+        setCurrentLocale(ALBANIAN_LOCALE)
+    }
+
     //endregion
 
     private fun getSettings() {
@@ -168,6 +173,7 @@ class SettingsPresenter(
                     languagesMap[SPAIN_LOCALE] ?: false,
                     languagesMap[CROATIA_LOCALE] ?: false,
                     languagesMap[SLOVENIA_LOCALE] ?: false,
+                    languagesMap[ALBANIAN_LOCALE] ?: false,
                     currentLocale
                 )
             }, { error ->

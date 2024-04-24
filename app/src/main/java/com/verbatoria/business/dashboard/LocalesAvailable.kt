@@ -40,4 +40,6 @@ object LocalesAvailable {
 
     const val CROATIA_LOCALE = "hr"
 
+    const val ALBANIAN_LOCALE = "sq"
+
 }

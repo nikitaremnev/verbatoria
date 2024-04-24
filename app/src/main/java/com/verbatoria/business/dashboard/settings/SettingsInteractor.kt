@@ -2,6 +2,7 @@ package com.verbatoria.business.dashboard.settings
 
 import android.os.Build
 import com.remnev.verbatoria.BuildConfig
+import com.verbatoria.business.dashboard.LocalesAvailable.ALBANIAN_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.ARABIC_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BOSNIA_LOCALE
 import com.verbatoria.business.dashboard.LocalesAvailable.BULGARIAN_LOCALE
@@ -84,7 +85,8 @@ class SettingsInteractorImpl(
                     Pair(SLOVAKIA_LOCALE, localesAvailable.contains(SLOVAKIA_LOCALE)),
                     Pair(SLOVENIA_LOCALE, localesAvailable.contains(SLOVENIA_LOCALE)),
                     Pair(SPAIN_LOCALE, localesAvailable.contains(SPAIN_LOCALE)),
-                    Pair(CROATIA_LOCALE, localesAvailable.contains(CROATIA_LOCALE))
+                    Pair(CROATIA_LOCALE, localesAvailable.contains(CROATIA_LOCALE)),
+                    Pair(ALBANIAN_LOCALE, localesAvailable.contains(ALBANIAN_LOCALE))
                 ), currentLocale
             )
         }
@@ -123,6 +125,9 @@ class SettingsInteractorImpl(
                 }
                 CROATIA_LOCALE -> {
                     settingsManager.updateCurrentLocale(CROATIA_LOCALE)
+                }
+                ALBANIAN_LOCALE -> {
+                    settingsManager.updateCurrentLocale(ALBANIAN_LOCALE)
                 }
                 else -> {
                     settingsManager.updateCurrentLocale(locale)
